@@ -11,6 +11,7 @@ import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS, Constants } from "../../Utils/Constant";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { TabModalContext } from "../../Utils/UserContext";
+import CommonStyles from "../../Utils/CommonStyles";
 
 const ListingView = ({
   data,
@@ -54,7 +55,7 @@ const ListingView = ({
     return unsubscribe;
   }, [navigation]);
   return (
-    <>
+    <View style={CommonStyles.container}>
       <Pressable
         onPress={() => {
           setOnPressmodal({
@@ -105,7 +106,7 @@ const ListingView = ({
           </View>
         ) : null}
       </Pressable>
-    </>
+    </View>
   );
 };
 

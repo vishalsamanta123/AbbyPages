@@ -9,9 +9,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import { UserContext } from "../../../../Utils/UserContext";
 import ScaleText from "../../../../Components/ScaleText";
-import ShowMessageStyle, {
-  styles,
-} from "../../../../Components/Modal/showMessage";
+import { styles } from "../../../../Components/Modal/showMessage";
 
 const JobDetail = ({ route, navigation }) => {
   const { detail = {} } = route.params;
