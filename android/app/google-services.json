@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "448393819239",
+    "firebase_url": "https://abbypages-1604482092750.firebaseio.com",
+    "project_id": "abbypages-1604482092750",
+    "storage_bucket": "abbypages-1604482092750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448393819239:android:9fa6af4fd119e0c4e790c2",
+        "android_client_info": {
+          "package_name": "com.abbypages"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448393819239-bdhbt2keduo49ngi791okduofcd41mfl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abbypages",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "448393819239-8becqe420bghl05poor4b5idi1gdvd7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWb3QqaMrYw0j6DtVFCmCj-TyFKw0l0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448393819239-8becqe420bghl05poor4b5idi1gdvd7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

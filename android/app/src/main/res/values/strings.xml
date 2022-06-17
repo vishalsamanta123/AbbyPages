@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AbbyPages</string>
+    <!-- facebook login -->
+    <string name="facebook_app_id">394775674901134</string>
+    <!-- google login -->
+    <!-- <string name="server_client_id">5EaRuvEo9Sj7bsV_fACx-jfy</string> -->
+</resources>

@@ -1,0 +1,136 @@
+import React from 'react';
+import {
+    View,
+    Text,
+    Image,
+    ScrollView
+} from 'react-native';
+import CommonStyles from '../../../Utils/CommonStyles';
+import styles from './styles';
+import Header from '../../../Components/Header';
+import Button from '../../../Components/Button'
+import {
+    WHITE_COLOR_CODE
+} from '../../../Utils/Constant';
+const EventListingScreen = (props) => {
+    return (
+        <View style={CommonStyles.container}>
+            <Header
+                HeaderText='Events Details'
+                RightImg={null}
+            />
+            <View style={[CommonStyles.body]}>
+                <ScrollView>
+                    <Image
+                        style={styles.bannerimg}
+                        source={require('../../../Assets/extraImages/salooonimg.jpg')}
+                    />
+                    <View style={styles.infocon}>
+                        <Text style={styles.hdngtxt}>
+                            Virtual Skeleton Soire`e
+                            and Makeup Tutorial!
+                        </Text>
+                        <View style={styles.basiccon}>
+                            <Image
+                                resizeMode='contain'
+                                style={styles.icon}
+                                source={require('../../../Assets/info_calendar_icon.png')}
+                            />
+                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
+                                Thursday,Oct 29,5:30 pm.
+                        </Text>
+                        </View>
+                        <View style={styles.basiccon}>
+                            <Image
+                                resizeMode='contain'
+                                style={styles.icon}
+                                source={require('../../../Assets/map_marker_icon.png')}
+                            />
+                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
+                                Virtual - on Zoom! Berkeley,CA 94704
+                            </Text>
+                        </View>
+                        <View style={styles.basiccon}>
+                            <Image
+                                resizeMode='contain'
+                                style={[styles.icon]}
+                                source={require('../../../Assets/info_tag_icon.png')}
+                            />
+                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
+                                Free
+                            </Text>
+                        </View>
+                        <View style={[styles.basiccon, { justifyContent: "space-around" }]}>
+                            <View style={styles.btncon}><Text style={styles.btntxt}> Interested?</Text></View>
+                            <View style={styles.btncon}><Text style={styles.btntxt}>Buy Tickets</Text></View>
+                        </View>
+                    </View>
+                    <View style={{
+                        padding: 20,
+                        flex: 1,
+                        backgroundColor: WHITE_COLOR_CODE,
+                        borderBottomWidth: 20,
+                        borderColor: "#f2f2f2"
+                    }}>
+                        <Text style={styles.hdngtxt}>
+                            What/Why:
+                        </Text>
+                        <Text style={[styles.text, { lineHeight: 18 }]}>
+                            VELF HAUNTS AT HOME: This event is part of the elp Hunts
+                            At Home Vitual ent seriest For the
+                            whele Set of eventa, cack here Abby.com/eventa/san tran.
+                            {'\n'} {'\n'}
+                            ABCUT THIG EVENT HUing to velebrute Halowe virtualy this
+                            year? We got yeut Your Eat Bay CM. Emma w, your San Aitonio
+                            EM, Fernanda E. and your Chitage Burbs CM, Nicoie a invita
+                            you to a fult on akeietin party That's right - prati yoar
+                            favorite drink and join us for night of skeietal hun we all
+                            tramutorm inte skutatona witt the holp ef Sabrina Locer
+                            (Rabbit Ryn end her makeup magiet Grab your eninting fane
+                            maknup (o tuy an utterdanin kit fum the Unk weti providel and
+                            glue yourseif sor a buddyt an msta-worthy ckeietal mahravert
+                            Or juet feiel fe To join and watch {'\n'} {'\n'} Sabrina wil No be giving
+                            you optiona for your skalatat look Vou can oither create the
+                            look seen in the featured image on this page or give it your
+                            own twist with the help at Sabrina, {'\n'} {'\n'}Plus, w'll have a virtual
+                            phota booth hy Alfspe Photo tyele.com/bis/aiteaco-oh. Thase who
+                            poat pice from the booth (and tag un) witi be aitomaticaliy entered
+                            in a weet autumn-themet giveaway  {'\n'} {'\n'}WHEN: Thureday, Octaber 29 @5:30
+                            PETt / 1:dOrM CST/DOPM EST  {'\n'} {'\n'}WHERE YOur harme Well tbe connecting
+                            virtually on Zoom  {'\n'} {'\n'}WHO: This event a epes tu atyane with
+                            a velp account {'\n'} {'\n'}This virta wwip Experience was crested to pravide a aate positive
+                            apace for averyarie who wiehes to participote We are committed ta
+                            providing an oppermunity where ail are wecamer Please make sure to
+                            respect everyane who wishes to be a part of this opportunity  {'\n'} {'\n'}
+                        </Text>
+                    </View>
+                    <View style={{
+                        padding: 20,
+                        flex: 1,
+                        backgroundColor: WHITE_COLOR_CODE
+                    }}>
+                        <Text style={styles.hdngtxt}>
+                            What You Need
+                    </Text>
+                        <Text style={[styles.text,{lineHeight:18}]}>
+                            Desktop or laptop or phone with ahility to acoess 2oem And
+                            a strong internet conivection.{'\n'}{'\n'}
+                            Downinating Zoom nat regutred to  participats{'\n'}{'\n'}
+                            When jaining yui be aed to anter a name- plesse ute your
+                            first name and iast initial. just he on Yelet This will
+                            be helptul ninon wee taking attendance a Official Website
+                            {'\n'}
+                        </Text>
+                        <Button
+                            style={{
+                            }}
+                            buttonText='Official Website'
+                        />
+                    </View>
+
+                </ScrollView>
+            </View>
+        </View>
+    )
+}
+export default EventListingScreen;
