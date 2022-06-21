@@ -16,7 +16,7 @@ export async function apiCall(method, url, data, header = { 'Content-Type': 'app
             headers: header,
             withCredentials: false
         })
-        console.log(`${url}: `, res)
+        // console.log(`${url}: `, res)
         return res;
     }
     catch (error) {

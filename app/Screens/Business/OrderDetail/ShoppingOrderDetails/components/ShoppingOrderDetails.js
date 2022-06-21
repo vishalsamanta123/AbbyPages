@@ -11,7 +11,7 @@ const ShoppingOrderDetailsScreen = (props) => {
     return (
         <View style={CommonStyles.container}>
             <Header
-                HeaderText='Shoping Order Detail'
+                HeaderText='Marketplace Order Detail'
                 RightImg={null}
             />
             {/* <View style={{ height: 50, backgroundColor: YELLOW_COLOR_CODE, flexDirection: 'row', alignItems: 'center', }}>

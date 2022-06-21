@@ -164,7 +164,7 @@ const ShoppingCartScreen = (props) => {
     return (
         <View style={CommonStyles.container}>
             <Header
-                HeaderText='Shopping Cart'
+                HeaderText='Marketplace Cart'
                 headerSecondText={props.shoppingCartData.length}
                 RightImg={require('../../../../Assets/trash_icon_header.png')}
                 onPress={() => props.onPressDeleteCart()}

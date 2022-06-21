@@ -155,7 +155,7 @@ const DashBoardScreen = (props) => {
                                 <Image source={require('../../../Assets/shopping_list_icon.png')} />
                             </View>
                             <View style={{ flex: 5 }}>
-                                <Text style={styles.OptnsMainText}>Shopping</Text>
+                                <Text style={styles.OptnsMainText}>Marketplace</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

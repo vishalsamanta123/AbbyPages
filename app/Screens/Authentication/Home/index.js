@@ -4,12 +4,11 @@ const HomeView = ({ navigation }) => {
     const onPressLogin = () => {
         navigation.navigate('Login')
     }
+    const onPressCreateBusiness = () => {
+        navigation.navigate('BusinessSignUp')
+    }
     const onPressSignUp = () => {
         navigation.navigate('SignUp')
-    }
-    const onPressCreateBusiness = () => {
-        // navigation.navigate('GetStarted')
-        navigation.navigate('BusinessSignUp')
     }
     return (
         <HomeScreen
