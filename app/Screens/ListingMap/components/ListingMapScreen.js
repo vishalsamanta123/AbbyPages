@@ -32,7 +32,13 @@ const ListingMapScreen = (props) => {
         {props.businessDataList.map((item) => (
           <Marker
             // image={require('../../../Assets/abby_pages_map_icon.png')}
-            title={item.business_name}
+            title={
+              props.business_type === 1
+                ? item.business_name
+                : props.business_type === 2
+                ? item.companyname
+                : null
+            }
             coordinate={{
               latitude: Number(item.latitude),
               longitude: Number(item.longitude),

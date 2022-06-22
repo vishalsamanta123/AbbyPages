@@ -4,7 +4,7 @@ import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 const ListingsScreen = (props) => {
   return (
-    <View style={[CommonStyles.container]}>
+    <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}
@@ -15,12 +15,14 @@ const ListingsScreen = (props) => {
         type="Map"
         logoImg={false}
       />
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={props.restroList}
-        renderItem={({ item, index }) => props._handleSerivces(item, index)}
-      />
-    </View>
+      <View style={[CommonStyles.container]}>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={props.restroList}
+          renderItem={({ item, index }) => props._handleSerivces(item, index)}
+        />
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 export default ListingsScreen;

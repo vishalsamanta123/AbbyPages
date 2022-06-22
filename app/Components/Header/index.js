@@ -68,7 +68,16 @@ const Header = (props) => {
         style={[
           textInput === true ? iptcontainer : container,
           mncontainer,
-          { paddingVertical: HeaderText != "" ? (editHdr ? editHdr : 15) : 10 },
+          {
+            paddingVertical:
+              HeaderText != ""
+                ? editHdr
+                  ? editHdr
+                  : 15
+                : textInput === true
+                ? 10
+                : 0,
+          },
         ]}
       >
         <TouchableOpacity

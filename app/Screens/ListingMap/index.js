@@ -43,19 +43,16 @@ const ListingMapView = ({ route, navigation }) => {
       if (business_type == 4) {
         navigation.navigate("Listings");
       }
-      if (business_type == 4) {
-        navigation.navigate("Listings");
-      }
     } else {
       navigation.navigate("Listings"); //only for this time
     }
   };
   const onPressRestro = (item) => {
-    console.log("itexccvm", item);
     navigation.navigate("RestaurantDetails", { detail: item });
   };
   return (
     <ListingMapScreen
+      business_type={business_type}
       onPressRestro={onPressRestro}
       businessDataList={businessDataList}
       initialRegion={initialRegion}
