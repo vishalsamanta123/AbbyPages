@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Picker, FlatList, TextInput, ImageBackground } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, Modal, FlatList, TextInput, ImageBackground } from 'react-native';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../Components/Button';
@@ -16,11 +16,10 @@ const AddBusinessProductScreen = (props) => {
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <ScrollView>
-                    <View style={{ height: 70, marginTop: 15, borderColor: '#d8d8d8', borderWidth: 1, marginLeft: 15, marginRight: 15, borderRadius: 8 }}>
-                        <TouchableOpacity
-                            onPress={() => props.onPressCategories()}
-                            style={{ justifyContent: 'space-between', paddingRight: 10, flexDirection: 'row', height: 70, alignItems: 'center' }}>
-                            <View style={{ paddingLeft: 20 }}>
+                    <View style={styles.categoryvwe}>
+                        <TouchableOpacity onPress={() => props.onPressCategories()}
+                            style={styles.catetchvwe}>
+                            <View style={styles.cetetxt}>
                                 <Text style={{ fontSize: 18, }}>Category</Text>
                                 {props.CategoryName ?
                                     <Text style={{ fontSize: 15, paddingLeft: 5 }}>{props.CategoryName}</Text>
@@ -29,10 +28,10 @@ const AddBusinessProductScreen = (props) => {
                             </View>
                             <View>
                                 {props.businessCategory ?
-                                    <Image style={{ width: 25, height: 25 }}
+                                    <Image style={styles.dropiconvwe}
                                         source={require('../../../../Assets/link_dropdown_icon_up.png')} />
                                     :
-                                    <Image style={{ width: 25, height: 25 }}
+                                    <Image style={styles.dropiconvwe}
                                         source={require('../../../../Assets/link_dropdown_ico.png')} />
                                 }
                             </View>
@@ -48,13 +47,12 @@ const AddBusinessProductScreen = (props) => {
                             width: '90%',
                             borderColor: '#d8d8d8',
                         }}>
-                            <View style={{ paddingLeft: 14, borderWidth: 1, borderRadius: 5, borderColor: "#a9a9a9" }}>
+                            <View style={styles.srchtxtinptvwe}>
                                 <TextInput
                                     // onChangeText={(search) => props.CategorySearch(search)}
                                     autoCapitalize={'none'}
                                     style={{ fontSize: 18 }}
                                     placeholder='Search' />
-
                             </View>
                             <FlatList
                                 nestedScrollEnabled={true}
@@ -64,26 +62,20 @@ const AddBusinessProductScreen = (props) => {
                                     <TouchableOpacity
                                         onPress={() => props.onClickCategory(item)}
                                         style={styles.labelStyle}>
-                                        <View style={{
-                                            flex: 5.5,
-                                            justifyContent: "center"
-                                        }}>
-                                            <Text style={styles.txt}>
-                                                {item.category_name}
-                                            </Text>
+                                        <View style={{flex: 5.5,justifyContent: "center"}}>
+                                            <Text style={styles.txt}>{item.category_name}</Text>
                                         </View>
                                     </TouchableOpacity>
-
                                 }
                             />
                         </View>
                         :
                         null
                     }
-                    <View style={{ height: 70, marginTop: 15, borderColor: '#d8d8d8', borderWidth: 1, marginLeft: 15, marginRight: 15, borderRadius: 8 }}>
+                    <View style={styles.categoryvwe}>
                         <TouchableOpacity
                             onPress={() => props.onPressSubCategories()}
-                            style={{ justifyContent: 'space-between', paddingRight: 10, flexDirection: 'row', height: 70, alignItems: 'center' }}>
+                            style={styles.catetchvwe}>
                             <View style={{ paddingLeft: 20 }}>
                                 <Text style={{ fontSize: 18 }}>Sub Category</Text>
                                 {props.SubCategoryName ?
@@ -102,7 +94,6 @@ const AddBusinessProductScreen = (props) => {
                             </View>
                         </TouchableOpacity>
                     </View>
-
                     {props.SubCategory ?
                         <View style={{
                             marginLeft: 20,
@@ -113,13 +104,12 @@ const AddBusinessProductScreen = (props) => {
                             width: '90%',
                             borderColor: '#d8d8d8',
                         }}>
-                            <View style={{ paddingLeft: 14, borderWidth: 1, borderRadius: 5, borderColor: "#a9a9a9" }}>
+                            <View style={styles.srchtxtinptvwe}>
                                 <TextInput
                                     // onChangeText={(search) => props.CategorySearch(search)}
                                     autoCapitalize={'none'}
                                     style={{ fontSize: 18 }}
                                     placeholder='Search' />
-
                             </View>
                             <FlatList
                                 nestedScrollEnabled={true}
@@ -129,38 +119,29 @@ const AddBusinessProductScreen = (props) => {
                                     <TouchableOpacity
                                         onPress={() => props.onClickSubCategory(item)}
                                         style={styles.labelStyle}>
-                                        <View style={{
-                                            flex: 5.5,
-                                            justifyContent: "center"
-                                        }}>
-                                            <Text style={styles.txt}>
-                                                {item.category_name}
-                                            </Text>
+                                        <View style={{ flex: 5.5,justifyContent: "center"}}>
+                                            <Text style={styles.txt}>{item.category_name}</Text>
                                         </View>
                                     </TouchableOpacity>
-
                                 }
                             />
                         </View>
                         :
                         null
                     }
-
-
-
-                    <View style={{ height: 70, marginTop: 15, borderColor: '#d8d8d8', borderWidth: 1, marginLeft: 15, marginRight: 15, borderRadius: 8 }}>
+                    <View style={styles.categoryvwe}>
                         <TouchableOpacity
                             onPress={() => props.onPressBusinessCategories()}
-                            style={{ justifyContent: 'space-between', paddingRight: 10, flexDirection: 'row', height: 70, alignItems: 'center' }}>
+                            style={styles.catetchvwe}>
                             <View style={{ paddingLeft: 20 }}>
                                 <Text style={{ fontSize: 18 }}>Business Category</Text>
                             </View>
                             <View>
                                 {props.BusiCategory ?
-                                    <Image style={{ width: 25, height: 25 }}
+                                    <Image style={styles.dropiconvwe}
                                         source={require('../../../../Assets/link_dropdown_icon_up.png')} />
                                     :
-                                    <Image style={{ width: 25, height: 25 }}
+                                    <Image style={styles.dropiconvwe}
                                         source={require('../../../../Assets/link_dropdown_ico.png')} />
                                 }
                             </View>
@@ -211,21 +192,14 @@ const AddBusinessProductScreen = (props) => {
                         secureTextEntry={false}
                         placeholder="Product Description"
                         InputType="withScroll"
-                    // keyboardType={'phone-pad'}
                     />
-                    <View style={{ marginTop: 8, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ paddingTop: 8, paddingLeft: 15, height: 70, borderRadius: 10, borderWidth: 1, borderColor: '#d8d8d8', width: '90%', }}>
-                            <Picker style={styles.pickerStyle}
-                                selectedValue={props.productSize}
-                                onValueChange={(itemValue, itemPosition) =>
-                                    props.setProductSize(itemValue)}
-                            >
-                                <Picker.Item label="Product Size" value="" />
-                                <Picker.Item label="M" value="m" />
-                                <Picker.Item label="L" value="L" />
-                                <Picker.Item label="XL" value="XL" />
-                            </Picker>
-                        </View>
+                    <View style={styles.selectvwe}>
+                        <TouchableOpacity onPress={() => props.setModalVisible()}
+                            style={styles.tchvwe}>
+                            <Text style={styles.slctdtxt}>
+                                {props?.selectedSize ? props?.selectedSize : "Select your size"}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <Input
                         onChangeText={(productColor) => props.setProductColor(productColor)}
@@ -251,32 +225,26 @@ const AddBusinessProductScreen = (props) => {
                         InputType="withScroll"
                     // keyboardType={'phone-pad'}
                     />
-                    <TouchableOpacity onPress={() => props.onPressProfileImage()} style={{ marginTop: 15, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ height: 70, borderRadius: 10, borderWidth: 1, borderColor: '#d8d8d8', width: '90%', alignItems: 'center', flexDirection: 'row' }}>
-                            <Text style={{ paddingLeft: 25, fontSize: 17 }}>Product Image</Text>
-                            <Image
-                                style={{ position: "absolute", right: 30, }}
+                    <TouchableOpacity onPress={() => props.onPressProfileImage()} style={styles.uploadiconvwe}>
+                        <View style={styles.secimgvwe}>
+                            <Text style={styles.prdctimgtxt}>Product Image</Text>
+                            <Image style={styles.uploadicin}
                                 source={require('../../../../Assets/upload_icon_field.png')}
                             />
                         </View>
                     </TouchableOpacity>
-
                     {props.SelectImgUri ?
                         <ScrollView horizontal={true}>
-                            {props.SelectImgUri.map((item,index) => {
+                            {props.SelectImgUri.map((item, index) => {
                                 return (
-                                    <View style={{ padding: 5, paddingLeft: 20, marginTop: 5 }}>
-                                        <ImageBackground
-                                            style={styles.ProfileImgStyle}
-                                            source={{ uri: item.path }}
-                                        >
-                                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
-                                                <TouchableOpacity onPress={() => props.localProductImgDelete(index)} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                                    <View style={{ height: 25, width: 25, backgroundColor: 'red', borderRadius: 15, }}>
-                                                        <Text style={{ paddingTop: 3, paddingLeft: 8, color: '#fff' }}>X</Text>
+                                    <View style={styles.slctimguri}>
+                                        <ImageBackground style={styles.ProfileImgStyle} source={{ uri: item.path }}>
+                                            <View style={styles.slcttch}>
+                                                <TouchableOpacity onPress={() => props.localProductImgDelete(index)} style={styles.slcttch}>
+                                                    <View style={styles.xtxt}>
+                                                        <Text style={styles.xtetx}>X</Text>
                                                     </View>
                                                 </TouchableOpacity>
-
                                             </View>
                                         </ImageBackground>
                                     </View>
@@ -288,21 +256,18 @@ const AddBusinessProductScreen = (props) => {
                         null}
                     {props.ProductImg ?
                         <ScrollView horizontal={true}>
-                            {props.ProductImg.map((item,ind) => {
+                            {props.ProductImg.map((item, ind) => {
                                 return (
-                                    <View style={{ padding: 5, paddingLeft: 20, marginTop: 5 }}>
+                                    <View style={styles.prdctvwe}>
                                         <ImageBackground
                                             style={styles.ProfileImgStyle}
-                                            // resizeMode='center'
-                                            source={{ uri: item.product_image }}
-                                        >
-                                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
-                                                <TouchableOpacity onPress={() => props.DeleteProductMsg(item)} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                                    <View style={{ height: 25, width: 25, backgroundColor: 'red', borderRadius: 15, }}>
-                                                        <Text style={{ paddingTop: 3, paddingLeft: 8, color: '#fff' }}>X</Text>
+                                            source={{ uri: item.product_image }}>
+                                            <View style={styles.slcttch}>
+                                                <TouchableOpacity onPress={() => props.DeleteProductMsg(item)} style={styles.slcttch}>
+                                                    <View style={styles.xtxt}>
+                                                        <Text style={styles.xtetx}>X</Text>
                                                     </View>
                                                 </TouchableOpacity>
-
                                             </View>
                                         </ImageBackground>
                                     </View>
@@ -312,15 +277,42 @@ const AddBusinessProductScreen = (props) => {
                         </ScrollView>
                         :
                         null}
-
-
                     <Button
                         buttonText="Save"
                         onPress={props.onPressSave}
-                        style={{ marginBottom: 15, marginTop: 10 }}
+                        style={styles.savebtn}
                     />
                 </ScrollView>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={props.modalVisible}
+                onRequestClose={() => {
+                    props.setModalVisible(!props.modalVisible);
+                }}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.centeredView}>
+                    <View style={styles.alertBackground}>
+                        <View style={styles.selectyoursize}>
+                            <Text style={styles.sizeslct}>Select your size</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={styles.cancelvwe}
+                            underlayColor={"#F5F5F5"}
+                            onPress={() => props.setModalVisible(false)}>
+                            <Image style={styles.closeicon}
+                                source={require('../../../../Assets/cancelModalBtn.png')}
+                            />
+                        </TouchableOpacity>
+                        <FlatList
+                            data={props.staticContentData}
+                            renderItem={(item) => props.renderStaticContentData(item)}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </Modal>
         </View>
     );
 };

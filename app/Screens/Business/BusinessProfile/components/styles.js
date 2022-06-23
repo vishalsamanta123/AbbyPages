@@ -1,7 +1,7 @@
-import { StyleSheet,Dimensions } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_THIN, FONT_FAMILY_LIGHT, YELLOW_COLOR_CODE } from '../../../../Utils/Constant';
+import { StyleSheet, Dimensions } from 'react-native';
+import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, YELLOW_COLOR_CODE } from '../../../../Utils/Constant';
 const win = Dimensions.get('window');
-const ratio = win.width/541; //541 is actual image width
+const ratio = win.width / 541; //541 is actual image width
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
 const imageWidth = dimensions.width;
@@ -13,8 +13,6 @@ const Styles = StyleSheet.create({
     PosterImgeStyle: {
         width: imageWidth,
         height: imageHeight
-        // width: win.width,
-        // height: 300 * ratio, 
     },
     UserProfileImage: {
         justifyContent: 'center',
@@ -41,7 +39,7 @@ const Styles = StyleSheet.create({
     },
     StarViewContain: {
         flexDirection: 'row',
-        height:20
+        height: 20
     },
     FollowersCountView: {
         flexDirection: 'row',
@@ -172,5 +170,39 @@ const Styles = StyleSheet.create({
         backgroundColor: "silver",
         marginHorizontal: 4
     },
+    bussinessimg: {
+        flexDirection: 'row',
+        position: 'absolute',
+        justifyContent: 'center',
+        width: '100%',
+        top: 130
+    },
+    comnvwe: { width: '100%' },
+    camiconvwe: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: '100%',
+        paddingTop: 30,
+        paddingLeft: 95,
+        height: 110,
+        width: 110
+    },
+    camsecvwe: {
+        backgroundColor: YELLOW_COLOR_CODE,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20
+    },
+    camimg: {
+        width: 15,
+        height: 15
+    },
+    notificationicon: {
+        width: 25,
+        height: 25
+    }
 })
 export default Styles;

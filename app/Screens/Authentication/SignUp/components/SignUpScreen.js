@@ -47,7 +47,7 @@ const SignUpScreen = (props) => {
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
             <Text style={styles.WelcomeTxt}>Create Account,</Text>
-            <Text style={styles.SignInContinue}>Sign up to get started!</Text>
+            <Text style={styles.SignInContinue}>Sign up to get started! </Text>
           </View>
           <View style={styles.InputContainer}>
             <Input

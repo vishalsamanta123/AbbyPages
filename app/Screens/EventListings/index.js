@@ -55,8 +55,8 @@ const EventListing = ({ navigation }) => {
                 interestedPeople: '563 interested'
             }
         ], []);
-    const onPressEvent = () => {
-        navigation.navigate('EventDetails')
+    const onPressEvent = (item) => {
+        navigation.navigate('EventDetails', { item: item })
     }
     return (
         <View style={CommonStyles.container}>

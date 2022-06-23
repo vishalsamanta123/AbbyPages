@@ -9,21 +9,15 @@ import CommonStyles from '../../../Utils/CommonStyles';
 import styles from './styles';
 import Header from '../../../Components/Header';
 import Button from '../../../Components/Button'
-import {
-    WHITE_COLOR_CODE
-} from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const EventListingScreen = (props) => {
     return (
         <View style={CommonStyles.container}>
-            <Header
-                HeaderText='Events Details'
-                RightImg={null}
-            />
+            <Header HeaderText='Events Details' RightImg={null} />
             <View style={[CommonStyles.body]}>
                 <ScrollView>
-                    <Image
-                        style={styles.bannerimg}
-                        source={require('../../../Assets/extraImages/salooonimg.jpg')}
+                    <Image style={styles.bannerimg} source={require('../../../Assets/extraImages/salooonimg.jpg')}
                     />
                     <View style={styles.infocon}>
                         <Text style={styles.hdngtxt}>
@@ -61,8 +55,8 @@ const EventListingScreen = (props) => {
                             </Text>
                         </View>
                         <View style={[styles.basiccon, { justifyContent: "space-around" }]}>
-                            <View style={styles.btncon}><Text style={styles.btntxt}> Interested?</Text></View>
-                            <View style={styles.btncon}><Text style={styles.btntxt}>Buy Tickets</Text></View>
+                            <TouchableOpacity style={styles.btncon}><Text style={styles.btntxt}> Interested?</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.btncon}><Text style={styles.btntxt}>Buy Tickets</Text></TouchableOpacity>
                         </View>
                     </View>
                     <View style={{
@@ -109,9 +103,7 @@ const EventListingScreen = (props) => {
                         flex: 1,
                         backgroundColor: WHITE_COLOR_CODE
                     }}>
-                        <Text style={styles.hdngtxt}>
-                            What You Need
-                    </Text>
+                        <Text style={styles.hdngtxt}>What You Need</Text>
                         <Text style={[styles.text,{lineHeight:18}]}>
                             Desktop or laptop or phone with ahility to acoess 2oem And
                             a strong internet conivection.{'\n'}{'\n'}
@@ -122,8 +114,7 @@ const EventListingScreen = (props) => {
                             {'\n'}
                         </Text>
                         <Button
-                            style={{
-                            }}
+                            style={{}}
                             buttonText='Official Website'
                         />
                     </View>

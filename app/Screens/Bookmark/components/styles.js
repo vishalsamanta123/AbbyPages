@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, YELLOW_COLOR_CODE, LIGHT_GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_THIN, FONT_FAMILY_LIGHT } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     ImageContainer: {
         backgroundColor: WHITE_COLOR_CODE,
@@ -25,7 +25,8 @@ const Styles = StyleSheet.create({
     },
     UserNameText: {
         fontSize: 19,
-        fontFamily: FONT_FAMILY_BOLD
+        fontFamily: FONT_FAMILY_BOLD,
+        textTransform: 'capitalize'
     },
     FollowersView: {
         flexDirection: 'row'

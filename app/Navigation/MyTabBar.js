@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from '../Utils/Constant';
+import { View, TouchableOpacity, Image } from 'react-native';
+import {  YELLOW_COLOR_CODE } from '../Utils/Constant';
 
 function MyTabBar({ state, descriptors, navigation }) {
     const focusedOptions = descriptors[state.routes[state.index].key].options;

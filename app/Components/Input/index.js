@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
 import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../Utils/Constant'
 const Input = (props) => {
   const [isFocused, setIsfocused] = useState(true)

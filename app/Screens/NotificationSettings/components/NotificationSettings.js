@@ -170,17 +170,22 @@ const NotificationSettings = (props) => {
                             Manage what emaiLs are sent to your primary email
                         </Text>
                         <View style={styles.ReceiveEmailView}>
-                            <TouchableOpacity style={{}} onPress={() => console.log('123')}>
-                                <Image style={{ marginTop: 5 }} source={require('../../../Assets/checked_squared_icon_small.png')} />
+                            <TouchableOpacity style={{}} onPress={() => props._handleEmailNotificationSettings()}>
+                                <Image style={{ marginTop: 5 }} source={
+                                    props.emailNotificationSettings ?
+                                        require('../../../Assets/checked_squared_icon_small.png')
+                                        :
+                                        require('../../../Assets/unchecked_squared_icon_small.png')
+                                } />
                             </TouchableOpacity>
                             <View style={styles.ReceiveContain}>
                                 <Text style={styles.ReceiveEmailText}>
                                     Receive emails from AbbyPages
-                            </Text>
+                                </Text>
                                 <Text style={styles.NOteTextStyle}>
                                     Note: you will still receive certain legal, transcational
                                     or administrative emails.
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{ paddingTop: 20 }}>
@@ -429,7 +434,7 @@ const NotificationSettings = (props) => {
                                     </TouchableOpacity>
                                     <Text style={[styles.NOteTextStyle, { width: '100%', lineHeight: 25, paddingLeft: 5 }]}>
                                         By friends in all cities
-                                </Text>
+                                    </Text>
                                 </View>
                             </View>
                         </View>

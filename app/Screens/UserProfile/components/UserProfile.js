@@ -2,17 +2,17 @@ import React from 'react';
 import {
     View,
     Text,
-    StatusBar,
-    KeyboardAvoidingView,
     Image,
-    ScrollView
+    StatusBar,
+    ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
-import Input from '../../../Components/Input';
 import Button from '../../../Components/Button';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
 import { BLACK_COLOR_CODE } from '../../../Utils/Constant';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const UserProfile = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -33,28 +33,42 @@ const UserProfile = (props) => {
                                 <Text style={styles.EmailNotifyTxt}>Your Profile</Text>
                                 <Text style={styles.AddAccountTxt}>
                                     Manage the visibility of your profile.
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{ paddingTop: 15 }}>
                             <Text style={styles.EmalNotifyText}>Find Friends</Text>
                         </View>
                         <View style={styles.ReceiveEmailView}>
-                            <Image style={{ marginTop: 5 }} source={require('../../../Assets/unchecked_squared_icon_small.png')} />
+                            <TouchableOpacity onPress={() => props._handleCheckBox(props.findFriends, props.setFindFriends)}>
+                                <Image style={{ marginTop: 5 }} source={
+                                    props.findFriends ?
+                                        require('../../../Assets/checked_squared_icon_small.png')
+                                        :
+                                        require('../../../Assets/unchecked_squared_icon_small.png')
+                                } />
+                            </TouchableOpacity>
                             <View style={styles.ReceiveContain}>
                                 <Text style={styles.ReceiveEmailText}>
                                     Let others find my profile using my name or email address
                                 </Text>
                                 <Text style={styles.NOteTextStyle}>
                                     users added as friends can always find a profile.
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{ paddingTop: 15 }}>
                             <Text style={styles.EmalNotifyText}>Bookmarks</Text>
                         </View>
                         <View style={styles.ReceiveEmailView}>
-                            <Image style={{ marginTop: 5 }} source={require('../../../Assets/unchecked_squared_icon_small.png')} />
+                            <TouchableOpacity onPress={() => props._handleCheckBox(props.bookmarks, props.setBookmarks)}>
+                                <Image style={{ marginTop: 5 }} source={
+                                    props.bookmarks ?
+                                        require('../../../Assets/checked_squared_icon_small.png')
+                                        :
+                                        require('../../../Assets/unchecked_squared_icon_small.png')
+                                } />
+                            </TouchableOpacity>
                             <View style={styles.ReceiveContain}>
                                 <Text style={[styles.ReceiveEmailText, { width: '100%' }]}>
                                     Make my bookmarks public
@@ -65,7 +79,15 @@ const UserProfile = (props) => {
                             <Text style={styles.EmalNotifyText}>Direct Messages from Bussinesses</Text>
                         </View>
                         <View style={styles.ReceiveEmailView}>
-                            <Image style={{ marginTop: 5 }} source={require('../../../Assets/unchecked_squared_icon_small.png')} />
+                            <TouchableOpacity onPress={() => props._handleCheckBox(props.directMessageFromBussiness, props.setDirectMessageFromBussiness)}>
+                                <Image style={{ marginTop: 5 }} source={
+                                    props.directMessageFromBussiness ?
+                                        require('../../../Assets/checked_squared_icon_small.png')
+                                        :
+                                        require('../../../Assets/unchecked_squared_icon_small.png')
+
+                                } />
+                            </TouchableOpacity>
                             <View style={styles.ReceiveContain}>
                                 <Text style={styles.ReceiveEmailText}>
                                     Allow business owners to send you direct
@@ -77,7 +99,14 @@ const UserProfile = (props) => {
                             <Text style={styles.EmalNotifyText}>Ads Displayed Elsewhere</Text>
                         </View>
                         <View style={styles.ReceiveEmailView}>
-                            <Image style={{ marginTop: 5 }} source={require('../../../Assets/unchecked_squared_icon_small.png')} />
+                            <TouchableOpacity onPress={() => props._handleCheckBox(props.adsDisplayElseWhere, props.setAdsDisplayElseWhere)}>
+                                <Image style={{ marginTop: 5 }} source={
+                                    props.adsDisplayElseWhere ?
+                                        require('../../../Assets/checked_squared_icon_small.png')
+                                        :
+                                        require('../../../Assets/unchecked_squared_icon_small.png')
+                                } />
+                            </TouchableOpacity>
                             <View style={styles.ReceiveContain}>
                                 <Text style={[styles.ReceiveEmailText]}>
                                     Allow AbbyPages to target ads on other sites
@@ -97,7 +126,7 @@ const UserProfile = (props) => {
                                     These settings govern how businesses will see
                                     actuione you take through abbyPeges, such as,
                                     mobile calls. directions requests, men view, and visite to a
-                                     business's webs.. The date, time, and whetter you.
+                                    business's webs.. The date, time, and whetter you.
                                     accessing AbbyPages vie web or mobile device are always shown.
                                 </Text>
                             </View>
@@ -105,7 +134,7 @@ const UserProfile = (props) => {
                                 <Text style={styles.PhoneDescrptnText}>
                                     Businesses can always see your public contributions
                                     (Like reviews and photos), and
-                                     information about your transactions with them through AbbyPages.
+                                    information about your transactions with them through AbbyPages.
                                 </Text>
                             </View>
                         </View>

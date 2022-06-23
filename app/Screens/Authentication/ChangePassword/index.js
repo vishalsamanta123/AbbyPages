@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
 import ChangePassword from './components/ChangePassword';
 import { View } from 'react-native';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -51,7 +49,7 @@ const ChangePasswordView = ({ navigation }) => {
                 }
             } else {
                 setVisible(false);
-                setErrorMessage("Please Enter Old Password");
+                setErrorMessage("Please enter current Password");
                 setVisibleErr(true);
             }
         } catch (error) {

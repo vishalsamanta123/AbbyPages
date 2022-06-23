@@ -4,7 +4,6 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
     apiCall,
-    setDefaultHeader
 } from '../Utils/httpClient';
 import ENDPOINTS from '../Utils/apiEndPoints';
 import {
@@ -16,7 +15,7 @@ import {
     FONT_FAMILY_LIGHT,
     BLACK_COLOR_CODE
 } from '../Utils/Constant';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { AuthContext } from '../Utils/UserContext';
 const DesignDrawer = () => {

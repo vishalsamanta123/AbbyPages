@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState } from 'react';
 import BusinessProfile from './components/BusinessProfile';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -11,13 +11,13 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './components/styles';
 import {
-    apiCall, setDefaultHeader
+    apiCall
 } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const BusinessProfileView = ({ navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -109,9 +109,6 @@ const BusinessProfileView = ({ navigation }) => {
         };
     }
 
-
-
-
     const onPressProfileImage = () => {
         setCamerastate(true)
     }
@@ -172,8 +169,6 @@ const BusinessProfileView = ({ navigation }) => {
                         }
                         onPressSave(uploadData)
                         setLocItemImage('')
-
-
                     })
                     .catch(err => {
                     });
@@ -186,11 +181,9 @@ const BusinessProfileView = ({ navigation }) => {
                 }
                 onPressSave(uploadData)
                 setLocItemImage('')
-
             }
         });
     }
-
     const photosVideos = () => {
         navigation.navigate('PhotosVideo')
     }
@@ -198,10 +191,10 @@ const BusinessProfileView = ({ navigation }) => {
         navigation.navigate('OpeningHours')
     }
     const AddEditBusinessCategoryFun = () => {
+        alert('red')
+        console.log('red')
         navigation.navigate('AddEditBusinessCategory', { businessCategory: profileData.business_category })
     }
-
-
     return (
         <View style={{ flex: 1 }}>
             <BusinessProfile

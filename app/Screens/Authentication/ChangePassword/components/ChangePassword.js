@@ -1,11 +1,6 @@
 import React from 'react';
 import {
     View,
-    Text,
-    Image,
-    TextInput,
-    TouchableOpacity,
-    ImageBackground,
     KeyboardAvoidingView,
     StatusBar,
 } from 'react-native';
@@ -63,7 +58,7 @@ const ChangePassword = (props) => {
                     buttonText="Cancel"
                     style={styles.CancelBtn}
                     buttonLabelStyle={styles.CancelBtnTxt}
-                    onPress={() => props.submitbtn()}
+                    // onPress={() => props.submitbtn()}
                 />
             </View>
         </KeyboardAvoidingView>

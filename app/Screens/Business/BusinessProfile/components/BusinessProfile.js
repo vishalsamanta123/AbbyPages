@@ -72,7 +72,7 @@ const BusinessInformation = (props) => {
                                 />
                             }
                         </ScrollView>
-                        <View style={{ flexDirection: 'row', position: 'absolute', justifyContent: 'center', width: '100%', top: 130 }}>
+                        <View style={styles.bussinessimg}>
                             {props.profileData ? props.profileData.business_imgae.map((image, imageIndex) => {
                                 const width = scrollX.interpolate({
                                     inputRange: [
@@ -84,8 +84,7 @@ const BusinessInformation = (props) => {
                                     extrapolate: "clamp"
                                 });
                                 return (
-                                    <Animated.View
-                                        key={imageIndex}
+                                    <Animated.View key={imageIndex}
                                         style={[styles.normalDot, { width }]}
                                     />
                                 );
@@ -94,7 +93,7 @@ const BusinessInformation = (props) => {
                                 null
                             }
                         </View>
-                        <View style={{ width: '100%', }}>
+                        <View style={styles.comnvwe}>
                             <TouchableOpacity onPress={() => props.onPressProfileImage()}
                                 style={styles.UserProfileImage}>
                                 {props.LocitemImage ?
@@ -111,29 +110,10 @@ const BusinessInformation = (props) => {
                                             style={styles.ProfileIMG} borderRadius={50}
                                             source={require('../../../../Assets/company_default_photo.png')} />
                                 }
-                                <TouchableOpacity onPress={() => props.onPressProfileImage()} style={{
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    position: 'absolute',
-                                    width: '100%',
-                                    paddingTop: 30,
-                                    paddingLeft: 95,
-                                    height: 110,
-                                    width: 110
-                                }}>
-                                    <View style={{
-                                        backgroundColor: YELLOW_COLOR_CODE,
-                                        width: 30,
-                                        height: 30,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 20
-                                    }}>
-                                        <Image
-                                            style={{ width: 15, height: 15 }}
-                                            source={require('../../../../Assets/camera_icon_list.png')} />
+                                <TouchableOpacity onPress={() => props.onPressProfileImage()} style={styles.camiconvwe}>
+                                    <View style={styles.camsecvwe}>
+                                        <Image style={styles.camimg} source={require('../../../../Assets/camera_icon_list.png')} />
                                     </View>
-
                                 </TouchableOpacity>
                             </TouchableOpacity>
                         </View>
@@ -158,21 +138,21 @@ const BusinessInformation = (props) => {
                             </View>
                             <View style={[styles.FollowersCountView, { paddingTop: 20 }]}>
                                 <View style={styles.OptionViewContain}>
-                                    <View style={styles.ImageView}>
-                                        <Image style={{ width: 25, height: 25 }} source={require('../../../../Assets/notification_icon.png')} />
-                                    </View>
+                                    <TouchableOpacity style={styles.ImageView}>
+                                        <Image style={styles.notificationicon} source={require('../../../../Assets/notification_icon.png')} />
+                                    </TouchableOpacity>
                                     <Text style={styles.OptionText}>Notifications</Text>
                                 </View>
                                 <View style={styles.OptionViewContain}>
-                                    <View style={styles.ImageView}>
+                                    <TouchableOpacity style={styles.ImageView}>
                                         <Image source={require('../../../../Assets/company_reviews_icon.png')} />
-                                    </View>
+                                    </TouchableOpacity>
                                     <Text style={styles.OptionText}>See reviews</Text>
                                 </View>
                                 <View style={styles.OptionViewContain}>
-                                    <View style={styles.ImageView}>
+                                    <TouchableOpacity style={styles.ImageView}>
                                         <Image source={require('../../../../Assets/company_consumer_icon.png')} />
-                                    </View>
+                                    </TouchableOpacity>
                                     <Text style={styles.OptionText}>View as consumer</Text>
                                 </View>
                             </View>
@@ -208,7 +188,6 @@ const BusinessInformation = (props) => {
                             })
                             :
                             null
-
                         }
                         <View style={styles.ViewContainer}>
                             <Image source={require('../../../../Assets/st_icon_6.png')} />
@@ -217,12 +196,14 @@ const BusinessInformation = (props) => {
                                     What services do you offer? This helps you attract the right customers, as your business will
                                     only show up in searches for services you provide
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Go to COVID-19 updates
-                                </Text>
+                                <Text style={styles.YellowText}>Go to COVID-19 updates</Text>
                             </View>
                         </View>
-                        <Button buttonText="Edit" style={{ width: "100%" }} onPress={() => props.AddEditBusinessCategoryFun()} />
+                        <Button
+                            buttonText="Edit"
+                            style={{ width: "100%" }}
+                            onPress={() => props.AddEditBusinessCategoryFun()}
+                        />
                     </View>
                     <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Amenities and more</Text>
@@ -234,9 +215,7 @@ const BusinessInformation = (props) => {
                                     This info can differentiate
                                     you from similar businesses
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add info
-                                </Text>
+                                <Text style={styles.YellowText}>Add info</Text>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
@@ -249,9 +228,7 @@ const BusinessInformation = (props) => {
                                 <Text style={styles.ParagrapghTextMain}>
                                     Let yours customers know when they can stop by or give you a call.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add info
-                                </Text>
+                                <Text style={styles.YellowText}>Add info</Text>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
@@ -265,9 +242,7 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add special hours
-                                </Text>
+                                <Text style={styles.YellowText}>Add special hours</Text>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} onPress={() => props.OpenigHours()} />
@@ -281,9 +256,7 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add specialities
-                                </Text>
+                                <Text style={styles.YellowText}>Add specialities</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -293,9 +266,7 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add history
-                                </Text>
+                                <Text style={styles.YellowText}>Add history</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -305,9 +276,7 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add intro
-                                </Text>
+                                <Text style={styles.YellowText}>Add intro</Text>
                             </View>
                         </View>
                     </View>
@@ -321,9 +290,7 @@ const BusinessInformation = (props) => {
                                     to evaluate a business. Make sure your photos show your
                                     business at its best.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Add photos and videos
-                                </Text>
+                                <Text style={styles.YellowText}>Add photos and videos</Text>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} onPress={() => props.photosVideos()} />
@@ -337,9 +304,7 @@ const BusinessInformation = (props) => {
                                     Make a great first impression by controlling the order of your photos
                                     and videos to leat with your best.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Learn More
-                                </Text>
+                                <Text style={styles.YellowText}>Learn More</Text>
                             </View>
                         </View>
                         <Button buttonText="$" style={{ width: "100%" }} />
@@ -360,9 +325,7 @@ const BusinessInformation = (props) => {
                                 expertise by showcasing your workm with your own
                                 workds and pictures.
                             </Text>
-                            <Text style={styles.YellowText}>
-                                Learn More
-                            </Text>
+                            <Text style={styles.YellowText}>Learn More</Text>
                             <Button buttonText="$" style={{ width: "100%" }} />
                         </View>
                     </View>
@@ -375,9 +338,7 @@ const BusinessInformation = (props) => {
                                     Take customers where you want them to go and make it easy to connect
                                     with you in a way that aligns with your goals.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Learn More
-                                </Text>
+                                <Text style={styles.YellowText}>Learn More</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>

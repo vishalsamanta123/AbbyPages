@@ -8,7 +8,7 @@ import { apiCall } from '../../Utils/httpClient';
 import ENDPOINTS from '../../Utils/apiEndPoints';
 import Loader from '../../Utils/Loader';
 import Success from '../../Components/Modal/success';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Error from '../../Components/Modal/error';
 const NotificationSettingsView = ({ navigation }) => {
     const [filterCountry, SetfilterCountry] = useState(CountryData);
@@ -19,6 +19,9 @@ const NotificationSettingsView = ({ navigation }) => {
     const [confirm, setConfirm] = useState('');
     const [otp, setOtp] = useState('');
 
+    // add by cd
+    const [emailNotificationSettings, setEmailNotificationSettings] = useState('')
+    //
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
@@ -80,6 +83,9 @@ const NotificationSettingsView = ({ navigation }) => {
             return () => DashBoardDetails();
         }, [])
     );
+    const _handleEmailNotificationSettings = () => {
+        setEmailNotificationSettings(!emailNotificationSettings);
+    }
     const OnpressRegion = () => {
         setModalVisible(true)
     };
@@ -130,7 +136,7 @@ const NotificationSettingsView = ({ navigation }) => {
         };
     };
     function validationFormPhone() {
-        if (dashBoardDetails.mobile == "") {
+        if (dashBoardDetails.mobile == "" || dashBoardDetails.mobile == null) {
             setErrorMessage('Please enter Phone Number');
             setVisibleErr(true)
             return false;
@@ -479,6 +485,8 @@ const NotificationSettingsView = ({ navigation }) => {
                 setOrderAndPurchaseUpdates={setOrderAndPurchaseUpdates}
                 waitlist_updates={waitlist_updates}
                 setWaitListUpdates={setWaitListUpdates}
+                emailNotificationSettings={emailNotificationSettings}
+                _handleEmailNotificationSettings={_handleEmailNotificationSettings}
             />
             <Error
                 message={errorMessage}
