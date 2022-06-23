@@ -219,7 +219,6 @@ function AuthStack() {
 function BusinessStack() {
     return (
         <Business.Navigator screenOptions={{ headerShown: false }} >
-
             <Business.Screen name="BusinessHome" component={CustomBusinessNavigation} />
             <Business.Screen name="MyRestaurantItem" component={MyRestaurantItemScreen} />
             <Business.Screen name="AddBusinessProduct" component={AddBusinessProductScreen} />

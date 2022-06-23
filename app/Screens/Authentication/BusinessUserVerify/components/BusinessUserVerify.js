@@ -23,7 +23,7 @@ import CommonStyles from '../../../../Utils/CommonStyles';
 const BusinessUserVerifyScreen = (props) => {
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            behavior={Platform.OS == "ios" ? "padding" : null}
             style={CommonStyles.container}>
             <Header
                 HeaderText='Verify Account'
