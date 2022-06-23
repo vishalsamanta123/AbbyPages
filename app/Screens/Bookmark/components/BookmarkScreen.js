@@ -1,15 +1,15 @@
 import React from 'react';
 import {
+    Text,
     View,
     Image,
     StatusBar,
-    Text,
     KeyboardAvoidingView
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
-const BookmarkScreen = () => {
+const BookmarkScreen = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
             <StatusBar
@@ -27,10 +27,12 @@ const BookmarkScreen = () => {
                 <View style={styles.ImageContainer}>
                     <Image style={styles.PosterImgeStyle} source={require('../../../Assets/extraImages/Utah-Film-Festival.jpg')} />
                     <View style={styles.UserProfileImage}>
-                        <Image style={styles.ProfileIMG} source={require('../../../Assets/profile_photo_default.png')} />
+                        <Image style={styles.ProfileIMG} source={{uri: props.userData.data.profile_image }} />
                     </View>
                     <View style={styles.ViewContain}>
-                        <Text style={styles.UserNameText}>Hamadi S.</Text>
+                        <Text style={styles.UserNameText}>
+                            {props.userData.data.first_name + ' ' + props.userData.data.last_name }
+                        </Text>
                         <View style={styles.FollowersView}>
                             <View style={styles.FollowersContain}>
                                 <Image source={require('../../../Assets/profile_icon_menu.png')} />

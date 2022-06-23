@@ -23,37 +23,27 @@ const EventListingScreen = (props) => {
                     styles.txtCat,
                     {
                         color: selectedColor
-                    }]}>{item.name}</Text>
+                    }]}>
+                    {item.name}
+                </Text>
             </TouchableOpacity>
         );
     };
     const _renderTime = (item, index) => {
         const selectedColor = index === props.isSelectedDay ? WHITE_COLOR_CODE : "#ffe98e"
         return (
-            <TouchableOpacity
-                onPress={() =>
-                    props._handleDaySelected(index, item)}
+            <TouchableOpacity onPress={() => props._handleDaySelected(index, item)}
                 style={styles.lablestyle}>
-                <Text style={[
-                    styles.txtCat,
-                    {
-                        color: selectedColor
-                    }]}>{item.name}</Text>
+                <Text style={[styles.txtCat, { color: selectedColor }]}>{item.name}</Text>
             </TouchableOpacity>
         );
     };
     const _renderEventList = (item, index) => {
         return (
-            <TouchableOpacity onPress={() => props.onPressEvent()} style={styles.mnCon}>
-                <ImageBackground
-                    style={styles.bannerimg}
-                    source={item.bannerimg}
-                >
+            <TouchableOpacity onPress={(item) => props.onPressEvent(item)} style={styles.mnCon}>
+                <ImageBackground style={styles.bannerimg} source={item.bannerimg}>
                     <View style={styles.btncon}>
-                        <Text style={{
-                            fontFamily: FONT_FAMILY_REGULAR,
-                            lineHeight: 16
-                        }}>
+                        <Text style={{ fontFamily: FONT_FAMILY_REGULAR, lineHeight: 16 }}>
                             Buy Tickets
                         </Text>
                     </View>

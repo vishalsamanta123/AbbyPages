@@ -14,9 +14,9 @@ import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
 import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 
-const AddBusinessProduct = ({ route, props, navigation }) => {
-    console.log('route', route)
+const AddBusinessProduct = ({ route, navigation }) => {
     const type = route.params ? route.params.type : null
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -24,14 +24,14 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
     const [HedarType, setHedarType] = useState(type)
-
+    
     const Id = route.params ? route.params.productId : null
     const [productId, setProductId] = useState(Id)
-
+    
     const [itemImage, setItemImage] = useState('')
     const [productName, setProductName] = useState()
     const [productPrice, setProductPrice] = useState()
-
+    
     const [productDiscount, setProductDiscount] = useState()
     const [productQuanlity, setProductQuanlity] = useState()
     const [productSize, setProductSize] = useState()
@@ -41,7 +41,7 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
     const [productWeight, setProductWeight] = useState()
     const [productBrand, setProductBrand] = useState()
     const [ProductImg, setProductImg] = useState()
-
+    
     const [businessCategory, setbusinessCategory] = useState(false)
     const [CategoryData, SetCategoryData] = useState([])
     const [CategoryId, SetCategoryId] = useState()
@@ -50,11 +50,13 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
     const [SubCategory, SetSubCategory] = useState(false)
     const [SubCategoryId, SetSubCategoryId] = useState()
     const [SubCategoryName, SetSubCategoryName] = useState()
-
+    
     const [BusiCategory, SetBusiCategory] = useState(false)
     const [SelectImgUri, setSelectImgUri] = useState()
-    const [camerastate, setCamerastate] = useState(false)
-
+    const [camerastate, setCamerastate] = useState(false);
+    const [selectedSize, setSelectedSize] = useState('');
+    const [modalVisible, setModalVisible] = useState(false)
+    
     useFocusEffect(
         React.useCallback(() => {
             ProductDetails()
@@ -62,6 +64,43 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
         }, [])
     );
 
+    const staticContentData = [
+        {
+            id: 1,
+            name: "Size M"
+        },
+        {
+            id: 2,
+            name: "Size L"
+        },
+        {
+            id: 3,
+            name: "Size XL"
+        },
+        {
+            id: 4,
+            name: "Size XXL"
+        },
+        {
+            id: 5,
+            name: "Size XXXL"
+        },
+    ];
+    const handleSelectedName = (item) => {
+        setSelectedSize(item.name);
+        setModalVisible(false);
+    }
+    const renderStaticContentData = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => handleSelectedName(item)}
+                style={{ flex: 1, padding: 10 }}>
+                <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15, color: WHITE_COLOR_CODE }}>
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
 
     const ProductDetails = async () => {
         if (productId) {
@@ -73,7 +112,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
                 const { data } = await apiCall
                     ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
                 if (data.status === 200) {
-                    console.log('scjin', data.data)
                     setProductName(data.data.product_name)
                     setProductPrice(data.data.price)
                     setProductDiscount(data.data.discount)
@@ -104,8 +142,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
 
 
     }
-
-
     const onPressSave = async () => {
         const valid = validationFrom();
         if (valid) {
@@ -230,11 +266,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
         return true;
     }
 
-
-
-
-
-
     const onPressProfileImage = () => {
         setCamerastate(true)
     }
@@ -258,10 +289,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
             setSelectImgUri([image])
         });
     }
-
-
-
-
 
     const onPressCategories = async () => {
         setbusinessCategory(!businessCategory)
@@ -295,7 +322,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
             setVisible(false);
         };
     }
-
 
     const onClickCategory = async (item) => {
         setbusinessCategory(!businessCategory)
@@ -368,7 +394,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
         };
     }
 
-
     const DeleteProductMsg = (item) =>
         Alert.alert(
             "",
@@ -376,7 +401,6 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
             [
                 {
                     text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
                 { text: "OK", onPress: () => productImgDelete(item) }
@@ -483,6 +507,12 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
                 localProductImgDelete={localProductImgDelete}
 
                 HedarType={HedarType}
+
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                staticContentData={staticContentData}
+                renderStaticContentData={renderStaticContentData}
+                selectedSize={selectedSize}
             // itemImg={itemImg}
             // imgUrl={imgUrl}
             />
@@ -514,14 +544,14 @@ const AddBusinessProduct = ({ route, props, navigation }) => {
                             style={{ padding: 10, borderBottomWidth: 1 }}>
                             <Text>
                                 Camera
-                       </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => onPressGallery()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
                             <Text>
                                 Gallery
-                     </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </DialogContent>
