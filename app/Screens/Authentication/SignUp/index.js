@@ -97,16 +97,9 @@ const SignUpView = ({ navigation }) => {
   const onPressSingUp = async () => {
     const valid = validationFrom();
     if (valid) {
-      setVisible(true);
       try {
-        const params = {
-          first_name: registrationData.first_name,
-          last_name: registrationData.last_name,
-          email: registrationData.email,
-          password: registrationData.password,
-          zip_code: registrationData.zip_code, //only taken numbers but keyboard is not number-pad
-          birth_date: registrationData.birth_date,
-        };
+        setVisible(true);
+        const params = registrationData;
         console.log("params: ", params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_UP, params);
         console.log("dataSIGNUPP: ", data);

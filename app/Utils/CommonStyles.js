@@ -12,7 +12,8 @@ const Styles = StyleSheet.create({
     backgroundColor: WHITE_COLOR_CODE,
   },
   header: {
-    flex: 0.5,
+    // flex: 0.5,
+    paddingVertical: 16,
     flexDirection: "row",
     backgroundColor: YELLOW_COLOR_CODE,
   },

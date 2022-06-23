@@ -313,11 +313,6 @@ const Styles = StyleSheet.create({
         borderLeftWidth: 1,
         borderColor: LINE_COMMON_COLOR_CODE,
     },
-
-
-
-
-
     MainBtnTouchable: {
         justifyContent: 'center',
         alignItems: 'center',

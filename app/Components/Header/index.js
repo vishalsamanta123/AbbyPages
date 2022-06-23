@@ -46,10 +46,11 @@ const Header = (props) => {
     placeholder,
     cartLength,
     editHdr,
+    logoImg,
   } = props;
   const OnpressBack = () => {
-    navigation.dispatch(DrawerActions.closeDrawer());
     navigation.goBack(null);
+    navigation.dispatch(DrawerActions.closeDrawer());
   };
   const handleDrawer = () => {
     navigation.dispatch(DrawerActions.toggleDrawer());
@@ -67,7 +68,16 @@ const Header = (props) => {
         style={[
           textInput === true ? iptcontainer : container,
           mncontainer,
-          { paddingVertical: HeaderText != "" ? (editHdr ? editHdr : 15) : 0 },
+          {
+            paddingVertical:
+              HeaderText != ""
+                ? editHdr
+                  ? editHdr
+                  : 15
+                : textInput === true
+                ? 10
+                : 0,
+          },
         ]}
       >
         <TouchableOpacity
@@ -80,59 +90,34 @@ const Header = (props) => {
             <Image source={leftImg} />
           )}
         </TouchableOpacity>
-        <View
-          style={[
-            HeaderMiddleView,
-            HeaderMiddleTxt,
-            {
-              paddingTop: textInput === true ? 80 : 0,
-            },
-          ]}
-        >
+        <View style={[HeaderMiddleView, HeaderMiddleTxt]}>
           {textInput === true && (
-            <View
-              style={{
-                width: "100%",
-                height: 50,
-                flexDirection: "row",
-                backgroundColor: WHITE_COLOR_CODE,
-                borderRadius: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            <View style={[styles.inputCon]}>
+              <View style={{ paddingHorizontal: 5 }}>
                 <Image source={require("../../Assets/search_field_icon.png")} />
               </View>
-              <View style={{ flex: 5 }}>
-                <TextInput
-                  onChangeText={onChangeText}
-                  placeholder={placeholder}
-                  placeholderTextColor={BLACK_COLOR_CODE}
-                  style={{
-                    fontSize: 16,
-                    fontFamily: FONT_FAMILY_REGULAR,
-                    borderRadius: 5,
-                    flex: 1,
-                  }}
-                />
-              </View>
+              <TextInput
+                onChangeText={onChangeText}
+                placeholder={placeholder}
+                placeholderTextColor={BLACK_COLOR_CODE}
+                style={styles.input}
+              />
             </View>
           )}
           {HeaderText != "" ? (
             <Text style={[MainHeadTxt, MainHeadStyle]}>{HeaderText}</Text>
           ) : (
-            <View style={styles.MainDotView}>
-              <Image
-                resizeMode="contain"
-                style={{ width: 110, height: 60 }}
-                source={HeaderMiddleImg}
-              />
-            </View>
+            <>
+              {logoImg ? (
+                <View style={styles.MainDotView}>
+                  <Image
+                    resizeMode="contain"
+                    style={{ width: 110, height: 60 }}
+                    source={HeaderMiddleImg}
+                  />
+                </View>
+              ) : null}
+            </>
           )}
           {HeaderText === "Confirm Order" && (
             <Text style={[headerSecondTextStyle, stheaderSecondText]}>
@@ -186,6 +171,7 @@ Header.defaultProps = {
   HeaderText: "CommonName",
   RightImg: require("../../Assets/plus_icon_header.png"),
   leftImg: require("../../Assets/header_back_btn.png"),
+  logoImg: true,
 };
 const styles = StyleSheet.create({
   container: {
@@ -222,6 +208,21 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 17,
     color: WHITE_COLOR_CODE,
+  },
+  inputCon: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: WHITE_COLOR_CODE,
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+  },
+  input: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    borderRadius: 5,
+    paddingVertical: 4,
+    width: "84%",
   },
 });
 export default Header;

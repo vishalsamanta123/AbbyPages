@@ -12,6 +12,8 @@ target 'AbbyPages' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'AbbyPagesTests' do
     inherit! :complete
     # Pods for testing

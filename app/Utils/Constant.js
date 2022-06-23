@@ -21,5 +21,7 @@ export const LIGHT_BLACK_COLOR_CODE = "#262626";
 // export const LINE_COMMON_COLOR_CODE = "#262626";
 //BASEURL
 // export const BASEURL = 'https://itinformatix.org:3040';/*  */
+=======
+// export const BASEURL = 'https://itinformatix.org:3040';
 export const BASEURL = 'https://abbypages.com:8080';
 // export const BASEURL = 'http://199.241.139.254:8080';
