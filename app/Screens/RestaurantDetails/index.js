@@ -11,7 +11,7 @@ import {
   GREY_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LINE_COMMON_COLOR_CODE,
-  YELLOW_COLOR_CODE,
+  YELLOW_COLOR_CODE,   
   BLACK_COLOR_CODE,
 } from "../../Utils/Constant";
 import ImagePicker from "react-native-image-crop-picker";
@@ -34,7 +34,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
-  console.log('restroDetail: ', restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({

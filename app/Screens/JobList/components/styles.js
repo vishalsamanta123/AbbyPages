@@ -8,6 +8,8 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
+  LIGHT_BLACK_COLOR_CODE,
+  FONT_FAMILY_LIGHT,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   HeaderView: {
@@ -40,7 +42,13 @@ const Styles = StyleSheet.create({
   hdngtxt: {
     fontSize: 18,
     lineHeight: 20,
-    width: "90%",
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: "#3a3838",
+    marginTop: 10,
+  },
+  jobTitle: {
+    fontSize: 15,
+    lineHeight: 18,
     fontFamily: FONT_FAMILY_REGULAR,
     color: "#3a3838",
   },
@@ -55,17 +63,23 @@ const Styles = StyleSheet.create({
   text: {
     color: SMALL_TEXT_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 12,
+    lineHeight: 14,
+    marginVertical: 2,
   },
   posterimg: {
-    width: 90,
-    height: 90,
-    alignSelf: "center",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    width: 115,
+    height: 115,
+    borderRadius: 15,
+    borderWidth: 0.2,
+    borderColor: "grey",
+    alignItems: "center",
+    marginHorizontal: 5,
   },
   basiccon: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 2,
   },
   icon: {
     height: 15,
@@ -145,6 +159,33 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 12,
     color: BLACK_COLOR_CODE,
+  },
+  detailsVw: {
+    flex: 1,
+    paddingHorizontal: 5,
+    marginRight: 5,
+    justifyContent: "center",
+  },
+  emptyVw: {
+    height: 250,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyTxt: {
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_LIGHT,
+  },
+  inputVw: {
+    backgroundColor: WHITE_COLOR_CODE,
+    height: 48,
+    borderRadius: 6,
+  },
+  input: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+    color: LINE_COMMON_COLOR_CODE,
+    paddingLeft: 10,
   },
 });
 export default Styles;

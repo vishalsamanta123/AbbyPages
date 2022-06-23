@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   FlatList,
+  TextInput,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -13,85 +14,77 @@ import Button from "../../../Components/Button";
 import {
   FONT_FAMILY_LIGHT,
   LIGHT_BLACK_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import moment from "moment";
+
 const JobListScreen = (props) => {
   const _renderJobList = (item, index) => {
+  console.log('item: ', item);
     return (
       <TouchableOpacity
-        onPress={() => props.onPressJob()}
+        onPress={() => props.onPressJob(item)}
         style={styles.dataCon}
       >
-        <View style={{ flex: 2, justifyContent: "center" }}>
-          <Image style={styles.posterimg} source={item.posterimg} />
+        <View>
+          <Image
+            style={styles.posterimg}
+            source={{ uri: item.business_logo }}
+            resizeMode={"contain"}
+          />
         </View>
-        <View style={{ flex: 4 }}>
+        <View style={styles.detailsVw}>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.text, { fontSize: 12, lineHeight: 14 }]}>
-              {item.companyname}
-            </Text>
-            <Text style={[styles.text, { fontSize: 12, lineHeight: 14 }]}>
-              {item.postingtime}
+            <Text style={styles.text}>{item.company_name}</Text>
+            <Text style={styles.text}>
+              {moment(item.create_date).endOf("day").fromNow()}
             </Text>
           </View>
-          <Text style={[styles.hdngtxt, { fontSize: 15, lineHeight: 18 }]}>
-            {item.title}
-          </Text>
+          <Text style={styles.jobTitle}>{item.job_title}</Text>
           <View style={styles.basiccon}>
             <Image
               style={styles.icon}
               resizeMode="contain"
               source={require("../../../Assets/info_marker_icon.png")}
             />
-            <Text style={[styles.text, { fontSize: 12, lineHeight: 14 }]}>
-              {item.address}
+            <Text numberOfLines={3} style={styles.text}>
+              {item.job_address}
             </Text>
           </View>
           <View style={styles.basiccon}>
             <Image
+              tintColor={YELLOW_COLOR_CODE}
               style={styles.icon}
               resizeMode="contain"
-              source={require("../../../Assets/info_marker_icon.png")}
+              source={require("../../../Assets/job_list_icon.png")}
             />
-            <Text
-              style={[
-                styles.text,
-                { fontSize: 12, lineHeight: 14, color: YELLOW_COLOR_CODE },
-              ]}
-            >
-              {item.worktype}
+            <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+              {item.job_type}
             </Text>
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <View style={[styles.basiccon, { flex: 4.5 }]}>
+          <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
+            <View style={styles.basiccon}>
               <Image
                 style={styles.icon}
+                tintColor={YELLOW_COLOR_CODE}
                 resizeMode="contain"
                 source={require("../../../Assets/money_icon.png")}
               />
-              <Text
-                style={[
-                  styles.text,
-                  { fontSize: 12, lineHeight: 14, color: YELLOW_COLOR_CODE },
-                ]}
-              >
-                {item.req_amount}
+              <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+                {item.monthly_in_hand_salary_from}-
+                {item.monthly_in_hand_salary_to}
               </Text>
             </View>
-            <TouchableOpacity
-              onPress={() => props._hanldeSetLike(index)}
-              style={{ flex: 1.5, alignItems: "flex-end", marginRight: 10 }}
-            >
-              {props.like == index ? (
-                <Image
-                  source={require("../../../Assets/like_icon_disable.png")}
-                />
-              ) : (
-                <Image
-                  source={require("../../../Assets/like_icon_filled.png")}
-                />
-              )}
+            <TouchableOpacity onPress={() => props._hanldeSetLike(index)}>
+              <Image
+                source={
+                  props.like == index
+                    ? require("../../../Assets/like_icon_disable.png")
+                    : require("../../../Assets/like_icon_filled.png")
+                }
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -127,14 +120,14 @@ const JobListScreen = (props) => {
               source={require("../../../Assets/map_list_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.openFilter()}>
+          <TouchableOpacity onPress={() => props.setVisible(true)}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
               source={require("../../../Assets/filter_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.setSearch(!props.search)}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
@@ -144,7 +137,23 @@ const JobListScreen = (props) => {
         </View>
       </View>
       <View style={[CommonStyles.body]}>
-        <View style={{ padding: 20, backgroundColor: "#f2f2f2" }}>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            backgroundColor: "#f2f2f2",
+          }}
+        >
+          {props.search && (
+            <View style={styles.inputVw}>
+              <TextInput
+                placeholder={"Search job ..."}
+                placeholderTextColor={SMALL_TEXT_COLOR_CODE}
+                style={styles.input}
+                onChangeText={(searchKey) => props.searchJob(searchKey)}
+              />
+            </View>
+          )}
           <Text style={styles.hdngtxt}>
             {props?.jobList?.length} Results found
           </Text>
@@ -157,20 +166,8 @@ const JobListScreen = (props) => {
             renderItem={({ item, index }) => _renderJobList(item, index)}
             ListEmptyComponent={() => {
               return (
-                <View
-                  style={{
-                    height: 250,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: LIGHT_BLACK_COLOR_CODE,
-                      fontSize: 16,
-                      fontFamily: FONT_FAMILY_LIGHT,
-                    }}
-                  >
+                <View style={styles.emptyVw}>
+                  <Text style={styles.emptyTxt}>
                     Business job not available
                   </Text>
                 </View>

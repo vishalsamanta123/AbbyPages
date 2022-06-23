@@ -75,8 +75,8 @@ const ListingsScreenView = ({ navigation }) => {
         onPress={() => onPressRestro(item)}
         style={styles.MainConatiner}
       >
-        <View style={[styles.InformationView, {}]}>
-          <View style={{}}>
+        <View style={styles.InformationView}>
+          <View style={{ flex: 1, justifyContent: "center" }}>
             <Image
               style={styles.MainImgeStyle}
               resizeMode="contain"
@@ -88,16 +88,13 @@ const ListingsScreenView = ({ navigation }) => {
               <View style={styles.RatingStyles}>
                 <Text style={styles.RatingStylesTxt}>5.0</Text>
               </View>
-              <Text style={styles.RatingTextMain}>{item.rating}ratings</Text>
+              <Text numberOfLines={1} style={styles.RatingTextMain}>
+                {item.rating} ratings
+              </Text>
             </View>
           </View>
-          <View style={[styles.MainConatinerView, {}]}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
+          <View style={styles.MainConatinerView}>
+            <View style={styles.InformationView}>
               <View style={{ flex: 5 }}>
                 <Text style={styles.MainServiceName}>{item.business_name}</Text>
               </View>
@@ -136,46 +133,31 @@ const ListingsScreenView = ({ navigation }) => {
             <View style={styles.InformationView}>
               {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
               <View style={{ flexDirection: "row" }}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+                <View style={styles.statusVw}>
                   <Image
                     tintColor={YELLOW_COLOR_CODE}
-                    // style={styles.RightImgeStyle}
                     source={
                       item.offers_delivery === 1
                         ? require("../../Assets/text_check_icon.png")
                         : require("../../Assets/cart_delete_icon.png")
                     }
+                    style={{ marginHorizontal: 2 }}
                   />
                   <Text style={styles.AddressTextStyles}>Delievery</Text>
                 </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+                <View style={styles.statusVw}>
                   <Image
                     tintColor={YELLOW_COLOR_CODE}
-                    // style={styles.RightImgeStyle}
                     source={
                       item.offers_takeout === 1
                         ? require("../../Assets/text_check_icon.png")
                         : require("../../Assets/cart_delete_icon.png")
                     }
+                    style={{ marginHorizontal: 2 }}
                   />
                   <Text style={styles.AddressTextStyles}>Takeout</Text>
                 </View>
               </View>
-              <Text numberOfLines={1} style={styles.AddressTextStyles}>
-                {" "}
-              </Text>
             </View>
             <View style={styles.InformationView}>
               <Image
@@ -207,8 +189,9 @@ const ListingsScreenView = ({ navigation }) => {
       setVisible(true);
       handleRestroList();
       setVisible(false);
-    }
+    }else{
     setRestroList(list);
+    }
   };
   return (
     <View style={CommonStyles.container}>
