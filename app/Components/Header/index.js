@@ -50,7 +50,7 @@ const Header = (props) => {
   } = props;
   const OnpressBack = () => {
     navigation.goBack(null);
-    navigation.dispatch(DrawerActions.closeDrawer());
+    // navigation.dispatch(DrawerActions.closeDrawer());
   };
   const handleDrawer = () => {
     navigation.dispatch(DrawerActions.toggleDrawer());

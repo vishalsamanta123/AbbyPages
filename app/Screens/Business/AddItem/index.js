@@ -61,8 +61,7 @@ const AddItem = ({ route, props, navigation }) => {
                 formdata.append("item_image", SelectImgUri)
                 formdata.append("business_type", '1')
                 formdata.append("business_item_category_id", CategoryId)
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.ADD_ITEMS, formdata);
+                const { data } = await apiCall ('POST', ENDPOINTS.ADD_ITEMS, formdata);
                 if (data.status === 200) {
                     navigation.navigate('MyRestaurantItem')
                     setErrorMessage(data.message);

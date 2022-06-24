@@ -52,8 +52,7 @@ const AddItemScreen = (props) => {
                             <Picker style={styles.pickerStyle}
                                 selectedValue={props.itemType}
                                 onValueChange={(itemValue, itemPosition) =>
-                                    props.setItemType(itemValue)}
-                            >
+                                    props.setItemType(itemValue)}>
                                 <Picker.Item label="Item Type" value="" />
                                 <Picker.Item label="Veg" value="1" />
                                 <Picker.Item label="Non-Veg" value="0" />

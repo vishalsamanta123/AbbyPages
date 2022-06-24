@@ -64,6 +64,7 @@ export default {
   GET_RESTAURANT_TABLE: "/api/restaurants/getRestoTable",
   GET_ORDER_LIST: "/api/orders/getOrderListForBusiness",
   GET_ORDER_DETAILS: "/api/orders/getbusinessOrderDetail",
+  APPLY_JOB: "api/jobs/jobApplyForUser",
   ADD_BUSINESS_LOGO: "/api/business/addBusinessLogo",
   SET_OPENING_CLOSE_HOURS: "/api/business/setOpeningClosingHours",
   GET_OPENING_CLOSE_HOURS: "/api/business/getBusinessOpeningClosingHours",

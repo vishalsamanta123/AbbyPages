@@ -25,7 +25,7 @@ const Styles = StyleSheet.create({
     AddPhotosTxt: {
         fontFamily: FONT_FAMILY_REGULAR,
         fontSize: 17,
-        paddingLeft: 10
+        paddingLeft: 2
     },
     BckArrowBack: {
         flex: 1,
