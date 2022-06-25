@@ -115,7 +115,6 @@ const AddToCartView = ({ navigation, route }) => {
             if (cartData.length > 0) {
                 var getIndex = _.findIndex(cartData, { item_id: item.item_id })
                 if (getIndex >= 0) {
-                    // console.log("getIndex", JSON.stringify(cartData[getIndex]))
                     cartData[getIndex].quantity = cartData[getIndex].quantity + 1;
                     cartData[getIndex].total_item_price = cartData[getIndex].price * value;
                     setCartData(cartData)
@@ -128,7 +127,6 @@ const AddToCartView = ({ navigation, route }) => {
             else {
                 setCartData(curr => [...curr, cartItem]);
                 // await AsyncStorage.setItem('localCartData', JSON.stringify(cartData))
-                // console.log('firstTimeCartDataSetOrNewCategoryAdd', cartData);
             }
         } catch (e) {
             setErrorMessage(e);

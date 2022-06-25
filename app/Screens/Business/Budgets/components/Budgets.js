@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Image,
     StatusBar,
     Text,
     KeyboardAvoidingView,
-    FlatList,
-    ImageBackground
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';
 import Button from '../../../../Components/Button';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE, GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, BLACK_COLOR_CODE } from '../../../../Utils/Constant';
+import { FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE } from '../../../../Utils/Constant';
 const Budgets = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -107,13 +105,13 @@ const Budgets = (props) => {
                         <Text style={styles.EstimatedText}>
                             * Estimated performance is based on similar businesses.
                             Actual, performance may vary.
-                       </Text>
+                        </Text>
                     </View>
                     <View style={styles.EstimatedContain}>
                         <Text style={styles.WriteText}>Additional Business Page Upgrades</Text>
                         <Text style={styles.StandOutText}>
                             Stand out, build trust and drive customers to take action on your page
-                       </Text>
+                        </Text>
                     </View>
                     <TouchableOpacity onPress={() => props.onPressUpgrade()} style={styles.OptionContain}>
                         {props.UpgradePackage ?
@@ -131,7 +129,7 @@ const Budgets = (props) => {
                             <View style={styles.RecommndedView}>
                                 <Text style={[styles.SecondContainTxt, { fontSize: 20, color: BLACK_COLOR_CODE }]}>Enhanced Profile</Text>
                                 <Text style={styles.RecommndedText}>Add an action button to your page,
-                                arrange your photos, remove competitor ads from your page. </Text>
+                                    arrange your photos, remove competitor ads from your page. </Text>
                             </View>
                         </View>
                         <View style={styles.RightView}>

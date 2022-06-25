@@ -41,7 +41,6 @@ const BusinessHome = (props) => {
               source={require("../../../../Assets/extraImages/buil.jpg")}
             >
               <View style={{ padding: 20 }}>
-                {console.log("props.profileData", props.profileData)}
                 <Text style={styles.ItinfoTextStyle}>
                   {props.profileData.business_name}
                 </Text>

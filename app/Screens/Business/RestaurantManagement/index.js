@@ -45,7 +45,6 @@ const RestaurantManagementView = ({ navigation }) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.GET_CATEGORY_LIST, params);
             if (data.status === 200) {
-                console.log(data.data[0].business_item_category_id)
                 setactiveCategory({
                     ...activeCategory,
                     activeIndex: 0,

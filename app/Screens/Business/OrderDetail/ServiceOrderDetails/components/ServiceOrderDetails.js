@@ -68,9 +68,6 @@ const ServiceOrderDetailsScreen = (props) => {
                         </View>
 
                     </View>
-                    {
-                        console.log('props.orderData', props.orderData)
-                    }
                 </ScrollView>
                 <View style={[styles.localFooter], { position: 'absolute', bottom: 5, flexDirection: 'row', padding: 8 }}>
                     {

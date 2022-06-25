@@ -30,11 +30,10 @@ const BusinessLocationView = ({ navigation }) => {
         const { data } = await apiCall
             ('POST', ENDPOINTS.GET_USER_PROFILE);
         if (data.status === 200) {
-            console.log('data.data.business_info: ', data.data.business_info);
-            data.data.business_info ? 
-            setMiles(data.data.business_info[0].location) 
-            : 
-            null
+            data.data.business_info ?
+                setMiles(data.data.business_info[0].location)
+                :
+                null
         };
     };
 

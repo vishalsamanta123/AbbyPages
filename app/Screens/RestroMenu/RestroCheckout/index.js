@@ -47,7 +47,6 @@ const RestroCheckoutView = ({ navigation }) => {
         handleFinalAmount();
         const DateTime = moment().format('h:mm:ss a,Do MMMM')
         setDateTime(DateTime)
-        // console.log('DateTime', DateTime)
 
     }, []);
     const _handleDetails = async () => {
@@ -108,7 +107,6 @@ const RestroCheckoutView = ({ navigation }) => {
     };
     const deleteItem = (item, index) => {
         try {
-            console.log('ok pressed')
             setVisible(true);
             const cartLocalFunctionData = [...cartLocalData]
             cartLocalFunctionData.splice(item.item_id, 1);

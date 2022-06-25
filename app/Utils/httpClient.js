@@ -5,7 +5,6 @@ const httpClient = axios.create({
 });
 export function setDefaultHeader(header, value) {
     httpClient.defaults.headers.common[header] = value
-    console.log("setDefaultHeader==", value)
 }
 export async function apiCall(method, url, data, header = { 'Content-Type': 'application/json' }) {
     try {
@@ -20,7 +19,6 @@ export async function apiCall(method, url, data, header = { 'Content-Type': 'app
         return res;
     }
     catch (error) {
-        console.log(error.response)
         if (error.response) {
             if (error.response.data.status === 401) {
                 return error.response

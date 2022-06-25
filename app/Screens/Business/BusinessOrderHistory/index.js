@@ -22,13 +22,10 @@ import moment from 'moment'
 import { useFocusEffect, useLinkProps, useIsFocused } from '@react-navigation/native';
 
 const BusinessOrderHistoryView = ({ route, props, navigation }) => {
-    // console.log('route: ', route);
     const isFocused = useIsFocused();
 
     const [OrderCategorySel, setOrderCategorySel] = useContext(OrderCategorySelect);
-    console.log('OrderCategorySel: ', OrderCategorySel);
     // const businessTypeCate = route.params ? route.params.BusinessType : 1
-    // console.log('businessTypeCate: ', businessTypeCate);
     // const businessTypeCate = OrderCategorySel.businsessType
     const selectIndex = OrderCategorySel.activeIndex
 

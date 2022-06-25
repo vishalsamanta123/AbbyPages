@@ -32,7 +32,6 @@ const RecentActivityView = () => {
         try {
             const { data } = await apiCall('POST', ENDPOINTS.RECENT_ACTIVITY)
             if (data.status == 200) {
-                console.log('data', data.data)
                 setRecentActivityData(data.data)
                 setVisible(false);
             } else {

@@ -169,7 +169,6 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 formdata.append("product_weight", productWeight)
                 formdata.append("company_brand", productBrand)
                 const { data } = await apiCall ('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
-                console.log('data: ', data);
                 if (data.status === 200) {
                     // navigation.navigate('MyRestaurantItem')
                     navigation.navigate('MyProductList')

@@ -61,7 +61,6 @@ const StepFifth = ({ navigation }) => {
             }
             setServiceProviderData(params);
             navigation.navigate('StepSeven')
-            // console.log('params', params)
         }
     }
     return (

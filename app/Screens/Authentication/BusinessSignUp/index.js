@@ -85,9 +85,7 @@ const BusinessSignUpView = ({ navigation }) => {
           ENDPOINTS.BUSINEES_SIGN_UP,
           params
         );
-        // console.log(data)
         if (data.status === 200) {
-          console.log();
           await setDefaultHeader("token", data.token);
           navigation.navigate("GetStarted", { email: registrationData.email });
           // navigation.navigate('UserVerify', { email: registrationData.email })

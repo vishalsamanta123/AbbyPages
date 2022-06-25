@@ -41,7 +41,6 @@ const StepSeven = ({ navigation }) => {
                 booking_time: serviceProviderData.booking_time,
                 booking_date: serviceProviderData.booking_date,
             };
-            console.log('params', params)
             const { data } = await apiCall("POST", ENDPOINTS.SERVICE_BOOKING, params);
             if (data.status == 200) {
                 setVisibleSuccess(true);
@@ -54,7 +53,6 @@ const StepSeven = ({ navigation }) => {
                 setErrorMessage(data.message);
                 setVisibleErr(true);
             }
-            // console.log('paraghdfgfdfdfdfdfms', params)
             // navigation.navigate('StepEight');
         } catch (error) {
             setVisible(false);
