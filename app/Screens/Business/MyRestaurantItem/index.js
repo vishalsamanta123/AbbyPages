@@ -48,7 +48,6 @@ const MyRestaurantItemView = ({ navigation }) => {
             }
             const { data } = await apiCall
                 ('POST', ENDPOINTS.GET_CATEGORY_LIST, params);
-            // console.log('data',data)
             if (data.status === 200) {
                 // setCategoryId(data.data[0].business_item_category_id)
                 getItemListFun(type)

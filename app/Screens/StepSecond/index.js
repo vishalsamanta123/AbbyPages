@@ -110,7 +110,6 @@ const StepSecond = ({ navigation, route }) => {
                         setVisible(false);
                         setQueAnsData(data.data);
                     }
-                    console.log('serviceProviderQueAnsData', serviceProviderQueAnsData)
                 } else {
                     setErrorMessage(data.message);
                     setVisibleErr(true);

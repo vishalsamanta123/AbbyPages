@@ -39,7 +39,6 @@ const OrderDetail = ({ route, props, navigation }) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
             if (data.status === 200) {
-                console.log('getOrderDetailsFun: ', data);
                 setProductData(data.data)
                 setVisible(false);
             } else {

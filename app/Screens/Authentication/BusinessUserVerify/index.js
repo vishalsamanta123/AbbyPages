@@ -29,11 +29,9 @@ const BusinessUserVerify = ({ route, navigation }) => {
       };
       try {
         const { data } = await apiCall("POST", ENDPOINTS.USER_VERIFY, params);
-        console.log('dataOTP: ', data);
         if (data.status === 200) {
           await AsyncStorage.setItem("localuserdata", JSON.stringify(data));
           setVisible(false);
-          console.log(data);
           setUserData(data.data);
           navigation.navigate("Goals");
           // signIn()
@@ -48,7 +46,7 @@ const BusinessUserVerify = ({ route, navigation }) => {
         setVisible(false);
       }
     } else {
-      setErrorMessage("please enter otp");
+      setErrorMessage("Please enter otp");
       setVisibleErr(true);
       setVisible(false);
     }

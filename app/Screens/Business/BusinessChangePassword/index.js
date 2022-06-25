@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import BusinessChangePassword from './components/BusinessChangePassword';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import { View } from 'react-native';
@@ -64,9 +62,6 @@ const BusinessChangePasswordView = ({ navigation }) => {
         };
         return true;
     }
-
-
-
 
     function goback() {
         navigation.goBack(null)

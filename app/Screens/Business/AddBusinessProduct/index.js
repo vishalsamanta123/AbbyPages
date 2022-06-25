@@ -4,17 +4,15 @@ import AddBusinessProductScreen from './components/AddBusinessProductScreen';
 import CommonStyles from '../../../Utils/CommonStyles';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import ImagePicker from 'react-native-image-crop-picker';
-import ImageResizer from 'react-native-image-resizer';
-
 import {
-    apiCall, setDefaultHeader
+    apiCall
 } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
-import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
+import { useFocusEffect } from '@react-navigation/native';
+import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 
 const AddBusinessProduct = ({ route, navigation }) => {
     const type = route.params ? route.params.type : null
@@ -106,17 +104,14 @@ const AddBusinessProduct = ({ route, navigation }) => {
         if (productId) {
             try {
                 setVisible(true)
-                const params = {
-                    product_id: productId,
-                }
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
+                const params = { product_id: productId }
+                const { data } = await apiCall ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
                 if (data.status === 200) {
                     setProductName(data.data.product_name)
                     setProductPrice(data.data.price)
                     setProductDiscount(data.data.discount)
                     setProductQuanlity(data.data.quantity)
-                    setProductSize(data.data.product_size)
+                    setSelectedSize(data.data.product_size)
                     setProductFinalPrice(data.data.final_price)
                     setProductDescription(data.data.description)
                     setProductColor(data.data.product_color)
@@ -139,8 +134,6 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 setVisible(false);
             };
         }
-
-
     }
     const onPressSave = async () => {
         const valid = validationFrom();
@@ -171,12 +164,11 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 formdata.append("discount", productDiscount)
                 formdata.append("final_price", productFinalPrice)
                 formdata.append("description", productDescription)
-                formdata.append("product_size", productSize)
+                formdata.append("product_size", selectedSize)
                 formdata.append("product_color", productColor)
                 formdata.append("product_weight", productWeight)
                 formdata.append("company_brand", productBrand)
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
+                const { data } = await apiCall ('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
                 if (data.status === 200) {
                     // navigation.navigate('MyRestaurantItem')
                     navigation.navigate('MyProductList')
@@ -237,7 +229,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
             setVisibleErr(true);
             return false;
         }
-        if (productSize == undefined) {
+        if (selectedSize == undefined) {
             setErrorMessage('Please select product size');
             setVisibleErr(true);
             return false;

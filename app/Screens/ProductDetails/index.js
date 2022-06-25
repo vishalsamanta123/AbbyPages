@@ -87,7 +87,6 @@ const ProductDetails = ({ navigation, route }) => {
                 }
                 const { data } = await apiCall('POST', ENDPOINTS.PRODUCT_REVIEW, params)
                 if (data.status == 200) {
-                    console.log('data', data);
                     handleProductDetail(productDetail);
                     setReviewData({
                         description: "", title: ""

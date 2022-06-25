@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Image,
@@ -11,7 +11,7 @@ import {
 import styles from './styles';
 import Header from '../../../../Components/Header';
 import CommonStyles from '../../../../Utils/CommonStyles';
-import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../../Utils/Constant';
+import { WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 const JobManagementList = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -28,14 +28,14 @@ const JobManagementList = (props) => {
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <View style={styles.PlusView}>
-                    <Text style={styles.JobDscrptn}>Job Description</Text>
+                    <Text style={styles.JobDscrptn}>Job Description hh</Text>
                     <TouchableOpacity onPress={() => props.onPressAdd()}  >
                         <Image style={styles.PlusImge} source={require('../../../../Assets/qty_minus_icon3.png')} />
                     </TouchableOpacity>
                 </View>
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
-                    data={props.tableData}
+                    data={props?.tableData}
                     renderItem={({ item, index }) => props._handleTableData(item, index)
                     }
                 />

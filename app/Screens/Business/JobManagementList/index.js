@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+    Text,
     View,
     Image,
-    Text,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
-import JobManagementList from './components/JobManagementList';
 import styles from './components/styles';
+import JobManagementList from './components/JobManagementList';
+import { apiCall } from '../../../Utils/httpClient';
+import ENDPOINTS from '../../../Utils/apiEndPoints';
+import Loader from '../../../Utils/Loader';
+import CommonStyles from '../../../Utils/CommonStyles';
+
 const JobManagementListView = ({ navigation }) => {
+    const [visible, setVisible] = useState(false);
+    const [businessList, setBusinessList] = useState('');
     const [tableData, setTableData] = useState([
         {
             id: '0'
@@ -19,6 +26,24 @@ const JobManagementListView = ({ navigation }) => {
             id: '2'
         }
     ])
+    useEffect(() => {
+        getBussinessJobList();
+    }, [])
+    const getBussinessJobList = async () => {
+        // setVisible(true)
+        try {
+            const params = {
+                business_type: '2'
+            }
+            const response = await apiCall('POST', ENDPOINTS.BUSINESS_LIST,params)
+            if (response.status === 200) {
+                setBusinessList(response.data.data)
+            }
+        }
+        catch (error) {
+            console.log('error: ', error);
+        }
+    }
     const _handleTableData = () => {
         return (
             <View style={styles.MainContain}>
@@ -48,13 +73,15 @@ const JobManagementListView = ({ navigation }) => {
         navigation.navigate('AddJobs')
     }
     return (
-        <JobManagementList
-            _handleTableData={_handleTableData}
-            tableData={tableData}
-            onPressAdd={onPressAdd}
-
-
-        />
+        <View style={CommonStyles.container}>
+            {visible && <Loader state={visible} />}
+            <JobManagementList
+                _handleTableData={_handleTableData}
+                tableData={tableData}
+                onPressAdd={onPressAdd}
+                businessList={businessList}
+            />
+        </View>
     )
 }
 export default JobManagementListView;
