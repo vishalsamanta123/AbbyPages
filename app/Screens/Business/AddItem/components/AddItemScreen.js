@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Picker, ImageBackground } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, Picker, Modal, FlatList } from 'react-native';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../Components/Button';
@@ -47,19 +47,15 @@ const AddItemScreen = (props) => {
                         InputType="withScroll"
                         keyboardType={'phone-pad'}
                     />
-                    <View style={{ marginTop: 8, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ paddingTop: 8, paddingLeft: 15, height: 70, borderRadius: 10, borderWidth: 1, borderColor: '#d8d8d8', width: '90%', }}>
-                            <Picker style={styles.pickerStyle}
-                                selectedValue={props.itemType}
-                                onValueChange={(itemValue, itemPosition) =>
-                                    props.setItemType(itemValue)}
-                            >
-                                <Picker.Item label="Item Type" value="" />
-                                <Picker.Item label="Veg" value="1" />
-                                <Picker.Item label="Non-Veg" value="0" />
-                            </Picker>
-                        </View>
+                    <View style={styles.selectvwe}>
+                        <TouchableOpacity onPress={() => props.setMenuTypeVisible()}
+                            style={styles.tchvwe}>
+                            <Text style={styles.slctdtxt}>
+                                {props?.itemType ? props?.itemType : "Item Type I have Added"}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
+
                     <TouchableOpacity onPress={() => props.onPressProfileImage()} style={{ marginTop: 15, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ height: 70, borderRadius: 10, borderWidth: 1, borderColor: '#d8d8d8', width: '90%', alignItems: 'center', flexDirection: 'row' }}>
                             <Text style={{ paddingLeft: 25, fontSize: 17 }}>Item Image</Text>
@@ -135,8 +131,37 @@ const AddItemScreen = (props) => {
                         style={{ marginBottom: 15, marginTop: 10 }}
                     />
                 </ScrollView>
-            </View>
-        </View>
+            </View >
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={props.menuTypeVisible}
+                onRequestClose={() => {
+                    props.setMenuTypeVisible(!props.menuTypeVisible);
+                }}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.centeredView}>
+                    <View style={styles.alertBackground}>
+                        <View style={styles.selectyoursize}>
+                            <Text style={styles.sizeslct}>Select your size</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={styles.cancelvwe}
+                            underlayColor={"#F5F5F5"}
+                            onPress={() => props.setMenuTypeVisible(false)}>
+                            <Image style={styles.closeicon}
+                                source={require('../../../../Assets/cancelModalBtn.png')}
+                            />
+                        </TouchableOpacity>
+                        <FlatList
+                            data={props.staticContentData}
+                            renderItem={(item) => props.renderStaticContentData(item)}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </Modal>
+        </View >
     );
 };
 export default AddItemScreen;
