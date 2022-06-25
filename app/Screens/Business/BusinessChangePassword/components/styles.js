@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     },
     LinearGradient: {
         bottom: 0,
-        padding: 25,
         height: 60,
         width: '90%',
         alignSelf: "center",
