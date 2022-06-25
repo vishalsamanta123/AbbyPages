@@ -22,7 +22,6 @@ import moment from "moment";
 
 const JobListScreen = (props) => {
   const _renderJobList = (item, index) => {
-  console.log('item: ', item);
     return (
       <TouchableOpacity
         onPress={() => props.onPressJob(item)}
@@ -172,6 +171,9 @@ const JobListScreen = (props) => {
                   </Text>
                 </View>
               );
+            }}
+            onEndReached={() => {
+              !props.stopOffset ? props.handlejobsList(props.offset + 1) : null;
             }}
           />
         </View>

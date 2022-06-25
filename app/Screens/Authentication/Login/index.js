@@ -124,13 +124,13 @@ const SignInView = ({ navigation }) => {
           device_token: fcmToken,
         };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
-        console.log('data:LOGIN ', data.data);
+        console.log('data:LOGIN ', data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
             setUserData(data.data);
             try {
-              await AsyncStorage.setItem("localuserdata", JSON.stringify(data));
+              await AsyncStorage.setItem("localuserdata", JSON.stringify(data.data));
             } catch (e) {
               setVisible(false);
               setErrorMessage(e);

@@ -47,7 +47,7 @@ const AddItemScreen = (props) => {
                         InputType="withScroll"
                         keyboardType={'phone-pad'}
                     />
-                    <View style={styles.selectvwe}>
+                      <View style={styles.selectvwe}>
                         <TouchableOpacity onPress={() => props.setMenuTypeVisible()}
                             style={styles.tchvwe}>
                             <Text style={styles.slctdtxt}>

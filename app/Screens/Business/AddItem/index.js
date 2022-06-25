@@ -88,6 +88,7 @@ const AddItem = ({ route, props, navigation }) => {
                 formdata.append("item_image", SelectImgUri)
                 formdata.append("business_type", '1')
                 formdata.append("business_item_category_id", CategoryId)
+                const { data } = await apiCall ('POST', ENDPOINTS.ADD_ITEMS, formdata);
                 console.log('formdata: ', formdata);
                 const { data } = await apiCall
                 console.log('data: ', data);

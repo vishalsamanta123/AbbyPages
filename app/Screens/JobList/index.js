@@ -11,7 +11,7 @@ import _ from "lodash";
 
 const JobList = ({ navigation }) => {
   useEffect(() => {
-    handlejobsList();
+    handlejobsList(0);
   }, []);
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -20,6 +20,8 @@ const JobList = ({ navigation }) => {
   const [search, setSearch] = useState(false);
   const [like, setLike] = useState(false);
   const [jobList, setJobList] = useState();
+  const [stopOffset, setstopOffset] = useState(false);
+  const [offset, setoffset] = useState(0);
   const goBack = () => {
     navigation.goBack(null);
   };
@@ -33,9 +35,10 @@ const JobList = ({ navigation }) => {
     // like == index ? setLike(null) : setLike(index);
     alert("Coming Soon");
   };
-  const handlejobsList = async () => {
+  const handlejobsList = async (offSet) => {
+    setoffset(offSet);
     const params = {
-      offset: 0,
+      offset: offSet,
     };
     try {
       setLoader(true);
@@ -44,15 +47,20 @@ const JobList = ({ navigation }) => {
         setJobList(data.data);
         setLoader(false);
       } else {
+        setErrorMessage(data.message);
+        setstopOffset(true);
+        setVisibleErr(true);
         setJobList([]);
         setLoader(false);
       }
     } catch (error) {
+      setVisibleErr(true);
+      setErrorMessage(error.toString());
       setLoader(false);
     }
   };
   const onPressJob = (item) => {
-    navigation.navigate("JobDetails", { detail: item });
+    navigation.navigate("JobDetails", { detail: item.job_id });
   };
   const searchJob = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();
@@ -62,7 +70,7 @@ const JobList = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handlejobsList();
+      handlejobsList(0);
       setVisible(false);
     } else {
       setJobList(list);
@@ -82,6 +90,9 @@ const JobList = ({ navigation }) => {
         search={search}
         setSearch={setSearch}
         searchJob={searchJob}
+        handlejobsList={handlejobsList}
+        stopOffset={stopOffset}
+        offset={offset}
       />
       <FilterPopUp
         visible={visible}
