@@ -1,6 +1,10 @@
 import React, { Fragment } from "react";
 import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { YELLOW_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
+import {
+  YELLOW_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  FONT_FAMILY_REGULAR,
+} from "../../Utils/Constant";
 const Button = (props) => {
   const {
     style,
@@ -16,7 +20,8 @@ const Button = (props) => {
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={onPress}
-        style={[button, style]}>
+        style={[button, style]}
+      >
         {buttonText == "Continue with Facebook" ? (
           <Image
             style={{ width: 30, height: 30, right: 8 }}

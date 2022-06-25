@@ -359,7 +359,7 @@ function BusinessStack() {
 }
 function AppStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DashBoard'}>
       {/* <Stack.Screen name="BusinessOrderHistory" component={BusinessOrderHistoryScreen} /> */}
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} />

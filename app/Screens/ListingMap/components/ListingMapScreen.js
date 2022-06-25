@@ -29,7 +29,7 @@ const ListingMapScreen = (props) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={props.initialRegion}
       >
-        {props.businessDataList.map((item) => (
+        {props?.businessDataList?.map((item) => (
           <Marker
             // image={require('../../../Assets/abby_pages_map_icon.png')}
             title={

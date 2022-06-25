@@ -4,7 +4,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { apiCall } from "../../../Utils/httpClient";
 import ApplyJob from "./components/ApplyJob";
 import DocumentPicker from "react-native-document-picker";
-import { Picker } from "@react-native-community/picker";
+
 const ApplyJobView = ({ navigation, route }) => {
   const [FullName, setFullName] = useState("");
   const [EmailAddress, setEmailAddress] = useState("");
@@ -18,9 +18,14 @@ const ApplyJobView = ({ navigation, route }) => {
   const [AdditionalInfo, setAdditionalInfo] = useState("");
   const [Phone, setPhone] = useState("");
   const [resume, setResume] = useState("");
+  console.log('resume: ', resume);
   const [coverLetter, setCoverLetter] = useState("");
+  console.log('coverLetter: ', coverLetter);
   const [YesOption, setYesOption] = useState(false);
   const [NoOption, setNoOption] = useState(false);
+  const [gender, setGender] = useState("");
+  const [race, setRace] = useState("");
+  const [veteranStatus, setVeteranStatus] = useState("");
 
   const onPressYesBtn = () => {
     setYesOption(!YesOption);
@@ -29,8 +34,9 @@ const ApplyJobView = ({ navigation, route }) => {
     setNoOption(!NoOption);
   };
   const openUpload = async (resq) => {
-    const res = await DocumentPicker.pick({
-      type: [DocumentPicker.types.allFiles],
+    DocumentPicker.pick({
+      presentationStyle: 'fullScreen',
+      type: DocumentPicker.types.pdf,
     }).then((pdf) => {
       pdf.map((pdfFile) => {
         if (resq == 1) {
@@ -61,13 +67,47 @@ const ApplyJobView = ({ navigation, route }) => {
         you_legally_authorized_to_work_status: 1,
         future_require_sponsorship_for_employment_visa: 1,
         additional_information: AdditionalInfo,
-        gender: "Male",
-        race: "",
-        veteran_status: userData.verified,
-        resume: "",
-        cover_letter: "",
+        gender: gender,
+        race: race,
+        veteran_status: veteranStatus,
+        resume: resume?.name,
+        cover_letter: coverLetter?.name,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, params);
+      let formData = new FormData();
+      formData.append("job_id", details.job_id);
+      formData.append("business_id", details.business_id);
+      formData.append("user_name", FullName);
+      formData.append("email", EmailAddress);
+      formData.append("phone", Phone);
+      formData.append("current_companyinfo", CurrentCompany);
+      formData.append("abbypages_profile_url", AbbyPagesURL);
+      formData.append("linkedin_url", Linkedin);
+      formData.append("twitter_url", TwitterUrl);
+      formData.append("github_url", GithubUrl);
+      formData.append("github_url", GithubUrl);
+      formData.append("portfolio_url", PortfolioUrl);
+      formData.append("other_website", OtherWebsite);
+      formData.append("you_legally_authorized_to_work_status", 1);
+      formData.append("future_require_sponsorship_for_employment_visa", 1);
+      formData.append("additional_information", AdditionalInfo);
+      formData.append("gender", gender);
+      formData.append("race", race);
+      formData.append("veteran_status", veteranStatus);
+      resume.name &&
+        formData.append("resume", {
+          name: resume.name,
+          type: resume.type,
+          uri: resume.uri,
+        });
+      coverLetter.name &&
+        formData.append("cover_letter", {
+          name: coverLetter.name,
+          type: coverLetter.type,
+          uri: coverLetter.uri,
+        });
+      console.log("formData: ", formData);
+      const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, formData);
+      console.log("data: ", data);
     } catch (error) {
       console.log("error: ", error);
     }
@@ -104,6 +144,12 @@ const ApplyJobView = ({ navigation, route }) => {
       openUpload={openUpload}
       resume={resume}
       coverLetter={coverLetter}
+      gender={gender}
+      setGender={setGender}
+      race={race}
+      setRace={setRace}
+      veteranStatus={veteranStatus}
+      setVeteranStatus={setVeteranStatus}
     />
   );
 };

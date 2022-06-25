@@ -22,7 +22,6 @@ const ServiceProviderListingView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
   const [serviceData, setserviceData] = useState([]);
   useEffect(() => {
     handleServiceList();
@@ -34,6 +33,7 @@ const ServiceProviderListingView = ({ navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+      console.log("data", data);
       if (data.status === 200) {
         setserviceData(data.data);
         setVisible(false);
@@ -71,14 +71,9 @@ const ServiceProviderListingView = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() => onPressServices(item)}
-        style={{
-          paddingHorizontal: 10,
-          alignSelf: "center",
-          flexDirection: "row",
-          marginVertical: 5,
-        }}
+        style={styles.MainConatiner}
       >
-        <View style={{ flex: 1 }}>
+        <View>
           <Image
             style={styles.MainImgeStyle}
             resizeMode="contain"
@@ -167,7 +162,6 @@ const ServiceProviderListingView = ({ navigation }) => {
     });
   };
   const searchService = (searchKey) => {
-    console.log("searchKey", searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...serviceData];
     const list = _.filter(searchArray, (item) => {
@@ -177,13 +171,13 @@ const ServiceProviderListingView = ({ navigation }) => {
       setVisible(true);
       handleServiceList();
       setVisible(false);
+    } else {
+      setserviceData(list);
     }
-    setserviceData(list);
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-
       <ServiceProviderListing
         searchService={searchService}
         serviceData={serviceData}

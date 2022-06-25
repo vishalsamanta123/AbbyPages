@@ -5,7 +5,7 @@ import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
-import AsyncStorage from "@react-native-community/async-storage";
+
 const JobDetails = ({ route, navigation }) => {
   const [details, setDetails] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -15,11 +15,12 @@ const JobDetails = ({ route, navigation }) => {
   const jobDetails = async () => {
     const { detail } = route.params;
     const params = {
-      job_id: detail,
+      job_id: 16,
     };
     try {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
+      console.log('data: ', data);
       if (data.status === 200) {
         setDetails(data.data);
         setVisible(false);
