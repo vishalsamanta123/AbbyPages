@@ -96,7 +96,6 @@ const ShowMenuView = ({ route, navigation }) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.BUSINESS_ITEM_LIST, params);
             if (data.status === 200) {
-                console.log('data', data)
                 setRestroItemParentList(data.data)//use like a parent for filter
                 setRestroItemList(data.data);
                 setVisible(false);
@@ -189,7 +188,6 @@ const ShowMenuView = ({ route, navigation }) => {
             if (cartData.length > 0) {
                 var getIndex = _.findIndex(cartData, { item_id: item.item_id })
                 if (getIndex >= 0) {
-                    // console.log("getIndex", JSON.stringify(cartData[getIndex]))
                     cartData[getIndex].quantity = cartData[getIndex].quantity + 1;
                     cartData[getIndex].total_item_price = cartData[getIndex].price * value;
                     const FinalAmount = (cartData.reduce((accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price, 0))
@@ -217,8 +215,6 @@ const ShowMenuView = ({ route, navigation }) => {
         const selected_row = setaddbtn.length > 0 ?
             setaddbtn.item_id === item.Item_id ? true : false
             : false
-        // console.log('cartData', ...cartData)
-        // console.log('selected_row', selected_row)
         return (
             <View key={index} style={styles.ConatinView}>
                 <Image style={styles.DishImgeStyle} source={{ uri: item.item_image }} />

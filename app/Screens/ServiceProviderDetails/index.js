@@ -196,7 +196,6 @@ const ServiceProviderDetails = ({ navigation, route }) => {
             const params = reviewData;
             params.business_rating = businessReviewRating;
             params.business_id = serviceDetail.business_id;
-            console.log('params', params)
             try {
                 const { data } = await apiCall
                     ('POST', ENDPOINTS.POST_REVIEW, params);

@@ -29,7 +29,6 @@ const ApplyJobView = ({ navigation, route }) => {
     setNoOption(!NoOption);
   };
   const openUpload = async (resq) => {
-    console.log("resq: ", resq);
     const res = await DocumentPicker.pick({
       type: [DocumentPicker.types.allFiles],
     }).then((pdf) => {
@@ -69,7 +68,6 @@ const ApplyJobView = ({ navigation, route }) => {
         cover_letter: "",
       };
       const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, params);
-      console.log("data: ", data);
     } catch (error) {
       console.log("error: ", error);
     }

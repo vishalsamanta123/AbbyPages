@@ -62,11 +62,9 @@ const DashBoardView = ({ navigation }) => {
                 category_id: businessCategory.id,
                 businessCategoryName: businessCategory.category_name
             }
-            console.log('businessCategory', businessCategory)
             const { data } = await apiCall
                 ('POST', ENDPOINTS.NEARBY_BUSINESS_SEARCH, params);
             if (data.status == 200) {
-                console.log('data', data)
                 if (businessCategory.business_type === 1) {
                     navigation.navigate('Listings', { NEARBY_BUSINESS_SEARCH: data })
                     setVisible(false);

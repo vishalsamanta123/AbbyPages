@@ -58,7 +58,6 @@ const BusinessProfileView = ({ navigation }) => {
         setVisible(true)
         const { data } = await apiCall
             ('POST', ENDPOINTS.GET_USER_PROFILE);
-        // console.log('data',data)
         if (data.status === 200) {
             setProfileData(data.data)
             setLocItemImage(data.business_logo + data.data.logo)
@@ -191,8 +190,6 @@ const BusinessProfileView = ({ navigation }) => {
         navigation.navigate('OpeningHours')
     }
     const AddEditBusinessCategoryFun = () => {
-        alert('red')
-        console.log('red')
         navigation.navigate('AddEditBusinessCategory', { businessCategory: profileData.business_category })
     }
     return (

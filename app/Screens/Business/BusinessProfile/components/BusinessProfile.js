@@ -55,7 +55,7 @@ const BusinessInformation = (props) => {
                             ])}
                             scrollEventThrottle={1}
                         >
-                            {props.profileData ? props.profileData.business_imgae.map((item, imageIndex) => {
+                            {props?.profileData ? props?.profileData?.business_imgae?.map((item, imageIndex) => {
                                 return (
                                     <View style={{ width: windowWidth, height: '100%' }}
                                         key={imageIndex}>
@@ -73,7 +73,7 @@ const BusinessInformation = (props) => {
                             }
                         </ScrollView>
                         <View style={styles.bussinessimg}>
-                            {props.profileData ? props.profileData.business_imgae.map((image, imageIndex) => {
+                            {props?.profileData ? props?.profileData?.business_imgae?.map((image, imageIndex) => {
                                 const width = scrollX.interpolate({
                                     inputRange: [
                                         windowWidth * (imageIndex - 1),

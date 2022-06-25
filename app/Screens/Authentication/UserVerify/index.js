@@ -34,7 +34,6 @@ const UserVerify = ({ route, navigation }) => {
                     ('POST', ENDPOINTS.USER_VERIFY, params);
                 if (data.status === 200) {
                     setVisible(false)
-                    console.log(data)
                     setUserData(data.data)
                     await AsyncStorage.setItem('localuserdata', JSON.stringify(data))
                     signIn()
@@ -86,7 +85,6 @@ const UserVerify = ({ route, navigation }) => {
     }
     return (
         <View style={{ flex: 1 }}>
-            {/* {console.log('navigation ==>', email)} */}
             {visible && <Loader state={visible} />}
             <UserVerifyScreen
                 // otp={otp}

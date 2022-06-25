@@ -11,7 +11,6 @@ import Error from '../../../../Components/Modal/error';
 import Success from '../../../../Components/Modal/success';
 import moment from 'moment'
 const TableBookingDetails = (route, props) => {
-    console.log('route: ', route);
     const orderId = route.route.params.orderId;
     const BusinessType = route.route.params.BusinessType;
     const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -37,7 +36,6 @@ const TableBookingDetails = (route, props) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.GET_ORDER_DETAILS, params);
             if (data.status === 200) {
-                console.log('getOrderDetailsFun: ', data);
                 setorderData(data.data)
                 setVisible(false);
             } else {

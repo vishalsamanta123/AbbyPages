@@ -161,7 +161,6 @@ const NotificationSettingsView = ({ navigation }) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.CHECK_NUMBER_FOR_NOTIFICATION, params);
             if (data.status === 200) {
-                console.log('phone no check in database', data);
                 await auth().signInWithPhoneNumber(SelectedCode + params.mobile_number).
                     then(abc => {
                         setConfirm(abc);
@@ -336,7 +335,6 @@ const NotificationSettingsView = ({ navigation }) => {
                 waitlist_updates: waitlist_updates == 1 ? 1 : 0
             }
             apiCallUpdateNotification(params)
-            // console.log('params', params)
         } catch (error) {
             setErrorMessage(error);
             setVisibleErr(true);

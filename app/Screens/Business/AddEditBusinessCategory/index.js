@@ -41,7 +41,6 @@ const AddCategory = ({ navigation, route }) => {
                 const params = {
                     'business_category': BusiCategoryList
                 }
-                console.log('params', params)
                 const { data } = await apiCall
                     ('POST', ENDPOINTS.BUSINESS_CATEGORY_UPDATE, params);
                 if (data.status === 200) {

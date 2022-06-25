@@ -110,7 +110,6 @@ const PlaceOrderView = ({ navigation }) => {
                     total_amount: totalAmount,
                     order_booking_type: 1
                 }
-                console.log('params', params)
                 const { data } = await apiCall
                     ('POST', ENDPOINTS.BUSINESS_ITEM_ORDER, params);
                 if (data.status === 200) {

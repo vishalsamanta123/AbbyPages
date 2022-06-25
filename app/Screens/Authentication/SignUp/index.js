@@ -100,9 +100,7 @@ const SignUpView = ({ navigation }) => {
       try {
         setVisible(true);
         const params = registrationData;
-        console.log("params: ", params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_UP, params);
-        console.log("dataSIGNUPP: ", data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.data.token);
           navigation.navigate("UserVerify", { email: registrationData.email });
