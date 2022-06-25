@@ -71,106 +71,197 @@ const ListingsScreenView = ({ navigation }) => {
   };
   const _handleSerivces = (item) => {
     return (
-      <TouchableOpacity
-        onPress={() => onPressRestro(item)}
-        style={styles.MainConatiner}
-      >
-        <View style={styles.InformationView}>
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            <Image
-              style={styles.MainImgeStyle}
-              resizeMode="contain"
-              source={{
-                uri: item.logo,
-              }}
-            />
-            <View style={styles.RatingContainer}>
-              <View style={styles.RatingStyles}>
-                <Text style={styles.RatingStylesTxt}>5.0</Text>
-              </View>
-              <Text numberOfLines={1} style={styles.RatingTextMain}>
-                {item.rating} ratings
-              </Text>
+      <TouchableOpacity style={styles.MainConatiner}>
+        <View>
+          <Image
+            style={styles.MainImgeStyle}
+            resizeMode="contain"
+            source={{
+              uri: item.logo,
+            }}
+          />
+          <View style={styles.RatingContainer}>
+            <View style={styles.RatingStyles}>
+              <Text style={styles.RatingStylesTxt}>5.0</Text>
+            </View>
+            <Text numberOfLines={1} style={styles.RatingTextMain}>
+              {item.rating} ratings
+            </Text>
+          </View>
+        </View>
+        <View style={styles.MainConatinerView}>
+          <View style={styles.InformationView}>
+            <View style={{ flex: 5 }}>
+              <Text style={styles.MainServiceName}>{item.business_name}</Text>
+            </View>
+            <View style={{ flex: 1, alignItems: "flex-end" }}>
+              <TouchableOpacity onPress={() => onPressLike(item)}>
+                <Image
+                  source={
+                    item.user_like === 1
+                      ? require("../../Assets/like_icon_filled.png")
+                      : require("../../Assets/like_icon_disable.png")
+                  }
+                />
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.MainConatinerView}>
-            <View style={styles.InformationView}>
-              <View style={{ flex: 5 }}>
-                <Text style={styles.MainServiceName}>{item.business_name}</Text>
-              </View>
-              <View style={{ flex: 1, alignItems: "flex-end" }}>
-                <TouchableOpacity onPress={() => onPressLike(item)}>
-                  <Image
-                    source={
-                      item.user_like === 1
-                        ? require("../../Assets/like_icon_filled.png")
-                        : require("../../Assets/like_icon_disable.png")
-                    }
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+          <Text
+            numberOfLines={2}
+            style={[styles.AddressTextStyles, { paddingRight: 5 }]}
+          >
+            {item.business_service_category}
+          </Text>
+          <View style={styles.InformationView}>
+            <Image
+              style={styles.MapImgeStyle}
+              resizeMode="contain"
+              source={require("../../Assets/map_marker_icon.png")}
+            />
             <Text
               numberOfLines={2}
-              style={[styles.AddressTextStyles, { paddingRight: 5 }]}
+              style={[styles.AddressTextStyles, { paddingRight: 10 }]}
             >
-              {item.business_service_category}
+              {item.address}
             </Text>
-            <View style={styles.InformationView}>
-              <Image
-                style={styles.MapImgeStyle}
-                resizeMode="contain"
-                source={require("../../Assets/map_marker_icon.png")}
-              />
-              <Text
-                numberOfLines={2}
-                style={[styles.AddressTextStyles, { paddingRight: 10 }]}
-              >
-                {" "}
-                {item.address}
-              </Text>
-            </View>
-            <View style={styles.InformationView}>
-              {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
-              <View style={{ flexDirection: "row" }}>
-                <View style={styles.statusVw}>
-                  <Image
-                    tintColor={YELLOW_COLOR_CODE}
-                    source={
-                      item.offers_delivery === 1
-                        ? require("../../Assets/text_check_icon.png")
-                        : require("../../Assets/cart_delete_icon.png")
-                    }
-                    style={{ marginHorizontal: 2 }}
-                  />
-                  <Text style={styles.AddressTextStyles}>Delievery</Text>
-                </View>
-                <View style={styles.statusVw}>
-                  <Image
-                    tintColor={YELLOW_COLOR_CODE}
-                    source={
-                      item.offers_takeout === 1
-                        ? require("../../Assets/text_check_icon.png")
-                        : require("../../Assets/cart_delete_icon.png")
-                    }
-                    style={{ marginHorizontal: 2 }}
-                  />
-                  <Text style={styles.AddressTextStyles}>Takeout</Text>
-                </View>
+          </View>
+          <View style={styles.InformationView}>
+            {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.statusVw}>
+                <Image
+                  tintColor={YELLOW_COLOR_CODE}
+                  source={
+                    item.offers_delivery === 1
+                      ? require("../../Assets/text_check_icon.png")
+                      : require("../../Assets/cart_delete_icon.png")
+                  }
+                  style={{ marginHorizontal: 2 }}
+                />
+                <Text style={styles.AddressTextStyles}>Delievery</Text>
+              </View>
+              <View style={styles.statusVw}>
+                <Image
+                  tintColor={YELLOW_COLOR_CODE}
+                  source={
+                    item.offers_takeout === 1
+                      ? require("../../Assets/text_check_icon.png")
+                      : require("../../Assets/cart_delete_icon.png")
+                  }
+                  style={{ marginHorizontal: 2 }}
+                />
+                <Text style={styles.AddressTextStyles}>Takeout</Text>
               </View>
             </View>
-            <View style={styles.InformationView}>
-              <Image
-                style={{}}
-                source={require("../../Assets/fire_icon.png")}
-              />
-              <Text style={styles.AddressTextStyles}>
-                {moment(item.create_date).startOf("hour").fromNow()}
-              </Text>
-            </View>
+          </View>
+          <View style={styles.InformationView}>
+            <Image style={{}} source={require("../../Assets/fire_icon.png")} />
+            <Text style={styles.AddressTextStyles}>
+              {moment(item.create_date).startOf("hour").fromNow()}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
+      // <TouchableOpacity
+      //   onPress={() => onPressRestro(item)}
+      //   style={styles.MainConatiner}
+      // >
+      //   <View style={styles.InformationView}>
+      //     <View style={{ flex: 1, justifyContent: "center" }}>
+      //       <Image
+      //         style={styles.MainImgeStyle}
+      //         resizeMode="contain"
+      //         source={{
+      //           uri: item.logo,
+      //         }}
+      //       />
+      //       <View style={styles.RatingContainer}>
+      //         <View style={styles.RatingStyles}>
+      //           <Text style={styles.RatingStylesTxt}>5.0</Text>
+      //         </View>
+      //         <Text numberOfLines={1} style={styles.RatingTextMain}>
+      //           {item.rating} ratings
+      //         </Text>
+      //       </View>
+      //     </View>
+      //     <View style={styles.MainConatinerView}>
+      //       <View style={styles.InformationView}>
+      //         <View style={{ flex: 5 }}>
+      //           <Text style={styles.MainServiceName}>{item.business_name}</Text>
+      //         </View>
+      //         <View style={{ flex: 1, alignItems: "flex-end" }}>
+      //           <TouchableOpacity onPress={() => onPressLike(item)}>
+      //             <Image
+      //               source={
+      //                 item.user_like === 1
+      //                   ? require("../../Assets/like_icon_filled.png")
+      //                   : require("../../Assets/like_icon_disable.png")
+      //               }
+      //             />
+      //           </TouchableOpacity>
+      //         </View>
+      //       </View>
+      //       <Text
+      //         numberOfLines={2}
+      //         style={[styles.AddressTextStyles, { paddingRight: 5 }]}
+      //       >
+      //         {item.business_service_category}
+      //       </Text>
+      //       <View style={styles.InformationView}>
+      //         <Image
+      //           style={styles.MapImgeStyle}
+      //           resizeMode="contain"
+      //           source={require("../../Assets/map_marker_icon.png")}
+      //         />
+      //         <Text
+      //           numberOfLines={2}
+      //           style={[styles.AddressTextStyles, { paddingRight: 10 }]}
+      //         >
+      //           {" "}
+      //           {item.address}
+      //         </Text>
+      //       </View>
+      //       <View style={styles.InformationView}>
+      //         {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
+      //         <View style={{ flexDirection: "row" }}>
+      //           <View style={styles.statusVw}>
+      //             <Image
+      //               tintColor={YELLOW_COLOR_CODE}
+      //               source={
+      //                 item.offers_delivery === 1
+      //                   ? require("../../Assets/text_check_icon.png")
+      //                   : require("../../Assets/cart_delete_icon.png")
+      //               }
+      //               style={{ marginHorizontal: 2 }}
+      //             />
+      //             <Text style={styles.AddressTextStyles}>Delievery</Text>
+      //           </View>
+      //           <View style={styles.statusVw}>
+      //             <Image
+      //               tintColor={YELLOW_COLOR_CODE}
+      //               source={
+      //                 item.offers_takeout === 1
+      //                   ? require("../../Assets/text_check_icon.png")
+      //                   : require("../../Assets/cart_delete_icon.png")
+      //               }
+      //               style={{ marginHorizontal: 2 }}
+      //             />
+      //             <Text style={styles.AddressTextStyles}>Takeout</Text>
+      //           </View>
+      //         </View>
+      //       </View>
+      //       <View style={styles.InformationView}>
+      //         <Image
+      //           style={{}}
+      //           source={require("../../Assets/fire_icon.png")}
+      //         />
+      //         <Text style={styles.AddressTextStyles}>
+      //           {moment(item.create_date).startOf("hour").fromNow()}
+      //         </Text>
+      //       </View>
+      //     </View>
+      //   </View>
+      // </TouchableOpacity>
     );
   };
   const onPressMap = () => {
@@ -189,8 +280,8 @@ const ListingsScreenView = ({ navigation }) => {
       setVisible(true);
       handleRestroList();
       setVisible(false);
-    }else{
-    setRestroList(list);
+    } else {
+      setRestroList(list);
     }
   };
   return (

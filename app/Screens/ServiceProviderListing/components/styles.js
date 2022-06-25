@@ -7,8 +7,10 @@ import {
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainConatiner: {
-    paddingTop: 10,
-    paddingLeft: 15,
+    paddingHorizontal: 16,
+    alignSelf: "center",
+    flexDirection: "row",
+    paddingVertical: 10,
   },
   MainImgeStyle: {
     width: 100,

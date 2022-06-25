@@ -7,23 +7,21 @@ import {
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainConatiner: {
-    paddingTop: 10,
-    paddingLeft: 15,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
   },
   MainImgeStyle: {
     width: 110,
     height: 110,
     borderRadius: 15,
-    // backgroundColor: "red",
     borderWidth: 0.2,
     borderColor: "grey",
     marginBottom: 5,
   },
   MainConatinerView: {
-    paddingLeft: 10,
-    // paddingRight: 10,
-    // width: "56%",
-    flex: 2,
+    flex: 1,
     paddingHorizontal: 10,
   },
   MainServiceName: {
@@ -39,6 +37,7 @@ const Styles = StyleSheet.create({
   InformationView: {
     flexDirection: "row",
     alignItems: "center",
+    paddingVertical: 2,
   },
   statusVw: {
     flexDirection: "row",
@@ -47,15 +46,14 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 3,
   },
   MapImgeStyle: {
-    width: 18,
-    height: 18,
-    top: 4,
+    width: 16,
+    height: 16,
+    marginRight: 2,
   },
   AddressTextStyles: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 12,
     color: GREY_COLOR_CODE,
-    lineHeight: 25,
   },
   RatingContainer: {
     flexDirection: "row",

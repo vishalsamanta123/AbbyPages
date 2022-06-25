@@ -44,6 +44,10 @@ const JobList = ({ navigation }) => {
       setLoader(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_LIST, params);
       if (data.status === 200) {
+        data.data.forEach(function (item, i) {
+          item["latitude"] = i + 22.7196;
+          item["longitude"] = i + 75.8577;
+        });
         setJobList(data.data);
         setLoader(false);
       } else {

@@ -19,6 +19,8 @@ import {
   FONT_FAMILY_BOLD,
   LIGHT_GREY_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Picker } from "@react-native-community/picker";
+
 const ApplyJob = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -271,36 +273,62 @@ const ApplyJob = (props) => {
                 process,and has no effect on your opportunity for employment.
               </Text>
             </View>
-            <TouchableOpacity style={styles.container}>
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>Gender</Text>
-              </View>
+            <View style={styles.container}>
+              <Picker
+                selectedValue={`${props.gender}`}
+                style={styles.pickerVw}
+                onValueChange={(itemValue, itemIndex) =>
+                  props.setGender(itemValue, itemIndex)
+                }
+              >
+                <Picker.Item label="Gender" />
+                <Picker.Item label="Male" value="Male" />
+                <Picker.Item label="Female" value="Female" />
+              </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
                   source={require("../../../../Assets/dropdown_icon.png")}
                 />
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.container}>
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>Race</Text>
-              </View>
+            </View>
+            <View style={styles.container}>
+              <Picker
+                selectedValue={`${props.race}`}
+                style={styles.pickerVw}
+                onValueChange={(itemValue, itemIndex) =>
+                  props.setRace(itemValue, itemIndex)
+                }
+              >
+                <Picker.Item label="Race" />
+                <Picker.Item label="American Indian" value="1" />
+                <Picker.Item label="Indian" value="2" />
+                <Picker.Item label="African American" value="3" />
+                <Picker.Item label="African American" value="4" />
+              </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
                   source={require("../../../../Assets/dropdown_icon.png")}
                 />
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.container}>
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>Veteran Status</Text>
-              </View>
+            </View>
+            <View style={styles.container}>
+              <Picker
+                selectedValue={`${props.veteranStatus}`}
+                style={styles.pickerVw}
+                onValueChange={(itemValue, itemIndex) =>
+                  props.setVeteranStatus(itemValue, itemIndex)
+                }
+              >
+                <Picker.Item label="Veteran Status" />
+                <Picker.Item label="Yes" value="1" />
+                <Picker.Item label="No" value="2" />
+              </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
                   source={require("../../../../Assets/dropdown_icon.png")}
                 />
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
           <Button
             buttonText="Submit Application"
