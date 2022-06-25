@@ -7,19 +7,22 @@ import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
 import {
-    apiCall, setDefaultHeader
+    apiCall
 } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
+import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const AddItem = ({ route, props, navigation }) => {
-    console.log('route', route)
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
+
+    const [menuTypeVisible, setMenuTypeVisible] = useState(false);
+
 
     const CategoryId = route.params.itemData ? route.params.itemData.business_item_category_id : route.params.CategoryId
     const HedarType = route.params ? route.params.type : null
@@ -45,7 +48,31 @@ const AddItem = ({ route, props, navigation }) => {
     // const [BusinessCategoryId, setBusinessCategoryId] = useState(navigation.state.params.CategoryId)
     // alert(navigation.state.params.CategoryId)
 
-
+    const staticContentData = [
+        {
+            id: 1,
+            name: "Veg"
+        },
+        {
+            id: 2,
+            name: "Non-veg"
+        },
+    ];
+    const handleSelectedName = (item) => {
+        setItemType(item.name);
+        setMenuTypeVisible(false);
+    }
+    const renderStaticContentData = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => handleSelectedName(item)}
+                style={{ flex: 1, padding: 10 }}>
+                <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15, color: WHITE_COLOR_CODE }}>
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
     const onPressSave = async () => {
         const valid = validationFrom();
         if (valid) {
@@ -62,6 +89,10 @@ const AddItem = ({ route, props, navigation }) => {
                 formdata.append("business_type", '1')
                 formdata.append("business_item_category_id", CategoryId)
                 const { data } = await apiCall ('POST', ENDPOINTS.ADD_ITEMS, formdata);
+                console.log('formdata: ', formdata);
+                const { data } = await apiCall
+                console.log('data: ', data);
+                    ('POST', ENDPOINTS.ADD_ITEMS, formdata);
                 if (data.status === 200) {
                     navigation.navigate('MyRestaurantItem')
                     setErrorMessage(data.message);
@@ -115,11 +146,6 @@ const AddItem = ({ route, props, navigation }) => {
         return true;
     }
 
-
-
-
-
-
     const onPressProfileImage = () => {
         setCamerastate(true)
     }
@@ -132,7 +158,6 @@ const AddItem = ({ route, props, navigation }) => {
                 path: images.path,
                 freeStyleCropEnabled: true,
             }).then(image => {
-                console.log('image', image)
                 if (image.size >= 1000000) {
                     ImageResizer.createResizedImage(image.path, 800, 800, 'JPEG', 95)
                         .then(response => {
@@ -193,19 +218,9 @@ const AddItem = ({ route, props, navigation }) => {
             }
         });
     }
-
-
-
-
-
-
     const localProductImgDelete = () => {
         setSelectImgUri('')
     }
-
-
-
-
     return (
         <View style={CommonStyles.container}>
             {visible && <Loader state={visible} />}
@@ -221,14 +236,18 @@ const AddItem = ({ route, props, navigation }) => {
                 setItemDiscount={setItemDiscount}
                 itemType={itemType}
                 setItemType={setItemType}
-
                 onPressSave={onPressSave}
                 onPressProfileImage={onPressProfileImage}
+                
+                menuTypeVisible={menuTypeVisible}
+                setMenuTypeVisible={setMenuTypeVisible}
 
                 HedarType={HedarType}
                 itemImg={itemImg}
                 imgUrl={imgUrl}
                 localProductImgDelete={localProductImgDelete}
+                staticContentData={staticContentData}
+                renderStaticContentData={renderStaticContentData}
             />
             <Error
                 message={errorMessage}
