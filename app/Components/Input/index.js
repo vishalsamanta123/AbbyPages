@@ -1,48 +1,71 @@
-import React, { Fragment, useState } from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
-import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../Utils/Constant'
+import React, { Fragment, useState } from "react";
+import { View, TextInput, Text, StyleSheet } from "react-native";
+import {
+  BLACK_COLOR_CODE,
+  FONT_FAMILY_REGULAR,
+  WHITE_COLOR_CODE,
+} from "../../Utils/Constant";
 const Input = (props) => {
-  const [isFocused, setIsfocused] = useState(true)
+  const [isFocused, setIsfocused] = useState(true);
   const {
-    autoCapitalize, autoFocus, keyboardType, multiline,
-    placeholder, returnKeyType, value,
-    onChangeText, textInputStyle,
-    placeholderTextColor, containerStyle,
-    InputType, numberOfLines, maxLength, labelStyleMain,secureTextEntry
+    autoCapitalize,
+    autoFocus,
+    keyboardType,
+    multiline,
+    placeholder,
+    returnKeyType,
+    value,
+    onChangeText,
+    textInputStyle,
+    placeholderTextColor,
+    containerStyle,
+    InputType,
+    numberOfLines,
+    maxLength,
+    labelStyleMain,
+    secureTextEntry,
   } = props;
-  const {
-    container, textInput, labelStyle
-  } = style;
+  const { container, textInput, labelStyle } = style;
   const _handleFocus = () => {
-    setIsfocused(false)
-  }
+    setIsfocused(false);
+  };
   const _handleBlur = () => {
-    value === '' && setIsfocused(true);
-  }
+    value === "" && setIsfocused(true);
+  };
   const onPressEye = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
   return (
     <Fragment>
       <View style={[container, containerStyle]}>
-        {InputType === "withScroll" ?
+        {InputType === "withScroll" ? (
           <Text
-            style={[labelStyle, labelStyleMain, {
-              top: isFocused ? value === '' ? 20 : 11 : -13,
-              color: isFocused ? value === '' ? BLACK_COLOR_CODE : BLACK_COLOR_CODE : 'grey',
-              backgroundColor: isFocused ? value === '' ? null : null : WHITE_COLOR_CODE,
-              fontSize: isFocused ? value === '' ? 17 : 16 : 16,
-            }]}>
+            style={[
+              labelStyle,
+              labelStyleMain,
+              {
+                top: isFocused ? (value === "" ? 20 : 11) : -13,
+                color: isFocused
+                  ? value === ""
+                    ? BLACK_COLOR_CODE
+                    : BLACK_COLOR_CODE
+                  : "grey",
+                backgroundColor: isFocused
+                  ? value === ""
+                    ? null
+                    : null
+                  : WHITE_COLOR_CODE,
+                fontSize: isFocused ? (value === "" ? 17 : 16) : 16,
+              },
+            ]}
+          >
             {placeholder}
           </Text>
-          :
-          null
-        }
+        ) : null}
         <TextInput
           numberOfLines={numberOfLines}
           maxLength={maxLength}
           onChangeText={(text) => onChangeText(text)}
-          keyboardType="default"
           autoCapitalize={autoCapitalize}
           autoFocus={autoFocus}
           // keyboardType={"visible-password"}
@@ -54,11 +77,13 @@ const Input = (props) => {
           value={value}
           placeholderTextColor={placeholderTextColor}
           selectionColor={"#a5a5a5"}
-          style={[textInput, textInputStyle,
+          style={[
+            textInput,
+            textInputStyle,
             {
-              fontSize: isFocused ? value !== '' ? 18 : 18 : 19,
-              marginTop: InputType == null ? 9 : 19
-            }
+              fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
+              marginTop: InputType == null ? 9 : 19,
+            },
           ]}
           onFocus={_handleFocus}
           onBlur={_handleBlur}
@@ -66,7 +91,7 @@ const Input = (props) => {
       </View>
     </Fragment>
   );
-}
+};
 Input.defaultProps = {
   placeholder: "Name",
   placeholderTextColor: "#000000",
@@ -77,7 +102,7 @@ Input.defaultProps = {
 };
 const style = StyleSheet.create({
   container: {
-    borderColor: '#d8d8d8',
+    borderColor: "#d8d8d8",
     borderWidth: 1,
     // height:60,
     borderRadius: 9,
@@ -86,7 +111,7 @@ const style = StyleSheet.create({
     marginRight: 15,
   },
   labelStyle: {
-    position: 'absolute',
+    position: "absolute",
     left: 25,
     justifyContent: "center",
     fontFamily: FONT_FAMILY_REGULAR,
@@ -96,6 +121,6 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
-  }
-})
+  },
+});
 export default Input;

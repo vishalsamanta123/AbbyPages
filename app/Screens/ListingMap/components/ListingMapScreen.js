@@ -37,6 +37,8 @@ const ListingMapScreen = (props) => {
                 ? item.business_name
                 : props.business_type === 2
                 ? item.companyname
+                : props.business_type === 3
+                ? item.business_name
                 : null
             }
             coordinate={{

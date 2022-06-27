@@ -591,6 +591,7 @@ function Route() {
       setUserData(JSON.parse(userData));
     } else {
       const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
+      console.log('data: ', data);
       if (data.status === 200) {
         await setDefaultHeader("token", data.token);
       }
