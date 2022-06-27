@@ -33,7 +33,7 @@ const ServiceProviderListingView = ({ navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log("data", data);
+      console.log('dataSSS: ', data);
       if (data.status === 200) {
         setserviceData(data.data);
         setVisible(false);

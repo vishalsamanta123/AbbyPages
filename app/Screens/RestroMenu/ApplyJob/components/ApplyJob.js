@@ -75,6 +75,8 @@ const ApplyJob = (props) => {
               secureTextEntry={false}
               placeholder="Phone"
               InputType="withScroll"
+              keyboardType={"number-pad"}
+              maxLength={10}
             />
             <Input
               containerStyle={styles.TextinputContain}
@@ -140,7 +142,7 @@ const ApplyJob = (props) => {
               }
               value={props.OtherWebsite}
               secureTextEntry={false}
-              placeholder="Portfolio URL"
+              placeholder="Other Website"
               InputType="withScroll"
             />
           </View>
@@ -172,36 +174,32 @@ const ApplyJob = (props) => {
               Are you legally authorized to work in the U.S *
             </Text>
             <TouchableOpacity
-              onPress={() => props.onPressYesBtn()}
+              onPress={() => props.onPressYesBtn(1, 1)}
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                {props.YesOption ? (
-                  <Image
-                    source={require("../../../../Assets/checked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                )}
+                <Image
+                  source={
+                    props.workStatus == 1
+                      ? require("../../../../Assets/checked_circled_v1.png")
+                      : require("../../../../Assets/unchecked_circled_v1.png")
+                  }
+                />
                 <Text style={styles.AddPhotosTxt}>Yes</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.onPressNoBtn()}
+              onPress={() => props.onPressNoBtn(1, 2)}
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                {props.NoOption ? (
-                  <Image
-                    source={require("../../../../Assets/checked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                )}
+                <Image
+                  source={
+                    props.workStatus == 2
+                      ? require("../../../../Assets/checked_circled_v1.png")
+                      : require("../../../../Assets/unchecked_circled_v1.png")
+                  }
+                />
                 <Text style={styles.AddPhotosTxt}>No</Text>
               </View>
             </TouchableOpacity>
@@ -210,36 +208,32 @@ const ApplyJob = (props) => {
               visa status (e.g, H1-B visa status) *
             </Text>
             <TouchableOpacity
-              onPress={() => props.onPressYesBtn()}
+              onPress={() => props.onPressYesBtn(2, 1)}
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                {props.YesOption ? (
-                  <Image
-                    source={require("../../../../Assets/checked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                )}
+                <Image
+                  source={
+                    props.visaStatus == 1
+                      ? require("../../../../Assets/checked_circled_v1.png")
+                      : require("../../../../Assets/unchecked_circled_v1.png")
+                  }
+                />
                 <Text style={styles.AddPhotosTxt}>Yes</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.onPressNoBtn()}
+              onPress={() => props.onPressNoBtn(2, 2)}
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                {props.NoOption ? (
-                  <Image
-                    source={require("../../../../Assets/checked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                )}
+                <Image
+                  source={
+                    props.visaStatus == 2
+                      ? require("../../../../Assets/checked_circled_v1.png")
+                      : require("../../../../Assets/unchecked_circled_v1.png")
+                  }
+                />
                 <Text style={styles.AddPhotosTxt}>No</Text>
               </View>
             </TouchableOpacity>

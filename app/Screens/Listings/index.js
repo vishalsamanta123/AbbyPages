@@ -17,6 +17,7 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import { YELLOW_COLOR_CODE } from "../../Utils/Constant";
+
 const ListingsScreenView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -71,7 +72,10 @@ const ListingsScreenView = ({ navigation }) => {
   };
   const _handleSerivces = (item) => {
     return (
-      <TouchableOpacity style={styles.MainConatiner}>
+      <TouchableOpacity
+        onPress={() => onPressRestro(item)}
+        style={styles.MainConatiner}
+      >
         <View>
           <Image
             style={styles.MainImgeStyle}

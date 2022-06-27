@@ -108,10 +108,14 @@ const ServiceProviderDetailsScreen = (props) => {
             />
           </View>
           <View style={styles.centermainvwe}>
-            <View style={styles.addphotovwe}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => props.openAlbum()}
+              style={styles.addphotovwe}
+            >
               <Image source={require("../../../Assets/add_photo_icon.png")} />
               <Text style={styles.addtxt}> Add Photo </Text>
-            </View>
+            </TouchableOpacity>
             <View style={styles.addphotovwe}>
               <Image source={require("../../../Assets/share_icon.png")} />
               <Text style={styles.addtxt}> Share </Text>
@@ -271,7 +275,7 @@ const ServiceProviderDetailsScreen = (props) => {
               </View>
             </View>
           </View>
-          {props.serviceDetail.image && (
+          {props?.serviceDetail?.image && (
             <View style={styles.photoview}>
               <View style={styles.photosecview}>
                 <Text style={styles.pandvtxt}>Photos and Videos</Text>
@@ -281,7 +285,7 @@ const ServiceProviderDetailsScreen = (props) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
-                data={props.serviceDetail.image}
+                data={props?.serviceDetail?.image}
                 renderItem={({ item, index }) =>
                   props.handlePhotos(item, index)
                 }

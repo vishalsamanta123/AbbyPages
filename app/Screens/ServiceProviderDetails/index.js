@@ -17,6 +17,9 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import ImagePicker from "react-native-image-crop-picker";
+import _ from "lodash";
+
 const ServiceProviderDetails = ({ navigation, route }) => {
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewModal, setReviewModal] = useState(false);
@@ -25,6 +28,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [addImages, setAddImages] = useState();
   const [reviewData, setReviewData] = useState({
     description: "",
     title: "",
@@ -32,7 +36,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     business_type: 3,
     business_id: "",
   });
-  const [serviceDetail, setServiceDetail] = useState("");
+  const [serviceDetail, setServiceDetail] = useState([]);
   const [handleOptions, setHandleOptions] = useState([
     {
       id: "1",
@@ -46,7 +50,6 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      setServiceDetail(detail); //state
       handleServiceDetails(detail); //function
     }
   }, []);
@@ -273,11 +276,10 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     };
     try {
       const { data } = await apiCall(
-          "POST",
-          ENDPOINTS.BUSINESS_DETAILS,
-          params
-          );
-          console.log('data: ', data);
+        "POST",
+        ENDPOINTS.BUSINESS_DETAILS,
+        params
+      );
       if (data.status === 200) {
         setServiceDetail(data.data);
         setVisible(false);
@@ -297,7 +299,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         <View style={{ paddingRight: 10, paddingTop: 10 }}>
           <Image
             style={{ width: 125, height: 135, borderRadius: 10 }}
-            source={{ uri: item.image }}
+            source={{ uri: item?.image }}
           />
           <View>
             <Text>{item.userDescription}</Text>
@@ -452,7 +454,6 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       const params = reviewData;
       params.business_rating = businessReviewRating;
       params.business_id = serviceDetail.business_id;
-      console.log("params", params);
       try {
         const { data } = await apiCall("POST", ENDPOINTS.POST_REVIEW, params);
         if (data.status === 200) {
@@ -512,6 +513,40 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         .catch((err) => console.error("An error occurred", err));
     }
   }
+  const openAlbum = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      multiple: true,
+    }).then((images, index) => {
+      serviceDetail?.image.push(images);
+      if (serviceDetail?.image) {
+        serviceDetail?.image.map((item) => {
+          console.log("itemSSSSSS: ", item);
+          setServiceDetail({
+            image: item?.path,
+          });
+        });
+      }
+      // if (photos) {
+      //   console.log("photos: ", photos);
+      //   serviceDetail?.image?.forEach(function (item, i) {
+      //     item["image"] = i + photos?.path;
+      //   });
+      // }
+      // serviceDetail.image[index].image = images.path;
+      // console.log("serviceDetail: ", serviceDetail.image);
+      // carSafety[index].selectVal = select;
+      // image.map((item) => {
+      //   setServiceDetail({
+      //     ...serviceDetail,
+      //     image: image,
+      //   });
+      // });
+      // handleUploadImage(image);
+    });
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -529,6 +564,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         handleOptions={handleOptions}
         onPressQuotes={onPressQuotes}
         _handleReview={_handleReview}
+        openAlbum={openAlbum}
       />
       <Error
         message={errorMessage}

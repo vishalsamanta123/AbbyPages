@@ -166,9 +166,7 @@ const JobListScreen = (props) => {
             ListEmptyComponent={() => {
               return (
                 <View style={styles.emptyVw}>
-                  <Text style={styles.emptyTxt}>
-                    Business job not available
-                  </Text>
+                  <Text style={styles.emptyTxt}>Jobs not available</Text>
                 </View>
               );
             }}
