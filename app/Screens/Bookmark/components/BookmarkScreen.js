@@ -27,11 +27,11 @@ const BookmarkScreen = (props) => {
                 <View style={styles.ImageContainer}>
                     <Image style={styles.PosterImgeStyle} source={require('../../../Assets/extraImages/Utah-Film-Festival.jpg')} />
                     <View style={styles.UserProfileImage}>
-                        <Image style={styles.ProfileIMG} source={{uri: props.userData.data.profile_image }} />
+                        <Image style={styles.ProfileIMG} source={{uri: props?.userData?.data?.profile_image }} />
                     </View>
                     <View style={styles.ViewContain}>
                         <Text style={styles.UserNameText}>
-                            {props.userData.data.first_name + ' ' + props.userData.data.last_name }
+                            {props?.userData?.data?.first_name + ' ' + props?.userData?.data?.last_name }
                         </Text>
                         <View style={styles.FollowersView}>
                             <View style={styles.FollowersContain}>

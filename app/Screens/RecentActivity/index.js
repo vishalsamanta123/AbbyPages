@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecentActivity from './components/RecentActivity';
 import styles from './components/styles';
-import {
-    View,
-    Text,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import moment from 'moment';
 import CommonStyles from '../../Utils/CommonStyles';
 import { apiCall } from '../../Utils/httpClient';
@@ -19,15 +16,7 @@ const RecentActivityView = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false);
 
-    useEffect(() => {
-            getRecentActivityList();
-    }, []);
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getRecentActivityList();
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
+    useEffect(() => { getRecentActivityList(); }, []);
     const getRecentActivityList = async () => {
         try {
             const { data } = await apiCall('POST', ENDPOINTS.RECENT_ACTIVITY)

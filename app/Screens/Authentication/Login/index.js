@@ -6,10 +6,7 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from "react-native-fbsdk";
-import {
-  GoogleSignin,
-  statusCodes,
-} from "@react-native-community/google-signin";
+import { GoogleSignin } from "@react-native-community/google-signin";
 import Geolocation from "@react-native-community/geolocation";
 import Geocoder from "react-native-geocoding";
 import LoginScreen from "./components/LoginScreen";
@@ -123,7 +120,9 @@ const SignInView = ({ navigation }) => {
           device_type: deviceType,
           device_token: fcmToken,
         };
+        console.log('params: ', params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
+        console.log('data: ', data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
@@ -136,7 +135,7 @@ const SignInView = ({ navigation }) => {
               setVisibleErr(true);
             }
             setVisible(false);
-            signIn();
+            signIn(data.token);
           } else {
             setVisible(false);
             navigation.navigate("UserVerify", { email: data.data.email });

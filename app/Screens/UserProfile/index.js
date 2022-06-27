@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import UserProfile from './components/UserProfile';
-const UserProfileView = ({ navigation }) => {
+const UserProfileView = () => {
     const [findFriends, setFindFriends] = useState(true);
     const [bookmarks, setBookmarks] = useState(true);
     const [directMessageFromBussiness, setDirectMessageFromBussiness] = useState(true);

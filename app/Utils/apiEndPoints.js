@@ -1,6 +1,6 @@
 export default {
   GENERATE_TOKEN: "/api/tokenGenrate/jwtToken",
-  USER_SIGN_UP: "/api/userAuth/userSignup", //not working
+  USER_SIGN_UP: "/api/userAuth/userSignup",
   BUSINEES_SIGN_UP: "/api/userAuth/businessSignUp",
   RESENT_OTP: "/api/userAuth/resentotp",
   USER_VERIFY: "/api/userAuth/userVerify",

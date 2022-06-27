@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import ProfileSettings from "./components/ProfileSettings";
