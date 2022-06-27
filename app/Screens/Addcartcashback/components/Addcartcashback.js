@@ -2,10 +2,10 @@ import React from 'react';
 import {
     View,
     Text,
-    KeyboardAvoidingView,
-    ScrollView,
+    Image,
     StatusBar,
-    Image
+    ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
 import Input from '../../../Components/Input';

@@ -1,9 +1,9 @@
 import React from 'react';
 import {
     View,
+    FlatList,
     StatusBar,
     KeyboardAvoidingView,
-    FlatList
 } from 'react-native';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
@@ -25,11 +25,10 @@ const RecentActivity = (props) => {
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
                     data={props.RecentActivityData}
-                    renderItem={({ item, index }) => props._handleRecentActivityData(item, index)
-                    }
+                    renderItem={({ item, index }) => props._handleRecentActivityData(item, index)}
                 />
             </View>
         </KeyboardAvoidingView>
     )
 }
-export default RecentActivity
+export default RecentActivity;

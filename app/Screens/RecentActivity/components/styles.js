@@ -20,6 +20,5 @@ const Styles = StyleSheet.create({
         fontSize: 14,
         color: LIGHT_GREY_COLOR_CODE
     }
-
 })
 export default Styles;

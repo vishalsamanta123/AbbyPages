@@ -2,7 +2,6 @@ import React from 'react';
 import {
     View,
     FlatList,
-    StatusBar,
     KeyboardAvoidingView
 } from 'react-native';
 import Header from '../../../Components/Header';

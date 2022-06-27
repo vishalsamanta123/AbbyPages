@@ -111,7 +111,7 @@ const SignUpScreen = (props) => {
               value={props.registrationData.zip_code}
               secureTextEntry={false}
               placeholder="Zip Code"
-              // keyboardType="number-pad"
+              keyboardType="number-pad"
               InputType="withScroll"
             />
             {/* <Input

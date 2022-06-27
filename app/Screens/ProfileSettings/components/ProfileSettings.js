@@ -1,19 +1,18 @@
 import React, { useContext } from 'react';
 import {
+    Text,
     View,
     Image,
     StatusBar,
     ScrollView,
     TouchableOpacity,
-    Text,
-    Dimensions,
     KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../Components/Header';
 import Button from '../../../Components/Button';
 import CommonStyles from '../../../Utils/CommonStyles';
-import { UserContext, AuthContext } from '../../../Utils/UserContext';
+import { UserContext } from '../../../Utils/UserContext';
 import moment from 'moment';
 const ProfileSettings = (props) => {
     const [userData, setUserData] = useContext(UserContext)
