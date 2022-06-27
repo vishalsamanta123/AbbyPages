@@ -13,11 +13,11 @@ import CommonStyles from '../../../../Utils/CommonStyles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 // import Slider from '@react-native-community/slider';
 import RNSlider from 'react-native-slider';
-
+import RNSpeedometer from 'react-native-speedometer'
 import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE, LINE_COMMON_COLOR_CODE } from '../../../../Utils/Constant';
 const BusinessLocation = (props) => {
     const locaton = parseInt(props.miles)
-    console.log('locaton: ', locaton);
+    const [value] =  useState(70);
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
             <StatusBar
@@ -62,9 +62,9 @@ const BusinessLocation = (props) => {
                                     // trackStyle={{ height: 50 }}
                                     // value={locaton}
                                 // />*/}
-                                
 
-                                
+
+
                                 <RNSlider
                                     // step={1}
                                     style={{ width: '95%', height: 40 }}
@@ -88,7 +88,8 @@ const BusinessLocation = (props) => {
                         <Text style={[styles.WriteText, { fontSize: 16, padding: 12 }]}>Your audience size:</Text>
                         <View style={styles.LimitedView}>
                             <Image style={{ width: 110, height: 35 }} source={require('../../../../Assets/limited.png')} />
-                            <Image style={styles.MeterImge} source={require('../../../../Assets/meter.png')} />
+                            <RNSpeedometer value={value} size={150} />
+                            {/* <Image style={styles.MeterImge} source={require('../../../../Assets/meter.png')} /> */}
                         </View>
                         <View style={styles.HintView}>
                             <Image style={{ top: 1 }} source={require('../../../../Assets/bulb_icon_menu.png')} />

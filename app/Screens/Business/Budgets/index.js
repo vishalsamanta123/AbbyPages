@@ -30,10 +30,9 @@ const BudgetsView = ({ navigation }) => {
         userToken == '01' ?
             navigation.navigate('BusinessHome')
             :
-            // signIn()
+            signIn()
             navigation.navigate('Login')
     }
-
     return (
         <Budgets
             onPressCOntinue={onPressCOntinue}

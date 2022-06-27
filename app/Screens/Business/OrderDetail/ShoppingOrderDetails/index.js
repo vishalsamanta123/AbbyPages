@@ -11,7 +11,6 @@ import Error from '../../../../Components/Modal/error';
 import Success from '../../../../Components/Modal/success';
 import moment from 'moment'
 const ShoppingOrderDetails = ({ route, props, navigation }) => {
-    console.log('route: ', route);
     const orderId = route.params.orderId;
     const BusinessType = route.params.BusinessType;
     const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -113,7 +112,6 @@ const ShoppingOrderDetails = ({ route, props, navigation }) => {
                 ('POST', ENDPOINTS.ORDER_STATUS_UPDATE, params);
             if (data.status === 200) {
                 getOrderDetailsFun()
-                // console.log('getOrderDetailsFun: dddd ', data);
                 setVisible(false);
             } else {
                 setVisible(false);

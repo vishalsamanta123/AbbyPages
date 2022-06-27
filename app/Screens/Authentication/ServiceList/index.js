@@ -40,10 +40,8 @@ function ServiceList({ navigation, route }) {
         setServiceList(subCategoryList)
         // setServiceList([...subCategoryList, detail])
         // navigation.navigate('ChooseCategory', { servicedetail: servicedetail });
-        // console.log('detail', isSelectedServiceId)
     }
     const onClickRightIcon = () => {
-        // console.log('detail', isSelectedServiceId)
         navigation.navigate('GetStarted', { serviceId: isSelectedServiceId })
     }
     return (

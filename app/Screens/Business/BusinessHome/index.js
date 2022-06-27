@@ -66,7 +66,6 @@ const BusinessHomeView = ({ navigation }) => {
         params
       );
       if (data.status === 200) {
-        console.log("sachin", data);
         setPageVisit(data.data.total_activity_count);
         // setProfileData(data.data)
         // setSliderUrl(data.business_image_url)

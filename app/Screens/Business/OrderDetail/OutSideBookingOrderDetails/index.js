@@ -11,7 +11,6 @@ import Error from '../../../../Components/Modal/error';
 import Success from '../../../../Components/Modal/success';
 import moment from 'moment'
 const OutSideBookingOrderDetails = (route, props) => {
-    console.log('route: ', route);
     const orderId = route.route.params.orderId;
     const BusinessType = route.route.params.BusinessType;
     const [visibleSuccess, setVisibleSuccess] = useState(false);

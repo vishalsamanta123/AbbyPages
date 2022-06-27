@@ -53,8 +53,6 @@ const PhotosVideo = ({ navigation }) => {
             const { data } = await apiCall
                 ('POST', ENDPOINTS.ADD_PHOTO_VIDEO, formdata, { 'Content-Type': 'multipart/form-data' });
             if (data.status === 200) {
-
-                console.log('data: ', data.data);
                 navigation.goBack(null)
                 setErrorMessage(data.message);
                 setVisible(false);
@@ -75,7 +73,6 @@ const PhotosVideo = ({ navigation }) => {
         ImagePicker.openPicker({
             multiple: true
         }).then(images => {
-            // console.log('images', images)
             onPressSave(images)
             // ImagePicker.openCropper({
             //     path: images.path,
@@ -84,14 +81,12 @@ const PhotosVideo = ({ navigation }) => {
             //     if (image.size >= 1000000) {
             //         ImageResizer.createResizedImage(image.path, 800, 800, 'JPEG', 95)
             //             .then(response => {
-            //                 console.log('response', response)
             //                 setItemImage(response.uri)
             //                 const uploadData = {
             //                     uri: response.uri,
             //                     type: image.mime,
             //                     name: response.name
             //                 }
-            //                 console.log('uploadData', response)
             //                 // setSelectImgUri()
             //                 onPressSave(uploadData)
             //                 // setLocItemImage('')
@@ -105,7 +100,6 @@ const PhotosVideo = ({ navigation }) => {
             //             type: image.mime,
             //             name: image.path.substring(image.path.lastIndexOf('/') + 1)
             //         }
-            //         console.log('uploadData', uploadData)
 
             //         onPressSave(uploadData)
             //         // setLocItemImage('')
@@ -123,7 +117,6 @@ const PhotosVideo = ({ navigation }) => {
             freeStyleCropEnabled: true,
 
         }).then(image => {
-            // console.log('image: ', image);
             // onPressSave(image)
             if (image.size >= 1000000) {
                 ImageResizer.createResizedImage(image.path, 800, 800, 'JPEG', 95)
@@ -136,9 +129,6 @@ const PhotosVideo = ({ navigation }) => {
                         }]
                         onPressSave(uploadData)
                         // setLocItemImage('')
-
-                        console.log('uploadData', uploadData)
-
                     })
                     .catch(err => {
                     });
@@ -151,7 +141,6 @@ const PhotosVideo = ({ navigation }) => {
                 }]
                 onPressSave(uploadData)
                 // setLocItemImage('')
-                console.log('uploadData', uploadData)
             }
         });
     }

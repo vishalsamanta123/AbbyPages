@@ -32,7 +32,6 @@ const NotificationsView = () => {
         try {
             const { data } = await apiCall('POST', ENDPOINTS.NOTIFICATION_LIST)
             if (data.status == 200) {
-                console.log('data', data.data)
                 setNotificationData(data.data)
                 setVisible(false);
             } else {

@@ -124,7 +124,6 @@ const SignInView = ({ navigation }) => {
           device_token: fcmToken,
         };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
-        console.log('data:LOGIN ', data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
@@ -178,7 +177,6 @@ const SignInView = ({ navigation }) => {
         longitude: longitude,
       };
       // setGoogle(googleData)
-      // console.log(userInfo)
       _handleSocialLogin(googleData);
     } catch (error) {
       setErrorMessage("Login fail with " + error);

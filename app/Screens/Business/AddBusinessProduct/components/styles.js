@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 import {
-    FONT_FAMILY_REGULAR,
     FONT_FAMILY_BOLD,
-    SMALL_TEXT_COLOR_CODE,
-    LIGHT_GREY_COLOR_CODE,
     BLACK_COLOR_CODE,
     WHITE_COLOR_CODE,
+    FONT_FAMILY_REGULAR,
+    LIGHT_GREY_COLOR_CODE,
+    SMALL_TEXT_COLOR_CODE,
 } from '../../../../Utils/Constant';
 const styles = StyleSheet.create({
     ProfileImgStyle: {

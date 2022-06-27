@@ -133,7 +133,6 @@ import {
   StatusBar,
   View,
   StyleSheet,
-  ActivityIndicator,
 } from "react-native";
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();

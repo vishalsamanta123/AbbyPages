@@ -81,7 +81,6 @@ const ConfirmReservationView = ({ route, navigation }) => {
                 order_booking_type: reservationData.booking_type == 1 ? 3 : 4,
                 receive_special_offer: 1
             };
-            console.log('params', params)
             const { data } = await apiCall('POST', ENDPOINTS.RESTAURANTS_TABLE_BOOKING, params)
             if (data.status === 200) {
                 setSuccessMessage(data.message);

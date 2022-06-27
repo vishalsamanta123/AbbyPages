@@ -39,7 +39,6 @@ const App = () => {
   useEffect(() => { 
     // if (!firebase.apps.length) { 
     // ab.initializeApp(firebaseConfig); 
-    // console.log(abc) 
     // }; 
     requestUserPermission() 
     const unsubscribe = messaging().onMessage(async remoteMessage => { 
