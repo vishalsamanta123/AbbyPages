@@ -128,6 +128,7 @@ const ServiceProviderDetailsScreen = (props) => {
           <FlatList
             horizontal={true}
             keyExtractor={(item, index) => index.toString()}
+            // data={props?.serviceDetail?.recommended_business}
             data={props.handleOptions}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => props._handleOptions(item, index)}
@@ -217,6 +218,7 @@ const ServiceProviderDetailsScreen = (props) => {
                 buttonText="See License Information"
                 style={{ marginTop: "5%", width: "100%" }}
                 buttonLabelStyle={styles.startedbtntxt}
+                onPress={() => props.licenseInfo()}
               />
             </View>
           )}
@@ -279,7 +281,12 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.photoview}>
               <View style={styles.photosecview}>
                 <Text style={styles.pandvtxt}>Photos and Videos</Text>
-                <Text style={styles.seealltxt}>See All</Text>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() => props.seeAll()}
+                >
+                  <Text style={styles.seealltxt}>See All</Text>
+                </TouchableOpacity>
               </View>
               <FlatList
                 horizontal={true}
@@ -295,7 +302,9 @@ const ServiceProviderDetailsScreen = (props) => {
           <View style={styles.serviceview}>
             <View style={styles.sirsecview}>
               <Text style={styles.coviduudatetxt}> Services Offered </Text>
-              <Text style={styles.sixmore}>6 more Services</Text>
+              <Text style={styles.sixmore}>
+                {props?.serviceDetail?.business_category?.length} more Services
+              </Text>
             </View>
             <FlatList
               keyExtractor={(item, index) => index.toString()}
@@ -413,7 +422,7 @@ const ServiceProviderDetailsScreen = (props) => {
               <Button
                 buttonText="Write A Review"
                 style={styles.revieewbtn}
-                onPress={() => props.setReviewModal(true)}
+                onPress={() => props.setReviewModal(!props.reviewModal)}
                 buttonLabelStyle={styles.buttonLabelStyle}
               />
             </View>
@@ -457,7 +466,7 @@ const ServiceProviderDetailsScreen = (props) => {
                   multiline={true}
                 />
                 <Button
-                  style={{ height: 50 }}
+                  style={{ height: 50, paddingVertical: 3 }}
                   buttonText="Submit"
                   buttonLabelStyle={styles.ButtonLabel}
                   onPress={() => props.onSubmitReviewData()}
