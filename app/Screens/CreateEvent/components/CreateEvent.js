@@ -1,12 +1,12 @@
 import React from 'react';
 import {
     View,
+    Text,
     Image,
+    Modal,
     StatusBar,
     ScrollView,
     TouchableOpacity,
-    Text,
-    Dimensions,
     KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
@@ -14,7 +14,10 @@ import Header from '../../../Components/Header';
 import Button from '../../../Components/Button';
 import Input from '../../../Components/Input';
 import CommonStyles from '../../../Utils/CommonStyles';
-import { GREY_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant';
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, GREY_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 const CreateEvent = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -30,8 +33,18 @@ const CreateEvent = (props) => {
                 type="Drawer"
             />
             <View style={[CommonStyles.body]}>
-                <ScrollView>
+                <ScrollView keyboardShouldPersistTaps="always">
                     <View style={styles.MainContainer}>
+                        <TouchableOpacity
+                            onPress={() => props.setEventModalVisible(true)}
+                            style={styles.ktchimgvwe}>
+                            <Text style={styles.ktchnlble}>Select event image</Text>
+                        </TouchableOpacity>
+                        <View style={{ padding: 10 }}>
+                            <View>
+                                {props.renderEventImage()}
+                            </View>
+                        </View>
                         <Input
                             onChangeText={(EventName) => props.setEventName(EventName)}
                             value={props.EventName}
@@ -39,29 +52,57 @@ const CreateEvent = (props) => {
                             placeholder="Event Name"
                             InputType="withScroll"
                         />
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity
+                            onPress={() => props.showDatePicker()}
+                            style={styles.container}>
                             <View style={styles.CameraImgView}>
-                                <Text style={styles.AddPhotosTxt}>Date</Text>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.selectedDate ? props.selectedDate : 'Date'}
+                                </Text>
                             </View>
                             <View style={styles.BckArrowBack}>
                                 <Image source={require('../../../Assets/calendar_icon.png')} />
                             </View>
+                            <DateTimePickerModal
+                                isVisible={props.isDatePickerVisible}
+                                mode='date'
+                                onConfirm={props.handleConfirm}
+                                onCancel={props.hideDatePicker}
+                            />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity style={styles.container}
+                            onPress={() => props.showTimePicker()}>
                             <View style={styles.CameraImgView}>
-                                <Text style={styles.AddPhotosTxt}>Start Time</Text>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.startTime ? props.startTime : 'Start Time'}
+                                </Text>
                             </View>
                             <View style={styles.BckArrowBack}>
                                 <Image source={require('../../../Assets/dropdown_icon.png')} />
                             </View>
+                            <DateTimePickerModal
+                                isVisible={props.isStartTimePickerVisible}
+                                mode='time'
+                                onConfirm={props.handleTimeConfirm}
+                                onCancel={props.hideTimePicker}
+                            />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity style={styles.container}
+                            onPress={() => props.showEndTimePicker()}>
                             <View style={styles.CameraImgView}>
-                                <Text style={styles.AddPhotosTxt}>End Time</Text>
+                                <Text style={styles.AddPhotosTxt}>{
+                                    props.selectedEndTime ? props.selectedEndTime : "End Time"
+                                }</Text>
                             </View>
                             <View style={styles.BckArrowBack}>
                                 <Image source={require('../../../Assets/dropdown_icon.png')} />
                             </View>
+                            <DateTimePickerModal
+                                isVisible={props.isEndTimePickerVisible}
+                                mode="time"
+                                onConfirm={props.handleEndTimeConfirm}
+                                onCancel={props.hideEndTimePicker}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => props.onPressPublicVenue()} style={styles.container}>
                             <View style={styles.CameraImgView}>
@@ -75,7 +116,8 @@ const CreateEvent = (props) => {
                                 <Text style={styles.AddPhotosTxt}>Public Venue</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.onPressPrivateAdd()} style={styles.container}>
+
+                        {/* <TouchableOpacity onPress={() => props.onPressPrivateAdd()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <TouchableOpacity >
                                     {props.privateCheck ?
@@ -86,7 +128,8 @@ const CreateEvent = (props) => {
                                 </TouchableOpacity>
                                 <Text style={styles.AddPhotosTxt}>Private Address</Text>
                             </View>
-                        </TouchableOpacity>
+                                </TouchableOpacity> */}
+
                         <Input
                             onChangeText={(BusinessName) => props.setBusinessName(BusinessName)}
                             value={props.BusinessName}
@@ -94,19 +137,97 @@ const CreateEvent = (props) => {
                             placeholder="Business Name"
                             InputType="withScroll"
                         />
-                        <Input
+
+                        {/*} <GooglePlacesAutocomplete
+                            placeholder='Search'
+                            onPress={(data, details = null) => {
+                                console.log('data,details',data, details);
+                            }}
+                            query={{
+                                key: 'AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM',
+                                language: 'en',
+                            }}
+                        />
+                        */}
+                        <GooglePlacesAutocomplete
+                            placeholder={
+                                props.locationData.find_me_in &&
+                                    props.locationData.find_me_in ?
+                                    props.locationData.find_me_in :
+                                    'Near'
+                            }
+                            fetchDetails={true}
+                            onPress={(data, details = null) => {
+                                props.setLocationData({
+                                    ...props.locationData,
+                                    find_me_in: data.description,
+                                    find_me_lat: details.geometry.location.lat,
+                                    find_me_long: details.geometry.location.lng
+                                })
+                            }}
+                            onChangeText={
+                                (address) => props.setLocationData({
+                                    ...props.locationData,
+                                    find_me_in: address
+                                })
+                            }
+                            query={{
+                                key: 'AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM',
+                                language: 'en',
+                            }}
+                            styles={{
+                                textInputContainer: {
+                                    borderRadius: 4,
+                                    backgroundColor: WHITE_COLOR_CODE,
+                                    fontSize: 16,
+                                    marginHorizontal: 17,
+                                    margin: 8,
+                                    fontFamily: FONT_FAMILY_REGULAR,
+                                    borderColor: '#d8d8d8',
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    alignItems: "center",
+                                    // height: 70,
+                                    paddingVertical: 6
+                                },
+                                textInput: {
+                                    fontSize: 15,
+                                    color: BLACK_COLOR_CODE,
+                                },
+                                listView: {
+                                    width: '90%',
+                                    alignSelf: "center",
+                                    backgroundColor: WHITE_COLOR_CODE,
+                                }
+                            }}
+                            minLength={2}
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                        />
+
+
+                        {/* <Input
                             onChangeText={(NearBy) => props.setNearBy(NearBy)}
                             value={props.NearBy}
                             secureTextEntry={false}
                             placeholder="Near"
                             InputType="withScroll"
-                        />
+                            />*/}
                         <Button buttonText="Search" style={{ marginTop: 5, marginBottom: 5 }} />
+                        {/*
+                            <Input
+                                onChangeText={(WhatWhy) => props.setWhatWhy(WhatWhy)}
+                                value={props.WhatWhy}
+                                secureTextEntry={false}
+                                placeholder="What and Why?"
+                                InputType="withScroll"
+                            />
+                            */ }
                         <Input
-                            onChangeText={(WhatWhy) => props.setWhatWhy(WhatWhy)}
-                            value={props.WhatWhy}
+                            onChangeText={(description) => props.setDescription(description)}
+                            value={props.description}
                             secureTextEntry={false}
-                            placeholder="What and Why?"
+                            placeholder="Description"
                             InputType="withScroll"
                         />
                         <Input
@@ -137,7 +258,7 @@ const CreateEvent = (props) => {
                             placeholder="Price to"
                             InputType="withScroll"
                         />
-                        <TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
+                        {/* <TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <TouchableOpacity >
                                     {props.FreeEvent ?
@@ -149,6 +270,8 @@ const CreateEvent = (props) => {
                                 <Text style={styles.AddPhotosTxt}>Free Event</Text>
                             </View>
                         </TouchableOpacity>
+                                */}
+
                         <TouchableOpacity style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Text style={styles.AddPhotosTxt}>Category</Text>
@@ -157,7 +280,11 @@ const CreateEvent = (props) => {
                                 <Image source={require('../../../Assets/dropdown_icon.png')} />
                             </View>
                         </TouchableOpacity>
-                        <Button buttonText="Create Event" style={{ marginTop: 10 }} />
+
+
+                        <Button buttonText="Create Event" style={{ marginTop: 10 }}
+                            onPress={() => props.onPressCreateEvent()}
+                        />
                         <Button
                             buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
                             buttonText="Cancel"
@@ -165,6 +292,32 @@ const CreateEvent = (props) => {
                     </View>
                 </ScrollView>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={props.eventModalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    props.setEventModalVisible(!props.eventModalVisible);
+                }} >
+                <TouchableOpacity activeOpacity={1} onPress={() => props.setEventModalVisible(false)} style={styles.centeredView}>
+                    <View style={styles.alertBackground}>
+                        <View style={{ alignItems: "center", position: 'absolute', right: 0, left: 0, top: -35, bottom: 0, zIndex: 1 }}>
+                        </View>
+                        <View style={styles.alertBox}>
+                            <TouchableOpacity
+                                style={styles.profileModal}
+                                onPress={() => props.onPressOpenEventImage()}
+                                underlayColor={'#F5F5F5'}>
+                                <Image style={{ height: 40, width: 40, zIndex: 1 }}
+                                    source={require('../../../Assets/image-gallery.png')} />
+                                <Text style={styles.modalItem}>Open Album</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </Modal>
+
         </KeyboardAvoidingView >
     )
 }

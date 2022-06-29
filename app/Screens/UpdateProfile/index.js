@@ -122,8 +122,7 @@ const UpdateProfileView = ({ navigation }) => {
     };
     const getProfileData = async () => {
         setVisible(true)
-        const { data } = await apiCall
-            ('POST', ENDPOINTS.GET_USER_PROFILE);
+        const { data } = await apiCall('POST', ENDPOINTS.GET_USER_PROFILE);
         if (data.status === 200) {
             setProfileData(data.data);
             setCameraImage(data.data.profile_image);
@@ -190,7 +189,6 @@ const UpdateProfileView = ({ navigation }) => {
             <Success
                 message={successMessage}
                 visible={visibleSuccess}
-                closeModel={() => setVisibleSuccess(false)}
                 closeModel={() => setVisibleSuccess(false)}
             // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
             />

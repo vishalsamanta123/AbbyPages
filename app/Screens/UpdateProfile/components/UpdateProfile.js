@@ -31,14 +31,11 @@ const UpdateProfile = (props) => {
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
-
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
-
     const handleConfirm = (date) => {
         const value = moment(date).format('DD-MM-YYYY')
-        // console.warn("A date has been picked: ", value);
         props.setProfileData({
             ...props.profileData,
             birth_date: value

@@ -1,5 +1,13 @@
-import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, YELLOW_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
+import { StyleSheet } from 'react-native';
+import {
+    WHITE_COLOR_CODE,
+    FONT_FAMILY_BOLD,
+    YELLOW_COLOR_CODE,
+    LINE_COMMON_COLOR_CODE,
+    GREY_COLOR_CODE,
+    FONT_FAMILY_REGULAR
+}
+    from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     alertBackground: {
         alignItems: 'center',

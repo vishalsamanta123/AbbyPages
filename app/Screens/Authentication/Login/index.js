@@ -120,9 +120,7 @@ const SignInView = ({ navigation }) => {
           device_type: deviceType,
           device_token: fcmToken,
         };
-        console.log('params: ', params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
-        console.log('data: ', data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
