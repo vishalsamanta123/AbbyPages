@@ -83,4 +83,6 @@ export default {
   BUSINESS_CHANGE_PASSWORD: "api/userAuth/changePassword",
   ORDER_STATUS_UPDATE: "api/orders/orderStatusUpdate",
   BUSINESS_ACTIVITY_COUNT: "api/business/businessActivityCount",
+
+  CREATE_EVENTS:"api/events/createEvents",
 };

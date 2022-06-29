@@ -11,7 +11,7 @@ import {
   GREY_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LINE_COMMON_COLOR_CODE,
-  YELLOW_COLOR_CODE,   
+  YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../Utils/Constant";
 import ImagePicker from "react-native-image-crop-picker";
@@ -34,6 +34,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
+  console.log('restroDetail: ', restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -63,11 +64,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       business_id: data.business_id,
     };
     try {
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.BUSINESS_DETAILS,
-        params
-      );
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_DETAILS, params);
       if (data.status === 200) {
         setRestroDetail(data.data);
         // findTodayDate();
@@ -248,10 +245,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
           if (supported) {
             Linking.openURL(
               "http://maps.google.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
+              lattitude +
+              "," +
+              longitude +
+              ""
             );
           } else {
             console.log("Don't know how to go");
@@ -266,10 +263,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
           if (supported) {
             Linking.openURL(
               "http://maps.apple.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
+              lattitude +
+              "," +
+              longitude +
+              ""
             );
           } else {
             console.log("Don't know how to go");
