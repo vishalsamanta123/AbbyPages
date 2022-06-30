@@ -42,8 +42,8 @@ const SignInView = ({ navigation }) => {
   useEffect(() => {
     fireBaseToken();
     deviceDetails();
-    getOneTimeLocation();
-    subscribeLocationLocation();
+    // getOneTimeLocation();
+    // subscribeLocationLocation();
   }, []);
   const getOneTimeLocation = () => {
     Geolocation.getCurrentPosition(
@@ -122,6 +122,7 @@ const SignInView = ({ navigation }) => {
         };
         console.log("params: ", params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
+        console.log("dataLogin: ", data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
@@ -134,7 +135,7 @@ const SignInView = ({ navigation }) => {
               await AsyncStorage.setItem("userToken", data.token);
             } catch (e) {
               setVisible(false);
-              setErrorMessage(e);
+              setErrorMessage(JSON.stringify(e));
               setVisibleErr(true);
             }
             setVisible(false);
@@ -150,7 +151,7 @@ const SignInView = ({ navigation }) => {
         }
       } catch (e) {
         setVisible(false);
-        setErrorMessage(e);
+        setErrorMessage(JSON.stringify(e));
         setVisibleErr(true);
       }
     }

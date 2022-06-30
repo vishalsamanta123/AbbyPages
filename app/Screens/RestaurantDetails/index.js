@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  Share,
 } from "react-native";
 import {
   GREY_COLOR_CODE,
@@ -34,7 +35,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
-  console.log('restroDetail: ', restroDetail);
+  console.log("restroDetail: ", restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -53,7 +54,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      setRestroDetail(detail);//state
+      setRestroDetail(detail); //state
       handleRestroDetails(detail); //function
     }
   }, []);
@@ -64,7 +65,11 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       business_id: data.business_id,
     };
     try {
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_DETAILS, params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUSINESS_DETAILS,
+        params
+      );
       if (data.status === 200) {
         setRestroDetail(data.data);
         // findTodayDate();
@@ -76,13 +81,13 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(JSON.stringify(error));
     }
   };
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.floor(x / width);
+    const indexOfNextScreen = Math.floor(x / width + 1);
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
@@ -120,7 +125,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         <Image
           style={styles.PopularDishImg}
           resizeMode="contain"
-          source={{ uri: item.image }}
+          source={{ uri: item?.image }}
         />
         <View style={{ padding: 10 }}>
           <Text numberOfLines={1} style={styles.DishNameTxt}>
@@ -245,10 +250,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
           if (supported) {
             Linking.openURL(
               "http://maps.google.com/maps?daddr=" +
-              lattitude +
-              "," +
-              longitude +
-              ""
+                lattitude +
+                "," +
+                longitude +
+                ""
             );
           } else {
             console.log("Don't know how to go");
@@ -263,10 +268,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
           if (supported) {
             Linking.openURL(
               "http://maps.apple.com/maps?daddr=" +
-              lattitude +
-              "," +
-              longitude +
-              ""
+                lattitude +
+                "," +
+                longitude +
+                ""
             );
           } else {
             console.log("Don't know how to go");
@@ -383,6 +388,40 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       </View>
     );
   };
+  const shareTo = async () => {
+    const result = await Share.share({
+      message: "Share restaurant with others",
+    });
+    if (result.action) {
+      console.log("result: ", result.action);
+    }
+  };
+  const saveResto = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        item_type: restroDetail.business_type,
+        item_id: restroDetail.business_id,
+        like: restroDetail.likes,
+        favorite: 0,
+        interest: 0,
+        views: restroDetail.views,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      if (data.status === 200) {
+        setVisible(false);
+        setVisibleSuccess(true);
+        setSuccessMessage(data.message);
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      setVisible(false);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -411,6 +450,8 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         setDialogVisible={setDialogVisible}
         onPressOrderFood={onPressOrderFood}
         onPressSubmit={onPressSubmit}
+        shareTo={shareTo}
+        saveResto={saveResto}
       />
       <Error
         message={errorMessage}

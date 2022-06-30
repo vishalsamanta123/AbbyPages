@@ -126,8 +126,8 @@ const SignUpView = ({ navigation }) => {
     }
   };
   useEffect(() => {
-    getOneTimeLocation();
-    subscribeLocationLocation();
+    // getOneTimeLocation();
+    // subscribeLocationLocation();
     fireBaseToken();
     deviceDetails();
   }, []);

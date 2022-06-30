@@ -27,7 +27,7 @@ export default {
   GET_SERVICES_DETAIL: "/api/services/getcategory",
   POST_REVIEW: "/api/reviewRating/businessReview",
   BUSINESS_LIST: "/api/business/businessList",
-  BUSINESS_DETAILS: "/api/business/businessDetails",
+  BUSINESS_DETAILS: "api/business/businessDetails",
   BUSINESS_ITEM_LIST: "/api/business/getbusinessItems",
   BUSINESS_ITEM_CATEGORY_LIST: "/api/business/getBusinessItemCategoryList",
   BUSINESS_CATEGORY_LIST: "/api/services/getBusinessType",
@@ -38,7 +38,7 @@ export default {
   BUSINESS_ITEM_ORDER_DETAILS: "/api/orders/getOrderDetail",
   NOTIFICATION_LIST: "/api/userProfile/getNotificationList",
   RECENT_ACTIVITY: "/api/userProfile/getRecentActivity",
-  RESTAURANT_TIME_SLOAT: "/api/orders/restaurants_time_slot",
+  RESTAURANT_TIME_SLOAT: "api/orders/restaurants_time_slot",
   SERVICE_BOOKING_LIST: "/api/bookService/serviceBookingList",
   GET_BUSINESS_CATEGORY: "/api/services/getBusinessCategory",
   SERVICE_BOOKING: "/api/bookService/serviceBooking",
@@ -84,5 +84,6 @@ export default {
   ORDER_STATUS_UPDATE: "api/orders/orderStatusUpdate",
   BUSINESS_ACTIVITY_COUNT: "api/business/businessActivityCount",
 
-  CREATE_EVENTS:"api/events/createEvents",
+  CREATE_EVENTS: "api/events/createEvents",
+  USERCOMMONLIKES: "api/masterTableData/userCommonLikes",
 };

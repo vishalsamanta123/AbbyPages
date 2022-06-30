@@ -59,7 +59,7 @@ const LoginScreen = (props) => {
           <Button
             buttonText="Log In"
             buttonLabelStyle={styles.LoginBtnTxt}
-            onPress={props.onPressLogin}
+            onPress={() => props.onPressLogin()}
           />
           <Button
             buttonText="Continue with Facebook"
