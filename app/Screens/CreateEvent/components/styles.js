@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, BLACK_COLOR_CODE } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     container: {
         height: 60,
@@ -95,5 +95,39 @@ const Styles = StyleSheet.create({
         alignItems: "center",
         zIndex: 1
     },
+    
+    moadlvwe: {
+        width: "100%",
+        marginLeft: 14,
+        marginRight: 14,
+        height: "100%",
+      },
+      headervwe: {
+         borderBottomWidth: 0.8,
+         borderBottomColor: 'green',
+         flexDirection: "row",
+         height: 50,
+         flexDirection: "row",
+       },
+       arealstvwe: {
+         flex: 4,
+         justifyContent: "center",
+         alignItems: "center",
+       },
+       arealsttxt: {
+         fontFamily: FONT_FAMILY_BOLD,
+         fontSize: 15,
+         color: BLACK_COLOR_CODE,
+       },
+       cancelbtnimgvwe: {
+         justifyContent: "center",
+         alignItems: "center",
+         flex: 1,
+       },
+       cancelimg: {
+         width: 20,
+         height: 20,
+         marginTop:8
+       },
 })
 export default Styles;

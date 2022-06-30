@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import EventListingScreen from './components/EventListingScreen';
 import CommonStyles from '../../Utils/CommonStyles';
+import { apiCall } from "../../Utils/httpClient";
+import ENDPOINTS from "../../Utils/apiEndPoints";
 const EventListing = ({ navigation }) => {
     const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
     const [isSelectedDay, setIsSelectedDay] = useState(0);
+    const [eventsList, setEventsList] = useState('');
     const [dataType, setDataType] =
         useState([
             { id: 0, name: 'Festivals and Fairs' },
@@ -12,6 +15,9 @@ const EventListing = ({ navigation }) => {
             { id: 2, name: 'NightLife' },
             { id: 3, name: 'Beardo' },
         ], []);
+    useEffect(() => (
+        getEventList()
+    ), [])
     const _handleDataTypeSelected = (index, item) => {
         setIsSelectedCatgory(index)
     };
@@ -58,6 +64,21 @@ const EventListing = ({ navigation }) => {
     const onPressEvent = (item) => {
         navigation.navigate('EventDetails', { item: item })
     }
+    const getEventList = async () => {
+        try {
+            const params = {
+                limit: '1',
+                offset: '0'
+            }
+            const response = await apiCall('POST', ENDPOINTS.GET_EVENT_LIST, params);
+            if (response.status === 200) {
+                setEventsList(response.data.data)
+            } else {
+            }
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    }
     return (
         <View style={CommonStyles.container}>
             <EventListingScreen
@@ -69,6 +90,7 @@ const EventListing = ({ navigation }) => {
                 _handleDaySelected={_handleDaySelected}
                 eventList={eventList}
                 onPressEvent={onPressEvent}
+                eventsList={eventsList}
             />
         </View>
     );

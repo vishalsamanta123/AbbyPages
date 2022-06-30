@@ -77,6 +77,6 @@ const Styles = StyleSheet.create({
         marginBottom: 10,
         marginRight: 10
     }
-}
+},
 );
 export default Styles;
