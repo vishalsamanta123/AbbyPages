@@ -19,7 +19,10 @@ import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import Dialog, { DialogContent, SlideAnimation } from "react-native-popup-dialog";
+import Dialog, {
+  DialogContent,
+  SlideAnimation,
+} from "react-native-popup-dialog";
 import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
 const { width, height } = Dimensions.get("window");
@@ -119,6 +122,7 @@ const RestaurantDetailsScreen = (props) => {
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               onScroll={(event) => {
+                console.log("event: ", event);
                 props.setSliderPage(event);
               }}
               renderItem={({ item, index }) => {
@@ -137,7 +141,13 @@ const RestaurantDetailsScreen = (props) => {
             />
             {/* {props.restroDetail.image.length} */}
             <View style={styles.paginationWrapper}>
-              {Array.from(Array(5).keys()).map((key, index) => (
+              {Array.from(
+                Array(
+                  props?.restroDetail?.image?.length > 5
+                    ? 5
+                    : props?.restroDetail?.image?.length
+                ).keys()
+              ).map((key, index) => (
                 <View
                   style={[
                     styles.paginationDots,
@@ -190,17 +200,17 @@ const RestaurantDetailsScreen = (props) => {
                 <Text style={styles.RatingStylesTxt}>5.0</Text>
               </View>
               <Text style={styles.RatingTextMain}>
-                {" "}
                 {props.restroDetail && props.restroDetail.rating} ratings |{" "}
               </Text>
               <Text style={styles.MainClosedTime}>
                 {props.restroDetail && props.restroDetail.login_status === 1
-                  ? "Open" : "Closed"} :
+                  ? "Open"
+                  : "Closed"}
               </Text>
               <Text style={styles.RatingTextMain}>
                 {props.restroDetail &&
                   props.restroDetail.business_open_time &&
-                  props.restroDetail.business_open_time.open_time + "-"}
+                  ": " + props.restroDetail.business_open_time.open_time + "-"}
                 {props.restroDetail &&
                   props.restroDetail.business_open_time &&
                   props.restroDetail.business_open_time.close_time}
@@ -211,21 +221,30 @@ const RestaurantDetailsScreen = (props) => {
             <View style={styles.AddShareView}>
               <TouchableOpacity
                 onPress={() => props.setAddPhotoModal(true)}
-                style={styles.AddPhotoCOntainer}>
+                style={styles.AddPhotoCOntainer}
+              >
                 <Image source={require("../../../Assets/add_photo_icon.png")} />
                 <Text style={styles.AddOptnsTextMain}>Add Photo</Text>
               </TouchableOpacity>
-              <View style={{ alignItems: "center", flex: 2 }}>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => props.shareTo()}
+                style={{ alignItems: "center", flex: 2 }}
+              >
                 <Image
                   style={{ width: 19, height: 15 }}
                   source={require("../../../Assets/share_icon.png")}
                 />
                 <Text style={styles.AddOptnsTextMain}>Share</Text>
-              </View>
-              <View style={styles.SaveContainer}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => props.saveResto()}
+                style={styles.SaveContainer}
+              >
                 <Image source={require("../../../Assets/save_icon.png")} />
                 <Text style={styles.AddOptnsTextMain}>Save</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             {props.restroDetail.takes_reservations === 1 && (
               <TouchableOpacity
@@ -240,14 +259,16 @@ const RestaurantDetailsScreen = (props) => {
               <TouchableOpacity
                 onPress={() => props.onPressFullMenu()}
                 // onPress={() => props.onPressOrderFood()}
-                style={styles.CameraViewStyle}>
+                style={styles.CameraViewStyle}
+              >
                 <Text style={styles.CameraMainText}>Order Food</Text>
               </TouchableOpacity>
             }
             {props.restroDetail.outdoor_seating === 1 && (
               <TouchableOpacity
                 onPress={() => props.onPressReservation(props.restroDetail, 2)}
-                style={styles.CameraViewStyle}>
+                style={styles.CameraViewStyle}
+              >
                 <Text style={styles.CameraMainText}>
                   AYCE Outdoor now available!
                 </Text>
@@ -285,7 +306,7 @@ const RestaurantDetailsScreen = (props) => {
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.outdoor_seating === 1 ? (
+                  props.restroDetail.outdoor_seating === 1 ? (
                     <View style={{}}>
                       <ImageBackground
                         style={styles.RightImgeStyle}
@@ -303,7 +324,7 @@ const RestaurantDetailsScreen = (props) => {
                 </View>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.offers_delivery === 1 ? (
+                  props.restroDetail.offers_delivery === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -321,7 +342,7 @@ const RestaurantDetailsScreen = (props) => {
                 </View>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.offers_takeout === 1 ? (
+                  props.restroDetail.offers_takeout === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -341,7 +362,7 @@ const RestaurantDetailsScreen = (props) => {
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.sitdown_dining === 1 ? (
+                  props.restroDetail.sitdown_dining === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -360,11 +381,13 @@ const RestaurantDetailsScreen = (props) => {
               </View>
             </View>
             <View style={styles.CovidParaView}>
-              <Text style={styles.UpdatedServics}>Health & Safety Measures</Text>
+              <Text style={styles.UpdatedServics}>
+                Health & Safety Measures
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.masks_required === 1 ? (
+                  props.restroDetail.masks_required === 1 ? (
                     <View>
                       <Image
                         style={styles.RightImgeStyle}
@@ -380,26 +403,34 @@ const RestaurantDetailsScreen = (props) => {
                   )}
                   <View>
                     <Text style={styles.OutDoorSeatingTxt}>Masks required</Text>
-                    <Text style={styles.Accordingusers}>According to 1 users</Text>
+                    <Text style={styles.Accordingusers}>
+                      According to 1 users
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.UpdateOptions}>
                   {props.restroDetail &&
-                    props.restroDetail.staff_wears_gloves === 1 ? (
+                  props.restroDetail.staff_wears_gloves === 1 ? (
                     <View>
-                      <Image style={styles.RightImgeStyle}
+                      <Image
+                        style={styles.RightImgeStyle}
                         source={require("../../../Assets/text_check_icon.png")}
                       />
                     </View>
                   ) : (
-                    <Image style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
+                    <Image
+                      style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
                       source={require("../../../Assets/cart_delete_icon.png")}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
                   <View>
-                    <Text style={styles.OutDoorSeatingTxt}>Staff wears gloves</Text>
-                    <Text style={styles.Accordingusers}>According to 3 users</Text>
+                    <Text style={styles.OutDoorSeatingTxt}>
+                      Staff wears gloves
+                    </Text>
+                    <Text style={styles.Accordingusers}>
+                      According to 3 users
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -456,7 +487,8 @@ const RestaurantDetailsScreen = (props) => {
                     props.restroDetail && props.restroDetail.latitude,
                     props.restroDetail && props.restroDetail.longitude
                   )
-                }>
+                }
+              >
                 <Text style={styles.ViewFullmenu}>Get Directions</Text>
               </TouchableOpacity>
             </View>
@@ -464,12 +496,13 @@ const RestaurantDetailsScreen = (props) => {
               showsUserLocation
               style={{ width: "100%", height: 190 }}
               provider={PROVIDER_GOOGLE}
-              initialRegion={initialRegion}>
+              initialRegion={initialRegion}
+            >
               <Marker
                 coordinate={coordinate}
                 // image={require('../../../Assets/login_logo.png')}
                 title={props.restroDetail && props.restroDetail.business_name}
-              // description={marker.description}
+                // description={marker.description}
               >
                 <Image
                   source={require("../../../Assets/abby_pages_map_icon.png")}
@@ -543,7 +576,8 @@ const RestaurantDetailsScreen = (props) => {
             <View style={[styles.FlexDirectnStyle, { paddingTop: 0 }]}>
               <Text style={styles.CovidMainTxt}>Review & Ratings</Text>
               <TouchableOpacity
-                onPress={() => props.setReviewModal(!props.reviewModal)}>
+                onPress={() => props.setReviewModal(!props.reviewModal)}
+              >
                 <Text style={styles.WriteReviewTxt}>Write a Review</Text>
               </TouchableOpacity>
             </View>
@@ -553,7 +587,7 @@ const RestaurantDetailsScreen = (props) => {
                   onFinishRating={(rating) =>
                     props.setBusinessReviewRating(rating)
                   }
-                  onSwipeRating={() => { }}
+                  onSwipeRating={() => {}}
                   // onFinishRating={(rating) => props.setReviewData({
                   //     ...props.reviewData,
                   //     business_rating: rating
@@ -620,7 +654,8 @@ const RestaurantDetailsScreen = (props) => {
             footer={
               <TouchableOpacity
                 onPress={() => props.setDialogVisible(false)}
-                style={styles.MainBtnTouchable}>
+                style={styles.MainBtnTouchable}
+              >
                 <Button
                   style={{ height: 50 }}
                   buttonText="Submit"
@@ -628,16 +663,25 @@ const RestaurantDetailsScreen = (props) => {
                   onPress={() => props.onPressSubmit()}
                 />
               </TouchableOpacity>
-            }>
+            }
+          >
             <DialogContent>
               <View style={styles.MainContent}>
                 <TouchableOpacity
                   onPress={() => props.setDialogVisible(false)}
-                  style={styles.ArrowTouchable}>
-                  <Image source={require("../../../Assets/cart_delete_icon.png")} />
+                  style={styles.ArrowTouchable}
+                >
+                  <Image
+                    source={require("../../../Assets/cart_delete_icon.png")}
+                  />
                 </TouchableOpacity>
-                <Text style={styles.PleaseEnterTxt}>Please enter your pincode</Text>
-                <TextInput style={styles.txtInputStyle} placeholder={"Pincode"} />
+                <Text style={styles.PleaseEnterTxt}>
+                  Please enter your pincode
+                </Text>
+                <TextInput
+                  style={styles.txtInputStyle}
+                  placeholder={"Pincode"}
+                />
               </View>
             </DialogContent>
           </Dialog>
