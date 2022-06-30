@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CreateEvent from "./components/CreateEvent";
 import moment from "moment";
 import { apiCall } from "../../Utils/httpClient";
@@ -9,13 +9,19 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  Text
 } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import ImagePicker from "react-native-image-crop-picker";
 import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
 
 const CreateEventView = () => {
+  const [eventCategoryModalVisible, setEventCategoryModalVisible] = useState(false);
+  const [categoryListData, setCategoryListData] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const windowWidth = Dimensions.get("window").width;
@@ -23,8 +29,7 @@ const CreateEventView = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
-    useState(false);
+  const [isStartTimePickerVisible, setIsStartTimePickerVisible] = useState(false);
   const [bookingDate, setBookingDate] = useState(false);
   const [checkbox, SetCheckBox] = useState(false);
   const [privateCheck, SetprivateCheck] = useState(false);
@@ -48,6 +53,12 @@ const CreateEventView = () => {
     find_me_lat: "",
     find_me_long: "",
   });
+  useEffect(() => {
+    getCategoryList()
+  },[])
+  const _handleModalOpen = () => {
+    setEventCategoryModalVisible(true)
+  }
   const hideEndTimePicker = () => {
     setIsEndTimePickerVisible(false);
   };
@@ -66,7 +77,7 @@ const CreateEventView = () => {
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
-    const value = moment(date).format("DD-MM-YYYY");
+    const value = moment(date).format("YYYY-MM-DD");
     setSelectedDate(value);
     hideDatePicker();
   };
@@ -121,7 +132,7 @@ const CreateEventView = () => {
       formData.append("price_range_from", PriceFrom);
       formData.append("price_range_to", PriceTo);
       formData.append("tickets_url", TicketURL);
-      formData.append("event_category_id", 4);
+      formData.append("event_category_id", selectedCategory.id);
       formData.append("event_charge_type", 1);
       eventPhoto?.map((img, index) => {
         return formData.append("events_image", {
@@ -130,17 +141,15 @@ const CreateEventView = () => {
           name: img.path.substring(img.path.lastIndexOf("/") + 1),
         });
       });
-
-      const response = await apiCall(
-        "POST",
-        ENDPOINTS.CREATE_EVENTS,
-        formData,
-        { "Content-Type": "multipart/form-data" }
+      console.log('formData: ', formData);
+      const response = await apiCall("POST", ENDPOINTS.CREATE_EVENTS, formData,
+      { "Content-Type": "multipart/form-data" }
       );
-
+      console.log('response: ', response);
       if (response.status === 200) {
         setSuccessMessage("Event added successfully");
         setVisibleSuccess(true);
+        // navigation.navigate('DashBoardScreen')
         setVisible(false);
       } else {
         console.log("else");
@@ -197,6 +206,45 @@ const CreateEventView = () => {
       />
     );
   };
+  const getCategoryList = async () => {
+    try {
+      const response = await apiCall('POST', ENDPOINTS.GET_EVENT_CATEGORY_LIST);
+      if (response.status === 200) {
+        setCategoryListData(response.data.data)
+      } else {
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
+  const _handleSelectedCategory = (item) => {
+    setSelectedCategory(item);
+    setEventCategoryModalVisible(false);
+  }
+  const renderCategoryListItem = ({ item }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => _handleSelectedCategory(item)}
+        style={{
+          flex: 1,
+          borderBottomWidth: 0.3,
+          borderBottomColor: '#f2f2f2',
+          padding: 10,
+          paddingVertical: 15,
+          marginHorizontal: 15,
+        }}>
+        <Text
+          style={{
+            fontFamily: FONT_FAMILY_REGULAR,
+            fontSize: 15,
+            color: BLACK_COLOR_CODE,
+          }}
+        >
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -248,12 +296,19 @@ const CreateEventView = () => {
         PriceFrom={PriceFrom}
         setPriceTo={setPriceTo}
         PriceTo={PriceTo}
+
+        eventCategoryModalVisible={eventCategoryModalVisible}
+        setEventCategoryModalVisible={setEventCategoryModalVisible}
+        _handleModalOpen={_handleModalOpen}
+        renderCategoryListItem={renderCategoryListItem}
+        categoryListData={categoryListData}
+        selectedCategory={selectedCategory}
       />
       <Success
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );

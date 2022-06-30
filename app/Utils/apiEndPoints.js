@@ -85,4 +85,6 @@ export default {
   BUSINESS_ACTIVITY_COUNT: "api/business/businessActivityCount",
 
   CREATE_EVENTS:"api/events/createEvents",
+  GET_EVENT_CATEGORY_LIST:"/api/events/getEventCategoryList",
+  GET_EVENT_LIST:"/api/events/getEventList",
 };

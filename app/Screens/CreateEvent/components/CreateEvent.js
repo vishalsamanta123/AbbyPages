@@ -4,6 +4,7 @@ import {
     Text,
     Image,
     Modal,
+    FlatList,
     StatusBar,
     ScrollView,
     TouchableOpacity,
@@ -272,9 +273,11 @@ const CreateEvent = (props) => {
                         </TouchableOpacity>
                                 */}
 
-                        <TouchableOpacity style={styles.container}>
+                        <TouchableOpacity onPress={() => props._handleModalOpen()} style={styles.container}>
                             <View style={styles.CameraImgView}>
-                                <Text style={styles.AddPhotosTxt}>Category</Text>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.selectedCategory.name ? props.selectedCategory.name : 'Category'}
+                                </Text>
                             </View>
                             <View style={styles.BckArrowBack}>
                                 <Image source={require('../../../Assets/dropdown_icon.png')} />
@@ -292,6 +295,45 @@ const CreateEvent = (props) => {
                     </View>
                 </ScrollView>
             </View>
+
+            {/*  */}
+            <Modal
+                animationType="slide"
+                visible={props.eventCategoryModalVisible}
+                onRequestClose={() => {
+                    props.setEventCategoryModalVisible(false);
+                }}
+            >
+                <View style={{ alignItems: "center" }}>
+                    <View style={styles.moadlvwe}>
+                        <View style={styles.headervwe}>
+                            <View style={{ flex: 1 }} />
+                            <View style={styles.arealstvwe}>
+                                <Text style={styles.arealsttxt}>
+                                    Category List
+                                </Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => props.setEventCategoryModalVisible(false)}
+                                style={styles.cancelbtnimgvwe}>
+                                <Image
+                                    style={styles.cancelimg}
+                                    source={require("../../../Assets/cancelModalBtn.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginBottom: "15%" }}>
+                            <FlatList
+                                data={props.categoryListData}
+                                renderItem={(item) => props.renderCategoryListItem(item)}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+
             <Modal
                 animationType="slide"
                 transparent={true}

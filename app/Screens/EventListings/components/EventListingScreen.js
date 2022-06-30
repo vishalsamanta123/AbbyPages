@@ -7,6 +7,7 @@ import {
     Image,
     ImageBackground
 } from 'react-native';
+import moment from "moment";
 import CommonStyles from '../../../Utils/CommonStyles';
 import styles from './styles';
 import Header from '../../../Components/Header';
@@ -39,9 +40,10 @@ const EventListingScreen = (props) => {
         );
     };
     const _renderEventList = (item, index) => {
+        const eventDate = moment(JSON.parse(item?.event_date)).format("DD/MM/YYYY");
         return (
             <TouchableOpacity onPress={(item) => props.onPressEvent(item)} style={styles.mnCon}>
-                <ImageBackground style={styles.bannerimg} source={item.bannerimg}>
+                <ImageBackground style={styles.bannerimg} source={{ uri: item.events_image }}>
                     <View style={styles.btncon}>
                         <Text style={{ fontFamily: FONT_FAMILY_REGULAR, lineHeight: 16 }}>
                             Buy Tickets
@@ -50,7 +52,7 @@ const EventListingScreen = (props) => {
                 </ImageBackground>
                 <View style={styles.infobox}>
                     <Text style={styles.hdngtxt}>
-                        {item.heading}
+                        {item.event_name}
                     </Text>
                     <View style={styles.minicon}>
                         <Image
@@ -59,7 +61,7 @@ const EventListingScreen = (props) => {
                             source={require('../../../Assets/info_calendar_icon.png')}
                         />
                         <Text style={[styles.text, { fontSize: 14, lineHeight: 16 }]}>
-                            {item.timing}
+                            {eventDate} {item.event_start_time} - {item.event_end_time} 
                         </Text>
                     </View>
                     <View style={styles.minicon}>
@@ -69,21 +71,21 @@ const EventListingScreen = (props) => {
                             source={require('../../../Assets/info_marker_icon.png')}
                         />
                         <Text style={[styles.text, { fontSize: 14, lineHeight: 16 }]}>
-                            {item.address}
+                            {item.event_location}
                         </Text>
                     </View>
                     <Text style={[styles.text, {
                         padding: 5,
                         paddingBottom: 8, lineHeight: 18
                     }]}>
-                        {item.des}
+                        {item.event_description ? item.event_description : "There is not description for this events."}
                     </Text>
                     <View style={styles.intcon}>
                         <Text style={[styles.yellowtxt, { lineHeight: 16 }]}>
                             Others
                         </Text>
                         <Text style={[styles.text, { lineHeight: 16 }]}>
-                            {item.interestedPeople}
+                            {item.interested} interested
                         </Text>
                     </View>
                 </View>
@@ -134,7 +136,7 @@ const EventListingScreen = (props) => {
                 </View>
                 <View style={{ paddingTop: 10 }}>
                     <FlatList
-                        data={props.eventList}
+                        data={props.eventsList}
                         showsVerticalScrollIndicator={false}
                         style={{
                         }}
