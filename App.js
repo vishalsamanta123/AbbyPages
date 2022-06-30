@@ -1,55 +1,62 @@
-import React, { useEffect } from 'react';
-import 'react-native-gesture-handler';
-import Navigation from './app/Navigation';
-import { Alert, PermissionsAndroid } from 'react-native';
+import React, { useEffect } from "react";
+import "react-native-gesture-handler";
+import Navigation from "./app/Navigation";
+import { Alert, PermissionsAndroid } from "react-native";
 import {
-  UserProvider, CartProvider, ServiceProvider,
-  ServiceProviderQueAns, ShoppingCartProvider, OrderCategorySelectProvider, AddItemCategortyProvider
-} from './app/Utils/UserContext';
-import AsyncStorage from '@react-native-community/async-storage';
-import messaging from '@react-native-firebase/messaging';
+  UserProvider,
+  CartProvider,
+  ServiceProvider,
+  ServiceProviderQueAns,
+  ShoppingCartProvider,
+  OrderCategorySelectProvider,
+  AddItemCategortyProvider,
+} from "./app/Utils/UserContext";
+import AsyncStorage from "@react-native-community/async-storage";
+import messaging from "@react-native-firebase/messaging";
 // import firebase from './app/Utils/firebase'
 console.disableYellowBox = true;
 const App = () => {
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.requestMultiple(
-        [
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        ]
-      ).then((result) => {
+    if (Platform.OS === "android") {
+      PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      ]).then((result) => {
         if (
-          result['android.permission.CAMERA']
-          && result['android.permission.READ_EXTERNAL_STORAGE']
-          && result['android.permission.WRITE_EXTERNAL_STORAGE']
-          && result['android.permission.ACCESS_FINE_LOCATION']
+          result["android.permission.CAMERA"] &&
+          result["android.permission.READ_EXTERNAL_STORAGE"] &&
+          result["android.permission.WRITE_EXTERNAL_STORAGE"] &&
+          result["android.permission.ACCESS_FINE_LOCATION"]
         ) {
         } else if (
-          result['android.permission.CAMERA']
-          || result['android.permission.READ_EXTERNAL_STORAGE']
-          || result['android.permission.WRITE_EXTERNAL_STORAGE']
-          || result['android.permission.ACCESS_FINE_LOCATION']
-        ) { }
+          result["android.permission.CAMERA"] ||
+          result["android.permission.READ_EXTERNAL_STORAGE"] ||
+          result["android.permission.WRITE_EXTERNAL_STORAGE"] ||
+          result["android.permission.ACCESS_FINE_LOCATION"]
+        ) {
+        }
       });
     }
-  }, [])
-  useEffect(() => { 
-    // if (!firebase.apps.length) { 
-    // ab.initializeApp(firebaseConfig); 
-    // }; 
-    requestUserPermission() 
-    const unsubscribe = messaging().onMessage(async remoteMessage => { 
-      // Alert.alert('New message arrived', remoteMessage.notification); 
-      Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body); 
-      // console.log('remoteMessage.notification.body', remoteMessage.notification) 
-    }); 
-    return () => { 
-      unsubscribe 
-    }; 
-  }, []); 
+  }, []);
+  useEffect(() => {
+    // if (!firebase.apps.length) {
+    // ab.initializeApp(firebaseConfig);
+    // };
+    requestUserPermission();
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      // Alert.alert('New message arrived', remoteMessage.notification);
+      Alert.alert(
+        remoteMessage.notification.title,
+        remoteMessage.notification.body
+      );
+      // console.log('remoteMessage.notification.body', remoteMessage.notification)
+    });
+    return () => {
+      unsubscribe;
+    };
+  }, []);
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
     const enabled =
@@ -57,21 +64,21 @@ const App = () => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
       getFcmToken();
-      console.log('Authorization status:', authStatus);
+      console.log("Authorization status:", authStatus);
     }
   }
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
       // console.log(fcmToken);
-      await AsyncStorage.setItem("fcmToken", fcmToken)
+      await AsyncStorage.setItem("fcmToken", fcmToken);
       console.log("Your Firebase Token is:", fcmToken);
     } else {
       console.log("Failed", "No token received");
     }
-  }
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    Alert.alert('Message handled in the background!', remoteMessage);
+  };
+  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    Alert.alert("Message handled in the background!", remoteMessage);
   });
   return (
     // <View style={{ flex: 1 }}>
@@ -91,7 +98,6 @@ const App = () => {
       </CartProvider>
     </UserProvider>
     // </View>
-
   );
 };
 export default App;

@@ -128,12 +128,7 @@ import OrderHistoryScreen from "../Screens/OrderHistory";
 import ReviewsScreen from "../Screens/Reviews";
 import UpdateProfileScreen from "../Screens/UpdateProfile";
 import UserProfileScreen from "../Screens/UserProfile";
-import {
-  Image,
-  StatusBar,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Image, StatusBar, View, StyleSheet } from "react-native";
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -359,7 +354,10 @@ function BusinessStack() {
 }
 function AppStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DashBoard'}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={"DashBoard"}
+    >
       {/* <Stack.Screen name="BusinessOrderHistory" component={BusinessOrderHistoryScreen} /> */}
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} />
@@ -504,11 +502,15 @@ function AuthLoading({ navigation }) {
   );
   const authContext = React.useMemo(
     () => ({
-      signIn: async () => {
+      signIn: async (data) => {
         getLoginType();
-        const userToken = "01";
+        const userToken = data.token;
         try {
           await AsyncStorage.setItem("userToken", userToken);
+          await AsyncStorage.setItem(
+            "localuserdata",
+            JSON.stringify(data.data)
+          );
         } catch (e) {
           console.log(e);
         }
@@ -524,6 +526,7 @@ function AuthLoading({ navigation }) {
         }
         dispatch({ type: "LOGOUT" });
       },
+      signUp: () => {},
     }),
     []
   );
@@ -583,18 +586,26 @@ function Route() {
     getToken();
   }, []);
   async function getToken() {
-    let userData = await AsyncStorage.getItem("localuserdata");
     let userToken = await AsyncStorage.getItem("userToken");
-    if (userToken != null) {
-      setDefaultHeader("token", JSON.parse(userData).token);
-      setUserData(JSON.parse(userData));
-    } else {
+    if (userToken === null) {
       const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
-      console.log('data: ', data);
       if (data.status === 200) {
         await setDefaultHeader("token", data.token);
       }
+    } else {
+      const userToken = await AsyncStorage.getItem("userToken");
+      setDefaultHeader("token", userToken);
     }
+    // if (userToken != null) {
+    //   setDefaultHeader("token", JSON.parse(userData).token);
+    //   setUserData(JSON.parse(userData));
+    // } else {
+    //   const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
+    //   console.log("data: ", data);
+    //   if (data.status === 200) {
+    //     await setDefaultHeader("token", data.token);
+    //   }
+    // }
   }
   return (
     <NavigationContainer>

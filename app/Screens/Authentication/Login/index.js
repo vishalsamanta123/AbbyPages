@@ -120,20 +120,25 @@ const SignInView = ({ navigation }) => {
           device_type: deviceType,
           device_token: fcmToken,
         };
+        console.log("params: ", params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
             setUserData(data.data);
             try {
-              await AsyncStorage.setItem("localuserdata", JSON.stringify(data.data));
+              await AsyncStorage.setItem(
+                "localuserdata",
+                JSON.stringify(data.data)
+              );
+              await AsyncStorage.setItem("userToken", data.token);
             } catch (e) {
               setVisible(false);
               setErrorMessage(e);
               setVisibleErr(true);
             }
             setVisible(false);
-            signIn(data.token);
+            signIn(data);
           } else {
             setVisible(false);
             navigation.navigate("UserVerify", { email: data.data.email });
