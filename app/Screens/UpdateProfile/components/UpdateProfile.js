@@ -196,17 +196,21 @@ const UpdateProfile = (props) => {
                                 justifyContent: "space-between",
                                 alignItems: "center"
                             }}>
+                            {
+                                console.log('birth_date',
+                                    props.profileData.birth_date)
+                            }
                             <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>
-                                {props.profileData.birth_date
-                                    === '' ? "Date Of Birth"
-                                    : props.profileData.birth_date}
-                            </Text>
-                            <Image
-                                resizeMode={"contain"}
-                                style={{ height: 24, width: 24, alignSelf: "flex-end" }}
-                                source={
-                                    require("../../../Assets/calendar_icon_field.png")
+                                {
+                                    props?.profileData?.birth_date === '' ||
+                                        props?.profileData?.birth_date === undefined
+                                        ? "Date Of Birth"
+                                        : props?.profileData?.birth_date
                                 }
+                            </Text>
+                            <Image resizeMode={"contain"}
+                                style={{ height: 24, width: 24, alignSelf: "flex-end" }}
+                                source={require("../../../Assets/calendar_icon_field.png")}
                             />
                         </TouchableOpacity>
                         <DateTimePickerModal

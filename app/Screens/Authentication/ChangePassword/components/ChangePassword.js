@@ -12,8 +12,7 @@ const ChangePassword = (props) => {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
-            style={styles.container}
-        >
+            style={styles.container}>
             <StatusBar
                 barStyle='dark-content'
                 translucent={true}

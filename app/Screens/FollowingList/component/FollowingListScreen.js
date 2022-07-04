@@ -3,7 +3,6 @@ import { Image, View, Text } from 'react-native';
 import Header from '../../../Components/Header'
 import CommonStyles from '../../../Utils/CommonStyles'
 import styles from './styles'
-import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const FollowingListScreen = () => {
     return (
         <View style={CommonStyles.container}>

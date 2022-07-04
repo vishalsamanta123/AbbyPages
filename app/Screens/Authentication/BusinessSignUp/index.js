@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import BusinessSignUp from "./components/BusinessSignUpScreen";
-import AsyncStorage from "@react-native-community/async-storage";
-import Geolocation from "@react-native-community/geolocation";
 import Geocoder from "react-native-geocoding";
-import DeviceInfo from "react-native-device-info";
 import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { View } from "react-native";
 import Loader from "../../../Utils/Loader";
-import { UserContext, AuthContext } from "../../../Utils/UserContext";
-// import { AuthContext } from '../../Component/AuthContext';
+import { AuthContext } from "../../../Utils/UserContext";
 import Error from "../../../Components/Modal/error";
 import {
   LoginManager,

@@ -5,6 +5,10 @@ import {
     SMALL_TEXT_COLOR_CODE,
 } from '../../../Utils/Constant'
 const Styles = StyleSheet.create({
+    // imageStyle: {
+        // width: width,
+        // height: height / 4
+    // },
     bannerimg: {
         width: '100%',
         height: 180,
@@ -24,7 +28,7 @@ const Styles = StyleSheet.create({
         width: '90%',
         fontFamily: FONT_FAMILY_REGULAR,
         color: "#3a3838",
-        paddingBottom: 10
+        paddingBottom: 10,
     },
     basiccon: {
         flexDirection: "row",

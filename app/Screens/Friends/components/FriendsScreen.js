@@ -5,10 +5,8 @@ import {
     StatusBar,
     KeyboardAvoidingView,
     Image,
-    ScrollView
 } from 'react-native';
 import styles from './styles';
-import Input from '../../../Components/Input';
 import Button from '../../../Components/Button';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
@@ -41,7 +39,9 @@ const FriendsScreen = (props) => {
                             your friends list.
                     </Text>
                     </View>
-                    <Button buttonText="Invite Friends" style={{ marginTop: 10 }} />
+                    <Button buttonText="Invite Friends" style={{ marginTop: 10 }} 
+                    onPress={()=>props.onPressInviteFriends()}
+                    />
                 </View>
             </View>
         </KeyboardAvoidingView>

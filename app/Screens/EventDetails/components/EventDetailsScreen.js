@@ -3,27 +3,40 @@ import {
     View,
     Text,
     Image,
-    ScrollView
+    ScrollView,
+    Dimensions
 } from 'react-native';
 import CommonStyles from '../../../Utils/CommonStyles';
 import styles from './styles';
+import moment from "moment";
 import Header from '../../../Components/Header';
 import Button from '../../../Components/Button'
 import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 const EventListingScreen = (props) => {
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+    const eventDate = moment(props?.eventDetails?.created_at).format("MMMM Do YYYY, h:mm:ss a");
     return (
         <View style={CommonStyles.container}>
+            {console.log('eventDetails', props.eventDetails.recently_events)}
             <Header HeaderText='Events Details' RightImg={null} />
             <View style={[CommonStyles.body]}>
                 <ScrollView>
-                    <Image style={styles.bannerimg} source={require('../../../Assets/extraImages/salooonimg.jpg')}
+                    <FlatList
+                        horizontal
+                        data={props?.eventDetails?.recently_events}
+                        renderItem={({ item }) => (
+                            <View style={{ flex: 1 }}>
+                                <Image style={{ width: windowWidth / 1, height: windowHeight / 4 }}
+                                    source={{ uri: item?.events_image }}
+                                />
+                            </View>
+                        )}
                     />
+                    {/* <Image style={styles.bannerimg} source={require('../../../Assets/extraImages/salooonimg.jpg')} /> */}
                     <View style={styles.infocon}>
-                        <Text style={styles.hdngtxt}>
-                            Virtual Skeleton Soire`e
-                            and Makeup Tutorial!
-                        </Text>
+                        <Text style={[styles.hdngtxt, { textTransform: 'capitalize' }]}>{props?.eventDetails?.event_name}</Text>
                         <View style={styles.basiccon}>
                             <Image
                                 resizeMode='contain'
@@ -31,8 +44,8 @@ const EventListingScreen = (props) => {
                                 source={require('../../../Assets/info_calendar_icon.png')}
                             />
                             <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
-                                Thursday,Oct 29,5:30 pm.
-                        </Text>
+                                {eventDate}
+                            </Text>
                         </View>
                         <View style={styles.basiccon}>
                             <Image
@@ -40,8 +53,8 @@ const EventListingScreen = (props) => {
                                 style={styles.icon}
                                 source={require('../../../Assets/map_marker_icon.png')}
                             />
-                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
-                                Virtual - on Zoom! Berkeley,CA 94704
+                            <Text style={[styles.text, { fontSize: 14, lineHeight: 20 }]}>
+                                Virtual - on Zoom! {props?.eventDetails?.event_location}
                             </Text>
                         </View>
                         <View style={styles.basiccon}>
@@ -70,6 +83,7 @@ const EventListingScreen = (props) => {
                             What/Why:
                         </Text>
                         <Text style={[styles.text, { lineHeight: 18 }]}>
+                            {/* {props.eventDetails.event_description} */}
                             VELF HAUNTS AT HOME: This event is part of the elp Hunts
                             At Home Vitual ent seriest For the
                             whele Set of eventa, cack here Abby.com/eventa/san tran.
@@ -104,7 +118,7 @@ const EventListingScreen = (props) => {
                         backgroundColor: WHITE_COLOR_CODE
                     }}>
                         <Text style={styles.hdngtxt}>What You Need</Text>
-                        <Text style={[styles.text,{lineHeight:18}]}>
+                        <Text style={[styles.text, { lineHeight: 18 }]}>
                             Desktop or laptop or phone with ahility to acoess 2oem And
                             a strong internet conivection.{'\n'}{'\n'}
                             Downinating Zoom nat regutred to  participats{'\n'}{'\n'}

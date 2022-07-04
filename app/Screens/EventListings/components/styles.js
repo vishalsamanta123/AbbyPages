@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import {
-    FONT_FAMILY_REGULAR,
-    YELLOW_COLOR_CODE,
     WHITE_COLOR_CODE,
+    YELLOW_COLOR_CODE,
+    FONT_FAMILY_REGULAR,
     SMALL_TEXT_COLOR_CODE
 } from '../../../Utils/Constant'
 const Styles = StyleSheet.create({

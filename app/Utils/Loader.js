@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import LottieView from 'lottie-react-native';
-const Loader = (props) => {
+const Loader = () => {
   return (
     <View style={{
       backgroundColor: "#000",
@@ -16,7 +16,6 @@ const Loader = (props) => {
       <LottieView
         visible={true}
         style={{
-
           backgroundColor: "transparent",
           // zIndex: 1,
           // position: "absolute",
@@ -30,5 +29,4 @@ const Loader = (props) => {
     </View>
   );
 }
-
 export default Loader;

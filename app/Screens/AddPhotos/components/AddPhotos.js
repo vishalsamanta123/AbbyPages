@@ -10,8 +10,8 @@ import {
 import styles from './styles';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, YELLOW_COLOR_CODE } from '../../../Utils/Constant';
-const AddPhotosScreen = (props) => {
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from '../../../Utils/Constant';
+const AddPhotosScreen = () => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
             <StatusBar

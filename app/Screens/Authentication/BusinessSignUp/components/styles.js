@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { WHITE_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_BOLD, FONT_FAMILY_REGULAR } from '../../../../Utils/Constant';
+import { WHITE_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     LoginBtnTxt: {
         fontFamily: FONT_FAMILY_REGULAR

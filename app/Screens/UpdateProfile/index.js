@@ -101,7 +101,7 @@ const UpdateProfileView = ({ navigation }) => {
         };
     };
     const renderFileUri = () => {
-        if (CameraImage.length > 0) {
+        if (CameraImage?.length > 0) {
             return (
                 <TouchableOpacity onPress={() => setProfileModal(true)}>
                     <Image
