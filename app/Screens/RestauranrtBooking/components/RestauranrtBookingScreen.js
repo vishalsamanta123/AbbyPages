@@ -80,9 +80,9 @@ const RestauranrtBookingScreen = (props) => {
             <View style={styles.paginationWrapper}>
               {Array.from(
                 Array(
-                  props.restroDetail &&
-                    props.restroDetail.image &&
-                    props.restroDetail.image.length
+                  props?.restroDetail?.image?.length > 5
+                    ? 5
+                    : props?.restroDetail?.image?.length
                 ).keys()
               ).map((key, index) => (
                 <View
@@ -170,11 +170,13 @@ const RestauranrtBookingScreen = (props) => {
               )}
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.setTimePickerVisibility(true)}
+              onPress={() =>
+                props.setTimePickerVisibility(!props.isTimePickerVisible)
+              }
               style={styles.CalenderSelect}
             >
               <Text style={styles.DateSTyles}>
-                {props.time && props.time ? props.time : "Time"}
+                {props?.time ? props.time : "Time"}
               </Text>
               <View style={[styles.TextInputImg, { marginRight: 25 }]}>
                 <Image
@@ -184,14 +186,17 @@ const RestauranrtBookingScreen = (props) => {
                 />
               </View>
             </TouchableOpacity>
-            <DateTimePickerModal
-              maximumDate={new Date()}
-              minimumDate={new Date()}
-              isVisible={props.isTimePickerVisible}
-              mode="time"
-              onConfirm={props.handleTimeConfirm}
-              onCancel={() => props.setTimePickerVisibility(false)}
-            />
+            {props?.isTimePickerVisible && (
+              <DateTimePicker
+                mode={"time"}
+                onChange={props.handleTimeConfirm}
+                value={new Date(props?.time)}
+                // minuteInterval={10}
+                onError={() => {
+                  props.setTimePickerVisibility(false);
+                }}
+              />
+            )}
             <View>
               <Input
                 onChangeText={(SelectPeople) =>
