@@ -25,6 +25,9 @@ import {
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+
 const { width, height } = Dimensions.get("window");
 const RestauranrtBookingScreen = (props) => {
   const initialRegion = {
@@ -134,11 +137,13 @@ const RestauranrtBookingScreen = (props) => {
           </View>
           <View style={styles.AddShareContainer}>
             <TouchableOpacity
-              onPress={() => props.setDatePickerVisibility(true)}
+              onPress={() =>
+                props.setDatePickerVisibility(!props.isDatePickerVisible)
+              }
               style={styles.CalenderSelect}
             >
               <Text style={styles.DateSTyles}>
-                {props.date && props.date ? props.date : "Date"}
+                {props?.date ? props.date : "Date"}
               </Text>
               <View style={[styles.TextInputImg, { marginRight: 25 }]}>
                 <Image
@@ -146,13 +151,23 @@ const RestauranrtBookingScreen = (props) => {
                   source={require("../../../Assets/info_calendar_icon.png")}
                 />
               </View>
-              <DateTimePickerModal
+              {/* <DateTimePickerModal
                 isVisible={props.isDatePickerVisible}
                 mode="date"
                 date={new Date()}
                 onConfirm={props.handleDateConfirm}
                 onCancel={() => props.setDatePickerVisibility(false)}
-              />
+              /> */}
+              {props?.isDatePickerVisible && (
+                <DateTimePicker
+                  mode={"date"}
+                  display={"calendar"}
+                  onChange={props.handleDateConfirm}
+                  value={new Date(props?.date)}
+                  minimumDate={new Date()}
+                  minuteInterval={10}
+                />
+              )}
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.setTimePickerVisibility(true)}
@@ -170,10 +185,8 @@ const RestauranrtBookingScreen = (props) => {
               </View>
             </TouchableOpacity>
             <DateTimePickerModal
-            // maximumDate={}
-            // minimumDate
-            maximumDate={new Date()}
-            minimumDate={new Date()}
+              maximumDate={new Date()}
+              minimumDate={new Date()}
               isVisible={props.isTimePickerVisible}
               mode="time"
               onConfirm={props.handleTimeConfirm}
@@ -195,7 +208,7 @@ const RestauranrtBookingScreen = (props) => {
             </View>
             <View style={styles.FindTableContain}>
               <Button
-                onPress={() => props.onPressFindTable()}
+                onPress={props.onPressTableFind}
                 buttonText="Find a Table"
               />
               <FlatList

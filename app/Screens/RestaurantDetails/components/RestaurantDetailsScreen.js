@@ -23,7 +23,7 @@ import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
 const { width, height } = Dimensions.get("window");
 const RestaurantDetailsScreen = (props) => {
@@ -242,7 +242,15 @@ const RestaurantDetailsScreen = (props) => {
                 onPress={() => props.saveResto()}
                 style={styles.SaveContainer}
               >
-                <Image source={require("../../../Assets/save_icon.png")} />
+                <Image
+                  style={{
+                    backgroundColor:
+                      props?.restroDetail?.favorite === 1
+                        ? YELLOW_COLOR_CODE
+                        : null,
+                  }}
+                  source={require("../../../Assets/save_icon.png")}
+                />
                 <Text style={styles.AddOptnsTextMain}>Save</Text>
               </TouchableOpacity>
             </View>
