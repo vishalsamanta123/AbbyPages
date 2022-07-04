@@ -36,6 +36,7 @@ const ListingsScreenView = ({ navigation }) => {
     try {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+      console.log('dataLISTING: ', data);
       if (data.status === 200) {
         setRestroList(data.data);
         setVisible(false);

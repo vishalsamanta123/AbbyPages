@@ -122,7 +122,6 @@ const RestaurantDetailsScreen = (props) => {
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               onScroll={(event) => {
-                console.log("event: ", event);
                 props.setSliderPage(event);
               }}
               renderItem={({ item, index }) => {

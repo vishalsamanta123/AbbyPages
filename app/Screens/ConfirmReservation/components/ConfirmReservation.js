@@ -35,16 +35,16 @@ const ConfirmReservation = (props) => {
                         </Text>
                         <View style={styles.RestroInfoView}>
                             <Image style={styles.RestroProfile}
-                                source={{ uri: props.restroDetail && props.restroDetail.logo }} />
+                                source={{ uri: props?.restroDetail && props?.restroDetail?.logo }} />
                             <View style={styles.RestroNameView}>
-                                <Text style={styles.RestroNameTxt}>{props.restroDetail.business_name}</Text>
+                                <Text style={styles.RestroNameTxt}>{props?.restroDetail?.business_name}</Text>
                                 <View style={styles.GuestsView} >
                                     <Image style={styles.UserImgeStyle} resizeMode='contain' source={require('../../../Assets/list_guest_icon.png')} />
-                                    <Text style={styles.DateMainTxt}> {props.reservationData.people} guests</Text>
+                                    <Text style={styles.DateMainTxt}> {props?.reservationData?.people} guests</Text>
                                 </View>
                                 <View style={styles.GuestsView} >
                                     <Image style={styles.CalenderImge} resizeMode='contain' source={require('../../../Assets/info_calendar_icon.png')} />
-                                    <Text style={styles.DateMainTxt}> {props.reservationData.date} -{props.reservationData.time} </Text>
+                                    <Text style={styles.DateMainTxt}> {props?.reservationData?.date} -{props?.reservationData?.time} </Text>
                                 </View>
                                 <TouchableOpacity onPress={() => props.onPressEditDetails()} style={styles.GuestsView} >
                                     <Text style={styles.EditDetailTxt}>Edit Details</Text>
@@ -53,47 +53,47 @@ const ConfirmReservation = (props) => {
                         </View>
                     </View>
                     <Input
-                        onChangeText={(firstName) => props.setLocalUserData({
-                            ...props.localUserData,
+                        onChangeText={(firstName) => props?.setLocalUserData({
+                            ...props?.localUserData,
                             first_name: firstName
                         })}
-                        value={props.localUserData.first_name && props.localUserData.first_name}
+                        value={props?.localUserData?.first_name && props?.localUserData?.first_name}
                         placeholder="First Name"
                         InputType="withScroll"
                     />
                     <Input
                         onChangeText={(last_name) => props.setLocalUserData({
-                            ...props.localUserData,
+                            ...props?.localUserData,
                             last_name: last_name
                         })}
-                        value={props.localUserData.last_name && props.localUserData.last_name}
+                        value={props?.localUserData?.last_name && props?.localUserData?.last_name}
                         placeholder="Last Name"
                         InputType="withScroll"
                     />
                     <Input
                         onChangeText={(email) => props.setLocalUserData({
-                            ...props.localUserData,
+                            ...props?.localUserData,
                             email: email
                         })}
-                        value={props.localUserData.email && props.localUserData.email}
+                        value={props?.localUserData?.email && props?.localUserData?.email}
                         placeholder="Email"
                         InputType="withScroll"
                     />
                     <Input
                         onChangeText={(mobile) => props.setLocalUserData({
-                            ...props.localUserData,
+                            ...props?.localUserData,
                             mobile: mobile
                         })}
-                        value={props.localUserData.mobile && props.localUserData.mobile}
+                        value={props?.localUserData?.mobile && props?.localUserData?.mobile}
                         placeholder="Mobile Number"
                         InputType="withScroll"
                     />
                     <Input
                         onChangeText={(note) => props.setLocalUserData({
-                            ...props.localUserData,
+                            ...props?.localUserData,
                             note: note
                         })}
-                        value={props.localUserData.note && props.localUserData.note}
+                        value={props?.localUserData?.note && props?.localUserData?.note}
                         placeholder="Notes (optional)"
                         InputType="withScroll"
                         multiLine={true}
