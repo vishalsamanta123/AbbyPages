@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { YELLOW_COLOR_CODE, WHITE_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
+import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     ADDBtnTxt: {
         fontFamily: FONT_FAMILY_REGULAR,

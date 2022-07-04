@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: WHITE_COLOR_CODE
     },
-
     txtipt: {
         height: 65,
         borderColor: '#d8d8d8',

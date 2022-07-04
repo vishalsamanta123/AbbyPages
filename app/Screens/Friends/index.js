@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FriendsScreen from './components/FriendsScreen';
-const FriendsView = ({ navigation }) => {
-
+const FriendsView = ({navigation}) => {
+    const onPressInviteFriends = () => {
+        navigation.navigate('InviteFriends')
+    }
     return (
         <FriendsScreen
-           
+            onPressInviteFriends={onPressInviteFriends}
         />
     )
 }

@@ -10,10 +10,7 @@ import {
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
-import Button from "../../../Components/Button";
 import {
-  FONT_FAMILY_LIGHT,
-  LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,

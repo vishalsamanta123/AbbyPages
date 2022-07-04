@@ -4,21 +4,12 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
-  StatusBar,
-  Image,
-  TouchableOpacity,
 } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
 import Header from "../../../../Components/Header";
 const BusinessSignUp = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);

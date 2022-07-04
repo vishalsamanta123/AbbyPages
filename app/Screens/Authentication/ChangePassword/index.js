@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import ChangePassword from './components/ChangePassword';
 import { View } from 'react-native';
 import { apiCall } from '../../../Utils/httpClient';

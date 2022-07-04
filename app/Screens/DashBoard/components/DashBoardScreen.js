@@ -38,20 +38,16 @@ const DashBoardScreen = (props) => {
       />
       <ScrollView
         keyboardShouldPersistTaps={"always"}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
+        contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.LocatnSrchCntain}>
           <TouchableOpacity
             onPress={() => props.onPressSearchBusinessCategory()}
-            style={styles.TextInputView}
-          >
+            style={styles.TextInputView}>
             {props.businessCategory === "" ? (
-              <Text
-                style={[
+              <Text style={[
                   styles.TextInputStyle,
                   { paddingVertical: 16, color: "grey" },
-                ]}
-              >
+                ]}>
                 Eg: food, service, barber, hotel
               </Text>
             ) : (
@@ -59,7 +55,6 @@ const DashBoardScreen = (props) => {
                 {props.businessCategory.category_name}
               </Text>
             )}
-
             <Image
               style={styles.TextInputImge}
               source={require("../../../Assets/search_field_icon.png")}
@@ -127,8 +122,7 @@ const DashBoardScreen = (props) => {
         <View style={styles.OptionsConatin}>
           <TouchableOpacity
             onPress={() => props.onPressRestro()}
-            style={styles.MainOptinsView}
-          >
+            style={styles.MainOptinsView}>
             <View style={styles.OptnsImgContain}>
               <Image
                 source={require("../../../Assets/restaurant_list_icon.png")}

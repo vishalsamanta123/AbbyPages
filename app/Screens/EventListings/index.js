@@ -4,7 +4,14 @@ import EventListingScreen from './components/EventListingScreen';
 import CommonStyles from '../../Utils/CommonStyles';
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
+import Loader from "../../Utils/Loader";
+import Error from "../../Components/Modal/error";
+
+
 const EventListing = ({ navigation }) => {
+    const [loader, setLoader] = useState();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [visibleErr, setVisibleErr] = useState(false);
     const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
     const [isSelectedDay, setIsSelectedDay] = useState(0);
     const [eventsList, setEventsList] = useState('');
@@ -29,7 +36,9 @@ const EventListing = ({ navigation }) => {
             { id: 3, name: 'This Week' },
         ], []);
     const _handleDaySelected = (index, item) => {
-        setIsSelectedDay(index)
+        setEventsList([]);
+        setIsSelectedDay(index);
+        getEventList(index);
     };
     const [eventList, setEventList] =
         useState([
@@ -64,23 +73,32 @@ const EventListing = ({ navigation }) => {
     const onPressEvent = (item) => {
         navigation.navigate('EventDetails', { item: item })
     }
-    const getEventList = async () => {
+    const getEventList = async (index) => {
+        setLoader(true);
         try {
             const params = {
-                limit: '1',
+                limit: '5',
                 offset: '0'
             }
             const response = await apiCall('POST', ENDPOINTS.GET_EVENT_LIST, params);
             if (response.status === 200) {
-                setEventsList(response.data.data)
-            } else {
+                setEventsList(response?.data?.data);
+                setLoader(false);
+            }
+            else {
+                setLoader(false);
+                setVisibleErr(true);
+                setErrorMessage('No data found')
             }
         } catch (error) {
-            console.log('error: ', error);
+            setLoader(false);
+            setVisibleErr(true);
+            setErrorMessage(error)
         }
     }
     return (
         <View style={CommonStyles.container}>
+            {loader && <Loader state={loader} />}
             <EventListingScreen
                 dataType={dataType}
                 _handleDataTypeSelected={_handleDataTypeSelected}
@@ -91,6 +109,11 @@ const EventListing = ({ navigation }) => {
                 eventList={eventList}
                 onPressEvent={onPressEvent}
                 eventsList={eventsList}
+            />
+            <Error
+                message={errorMessage}
+                visible={visibleErr}
+                closeModel={() => setVisibleErr(false)}
             />
         </View>
     );

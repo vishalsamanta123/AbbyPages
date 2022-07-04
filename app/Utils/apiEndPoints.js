@@ -88,5 +88,6 @@ export default {
   USERCOMMONLIKES: "api/masterTableData/userCommonLikes",
   GET_EVENT_CATEGORY_LIST:"/api/events/getEventCategoryList",
   GET_EVENT_LIST:"/api/events/getEventList",
+  GET_EVENT_DETAILS:"/api/events/getEventDetails",
 
 };
