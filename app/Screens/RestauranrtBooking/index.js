@@ -18,6 +18,7 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import dateFormat from "dateformat";
+
 const RestauranrtBookingView = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -30,7 +31,8 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   const [reservationDateList, setReservationDateList] = useState([]);
   const [restaurantTimeData, setRestaurantTimeData] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [date, setDate] = useState(moment().format("L"));
+  console.log("isDatePickerVisible: ", isDatePickerVisible);
+  const [date, setDate] = useState(null);
   const [time, setTime] = useState(moment().format("LT"));
   const [SelectPeople, setSelectPeople] = useState("5");
   const [bookingType, setBookingType] = useState("");
@@ -158,26 +160,23 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     }
     return true;
   };
-  const onPressFindTable = async () => {
-    setVisible(true);
-    var dateFormater = moment(date).format("YYYY-MM-DD");
-    console.log("dateFormater: ", dateFormater);
+  const onPressTableFind = async () => {
     try {
-      var dateFormater = dateFormat(date, "yyyy-mm-dd");
+      setVisible(true);
+      const dateSend = moment(date).format("YYYY-MM-DD");
       const params = {
         business_id: restroDetail.business_id,
-        booking_date: dateFormater,
-        // business_type: 1,
+        booking_date: dateSend,
       };
       console.log("params: ", params);
-      const data = await apiCall(
+      const { data } = await apiCall(
         "POST",
         ENDPOINTS.RESTAURANT_TIME_SLOAT,
         params
       );
-      console.log("dataTABLES: ", data.data);
+      console.log("data: ", data);
       if (data.status === 200) {
-        // setVisible(false);
+        setVisible(false);
         var currentDate = moment().format("YYYY-MM-DD");
         const searchArray = [...data.data];
         const filterData = _.filter(searchArray, { date: currentDate });
@@ -199,17 +198,51 @@ const RestauranrtBookingView = ({ route, navigation }) => {
         setVisibleErr(true);
       }
     } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+  const onPressFindTable = async () => {
+    setVisible(true);
+    var dateFormater = moment(date).format("YYYY-MM-DD");
+    try {
+      var dateFormater = dateFormat(date, "yyyy-mm-dd");
+      const params = {
+        business_id: restroDetail.business_id,
+        booking_date: date,
+      };
+      // const data = await apiCall(
+      //   "POST",
+      //   ENDPOINTS.RESTAURANT_TIME_SLOAT,
+      //   params
+      // );
+      // console.log("dataTABLES: ", data.data);
+      // if (data.status === 200) {
+      //   // setVisible(false);
+      //   var currentDate = moment().format("YYYY-MM-DD");
+      //   const searchArray = [...data.data];
+      //   const filterData = _.filter(searchArray, { date: currentDate });
+      //   if (filterData.length > 0) {
+      //     setRestaurantTimeData(filterData[0].timeslot);
+      //     setVisible(false);
+      //   } else {
+      //     const filterData = _.filter(searchArray, { date: date });
+      //     if (filterData.length > 0) {
+      //       setRestaurantTimeData(filterData[0].timeslot);
+      //       setVisible(false);
+      //     } else {
+      //       setVisible(false);
+      //     }
+      //   }
+      // } else {
+      //   setVisible(false);
+      //   setErrorMessage(data.message);
+      //   setVisibleErr(true);
+      // }
+    } catch (error) {
       setVisible(false);
       setErrorMessage(data.message);
       setVisibleErr(true);
     }
-
-    // const valid = validation();
-    // if (valid == true) {
-    //     setVisible(true);
-    // } else {
-
-    // };
   };
   const onPressTime = (item, index) => {
     const reservationData = {
@@ -270,11 +303,14 @@ const RestauranrtBookingView = ({ route, navigation }) => {
       setVisible(false);
     }
   };
-  const handleDateConfirm = (date) => {
-    var dateFormater = dateFormat(date, "yyyy-mm-dd");
-    // const dates = moment(date).format("DD-MM-YYYY");
-    setDate(dateFormater);
+  const handleDateConfirm = (event, selectedDate) => {
     setDatePickerVisibility(false);
+    const currentDate = moment(selectedDate).format("YYYY/MM/DD");
+    if (event.type === "neutralButtonPressed") {
+      setDate(new Date());
+    } else {
+      setDate(currentDate);
+    }
   };
   return (
     <View style={CommonStyles.container}>
@@ -305,6 +341,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
         _handleRecommended={_handleRecommended}
         _handlePeopleSaying={_handlePeopleSaying}
         onPressFindTable={onPressFindTable}
+        onPressTableFind={onPressTableFind}
         setSelectPeople={setSelectPeople}
         SelectPeople={SelectPeople}
       />

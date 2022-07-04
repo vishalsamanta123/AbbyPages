@@ -87,7 +87,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.floor(x / width + 1);
+    const indexOfNextScreen = Math.floor(x / width);
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
@@ -403,11 +403,12 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         item_type: restroDetail.business_type,
         item_id: restroDetail.business_id,
         like: restroDetail.likes,
-        favorite: 0,
-        interest: 0,
+        favorite: restroDetail?.favorite,
+        interest: restroDetail?.interest,
         views: restroDetail.views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
