@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import InviteFriends from './components/InviteFriends';
 const InviteFriendsView = ({ navigation }) => {
     const [EmailAddress, setEmailAddress] = useState('');
-    // const [SpiceLevel, setSpiceLevel] = useState('');
-    // const [Special, setSpecial] = useState('');
-    const onPressSend = () => {
-        // navigation.navigate('Searching')
+    const [emailExSecond, setEmailExSecond] = useState('');
+    const [emailExThird, setEmailExThired] = useState('');
+    const [showEmailBox, setShowEmailBox] = useState(false);
+
+    const addAnotherEmail = () => {
+        setShowEmailBox(true);
+    }
+    const handleSaveEmail = () => {
+        alert('coming soon')
     }
     return (
         <InviteFriends
+            showEmailBox={showEmailBox}
             EmailAddress={EmailAddress}
-            // SpiceLevel={SpiceLevel}
-            // Special={Special}
+            emailExThird={emailExThird}
+            emailExSecond={emailExSecond}
+            handleSaveEmail={handleSaveEmail}
             setEmailAddress={setEmailAddress}
-            // setSpiceLevel={setSpiceLevel}
-            // setSpecial={setSpecial}
-            onPressSend={onPressSend}
+            addAnotherEmail={addAnotherEmail}
+            setEmailExSecond={setEmailExSecond}
+            setEmailExThired={setEmailExThired}
         />
     )
 }
