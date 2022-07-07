@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   SectionList,
+  Platform,
 } from "react-native";
 import _ from "lodash";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -188,12 +189,12 @@ const RestauranrtBookingScreen = (props) => {
             </TouchableOpacity>
             {props?.isTimePickerVisible && (
               <DateTimePicker
-                mode={"time"}
-                onChange={props.handleTimeConfirm}
+                mode={Platform.OS === "ios" ? "datetime" : "time"}
+                onChange={(event, time) => props.handleTimeConfirm(event, time)}
                 value={new Date(props?.time)}
                 // minuteInterval={10}
-                onError={() => {
-                  props.setTimePickerVisibility(false);
+                onError={(data) => {
+                  props.setTimePickerVisibility(!props?.isTimePickerVisible);
                 }}
               />
             )}

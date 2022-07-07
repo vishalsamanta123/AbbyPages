@@ -33,7 +33,6 @@ const ServiceProviderListingView = ({ navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log('dataSSS: ', data);
       if (data.status === 200) {
         setserviceData(data.data);
         setVisible(false);
@@ -44,7 +43,7 @@ const ServiceProviderListingView = ({ navigation }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      // setErrorMessage(error);
     }
   };
   const onPressServices = (detail) => {

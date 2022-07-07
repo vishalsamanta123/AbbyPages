@@ -35,7 +35,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
-  console.log("restroDetail: ", restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -408,7 +407,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         views: restroDetail.views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
