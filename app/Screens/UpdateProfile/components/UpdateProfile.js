@@ -196,10 +196,6 @@ const UpdateProfile = (props) => {
                                 justifyContent: "space-between",
                                 alignItems: "center"
                             }}>
-                            {
-                                console.log('birth_date',
-                                    props.profileData.birth_date)
-                            }
                             <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>
                                 {
                                     props?.profileData?.birth_date === '' ||

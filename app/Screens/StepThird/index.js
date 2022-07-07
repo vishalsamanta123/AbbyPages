@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 import StepThirdScreen from './components/StepThirdScreen';
 import { View } from 'react-native';
 import CommonStyles from '../../Utils/CommonStyles';
-import { apiCall } from '../../Utils/httpClient';
-import ENDPOINTS from '../../Utils/apiEndPoints';
 import Loader from '../../Utils/Loader';
 import Success from '../../Components/Modal/success';
 import Error from '../../Components/Modal/error';

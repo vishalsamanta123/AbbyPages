@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Text,
     Image,
-    KeyboardAvoidingView,
+    ScrollView,
     TouchableOpacity,
-    ScrollView
 } from 'react-native';
 import styles from './styles';
 import Button from '../../../Components/Button';
@@ -17,7 +16,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 const StepThirdScreen = (props) => {
     return (
-        <View style={[CommonStyles.container,{backgroundColor:WHITE_COLOR_CODE}]}>
+        <View style={[CommonStyles.container, { backgroundColor: WHITE_COLOR_CODE }]}>
             <Header leftImg={require('../../../Assets/close_window_icon.png')}
                 HeaderText="3 of 8"
                 RightImg={null}
@@ -30,10 +29,9 @@ const StepThirdScreen = (props) => {
                         <Text style={styles.maintxt}>
                             In Which locations are you
                             looking for professionals?
-                    </Text>
+                        </Text>
                     </View>
                     <View style={styles.inputwvwe}>
-
                         <GooglePlacesAutocomplete
                             placeholder={'Zip code or location'}
                             // setAddressText={props.profileData.find_me_in}
@@ -148,7 +146,7 @@ const StepThirdScreen = (props) => {
                             multiline
                             placeholder="Description"
                             InputType="withScroll"
-                            // containerStyle={{marginBottom:20}}
+                        // containerStyle={{marginBottom:20}}
                         />
 
                     </View>

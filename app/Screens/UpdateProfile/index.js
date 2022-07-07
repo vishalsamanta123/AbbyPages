@@ -151,8 +151,7 @@ const UpdateProfileView = ({ navigation }) => {
         if (valid == true) {
             setVisible(true);
             const params = profileData;
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.EDIT_USER_PROFILE, params);
+            const { data } = await apiCall('POST', ENDPOINTS.EDIT_USER_PROFILE, params);
             if (data.status === 200) {
                 setSuccessMessage(data.message);
                 setVisibleSuccess(true);
