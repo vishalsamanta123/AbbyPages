@@ -13,9 +13,9 @@ import Header from '../../../Components/Header';
 import Button from '../../../Components/Button'
 import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const EventListingScreen = (props) => {
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
+    const { width, height } = Dimensions.get('window');
     const eventDate = moment(props?.eventDetails?.created_at).format("MMMM Do YYYY, h:mm:ss a");
     return (
         <View style={CommonStyles.container}>
@@ -23,7 +23,7 @@ const EventListingScreen = (props) => {
             <Header HeaderText='Events Details' RightImg={null} />
             <View style={[CommonStyles.body]}>
                 <ScrollView>
-                    <FlatList
+                    {/*<FlatList
                         horizontal
                         data={props?.eventDetails?.recently_events}
                         renderItem={({ item }) => (
@@ -33,7 +33,39 @@ const EventListingScreen = (props) => {
                                 />
                             </View>
                         )}
-                    />
+                        /> */}
+
+                    <SafeAreaView style={{ alignItems: 'center' }}>
+                        <FlatList
+                            keyExtractor={(item, index) => index.toString()}
+                            data={props?.eventDetails?.recently_events && props?.eventDetails?.recently_events}
+                            scrollEventThrottle={16}
+                            pagingEnabled={true}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            onScroll={(event) => { props.setSliderPage(event) }}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    index <= 4 &&
+                                    <View key={index} style={{ width, alignItems: 'center' }}>
+                                        <Image
+                                            resizeMode='stretch'
+                                            source={{ uri: item.events_image }}
+                                            style={styles.imageStyle}
+                                        />
+                                    </View>
+                                )
+                            }
+                            }
+                        />
+                        {/* {props.shopDetail.image.length} */}
+                        <View style={styles.paginationWrapper}>
+                            {Array.from(Array(5).keys()).map((key, index) => (
+                                <View style={[styles.paginationDots, { opacity: props.pageIndex === index ? 1 : 0.2 }]} key={index} />
+                            ))}
+                        </View>
+                    </SafeAreaView>
+
                     {/* <Image style={styles.bannerimg} source={require('../../../Assets/extraImages/salooonimg.jpg')} /> */}
                     <View style={styles.infocon}>
                         <Text style={[styles.hdngtxt, { textTransform: 'capitalize' }]}>{props?.eventDetails?.event_name}</Text>

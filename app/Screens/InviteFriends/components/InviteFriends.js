@@ -3,8 +3,8 @@ import {
     View,
     Text,
     StatusBar,
-    Image,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 } from 'react-native';
 import styles from './styles';
 import Input from '../../../Components/Input';
@@ -37,29 +37,35 @@ const InviteFriends = (props) => {
                             placeholder="Email"
                             InputType="withScroll"
                         />
-                        <Input
-                            onChangeText={(SpiceLevel) => props.setSpiceLevel(null)}
-                            value={null}
-                            secureTextEntry={false}
-                            placeholder={null}
-                            InputType="withScroll"
-                        />
-                        <Input
-                            onChangeText={(SpiceLevel) => props.setSpiceLevel(null)}
-                            value={null}
-                            secureTextEntry={false}
-                            placeholder={null}
-                            InputType="withScroll"
-                        />
-                        <View style={styles.AnotherEmailView}>
+                        {props.showEmailBox ?
+                            <View>
+                                <Input
+                                    onChangeText={(emailExSecond) => props.setEmailExSecond(emailExSecond)}
+                                    value={props.emailExSecond}
+                                    secureTextEntry={false}
+                                    placeholder="martinx@gmail.com"
+                                    InputType="withScroll"
+                                />
+                                <Input
+                                    onChangeText={(emailExThird) => props.setEmailExThired(emailExThird)}
+                                    value={props.emailExThird}
+                                    secureTextEntry={false}
+                                    placeholder="martinx2406@gmail.com"
+                                    InputType="withScroll"
+                                />
+                            </View>
+                            :
+                            null
+                        }
+                        <TouchableOpacity onPress={() => props.addAnotherEmail()} style={styles.AnotherEmailView}>
                             <Text style={styles.AnotherEmailText}>Add another email address</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ flex: 2, justifyContent: 'flex-end' }}>
                         <Button
                             buttonText="Save Email Invites"
                             buttonLabelStyle={styles.ADDBtnTxt}
-                            onPress={props.onPressSend}
+                            onPress={()=>props.handleSaveEmail()}
                         />
                     </View>
                 </ScrollView>
@@ -67,4 +73,4 @@ const InviteFriends = (props) => {
         </View>
     )
 }
-export default InviteFriends
+export default InviteFriends;

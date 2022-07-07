@@ -3,12 +3,17 @@ import {
     FONT_FAMILY_REGULAR,
     YELLOW_COLOR_CODE,
     SMALL_TEXT_COLOR_CODE,
+    WHITE_COLOR_CODE,
 } from '../../../Utils/Constant'
 const Styles = StyleSheet.create({
     // imageStyle: {
         // width: width,
         // height: height / 4
     // },
+    imageStyle: {
+        height: 210,
+        width: '100%'
+    },
     bannerimg: {
         width: '100%',
         height: 180,
@@ -22,6 +27,12 @@ const Styles = StyleSheet.create({
         borderBottomColor: '#f2f2f2',
         backgroundColor: '#fff'
     },
+    paginationWrapper: {
+        bottom: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
     hdngtxt: {
         fontSize: 18,
         lineHeight: 22,
@@ -29,6 +40,13 @@ const Styles = StyleSheet.create({
         fontFamily: FONT_FAMILY_REGULAR,
         color: "#3a3838",
         paddingBottom: 10,
+    },
+    paginationDots: {
+        height: 10,
+        width: 10,
+        borderRadius: 10 / 2,
+        backgroundColor: WHITE_COLOR_CODE,
+        marginLeft: 10,
     },
     basiccon: {
         flexDirection: "row",

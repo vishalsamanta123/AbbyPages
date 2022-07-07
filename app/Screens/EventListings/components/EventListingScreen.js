@@ -32,7 +32,7 @@ const EventListingScreen = (props) => {
         );
     };
     const _renderEventList = (item, index) => {
-    // console.log('item: ', item.event_id);
+        // console.log('item: ', item.event_id);
         const eventDate = moment(JSON.parse(item?.event_date)).format("DD/MM/YYYY");
         return (
             <TouchableOpacity onPress={() => props.onPressEvent(item)} style={styles.mnCon}>

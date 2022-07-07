@@ -55,7 +55,7 @@ const CreateEventView = () => {
   });
   useEffect(() => {
     getCategoryList()
-  },[])
+  }, [])
   const _handleModalOpen = () => {
     setEventCategoryModalVisible(true)
   }
@@ -143,7 +143,7 @@ const CreateEventView = () => {
       });
       console.log('formData: ', formData);
       const response = await apiCall("POST", ENDPOINTS.CREATE_EVENTS, formData,
-      { "Content-Type": "multipart/form-data" }
+        { "Content-Type": "multipart/form-data" }
       );
       console.log('response: ', response);
       if (response.status === 200) {
@@ -308,7 +308,7 @@ const CreateEventView = () => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );

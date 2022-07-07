@@ -15,6 +15,10 @@ const EventListing = ({ navigation }) => {
     const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
     const [isSelectedDay, setIsSelectedDay] = useState(0);
     const [eventsList, setEventsList] = useState('');
+
+    const [stopOffset, setstopOffset] = useState(false);
+    const [offset, setoffset] = useState(0);
+
     const [dataType, setDataType] =
         useState([
             { id: 0, name: 'Festivals and Fairs' },
@@ -23,7 +27,7 @@ const EventListing = ({ navigation }) => {
             { id: 3, name: 'Beardo' },
         ], []);
     useEffect(() => (
-        getEventList()
+        getEventList(0)
     ), [])
     const _handleDataTypeSelected = (index, item) => {
         setIsSelectedCatgory(index)
@@ -73,14 +77,20 @@ const EventListing = ({ navigation }) => {
     const onPressEvent = (item) => {
         navigation.navigate('EventDetails', { item: item })
     }
-    const getEventList = async (index) => {
+    const getEventList = async (offSet) => {
         setLoader(true);
         try {
-            const params = {
-                limit: '5',
+             const params = {
+                limit: '100',
                 offset: '0'
-            }
+            } 
+           {/* setoffset(offSet);
+            const params = {
+                offset: offSet ? offSet : '6',
+            };*/}
+            console.log('params', params);
             const response = await apiCall('POST', ENDPOINTS.GET_EVENT_LIST, params);
+            console.log('response: ', response.data)
             if (response.status === 200) {
                 setEventsList(response?.data?.data);
                 setLoader(false);
@@ -89,6 +99,7 @@ const EventListing = ({ navigation }) => {
                 setLoader(false);
                 setVisibleErr(true);
                 setErrorMessage('No data found')
+                // setstopOffset(true)
             }
         } catch (error) {
             setLoader(false);
@@ -109,6 +120,9 @@ const EventListing = ({ navigation }) => {
                 eventList={eventList}
                 onPressEvent={onPressEvent}
                 eventsList={eventsList}
+                stopOffset={stopOffset}
+                getEventList={getEventList}
+                offset={offset}
             />
             <Error
                 message={errorMessage}

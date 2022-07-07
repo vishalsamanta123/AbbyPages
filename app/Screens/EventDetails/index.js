@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import EventDetailsScreen from './components/EventDetailsScreen';
 import CommonStyles from '../../Utils/CommonStyles';
 import { apiCall } from '../../Utils/httpClient';
@@ -8,6 +8,11 @@ const EventDetails = ({ route }) => {
     const params = route.params;
     const [eventId, setEventId] = useState('');
     const [eventDetails,setEventDetails] = useState('');
+    const { width, height } = Dimensions.get('window');
+
+    const [sliderState, setSliderState] = useState({ currentPage: 0 });
+    const { currentPage: pageIndex } = sliderState;
+
     useEffect(() => {
         setEventId(params?.item?.event_id);
         getEventDetails();
@@ -29,10 +34,23 @@ const EventDetails = ({ route }) => {
         console.log('error: ', error);
         }
     }
-
+    const setSliderPage = (event) => {
+        const { currentPage } = sliderState;
+        const { x } = event.nativeEvent.contentOffset;
+        const indexOfNextScreen = Math.floor(x / width);
+        if (indexOfNextScreen !== currentPage) {
+            setSliderState({
+                ...sliderState,
+                currentPage: indexOfNextScreen,
+            });
+        }
+    };
     return (
         <View style={CommonStyles.container}>
-            <EventDetailsScreen  eventDetails={eventDetails}/>
+            <EventDetailsScreen
+              eventDetails={eventDetails}
+              setSliderPage={setSliderPage}
+              />
         </View>
     );
 };
