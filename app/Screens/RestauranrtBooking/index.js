@@ -36,6 +36,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   const [SelectPeople, setSelectPeople] = useState("5");
   const [bookingType, setBookingType] = useState("");
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  console.log("isTimePickerVisible: ", isTimePickerVisible);
   const [restroDetail, setRestroDetail] = useState("");
   const { width, height } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
@@ -163,7 +164,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     try {
       setVisible(true);
       const params = {
-        business_id: restroDetail.business_id,
+        business_id: 2, //restroDetail.business_id,
         booking_date: date,
       };
       const { data } = await apiCall(
@@ -219,9 +220,10 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     if (Platform.OS === "android") {
       setTimePickerVisibility(false);
     }
-    const timeData = moment(time).format("LTS");
+    const timeData = moment(time).format("LT");
     if (event.type === "neutralButtonPressed") {
-      setTime(new Date());
+      let currentTime = new Date();
+      setTime(moment(currentTime).format("LTS"));
     } else {
       setTime(timeData);
     }

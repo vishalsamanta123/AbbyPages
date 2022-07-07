@@ -10,55 +10,77 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import dateFormat from "dateformat";
-import AsyncStorage from "@react-native-community/async-storage";
-const ConfirmReservationView = ({ route, navigation }) => {
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+
+const ConfirmReservationView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const isFocused = useIsFocused();
 
-  const [userData, setUserData] = useState();
-  console.log("userData: ", userData);
+  useFocusEffect(
+    React.useCallback(() => {
+      getRestroData();
+      getProfile();
+      return () => {
+        getRestroData();
+        getProfile();
+      };
+    }, [navigation, route])
+  );
+
+  const [profileData, setProfileData] = useState(null);
   const [localUserData, setLocalUserData] = useState({
-    first_name: userData?.first_name ? userData?.first_name : "",
-    last_name: userData?.last_name ? userData?.last_name : "",
-    email: userData?.email ? userData?.email : "",
-    mobile: userData?.mobile ? userData?.mobile : "",
-    note: userData?.note ? userData?.note : "",
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    mobile: "",
+    note: "",
   });
-  console.log("localUserData: ", localUserData);
   const [reservationData, setReservationData] = useState(null);
   const [restroDetail, setRestroDetail] = useState(null);
   const [SaveCheckBox, setSaveCheckBox] = useState(true);
-
-  useEffect( () => {
-    getAsyncStorage();
-  }, []);
   const onPressCheckBox = () => {
     setSaveCheckBox(!SaveCheckBox);
   };
   const onPressEditDetails = () => {
     navigation.navigate("RestauranrtBooking", { detail: restroDetail });
   };
-
-  const getAsyncStorage = async () => {
-    let userData = await AsyncStorage.getItem("localuserdata");
+  const getProfile = async () => {
+    setVisible(true);
+    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+    if (data.status === 200) {
+      setProfileData(data.data);
+      await userDatas();
+    }
+  };
+  const userDatas = async () => {
+    setVisible(false);
+    setLocalUserData({
+      firstName: profileData.first_name,
+      lastName: profileData.last_name,
+      emailAddress: profileData.email,
+      mobile: profileData.phone,
+      note: profileData.note,
+    });
+  };
+  const getRestroData = () => {
     if (route?.params) {
-      setUserData(userData);
       const { reservationData, restroDetail } = route?.params;
       setReservationData(reservationData);
       setRestroDetail(restroDetail);
-    };
-  }
+    }
+  };
 
   const validationForm = () => {
-    if (localUserData.first_name == "") {
+    if (localUserData.firstName == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter First Name");
       return false;
     }
-    if (localUserData.last_name == "") {
+    if (localUserData.lastName == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter Last Name");
       return false;
@@ -99,7 +121,7 @@ const ConfirmReservationView = ({ route, navigation }) => {
         "POST",
         ENDPOINTS.RESTAURANTS_TABLE_BOOKING,
         params
-      );
+        );
       if (data.status === 200) {
         setSuccessMessage(data.message);
         setVisibleSuccess(true);

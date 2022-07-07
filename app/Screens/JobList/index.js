@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { ToastAndroid, View } from "react-native";
 import JobListScreen from "./components/JobListScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import FilterPopUp from "./components/FilterPopUp";
@@ -31,9 +31,26 @@ const JobList = ({ navigation }) => {
       business_type: 2,
     });
   };
-  const _hanldeSetLike = (index) => {
-    // like == index ? setLike(null) : setLike(index);
-    alert("Coming Soon");
+  const _hanldeSetLike = async (item) => {
+    try {
+      const params = {
+        business_id: item.business_id,
+        like_status: item?.user_like == 1 ? 0 : 1,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      if (data.status == 200) {
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        handlejobsList(offset);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      // setErrorMessage(error);
+      // setVisibleErr(true);
+      setVisible(false);
+    }
   };
   const handlejobsList = async (offSet) => {
     setoffset(offSet);
@@ -73,9 +90,9 @@ const JobList = ({ navigation }) => {
       return item.company_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      setVisible(true);
+      setLoader(true);
       handlejobsList(0);
-      setVisible(false);
+      setLoader(false);
     } else {
       setJobList(list);
     }

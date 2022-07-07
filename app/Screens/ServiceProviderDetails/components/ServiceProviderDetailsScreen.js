@@ -18,6 +18,10 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import Dialog, {
+  DialogContent,
+  SlideAnimation,
+} from "react-native-popup-dialog";
 const ServiceProviderDetailsScreen = (props) => {
   const initialRegion = {
     latitude: props.serviceDetail.latitude
@@ -110,20 +114,37 @@ const ServiceProviderDetailsScreen = (props) => {
           <View style={styles.centermainvwe}>
             <TouchableOpacity
               activeOpacity={0.9}
-              onPress={() => props.openAlbum()}
+              onPress={() => props.setAddPhotoModal(true)}
               style={styles.addphotovwe}
             >
               <Image source={require("../../../Assets/add_photo_icon.png")} />
               <Text style={styles.addtxt}> Add Photo </Text>
             </TouchableOpacity>
-            <View style={styles.addphotovwe}>
+            <TouchableOpacity
+              onPress={() => {
+                props.shareTo();
+              }}
+              style={styles.addphotovwe}
+            >
               <Image source={require("../../../Assets/share_icon.png")} />
               <Text style={styles.addtxt}> Share </Text>
-            </View>
-            <View style={styles.sharephotovwe}>
-              <Image source={require("../../../Assets/save_icon.png")} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                props.saveResto();
+              }}
+              style={styles.sharephotovwe}
+            >
+              <Image 
+              style={{
+                backgroundColor:
+                  props?.serviceDetail?.favorite === 1
+                    ? YELLOW_COLOR_CODE
+                    : null,
+              }}
+              source={require("../../../Assets/save_icon.png")} />
               <Text style={styles.addtxt}> Save</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <FlatList
             horizontal={true}
@@ -485,6 +506,64 @@ const ServiceProviderDetailsScreen = (props) => {
             />
           </View>
         </ScrollView>
+        <View>
+          <Dialog
+            visible={props.addPhotoModal}
+            dialogAnimation={
+              new SlideAnimation({
+                slideFrom: "bottom",
+              })
+            }
+            transparent={true}
+            onTouchOutside={() => {
+              props.setAddPhotoModal(false);
+            }}
+            onRequestClose={() => props.setAddPhotoModal(false)}
+          >
+            <DialogContent>
+              <View style={styles.alertBackground}>
+                <Text style={[styles.modalItem, { paddingBottom: 10 }]}>
+                  Please select
+                </Text>
+                <View style={styles.alertBox}>
+                  <TouchableOpacity
+                    style={styles.profileModal}
+                    onPress={() => props.openCamera()}
+                    underlayColor={"#F5F5F5"}
+                  >
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={require("../../../Assets/camera.png")}
+                    />
+                    <Text style={styles.modalItem}>Open camera</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.profileModal}
+                    onPress={() => props.openAlbum()}
+                    underlayColor={"#F5F5F5"}
+                  >
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={require("../../../Assets/image-gallery.png")}
+                    />
+                    <Text style={styles.modalItem}>Open album</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.profileModal}
+                    underlayColor={"#F5F5F5"}
+                    onPress={() => props.setAddPhotoModal(false)}
+                  >
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={require("../../../Assets/cancelModalBtn.png")}
+                    />
+                    <Text style={styles.modalItem}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </DialogContent>
+          </Dialog>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
