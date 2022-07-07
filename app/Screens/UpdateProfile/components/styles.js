@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, YELLOW_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_THIN, FONT_FAMILY_LIGHT } from '../../../Utils/Constant';
+import { StyleSheet } from 'react-native';
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     alertBackground: {
         alignItems: 'center',
@@ -66,7 +66,7 @@ const Styles = StyleSheet.create({
         // top: -45,
         // left: 0,
         alignItems: 'center',
-        backgroundColor:YELLOW_COLOR_CODE,
+        backgroundColor: YELLOW_COLOR_CODE,
         // height:40,
         justifyContent: 'flex-end'
         // position: 'absolute',
@@ -82,7 +82,7 @@ const Styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        backgroundColor:'red'
+        backgroundColor: 'red'
     }
 })
 export default Styles;

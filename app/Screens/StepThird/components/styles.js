@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { SMALL_TEXT_COLOR, WHITE_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     startedbtntxt: {
         fontFamily: FONT_FAMILY_REGULAR,
