@@ -42,8 +42,9 @@ const ServiceProviderListingView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+      setVisible(false);
       setVisibleErr(true);
-      // setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
   const onPressServices = (detail) => {

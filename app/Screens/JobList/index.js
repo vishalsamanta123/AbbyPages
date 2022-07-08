@@ -22,6 +22,9 @@ const JobList = ({ navigation }) => {
   const [jobList, setJobList] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [offset, setoffset] = useState(0);
+  const [filterData, setFilterData] = useState({
+    title: "",
+  });
   const goBack = () => {
     navigation.goBack(null);
   };
@@ -44,12 +47,12 @@ const JobList = ({ navigation }) => {
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
-        setVisible(false);
+        setLoader(false);
       }
     } catch (error) {
       // setErrorMessage(error);
       // setVisibleErr(true);
-      setVisible(false);
+      setLoader(false);
     }
   };
   const handlejobsList = async (offSet) => {
@@ -97,6 +100,20 @@ const JobList = ({ navigation }) => {
       setJobList(list);
     }
   };
+  const filterJobSearch = (searchKey) => {
+    const lowerCased = searchKey.toLowerCase();
+    const searchArray = [...jobList];
+    const list = _.filter(searchArray, (item) => {
+      return item.job_title.toLowerCase().match(lowerCased);
+    });
+    if (searchKey == "") {
+      setLoader(true);
+      handlejobsList(0);
+      setLoader(false);
+    } else {
+      setJobList(list);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -120,6 +137,10 @@ const JobList = ({ navigation }) => {
         closeModel={() => setVisible(false)}
         setVisible={setVisible}
         goBack={goBack}
+        setFilterData={setFilterData}
+        filterData={filterData}
+        jobList={jobList}
+        filterJobSearch={filterJobSearch}
         // OnpressBack={OnpressBack}
       />
       <Error
