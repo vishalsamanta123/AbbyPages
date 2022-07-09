@@ -90,14 +90,14 @@ export default function FilterPopUp(props) {
                 placeholder={"Any Keywords"}
                 placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
                 onChangeText={(val) => {
-                  props.setFilterData({
-                    ...props.filterData,
-                    title: val,
-                  });
+                  props.filterJobSearch(val);
                 }}
-                value={props?.filterData?.title}
+                value={
+                  props?.filterData?.title ? props?.filterData?.title : null
+                }
+                onFocus={() => setList(true)}
               />
-              {list ? (
+              {list && (
                 <ScrollView
                   contentContainerStyle={styles.jobTitleVw}
                   keyboardShouldPersistTaps={true}
@@ -120,7 +120,7 @@ export default function FilterPopUp(props) {
                     );
                   })}
                 </ScrollView>
-              ) : null}
+              )}
             </View>
           )}
           <View style={styles.AnyKeywordView}>
@@ -159,7 +159,7 @@ export default function FilterPopUp(props) {
             </View>
           </View>
           <View style={{ flex: 1 }}>
-            <Button />
+            <Button buttonText={"Filter"} onPress={() => props.filterJob()} />
           </View>
         </View>
       </ScrollView>
