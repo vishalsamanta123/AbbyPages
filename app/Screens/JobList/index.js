@@ -107,12 +107,13 @@ const JobList = ({ navigation }) => {
       return item.job_title.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      setLoader(true);
-      handlejobsList(0);
-      setLoader(false);
+      setJobList(jobList);
     } else {
       setJobList(list);
     }
+  };
+  const filterJob = () => {
+    alert("Coming Soon");
   };
   return (
     <View style={CommonStyles.container}>
@@ -141,6 +142,7 @@ const JobList = ({ navigation }) => {
         filterData={filterData}
         jobList={jobList}
         filterJobSearch={filterJobSearch}
+        filterJob={filterJob}
         // OnpressBack={OnpressBack}
       />
       <Error
