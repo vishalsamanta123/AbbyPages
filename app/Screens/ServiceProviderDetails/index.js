@@ -1,6 +1,13 @@
 import React, { useState, Fragment, useEffect } from "react";
 import ServiceProviderDetailsScreen from "./components/ServiceProviderDetailsScreen";
-import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Linking,
+  Share,
+} from "react-native";
 import styles from "./components/styles";
 import moment from "moment";
 import {
@@ -28,7 +35,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [addImages, setAddImages] = useState();
+  const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [reviewData, setReviewData] = useState({
     description: "",
     title: "",
@@ -76,7 +83,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(JSON.stringify(error));
     }
   };
   const handlePhotos = (item, index) => {
@@ -95,14 +102,59 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     );
   };
   const openAlbum = () => {
+    setAddPhotoModal(false);
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       cropping: true,
-      multiple: true,
-    }).then((images, index) => {
-      console.log("images: ", images);
+    }).then((image) => {
+      handleUploadImage(image);
     });
+  };
+  const openCamera = () => {
+    setAddPhotoModal(false);
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then((image) => {
+      handleUploadImage(image);
+    });
+  };
+  const handleUploadImage = async (img) => {
+    setVisible(true);
+    try {
+      let formdata = new FormData();
+      formdata.append("business_id", serviceDetail.business_id);
+      formdata.append("business_type", 3);
+      formdata.append("image", {
+        uri: img.path,
+        type: img.mime,
+        name: img.path.substring(img.path.lastIndexOf("/") + 1),
+      });
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.ADD_BUSINESS_PHOTO_VIDEO,
+        formdata,
+        {
+          "Content-Type": "multipart/form-data",
+        }
+      );
+      if (data.status === 200) {
+        setVisibleSuccess(true);
+        setSuccessMessage(data.message);
+        handleServiceDetails(serviceDetail);
+        setVisible(false);
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setVisible(false);
+      // setErrorMessage(error);
+      // setVisibleErr(true);
+    }
   };
   const _handleOptions = (item) => {
     return (
@@ -317,8 +369,44 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         .catch((err) => console.error("An error occurred", err));
     }
   }
-  const licenseInfo = () => {};
-  const seeAll = () => {};
+  const licenseInfo = () => {
+    alert("Coming Soon");
+  };
+  const seeAll = () => {
+    alert("Coming Soon");
+  };
+  const shareTo = async () => {
+    const result = await Share.share({
+      message: "Share Service with others",
+    });
+    if (result.action) {
+      console.log("result: ", result.action);
+    }
+  };
+  const saveResto = async () => {
+    try {
+      const params = {
+        item_type: serviceDetail.business_type,
+        item_id: serviceDetail.business_id,
+        like: serviceDetail.likes,
+        favorite: serviceDetail?.favorite,
+        interest: serviceDetail?.interest,
+        views: serviceDetail.views,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      if (data.status === 200) {
+        setVisibleSuccess(true);
+        setSuccessMessage(data.message);
+        handleServiceDetails(serviceDetail);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -339,6 +427,11 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         openAlbum={openAlbum}
         licenseInfo={licenseInfo}
         seeAll={seeAll}
+        openCamera={openCamera}
+        setAddPhotoModal={setAddPhotoModal}
+        addPhotoModal={addPhotoModal}
+        saveResto={saveResto}
+        shareTo={shareTo}
       />
       <Error
         message={errorMessage}

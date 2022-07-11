@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   BackHandler,
   ScrollView,
+  Alert,
+  TextInput,
 } from "react-native";
 import Dialog, {
   DialogContent,
@@ -17,18 +19,26 @@ import styles from "./styles";
 import {
   YELLOW_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  FONT_FAMILY_LIGHT,
+  FONT_FAMILY_REGULAR,
 } from "../../../Utils/Constant";
+import Input from "../../../Components/Input";
+import Button from "../../../Components/Button";
 export default function FilterPopUp(props) {
+  const [keywords, openKeyWord] = useState(false);
+  const [list, setList] = useState(true);
   useEffect(() => {
+    const backAction = () => {
+      props.closeModel();
+    };
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
     );
     return () => backHandler.remove();
   }, []);
-  const backAction = () => {
-    props.setVisible(false);
-  };
   return (
     <Dialog
       visible={props.visible}
@@ -66,10 +76,53 @@ export default function FilterPopUp(props) {
       </View>
       <ScrollView>
         <View style={{ flex: 1 }}>
-          <View style={styles.AnyKeywordView}>
+          <TouchableOpacity
+            onPress={() => openKeyWord(true)}
+            style={styles.AnyKeywordView}
+          >
             <Text style={styles.MainBtnText}>Any Keywords...</Text>
             <Image source={require("../../../Assets/dropdown_icon.png")} />
-          </View>
+          </TouchableOpacity>
+          {keywords && (
+            <View style={{ marginHorizontal: 25 }}>
+              <TextInput
+                style={styles.keyBoardVw}
+                placeholder={"Any Keywords"}
+                placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
+                onChangeText={(val) => {
+                  props.filterJobSearch(val);
+                }}
+                value={
+                  props?.filterData?.title ? props?.filterData?.title : null
+                }
+                onFocus={() => setList(true)}
+              />
+              {list && (
+                <ScrollView
+                  contentContainerStyle={styles.jobTitleVw}
+                  keyboardShouldPersistTaps={true}
+                  nestedScrollEnabled={true}
+                >
+                  {props.jobList.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => {
+                          props.setFilterData({
+                            ...props.filterData,
+                            title: item.job_title,
+                          });
+                          setList(false);
+                        }}
+                        style={styles.jobTitles}
+                      >
+                        <Text style={styles.jobTitleTxt}>{item.job_title}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              )}
+            </View>
+          )}
           <View style={styles.AnyKeywordView}>
             <Text style={styles.MainBtnText}>Open Now</Text>
             <Image source={require("../../../Assets/clock_icon2.png")} />
@@ -104,6 +157,9 @@ export default function FilterPopUp(props) {
                 <Text style={styles.FiltersText}>Develpoers</Text>
               </View>
             </View>
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button buttonText={"Filter"} onPress={() => props.filterJob()} />
           </View>
         </View>
       </ScrollView>

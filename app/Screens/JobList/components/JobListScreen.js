@@ -73,12 +73,12 @@ const JobListScreen = (props) => {
                 {item.monthly_in_hand_salary_to}
               </Text>
             </View>
-            <TouchableOpacity onPress={() => props._hanldeSetLike(index)}>
+            <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
                 source={
-                  props.like == index
-                    ? require("../../../Assets/like_icon_disable.png")
-                    : require("../../../Assets/like_icon_filled.png")
+                  item.user_like == 1
+                    ? require("../../../Assets/like_icon_filled.png")
+                    : require("../../../Assets/like_icon_disable.png")
                 }
               />
             </TouchableOpacity>

@@ -11,7 +11,29 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+
 const Styles = StyleSheet.create({
+  alertBackground: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 10,
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)', // If the mask is to be displayed in a semi-transparent state, it must be set here. The a in the reba controls the transparency, which is in the range of 0.0 to 1.0.
+  },
+  modalItem: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    textAlign: "center",
+  },
+  alertBox: {
+    width: 200,
+    // height: 100,
+    flexDirection: "row",
+    backgroundColor: WHITE_COLOR_CODE,
+  },
+  profileModal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   startedbtntxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 19,

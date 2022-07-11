@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { ToastAndroid, View } from "react-native";
 import JobListScreen from "./components/JobListScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import FilterPopUp from "./components/FilterPopUp";
@@ -22,6 +22,9 @@ const JobList = ({ navigation }) => {
   const [jobList, setJobList] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [offset, setoffset] = useState(0);
+  const [filterData, setFilterData] = useState({
+    title: "",
+  });
   const goBack = () => {
     navigation.goBack(null);
   };
@@ -31,9 +34,26 @@ const JobList = ({ navigation }) => {
       business_type: 2,
     });
   };
-  const _hanldeSetLike = (index) => {
-    // like == index ? setLike(null) : setLike(index);
-    alert("Coming Soon");
+  const _hanldeSetLike = async (item) => {
+    try {
+      const params = {
+        business_id: item.business_id,
+        like_status: item?.user_like == 1 ? 0 : 1,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      if (data.status == 200) {
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        handlejobsList(offset);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setLoader(false);
+      }
+    } catch (error) {
+      // setErrorMessage(error);
+      // setVisibleErr(true);
+      setLoader(false);
+    }
   };
   const handlejobsList = async (offSet) => {
     setoffset(offSet);
@@ -73,12 +93,27 @@ const JobList = ({ navigation }) => {
       return item.company_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      setVisible(true);
+      setLoader(true);
       handlejobsList(0);
-      setVisible(false);
+      setLoader(false);
     } else {
       setJobList(list);
     }
+  };
+  const filterJobSearch = (searchKey) => {
+    const lowerCased = searchKey.toLowerCase();
+    const searchArray = [...jobList];
+    const list = _.filter(searchArray, (item) => {
+      return item.job_title.toLowerCase().match(lowerCased);
+    });
+    if (searchKey == "") {
+      setJobList(jobList);
+    } else {
+      setJobList(list);
+    }
+  };
+  const filterJob = () => {
+    alert("Coming Soon");
   };
   return (
     <View style={CommonStyles.container}>
@@ -103,6 +138,11 @@ const JobList = ({ navigation }) => {
         closeModel={() => setVisible(false)}
         setVisible={setVisible}
         goBack={goBack}
+        setFilterData={setFilterData}
+        filterData={filterData}
+        jobList={jobList}
+        filterJobSearch={filterJobSearch}
+        filterJob={filterJob}
         // OnpressBack={OnpressBack}
       />
       <Error

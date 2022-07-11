@@ -75,6 +75,7 @@ const JobDetailsScreen = (props) => {
                 width: "100%",
                 marginTop: 8,
               }}
+              onPress={() => props.compareFun()}
               buttonText="Compare"
             />
             <Button
@@ -107,7 +108,8 @@ const JobDetailsScreen = (props) => {
                   Report
                 </Text>
               </View>
-              <View
+              <TouchableOpacity
+                onPress={() => props.shareTo()}
                 style={[
                   styles.btnmncon,
                   { borderRightWidth: 1, borderColor: "lightgrey" },
@@ -120,13 +122,16 @@ const JobDetailsScreen = (props) => {
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Share
                 </Text>
-              </View>
-              <View style={styles.btnmncon}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => props.saveJob()}
+                style={styles.btnmncon}
+              >
                 <Image source={require("../../../Assets/save_icon.png")} />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Save
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.maincontainers}>
@@ -234,7 +239,9 @@ const JobDetailsScreen = (props) => {
           <View
             style={[styles.maincontainers, { paddingRight: 30, padding: 0 }]}
           >
-            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>Job Description</Text>
+            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>
+              Job Description
+            </Text>
             <View style={[styles.basiccon, { paddingLeft: 10 }]}>
               <HTML
                 contentWidth={50}

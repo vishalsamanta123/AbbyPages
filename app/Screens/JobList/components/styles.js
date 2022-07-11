@@ -187,5 +187,29 @@ const Styles = StyleSheet.create({
     color: LINE_COMMON_COLOR_CODE,
     paddingLeft: 10,
   },
+  keyBoardVw: {
+    borderRadius: 10,
+    borderColor: BLACK_COLOR_CODE,
+    borderWidth: 0.8,
+    paddingLeft: 10,
+    paddingHorizontal: 12,
+    color: BLACK_COLOR_CODE,
+  },
+  jobTitleVw: {
+    borderWidth: 0.8,
+    borderRadius: 6,
+  },
+  jobTitles: {
+    paddingVertical: 5,
+    marginLeft: 16,
+    borderBottomWidth: 0.4,
+    borderColor: YELLOW_COLOR_CODE,
+    marginTop: 5,
+  },
+  jobTitleTxt: {
+    fontSize: 15,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
 });
 export default Styles;
