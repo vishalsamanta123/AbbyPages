@@ -1,15 +1,11 @@
 import { StyleSheet } from 'react-native';
 import {
-    FONT_FAMILY_REGULAR,
-    YELLOW_COLOR_CODE,
-    SMALL_TEXT_COLOR_CODE,
     WHITE_COLOR_CODE,
+    YELLOW_COLOR_CODE,
+    FONT_FAMILY_REGULAR,
+    SMALL_TEXT_COLOR_CODE,
 } from '../../../Utils/Constant'
 const Styles = StyleSheet.create({
-    // imageStyle: {
-        // width: width,
-        // height: height / 4
-    // },
     imageStyle: {
         height: 210,
         width: '100%'
@@ -74,7 +70,12 @@ const Styles = StyleSheet.create({
     btntxt: {
         fontFamily: FONT_FAMILY_REGULAR,
         lineHeight: 18
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(100,100,100, 0.5)'
+    },
 }
 );
 export default Styles;

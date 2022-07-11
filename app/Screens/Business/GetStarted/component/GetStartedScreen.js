@@ -2,17 +2,17 @@ import React from "react";
 import {
   View,
   Text,
-  ScrollView,
   Image,
   FlatList,
   TextInput,
+  ScrollView,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Input from "../../../../Components/Input";
-import { WHITE_COLOR_CODE, BLACK_COLOR_CODE } from "../../../../Utils/Constant";
+import { BLACK_COLOR_CODE } from "../../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const GetStartedScreen = (props) => {
@@ -44,14 +44,9 @@ const GetStartedScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
-        // leftImg={require("../../../../Assets/header_back_btn.png")}
-        // HeaderText="Coming Soon"
         HeaderText="Get Started"
         RightImg={null}
       />
-      {/* <Text>
-                    Coming Soon
-                </Text> */}
       <ScrollView keyboardShouldPersistTaps={"always"}>
         <View style={styles.startxt}>
           <Text style={styles.getstartxt}>
@@ -63,69 +58,23 @@ const GetStartedScreen = (props) => {
           </Text>
         </View>
         <View
-          style={{
-            backgroundColor: "rgba(0,0,0,0)",
-            // margin: 10,
-            marginLeft: 16,
-            marginRight: 16,
-            borderColor: "#d8d8d8",
-            borderWidth: 1,
-            borderRadius: 8,
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+          style={styles.buscatevwe}>
           <View
-            style={{
-              backgroundColor: "rgba(0,0,0,0)",
-              // height: 70,
-              paddingTop: 20,
-              paddingBottom: 20,
-              width: "95%",
-              borderColor: "#d8d8d8",
-              paddingLeft: 20,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
+            style={styles.buscatesecvwe}>
             <View style={{ width: "90%" }}>
               <Text
-                style={{
-                  fontSize: 17,
-                  // color: 'red'
-                  color: BLACK_COLOR_CODE,
-                }}
-              >
-                Business Categories
-              </Text>
-              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                style={styles.bussinecatetxt}>Business Categories</Text>
+              <View style={styles.bcvwe}>
                 {props.ShowSelectCategory &&
                   props.ShowSelectCategory.map((item, index) => {
                     return item.check === true ? (
                       <View style={{ padding: 3 }}>
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            margin: 2,
-                            justifyContent: "center",
-                            borderWidth: 1,
-                            borderRadius: 5,
-                            borderColor: "#d8d8d8",
-                          }}
-                        >
+                        <View style={styles.crossvwe}>
                           <View style={{ padding: 5 }}>
                             <Text>{item.category_name}</Text>
                           </View>
-                          <TouchableOpacity
-                            onPress={() => props.onRemoveService(index)}
-                            style={{
-                              borderLeftWidth: 1,
-                              padding: 5,
-                              borderColor: "#d8d8d8",
-                            }}
-                          >
+                          <TouchableOpacity style={styles.onpresscrossvwe}
+                            onPress={() => props.onRemoveService(index)}>
                             <Text>X</Text>
                           </TouchableOpacity>
                         </View>
@@ -150,12 +99,6 @@ const GetStartedScreen = (props) => {
                 />
               )}
             </TouchableOpacity>
-
-            {/* {props.businessRegistartionData.business_category.length > 0 &&
-                            <Text>
-                                Categories Selected
-                        </Text>
-                        } */}
           </View>
         </View>
         {props.businessCategory ? (
@@ -168,16 +111,8 @@ const GetStartedScreen = (props) => {
               borderBottomRightRadius: 8,
               width: "90%",
               borderColor: "#d8d8d8",
-            }}
-          >
-            <View
-              style={{
-                paddingLeft: 14,
-                borderWidth: 1,
-                borderRadius: 5,
-                borderColor: "#a9a9a9",
-              }}
-            >
+            }}>
+            <View style={styles.searchvwe}>
               <TextInput
                 onChangeText={(search) => props.CategorySearch(search)}
                 autoCapitalize={"none"}
@@ -194,13 +129,7 @@ const GetStartedScreen = (props) => {
                 renderItem={({ item, index }) => _renderItems(item, index)}
               />
             ) : (
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 80,
-                }}
-              >
+              <View style={styles.nodatafndtxtvwe}>
                 <Text style={{ fontSize: 18 }}>Thare is no data found</Text>
               </View>
             )}
@@ -313,7 +242,6 @@ const GetStartedScreen = (props) => {
           keyboardType={"phone-pad"}
           autoCapitalize="none"
         />
-
         {/* <Input
                         onChangeText={(email) => props.setBusinessRegistartionData({
                             ...props.businessRegistartionData,

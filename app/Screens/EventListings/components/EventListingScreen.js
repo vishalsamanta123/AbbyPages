@@ -49,6 +49,11 @@ const EventListingScreen = (props) => {
     // console.log('item: ', item.event_id);
     const eventDate = moment(JSON.parse(item?.event_date)).format("DD/MM/YYYY");
     return (
+        <View style={CommonStyles.container}>
+            <Header
+                HeaderText='Events'
+                RightImg={require('../../../Assets/plus_icon_header.png')}
+                onPress={() => props.handleCreateEvent()}
       <TouchableOpacity
         onPress={() => props.onPressEvent(item)}
         style={styles.mnCon}

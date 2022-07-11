@@ -69,21 +69,12 @@ const Header = (props) => {
           textInput === true ? iptcontainer : container,
           mncontainer,
           {
-            paddingVertical:
-              HeaderText != ""
-                ? editHdr
-                  ? editHdr
-                  : 15
-                : textInput === true
-                ? 10
-                : 0,
+            paddingVertical: HeaderText != "" ? editHdr ? editHdr : 15 : textInput === true ? 10 : 0,
           },
-        ]}
-      >
+        ]}>
         <TouchableOpacity
           onPress={() => (type === "Drawer" ? handleDrawer() : OnpressBack())}
-          style={HeaderView}
-        >
+          style={HeaderView}>
           {leftImg === "header-back-btn.png" ? (
             <Image style={{ width: 35, height: 25 }} source={leftImg} />
           ) : (
@@ -145,8 +136,7 @@ const Header = (props) => {
                     borderRadius: 50,
                     backgroundColor: WHITE_COLOR_CODE,
                     top: -5,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       fontFamily: FONT_FAMILY_REGULAR,
