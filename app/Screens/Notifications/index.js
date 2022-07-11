@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Notifications from './components/Notifications';
 import styles from './components/styles';
-import {
-    View,
-    Text,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import moment from 'moment';
 import CommonStyles from '../../Utils/CommonStyles';
 import { apiCall } from '../../Utils/httpClient';
@@ -12,14 +9,17 @@ import ENDPOINTS from '../../Utils/apiEndPoints';
 import Loader from '../../Utils/Loader';
 import Success from '../../Components/Modal/success';
 import Error from '../../Components/Modal/error';
+import { FONT_FAMILY_REGULAR, GREY_COLOR_CODE } from '../../Utils/Constant';
 const NotificationsView = () => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false);
+    const [NotificationData, setNotificationData] = useState([]);
+
     useEffect(() => {
-            getNotificationList();
+        getNotificationList();
     }, []);
     // useEffect(() => {
     //     const interval = setInterval(() => {
@@ -29,6 +29,7 @@ const NotificationsView = () => {
     //     return () => clearInterval(interval);
     // }, []);
     const getNotificationList = async () => {
+        setVisible(true)
         try {
             const { data } = await apiCall('POST', ENDPOINTS.NOTIFICATION_LIST)
             if (data.status == 200) {
@@ -40,15 +41,17 @@ const NotificationsView = () => {
                 setVisible(false);
             }
         } catch (error) {
-            setErrorMessage(data.message);
+            setErrorMessage(error);
             setVisibleErr(true);
             setVisible(false);
         }
     };
-    const [NotificationData, setNotificationData] = useState([]);
-    const _handleNotificationData = (item, index) => {
+    const _handleNotificationData = (item) => {
         return (
             <View style={styles.EmailContainer}>
+                <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15, color: GREY_COLOR_CODE }}>
+                    {'Notification ID :' + ' ' + item.notification_id}
+                </Text>
                 <Text style={styles.NotificationText}>{item.message}</Text>
                 <Text style={styles.TimingTextMain}>
                     {moment(item.create_date).startOf('hour').fromNow()}

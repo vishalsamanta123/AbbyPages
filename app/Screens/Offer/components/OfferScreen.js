@@ -1,19 +1,15 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import CommonStyles from '../../../Utils/CommonStyles';
-import Button from '../../../Components/Button';
 import Header from '../../../Components/Header';
 import {
     WHITE_COLOR_CODE,
-    GREY_COLOR_CODE,
     BLACK_COLOR_CODE,
     YELLOW_COLOR_CODE,
     FONT_FAMILY_REGULAR,
     SMALL_TEXT_COLOR_CODE,
-    FONT_FAMILY_BOLD
 } from '../../../Utils/Constant';
 import styles from './styles';
-import { color } from 'react-native-reanimated';
 import { maxBy } from 'lodash';
 const offerScreen = () => {
     return (
@@ -24,23 +20,20 @@ const offerScreen = () => {
             />
             <View style={[CommonStyles.body, { paddingTop: 10 }]}>
                 <View style={{ flex: 5.4 }}>
-
-
                     <View style={styles.hdngtextcon}>
                         <Text style={[styles.text, { color: BLACK_COLOR_CODE, fontSize: 20, paddingBottom: 10 }]}>
                             AbbyPages user search for Home Services
                             1,001 times a month within 25 miles of you
-                    </Text>
+                        </Text>
                         <View style={{ flexDirection: "row", paddingLeft: 20 }}>
                             <Text style={{
-                                fontSize: 60, color: SMALL_TEXT_COLOR_CODE, position: "absolute",
-                                bottom: 8,
+                                fontSize: 60, color: SMALL_TEXT_COLOR_CODE, position: "absolute",bottom: 8,
                             }}>
                                 .
-                        </Text>
+                            </Text>
                             <Text style={styles.text}>
                                 ENJOY THIS OFFER FOR NEW BUSINESSES ON ABBY PAGES
-                        </Text>
+                            </Text>
                         </View>
                         <View style={{ flexDirection: "row", paddingLeft: 20 }}>
                             <Text style={{
@@ -48,11 +41,11 @@ const offerScreen = () => {
                                 bottom: 8,
                             }}>
                                 .
-                        </Text>
+                            </Text>
                             <Text style={styles.text}>
                                 About 80% if AbbyPages users make a purchase at a business they found on the platform
                                 with a week.
-                    </Text>
+                            </Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, paddingVertical: 10 }} >
@@ -62,38 +55,32 @@ const offerScreen = () => {
                                 justifyContent: "center",
                                 alignItems: "center"
                             }}>
-                                <Image
-                                    source={require('../../../Assets/confirm_s_icon_1.png')}
-                                />
+                                <Image source={require('../../../Assets/confirm_s_icon_1.png')} />
                             </View>
                             <View style={{ flex: 5.5, justifyContent: "center", alignItems: "center", paddingLeft: 5 }}>
                                 <Text style={[styles.text, { fontSize: 14, color: BLACK_COLOR_CODE }]}>
                                     Reach 3X* into more potential customers with AbbyPages Ads
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
                             <View style={{ flex: 0.5, justifyContent: "center", alignItems: "center" }}>
-                                <Image
-                                    source={require('../../../Assets/confirm_s_icon_2.png')}
-                                />
+                                <Image source={require('../../../Assets/confirm_s_icon_2.png')} />
                             </View>
                             <View style={{ flex: 5.5, justifyContent: "center", paddingLeft: 5 }}>
                                 <Text style={[styles.text, { fontSize: 14, color: BLACK_COLOR_CODE }]}>
                                     Only pay when interested on your add
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
                             <View style={{ flex: 0.5, justifyContent: "center", alignItems: "center" }}>
-                                <Image
-                                    source={require('../../../Assets/confirm_s_icon_3.png')}
-                                />
+                                <Image source={require('../../../Assets/confirm_s_icon_3.png')} />
                             </View>
                             <View style={{ flex: 5.5, justifyContent: "center", paddingLeft: 5 }}>
                                 <Text style={[styles.text, { fontSize: 14, color: BLACK_COLOR_CODE }]}>
                                     Get started in minutes
-                            </Text>
+                                </Text>
                             </View>
                         </View>
                     </View>
@@ -101,10 +88,10 @@ const offerScreen = () => {
                 <View style={{ flex: 0.6, backgroundColor: YELLOW_COLOR_CODE, flexDirection: "row" }}>
                     <View style={{
                         flex: 4, flexDirection: "row",
-                        alignItems: "center", paddingLeft: 10,justifyContent:"center"
+                        alignItems: "center", paddingLeft: 10, justifyContent: "center"
                     }}>
                         <Image
-                            style={{ height: 25, width: 15,marginRight:5,marginLeft:15 }}
+                            style={{ height: 25, width: 15, marginRight: 5, marginLeft: 15 }}
                             source={require('../../../Assets/confirm_s_icon_4.png')}
                         />
                         <Text style={{

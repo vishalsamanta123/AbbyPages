@@ -2,16 +2,14 @@ import React from "react";
 import {
   View,
   Text,
-  StatusBar,
-  KeyboardAvoidingView,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Header from "../../../../Components/Header";
-import { WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const LoginScreen = (props) => {
   return (
@@ -23,8 +21,7 @@ const LoginScreen = (props) => {
       />
       <ScrollView
         keyboardShouldPersistTaps="always"
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
+        contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
             <Text style={styles.WelcomeTxt}>Welcome,</Text>
@@ -49,8 +46,7 @@ const LoginScreen = (props) => {
             />
             <TouchableOpacity
               onPress={() => props.handleForgotPassword()}
-              style={styles.ForgotPsswrdView}
-            >
+              style={styles.ForgotPsswrdView}>
               <Text style={styles.ForgotPsswrdTxt}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
@@ -75,8 +71,7 @@ const LoginScreen = (props) => {
           />
           <TouchableOpacity
             onPress={() => props.onPressSignUp()}
-            style={{ paddingTop: 10 }}
-          >
+            style={{ paddingTop: 10 }}>
             <Text style={styles.CreateAccountTxt}>
               Not Registered yet? Create new account{" "}
               <Text style={styles.SignUpTtx}>SignUp</Text>

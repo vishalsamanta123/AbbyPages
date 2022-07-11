@@ -4,7 +4,7 @@ import Header from '../../../Components/Header';
 import moment from 'moment';
 import CommonStyles from '../../../Utils/CommonStyles';
 import styles from './styles';
-import { YELLOW_COLOR_CODE, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant';
+import { YELLOW_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const OrderHistory = (props) => {
     const _handleOrders = (item, index) => {
     console.log('item: ', item);
@@ -15,11 +15,10 @@ const OrderHistory = (props) => {
                     // item.order_booking_type == 2 ? props.onpressOrder(item) : console.log(item)}
             >
                 <Image style={styles.DishImgeStyle}
-                    resizeMode="contain"
-                    source={{ uri: item.item_image }}
+                    // resizeMode="contain"
+                    source={{ uri: item.logo }}
                 />
                 <View style={styles.DishDiscptnView}>
-
                     {item.business_type === 1 &&
                         <Text style={styles.ReviewText}>
                             Order Type:
@@ -34,10 +33,8 @@ const OrderHistory = (props) => {
                             Service : {item.Order_category_name}
                         </Text>
                     }
-
                     <Text style={styles.DishNameTxt} >{item.business_name}</Text>
                     <View style={{ flexDirection: "row" }}>
-
                         <View style={{ flex: 1 }}>
                             {item.total_amount &&
                                 <View style={styles.DateContainer}>
@@ -67,8 +64,6 @@ const OrderHistory = (props) => {
                                 </View>
                             </View>
                         </View>
-
-
                         <View style={{ justifyContent: "center", alignItems: "flex-end", flex: 1 }}>
                             <TouchableOpacity
                                 onPress={() => props.onpressOrder(item)}

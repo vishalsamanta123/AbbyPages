@@ -4,12 +4,12 @@ import {
     Text,
     Image,
     Modal,
+    Alert,
     FlatList,
     StatusBar,
     ScrollView,
     TouchableOpacity,
     KeyboardAvoidingView,
-    Alert,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../Components/Header';
@@ -106,31 +106,61 @@ const CreateEvent = (props) => {
                                 onCancel={props.hideEndTimePicker}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.onPressPublicVenue()} style={styles.container}>
-                            <View style={styles.CameraImgView}>
-                                <TouchableOpacity>
-                                    {props.checkbox ?
-                                        <Image source={require('../../../Assets/checked_circled_icon_box.png')} />
-                                        :
-                                        <Image source={require('../../../Assets/unchecked_circled_icon_box.png')} />
-                                    }
-                                </TouchableOpacity>
-                                <Text style={styles.AddPhotosTxt}>Public Venue</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        {/* <TouchableOpacity onPress={() => props.onPressPrivateAdd()} style={styles.container}>
-                            <View style={styles.CameraImgView}>
-                                <TouchableOpacity >
-                                    {props.privateCheck ?
-                                        <Image source={require('../../../Assets/checked_circled_icon_box.png')} />
-                                        :
-                                        <Image source={require('../../../Assets/unchecked_circled_icon_box.png')} />
-                                    }
-                                </TouchableOpacity>
-                                <Text style={styles.AddPhotosTxt}>Private Address</Text>
-                            </View>
-                                </TouchableOpacity> */}
+                        <GooglePlacesAutocomplete
+                            placeholder={
+                                props.nearByLocationData.find_me_in &&
+                                    props.nearByLocationData.find_me_in ?
+                                    props.nearByLocationData.find_me_in :
+                                    'Near by'
+                            }
+                            fetchDetails={true}
+                            onPress={(data, details = null) => {
+                                props.setNearByLocationData({
+                                    ...props.nearByLocationData,
+                                    find_me_in: data.description,
+                                    find_me_lat: details.geometry.location.lat,
+                                    find_me_long: details.geometry.location.lng
+                                })
+                            }}
+                            onChangeText={
+                                (address) => props.setNearByLocationData({
+                                    ...props.nearByLocationData,
+                                    find_me_in: address
+                                })
+                            }
+                            query={{
+                                key: 'AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM',
+                                language: 'en',
+                            }}
+                            styles={{
+                                textInputContainer: {
+                                    borderRadius: 4,
+                                    backgroundColor: WHITE_COLOR_CODE,
+                                    fontSize: 16,
+                                    marginHorizontal: 17,
+                                    margin: 8,
+                                    fontFamily: FONT_FAMILY_REGULAR,
+                                    borderColor: '#d8d8d8',
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    alignItems: "center",
+                                    // height: 70,
+                                    paddingVertical: 6
+                                },
+                                textInput: {
+                                    fontSize: 15,
+                                    color: BLACK_COLOR_CODE,
+                                },
+                                listView: {
+                                    width: '90%',
+                                    alignSelf: "center",
+                                    backgroundColor: WHITE_COLOR_CODE,
+                                }
+                            }}
+                            minLength={2}
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                        />
 
                         <Input
                             onChangeText={(BusinessName) => props.setBusinessName(BusinessName)}
@@ -139,24 +169,12 @@ const CreateEvent = (props) => {
                             placeholder="Business Name"
                             InputType="withScroll"
                         />
-
-                        {/*} <GooglePlacesAutocomplete
-                            placeholder='Search'
-                            onPress={(data, details = null) => {
-                                console.log('data,details',data, details);
-                            }}
-                            query={{
-                                key: 'AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM',
-                                language: 'en',
-                            }}
-                        />
-                        */}
                         <GooglePlacesAutocomplete
                             placeholder={
                                 props.locationData.find_me_in &&
                                     props.locationData.find_me_in ?
                                     props.locationData.find_me_in :
-                                    'Near'
+                                    'Address'
                             }
                             fetchDetails={true}
                             onPress={(data, details = null) => {
@@ -284,7 +302,18 @@ const CreateEvent = (props) => {
                                 <Image source={require('../../../Assets/dropdown_icon.png')} />
                             </View>
                         </TouchableOpacity>
-
+                        <TouchableOpacity onPress={() => props.onPressPublicVenue()} style={styles.container}>
+                            <View style={styles.CameraImgView}>
+                                <View>
+                                    {props.checkbox ?
+                                        <Image source={require('../../../Assets/checked_circled_icon_box.png')} />
+                                        :
+                                        <Image source={require('../../../Assets/unchecked_circled_icon_box.png')} />
+                                    }
+                                </View>
+                                <Text style={styles.AddPhotosTxt}>Public Venue</Text>
+                            </View>
+                        </TouchableOpacity>
 
                         <Button buttonText="Create Event" style={{ marginTop: 10 }}
                             onPress={() => props.onPressCreateEvent()}

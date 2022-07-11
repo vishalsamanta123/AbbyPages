@@ -3,7 +3,6 @@ const { width, height } = Dimensions.get("window");
 import {
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
   SMALL_TEXT_COLOR,
 } from "../../../../Utils/Constant";

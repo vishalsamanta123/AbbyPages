@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import BusinessSignUp from "./components/BusinessSignUpScreen";
 import Geocoder from "react-native-geocoding";
 import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";

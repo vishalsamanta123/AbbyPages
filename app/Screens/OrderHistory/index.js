@@ -35,15 +35,21 @@ const OrderHistoryView = ({ navigation }) => {
   );
   const handleItemCategoryList = async () => {
     setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_CATEGORY_LIST);
-    if (data.status === 200) {
-      setItemCategoryList(data.data);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
-      setVisibleErr(true);
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_CATEGORY_LIST);
+      if (data.status === 200) {
+        setItemCategoryList(data.data);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    }
+    catch (error) {
       setVisible(false);
     }
+
   };
   const handleOrderedItemList = async () => {
     setVisible(true);
@@ -88,19 +94,11 @@ const OrderHistoryView = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() => _handleDataTypeSelected(index, item)}
-        style={styles.lablestyle}
-      >
-        <Text
-          style={[
-            styles.txtCat,
-            {
-              color:
-                item.business_type_id === isSelectedCatgory
-                  ? WHITE_COLOR_CODE
-                  : "#ffe98e",
-            },
-          ]}
-        >
+        style={styles.lablestyle}>
+        <Text style={[styles.txtCat, {
+          color: item.business_type_id === isSelectedCatgory
+            ? WHITE_COLOR_CODE : "#ffe98e",
+        },]}>
           {item.business_type_name}
         </Text>
       </TouchableOpacity>

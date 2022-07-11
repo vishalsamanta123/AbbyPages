@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, KeyboardAvoidingView, ScrollView } from "react-native";
 import styles from "./styles";
-import { LINE_COMMON_COLOR_CODE } from "../../../../Utils/Constant";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
@@ -11,8 +10,7 @@ const ForgotPassword = (props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : null}
-      style={CommonStyles.container}
-    >
+      style={CommonStyles.container}>
       <Header HeaderText="Forgot Password" RightImg={null} />
       <ScrollView contentContainerStyle={styles.body}>
         <View style={{ flex: 1, paddingTop: 40 }}>
@@ -20,7 +18,6 @@ const ForgotPassword = (props) => {
           <Text style={styles.emailtxt}>Email/Mobile number.</Text>
           <Input
             onChangeText={(email) => props.setEmail(email)}
-            // secureTextEntry={false}
             value={props.email}
             keyboardType="email-address"
             autoCapitalize="none"

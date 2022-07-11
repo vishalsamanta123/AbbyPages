@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { LIGHT_GREY_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const styles = StyleSheet.create({
     ConatinView: {
-        marginTop:5,
+        marginTop: 5,
         flexDirection: 'row',
         borderRadius: 5,
         alignSelf: "center",
@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    text: {
-        fontFamily: FONT_FAMILY_REGULAR
-    }
+    text: { fontFamily: FONT_FAMILY_REGULAR }
 });
 export default styles;

@@ -9,18 +9,22 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  Text
+  Text,
 } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import ImagePicker from "react-native-image-crop-picker";
 import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
 import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
+import Error from "../../Components/Modal/error";
 
 const CreateEventView = () => {
   const [eventCategoryModalVisible, setEventCategoryModalVisible] = useState(false);
   const [categoryListData, setCategoryListData] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  const [visibleErr, setVisibleErr] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -53,6 +57,13 @@ const CreateEventView = () => {
     find_me_lat: "",
     find_me_long: "",
   });
+
+  const [nearByLocationData, setNearByLocationData] = useState({
+    find_me_in: "",
+    find_me_lat: "",
+    find_me_long: "",
+  });
+
   useEffect(() => {
     getCategoryList()
   }, [])
@@ -112,52 +123,132 @@ const CreateEventView = () => {
       setEventModalVisible(false);
     });
   };
+  function validationFrom() {
+    if (eventPhoto == "") {
+      setErrorMessage("Please select event image");
+      setVisibleErr(true);
+      return false;
+    }
+    if (EventName == "") {
+      setErrorMessage("Please enter event name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (selectedDate == "") {
+      setErrorMessage("Please select event date");
+      setVisibleErr(true);
+      return false;
+    }
+    if (startTime == "") {
+      setErrorMessage("Please select Start time");
+      setVisibleErr(true);
+      return false;
+    }
+    if (selectedEndTime == "") {
+      setErrorMessage("Please select end time");
+      setVisibleErr(true);
+      return false;
+    }
+    if (nearByLocationData?.find_me_in == "") {
+      setErrorMessage("Please enter nearby location");
+      setVisibleErr(true);
+      return false;
+    }
+    if (BusinessName == "") {
+      setErrorMessage("Please enter business name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (locationData?.find_me_in == "") {
+      setErrorMessage("Please enter Event address");
+      setVisibleErr(true);
+      return false;
+    }
+    if (description == "") {
+      setErrorMessage("Please enter description");
+      setVisibleErr(true);
+      return false;
+    }
+    if (OfficialWeb == "") {
+      setErrorMessage("Please enter Official website URL");
+      setVisibleErr(true);
+      return false;
+    }
+    if (TicketURL == "") {
+      setErrorMessage("Please enter Ticket URL");
+      setVisibleErr(true);
+      return false;
+    }
+    if (PriceFrom == "") {
+      setErrorMessage("Enter price from");
+      setVisibleErr(true);
+      return false;
+    }
+    if (PriceTo == "") {
+      setErrorMessage("Enter price from to");
+      setVisibleErr(true);
+      return false;
+    }
+    if (selectedCategory.name == "" || selectedCategory.name == undefined) {
+      setErrorMessage("Please select event category");
+      setVisibleErr(true);
+      return false;
+    }
+    if (checkbox == false) {
+      setErrorMessage("Please accept your public venue");
+      setVisibleErr(true);
+      return false;
+    }
+    return true;
+  }
   const onPressCreateEvent = async () => {
-    setVisible(true);
-    try {
-      let formData = new FormData();
-      formData.append("event_id", 1);
-      formData.append("business_name", BusinessName);
-      formData.append("event_address_type", 2);
-      formData.append("event_date", selectedDate);
-      formData.append("event_description", description);
-      formData.append("event_end_time", selectedEndTime);
-      formData.append("event_location", locationData.find_me_in);
-      formData.append("event_name", EventName);
-      formData.append("event_start_time", startTime);
-      formData.append("latitude", locationData.find_me_lat);
-      formData.append("longitude", locationData.find_me_long);
-      formData.append("near_by_address", "ll");
-      formData.append("official_website_url", OfficialWeb);
-      formData.append("price_range_from", PriceFrom);
-      formData.append("price_range_to", PriceTo);
-      formData.append("tickets_url", TicketURL);
-      formData.append("event_category_id", selectedCategory.id);
-      formData.append("event_charge_type", 1);
-      eventPhoto?.map((img, index) => {
-        return formData.append("events_image", {
-          uri: img.path,
-          type: img.mime,
-          name: img.path.substring(img.path.lastIndexOf("/") + 1),
+    const valid = validationFrom();
+    if (valid) {
+      setVisible(true);
+      try {
+        let formData = new FormData();
+        formData.append("event_id", 1);
+        formData.append("business_name", BusinessName);
+        formData.append("event_address_type", 2);
+        formData.append("event_date", selectedDate);
+        formData.append("event_description", description);
+        formData.append("event_end_time", selectedEndTime);
+        formData.append("event_location", locationData.find_me_in);
+        formData.append("event_name", EventName);
+        formData.append("event_start_time", startTime);
+        formData.append("latitude", locationData.find_me_lat);
+        formData.append("longitude", locationData.find_me_long);
+        formData.append("near_by_address", nearByLocationData.find_me_in);
+        formData.append("official_website_url", OfficialWeb);
+        formData.append("price_range_from", PriceFrom);
+        formData.append("price_range_to", PriceTo);
+        formData.append("tickets_url", TicketURL);
+        formData.append("event_category_id", selectedCategory.id);
+        formData.append("event_charge_type", 1);
+        eventPhoto?.map((img, index) => {
+          return formData.append("events_image", {
+            uri: img.path,
+            type: img.mime,
+            name: img.path.substring(img.path.lastIndexOf("/") + 1),
+          });
         });
-      });
-      console.log('formData: ', formData);
-      const response = await apiCall("POST", ENDPOINTS.CREATE_EVENTS, formData,
-        { "Content-Type": "multipart/form-data" }
-      );
-      console.log('response: ', response);
-      if (response.status === 200) {
-        setSuccessMessage("Event added successfully");
-        setVisibleSuccess(true);
-        // navigation.navigate('DashBoardScreen')
+        const response = await apiCall("POST", ENDPOINTS.CREATE_EVENTS, formData,
+          { "Content-Type": "multipart/form-data" }
+        );
+        if (response.status === 200) {
+          setSuccessMessage("Event added successfully");
+          setVisibleSuccess(true);
+          setVisible(false);
+        } else {
+          setVisible(false);
+          setErrorMessage('Network Error')
+          setVisibleErr(true);
+        }
+      } catch (error) {
         setVisible(false);
-      } else {
-        console.log("else");
-        setVisible(false);
+        setErrorMessage(error)
+        setVisibleErr(true);
       }
-    } catch (error) {
-      console.log("error: ", error);
-      setVisible(false);
     }
   };
   function deleteImage(index) {
@@ -303,12 +394,20 @@ const CreateEventView = () => {
         renderCategoryListItem={renderCategoryListItem}
         categoryListData={categoryListData}
         selectedCategory={selectedCategory}
+
+        nearByLocationData={nearByLocationData}
+        setNearByLocationData={setNearByLocationData}
+      />
+      <Error
+        message={errorMessage}
+        visible={visibleErr}
+        closeModel={() => setVisibleErr(false)}
       />
       <Success
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );
