@@ -86,8 +86,8 @@ export default {
 
   CREATE_EVENTS: "api/events/createEvents",
   USERCOMMONLIKES: "api/masterTableData/userCommonLikes",
-  GET_EVENT_CATEGORY_LIST:"/api/events/getEventCategoryList",
-  GET_EVENT_LIST:"/api/events/getEventList",
-  GET_EVENT_DETAILS:"/api/events/getEventDetails",
-
+  GET_EVENT_CATEGORY_LIST: "/api/events/getEventCategoryList",
+  GET_EVENT_LIST: "/api/events/getEventList",
+  GET_EVENT_DETAILS: "/api/events/getEventDetails",
+  JOB_FILTER: "/api/jobs/JobSearchFilter",
 };

@@ -48,16 +48,9 @@ const JobDetails = ({ route, navigation }) => {
     try {
       setVisible(true);
       const params = {
-        // favorite: undefined,
-        // interest: undefined,
-        // item_id: 287,
-        // item_type: 1,
-        // like: 11,
-        // views: 18,
-
-        item_type: details.business_type,
+        item_type: 1, // details.business_type,
         item_id: details.business_id,
-        like: details.likes,
+        like: 4, // details.likes,
         favorite: details?.favorite,
         interest: details?.interest,
         views: details.views,

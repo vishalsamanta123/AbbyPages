@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   TextInput,
+  Keyboard,
 } from "react-native";
 import Dialog, {
   DialogContent,
@@ -28,7 +29,7 @@ import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";
 export default function FilterPopUp(props) {
   const [keywords, openKeyWord] = useState(false);
-  const [list, setList] = useState(true);
+
   useEffect(() => {
     const backAction = () => {
       props.closeModel();
@@ -74,7 +75,7 @@ export default function FilterPopUp(props) {
           />
         </View>
       </View>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps={true}>
         <View style={{ flex: 1 }}>
           <TouchableOpacity
             onPress={() => openKeyWord(true)}
@@ -90,37 +91,13 @@ export default function FilterPopUp(props) {
                 placeholder={"Any Keywords"}
                 placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
                 onChangeText={(val) => {
-                  props.filterJobSearch(val);
+                  props.setFilterData({
+                    ...props.filterData,
+                    title: val,
+                  });
                 }}
-                value={
-                  props?.filterData?.title ? props?.filterData?.title : null
-                }
-                onFocus={() => setList(true)}
+                value={props?.filterData?.title}
               />
-              {list && (
-                <ScrollView
-                  contentContainerStyle={styles.jobTitleVw}
-                  keyboardShouldPersistTaps={true}
-                  nestedScrollEnabled={true}
-                >
-                  {props.jobList.map((item) => {
-                    return (
-                      <TouchableOpacity
-                        onPress={() => {
-                          props.setFilterData({
-                            ...props.filterData,
-                            title: item.job_title,
-                          });
-                          setList(false);
-                        }}
-                        style={styles.jobTitles}
-                      >
-                        <Text style={styles.jobTitleTxt}>{item.job_title}</Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </ScrollView>
-              )}
             </View>
           )}
           <View style={styles.AnyKeywordView}>
@@ -159,7 +136,10 @@ export default function FilterPopUp(props) {
             </View>
           </View>
           <View style={{ flex: 1 }}>
-            <Button buttonText={"Filter"} onPress={() => props.filterJob()} />
+            <Button
+              buttonText={"Filter"}
+              onPress={() => props.handleFilter()}
+            />
           </View>
         </View>
       </ScrollView>

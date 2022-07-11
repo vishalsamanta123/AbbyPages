@@ -540,7 +540,7 @@ function AuthLoading({ navigation }) {
         console.log(e);
       }
       dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-    }, 1000);
+    }, 2000);
   }, []);
   if (loginState.isLoading) {
     return (

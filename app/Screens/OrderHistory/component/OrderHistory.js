@@ -7,7 +7,6 @@ import styles from './styles';
 import { YELLOW_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const OrderHistory = (props) => {
     const _handleOrders = (item, index) => {
-    console.log('item: ', item);
         return (
             <TouchableOpacity style={styles.ConatinView}
                 onPress={() =>

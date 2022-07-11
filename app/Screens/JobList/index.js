@@ -11,8 +11,13 @@ import _ from "lodash";
 
 const JobList = ({ navigation }) => {
   useEffect(() => {
-    handlejobsList(0);
+    if (filterData?.title === "") {
+      handlejobsList(0);
+    } else {
+      handleJobFilter(0);
+    }
   }, []);
+  const [filter, setFilter] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [loader, setLoader] = useState();
@@ -50,8 +55,8 @@ const JobList = ({ navigation }) => {
         setLoader(false);
       }
     } catch (error) {
-      // setErrorMessage(error);
-      // setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setLoader(false);
     }
   };
@@ -69,6 +74,7 @@ const JobList = ({ navigation }) => {
           item["longitude"] = i + 75.8577;
         });
         setJobList(data.data);
+        setFilter([]);
         setLoader(false);
       } else {
         setErrorMessage(data.message);
@@ -81,6 +87,57 @@ const JobList = ({ navigation }) => {
       setVisibleErr(true);
       setErrorMessage(error.toString());
       setLoader(false);
+    }
+  };
+  const handleJobFilter = async (offSet) => {
+    setoffset(offSet);
+    try {
+      setLoader(true);
+      const params = {
+        job_title: filterData?.title,
+        city: "",
+        category: "",
+        country: "",
+        state: "",
+        latitude: "",
+        longitude: "",
+        job_type: "",
+        offset: offSet,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
+      if (data.status == 200) {
+        data.data.forEach(function (item, i) {
+          item["latitude"] = i + 22.7196;
+          item["longitude"] = i + 75.8577;
+        });
+        setFilter(data.data);
+        setJobList([]);
+        setLoader(false);
+        setVisible(false);
+      } else {
+        setstopOffset(true);
+        setLoader(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setLoader(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
+  const validationOfFilter = () => {
+    if (filterData?.title === null) {
+      setErrorMessage("please enter job keywords");
+      setVisibleErr(true);
+      return false;
+    }
+    return true;
+  };
+  const handleFilter = async () => {
+    const valid = validationOfFilter();
+    if (valid) {
+      setVisible(false);
     }
   };
   const onPressJob = (item) => {
@@ -100,21 +157,6 @@ const JobList = ({ navigation }) => {
       setJobList(list);
     }
   };
-  const filterJobSearch = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...jobList];
-    const list = _.filter(searchArray, (item) => {
-      return item.job_title.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setJobList(jobList);
-    } else {
-      setJobList(list);
-    }
-  };
-  const filterJob = () => {
-    alert("Coming Soon");
-  };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -122,6 +164,8 @@ const JobList = ({ navigation }) => {
         _hanldeSetLike={_hanldeSetLike}
         like={like}
         jobList={jobList}
+        filter={filter}
+        filterData={filterData}
         onPressJob={onPressJob}
         goBack={goBack}
         setVisible={setVisible}
@@ -130,6 +174,7 @@ const JobList = ({ navigation }) => {
         setSearch={setSearch}
         searchJob={searchJob}
         handlejobsList={handlejobsList}
+        handleJobFilter={handleJobFilter}
         stopOffset={stopOffset}
         offset={offset}
       />
@@ -141,8 +186,8 @@ const JobList = ({ navigation }) => {
         setFilterData={setFilterData}
         filterData={filterData}
         jobList={jobList}
-        filterJobSearch={filterJobSearch}
-        filterJob={filterJob}
+        handleJobFilter={handleJobFilter}
+        handleFilter={handleFilter}
         // OnpressBack={OnpressBack}
       />
       <Error

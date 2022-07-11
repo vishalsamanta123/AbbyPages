@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Share,
+  Platform,
 } from "react-native";
 import {
   GREY_COLOR_CODE,
@@ -242,9 +243,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   };
   function handleGetDirections(lattitude, longitude) {
     if (Platform.OS === "android") {
-      Linking.canOpenURL(
+      const url = `${
         "http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
-      )
+      }`;
+      Linking.canOpenURL(url)
         .then((supported) => {
           if (supported) {
             Linking.openURL(
@@ -255,7 +257,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
                 ""
             );
           } else {
-            console.log("Don't know how to go");
+            alert("Don't know how to go");
           }
         })
         .catch((err) => console.error("An error occurred", err));
@@ -406,7 +408,9 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         interest: restroDetail?.interest,
         views: restroDetail.views,
       };
+      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
@@ -417,8 +421,9 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         setVisibleErr(true);
       }
     } catch (error) {
-      console.log("error: ", error);
       setVisible(false);
+      setErrorMessage(JSON.stringify(error));
+      setVisibleErr(true);
     }
   };
   return (
