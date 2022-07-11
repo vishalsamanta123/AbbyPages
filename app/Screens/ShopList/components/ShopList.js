@@ -17,6 +17,7 @@ const ShopList = (props) => {
                 placeholder={"Search Shop"}
                 onChangeText={(searchKey) => props.searchInput(searchKey)}
                 type="Map"
+                logoImg={false}
             />
             <View style={[CommonStyles.body, { padding: 10 }]}>
                 <FlatList

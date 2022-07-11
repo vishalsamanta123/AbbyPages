@@ -12,9 +12,10 @@ const Styles = StyleSheet.create({
     backgroundColor: YELLOW_COLOR_CODE,
   },
   headerBackBtnCon: {
-    flex: 0.8,
+    flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 5,
   },
   headerMiddleCon: {
     flex: 4.4,

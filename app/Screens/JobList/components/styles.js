@@ -198,6 +198,7 @@ const Styles = StyleSheet.create({
   jobTitleVw: {
     borderWidth: 0.8,
     borderRadius: 6,
+    flexGrow: 1,
   },
   jobTitles: {
     paddingVertical: 5,

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Share,
+  Platform,
 } from "react-native";
 import styles from "./components/styles";
 import moment from "moment";
@@ -386,7 +387,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const saveResto = async () => {
     try {
       const params = {
-        item_type: serviceDetail.business_type,
+        item_type: 1,//serviceDetail.business_type,
         item_id: serviceDetail.business_id,
         like: serviceDetail.likes,
         favorite: serviceDetail?.favorite,
