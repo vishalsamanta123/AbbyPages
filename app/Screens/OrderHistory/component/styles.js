@@ -30,17 +30,12 @@ const styles = StyleSheet.create({
         color: WHITE_COLOR_CODE,
         fontFamily: FONT_FAMILY_REGULAR,
     },
-    FriendContainer: {
-        flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center'
-    },
+    FriendContainer: { flex: 1 },
     FlatlistContain: {
         width: '100%',
         borderTopColor: WHITE_COLOR_CODE,
         borderTopWidth: 0.3
     },
-
     ConatinView: {
         borderWidth: 0.5,
         flexDirection: 'row',
@@ -51,7 +46,8 @@ const styles = StyleSheet.create({
     },
     DishImgeStyle: {
         width: '35%',
-        height: '100%'
+        height: '100%',
+        margin:2
     },
     DishDiscptnView: {
         padding: 15,

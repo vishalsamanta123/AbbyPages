@@ -2,17 +2,13 @@ import React from 'react';
 import {
     View,
     Text,
-    Image,
     TouchableOpacity,
-    TextInput,
     KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
 import {
     FONT_FAMILY_REGULAR,
     BLACK_COLOR_CODE,
-    ORANGE_COLOR_CODE,
-    LINE_COLOR,
     YELLOW_COLOR_CODE,
     WHITE_COLOR_CODE,
 } from '../../../../Utils/Constant';
@@ -31,15 +27,9 @@ const BusinessUserVerifyScreen = (props) => {
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <View style={styles.maintxt}>
-                    <Text style={styles.mobtxt}>
-                        We have sent OTP on your registered
-                   </Text>
-                    <Text style={styles.emailtxt}>
-                        email or phone
-                   </Text>
-                    <Text style={styles.mobtxt}>
-                        Please verify your account
-                   </Text>
+                    <Text style={styles.mobtxt}>We have sent OTP on your registered</Text>
+                    <Text style={styles.emailtxt}>email or phone</Text>
+                    <Text style={styles.mobtxt}>Please verify your account</Text>
                 </View>
                 <View style={styles.footervwe}>
                     <OTPTextView
@@ -64,12 +54,8 @@ const BusinessUserVerifyScreen = (props) => {
                     <TouchableOpacity
                         onPress={() => props.otpresend()}
                         style={styles.retouch}>
-                        <Text style={styles.didnttxt}>
-                            Didn't Receive an OTP?
-                        </Text>
-                        <Text style={styles.reTXT}>
-                            Resend OTP
-                                </Text>
+                        <Text style={styles.didnttxt}>Didn't Receive an OTP?</Text>
+                        <Text style={styles.reTXT}>Resend OTP</Text>
                     </TouchableOpacity>
                 </View>
             </View>

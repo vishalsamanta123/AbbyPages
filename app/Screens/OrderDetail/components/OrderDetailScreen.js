@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   FlatList,
-  TouchableOpacity,
   Image,
   Text,
   ScrollView,
 } from "react-native";
-import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import styles from "./styles";
 import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
@@ -15,10 +13,7 @@ import Header from "../../../Components/Header";
 import {
   SMALL_TEXT_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const OrderDetailScreen = (props) => {
   const [a, setA] = useState(false);
@@ -33,7 +28,6 @@ const OrderDetailScreen = (props) => {
       return false;
     }
   };
-
   const _handleItemList = (item, index) => {
     return (
       <View key={index} style={styles.ConatinView}>
@@ -45,12 +39,7 @@ const OrderDetailScreen = (props) => {
         </View>
         <View style={styles.DishDiscptnView}>
           <Text style={[styles.text, { fontSize: 18 }]}>{item.item_name}</Text>
-          <Text
-            style={[
-              styles.text,
-              { fontSize: 12.5, color: SMALL_TEXT_COLOR_CODE },
-            ]}
-          >
+          <Text style={[styles.text, { fontSize: 12.5, color: SMALL_TEXT_COLOR_CODE },]}>
             Design for simplicity and made from high quality materials
           </Text>
           <View style={{ flexDirection: "row", flex: 1 }}>
@@ -81,14 +70,10 @@ const OrderDetailScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header HeaderText="Order Detail" RightImg={null} />
-      <View
-        style={[
-          CommonStyles.body,
-          {
-            // padding: 20, paddingBottom: 0
-          },
-        ]}
-      >
+      <View style={[CommonStyles.body, {
+        // padding: 20, paddingBottom: 0
+      },
+      ]}>
         <ScrollView>
           {props.orderDetail.business_image && (
             <Image
@@ -98,8 +83,7 @@ const OrderDetailScreen = (props) => {
                 uri:
                   props.orderDetail.business_image &&
                   props.orderDetail.business_image,
-              }}
-            />
+              }} />
           )}
           <View
             style={{
@@ -107,36 +91,19 @@ const OrderDetailScreen = (props) => {
               borderBottomWidth: 8,
               borderBottomColor: LINE_COMMON_COLOR_CODE,
               paddingBottom: 10,
-            }}
-          >
+            }}>
             <Text style={[styles.text, { fontSize: 23 }]}>
               {props.orderDetail.business_name}
             </Text>
             <Text style={[styles.text, { fontSize: 15 }]}>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    fontSize: 13,
-                    color: SMALL_TEXT_COLOR_CODE,
-                  },
-                ]}
-              >
+              <Text style={[styles.text, { fontSize: 13, color: SMALL_TEXT_COLOR_CODE, },]}>
                 Order Id :
               </Text>
               {" " + props.orderDetail.order_id}
             </Text>
             {props.orderDetail.total_amount !== null && (
               <Text style={[styles.text, { fontSize: 15 }]}>
-                <Text
-                  style={[
-                    styles.text,
-                    {
-                      fontSize: 13,
-                      color: SMALL_TEXT_COLOR_CODE,
-                    },
-                  ]}
-                >
+                <Text style={[styles.text, { fontSize: 13, color: SMALL_TEXT_COLOR_CODE, },]}>
                   Order Amount :
                 </Text>
                 {" $ " + props.orderDetail.total_amount}
@@ -177,7 +144,6 @@ const OrderDetailScreen = (props) => {
               {props?.orderDetail?.order_status === 5 && " Completed"}
             </Text>
           </View>
-
           {props?.orderDetail?.business_type == 1 && (
             <>
               <FlatList
@@ -193,29 +159,28 @@ const OrderDetailScreen = (props) => {
                   borderColor: LINE_COMMON_COLOR_CODE,
                 }}
                 renderItem={({ item, index }) => _handleItemList(item, index)}
-
-                // ListFooterComponent={
-                //     <View>
-                //         <View style={{
-                //             // borderBottomWidth: 3,
-                //             // borderColor: LINE_COMMON_COLOR_CODE,
-                //             padding: 20, paddingTop: 0
-                //         }}>
-                //             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                //                 <Text style={[styles.text, { fontSize: 15 }]}>SubTotal</Text>
-                //                 <Text style={[styles.text, { fontSize: 15 }]}>$12.00</Text>
-                //             </View>
-                //             <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1 }}>
-                //                 <Text style={[styles.text, { fontSize: 15 }]}>Tax</Text>
-                //                 <Text style={[styles.text, { fontSize: 15 }]}>$1.00</Text>
-                //             </View>
-                //             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                //                 <Text style={[styles.text, { fontSize: 16 }]}>Final Amount</Text>
-                //                 <Text style={[styles.text, { fontSize: 16 }]}>$13.00</Text>
-                //             </View>
-                //         </View>
-                //     </View>
-                // }
+              // ListFooterComponent={
+              //     <View>
+              //         <View style={{
+              //             // borderBottomWidth: 3,
+              //             // borderColor: LINE_COMMON_COLOR_CODE,
+              //             padding: 20, paddingTop: 0
+              //         }}>
+              //             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              //                 <Text style={[styles.text, { fontSize: 15 }]}>SubTotal</Text>
+              //                 <Text style={[styles.text, { fontSize: 15 }]}>$12.00</Text>
+              //             </View>
+              //             <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1 }}>
+              //                 <Text style={[styles.text, { fontSize: 15 }]}>Tax</Text>
+              //                 <Text style={[styles.text, { fontSize: 15 }]}>$1.00</Text>
+              //             </View>
+              //             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              //                 <Text style={[styles.text, { fontSize: 16 }]}>Final Amount</Text>
+              //                 <Text style={[styles.text, { fontSize: 16 }]}>$13.00</Text>
+              //             </View>
+              //         </View>
+              //     </View>
+              // }
               />
               {/* <View
                                 style={{
@@ -229,16 +194,10 @@ const OrderDetailScreen = (props) => {
                                 </View> */}
               {props.orderDetail.order_process == 0 && (
                 <View style={{ padding: 20 }}>
-                  <Text
-                    style={[
-                      styles.text,
-                      {
-                        fontSize: 16,
-                        color: SMALL_TEXT_COLOR_CODE,
-                        paddingBottom: 15,
-                      },
-                    ]}
-                  >
+                  <Text style={[styles.text, {
+                    fontSize: 16, color: SMALL_TEXT_COLOR_CODE,
+                    paddingBottom: 15,
+                  },]}>
                     OrderStatus
                   </Text>
                   <View style={{}}>

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   ScrollView,
-  KeyboardAvoidingView,
 } from "react-native";
 import styles from "./styles";
-import { LINE_COLOR } from "../../../../Utils/Constant";
 import Header from "../../../../Components/Header";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";

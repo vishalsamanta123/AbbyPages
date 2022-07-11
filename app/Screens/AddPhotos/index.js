@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddPhotos from './components/AddPhotos';
-const AddPhotosView = ({ navigation }) => {
+const AddPhotosView = () => {
     const [locationName, setLocationName] = useState('');
     const [Address, setAddress] = useState('');
 

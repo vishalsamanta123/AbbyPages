@@ -1,9 +1,5 @@
 import { StyleSheet } from 'react-native';
 import {
-    WHITE_COLOR_CODE,
-    GREY_COLOR_CODE,
-    BLACK_COLOR_CODE,
-    YELLOW_COLOR_CODE,
     FONT_FAMILY_REGULAR,
     SMALL_TEXT_COLOR_CODE
 } from '../../../Utils/Constant';

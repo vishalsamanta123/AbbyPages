@@ -1,9 +1,9 @@
 import React from 'react';
 import {
     View,
+    FlatList,
     StatusBar,
     KeyboardAvoidingView,
-    FlatList
 } from 'react-native';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
@@ -24,9 +24,9 @@ const Notifications = (props) => {
             <View style={[CommonStyles.body]}>
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
-                    data={props.NotificationData}
-                    renderItem={({ item, index }) => props._handleNotificationData(item, index)
-                    }
+                    // data={props.NotificationData}
+                    data={props?.NotificationData?.sort((a, b) => a.create_date - b.create_date)}
+                    renderItem={({ item, index }) => props._handleNotificationData(item, index)}
                 />
             </View>
         </KeyboardAvoidingView>

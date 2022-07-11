@@ -2,10 +2,10 @@ import React from 'react';
 import {
     View,
     Text,
-    StatusBar,
-    KeyboardAvoidingView,
     Image,
-    TouchableOpacity
+    StatusBar,
+    TouchableOpacity,
+    KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../Components/Header';

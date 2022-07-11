@@ -45,7 +45,6 @@ const BusinessSignUp = (props) => {
           </View>
           <View style={styles.InputContainer}>
             <Input
-              // autoCapitalize={'characters'}
               onChangeText={(first_name) =>
                 props.setRegistrationData({
                   ...props.registrationData,

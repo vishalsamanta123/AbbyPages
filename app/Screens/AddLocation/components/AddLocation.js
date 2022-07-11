@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     View,
-    Text,
     StatusBar,
     KeyboardAvoidingView,
     ScrollView
@@ -12,7 +11,7 @@ import Input from '../../../Components/Input';
 import Button from '../../../Components/Button';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
-import { WHITE_COLOR_CODE, BLACK_COLOR_CODE } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const AddLocationScreen = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -52,8 +51,7 @@ const AddLocationScreen = (props) => {
                             (address) => props.setAddress({
                                 ...props.Address,
                                 location: address
-                            })
-                        }
+                            })}
                         value={props.Address.address}
                         query={{
                             key: 'AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM',
@@ -73,8 +71,8 @@ const AddLocationScreen = (props) => {
                             },
                             textInput: {
                                 fontSize: 16,
-                                // color: 'red'
                                 color: BLACK_COLOR_CODE,
+                                fontFamily:FONT_FAMILY_REGULAR
                             },
                             listView: {
                                 backgroundColor: WHITE_COLOR_CODE,
