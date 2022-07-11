@@ -7,7 +7,6 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 
-
 const EventListing = ({ navigation }) => {
     const [loader, setLoader] = useState();
     const [errorMessage, setErrorMessage] = useState("");
@@ -80,11 +79,11 @@ const EventListing = ({ navigation }) => {
     const getEventList = async (offSet) => {
         setLoader(true);
         try {
-             const params = {
+            const params = {
                 limit: '100',
                 offset: '0'
-            } 
-           {/* setoffset(offSet);
+            }
+            {/* setoffset(offSet);
             const params = {
                 offset: offSet ? offSet : '6',
             };*/}
@@ -107,6 +106,9 @@ const EventListing = ({ navigation }) => {
             setErrorMessage(error)
         }
     }
+    const handleCreateEvent = () => {
+        navigation.navigate('CreateEvent')
+    }
     return (
         <View style={CommonStyles.container}>
             {loader && <Loader state={loader} />}
@@ -123,6 +125,7 @@ const EventListing = ({ navigation }) => {
                 stopOffset={stopOffset}
                 getEventList={getEventList}
                 offset={offset}
+                handleCreateEvent={handleCreateEvent}
             />
             <Error
                 message={errorMessage}

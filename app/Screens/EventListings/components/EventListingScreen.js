@@ -79,6 +79,7 @@ const EventListingScreen = (props) => {
             <Header
                 HeaderText='Events'
                 RightImg={require('../../../Assets/plus_icon_header.png')}
+                onPress={() => props.handleCreateEvent()}
             />
             <View style={[CommonStyles.body, { paddingBottom: '24%' }]}>
                 <View style={{

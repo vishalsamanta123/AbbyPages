@@ -10,9 +10,9 @@ import {
 import styles from './styles';
 import Input from '../../../Components/Input';
 import Button from '../../../Components/Button';
+import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
 import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
-import Header from '../../../Components/Header';
 const Addcartcashback = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>

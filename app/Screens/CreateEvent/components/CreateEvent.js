@@ -9,6 +9,7 @@ import {
     ScrollView,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Alert,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../Components/Header';

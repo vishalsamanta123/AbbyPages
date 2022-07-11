@@ -33,8 +33,7 @@ const Goals = (props) => {
         </View>
         <TouchableOpacity
           onPress={() => props.onPressTextOptn()}
-          style={
-            props.textOptn ? styles.selectOptionContain : styles.OptionContain
+          style={props.textOptn ? styles.selectOptionContain : styles.OptionContain
           }
         >
           <View style={styles.ImgeConatiner}>
@@ -107,8 +106,7 @@ const Goals = (props) => {
             props.callingOptn
               ? styles.selectOptionContain
               : styles.OptionContain
-          }
-        >
+          }>
           <View style={styles.ImgeConatiner}>
             <Image source={require("../../../../Assets/st_icon_3.png")} />
             {props.callingOptn ? (

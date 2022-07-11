@@ -3,8 +3,11 @@ import {
     View,
     Text,
     Image,
+    Modal,
+    FlatList,
     ScrollView,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import CommonStyles from '../../../Utils/CommonStyles';
 import styles from './styles';
@@ -12,14 +15,12 @@ import moment from "moment";
 import Header from '../../../Components/Header';
 import Button from '../../../Components/Button'
 import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const EventListingScreen = (props) => {
     const { width, height } = Dimensions.get('window');
     const eventDate = moment(props?.eventDetails?.created_at).format("MMMM Do YYYY, h:mm:ss a");
     return (
         <View style={CommonStyles.container}>
-            {console.log('eventDetails', props.eventDetails.recently_events)}
             <Header HeaderText='Events Details' RightImg={null} />
             <View style={[CommonStyles.body]}>
                 <ScrollView>
@@ -34,7 +35,6 @@ const EventListingScreen = (props) => {
                             </View>
                         )}
                         /> */}
-
                     <SafeAreaView style={{ alignItems: 'center' }}>
                         <FlatList
                             keyExtractor={(item, index) => index.toString()}
@@ -65,7 +65,6 @@ const EventListingScreen = (props) => {
                             ))}
                         </View>
                     </SafeAreaView>
-
                     {/* <Image style={styles.bannerimg} source={require('../../../Assets/extraImages/salooonimg.jpg')} /> */}
                     <View style={styles.infocon}>
                         <Text style={[styles.hdngtxt, { textTransform: 'capitalize' }]}>{props?.eventDetails?.event_name}</Text>
@@ -75,9 +74,7 @@ const EventListingScreen = (props) => {
                                 style={styles.icon}
                                 source={require('../../../Assets/info_calendar_icon.png')}
                             />
-                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>
-                                {eventDate}
-                            </Text>
+                            <Text style={[styles.text, { fontSize: 14, lineHeight: 18 }]}>{eventDate}</Text>
                         </View>
                         <View style={styles.basiccon}>
                             <Image
@@ -164,6 +161,32 @@ const EventListingScreen = (props) => {
                             buttonText='Official Website'
                         />
                     </View>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={props.interestedModal}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            props.setInterstedModal(!props.interestedModal);
+                        }} >
+                        <TouchableOpacity activeOpacity={1} onPress={() => props.setInterstedModal(false)} style={styles.centeredView}>
+                            {/* <View style={styles.alertBackground}>
+                                <View style={{ alignItems: "center", position: 'absolute', right: 0, left: 0, top: -35, bottom: 0, zIndex: 1 }}>
+                                </View>
+                                <View style={styles.alertBox}>
+                                    <TouchableOpacity
+                                        style={styles.profileModal}
+                                        onPress={() => props.onPressOpenEventImage()}
+                                        underlayColor={'#F5F5F5'}>
+                                        <Image style={{ height: 40, width: 40, zIndex: 1 }}
+                                            source={require('../../../Assets/image-gallery.png')} />
+                                        <Text style={styles.modalItem}>Open Album</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View> */}
+                        </TouchableOpacity>
+                    </Modal>
 
                 </ScrollView>
             </View>

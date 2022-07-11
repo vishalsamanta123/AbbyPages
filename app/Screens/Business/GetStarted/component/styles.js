@@ -3,12 +3,11 @@ import {
     YELLOW_COLOR_CODE,
     FONT_FAMILY_REGULAR,
     FONT_FAMILY_BOLD,
-    SMALL_TEXT_COLOR_CODE,
     LIGHT_BLACK_COLOR_CODE,
     LIGHT_GREY_COLOR_CODE,
     WHITE_COLOR_CODE,
     BLACK_COLOR_CODE,
-    } from '../../../../Utils/Constant';
+} from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     AddPhotosText: {
         fontSize: 24,
@@ -32,7 +31,7 @@ const Styles = StyleSheet.create({
         fontSize: 13,
         fontFamily: FONT_FAMILY_REGULAR,
         lineHeight: 22,
-        color:LIGHT_GREY_COLOR_CODE
+        color: LIGHT_GREY_COLOR_CODE
     },
     bussnesstxt: {
         fontFamily: FONT_FAMILY_REGULAR,
@@ -89,8 +88,8 @@ const Styles = StyleSheet.create({
         flexDirection: "row",
         // marginBottom: '2%',
         backgroundColor: '#f2f2f2',
-        marginLeft:4,
-        marginTop:5
+        marginLeft: 4,
+        marginTop: 5
     },
     txt: {
         fontFamily: FONT_FAMILY_REGULAR,
@@ -109,5 +108,62 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-end'
     },
+    buscatevwe: {
+        backgroundColor: "rgba(0,0,0,0)",
+        // margin: 10,
+        marginLeft: 16,
+        marginRight: 16,
+        borderColor: "#d8d8d8",
+        borderWidth: 1,
+        borderRadius: 8,
+        justifyContent: "space-between",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    buscatesecvwe: {
+        backgroundColor: "rgba(0,0,0,0)",
+        // height: 70,
+        paddingTop: 20,
+        paddingBottom: 20,
+        width: "95%",
+        borderColor: "#d8d8d8",
+        paddingLeft: 20,
+        justifyContent: "space-between",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    bussinecatetxt: {
+        fontSize: 17,
+        color: BLACK_COLOR_CODE,
+        fontFamily: FONT_FAMILY_REGULAR
+    },
+    bcvwe: {
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+    crossvwe:{
+        flexDirection: "row",
+        margin: 2,
+        justifyContent: "center",
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: "#d8d8d8",
+    },
+    onpresscrossvwe:{
+        borderLeftWidth: 1,
+        padding: 5,
+        borderColor: "#d8d8d8",
+    },
+    searchvwe:{
+        paddingLeft: 14,
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: "#a9a9a9",
+    },
+    nodatafndtxtvwe:{
+        justifyContent: "center",
+        alignItems: "center",
+        height: 80,
+    }
 })
 export default Styles;
