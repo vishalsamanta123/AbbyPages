@@ -22,23 +22,31 @@ const ShopList = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const [visible, setVisible] = useState(false);
-
-  const [restroList, setRestroList] = useState([]);
+  const [offSet, setOffSet] = useState();
+  const [stopOffset, setstopOffset] = useState(false);
   const [shopList, setShopList] = useState([]);
+
   useEffect(() => {
-    handleShopList();
+    handleShopList(0);
   }, []);
-  const handleShopList = async () => {
-    setVisible(true);
-    const params = {
-      business_type: 2,
-    };
+
+  const handleShopList = async (offSet) => {
+    setOffSet(offSet);
     try {
+      setVisible(true);
+      const params = {
+        business_type: 2,
+        offset: offSet,
+        limit: 10,
+      };
+      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+      console.log("data: ", data);
       if (data.status === 200) {
         setShopList(data.data);
         setVisible(false);
       } else {
+        setstopOffset(true);
         setErrorMessage(data.message);
         setVisibleErr(true);
         setVisible(false);
@@ -61,7 +69,7 @@ const ShopList = ({ navigation }) => {
     if (data.status == 200) {
       ToastAndroid.show(data.message, ToastAndroid.SHORT);
       setVisible(false);
-      handleShopList();
+      handleShopList(offSet);
     } else {
       setErrorMessage(data.message);
       setVisibleErr(true);
@@ -199,7 +207,7 @@ const ShopList = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleShopList();
+      handleShopList(0);
       setVisible(false);
     }
     setShopList(list);
@@ -212,6 +220,9 @@ const ShopList = ({ navigation }) => {
         shopList={shopList}
         _handleShopList={_handleShopList}
         onPressMap={onPressMap}
+        handleShopList={handleShopList}
+        offSet={offSet}
+        stopOffset={stopOffset}
       />
       <Error
         message={errorMessage}

@@ -11,11 +11,11 @@ import _ from "lodash";
 
 const JobList = ({ navigation }) => {
   useEffect(() => {
-    if (filterData?.title === "") {
-      handlejobsList(0);
-    } else {
-      handleJobFilter(0);
-    }
+    // if (filterData?.title === "") {
+    //   handlejobsList(0);
+    // } else {
+    handleJobFilter(0);
+    // }
   }, []);
   const [filter, setFilter] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -93,9 +93,10 @@ const JobList = ({ navigation }) => {
     setoffset(offSet);
     try {
       setLoader(true);
+      const limits = offSet + 1;
       const params = {
-        job_title: filterData?.title,
-        city: "",
+        job_title: filterData?.title ? filterData?.title : null,
+        city: filterData?.city ? filterData?.city : null,
         category: "",
         country: "",
         state: "",
@@ -103,6 +104,8 @@ const JobList = ({ navigation }) => {
         longitude: "",
         job_type: "",
         offset: offSet,
+        limit: 10,
+        // limit: offSet == 0 ? 10 : 10 * limits,
       };
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
@@ -144,18 +147,18 @@ const JobList = ({ navigation }) => {
     navigation.navigate("JobDetails", { detail: item.job_id });
   };
   const searchJob = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...jobList];
-    const list = _.filter(searchArray, (item) => {
-      return item.company_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setLoader(true);
-      handlejobsList(0);
-      setLoader(false);
-    } else {
-      setJobList(list);
-    }
+    // const lowerCased = searchKey.toLowerCase();
+    // const searchArray = [...jobList];
+    // const list = _.filter(searchArray, (item) => {
+    //   return item.company_name.toLowerCase().match(lowerCased);
+    // });
+    // if (searchKey == "") {
+    //   setLoader(true);
+    //   handlejobsList(0);
+    //   setLoader(false);
+    // } else {
+    //   setJobList(list);
+    // }
   };
   return (
     <View style={CommonStyles.container}>
@@ -185,10 +188,7 @@ const JobList = ({ navigation }) => {
         goBack={goBack}
         setFilterData={setFilterData}
         filterData={filterData}
-        jobList={jobList}
-        handleJobFilter={handleJobFilter}
         handleFilter={handleFilter}
-        // OnpressBack={OnpressBack}
       />
       <Error
         message={errorMessage}

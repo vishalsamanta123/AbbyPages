@@ -46,6 +46,7 @@ export default {
   BUSINESS_LIKE: "/api/reviewRating/businessLike",
   NEARBY_BUSINESS_SEARCH: "/api/business/nearbyBusinessSearch",
   GET_PRODUCT_LIST: "/api/product/productList",
+  FILTER_PRODUCTLIST: "/api/product/getProductFlterData",
   GET_PRODUCT_DETAIL: "/api/product/getProductDetails",
   PRODUCT_REVIEW: "/api/reviewRating/productReview",
   PRODUCT_BOOKING: "/api/orders/ordersShopingProduct",

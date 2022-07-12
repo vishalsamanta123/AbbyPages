@@ -19,6 +19,9 @@ const ServiceProviderListing = (props) => {
         keyExtractor={(item, index) => index.toString()}
         data={props.serviceData}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
+        onEndReached={() => {
+          !props.stopOffset ? props?.handleServiceList(props.offSet + 1) : null;
+        }}
       />
     </KeyboardAvoidingView>
   );

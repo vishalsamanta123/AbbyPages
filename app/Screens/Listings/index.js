@@ -24,23 +24,29 @@ const ListingsScreenView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const [offSet, setOffSet] = useState();
+  const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
+
   useEffect(() => {
-    handleRestroList();
+    handleRestroList(0);
   }, []);
-  const handleRestroList = async () => {
-    const params = {
-      business_type: 1,
-    };
+
+  const handleRestroList = async (offSet) => {
+    setOffSet(offSet);
     try {
+      const params = {
+        business_type: 1,
+        offset: offSet,
+        limit: 10,
+      };
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log('dataLISTING: ', data);
       if (data.status === 200) {
         setRestroList(data.data);
         setVisible(false);
       } else {
+        setstopOffset(true);
         setErrorMessage(data.message);
         setVisibleErr(true);
         setVisible(false);
@@ -65,7 +71,7 @@ const ListingsScreenView = ({ navigation }) => {
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
         setVisible(false);
-        handleRestroList();
+        handleRestroList(offSet);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
@@ -287,7 +293,7 @@ const ListingsScreenView = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleRestroList();
+      handleRestroList(0);
       setVisible(false);
     } else {
       setRestroList(list);
@@ -301,6 +307,9 @@ const ListingsScreenView = ({ navigation }) => {
         restroList={restroList}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
+        handleRestroList={handleRestroList}
+        offSet={offSet}
+        stopOffset={stopOffset}
       />
       <Error
         message={errorMessage}
