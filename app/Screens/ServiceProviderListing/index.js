@@ -23,15 +23,21 @@ const ServiceProviderListingView = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [serviceData, setserviceData] = useState([]);
+  const [offSet, setOffSet] = useState();
+  const [stopOffset, setstopOffset] = useState(false);
+
   useEffect(() => {
-    handleServiceList();
+    handleServiceList(0);
   }, []);
-  const handleServiceList = async () => {
-    setVisible(true);
-    const params = {
-      business_type: 3,
-    };
+  const handleServiceList = async (offSet) => {
+    setOffSet(offSet);
     try {
+      setVisible(true);
+      const params = {
+        business_type: 3,
+        offset: offSet,
+        limit: 10,
+      };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
       if (data.status === 200) {
         setserviceData(data.data);
@@ -39,6 +45,7 @@ const ServiceProviderListingView = ({ navigation }) => {
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
+        setstopOffset(true);
         setVisible(false);
       }
     } catch (error) {
@@ -60,7 +67,7 @@ const ServiceProviderListingView = ({ navigation }) => {
     if (data.status == 200) {
       ToastAndroid.show(data.message, ToastAndroid.SHORT);
       setVisible(false);
-      handleServiceList();
+      handleServiceList(offSet);
     } else {
       setErrorMessage(data.message);
       setVisibleErr(true);
@@ -169,7 +176,7 @@ const ServiceProviderListingView = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleServiceList();
+      handleServiceList(0);
       setVisible(false);
     } else {
       setserviceData(list);
@@ -183,6 +190,9 @@ const ServiceProviderListingView = ({ navigation }) => {
         serviceData={serviceData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
+        handleServiceList={handleServiceList}
+        offSet={offSet}
+        stopOffset={stopOffset}
       />
       <Error
         message={errorMessage}

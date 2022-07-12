@@ -52,7 +52,7 @@ const EventListing = ({ navigation }) => {
       setLoader(true);
       const params = {
         offset: offSet,
-        limit: 10 * offSet,
+        limit: offSet === 0 ? 10 : 10 * offSet,
       };
       const response = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
       if (response.status === 200) {
@@ -90,7 +90,7 @@ const EventListing = ({ navigation }) => {
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
-      /> 
+      />
     </View>
   );
 };

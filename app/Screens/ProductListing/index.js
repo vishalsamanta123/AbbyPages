@@ -26,6 +26,7 @@ import {
 } from "../../Utils/Constant";
 import { ShoppingCartContext } from "../../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
+import FilterPopUp from "./components/FilterPopUp";
 const ProductListing = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
@@ -34,14 +35,20 @@ const ProductListing = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const [stopOffset, setstopOffset] = useState(false);
+  const [offSet, setOffSet] = useState();
   const [productList, setProductList] = useState([]);
+  const [filter, setFilter] = useState(false);
+  const [filterData, setFilterData] = useState({
+    color: "",
+  });
 
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
       // setProductList(detail);//state (close because of the array error)
-      handleProductList(detail); //function
+      // handleProductList(0); //function
+      handleFilterProduct();
     }
   }, []);
   useFocusEffect(
@@ -49,8 +56,9 @@ const ProductListing = ({ navigation, route }) => {
       if (route.params) {
         const { detail } = route.params;
         // setProductList(detail);//state (close because of the array error)
-        handleProductList(detail); //function
+        // handleProductList(0); //function
         productOrderData(detail);
+        handleFilterProduct();
       }
       // return () => getProfile();
     }, [])
@@ -65,12 +73,14 @@ const ProductListing = ({ navigation, route }) => {
       console.log("errorHuMe", error);
     }
   };
-  const handleProductList = async (detail) => {
-    setVisible(true);
+  const handleProductList = async (offset) => {
+    setOffSet(offset);
     try {
+      const limits = offset + 2;
+      setVisible(true);
       const params = {
-        limit: 10,
-        offset: 0,
+        limit: offset === 0 ? 20 : 10 * limits,
+        offset: offset,
       };
       const { data } = await apiCall(
         "POST",
@@ -81,6 +91,7 @@ const ProductListing = ({ navigation, route }) => {
         setVisible(false);
         setProductList(data.data);
       } else {
+        setstopOffset(true);
         setErrorMessage(data.message);
         setVisibleErr(true);
         setVisible(false);
@@ -91,6 +102,36 @@ const ProductListing = ({ navigation, route }) => {
       setVisible(false);
     }
   };
+  const handleFilterProduct = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        category_id: null,
+        company_brand: null,
+        max_price: null,
+        min_price: 0,
+        product_color: null,
+        product_size: null,
+        product_tags: null,
+        status: 1,
+        sub_category_id: null,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.FILTER_PRODUCTLIST,
+        params
+      );
+      if (data.status === 200) {
+        setVisible(false);
+        setProductList(data.data);
+      } else {
+        setstopOffset(true);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {}
+  };
   const SearchProduct = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...productList];
@@ -98,7 +139,8 @@ const ProductListing = ({ navigation, route }) => {
       return item.product_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      handleProductList(productList[0]);
+      // handleProductList(0);
+      handleFilterProduct();
     }
     setProductList(list);
   };
@@ -265,6 +307,9 @@ const ProductListing = ({ navigation, route }) => {
       </View>
     );
   };
+  const onPressFilter = () => {
+    setFilter(true);
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -277,6 +322,14 @@ const ProductListing = ({ navigation, route }) => {
         SearchProduct={SearchProduct}
         productList={productList}
         onPressProductDetail={onPressProductDetail}
+        handleProductList={handleProductList}
+        onPressFilter={onPressFilter}
+      />
+      <FilterPopUp
+        filter={filter}
+        closeModel={() => setFilter(false)}
+        setFilterData={setFilterData}
+        filterData={filterData}
       />
       <Error
         message={errorMessage}

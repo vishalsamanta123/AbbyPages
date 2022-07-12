@@ -457,7 +457,7 @@ function AuthLoading({ navigation }) {
   const getLoginType = async () => {
     const localuserdata = await AsyncStorage.getItem("localuserdata");
     if (localuserdata !== "") {
-      setLoginType(JSON.parse(localuserdata).data.login_type);
+      setLoginType(JSON.parse(localuserdata).login_type);
     }
   };
   const initialLoginState = {
