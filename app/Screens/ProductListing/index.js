@@ -41,16 +41,24 @@ const ProductListing = ({ navigation, route }) => {
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState({
     color: "",
+    category_id: "",
+    sub_category_id: "",
+    size: "",
+    company_brand: "",
+    max_price: "",
+    min_price: "",
+    product_size: "",
+    product_tags: "",
   });
 
-  useEffect(() => {
-    if (route.params) {
-      const { detail } = route.params;
-      // setProductList(detail);//state (close because of the array error)
-      // handleProductList(0); //function
-      handleFilterProduct();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (route.params) {
+  //     const { detail } = route.params;
+  //     setProductList(detail); //state (close because of the array error)
+  //     // handleProductList(0); //function
+  //     handleFilterProduct();
+  //   }
+  // }, []);
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {
@@ -60,9 +68,9 @@ const ProductListing = ({ navigation, route }) => {
         productOrderData(detail);
         handleFilterProduct();
       }
-      // return () => getProfile();
     }, [])
   );
+
   const productOrderData = async (detail) => {
     try {
       const data = {
@@ -106,15 +114,19 @@ const ProductListing = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        category_id: null,
-        company_brand: null,
-        max_price: null,
-        min_price: 0,
-        product_color: null,
-        product_size: null,
-        product_tags: null,
+        category_id: filterData.category_id ? filterData.category_id : null,
+        company_brand: filterData.company_brand
+          ? filterData.company_brand
+          : null,
+        max_price: filterData.max_price ? filterData.max_price : null,
+        min_price: filterData.min_price ? filterData.min_price : 0,
+        product_color: filterData.color ? filterData.color : null,
+        product_size: filterData.product_size ? filterData.product_size : null,
+        product_tags: filterData.product_tags ? filterData.product_tags : null,
         status: 1,
-        sub_category_id: null,
+        sub_category_id: filterData.sub_category_id
+          ? filterData.sub_category_id
+          : null,
       };
       const { data } = await apiCall(
         "POST",
