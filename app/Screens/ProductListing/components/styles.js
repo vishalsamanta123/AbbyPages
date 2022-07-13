@@ -3,9 +3,9 @@ import {
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
-  SMALL_TEXT_COLOR_CODE,
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
+  GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   inputconmn: {
@@ -91,18 +91,55 @@ const Styles = StyleSheet.create({
   },
   container: {
     height: 50,
-    borderColor: "#d8d8d8",
-    borderBottomWidth: 2,
-    borderRadius: 12,
-    flexDirection: "row",
-    marginTop: 15,
+    borderColor: GREY_COLOR_CODE,
+    borderTopWidth: 0,
+    borderWidth: 1,
+    borderRadius: 8,
   },
   pickerVw: {
-    paddingHorizontal: 20,
     backgroundColor: WHITE_COLOR_CODE,
     marginLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
+  },
+  catgCon: {
+    marginTop: 15,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  catgVw: {
+    width: "32%",
+    marginHorizontal: 5,
+  },
+  catgItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  catgText: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  subCategoryVw: {
+    marginVertical: 5,
+    height: 45,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: GREY_COLOR_CODE,
+    justifyContent: "center",
+    borderRadius: 8,
+  },
+  subCategoryTxt: {
+    paddingLeft: 10,
+    color: YELLOW_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+  },
+  selecteTxt: {
+    marginVertical: 8,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    fontSize: 16,
   },
 });
 export default Styles;
