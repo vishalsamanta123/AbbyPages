@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { YELLOW_COLOR_CODE, WHITE_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
+import { FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     MainImgeStyle: {
         justifyContent: 'center',

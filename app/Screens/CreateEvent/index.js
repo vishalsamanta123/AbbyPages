@@ -407,7 +407,8 @@ const CreateEventView = () => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );
