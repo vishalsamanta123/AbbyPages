@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import ReviewsScreen from './components/ReviewsScreen';
-const ReviewsView = ({ navigation }) => {
-
+const ReviewsView = () => {
     return (
-        <ReviewsScreen
-           
-        />
+        <ReviewsScreen />
     )
 }
 export default ReviewsView;

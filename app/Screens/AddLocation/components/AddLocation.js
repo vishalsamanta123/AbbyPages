@@ -2,8 +2,8 @@ import React from 'react';
 import {
     View,
     StatusBar,
+    ScrollView,
     KeyboardAvoidingView,
-    ScrollView
 } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import styles from './styles';
@@ -110,4 +110,4 @@ const AddLocationScreen = (props) => {
         </KeyboardAvoidingView>
     )
 }
-export default AddLocationScreen
+export default AddLocationScreen;

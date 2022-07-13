@@ -316,7 +316,7 @@ const CreateEvent = (props) => {
                         </TouchableOpacity>
 
                         <Button buttonText="Create Event" style={{ marginTop: 10 }}
-                            onPress={() => props.onPressCreateEvent()}
+                            onPress={props.onPressCreateEvent}
                         />
                         <Button
                             buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
