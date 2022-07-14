@@ -28,7 +28,7 @@ const AddPhotosScreen = () => {
                     <Text style={styles.AddPhotosText}>Add Photos</Text>
                     <TouchableOpacity style={styles.BrowseImgeView}>
                         <Image source={require('../../../Assets/upload_icon_box.png')} />
-                        <Text style={[styles.AddPhotosText, { color: YELLOW_COLOR_CODE }]} >Browse Files</Text>
+                        <Text style={[styles.AddPhotosText, { color: YELLOW_COLOR_CODE }]}>Browse Files</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -16,9 +16,7 @@ const AddEmail = ({ navigation }) => {
 
     const [otp, setOtp] = useState(false);
     const [verifyEmail, setVerifyEmail] = useState('');
-    const [addEmail, setAddEmail] = useState({
-        email: ""
-    });
+    const [addEmail, setAddEmail] = useState({email: ""});
     function validationFrom() {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (addEmail.email == "") {
@@ -37,8 +35,7 @@ const AddEmail = ({ navigation }) => {
         if (valid) {
             setVisible(true)
             const params = addEmail;
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.ADD_EMAIL, params);
+            const { data } = await apiCall('POST', ENDPOINTS.ADD_EMAIL, params);
             if (data.status === 200) {
                 setVerifyEmail(data.message);
                 setVisible(false);
