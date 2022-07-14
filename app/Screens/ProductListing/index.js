@@ -50,6 +50,7 @@ const ProductListing = ({ navigation, route }) => {
     product_size: "",
     product_tags: "",
   });
+  console.log("filterData: ", filterData);
 
   // useEffect(() => {
   //   if (route.params) {
@@ -66,7 +67,7 @@ const ProductListing = ({ navigation, route }) => {
         // setProductList(detail);//state (close because of the array error)
         // handleProductList(0); //function
         productOrderData(detail);
-        handleFilterProduct();
+        handleFilterProduct(0);
       }
     }, [])
   );
@@ -110,7 +111,7 @@ const ProductListing = ({ navigation, route }) => {
       setVisible(false);
     }
   };
-  const handleFilterProduct = async () => {
+  const handleFilterProduct = async (item) => {
     try {
       setVisible(true);
       const params = {
@@ -128,11 +129,13 @@ const ProductListing = ({ navigation, route }) => {
           ? filterData.sub_category_id
           : null,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.FILTER_PRODUCTLIST,
         params
       );
+      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setProductList(data.data);

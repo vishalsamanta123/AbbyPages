@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StatusBar, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Dialog, {
   DialogContent,
   SlideAnimation,
@@ -14,17 +22,21 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
+  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import styles from "./styles";
 import { Picker } from "@react-native-community/picker";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
-
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import Button from "../../../Components/Button";
+const { width, height } = Dimensions.get("window");
 export default function FilterPopUp(props) {
   const [productCatg, setProductCatg] = useState([]);
   const [productSubCatg, setProductSubCatg] = useState([]);
   const [selected, setSelected] = useState();
+  const [multiSliderValue, setMultiSliderValue] = React.useState([0]);
   useEffect(() => {
     // if (selected === "") {
     //   handleProductCatg(0);
@@ -63,6 +75,10 @@ export default function FilterPopUp(props) {
       console.log("error: ", error);
     }
   };
+  const handleFilter = () => {
+    setProductSubCatg([]);
+    props.closeModel();
+  };
   return (
     <View>
       <Dialog
@@ -84,42 +100,62 @@ export default function FilterPopUp(props) {
           backgroundColor={YELLOW_COLOR_CODE}
           translucent={false}
         />
-        <View style={[CommonStyles.header, { justifyContent: "center" }]}>
+        <View style={CommonStyles.header}>
           <TouchableOpacity
             onPress={() => props.closeModel()}
-            style={styles.HeaderArrow}
+            style={styles.headerArrow}
           >
             <Image source={require("../../../Assets/header_back_btn.png")} />
           </TouchableOpacity>
-          <View style={styles.HeaderViewMidle}>
-            <Text style={styles.HeaderMiddleTxt}>Filter Jobs</Text>
+          <View style={styles.headerViewMidle}>
+            <Text style={styles.headerMiddleTxt}>Filter Product</Text>
           </View>
-          <View style={styles.FilterImgeView}>
+          {/* <View style={styles.filterImgeView}>
             <Image source={require("../../../Assets/filter_icon.png")} />
             <Image
               style={{ marginLeft: 5 }}
               source={require("../../../Assets/search_icon_header.png")}
             />
-          </View>
+          </View> */}
         </View>
-        <View style={styles.filterVw}>
-          <View style={styles.container}>
-            <Picker
-              selectedValue={props.filterData.color}
-              style={styles.pickerVw}
-              onValueChange={(itemValue, itemIndex) =>
-                props.setFilterData({
-                  ...props.filterData,
-                  color: itemValue,
-                })
-              }
-              mode={"dropdown"}
-            >
-              <Picker.Item label="Color" />
-              <Picker.Item label="Red" value="red" />
-              <Picker.Item label="Blue" value="blue" />
-            </Picker>
+        <ScrollView contentContainerStyle={styles.filterVw}>
+          <Text style={styles.typesTxt}>Select Price Range</Text>
+          <View style={styles.containerVws}>
+            <View style={{ alignItems: "center", marginTop: 5 }}>
+              <MultiSlider
+                values={[multiSliderValue[0], multiSliderValue[1]]}
+                onValuesChange={(val) => {
+                  setMultiSliderValue(val);
+                  props.setFilterData({
+                    ...props.filterData,
+                    min_price: val[0],
+                    max_price: val[1],
+                  });
+                }}
+                min={100}
+                max={10000}
+                step={1}
+                allowOverlap
+                snapped
+                sliderLength={width / 1.3}
+                containerStyle={{ height: 40 }}
+                selectedStyle={styles.selectedVw}
+                customMarker={() => {
+                  return (
+                    <Image
+                      style={{ width: 24, height: 24 }}
+                      source={require("../../../Assets/abby_pages_map_icon.png")}
+                    />
+                  );
+                }}
+              />
+            </View>
+            <View style={styles.minMaxVw}>
+              <Text style={styles.minMaxTxt}>Min</Text>
+              <Text style={styles.minMaxTxt}>Max</Text>
+            </View>
           </View>
+          <Text style={styles.typesTxt}>Select Categories</Text>
           <View style={styles.catgCon}>
             {productCatg?.map((item, index) => {
               return (
@@ -143,7 +179,7 @@ export default function FilterPopUp(props) {
             })}
           </View>
           {productSubCatg.length > 0 ? (
-            <>
+            <View>
               <Text style={styles.selecteTxt}>
                 You can select any {productCatg[selected]?.category_name}{" "}
                 Category
@@ -167,9 +203,28 @@ export default function FilterPopUp(props) {
                   })}
                 </Picker>
               </View>
-            </>
+            </View>
           ) : null}
-          <View style={[styles.container, { marginVertical: 10 }]}>
+          <Text style={styles.typesTxt}>Select Color</Text>
+          <View style={styles.container}>
+            <Picker
+              selectedValue={props.filterData.color}
+              style={styles.pickerVw}
+              onValueChange={(itemValue, itemIndex) =>
+                props.setFilterData({
+                  ...props.filterData,
+                  color: itemValue,
+                })
+              }
+              mode={"dropdown"}
+            >
+              <Picker.Item label="Color" />
+              <Picker.Item label="Red" value="red" />
+              <Picker.Item label="Blue" value="blue" />
+            </Picker>
+          </View>
+          <Text style={styles.typesTxt}>Select Size</Text>
+          <View style={styles.container}>
             <Picker
               selectedValue={props.filterData.size}
               style={styles.pickerVw}
@@ -189,7 +244,8 @@ export default function FilterPopUp(props) {
               <Picker.Item label="XXL" value="XXL" />
             </Picker>
           </View>
-          <View style={[styles.container, { marginVertical: 10 }]}>
+          <Text style={styles.typesTxt}>Select Company Brand</Text>
+          <View style={styles.container}>
             <Picker
               selectedValue={props.filterData.company_brand}
               style={styles.pickerVw}
@@ -208,7 +264,8 @@ export default function FilterPopUp(props) {
               <Picker.Item label="BLIVE" value="BLIVE" />
             </Picker>
           </View>
-          <View style={[styles.container, { marginVertical: 10 }]}>
+          <Text style={styles.typesTxt}>Select Product Tag</Text>
+          <View style={styles.container}>
             <Picker
               selectedValue={props.filterData.product_tags}
               style={styles.pickerVw}
@@ -228,7 +285,10 @@ export default function FilterPopUp(props) {
               <Picker.Item label="Zara" value="Zara" />
             </Picker>
           </View>
-        </View>
+          <View style={{ marginVertical: 30 }}>
+            <Button buttonText={"Filter"} onPress={() => handleFilter()} />
+          </View>
+        </ScrollView>
       </Dialog>
     </View>
   );
