@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  KeyboardAvoidingView,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
-import moment from "moment";
+// import moment from "moment";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
@@ -19,14 +19,14 @@ const BusinessSignUp = (props) => {
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-  const handleConfirm = (date) => {
-    const value = moment(date).format("DD-MM-YYYY");
-    props.setRegistrationData({
-      ...props.setRegistrationData,
-      birth_date: value,
-    });
-    hideDatePicker();
-  };
+  // const handleConfirm = (date) => {
+  //   const value = moment(date).format("DD-MM-YYYY");
+  //   props.setRegistrationData({
+  //     ...props.setRegistrationData,
+  //     birth_date: value,
+  //   });
+  //   hideDatePicker();
+  // };
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header

@@ -3,8 +3,8 @@ import {
     View,
     Text,
     StatusBar,
+    ScrollView,
     KeyboardAvoidingView,
-    ScrollView
 } from 'react-native';
 import OTPTextView from 'react-native-otp-textinput';
 import styles from './styles';
@@ -33,7 +33,6 @@ const AddEmailScreen = (props) => {
             />
             <View style={[CommonStyles.body, { paddingTop: '20%', backgroundColor: WHITE_COLOR_CODE, justifyContent: 'center' }]}>
                 <ScrollView keyboardShouldPersistTaps={"always"}>
-
                     {
                         props.verifyEmail === '' ?
                             <>

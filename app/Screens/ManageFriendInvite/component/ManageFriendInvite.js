@@ -28,13 +28,11 @@ const ManageFriendInvite = (props) => {
                 <View style={styles.FriendContainer}>
                     <View style={[styles.cardCon]}>
                         <View style={styles.imgCon}>
-                            <Image
-                                source={require('../../../Assets/user_icon_box_large.png')}
-                            />
+                            <Image source={require('../../../Assets/user_icon_box_large.png')} />
                         </View>
                         <Text style={[CommonStyles.text, { bottom: 25, fontSize: 16, color: "#6c6c6c", lineHeight: 25, textAlign: "center" }]}>
                             You have to not added any friends to your list.
-                    </Text>
+                        </Text>
                     </View>
                 </View>
 

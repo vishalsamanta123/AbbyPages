@@ -9,8 +9,6 @@ const ManageFriendInviteView = () => {
         useState([
             { id: 0, name: 'Manage your current friends' },
             { id: 1, name: 'Pending friend request' },
-            // { id: 2, name: 'Following Collections' },
-            // { id: 3, name: 'Beardo' },
         ]);
     const _handleDataTypeSelected = (index, item) => {
         setIsSelectedCatgory(index)

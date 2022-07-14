@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -97,9 +97,9 @@ const LocationsView = ({ navigation }) => {
                                 source={require('../../Assets/add_primary_icon_color.png')} />
                         </TouchableOpacity>
                     }
-                    <TouchableOpacity style={[styles.ImageDelete]}>
+                    {/* <TouchableOpacity style={[styles.ImageDelete]}>
                         <Image source={require('../../Assets/list_edit_icon.png')} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     {item.primary_status !== 1 &&
                         <TouchableOpacity
                             style={styles.ImageDelete}

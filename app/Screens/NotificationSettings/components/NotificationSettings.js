@@ -92,76 +92,75 @@ const NotificationSettings = (props) => {
                                 order food delivery, or make other transactions on AbbyPages
                             </Text>
                         </View>
-                        {
-                            props.confirm === '' ?
-                                <>
+                        {props.confirm === '' ?
+                            <>
+                                <TouchableOpacity
+                                    onPress={() => props.OnpressRegion()}
+                                    style={[styles.EmailContainerBox, {
+                                        flexDirection: "row",
+                                        marginLeft: 15,
+                                        marginRight: 15,
+                                        paddingBottom: props.selectedCountry ? 10 : 20,
+                                        paddingTop: props.selectedCountry ? 10 : 20,
+                                    }]}>
+                                    {props.selectedCountry ?
+                                        <View style={styles.MainTextViewCountry}>
+                                            <Text style={styles.CountryflgTxt}>{props.selectedCountryFlag}</Text>
+                                            <Text style={styles.RegionTextMain}>{props.SelectedCode}</Text>
+                                            <Text
+                                                numberOfLines={1}
+                                                style={styles.RegionTextMain}>{props.selectedCountry}</Text>
+                                        </View>
+                                        :
+                                        <View style={{ flex: 5.5 }}>
+                                            <Text style={{ fontFamily: FONT_FAMILY_REGULAR }}>Region</Text>
+                                        </View>
+                                    }
                                     <TouchableOpacity
                                         onPress={() => props.OnpressRegion()}
-                                        style={[styles.EmailContainerBox, {
-                                            flexDirection: "row",
-                                            marginLeft: 15,
-                                            marginRight: 15,
-                                            paddingBottom: props.selectedCountry ? 10 : 20,
-                                            paddingTop: props.selectedCountry ? 10 : 20,
-                                        }]}>
-                                        {props.selectedCountry ?
-                                            <View style={styles.MainTextViewCountry}>
-                                                <Text style={styles.CountryflgTxt}>{props.selectedCountryFlag}</Text>
-                                                <Text style={styles.RegionTextMain}>{props.SelectedCode}</Text>
-                                                <Text
-                                                    numberOfLines={1}
-                                                    style={styles.RegionTextMain}>{props.selectedCountry}</Text>
-                                            </View>
-                                            :
-                                            <View style={{ flex: 5.5 }}>
-                                                <Text style={{ fontFamily: FONT_FAMILY_REGULAR }}>Region</Text>
-                                            </View>
-                                        }
-                                        <TouchableOpacity
-                                            onPress={() => props.OnpressRegion()}
-                                            style={{ flex: 0.5, justifyContent: "center", alignItems: "center" }}
-                                        >
-                                            <Image source={require('../../../Assets/arrow_right_icon.png')} />
-                                        </TouchableOpacity>
+                                        style={{ flex: 0.5, justifyContent: "center", alignItems: "center" }}
+                                    >
+                                        <Image source={require('../../../Assets/arrow_right_icon.png')} />
                                     </TouchableOpacity>
-                                    <Input
-                                        onChangeText={(phone) => props.setDashBoardDetails({
-                                            ...props.dashBoardDetails,
-                                            mobile: phone
-                                        })}
-                                        value={props.dashBoardDetails.mobile}
-                                        secureTextEntry={false}
-                                        placeholder="Phone Number"
-                                        InputType="withScroll"
-                                        keyboardType='phone-pad'
-                                    />
-                                    <Button
-                                        onPress={() => props.onPressSavePhone()}
-                                        buttonText="Save Phone Number"
-                                        style={{ marginTop: 5 }}
-                                    />
-                                </>
-                                :
-                                <>
-                                    <OTPTextView
-                                        handleTextChange={(val) => props.setOtp(val)}
-                                        tintColor={YELLOW_COLOR_CODE}
-                                        containerStyle={{ alignSelf: "center" }}
-                                        textInputStyle={{
-                                            borderWidth: 2,
-                                            color: BLACK_COLOR_CODE,
-                                            fontFamily: FONT_FAMILY_REGULAR,
-                                            borderBottomWidth: 2,
-                                        }}
-                                        inputCount={6}
-                                        inputCellLength={1}
-                                    />
-                                    <Button
-                                        buttonText="Confirm"
-                                        buttonLabelStyle={styles.logtxt}
-                                        onPress={() => props._handleOtpVerify()}
-                                    />
-                                </>
+                                </TouchableOpacity>
+                                <Input
+                                    onChangeText={(phone) => props.setDashBoardDetails({
+                                        ...props.dashBoardDetails,
+                                        mobile: phone
+                                    })}
+                                    value={props.dashBoardDetails.mobile}
+                                    secureTextEntry={false}
+                                    placeholder="Phone Number"
+                                    InputType="withScroll"
+                                    keyboardType='phone-pad'
+                                />
+                                <Button
+                                    onPress={() => props.onPressSavePhone()}
+                                    buttonText="Save Phone Number"
+                                    style={{ marginTop: 5 }}
+                                />
+                            </>
+                            :
+                            <>
+                                <OTPTextView
+                                    handleTextChange={(val) => props.setOtp(val)}
+                                    tintColor={YELLOW_COLOR_CODE}
+                                    containerStyle={{ alignSelf: "center" }}
+                                    textInputStyle={{
+                                        borderWidth: 2,
+                                        color: BLACK_COLOR_CODE,
+                                        fontFamily: FONT_FAMILY_REGULAR,
+                                        borderBottomWidth: 2,
+                                    }}
+                                    inputCount={6}
+                                    inputCellLength={1}
+                                />
+                                <Button
+                                    buttonText="Confirm"
+                                    buttonLabelStyle={styles.logtxt}
+                                    onPress={() => props._handleOtpVerify()}
+                                />
+                            </>
                         }
                     </View>
                     <View style={[styles.PhoneNumberContain, { padding: 15 }]}>
