@@ -5,11 +5,11 @@ import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import {
   View,
+  Text,
+  Image,
+  FlatList,
   Dimensions,
   TouchableOpacity,
-  FlatList,
-  Image,
-  Text,
 } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import ImagePicker from "react-native-image-crop-picker";

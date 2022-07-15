@@ -216,7 +216,6 @@ const BasicInformation = ({ navigation }) => {
             item.check == true ?
                 selectPartnerCaste.push({
                     id: item.id,
-
                 })
                 :
                 null

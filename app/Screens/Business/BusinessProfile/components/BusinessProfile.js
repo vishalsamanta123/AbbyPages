@@ -53,8 +53,7 @@ const BusinessInformation = (props) => {
                                     }
                                 }
                             ])}
-                            scrollEventThrottle={1}
-                        >
+                            scrollEventThrottle={1}>
                             {props?.profileData ? props?.profileData?.business_imgae?.map((item, imageIndex) => {
                                 return (
                                     <View style={{ width: windowWidth, height: '100%' }}
@@ -167,9 +166,11 @@ const BusinessInformation = (props) => {
                                     Give you custorners up-to-date information arabout
                                     your hours, services, and any new updates about your business
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Go to COVID-19 updates
-                                </Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>
+                                        Go to COVID-19 updates
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
@@ -196,7 +197,9 @@ const BusinessInformation = (props) => {
                                     What services do you offer? This helps you attract the right customers, as your business will
                                     only show up in searches for services you provide
                                 </Text>
-                                <Text style={styles.YellowText}>Go to COVID-19 updates</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Go to COVID-19 updates</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button
@@ -215,7 +218,9 @@ const BusinessInformation = (props) => {
                                     This info can differentiate
                                     you from similar businesses
                                 </Text>
-                                <Text style={styles.YellowText}>Add info</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add info</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
@@ -228,7 +233,9 @@ const BusinessInformation = (props) => {
                                 <Text style={styles.ParagrapghTextMain}>
                                     Let yours customers know when they can stop by or give you a call.
                                 </Text>
-                                <Text style={styles.YellowText}>Add info</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add info</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
@@ -242,7 +249,9 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>Add special hours</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add special hours</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} onPress={() => props.OpenigHours()} />
@@ -256,7 +265,9 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>Add specialities</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add specialities</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -266,7 +277,9 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>Add history</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add history</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -276,7 +289,9 @@ const BusinessInformation = (props) => {
                                     What are your holiday hours? Let your customers know about special
                                     hours and clousers.
                                 </Text>
-                                <Text style={styles.YellowText}>Add intro</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add intro</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -290,7 +305,9 @@ const BusinessInformation = (props) => {
                                     to evaluate a business. Make sure your photos show your
                                     business at its best.
                                 </Text>
-                                <Text style={styles.YellowText}>Add photos and videos</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Add photos and videos</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} onPress={() => props.photosVideos()} />
@@ -304,7 +321,9 @@ const BusinessInformation = (props) => {
                                     Make a great first impression by controlling the order of your photos
                                     and videos to leat with your best.
                                 </Text>
-                                <Text style={styles.YellowText}>Learn More</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Learn More</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <Button buttonText="$" style={{ width: "100%" }} />
@@ -325,7 +344,9 @@ const BusinessInformation = (props) => {
                                 expertise by showcasing your workm with your own
                                 workds and pictures.
                             </Text>
-                            <Text style={styles.YellowText}>Learn More</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.YellowText}>Learn More</Text>
+                            </TouchableOpacity>
                             <Button buttonText="$" style={{ width: "100%" }} />
                         </View>
                     </View>
@@ -338,7 +359,9 @@ const BusinessInformation = (props) => {
                                     Take customers where you want them to go and make it easy to connect
                                     with you in a way that aligns with your goals.
                                 </Text>
-                                <Text style={styles.YellowText}>Learn More</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Learn More</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -479,9 +502,9 @@ const BusinessInformation = (props) => {
                                     like yours. Choose from 30+ badges to highlight what makes
                                     you unique.
                                 </Text>
-                                <Text style={styles.YellowText}>
-                                    Learn More
-                                </Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.YellowText}>Learn More</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>

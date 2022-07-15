@@ -21,6 +21,39 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 15
     },
+    headervwe: {
+        borderBottomWidth: 0.8,
+        borderBottomColor: 'green',
+        flexDirection: "row",
+        height: 50,
+        flexDirection: "row",
+    },
+    arealstvwe: {
+        flex: 4,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    arealsttxt: {
+        fontFamily: FONT_FAMILY_BOLD,
+        fontSize: 15,
+        color: BLACK_COLOR_CODE,
+    },
+    cancelbtnimgvwe: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+    },
+    cancelimg: {
+        width: 20,
+        height: 20,
+        marginTop: 8
+    },
+    moadlvwe: {
+        width: "100%",
+        marginLeft: 14,
+        marginRight: 14,
+        height: "100%",
+    },
     AddPhotosTxt: {
         fontFamily: FONT_FAMILY_REGULAR,
         fontSize: 17,

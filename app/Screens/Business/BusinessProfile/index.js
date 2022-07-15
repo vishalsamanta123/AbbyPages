@@ -77,25 +77,24 @@ const BusinessProfileView = ({ navigation }) => {
         )
     }
     const onPressAddPhoto = () => {
-        navigation.navigate('PhotosVideo')
+        navigation.navigate('PhotosVideo');
     }
     const onPressEditBtn = () => {
-        navigation.navigate('BasicInformation')
+        alert('LP')
+        navigation.navigate('BasicInformation');
     }
-
 
     const onPressSave = async (image) => {
         setVisible(true)
         try {
             let formdata = new FormData();
             formdata.append("logo", image)
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.ADD_BUSINESS_LOGO, formdata);
+            const { data } = await apiCall('POST', ENDPOINTS.ADD_BUSINESS_LOGO, formdata);
             if (data.status === 200) {
                 await AsyncStorage.setItem('addBusinessLogo', JSON.stringify(data))
                 setErrorMessage(data.message);
                 setVisible(false);
-                businessLogo()
+                businessLogo();
             } else {
                 setVisible(false);
                 setErrorMessage(data.message);
@@ -238,16 +237,12 @@ const BusinessProfileView = ({ navigation }) => {
                         <TouchableOpacity
                             onPress={() => onPressCamera()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Camera
-                       </Text>
+                            <Text>Camera</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => onPressGallery()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Gallery
-                     </Text>
+                            <Text>Gallery</Text>
                         </TouchableOpacity>
                     </View>
                 </DialogContent>

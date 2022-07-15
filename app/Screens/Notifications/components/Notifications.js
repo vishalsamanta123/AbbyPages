@@ -32,4 +32,4 @@ const Notifications = (props) => {
         </KeyboardAvoidingView>
     )
 }
-export default Notifications
+export default Notifications;

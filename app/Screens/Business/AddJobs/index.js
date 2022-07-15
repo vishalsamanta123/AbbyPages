@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import AddJobsScreen from './components/AddJobsScreen';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
 const AddJobs = ({ navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
+    {/* Countries States */ }
+    const [countryVisible, setCountryVisible] = useState(false);
+    const [countryList, setCountryList] = useState('');
+    const [selectedCountry, setSelectedCountry] = useState('');
+    {/**/ }
+    {/* State States */ }
+    const [stateVisible, setStateVisible] = useState(false);
+    const [stateList, setStateList] = useState('');
+    const [selectedState, setSelectedState] = useState('');
+    {/**/ }
+
 
     const [JobTitle, setJobTitle] = useState('');
     const [Openings, setOpenings] = useState('');
@@ -29,40 +39,99 @@ const AddJobs = ({ navigation }) => {
     const [JobAddress, setJobAddress] = useState('');
     const [addressState, setAddressState] = useState('');
     const [city, setcity] = useState('');
-    const onPressToPreview = () => {
-        navigation.navigate('AddTextPreview')
-    }
-
+    const [jobBenefits, setJobBenefits] = useState('');
     const [box, setbox] = useState(true)
     const _handleFocus = () => {
         setbox(!box);
     }
-
+    const onPressToPreview = () => {
+        navigation.navigate('AddTextPreview')
+    }
+    const _handleModalOpen = () => {
+        setCountryVisible(true);
+        getCountryList();
+    }
+    const _handleStateModalOpen = () => {
+        setStateVisible(true);
+        getStateList();
+    }
+    const getCountryList = async () => {
+        try {
+            const params = {
+                status: 0
+            }
+            const response = await apiCall('POST', ENDPOINTS.COUNTRY_LIST, params);
+            if (response.status === 200) {
+                setCountryList(response.data.data)
+            }
+            else {
+                console.log('else')
+            }
+        }
+        catch (error) {
+            console.log('error: ', error);
+        }
+    }
+    const getStateList = async () => {
+        try {
+            const params = {
+                status: 1,
+                country_id: selectedCountry.country_id
+            }
+            const response = await apiCall('POST', ENDPOINTS.COUNTRY_LIST, params);
+            if (response.status === 200) {
+                setStateList(response.data.data)
+            }
+            else {
+                console.log('else');
+                // setErrorMessage('First select country');
+                // setVisibleErr(true);
+            }
+        }
+        catch (error) {
+            console.log('error: ', error);
+        }
+    }
     const onPressSubmit = async () => {
         const valid = validationFrom();
         if (valid) {
             setVisible(true)
             try {
                 const params = {
-                    job_title: JobTitle,
-                    no_of_openings: Openings,
-                    monthly_in_hand_salary_from: SalaryFrom,
-                    monthly_in_hand_salary_to: SalaryTo,
-                    job_description: JobDescription,
-                    job_timing: JobTimeings,
-                    interview_details: InterviewDetails,
+                    business_id: null,
                     company_name: CompanyName,
                     contact_person_name: CompanyPersonName,
-                    phone_no: PhoneNumber,
                     email: EmailID,
+                    interview_details: InterviewDetails,
                     job_address: JobAddress,
-                    job_location_state: addressState,
+                    job_benefits: jobBenefits,
+                    job_category_id: 1,
+                    job_description: JobDescription,
+                    job_end_time_day: 5,
+                    job_end_timing: JobTimeings,
+                    job_level: "job_level",
                     job_location_city: city,
+                    job_location_country: selectedCountry.country_id,
+                    job_location_state: selectedState.state_id,
+                    job_requirements: 'asdasd',
+                    job_start_time_day: '1',
+                    job_start_timing: "16:44",
+                    job_status: null,
+                    job_timing: JobTimeings,
+                    job_title: JobTitle,
+                    job_type: 1,
+                    language: 'asdasda',
+                    monthly_in_hand_salary_from: SalaryFrom,//2000
+                    monthly_in_hand_salary_to: SalaryTo,//"20000",
+                    no_of_openings: Openings,//10
+                    phone_no: PhoneNumber,
+                    skills: 'asdasd'
                 }
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.CREATE_JOB, params);
+                console.log('params', params);
+                const { data } = await apiCall('POST', ENDPOINTS.CREATE_JOB, params);
+                console.log('data: ', data);
                 if (data.status === 200) {
-                    setErrorMessage(data.message);
+                    // setErrorMessage(data.message);
                     navigation.navigate('JobManagementList')
                     setVisible(false);
                 } else {
@@ -99,7 +168,12 @@ const AddJobs = ({ navigation }) => {
             setVisibleErr(true);
             return false;
         }
-        if (addressState == "") {
+        if (selectedCountry.name == "") {
+            setErrorMessage('Please enter job country');
+            setVisibleErr(true);
+            return false;
+        }
+        if (selectedState.name == "") {
             setErrorMessage('Please enter job state');
             setVisibleErr(true);
             return false;
@@ -156,6 +230,62 @@ const AddJobs = ({ navigation }) => {
         }
         return true;
     }
+    const _handleSelectedCountry = (item) => {
+        setSelectedCountry(item);
+        setCountryVisible(false);
+    }
+    const renderCountryListItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => _handleSelectedCountry(item)}
+                style={{
+                    flex: 1,
+                    borderBottomWidth: 0.3,
+                    borderBottomColor: '#f2f2f2',
+                    padding: 10,
+                    paddingVertical: 15,
+                    marginHorizontal: 15,
+                }}>
+                <Text
+                    style={{
+                        fontFamily: FONT_FAMILY_REGULAR,
+                        fontSize: 15,
+                        color: BLACK_COLOR_CODE,
+                    }}
+                >
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+    const _handleSelectedState = (item) => {
+        setSelectedState(item);
+        setStateVisible(false);
+    }
+    const renderStateListItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => _handleSelectedState(item)}
+                style={{
+                    flex: 1,
+                    borderBottomWidth: 0.3,
+                    borderBottomColor: '#f2f2f2',
+                    padding: 10,
+                    paddingVertical: 15,
+                    marginHorizontal: 15,
+                }}>
+                <Text
+                    style={{
+                        fontFamily: FONT_FAMILY_REGULAR,
+                        fontSize: 15,
+                        color: BLACK_COLOR_CODE,
+                    }}
+                >
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -190,12 +320,27 @@ const AddJobs = ({ navigation }) => {
                 setbox={setbox}
                 box={box}
                 onPressSubmit={onPressSubmit}
-
                 setAddressState={setAddressState}
                 addressState={addressState}
-
                 setcity={setcity}
                 city={city}
+                jobBenefits={jobBenefits}
+                setJobBenefits={setJobBenefits}
+
+                renderCountryListItem={renderCountryListItem}
+                countryVisible={countryVisible}
+                setCountryVisible={setCountryVisible}
+
+                _handleModalOpen={_handleModalOpen}
+                countryList={countryList}
+                selectedCountry={selectedCountry}
+
+                stateVisible={stateVisible}
+                setStateVisible={setStateVisible}
+                stateList={stateList}
+                renderStateListItem={renderStateListItem}
+                selectedState={selectedState}
+                _handleStateModalOpen={_handleStateModalOpen}
             />
             <Error
                 message={errorMessage}

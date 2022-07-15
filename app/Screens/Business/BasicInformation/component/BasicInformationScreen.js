@@ -12,7 +12,7 @@ import Header from '../../../../Components/Header';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import Input from '../../../../Components/Input';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { WHITE_COLOR_CODE, LINE_COMMON_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../../Utils/Constant';
+import { WHITE_COLOR_CODE, LINE_COMMON_COLOR_CODE, BLACK_COLOR_CODE } from '../../../../Utils/Constant';
 const BasicInformationScreen = (props) => {
     const _renderItems = (item, index) => {
         return (

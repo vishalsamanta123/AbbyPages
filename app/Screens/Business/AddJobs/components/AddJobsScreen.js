@@ -4,14 +4,16 @@ import {
     Text,
     ScrollView,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList,
+    Modal,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';
 import Button from '../../../../Components/Button';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import Input from '../../../../Components/Input';
-import { WHITE_COLOR_CODE } from '../../../../Utils/Constant';
+import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 const AddJobs = (props) => {
     return (
         <View style={[CommonStyles.container]}>
@@ -54,18 +56,31 @@ const AddJobs = (props) => {
                             placeholder="Monthly In-hand Salary To *"
                             InputType="withScroll"
                         />
-                        <Input
-                            onChangeText={(addressState) => props.setAddressState(addressState)}
-                            value={props.addressState}
-                            secureTextEntry={false}
-                            placeholder="job state"
-                            InputType="withScroll"
-                        />
+                        <TouchableOpacity onPress={() => props._handleModalOpen()} style={styles.container}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props?.selectedCountry.name ? props?.selectedCountry.name : 'Select country'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => props._handleStateModalOpen()} style={styles.container}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props?.selectedState.name ? props?.selectedState.name : 'Select state'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                        </TouchableOpacity>
                         <Input
                             onChangeText={(city) => props.setcity(city)}
                             value={props.city}
                             secureTextEntry={false}
-                            placeholder="job city"
+                            placeholder="Job city"
                             InputType="withScroll"
                         />
                         {/* <TouchableOpacity style={styles.container}>
@@ -187,6 +202,136 @@ const AddJobs = (props) => {
                     </View>
                 </ScrollView>
             </View>
+
+            {/* Country Modal */}
+            <Modal
+                animationType="slide"
+                visible={props.countryVisible}
+                onRequestClose={() => {
+                    props.setCountryVisible(false);
+                }}>
+                <View style={{ alignItems: "center" }}>
+                    <View style={styles.moadlvwe}>
+                        <View style={styles.headervwe}>
+                            <View style={{ flex: 1 }} />
+                            <View style={styles.arealstvwe}>
+                                <Text style={styles.arealsttxt}>Country List</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => props.setCountryVisible(false)}
+                                style={styles.cancelbtnimgvwe}>
+                                <Image
+                                    style={styles.cancelimg}
+                                    source={require("../../../../Assets/cancelModalBtn.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginBottom: "15%" }}>
+                            <FlatList
+                                data={props.countryList}
+                                renderItem={(item) => props.renderCountryListItem(item)}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            {/*  */}
+            {/* State Modal */}
+            <Modal
+                animationType="slide"
+                visible={props.stateVisible}
+                onRequestClose={() => {
+                    props.setStateVisible(false);
+                }}>
+                <View style={{ alignItems: "center" }}>
+                    <View style={styles.moadlvwe}>
+                        <View style={styles.headervwe}>
+                            <View style={{ flex: 1 }} />
+                            <View style={styles.arealstvwe}>
+                                <Text style={styles.arealsttxt}>State List</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => props.setStateVisible(false)}
+                                style={styles.cancelbtnimgvwe}>
+                                <Image
+                                    style={styles.cancelimg}
+                                    source={require("../../../../Assets/cancelModalBtn.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginBottom: "15%" }}>
+                            <FlatList
+                                data={props.stateList}
+                                renderItem={(item) => props.renderStateListItem(item)}
+                                keyExtractor={(item, index) => index.toString()}
+                                ListEmptyComponent={() => {
+                                    return (
+                                        <View style={{
+                                            flex: 1,
+                                            alignSelf: 'center', justifyContent: 'center'
+                                        }}>
+                                            <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15 }}>
+                                                First select Country.
+                                            </Text>
+                                        </View>
+                                    )
+                                }}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            {/*  */}
+
+            {/* City Modal */}
+            <Modal
+                animationType="slide"
+                visible={props.stateVisible}
+                onRequestClose={() => {
+                    props.setStateVisible(false);
+                }}>
+                <View style={{ alignItems: "center" }}>
+                    <View style={styles.moadlvwe}>
+                        <View style={styles.headervwe}>
+                            <View style={{ flex: 1 }} />
+                            <View style={styles.arealstvwe}>
+                                <Text style={styles.arealsttxt}>City List</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => props.setStateVisible(false)}
+                                style={styles.cancelbtnimgvwe}>
+                                <Image
+                                    style={styles.cancelimg}
+                                    source={require("../../../../Assets/cancelModalBtn.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginBottom: "15%" }}>
+                            <FlatList
+                                data={props.stateList}
+                                renderItem={(item) => props.renderStateListItem(item)}
+                                keyExtractor={(item, index) => index.toString()}
+                                ListEmptyComponent={() => {
+                                    return (
+                                        <View style={{
+                                            flex: 1,
+                                            alignSelf: 'center', justifyContent: 'center'
+                                        }}>
+                                            <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15 }}>
+                                                First select State.
+                                            </Text>
+                                        </View>
+                                    )
+                                }}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            {/*  */}
+
+
         </View>
     )
 }
