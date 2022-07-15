@@ -6,7 +6,10 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
   GREY_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+
+const { width, height } = Dimensions.get("window");
 const Styles = StyleSheet.create({
   inputconmn: {
     flexDirection: "row",
@@ -62,32 +65,48 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  HeaderArrow: {
+  headerArrow: {
     paddingHorizontal: 20,
     justifyContent: "center",
     alignItems: "flex-start",
     paddingLeft: 10,
   },
-  HeaderViewMidle: {
+  headerViewMidle: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    paddingRight: 20,
   },
-  HeaderMiddleTxt: {
+  headerMiddleTxt: {
     color: WHITE_COLOR_CODE,
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 18,
   },
-  FilterImgeView: {
+  filterImgeView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
   },
   filterVw: {
-    flex: 1,
-    marginTop: 20,
+    flexGrow: 1,
     paddingHorizontal: 20,
+  },
+  typesTxt: {
+    fontSize: 17,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_BOLD,
+    marginLeft: 5,
+    marginTop: 12,
+    marginBottom: 5,
+  },
+  containerVws: {
+    elevation: 2,
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 10,
+  },
+  selectedVw: {
+    height: 2.8,
+    backgroundColor: YELLOW_COLOR_CODE,
   },
   container: {
     height: 50,
@@ -103,9 +122,12 @@ const Styles = StyleSheet.create({
     fontSize: 17,
   },
   catgCon: {
-    marginTop: 15,
     flexDirection: "row",
     flexWrap: "wrap",
+    elevation: 2,
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 10,
+    paddingVertical: 10,
   },
   catgVw: {
     width: "32%",
@@ -121,8 +143,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
   },
   subCategoryVw: {
-    marginVertical: 5,
-    height: 45,
+    height: 48,
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: GREY_COLOR_CODE,
@@ -140,6 +161,17 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
     fontSize: 16,
+  },
+  minMaxVw: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+    bottom: 8,
+  },
+  minMaxTxt: {
+    fontSize: 14,
+    color: YELLOW_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
 });
 export default Styles;
