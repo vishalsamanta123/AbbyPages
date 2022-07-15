@@ -39,7 +39,7 @@ const Styles = StyleSheet.create({
     },
     StarViewContain: {
         flexDirection: 'row',
-        height: 20
+        height: 20,
     },
     FollowersCountView: {
         flexDirection: 'row',
@@ -168,7 +168,8 @@ const Styles = StyleSheet.create({
         width: 8,
         borderRadius: 4,
         backgroundColor: "silver",
-        marginHorizontal: 4
+        marginHorizontal: 4,
+        marginTop:20
     },
     bussinessimg: {
         flexDirection: 'row',

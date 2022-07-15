@@ -33,8 +33,7 @@ const LocationsView = ({ navigation }) => {
     );
     const DashBoardDetails = async () => {
         setVisible(true)
-        const { data } = await apiCall
-            ('POST', ENDPOINTS.DASHBOARD_DETAILS);
+        const { data } = await apiCall('POST', ENDPOINTS.DASHBOARD_DETAILS);
         if (data.status === 200) {
             setSavedLocations(data.data.user_location)
             setVisible(false);
@@ -51,8 +50,7 @@ const LocationsView = ({ navigation }) => {
                 type: 1,
                 location_id: item.location_id
             }
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.DELETE_EMAIL_LOCATION, params);
+            const { data } = await apiCall('POST', ENDPOINTS.DELETE_EMAIL_LOCATION, params);
             if (data.status === 200) {
                 DashBoardDetails();
                 setVisibleSuccess(true);
@@ -90,8 +88,7 @@ const LocationsView = ({ navigation }) => {
                         item.primary_status !== 1 &&
                         <TouchableOpacity
                             onPress={() => onPressPrimary(item.location_id)}
-                            style={[styles.ImageDelete]}
-                        >
+                            style={[styles.ImageDelete]}>
                             <Image
                                 style={{ height: 42, width: 42 }}
                                 source={require('../../Assets/add_primary_icon_color.png')} />
