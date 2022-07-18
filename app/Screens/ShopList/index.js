@@ -25,10 +25,19 @@ const ShopList = ({ navigation }) => {
   const [offSet, setOffSet] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [shopList, setShopList] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    handleShopList(0);
-  }, []);
+    if (route?.params?.nearbySearch) {
+      const { nearbySearch } = route?.params;
+      setSearch(nearbySearch);
+      if (search) {
+        handleServiceNearby(0);
+      }
+    } else {
+      handleShopList(0);
+    }
+  }, [search]);
 
   const handleShopList = async (offSet) => {
     setOffSet(offSet);
@@ -54,6 +63,39 @@ const ShopList = ({ navigation }) => {
     } catch (error) {
       setVisibleErr(true);
       setErrorMessage(error.message);
+    }
+  };
+  const handleServiceNearby = async (offSet) => {
+    setOffSet(offSet);
+    try {
+      setVisible(true);
+      const limits = offSet + 1;
+      const params = {
+        latitude: search.latitude,
+        longitude: search.longitude,
+        category_id: search.category_id,
+        limit: 10 * limits,
+        offset: offSet,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        params
+      );
+      console.log("dataSEARCHSERV: ", data);
+      if (data.status === 200) {
+        setShopList(data.data);
+        setVisible(false);
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setstopOffset(true);
+      }
+    } catch (error) {
+      setErrorMessage(data.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const onPressShop = (item) => {
