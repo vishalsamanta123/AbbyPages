@@ -121,6 +121,23 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
   },
+  sortingCon: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    elevation: 2,
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 10,
+    paddingVertical: 10,
+  },
+  sortingVw: {
+    width: "30%",
+    marginHorizontal: 5,
+  },
+  sortingText: {
+    fontSize: 15,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
   catgCon: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -136,6 +153,7 @@ const Styles = StyleSheet.create({
   catgItem: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 5,
   },
   catgText: {
     fontSize: 18,
@@ -171,6 +189,16 @@ const Styles = StyleSheet.create({
   minMaxTxt: {
     fontSize: 14,
     color: YELLOW_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  emptyVw: {
+    height: 250,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyTxt: {
+    fontSize: 20,
+    color: LIGHT_BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
 });

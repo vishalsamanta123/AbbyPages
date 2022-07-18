@@ -16,7 +16,7 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import _ from "lodash";
 import Error from "../../Components/Modal/error";
-const ServiceProviderListingView = ({ navigation }) => {
+const ServiceProviderListingView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -27,8 +27,46 @@ const ServiceProviderListingView = ({ navigation }) => {
   const [stopOffset, setstopOffset] = useState(false);
 
   useEffect(() => {
-    handleServiceList(0);
+    const { NEARBY_BUSINESS_SEARCH } = route.params;
+    if (NEARBY_BUSINESS_SEARCH) {
+      handleServiceNEARBY(0);
+    } else {
+      handleServiceList(0);
+    }
   }, []);
+  const handleServiceNEARBY = async (offSet) => {
+    setOffSet(offSet);
+    try {
+      setVisible(true);
+      const limits = offSet + 1;
+      const params = {
+        latitude: NEARBY_BUSINESS_SEARCH.latitude,
+        longitude: NEARBY_BUSINESS_SEARCH.longitude,
+        category_id: NEARBY_BUSINESS_SEARCH.category_id,
+        limit: 10 * limits,
+        offset: offSet,
+      };
+      console.log("params: ", params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        params
+      );
+      console.log("dataSEARCH: ", data);
+      if (data.status == 200) {
+        setVisible(false);
+        setserviceData(data.data);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(data.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
+  };
   const handleServiceList = async (offSet) => {
     setOffSet(offSet);
     try {
