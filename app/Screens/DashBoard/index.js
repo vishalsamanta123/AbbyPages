@@ -53,38 +53,19 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
-    setVisible(true);
-    try {
-      const params = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-        category_id: businessCategory.id,
-        businessCategoryName: businessCategory.category_name,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
-        params
-      );
-      if (data.status == 200) {
-        if (businessCategory.business_type === 1) {
-          navigation.navigate("Listings", { NEARBY_BUSINESS_SEARCH: data });
-          setVisible(false);
-        }
-        if (businessCategory.business_type === 3) {
-          navigation.navigate("ServiceProviderListing", {
-            NEARBY_BUSINESS_SEARCH: data,
-          });
-          setVisible(false);
-        }
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setErrorMessage(data.message);
-      setVisibleErr(true);
+    const params = {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      category_id: businessCategory.id,
+    };
+    if (businessCategory.business_type === 1) {
+      navigation.navigate("Listings", { NEARBY_BUSINESS_SEARCH: params });
+      setVisible(false);
+    }
+    if (businessCategory.business_type === 3) {
+      navigation.navigate("ServiceProviderListing", {
+        NEARBY_BUSINESS_SEARCH: params,
+      });
       setVisible(false);
     }
   };

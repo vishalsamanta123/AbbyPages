@@ -76,8 +76,14 @@ export default function FilterPopUp(props) {
     }
   };
   const handleFilter = () => {
-    setProductSubCatg([]);
     props.closeModel();
+    props.handleFilterProduct();
+  };
+  const handleSorting = (val) => {
+    props.setFilterData({
+      ...props.filterData,
+      sorting: val,
+    });
   };
   return (
     <View>
@@ -119,6 +125,57 @@ export default function FilterPopUp(props) {
           </View> */}
         </View>
         <ScrollView contentContainerStyle={styles.filterVw}>
+          <Text style={styles.typesTxt}>Select Sort by</Text>
+          <View style={styles.sortingCon}>
+            <View style={styles.sortingVw}>
+              <TouchableOpacity
+                onPress={() => handleSorting(1)}
+                style={styles.catgItem}
+              >
+                <Image
+                  source={
+                    props.filterData.sorting === 1
+                      ? require("../../../Assets/radio_circled_checked.png")
+                      : require("../../../Assets/radio_circled_unchecked.png")
+                  }
+                  style={{ width: 18, height: 18, marginRight: 5 }}
+                />
+                <Text style={styles.sortingText}>Low to High</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.sortingVw}>
+              <TouchableOpacity
+                onPress={() => handleSorting(2)}
+                style={styles.catgItem}
+              >
+                <Image
+                  source={
+                    props.filterData.sorting === 2
+                      ? require("../../../Assets/radio_circled_checked.png")
+                      : require("../../../Assets/radio_circled_unchecked.png")
+                  }
+                  style={{ width: 18, height: 18, marginRight: 5 }}
+                />
+                <Text style={styles.sortingText}>Hight to Low</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.sortingVw}>
+              <TouchableOpacity
+                onPress={() => handleSorting(3)}
+                style={styles.catgItem}
+              >
+                <Image
+                  source={
+                    props.filterData.sorting === 3
+                      ? require("../../../Assets/radio_circled_checked.png")
+                      : require("../../../Assets/radio_circled_unchecked.png")
+                  }
+                  style={{ width: 18, height: 18, marginRight: 5 }}
+                />
+                <Text style={styles.sortingText}>Top rated</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           <Text style={styles.typesTxt}>Select Price Range</Text>
           <View style={styles.containerVws}>
             <View style={{ alignItems: "center", marginTop: 5 }}>

@@ -49,8 +49,8 @@ const ProductListing = ({ navigation, route }) => {
     min_price: "",
     product_size: "",
     product_tags: "",
+    sorting: "",
   });
-  console.log("filterData: ", filterData);
 
   // useEffect(() => {
   //   if (route.params) {
@@ -67,7 +67,7 @@ const ProductListing = ({ navigation, route }) => {
         // setProductList(detail);//state (close because of the array error)
         // handleProductList(0); //function
         productOrderData(detail);
-        handleFilterProduct(0);
+        handleFilterProduct();
       }
     }, [])
   );
@@ -111,7 +111,7 @@ const ProductListing = ({ navigation, route }) => {
       setVisible(false);
     }
   };
-  const handleFilterProduct = async (item) => {
+  const handleFilterProduct = async () => {
     try {
       setVisible(true);
       const params = {
@@ -120,7 +120,7 @@ const ProductListing = ({ navigation, route }) => {
           ? filterData.company_brand
           : null,
         max_price: filterData.max_price ? filterData.max_price : null,
-        min_price: filterData.min_price ? filterData.min_price : 0,
+        min_price: 0,
         product_color: filterData.color ? filterData.color : null,
         product_size: filterData.product_size ? filterData.product_size : null,
         product_tags: filterData.product_tags ? filterData.product_tags : null,
@@ -128,24 +128,33 @@ const ProductListing = ({ navigation, route }) => {
         sub_category_id: filterData.sub_category_id
           ? filterData.sub_category_id
           : null,
+        product_filter: filterData.sorting ? filterData.sorting : null,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.FILTER_PRODUCTLIST,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setProductList(data.data);
       } else {
-        setstopOffset(true);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
+        if (data.status === 201) {
+          setVisible(false);
+          setProductList([]);
+        } else {
+          setstopOffset(true);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setVisible(false);
+          setProductList([]);
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
   };
   const SearchProduct = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();
@@ -345,6 +354,7 @@ const ProductListing = ({ navigation, route }) => {
         closeModel={() => setFilter(false)}
         setFilterData={setFilterData}
         filterData={filterData}
+        handleFilterProduct={handleFilterProduct}
       />
       <Error
         message={errorMessage}

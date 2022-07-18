@@ -11,12 +11,8 @@ import {
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
-import {
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { FONT_FAMILY_REGULAR } from "../../../Utils/Constant";
+
 const ProductListingScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -51,6 +47,13 @@ const ProductListingScreen = (props) => {
           <FlatList
             data={props.productList}
             numColumns={2}
+            ListEmptyComponent={() => {
+              return (
+                <View style={styles.emptyVw}>
+                  <Text style={styles.emptyTxt}>No Data Found</Text>
+                </View>
+              );
+            }}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) =>
               props._renderProductList(item, index)

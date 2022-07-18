@@ -18,7 +18,7 @@ import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import { YELLOW_COLOR_CODE } from "../../Utils/Constant";
 
-const ListingsScreenView = ({ navigation }) => {
+const ListingsScreenView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -29,9 +29,47 @@ const ListingsScreenView = ({ navigation }) => {
   const [restroList, setRestroList] = useState([]);
 
   useEffect(() => {
-    handleRestroList(0);
+    const { NEARBY_BUSINESS_SEARCH } = route.params;
+    if (NEARBY_BUSINESS_SEARCH) {
+      handleServiceNEARBY(0);
+    } else {
+      handleRestroList(0);
+    }
   }, []);
 
+  const handleServiceNEARBY = async (offSet) => {
+    setOffSet(offSet);
+    try {
+      setVisible(true);
+      const limits = offSet + 1;
+      const params = {
+        latitude: NEARBY_BUSINESS_SEARCH.latitude,
+        longitude: NEARBY_BUSINESS_SEARCH.longitude,
+        category_id: NEARBY_BUSINESS_SEARCH.category_id,
+        limit: 10 * limits,
+        offset: offSet,
+      };
+      console.log("params: ", params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        params
+      );
+      console.log("dataSEARCH: ", data);
+      if (data.status == 200) {
+        setVisible(false);
+        setRestroList(data.data);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(data.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
+  };
   const handleRestroList = async (offSet) => {
     setOffSet(offSet);
     try {
