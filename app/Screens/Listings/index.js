@@ -45,12 +45,11 @@ const ListingsScreenView = ({ navigation, route }) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10 * limits,
+        limit: 10,
         offset: offSet,
       };
       const { data } = await apiCall(
@@ -58,7 +57,6 @@ const ListingsScreenView = ({ navigation, route }) => {
         ENDPOINTS.NEARBY_BUSINESS_SEARCH,
         params
       );
-      console.log("dataSEARCHRES: ", data);
       if (data.status == 200) {
         setVisible(false);
         setRestroList(data.data);
@@ -329,14 +327,17 @@ const ListingsScreenView = ({ navigation, route }) => {
   };
   const searchResto = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();
+    console.log("lowerCased: ", lowerCased);
     const searchArray = [...restroList];
     const list = _.filter(searchArray, (item) => {
       return item.business_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      setVisible(true);
-      handleRestroList(0);
-      setVisible(false);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleRestroList(0);
+      }
     } else {
       setRestroList(list);
     }

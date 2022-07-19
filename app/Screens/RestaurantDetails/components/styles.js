@@ -6,6 +6,8 @@ import {
   LINE_COMMON_COLOR_CODE,
   GREY_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  BLACK_COLOR_CODE,
+  LIGHT_GREEN_COLOR_CODE,
 } from "../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 const Styles = StyleSheet.create({
@@ -354,6 +356,76 @@ const Styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     marginTop: 15,
+  },
+  relatedItemsTxt: {
+    marginLeft: 16,
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  relatedItems: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 4,
+    marginBottom: 10,
+  },
+  MainConatiner: {
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    flex: 1,
+  },
+  MainImgeStyle: {
+    width: 80,
+    height: 80,
+    borderRadius: 15,
+    borderWidth: 0.2,
+    borderColor: "grey",
+    marginBottom: 5,
+  },
+  MainConatinerView: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  MainServiceName: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16.5,
+  },
+  AddressTxtStyle: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 12,
+    color: GREY_COLOR_CODE,
+    lineHeight: 15,
+  },
+  InformationView: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 2,
+  },
+  statusVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 3,
+  },
+  MapImgeStyle: {
+    width: 16,
+    height: 16,
+    marginRight: 2,
+  },
+  AddressTextStyles: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 12,
+    color: GREY_COLOR_CODE,
+  },
+  RatingVw: {
+    flexDirection: "row",
+  },
+  statusTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_GREEN_COLOR_CODE,
+    fontSize: 16,
   },
 });
 export default Styles;

@@ -16,7 +16,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
-const ShopList = ({ navigation }) => {
+const ShopList = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -69,12 +69,11 @@ const ShopList = ({ navigation }) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10 * limits,
+        limit: 10,
         offset: offSet,
       };
       const { data } = await apiCall(
@@ -82,6 +81,7 @@ const ShopList = ({ navigation }) => {
         ENDPOINTS.NEARBY_BUSINESS_SEARCH,
         params
       );
+      console.log("params: ", params);
       console.log("dataSEARCHSERV: ", data);
       if (data.status === 200) {
         setShopList(data.data);
@@ -249,7 +249,11 @@ const ShopList = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleShopList(0);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleShopList(0);
+      }
       setVisible(false);
     }
     setShopList(list);
@@ -262,6 +266,8 @@ const ShopList = ({ navigation }) => {
         shopList={shopList}
         _handleShopList={_handleShopList}
         onPressMap={onPressMap}
+        search={search}
+        handleServiceNearby={handleServiceNearby}
         handleShopList={handleShopList}
         offSet={offSet}
         stopOffset={stopOffset}

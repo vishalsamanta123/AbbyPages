@@ -43,14 +43,14 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10 * limits,
+        limit: 10,
         offset: offSet,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.NEARBY_BUSINESS_SEARCH,
@@ -219,7 +219,11 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleServiceList(0);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleServiceList(0);
+      }
       setVisible(false);
     } else {
       setserviceData(list);

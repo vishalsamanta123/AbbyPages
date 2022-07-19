@@ -26,17 +26,20 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const [showTimeBox, setShowTimeBox] = useState("");
+  const [showTimeBox, setShowTimeBox] = useState(0);
   const [reservationDateTimeList, setReservationDateTimeList] = useState([]);
   const [reservationDateList, setReservationDateList] = useState([]);
   const [restaurantTimeData, setRestaurantTimeData] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(null);
+  console.log("date: ", date);
   const [time, setTime] = useState(null);
+  console.log("time: ", time);
   const [SelectPeople, setSelectPeople] = useState("5");
+  console.log("SelectPeople: ", SelectPeople);
   const [bookingType, setBookingType] = useState("");
+  console.log("bookingType: ", bookingType);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  console.log("isTimePickerVisible: ", isTimePickerVisible);
   const [restroDetail, setRestroDetail] = useState("");
   const { width, height } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
@@ -138,12 +141,12 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     );
   };
   const validation = () => {
-    if (date == "") {
+    if (date == null) {
       setErrorMessage("Please Select Date");
       setVisibleErr(true);
       return false;
     }
-    if (time == "") {
+    if (time == null) {
       setErrorMessage("Please Select Time");
       setVisibleErr(true);
       return false;
@@ -160,48 +163,68 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     }
     return true;
   };
-  const onPressTableFind = async () => {
-    try {
-      setVisible(true);
-      const params = {
-        business_id: 2, //restroDetail.business_id,
-        booking_date: date,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.RESTAURANT_TIME_SLOAT,
-        params
-      );
-      if (data.status === 200) {
-        setVisible(false);
-        if (data.data.length < 1) {
-          setVisible(false);
-          setErrorMessage("There is no table available");
-          setVisibleErr(true);
-        } else {
-          var currentDate = moment().format("YYYY-MM-DD");
-          const searchArray = [...data.data];
-          const filterData = _.filter(searchArray, { date: currentDate });
-          if (filterData.length > 0) {
-            setRestaurantTimeData(filterData[0].timeslot);
+  const onPressTableFind = async (find) => {
+    const valid = validation();
+    if (valid) {
+      try {
+        setVisible(true);
+        const params = {
+          business_id: 2, //restroDetail.business_id,
+          booking_date: date,
+        };
+        if (find == 0) {
+          const { data } = await apiCall(
+            "POST",
+            ENDPOINTS.RESTAURANT_TIME_SLOAT,
+            params
+          );
+          if (data.status === 200) {
             setVisible(false);
-          } else {
-            const filterData = _.filter(searchArray, { date: date });
-            if (filterData.length > 0) {
-              setRestaurantTimeData(filterData[0].timeslot);
+            if (data.data.length < 1) {
               setVisible(false);
+              setErrorMessage("There is no table available");
+              setVisibleErr(true);
             } else {
-              setVisible(false);
+              var currentDate = moment().format("YYYY-MM-DD");
+              const searchArray = [...data.data];
+              const filterData = _.filter(searchArray, { date: currentDate });
+              if (filterData.length > 0) {
+                setRestaurantTimeData(filterData[0].timeslot);
+                setVisible(false);
+              } else {
+                const filterData = _.filter(searchArray, { date: date });
+                if (filterData.length > 0) {
+                  setRestaurantTimeData(filterData[0].timeslot);
+                  setVisible(false);
+                } else {
+                  setVisible(false);
+                }
+              }
             }
+          } else {
+            setVisible(false);
+            setErrorMessage(data.message);
+            setVisibleErr(true);
+          }
+        } else {
+          const { data } = await apiCall(
+            "POST",
+            ENDPOINTS.RESTAURANT_TIME_SLOAT,
+            params
+          );
+          if (data.status == 200) {
+            setVisible(false);
+            setRestaurantTimeData("");
+            setReservationDateList(data.data);
+          } else {
+            setVisible(false);
+            setErrorMessage(data.message);
+            setVisibleErr(true);
           }
         }
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+      } catch (error) {
+        console.log("error: ", error);
       }
-    } catch (error) {
-      console.log("error: ", error);
     }
   };
   const onPressTime = (item, index) => {
@@ -216,58 +239,17 @@ const RestauranrtBookingView = ({ route, navigation }) => {
       restroDetail: restroDetail,
     });
   };
-  const handleTimeConfirm = (event, time) => {
-    if (Platform.OS === "android") {
-      setTimePickerVisibility(false);
-    }
+  const handleTimeConfirm = (time) => {
+    setTimePickerVisibility(false);
     const timeData = moment(time).format("LT");
-    if (event.type === "neutralButtonPressed") {
-      let currentTime = new Date();
-      setTime(moment(currentTime).format("LTS"));
-    } else {
-      setTime(timeData);
-    }
+    setTime(timeData);
   };
-  const handleDateConfirm = (event, selectedDate) => {
-    if (Platform.OS === "android") {
-      setDatePickerVisibility(false);
-    }
+  const handleDateConfirm = (selectedDate) => {
+    setDatePickerVisibility(false);
     const dateData = moment(selectedDate).format("YYYY-MM-DD");
-    if (event.type === "neutralButtonPressed") {
-      setDate(new Date());
-    } else {
-      setDate(dateData);
-    }
+    setDate(dateData);
   };
-  const onPressReservationOnOtherDate = async () => {
-    setVisible(true);
-    try {
-      var dateFormater = dateFormat(date, "yyyy-mm-dd");
-      const params = {
-        business_id: restroDetail.business_id,
-        booking_date: dateFormater,
-        business_type: 1,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.RESTAURANT_TIME_SLOAT,
-        params
-      );
-      if (data.status == 200) {
-        setVisible(false);
-        setRestaurantTimeData("");
-        setReservationDateList(data.data);
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-      }
-    } catch (error) {
-      setVisible(false);
-      setErrorMessage(data.message);
-      setVisibleErr(true);
-    }
-  };
+
   const onSelectDate = (item, index) => {
     setVisible(true);
     const searchArray = [...reservationDateList];
@@ -289,7 +271,6 @@ const RestauranrtBookingView = ({ route, navigation }) => {
         onSelectDate={onSelectDate}
         reservationDateTimeList={reservationDateTimeList}
         reservationDateList={reservationDateList}
-        onPressReservationOnOtherDate={onPressReservationOnOtherDate}
         onPressTime={onPressTime}
         restaurantTimeData={restaurantTimeData}
         setRestaurantTimeData={setRestaurantTimeData}
