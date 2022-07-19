@@ -24,44 +24,46 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState("");
   const [offSet, setOffSet] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
 
   useEffect(() => {
-    const { NEARBY_BUSINESS_SEARCH } = route.params;
-    if (NEARBY_BUSINESS_SEARCH) {
-      handleServiceNEARBY(0);
+    if (route?.params?.nearbySearch) {
+      const { nearbySearch } = route?.params;
+      setSearch(nearbySearch);
+      if (search) {
+        handleServiceNearby(0);
+      }
     } else {
       handleRestroList(0);
     }
-  }, []);
+  }, [search]);
 
-  const handleServiceNEARBY = async (offSet) => {
+  const handleServiceNearby = async (offSet) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
-        latitude: NEARBY_BUSINESS_SEARCH.latitude,
-        longitude: NEARBY_BUSINESS_SEARCH.longitude,
-        category_id: NEARBY_BUSINESS_SEARCH.category_id,
-        limit: 10 * limits,
+        latitude: search.latitude,
+        longitude: search.longitude,
+        category_id: search.category_id,
+        limit: 10,
         offset: offSet,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.NEARBY_BUSINESS_SEARCH,
         params
       );
-      console.log("dataSEARCH: ", data);
       if (data.status == 200) {
         setVisible(false);
         setRestroList(data.data);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
+        setstopOffset(true);
         setVisible(false);
       }
     } catch (error) {
@@ -325,14 +327,17 @@ const ListingsScreenView = ({ navigation, route }) => {
   };
   const searchResto = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();
+    console.log("lowerCased: ", lowerCased);
     const searchArray = [...restroList];
     const list = _.filter(searchArray, (item) => {
       return item.business_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      setVisible(true);
-      handleRestroList(0);
-      setVisible(false);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleRestroList(0);
+      }
     } else {
       setRestroList(list);
     }
@@ -343,6 +348,8 @@ const ListingsScreenView = ({ navigation, route }) => {
       <ListingsScreen
         searchResto={searchResto}
         restroList={restroList}
+        search={search}
+        handleServiceNearby={handleServiceNearby}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         handleRestroList={handleRestroList}

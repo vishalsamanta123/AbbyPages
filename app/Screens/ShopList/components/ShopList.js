@@ -22,7 +22,13 @@ const ShopList = (props) => {
           data={props.shopList}
           renderItem={({ item, index }) => props._handleShopList(item, index)}
           onEndReached={() => {
-            !props.stopOffset ? props?.handleShopList(props.offSet + 1) : null;
+            props.search
+              ? !props.stopOffset
+                ? props?.handleServiceNearby(props.offSet + 1)
+                : null
+              : !props.stopOffset
+              ? props?.handleShopList(props.offSet + 1)
+              : null;
           }}
         />
       </View>

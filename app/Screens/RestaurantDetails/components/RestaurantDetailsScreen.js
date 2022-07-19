@@ -25,6 +25,7 @@ import Dialog, {
 } from "react-native-popup-dialog";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
+import moment from "moment";
 const { width, height } = Dimensions.get("window");
 const RestaurantDetailsScreen = (props) => {
   const initialRegion = {
@@ -243,19 +244,19 @@ const RestaurantDetailsScreen = (props) => {
               >
                 <Image
                   style={{
-                    backgroundColor:
-                      props?.restroDetail?.favorite === 1
+                    tintColor:
+                      props?.restroDetail?.user_like > 0
                         ? YELLOW_COLOR_CODE
                         : null,
                   }}
                   source={require("../../../Assets/save_icon.png")}
                 />
-                <Text style={styles.AddOptnsTextMain}>Save</Text>
+                <Text style={[styles.AddOptnsTextMain]}>Save</Text>
               </TouchableOpacity>
             </View>
             {props.restroDetail.takes_reservations === 1 && (
               <TouchableOpacity
-                onPress={() => props.onPressReservation(props.restroDetail, 1)}
+                onPress={() => props.onPressReservation()}
                 style={styles.CameraViewStyle}
               >
                 <Text style={styles.CameraMainText}>Make a Reservation</Text>
@@ -650,6 +651,78 @@ const RestaurantDetailsScreen = (props) => {
               renderItem={({ item, index }) => props._handleReview(item, index)}
             />
           </View>
+          {props?.restroDetail?.recommended_business && (
+            <>
+              <Text style={styles.relatedItemsTxt}>Related Restaurants</Text>
+              <View style={styles.relatedItems}>
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  contentContainerStyle={{ flexGrow: 1 }}
+                >
+                  {props?.restroDetail?.recommended_business.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => props.onPressRestro(item)}
+                        style={styles.MainConatiner}
+                      >
+                        <View>
+                          <Image
+                            style={styles.MainImgeStyle}
+                            resizeMode="contain"
+                            source={{
+                              uri: item.logo,
+                            }}
+                          />
+                        </View>
+                        <View style={styles.MainConatinerView}>
+                          <View style={styles.InformationView}>
+                            <View style={{ flex: 5 }}>
+                              <Text style={styles.MainServiceName}>
+                                {item.business_name}
+                              </Text>
+                              <View style={styles.RatingVw}>
+                                <View style={styles.RatingStyles}>
+                                  <Text style={styles.RatingStylesTxt}>
+                                    5.0
+                                  </Text>
+                                </View>
+                                <Text
+                                  numberOfLines={1}
+                                  style={styles.RatingTextMain}
+                                >
+                                  {item.rating} ratings
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                          {item.business_service_category ? (
+                            <Text
+                              numberOfLines={2}
+                              style={[
+                                styles.AddressTextStyles,
+                                { paddingRight: 5 },
+                              ]}
+                            >
+                              {item.business_service_category}
+                            </Text>
+                          ) : null}
+                          {item.business_name ? (
+                            <Text numberOfLines={2} style={styles.statusTxt}>
+                              Open Now
+                            </Text>
+                          ) : // <Text numberOfLines={2} style={styles.statusTxt}>
+                          //   Close Now
+                          // </Text>
+                          null}
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </>
+          )}
           <Dialog
             visible={props.DialogVisible}
             width={0.8}

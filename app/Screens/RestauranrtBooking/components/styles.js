@@ -19,7 +19,7 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor:'red'
+    backgroundColor: "red",
   },
   FlexRowView: {
     flexDirection: "row",
@@ -210,6 +210,7 @@ const Styles = StyleSheet.create({
   ArrowImge: {
     width: 14,
     height: 14,
+    marginRight: 5,
   },
   SeereservatnTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -250,6 +251,33 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     color: YELLOW_COLOR_CODE,
     fontFamily: FONT_FAMILY_BLACK,
+  },
+  timeCon: {
+    paddingHorizontal: 18,
+    paddingTop: 10,
+  },
+  timePickVw: {
+    height: 35,
+    width: 55,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginHorizontal: 2,
+    marginVertical: 2,
+    borderWidth: 1,
+    borderColor: LINE_COMMON_COLOR_CODE,
+    marginTop: 5,
+  },
+  timeTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+  },
+  datePickerVw: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginTop: 4,
+    borderWidth: 1,
+    flexDirection: "row",
   },
 });
 export default Styles;

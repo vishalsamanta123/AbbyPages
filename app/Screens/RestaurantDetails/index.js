@@ -36,6 +36,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
+  console.log("restroDetail: ", restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -70,6 +71,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
+      console.log("dataDETAILS: ", data);
       if (data.status === 200) {
         setRestroDetail(data.data);
         // findTodayDate();
@@ -83,6 +85,9 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       setVisibleErr(true);
       setErrorMessage(JSON.stringify(error));
     }
+  };
+  const onPressRestro = (item) => {
+    handleRestroDetails(item);
   };
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
@@ -225,10 +230,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       </Fragment>
     );
   };
-  const onPressReservation = (data, booking_type) => {
+  const onPressReservation = () => {
     navigation.navigate("RestauranrtBooking", {
-      detail: data,
-      booking_type: booking_type,
+      detail: restroDetail,
+      booking_type: 1,
     });
   };
   const onPressFullMenu = () => {
@@ -305,6 +310,8 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         const { data } = await apiCall("POST", ENDPOINTS.POST_REVIEW, params);
         if (data.status === 200) {
           setVisible(false);
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
           handleRestroDetails(restroDetail);
           setReviewModal(false);
         } else {
@@ -408,13 +415,12 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         interest: restroDetail?.interest,
         views: restroDetail.views,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
         setSuccessMessage(data.message);
+        handleRestroDetails(restroDetail);
       } else {
         setVisible(false);
         setErrorMessage(data.message);
@@ -456,6 +462,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         onPressSubmit={onPressSubmit}
         shareTo={shareTo}
         saveResto={saveResto}
+        onPressRestro={onPressRestro}
       />
       <Error
         message={errorMessage}

@@ -120,6 +120,8 @@ const ConfirmReservation = (props) => {
             value={props?.localUserData?.mobile}
             placeholder="Mobile Number"
             InputType="withScroll"
+            keyboardType={"phone-pad"}
+            maxLength={10}
           />
           <Input
             onChangeText={(note) =>

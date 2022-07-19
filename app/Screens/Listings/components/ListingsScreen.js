@@ -21,7 +21,13 @@ const ListingsScreen = (props) => {
           data={props.restroList}
           renderItem={({ item, index }) => props._handleSerivces(item, index)}
           onEndReached={() => {
-            !props.stopOffset ? props?.handleRestroList(props.offSet + 1) : null;
+            props.search
+              ? !props.stopOffset
+                ? props?.handleServiceNearby(props.offSet + 1)
+                : null
+              : !props.stopOffset
+              ? props?.handleRestroList(props.offSet + 1)
+              : null;
           }}
         />
       </View>
