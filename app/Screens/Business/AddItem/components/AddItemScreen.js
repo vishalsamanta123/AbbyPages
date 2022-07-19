@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Picker, Modal, FlatList } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, Modal, FlatList } from 'react-native';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../Components/Button';

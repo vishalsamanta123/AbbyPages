@@ -1,12 +1,12 @@
 import React from 'react';
 import {
     View,
+    Text,
     Image,
-    StatusBar,
     FlatList,
-    KeyboardAvoidingView,
+    StatusBar,
     TouchableOpacity,
-    Text
+    KeyboardAvoidingView,
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';

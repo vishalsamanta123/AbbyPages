@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  ImageBackground,
   ScrollView,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";

@@ -76,13 +76,24 @@ const AddJobs = (props) => {
                                 <Image source={require('../../../../Assets/dropdown_icon.png')} />
                             </View>
                         </TouchableOpacity>
-                        <Input
+
+                        {/* <Input
                             onChangeText={(city) => props.setcity(city)}
                             value={props.city}
                             secureTextEntry={false}
                             placeholder="Job city"
                             InputType="withScroll"
-                        />
+                        /> */}
+                        <TouchableOpacity onPress={() => props._handleCityModalOpen()} style={styles.container}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props?.selectedCity.name ? props?.selectedCity.name : 'Select city'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                        </TouchableOpacity>
                         {/* <TouchableOpacity style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Text style={styles.AddPhotosTxt}>Job Location *</Text>
@@ -287,9 +298,9 @@ const AddJobs = (props) => {
             {/* City Modal */}
             <Modal
                 animationType="slide"
-                visible={props.stateVisible}
+                visible={props.cityVisible}
                 onRequestClose={() => {
-                    props.setStateVisible(false);
+                    props.setCityVisible(false);
                 }}>
                 <View style={{ alignItems: "center" }}>
                     <View style={styles.moadlvwe}>
@@ -299,7 +310,7 @@ const AddJobs = (props) => {
                                 <Text style={styles.arealsttxt}>City List</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => props.setStateVisible(false)}
+                                onPress={() => props.setCityVisible(false)}
                                 style={styles.cancelbtnimgvwe}>
                                 <Image
                                     style={styles.cancelimg}
@@ -309,8 +320,8 @@ const AddJobs = (props) => {
                         </View>
                         <View style={{ marginBottom: "15%" }}>
                             <FlatList
-                                data={props.stateList}
-                                renderItem={(item) => props.renderStateListItem(item)}
+                                data={props.cityList}
+                                renderItem={(item) => props.renderCityListItem(item)}
                                 keyExtractor={(item, index) => index.toString()}
                                 ListEmptyComponent={() => {
                                     return (

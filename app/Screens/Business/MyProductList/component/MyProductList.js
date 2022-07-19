@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import Header from '../../../../Components/Header'
-import Button from '../../../../Components/Button'
 import CommonStyles from '../../../../Utils/CommonStyles'
 import styles from './styles'
-import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 import { ScrollView } from 'react-native-gesture-handler';
 const MyProductListView = (props) => {
     return (

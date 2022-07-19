@@ -23,7 +23,10 @@ const AddJobs = ({ navigation }) => {
     const [stateList, setStateList] = useState('');
     const [selectedState, setSelectedState] = useState('');
     {/**/ }
-
+    {/* City States */ }
+    const [cityVisible, setCityVisible] = useState(false);
+    const [cityList, setCityList] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
 
     const [JobTitle, setJobTitle] = useState('');
     const [Openings, setOpenings] = useState('');
@@ -55,6 +58,10 @@ const AddJobs = ({ navigation }) => {
         setStateVisible(true);
         getStateList();
     }
+    const _handleCityModalOpen = () => {
+        setCityVisible(true);
+        getCityList();
+    }
     const getCountryList = async () => {
         try {
             const params = {
@@ -84,8 +91,25 @@ const AddJobs = ({ navigation }) => {
             }
             else {
                 console.log('else');
-                // setErrorMessage('First select country');
-                // setVisibleErr(true);
+            }
+        }
+        catch (error) {
+            console.log('error: ', error);
+        }
+    }
+    const getCityList = async () => {
+        try {
+            const params = {
+                status: 2,
+                state_id: selectedState.state_id
+            }
+            const response = await apiCall('POST', ENDPOINTS.COUNTRY_LIST, params);
+            console.log('city_LIST: ', response);
+            if (response.status === 200) {
+                setCityList(response.data.data)
+            }
+            else {
+                console.log('else');
             }
         }
         catch (error) {
@@ -279,6 +303,33 @@ const AddJobs = ({ navigation }) => {
                         fontFamily: FONT_FAMILY_REGULAR,
                         fontSize: 15,
                         color: BLACK_COLOR_CODE,
+                    }}>
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+    const _handleSelectedCity = (item) => {
+        setSelectedCity(item);
+        setCityVisible(false);
+    }
+    const renderCityListItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => _handleSelectedCity(item)}
+                style={{
+                    flex: 1,
+                    borderBottomWidth: 0.3,
+                    borderBottomColor: '#f2f2f2',
+                    padding: 10,
+                    paddingVertical: 15,
+                    marginHorizontal: 15,
+                }}>
+                <Text
+                    style={{
+                        fontFamily: FONT_FAMILY_REGULAR,
+                        fontSize: 15,
+                        color: BLACK_COLOR_CODE,
                     }}
                 >
                     {item.name}
@@ -286,7 +337,6 @@ const AddJobs = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
-
     return (
         <View style={{ flex: 1 }}>
             {visible && <Loader state={visible} />}
@@ -341,6 +391,13 @@ const AddJobs = ({ navigation }) => {
                 renderStateListItem={renderStateListItem}
                 selectedState={selectedState}
                 _handleStateModalOpen={_handleStateModalOpen}
+
+                _handleCityModalOpen={_handleCityModalOpen}
+                cityList={cityList}
+                renderCityListItem={renderCityListItem}
+                cityVisible={cityVisible}
+                setCityVisible={setCityVisible}
+                selectedCity={selectedCity}
             />
             <Error
                 message={errorMessage}

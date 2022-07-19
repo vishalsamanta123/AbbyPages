@@ -12,7 +12,7 @@ import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-const AddTable = ({ route, props, navigation }) => {
+const AddTable = ({ route, navigation }) => {
     const HedarType = route.params ? route.params.type : null
     const tableNo = route.params ? route.params.TableData.table_no : null
     const sittingPerson = route.params ? route.params.TableData.sitting_person : null

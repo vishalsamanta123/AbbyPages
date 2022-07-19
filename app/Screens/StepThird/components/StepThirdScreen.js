@@ -110,8 +110,8 @@ const StepThirdScreen = (props) => {
             >
               <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
                 {props.ZipCode &&
-                props?.ZipCode?.booking_date &&
-                props?.ZipCode?.booking_date
+                  props?.ZipCode?.booking_date &&
+                  props?.ZipCode?.booking_date
                   ? props.ZipCode.booking_date
                   : "Date"}
               </Text>
@@ -133,15 +133,13 @@ const StepThirdScreen = (props) => {
                 borderColor: "#d8d8d8",
                 borderWidth: 1,
                 borderRadius: 8,
-                // alignItems: "center"
                 justifyContent: "center",
                 padding: 15,
-              }}
-            >
+              }}>
               <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
                 {props.ZipCode &&
-                props.ZipCode.booking_time &&
-                props.ZipCode.booking_time
+                  props.ZipCode.booking_time &&
+                  props.ZipCode.booking_time
                   ? props.ZipCode.booking_time
                   : "Time"}
               </Text>
@@ -164,7 +162,7 @@ const StepThirdScreen = (props) => {
               multiline
               placeholder="Description"
               InputType="withScroll"
-              // containerStyle={{marginBottom:20}}
+            // containerStyle={{marginBottom:20}}
             />
           </View>
         </View>

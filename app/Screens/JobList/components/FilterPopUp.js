@@ -7,12 +7,9 @@ import {
   TouchableOpacity,
   BackHandler,
   ScrollView,
-  Alert,
   TextInput,
-  Keyboard,
 } from "react-native";
 import Dialog, {
-  DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -20,12 +17,8 @@ import styles from "./styles";
 import {
   YELLOW_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
-  BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
-  FONT_FAMILY_LIGHT,
-  FONT_FAMILY_REGULAR,
 } from "../../../Utils/Constant";
-import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";
 export default function FilterPopUp(props) {
   const [keywords, openKeyWord] = useState(false);
@@ -60,8 +53,7 @@ export default function FilterPopUp(props) {
       <View style={CommonStyles.header}>
         <TouchableOpacity
           onPress={() => props.closeModel()}
-          style={styles.HeaderArrow}
-        >
+          style={styles.HeaderArrow}>
           <Image source={require("../../../Assets/header_back_btn.png")} />
         </TouchableOpacity>
         <View style={styles.HeaderViewMidle}>
