@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Image, View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import MyProductList from './component/MyProductList';
 import styles from './component/styles';
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, GREY_COLOR_CODE } from '../../../Utils/Constant';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { YELLOW_COLOR_CODE } from '../../../Utils/Constant';
+import { apiCall, setDefaultHeader } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -24,7 +22,6 @@ const MyProductListView = ({ navigation }) => {
     const [productListData, setProductListData] = useState([]);
     const [imgUrl, setImgUrl] = useState();
 
-
     useFocusEffect(
         React.useCallback(() => {
             productList()
@@ -32,13 +29,10 @@ const MyProductListView = ({ navigation }) => {
         }, [])
     );
 
-
-
     const productList = async () => {
         setVisible(true)
         try {
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.BUSINESS_PRODUCT_LIST);
+            const { data } = await apiCall('POST', ENDPOINTS.BUSINESS_PRODUCT_LIST);
             if (data.status === 200) {
                 setVisible(false);
                 setProductListData(data.data)
@@ -64,7 +58,6 @@ const MyProductListView = ({ navigation }) => {
                         source={{ uri: item.product_image }}
                         resizeMode='stretch'
                         resizeMethod='resize'
-
                     />
                 </View>
                 <View style={styles.DishDiscptnView}>

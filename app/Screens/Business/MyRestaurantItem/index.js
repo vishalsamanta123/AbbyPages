@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image, View, Text, TouchableOpacity } from 'react-native';
 import MyRestaurantItem from './component/MyRestaurantItem';
 import styles from './component/styles';
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, GREY_COLOR_CODE } from '../../../Utils/Constant';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { YELLOW_COLOR_CODE, GREY_COLOR_CODE } from '../../../Utils/Constant';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { AddItemCategory } from '../../../Utils/UserContext';
 
 const MyRestaurantItemView = ({ navigation }) => {
@@ -71,8 +69,7 @@ const MyRestaurantItemView = ({ navigation }) => {
             const params = {
                 business_item_category_id: categoryId
             }
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.GET_ITEM_LIST, params);
+            const { data } = await apiCall('POST', ENDPOINTS.GET_ITEM_LIST, params);
             if (data.status === 200) {
                 setGetItemList(data.data)
                 setImgUrl(data.image_path)
@@ -90,14 +87,6 @@ const MyRestaurantItemView = ({ navigation }) => {
             setVisible(false);
         };
     }
-
-
-
-
-
-
-
-
 
     const _handleDataTypeSelected = (index, item) => {
         setactiveCategory({
@@ -155,7 +144,7 @@ const MyRestaurantItemView = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-            </TouchableOpacity >
+            </TouchableOpacity>
         )
     }
 
@@ -164,7 +153,7 @@ const MyRestaurantItemView = ({ navigation }) => {
     }
     const onPressItem = () => {
         if (CategoryId === '') {
-            setErrorMessage('Please create Category ');
+            setErrorMessage('Please create Category');
             setVisibleErr(true);
         } else {
             navigation.navigate('AddItem', { CategoryId, type: 'AddItem', imgUrl })

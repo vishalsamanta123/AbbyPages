@@ -4,7 +4,6 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
-  GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   bannerimg: {

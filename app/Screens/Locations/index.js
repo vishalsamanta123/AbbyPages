@@ -5,7 +5,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Locations from './components/Locations';
 import styles from './components/styles';
 import CommonStyles from '../../Utils/CommonStyles';
@@ -22,9 +22,6 @@ const LocationsView = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
 
     const [SavedLocations, setSavedLocations] = useState([]);
-    // useEffect(() => {
-    // DashBoardDetails()
-    // }, []);
     useFocusEffect(
         React.useCallback(() => {
             DashBoardDetails()

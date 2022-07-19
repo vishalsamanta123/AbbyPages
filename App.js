@@ -8,8 +8,8 @@ import {
   ServiceProvider,
   ServiceProviderQueAns,
   ShoppingCartProvider,
-  OrderCategorySelectProvider,
   AddItemCategortyProvider,
+  OrderCategorySelectProvider,
 } from "./app/Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
 import messaging from "@react-native-firebase/messaging";

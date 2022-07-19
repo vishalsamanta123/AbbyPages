@@ -14,7 +14,7 @@ import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
 import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
-const AddItem = ({ route, props, navigation }) => {
+const AddItem = ({ route, navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
@@ -88,7 +88,7 @@ const AddItem = ({ route, props, navigation }) => {
                 formdata.append("item_image", SelectImgUri)
                 formdata.append("business_type", '1')
                 formdata.append("business_item_category_id", CategoryId)
-                const { data } = await apiCall ('POST', ENDPOINTS.ADD_ITEMS, formdata);
+                const { data } = await apiCall('POST', ENDPOINTS.ADD_ITEMS, formdata);
                 if (data.status === 200) {
                     navigation.navigate('MyRestaurantItem')
                     setErrorMessage(data.message);
@@ -234,7 +234,7 @@ const AddItem = ({ route, props, navigation }) => {
                 setItemType={setItemType}
                 onPressSave={onPressSave}
                 onPressProfileImage={onPressProfileImage}
-                
+
                 menuTypeVisible={menuTypeVisible}
                 setMenuTypeVisible={setMenuTypeVisible}
 
@@ -273,14 +273,14 @@ const AddItem = ({ route, props, navigation }) => {
                             style={{ padding: 10, borderBottomWidth: 1 }}>
                             <Text>
                                 Camera
-                       </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => onPressGallery()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
                             <Text>
                                 Gallery
-                     </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </DialogContent>
