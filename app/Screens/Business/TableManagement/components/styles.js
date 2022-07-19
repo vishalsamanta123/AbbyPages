@@ -35,12 +35,13 @@ const Styles = StyleSheet.create({
         color: LIGHT_GREY_COLOR_CODE
     },
     PlusView: {
-        padding: 15,
-        alignItems: 'flex-end'
+        paddingTop: 10,
+        paddingRight: 20,
+        alignItems: 'flex-end',
     },
     PlusImge: {
-        width: 35,
-        height: 35
+        width: 32,
+        height: 32
     }
 })
 export default Styles;

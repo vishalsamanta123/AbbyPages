@@ -1,9 +1,7 @@
 import React, { useState, Fragment, useContext } from 'react';
 import RestaurantManagement from './components/RestaurantManagement';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { useFocusEffect } from '@react-navigation/native';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';

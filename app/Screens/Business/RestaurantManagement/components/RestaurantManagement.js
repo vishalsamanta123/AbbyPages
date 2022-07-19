@@ -6,14 +6,12 @@ import {
     ScrollView,
     TouchableOpacity,
     Text,
-    Dimensions,
     KeyboardAvoidingView, Linking
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';
 import Button from '../../../../Components/Button';
 import CommonStyles from '../../../../Utils/CommonStyles';
-import { TextInput } from 'react-native-gesture-handler';
 const RestaurantManagement = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -31,7 +29,7 @@ const RestaurantManagement = (props) => {
             <View style={[CommonStyles.body]}>
                 <ScrollView>
                     <View style={styles.MainContainer}>
-                        {/* <TouchableOpacity onPress={() => props.onPressTable()} style={styles.container}>
+                        <TouchableOpacity onPress={() => props.onPressTable()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Image style={{ width: 30, height: 30 }} source={require('../../../../Assets/management.png')} />
                             </View>
@@ -41,7 +39,7 @@ const RestaurantManagement = (props) => {
                             <View style={styles.BckArrowBack}>
                                 <Image source={require('../../../../Assets/business_chevron_icon.png')} />
                             </View>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => props.onPressItemManage()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Image style={{ width: 30, height: 30 }} source={require('../../../../Assets/dinner.png')} />
