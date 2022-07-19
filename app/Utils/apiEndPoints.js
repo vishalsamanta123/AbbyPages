@@ -91,4 +91,6 @@ export default {
   GET_EVENT_LIST: "/api/events/getEventList",
   GET_EVENT_DETAILS: "/api/events/getEventDetails",
   JOB_FILTER: "/api/jobs/JobSearchFilter",
+
+  ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/itemsCategoryRemoveShow",
 };

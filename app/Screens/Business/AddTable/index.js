@@ -5,9 +5,7 @@ import CommonStyles from '../../../Utils/CommonStyles';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -43,8 +41,7 @@ const AddTable = ({ route, navigation }) => {
                 formdata.append("table_no", tableNumber)
                 formdata.append("sitting_person", sitingPerson)
                 formdata.append("table_img", SelectImgUri)
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.ADD_RESTAURANT_TABLE, formdata);
+                const { data } = await apiCall('POST', ENDPOINTS.ADD_RESTAURANT_TABLE, formdata);
                 if (data.status === 200) {
                     navigation.navigate('TableManagement')
                     setVisible(false);
@@ -81,8 +78,6 @@ const AddTable = ({ route, navigation }) => {
         }
         return true;
     }
-
-
 
     const onPressProfileImage = () => {
         setCamerastate(true)
@@ -153,17 +148,6 @@ const AddTable = ({ route, navigation }) => {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
     return (
         <View style={CommonStyles.container}>
             {visible && <Loader state={visible} />}
@@ -201,23 +185,18 @@ const AddTable = ({ route, navigation }) => {
                 }}
                 visible={camerastate}
                 onTouchOutside={() => setCamerastate(false)}
-                onHardwareBackPress={() => setCamerastate(false)}
-            >
+                onHardwareBackPress={() => setCamerastate(false)}>
                 <DialogContent>
                     <View>
                         <TouchableOpacity
                             onPress={() => onPressCamera()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Camera
-                       </Text>
+                            <Text>Camera</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => onPressGallery()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Gallery
-                     </Text>
+                            <Text>Gallery</Text>
                         </TouchableOpacity>
                     </View>
                 </DialogContent>

@@ -5,10 +5,7 @@ import CommonStyles from '../../../Utils/CommonStyles';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
-
-import {
-    apiCall
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -20,7 +17,6 @@ const AddItem = ({ route, navigation }) => {
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false);
-
     const [menuTypeVisible, setMenuTypeVisible] = useState(false);
 
 
@@ -46,7 +42,6 @@ const AddItem = ({ route, navigation }) => {
 
     const [itemImgs, setItemImg] = useState(itemImg)
     // const [BusinessCategoryId, setBusinessCategoryId] = useState(navigation.state.params.CategoryId)
-    // alert(navigation.state.params.CategoryId)
 
     const staticContentData = [
         {
