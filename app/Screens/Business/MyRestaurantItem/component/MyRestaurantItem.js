@@ -12,11 +12,22 @@ const MyRestaurantItemView = (props) => {
                 RightImg={null}
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
-                <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
-                    <Text style={styles.MainHeadText}>Categories</Text>
-                    <TouchableOpacity onPress={() => props.onPressAddCategory()} >
-                        <Image style={{ width: 35, height: 35 }} source={require('../../../../Assets/qty_minus_icon3.png')} />
+                <View style={styles.categoriesvwe}>
+                    <View style={styles.categoriestxtvwe}>
+                        <Text style={styles.MainHeadText}>Categories</Text>
+                    </View>
+                    <TouchableOpacity style={styles.dlteaddvwe}
+                        onPress={(deleteType) => props.onPressEditCategory(deleteType)}>
+                        <Image style={styles.penciliconszedlt}
+                            source={require('../../../../Assets/edit_pencil_icon.png')}
+                        />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.dlteaddvwe} onPress={() => props.onPressAddCategory()} >
+                        <Image style={styles.iconszedlt} source={require('../../../../Assets/qty_minus_icon3.png')} />
+                    </TouchableOpacity>
+                    {/* 
+                 
+                   */}
                 </View>
                 <View style={{ height: 60 }}>
                     {props.getItemList.length >= 0 ?

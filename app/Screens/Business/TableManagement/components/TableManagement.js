@@ -43,7 +43,7 @@ const TableManagement = (props) => {
                 }
 
             </View>
-        </KeyboardAvoidingView >
+        </KeyboardAvoidingView>
     )
 }
 export default TableManagement

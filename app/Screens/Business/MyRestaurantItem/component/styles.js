@@ -103,6 +103,24 @@ const styles = StyleSheet.create({
         flex: 3,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    categoriesvwe: {
+        flexDirection: 'row',
+        padding: 15
+    },
+    categoriestxtvwe: {
+        flex: 4
+    },
+    dlteaddvwe: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconszedlt: {
+        width: 35, height: 35
+    },
+    penciliconszedlt: {
+        width: 27, height: 26
     }
 
 })

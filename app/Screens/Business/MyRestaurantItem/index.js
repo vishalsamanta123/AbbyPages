@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Image, View, Text, TouchableOpacity, Switch, ToastAndroid } from 'react-native';
+import { Image, View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import MyRestaurantItem from './component/MyRestaurantItem';
 import styles from './component/styles';
 import { YELLOW_COLOR_CODE, GREY_COLOR_CODE } from '../../../Utils/Constant';
@@ -96,7 +96,9 @@ const MyRestaurantItemView = ({ navigation }) => {
             }
             const response = await apiCall('POST', ENDPOINTS.ITEMS_REMOVE_SHOW_CATEGORY, params);
             if (response.status === 200) {
-                ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+                item.status === 0 ?
+                    ToastAndroid.show("Item successfully active", ToastAndroid.SHORT) :
+                    ToastAndroid.show('Item successfully un-active', ToastAndroid.SHORT);
                 getItemListFun(activeCategory.categoryId);
             }
             else {
@@ -104,6 +106,26 @@ const MyRestaurantItemView = ({ navigation }) => {
             }
         } catch (error) {
             console.log('error: ', error);
+        }
+    }
+    const _handleDeleteItems = async (item) => {
+        try {
+            const params = {
+                active_status: item.status === 1 ? 0 : 1,
+                business_type: item.business_type,
+                is_delete: "delete",
+                item_id: item.item_id,
+            }
+            const response = await apiCall('POST', ENDPOINTS.ITEMS_REMOVE_SHOW_CATEGORY, params)
+            if (response.status === 200) {
+                getItemListFun(activeCategory.categoryId);
+            } else {
+
+            }
+        }
+        catch (error) {
+            console.log('dlt error: ', error);
+
         }
     }
 
@@ -164,7 +186,7 @@ const MyRestaurantItemView = ({ navigation }) => {
                             <Image style={styles.iconsize}
                                 source={require('../../../Assets/edit_photo_icon.png')} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.editdltbtn}>
+                        <TouchableOpacity onPress={() => _handleDeleteItems(item)} style={styles.editdltbtn}>
                             <Image style={styles.iconsize}
                                 source={require('../../../Assets/list_delete_icon.png')} />
                         </TouchableOpacity>
@@ -184,6 +206,9 @@ const MyRestaurantItemView = ({ navigation }) => {
 
     const onPressAddCategory = () => {
         navigation.navigate('AddCategory')
+    }
+    const onPressEditCategory = (deleteType) => {
+        navigation.navigate('AddCategory', { activeWithDelete: deleteType })
     }
     const onPressItem = () => {
         if (CategoryId === '') {
@@ -205,6 +230,7 @@ const MyRestaurantItemView = ({ navigation }) => {
                 onPressItem={onPressItem}
                 getItemList={getItemList}
                 getCategoryList={getCategoryList}
+                onPressEditCategory={onPressEditCategory}
             />
             <Error
                 message={errorMessage}

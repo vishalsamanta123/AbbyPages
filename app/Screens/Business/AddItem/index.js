@@ -42,7 +42,6 @@ const AddItem = ({ route, navigation }) => {
 
     const [itemImgs, setItemImg] = useState(itemImg)
     // const [BusinessCategoryId, setBusinessCategoryId] = useState(navigation.state.params.CategoryId)
-
     const staticContentData = [
         {
             id: 1,
@@ -266,16 +265,12 @@ const AddItem = ({ route, navigation }) => {
                         <TouchableOpacity
                             onPress={() => onPressCamera()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Camera
-                            </Text>
+                            <Text>Camera</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => onPressGallery()}
                             style={{ padding: 10, borderBottomWidth: 1 }}>
-                            <Text>
-                                Gallery
-                            </Text>
+                            <Text>Gallery</Text>
                         </TouchableOpacity>
                     </View>
                 </DialogContent>
