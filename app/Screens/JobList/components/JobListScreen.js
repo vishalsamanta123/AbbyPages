@@ -151,15 +151,12 @@ const JobListScreen = (props) => {
             </View>
           )}
           <Text style={styles.hdngtxt}>
-            {props?.filter?.length} Results found
+            {props?.jobList?.length} Results found
           </Text>
         </View>
         <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
           <FlatList
-            // data={
-            //   props.filterData?.title === "" ? props?.jobList : props.filter
-            // }
-            data={props.filter}
+            data={props.jobList}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) => _renderJobList(item, index)}
@@ -171,13 +168,11 @@ const JobListScreen = (props) => {
               );
             }}
             onEndReached={() => {
-              // props.filter.length > 0
-              !props.stopOffset
+              props.search
+                ? null
+                : !props.stopOffset
                 ? props.handleJobFilter(props.offset + 1)
                 : null;
-              // : !props.stopOffset
-              // ? props.handlejobsList(props.offset + 1)
-              // : null;
             }}
           />
         </View>

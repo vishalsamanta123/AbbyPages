@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
-import { WHITE_COLOR_CODE } from "../../Utils/Constant";
+import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
 import { useFocusEffect, useLinkProps } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -17,15 +17,20 @@ const OrderHistoryView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [offSet, setOffSet] = useState();
+  const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [itemCategoryList, setItemCategoryList] = useState("");
   const [orderItemParentList, setOrderItemParentList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
+  const [dataType, setDataType] = useState("allData");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   useEffect(() => {
-    handleOrderedItemList(0);
-    handleItemCategoryList();
+    if (offSet == 0) {
+      handleItemCategoryList();
+      handleOrderedItemList(offSet);
+    } else {
+      handleOrderedItemList(offSet);
+    }
   }, []);
   // useFocusEffect(
   //   React.useCallback(() => {
@@ -52,11 +57,12 @@ const OrderHistoryView = ({ navigation }) => {
   };
   const handleOrderedItemList = async (offset) => {
     setOffSet(offset);
-    setVisible(true);
     try {
+      setVisible(true);
       const params = {
         business_type: 0,
         offset: offset,
+        // limit:10
       };
       const { data } = await apiCall(
         "POST",
@@ -64,8 +70,11 @@ const OrderHistoryView = ({ navigation }) => {
         params
       );
       if (data.status === 200) {
-        setOrderItemParentList(data.data);
-        setOrderItemList(data.data);
+        if (dataType == "allData") {
+          setOrderItemList(data.data);
+        } else {
+          setOrderItemParentList(data.data);
+        }
         setVisible(false);
       } else {
         setErrorMessage(data.message);
@@ -83,9 +92,10 @@ const OrderHistoryView = ({ navigation }) => {
     navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
   };
   const _handleDataTypeSelected = (index, item, dataType) => {
-    // setIsSelectedCatgory(item.business_type_id);
     setVisible(true);
+    setDataType(dataType);
     if (dataType == "allData") {
+      setIsSelectedCatgory(item.business_type_id);
       setOrderItemList(orderItemParentList);
     } else {
       setIsSelectedCatgory(item.business_type_id);
@@ -110,7 +120,7 @@ const OrderHistoryView = ({ navigation }) => {
               color:
                 item.business_type_id === isSelectedCatgory
                   ? WHITE_COLOR_CODE
-                  : "#ffe98e",
+                  : LIGHT_WHITE_COLOR,
             },
           ]}
         >
@@ -130,6 +140,7 @@ const OrderHistoryView = ({ navigation }) => {
         _handleDataTypeSelected={_handleDataTypeSelected}
         offSet={offSet}
         stopOffset={stopOffset}
+        dataType={dataType}
         handleOrderedItemList={handleOrderedItemList}
       />
       <Error

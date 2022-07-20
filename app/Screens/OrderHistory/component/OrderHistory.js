@@ -4,7 +4,11 @@ import Header from "../../../Components/Header";
 import moment from "moment";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
-import { YELLOW_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  YELLOW_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  LIGHT_WHITE_COLOR,
+} from "../../../Utils/Constant";
 const OrderHistory = (props) => {
   const _handleOrders = (item, index) => {
     return (
@@ -137,7 +141,19 @@ const OrderHistory = (props) => {
             onPress={() => props._handleDataTypeSelected("a", "b", "allData")}
             style={[styles.lablestyle, { backgroundColor: YELLOW_COLOR_CODE }]}
           >
-            <Text style={styles.txtCat}>All</Text>
+            <Text
+              style={[
+                styles.txtCat,
+                {
+                  color:
+                    props.dataType == "allData"
+                      ? WHITE_COLOR_CODE
+                      : LIGHT_WHITE_COLOR,
+                },
+              ]}
+            >
+              All
+            </Text>
           </TouchableOpacity>
           <FlatList
             data={props.itemCategoryList}
