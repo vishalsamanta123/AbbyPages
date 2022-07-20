@@ -10,6 +10,7 @@ import {
   FONT_FAMILY_BOLD,
   LIGHT_BLACK_COLOR_CODE,
   FONT_FAMILY_LIGHT,
+  LIGHT_WHITE_COLOR,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   HeaderView: {
@@ -176,6 +177,12 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: FONT_FAMILY_LIGHT,
   },
+  searchTxt: {
+    marginLeft: 20,
+    fontSize: 20,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginTop: 10,
+  },
   inputVw: {
     backgroundColor: WHITE_COLOR_CODE,
     height: 48,
@@ -184,16 +191,19 @@ const Styles = StyleSheet.create({
   input: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
-    color: LINE_COMMON_COLOR_CODE,
+    color: BLACK_COLOR_CODE,
     paddingLeft: 10,
   },
   keyBoardVw: {
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: BLACK_COLOR_CODE,
     borderWidth: 0.8,
-    paddingLeft: 10,
-    paddingHorizontal: 12,
+    height: 58,
     color: BLACK_COLOR_CODE,
+    marginTop: 10,
+  },
+  keyBoard: {
+    height: 40,
   },
   jobTitleVw: {
     borderWidth: 0.8,
@@ -211,6 +221,33 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  filterCon: {
+    marginHorizontal: 10,
+    borderRadius: 8,
+    marginVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: BLACK_COLOR_CODE,
+    marginTop: 10,
+  },
+  filterVw: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  filterTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginRight: 8,
+  },
+  filterDataVw: {
+    paddingVertical: 8,
+    paddingLeft: 16,
+  },
+  filterDatasVw: {
+    marginVertical: 6,
+    height: 200,
   },
 });
 export default Styles;
