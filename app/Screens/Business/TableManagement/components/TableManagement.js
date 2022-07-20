@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
+    Text,
     Image,
-    StatusBar,
     FlatList,
+    StatusBar,
+    TouchableOpacity,
     KeyboardAvoidingView,
-    TouchableOpacity, Text
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';
@@ -24,7 +25,7 @@ const TableManagement = (props) => {
                 HeaderText={'Table Management List'}
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
-                <TouchableOpacity style={styles.PlusView} onPress={() => props.addTableFun()}>
+                <TouchableOpacity style={styles.PlusView} onPress={() => props.onPressAddTable()}>
                     <Image style={styles.PlusImge} source={require('../../../../Assets/qty_minus_icon3.png')} />
                 </TouchableOpacity>
                 {
@@ -37,12 +38,12 @@ const TableManagement = (props) => {
                         />
                         :
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 20 }}>Thare is no data</Text>
+                            <Text style={{ fontSize: 20 }}>There is no table data.</Text>
                         </View>
                 }
 
             </View>
-        </KeyboardAvoidingView >
+        </KeyboardAvoidingView>
     )
 }
 export default TableManagement

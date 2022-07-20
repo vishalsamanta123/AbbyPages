@@ -15,7 +15,6 @@ const AddItemScreen = (props) => {
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <ScrollView>
-
                     <Input
                         onChangeText={(itemName) => props.setItemName(itemName)}
                         value={props.itemName}
@@ -27,7 +26,6 @@ const AddItemScreen = (props) => {
                         onChangeText={(itemDescription) => props.setItemDescription(itemDescription)}
                         value={props.itemDescription}
                         secureTextEntry={false}
-                        // multiline={true}
                         placeholder="Item Description"
                         InputType="withScroll"
                     />

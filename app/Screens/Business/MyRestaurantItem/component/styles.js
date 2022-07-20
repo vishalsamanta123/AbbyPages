@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     lablestyle: {
         flexDirection: 'row',
         margin: 5,
-        marginBottom:20,
+        marginBottom: 20,
         width: 110,
         borderRadius: 20,
         height: 45,
@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     DishDiscptnView: {
-        padding: 15
+        padding: 15,
+        flex: 1
     },
     DishNameTxt: {
         fontFamily: FONT_FAMILY_REGULAR,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         lineHeight: 18,
         color: LIGHT_GREY_COLOR_CODE,
         fontSize: 12,
-        width: '45%'
+        width: '80%'
     },
     PriceOfDishTxt: {
         color: BLACK_COLOR_CODE,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     },
     ReviewText: {
         color: LIGHT_GREY_COLOR_CODE,
-        fontSize: 12,
+        fontSize: 13,
         fontFamily: FONT_FAMILY_REGULAR
     },
     AddBtnTouchable: {
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         height: 35,
         marginLeft: 10,
         borderRadius: 20,
-        left:1,
+        left: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -85,6 +86,42 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: FONT_FAMILY_REGULAR
     },
+    iconicicon: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 10
+    },
+    editdltbtn: {
+        flex: 1.5,
+        justifyContent: 'center'
+    },
+    iconsize: {
+        width: 30,
+        height: 30
+    },
+    switchstyle: {
+        flex: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    categoriesvwe: {
+        flexDirection: 'row',
+        padding: 15
+    },
+    categoriestxtvwe: {
+        flex: 4
+    },
+    dlteaddvwe: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconszedlt: {
+        width: 35, height: 35
+    },
+    penciliconszedlt: {
+        width: 27, height: 26
+    }
 
 })
 export default styles;

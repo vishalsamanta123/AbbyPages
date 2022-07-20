@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Image,
-    Text,TouchableOpacity
+    Text,
+    TouchableOpacity
 } from 'react-native';
 import TableManagement from './components/TableManagement';
 import styles from './components/styles';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const TableManagementView = ({ navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -21,9 +20,8 @@ const TableManagementView = ({ navigation }) => {
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [ImgBaseUrl, setImgBaseUrl] = useState('');
-    const [visible, setVisible] = useState(false)
-
-    const [tableData, setTableData] = useState([])
+    const [visible, setVisible] = useState(false);
+    const [tableData, setTableData] = useState([]);
 
     useFocusEffect(
         React.useCallback(() => {
@@ -32,16 +30,14 @@ const TableManagementView = ({ navigation }) => {
         }, [])
     );
 
-    const addTableFun = () => {
+    const onPressAddTable = () => {
         navigation.navigate('AddTable')
     }
-
 
     const getTableListFun = async () => {
         setVisible(true)
         try {
-            const { data } = await apiCall
-                ('get', ENDPOINTS.GET_RESTAURANT_TABLE);
+            const { data } = await apiCall('get', ENDPOINTS.GET_RESTAURANT_TABLE);
             if (data.status === 200) {
                 setTableData(data.data)
                 setImgBaseUrl(data.table_img)
@@ -68,7 +64,6 @@ const TableManagementView = ({ navigation }) => {
             <TouchableOpacity onPress={() => editTable(item)} style={styles.MainContain}>
                 <Image style={styles.IMgeStyle}
                     source={{ uri: ImgBaseUrl + item.table_img }}
-                // source={require('../../../Assets/default_image_box.png')}
                 />
                 <View style={styles.ViewContainer}>
                     <Text style={styles.TableNottEXT}>Table No: {item.table_no}</Text>
@@ -78,7 +73,6 @@ const TableManagementView = ({ navigation }) => {
                     </View>
                 </View>
             </TouchableOpacity >
-
         )
     }
 
@@ -88,7 +82,7 @@ const TableManagementView = ({ navigation }) => {
             <TableManagement
                 _handleTableData={(item) => _handleTableData(item)}
                 tableData={tableData}
-                addTableFun={() => addTableFun()}
+                onPressAddTable={() => onPressAddTable()}
 
             />
             <Error

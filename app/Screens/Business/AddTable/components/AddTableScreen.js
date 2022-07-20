@@ -32,8 +32,7 @@ const AddTableScreen = (props) => {
                     <TouchableOpacity onPress={() => props.onPressProfileImage()} style={{ marginTop: 15, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ height: 70, borderRadius: 10, borderWidth: 1, borderColor: '#d8d8d8', width: '90%', alignItems: 'center', flexDirection: 'row' }}>
                             <Text style={{ paddingLeft: 25, fontSize: 17 }}>Table Image</Text>
-                            <Image
-                                style={{ position: "absolute", right: 30, }}
+                            <Image style={{ position: "absolute", right: 30, }}
                                 source={require('../../../../Assets/upload_icon_field.png')}
                             />
                         </View>
