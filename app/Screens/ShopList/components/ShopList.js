@@ -22,7 +22,9 @@ const ShopList = (props) => {
           data={props.shopList}
           renderItem={({ item, index }) => props._handleShopList(item, index)}
           onEndReached={() => {
-            props.search
+            !props.inputSearch == ""
+              ? null
+              : props.search
               ? !props.stopOffset
                 ? props?.handleServiceNearby(props.offSet + 1)
                 : null

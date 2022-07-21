@@ -12,7 +12,6 @@ import _ from "lodash";
 const JobList = ({ navigation }) => {
   useEffect(() => {
     if (!search) {
-      console.log("SSSSSTART");
       handleJobFilter(0);
     }
   }, [jobList]);
@@ -26,11 +25,14 @@ const JobList = ({ navigation }) => {
   const [offset, setoffset] = useState(0);
   const [filterData, setFilterData] = useState({
     title: "",
-    city: "",
+    city_name: "",
     category: "",
     country: "",
     state: "",
-    hire_type: "",
+    city: "",
+    job_type: "",
+    latitude: "",
+    longitude: "",
   });
   const goBack = () => {
     navigation.goBack(null);
@@ -40,6 +42,14 @@ const JobList = ({ navigation }) => {
       businessList: jobList,
       business_type: 2,
     });
+  };
+  const handleSearch = () => {
+    setSearch(true);
+    setVisible(true);
+  };
+  const handleFilter = () => {
+    setSearch(false);
+    setVisible(true);
   };
   const _hanldeSetLike = async (item) => {
     try {
@@ -96,22 +106,19 @@ const JobList = ({ navigation }) => {
       setLoader(true);
       const params = {
         job_title: filterData?.title ? filterData?.title : null,
+        city_name: filterData?.city_name ? filterData?.city_name : null,
+        category: filterData?.category ? filterData?.category : null,
+        country: filterData?.country ? filterData?.country : null,
+        state: filterData?.state ? filterData?.state : null,
         city: filterData?.city ? filterData?.city : null,
-        category: "",
-        country: "",
-        state: "",
-        latitude: "",
-        longitude: "",
-        job_type: "",
+        job_type: filterData?.job_type ? filterData?.job_type : null,
+        latitude: filterData?.latitude ? filterData?.latitude : null,
+        longitude: filterData?.longitude ? filterData?.longitude : null,
         offset: offSet,
-        limit: 10,
+        limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
-        data.data.forEach(function (item, i) {
-          item["latitude"] = i + 22.7196;
-          item["longitude"] = i + 75.8577;
-        });
         setJobList(data.data);
         setLoader(false);
         setVisible(false);
@@ -131,17 +138,6 @@ const JobList = ({ navigation }) => {
   const onPressJob = (item) => {
     navigation.navigate("JobDetails", { detail: item.job_id });
   };
-  const searchJob = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...jobList];
-    if (searchKey === "") handleJobFilter(offset);
-    else {
-      const list = searchArray.filter((x) => {
-        return x.company_name.toLowerCase().includes(lowerCased);
-      });
-      setJobList([...list]);
-    }
-  };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -155,14 +151,16 @@ const JobList = ({ navigation }) => {
         onPressMap={onPressMap}
         search={search}
         setSearch={setSearch}
-        searchJob={searchJob}
         handlejobsList={handlejobsList}
         handleJobFilter={handleJobFilter}
+        handleSearch={handleSearch}
         stopOffset={stopOffset}
         offset={offset}
+        handleFilter={handleFilter}
       />
       <FilterPopUp
         visible={visible}
+        search={search}
         closeModel={() => setVisible(false)}
         setVisible={setVisible}
         goBack={goBack}

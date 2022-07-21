@@ -116,14 +116,14 @@ const JobListScreen = (props) => {
               source={require("../../../Assets/map_list_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.setVisible(true)}>
+          <TouchableOpacity onPress={() => props.handleFilter()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
               source={require("../../../Assets/filter_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.setSearch(!props.search)}>
+          <TouchableOpacity onPress={() => props.handleSearch()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
@@ -140,16 +140,6 @@ const JobListScreen = (props) => {
             backgroundColor: "#f2f2f2",
           }}
         >
-          {props.search && (
-            <View style={styles.inputVw}>
-              <TextInput
-                placeholder={"Search job ..."}
-                placeholderTextColor={SMALL_TEXT_COLOR_CODE}
-                style={styles.input}
-                onChangeText={(searchKey) => props.searchJob(searchKey)}
-              />
-            </View>
-          )}
           <Text style={styles.hdngtxt}>
             {props?.jobList?.length} Results found
           </Text>
@@ -168,9 +158,7 @@ const JobListScreen = (props) => {
               );
             }}
             onEndReached={() => {
-              props.search
-                ? null
-                : !props.stopOffset
+              !props.stopOffset
                 ? props.handleJobFilter(props.offset + 1)
                 : null;
             }}

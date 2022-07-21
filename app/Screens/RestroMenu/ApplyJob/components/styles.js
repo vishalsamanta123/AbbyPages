@@ -6,6 +6,7 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   LIGHT_GREY_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   ContainerStyle: {
@@ -71,7 +72,7 @@ const Styles = StyleSheet.create({
   },
   SubmitBtnMain: {
     marginBottom: 15,
-    marginTop: 15,
+    marginTop: 5,
   },
   pickerVw: {
     width: "80%",
@@ -79,6 +80,13 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
+  },
+  requireTxt: {
+    fontSize: 16,
+    marginVertical: 10,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_RED_COLOR_CODE,
+    marginHorizontal: 10,
   },
 });
 export default Styles;

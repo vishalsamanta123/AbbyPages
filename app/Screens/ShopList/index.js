@@ -26,6 +26,7 @@ const ShopList = ({ navigation, route }) => {
   const [stopOffset, setstopOffset] = useState(false);
   const [shopList, setShopList] = useState([]);
   const [search, setSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
 
   useEffect(() => {
     if (route?.params?.nearbySearch) {
@@ -75,14 +76,13 @@ const ShopList = ({ navigation, route }) => {
         category_id: search.category_id,
         limit: 10,
         offset: offSet,
+        business_type: 2,
       };
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      console.log("params: ", params);
-      console.log("dataSEARCHSERV: ", data);
       if (data.status === 200) {
         setShopList(data.data);
         setVisible(false);
@@ -242,6 +242,7 @@ const ShopList = ({ navigation, route }) => {
     });
   };
   const searchInput = (searchKey) => {
+    setInputSearch(searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...shopList];
     const list = _.filter(searchArray, (item) => {
@@ -271,6 +272,7 @@ const ShopList = ({ navigation, route }) => {
         handleShopList={handleShopList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}

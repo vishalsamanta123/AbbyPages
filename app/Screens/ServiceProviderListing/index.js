@@ -22,6 +22,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [search, setSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
   const [visible, setVisible] = useState(false);
   const [serviceData, setserviceData] = useState([]);
   const [offSet, setOffSet] = useState();
@@ -49,14 +50,13 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         category_id: search.category_id,
         limit: 10,
         offset: offSet,
+        business_type: 3,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      console.log("dataSEARCHSERV: ", data);
       if (data.status === 200) {
         setserviceData(data.data);
         setVisible(false);
@@ -212,6 +212,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     });
   };
   const searchService = (searchKey) => {
+    setInputSearch(searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...serviceData];
     const list = _.filter(searchArray, (item) => {
@@ -242,6 +243,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         handleServiceList={handleServiceList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}
