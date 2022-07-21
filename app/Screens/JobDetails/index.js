@@ -21,19 +21,24 @@ const JobDetails = ({ route, navigation }) => {
   const jobDetails = async () => {
     const { detail } = route.params;
     const params = {
-      job_id: 16,
+      job_id: detail,
     };
     try {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
+      console.log('data: ', data.data);
       if (data.status === 200) {
         setDetails(data.data);
         setVisible(false);
       } else {
         setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
       }
     } catch (error) {
-      console.log("error: ", error);
+      setVisible(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const applyNow = async () => {
@@ -48,9 +53,9 @@ const JobDetails = ({ route, navigation }) => {
     try {
       setVisible(true);
       const params = {
-        item_type: 1, // details.business_type,
+        item_type: details.business_type,
         item_id: details.business_id,
-        like: 4, // details.likes,
+        like: details.likes,
         favorite: details?.favorite,
         interest: details?.interest,
         views: details.views,

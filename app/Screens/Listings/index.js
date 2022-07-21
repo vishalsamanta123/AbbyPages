@@ -25,7 +25,9 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState("");
-  const [offSet, setOffSet] = useState();
+  const [inputSearch, setInputSearch] = useState("");
+  console.log("inputSearch: ", inputSearch);
+  const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
 
@@ -34,14 +36,18 @@ const ListingsScreenView = ({ navigation, route }) => {
       const { nearbySearch } = route?.params;
       setSearch(nearbySearch);
       if (search) {
-        handleServiceNearby(0);
+        handleSearchData(0);
       }
     } else {
-      handleRestroList(0);
+      if (inputSearch) {
+        handleSearchData(0);
+      } else {
+        handleRestroList(0);
+      }
     }
-  }, [search]);
+  }, [search, inputSearch]);
 
-  const handleServiceNearby = async (offSet) => {
+  const handleSearchData = async (offSet) => {
     setOffSet(offSet);
     try {
       setVisible(true);
@@ -49,14 +55,18 @@ const ListingsScreenView = ({ navigation, route }) => {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10,
+        limit: 10 + offSet,
         offset: offSet,
+        business_type: 1,
+        search_key: inputSearch ? inputSearch : null,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
+      console.log("dataSEARCJH: ", data);
       if (data.status == 200) {
         setVisible(false);
         setRestroList(data.data);
@@ -75,13 +85,14 @@ const ListingsScreenView = ({ navigation, route }) => {
   const handleRestroList = async (offSet) => {
     setOffSet(offSet);
     try {
+      setVisible(true);
       const params = {
         business_type: 1,
         offset: offSet,
         limit: 10,
       };
-      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+      console.log("dataRESTRO: ", data);
       if (data.status === 200) {
         setRestroList(data.data);
         setVisible(false);
@@ -118,7 +129,8 @@ const ListingsScreenView = ({ navigation, route }) => {
         setVisible(false);
       }
     } catch (error) {
-      console.log("error: ", error);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const _handleSerivces = (item) => {
@@ -325,36 +337,21 @@ const ListingsScreenView = ({ navigation, route }) => {
       business_type: 1,
     });
   };
-  const searchResto = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    console.log("lowerCased: ", lowerCased);
-    const searchArray = [...restroList];
-    const list = _.filter(searchArray, (item) => {
-      return item.business_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      if (search) {
-        handleServiceNearby(0);
-      } else {
-        handleRestroList(0);
-      }
-    } else {
-      setRestroList(list);
-    }
-  };
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ListingsScreen
-        searchResto={searchResto}
         restroList={restroList}
         search={search}
-        handleServiceNearby={handleServiceNearby}
+        setInputSearch={setInputSearch}
+        handleSearchData={handleSearchData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         handleRestroList={handleRestroList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}

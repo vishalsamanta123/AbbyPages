@@ -93,6 +93,7 @@ export default {
   JOB_FILTER: "/api/jobs/JobSearchFilter",
   GET_JOB_CATEGORY: "/api/jobs/getJobCategory",
   GET_PLACES: "/api/masterTableData/getStateCountry",
+  GET_NEW_BUSINESS: "api/business/businessListNew",
 
   ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/restoItemsRemoveShow",
   ITEM_CATEGORY_REMOVE_SHOW: "/api/restaurants/itemsCategoryRemoveShow",
