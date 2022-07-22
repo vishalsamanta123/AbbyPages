@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -187,7 +181,15 @@ const JobDetailsScreen = (props) => {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
-                  {props?.details?.job_type}
+                  {props?.details?.job_type == 1 || "Full Time"
+                    ? "Full Time"
+                    : props?.details?.job_type == 2
+                    ? "Part Time"
+                    : props?.details?.job_type == 3
+                    ? "Intership"
+                    : props?.details?.job_type == 4
+                    ? "Freelancer"
+                    : "Work"}
                 </Text>
               </View>
             </View>
@@ -319,6 +321,112 @@ const JobDetailsScreen = (props) => {
               </Text>
             )}
           </View>
+          {props?.details?.related_job && (
+            <>
+              <Text style={styles.relatedItemsTxt}>Related Jobs</Text>
+              <View style={styles.relatedItems}>
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  contentContainerStyle={{ flexGrow: 1 }}
+                >
+                  {props?.details?.related_job.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => props.onPressJob(item)}
+                        style={styles.mainConatiner}
+                      >
+                        <Image
+                          style={styles.mainImgeStyle}
+                          resizeMode="contain"
+                          source={{
+                            uri: item.business_logo,
+                          }}
+                        />
+                        <View style={styles.mainConatinerView}>
+                          <Text style={styles.mainServiceName}>
+                            {item.company_name}
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            style={styles.addressTxtStyle}
+                          >
+                            {item.job_address}
+                          </Text>
+                          <Text numberOfLines={2} style={styles.jobTypeTxt}>
+                            {item.job_type == 1 || "Full Time"
+                              ? "Full Time"
+                              : item.job_type == 2
+                              ? "Part Time"
+                              : item.job_type == 3
+                              ? "Intership"
+                              : item.job_type == 4
+                              ? "Freelancer"
+                              : "Work"}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </>
+          )}
+          {props?.details?.recently_applyed_job && (
+            <>
+              <Text style={[styles.relatedItemsTxt, { marginTop: 20 }]}>
+                Recently Viewed Jobs
+              </Text>
+              <View style={styles.relatedItems}>
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  contentContainerStyle={{ flexGrow: 1 }}
+                >
+                  {props?.details?.recently_applyed_job.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => props.onPressJob(item)}
+                        style={styles.mainConatiner}
+                      >
+                        <View>
+                          <Image
+                            style={styles.mainImgeStyle}
+                            resizeMode="contain"
+                            source={{
+                              uri: item.business_logo,
+                            }}
+                          />
+                        </View>
+                        <View style={styles.mainConatinerView}>
+                          <Text style={styles.mainServiceName}>
+                            {item.category_name}
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            style={styles.addressTxtStyle}
+                          >
+                            {item.city_name}
+                          </Text>
+                          <Text numberOfLines={2} style={styles.jobTypeTxt}>
+                            {item.job_type == 1 || "Full Time"
+                              ? "Full Time"
+                              : item.job_type == 2
+                              ? "Part Time"
+                              : item.job_type == 3
+                              ? "Intership"
+                              : item.job_type == 4
+                              ? "Freelancer"
+                              : "Work"}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </>
+          )}
         </ScrollView>
       </View>
     </View>

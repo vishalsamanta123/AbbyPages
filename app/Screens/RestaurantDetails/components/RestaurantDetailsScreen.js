@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Image,
@@ -28,6 +28,13 @@ import { Rating } from "react-native-ratings";
 import moment from "moment";
 const { width, height } = Dimensions.get("window");
 const RestaurantDetailsScreen = (props) => {
+  const stars = [];
+  useEffect(() => {
+    const starImg = require("../../../Assets/star_icon_filled.png");
+    for (let i = starImg; i <= props.restroDetail.business_star; i++) {
+      stars.push({ star: i });
+    }
+  }, []);
   const initialRegion = {
     latitude: props.restroDetail.latitude
       ? parseInt(props.restroDetail.latitude)
@@ -207,10 +214,12 @@ const RestaurantDetailsScreen = (props) => {
                   ? "Open"
                   : "Closed"}
               </Text>
-              <Text style={styles.RatingTextMain}>
+              <Text style={styles.timeShowTxt}>
                 {props.restroDetail &&
                   props.restroDetail.business_open_time &&
-                  ": " + props.restroDetail.business_open_time.open_time + "-"}
+                  " :" +
+                    props.restroDetail.business_open_time.open_time +
+                    " - "}
                 {props.restroDetail &&
                   props.restroDetail.business_open_time &&
                   props.restroDetail.business_open_time.close_time}
@@ -256,7 +265,7 @@ const RestaurantDetailsScreen = (props) => {
             </View>
             {props.restroDetail.takes_reservations === 1 && (
               <TouchableOpacity
-                onPress={() => props.onPressReservation()}
+                onPress={() => props.onPressReservation(1)}
                 style={styles.CameraViewStyle}
               >
                 <Text style={styles.CameraMainText}>Make a Reservation</Text>
@@ -274,7 +283,7 @@ const RestaurantDetailsScreen = (props) => {
             }
             {props.restroDetail.outdoor_seating === 1 && (
               <TouchableOpacity
-                onPress={() => props.onPressReservation(props.restroDetail, 2)}
+                onPress={() => props.onPressReservation(2)}
                 style={styles.CameraViewStyle}
               >
                 <Text style={styles.CameraMainText}>

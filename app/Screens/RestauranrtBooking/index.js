@@ -7,6 +7,8 @@ import {
   FONT_FAMILY_REGULAR,
   LINE_COMMON_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
+  LIGHT_GREEN_COLOR_CODE,
 } from "../../Utils/Constant";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -31,17 +33,22 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   const [reservationDateList, setReservationDateList] = useState([]);
   const [restaurantTimeData, setRestaurantTimeData] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [peoplePicker, setPeoplePicker] = useState(false);
   const [date, setDate] = useState(null);
-  console.log("date: ", date);
   const [time, setTime] = useState(null);
-  console.log("time: ", time);
-  const [SelectPeople, setSelectPeople] = useState("5");
-  console.log("SelectPeople: ", SelectPeople);
+  const [SelectPeople, setSelectPeople] = useState("");
   const [bookingType, setBookingType] = useState("");
-  console.log("bookingType: ", bookingType);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
   const { width, height } = Dimensions.get("window");
+  const peopleWith = [
+    { people: 1 },
+    { people: 2 },
+    { people: 3 },
+    { people: 4 },
+    { people: 5 },
+    { people: 6 },
+  ];
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   useEffect(() => {
     if (route.params) {
@@ -169,7 +176,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
       try {
         setVisible(true);
         const params = {
-          business_id: 2, //restroDetail.business_id,
+          business_id: restroDetail.business_id,
           booking_date: date,
         };
         if (find == 0) {
@@ -182,8 +189,8 @@ const RestauranrtBookingView = ({ route, navigation }) => {
             setVisible(false);
             if (data.data.length < 1) {
               setVisible(false);
-              setErrorMessage("There is no table available");
-              setVisibleErr(true);
+              setSuccessMessage("No table available for this restaurant");
+              setVisibleSuccess(true);
             } else {
               var currentDate = moment().format("YYYY-MM-DD");
               const searchArray = [...data.data];
@@ -223,7 +230,9 @@ const RestauranrtBookingView = ({ route, navigation }) => {
           }
         }
       } catch (error) {
-        console.log("error: ", error);
+        setVisible(false);
+        setErrorMessage(error.message);
+        setVisibleErr(true);
       }
     }
   };
@@ -293,6 +302,9 @@ const RestauranrtBookingView = ({ route, navigation }) => {
         onPressTableFind={onPressTableFind}
         setSelectPeople={setSelectPeople}
         SelectPeople={SelectPeople}
+        peopleWith={peopleWith}
+        peoplePicker={peoplePicker}
+        setPeoplePicker={setPeoplePicker}
       />
       <Error
         message={errorMessage}

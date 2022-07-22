@@ -8,6 +8,8 @@ import {
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 const Styles = StyleSheet.create({
@@ -87,6 +89,7 @@ const Styles = StyleSheet.create({
   },
   FlexRowView: {
     flexDirection: "row",
+    alignItems: "center",
   },
   RateTextStyle: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -94,7 +97,14 @@ const Styles = StyleSheet.create({
   },
   MainClosedTime: {
     fontFamily: FONT_FAMILY_REGULAR,
-    color: "red",
+    color: LIGHT_RED_COLOR_CODE,
+    fontSize: 15,
+  },
+  timeShowTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: 14,
+    marginTop: 1,
   },
   AddShareContainer: {
     paddingRight: 15,

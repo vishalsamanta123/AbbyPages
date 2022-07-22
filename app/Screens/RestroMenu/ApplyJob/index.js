@@ -1,5 +1,4 @@
-import AsyncStorage from "@react-native-community/async-storage";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { apiCall } from "../../../Utils/httpClient";
 import ApplyJob from "./components/ApplyJob";
@@ -35,7 +34,32 @@ const ApplyJobView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [requires, setRequires] = useState(false);
+  const [data, setData] = useState(false);
 
+  useEffect(() => {
+    getProfile();
+  }, [data]);
+
+  const getProfile = async () => {
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setApplyJob({
+          ...applyJob,
+          fullName: data.data.first_name
+            ? data.data.first_name + " " + data.data.last_name
+            : null,
+          email: data.data.email ? data.data.email : null,
+          phone: data.data.phone ? data.data.phone : null,
+          abby_profile_url: data.business_logo ? data.business_logo : null,
+        });
+        setData(!data);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
   const onPressYesBtn = (type, resp) => {
     if (type == 1) {
       setApplyJob({
@@ -175,12 +199,10 @@ const ApplyJobView = ({ navigation, route }) => {
             type: applyJob?.cover_letter?.type,
             uri: applyJob?.cover_letter?.uri,
           });
-        console.log("formData: ", formData);
         const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, formData);
         if (data.status === 200) {
           setSuccessMessage(data.message);
           setVisibleSuccess(true);
-          // navigation.navigate("JobDetails", { detail: details.job_id });
           setVisible(false);
         } else {
           setVisible(false);
