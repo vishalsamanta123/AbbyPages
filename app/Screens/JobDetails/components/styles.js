@@ -4,6 +4,9 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  GREY_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   bannerimg: {
@@ -76,6 +79,53 @@ const Styles = StyleSheet.create({
     color: YELLOW_COLOR_CODE,
     marginTop: 8,
     marginLeft: 5,
+  },
+  relatedItemsTxt: {
+    marginLeft: 16,
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  relatedItems: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 4,
+    marginBottom: 10,
+  },
+  mainConatiner: {
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    paddingVertical: 10,
+    flex: 1,
+  },
+  mainImgeStyle: {
+    width: 80,
+    height: 100,
+    borderRadius: 15,
+    borderWidth: 0.2,
+    borderColor: "grey",
+    marginBottom: 5,
+  },
+  mainConatinerView: {
+    flex: 1,
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
+  mainServiceName: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16.5,
+  },
+  addressTxtStyle: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 15,
+    color: GREY_COLOR_CODE,
+    lineHeight: 15,
+  },
+  jobTypeTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+    color: LIGHT_BLACK_COLOR_CODE,
+    lineHeight: 20,
   },
 });
 export default Styles;

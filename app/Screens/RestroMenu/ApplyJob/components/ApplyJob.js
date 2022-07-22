@@ -350,7 +350,8 @@ const ApplyJob = (props) => {
                 <Picker.Item label="American Indian" value="1" />
                 <Picker.Item label="Indian" value="2" />
                 <Picker.Item label="African American" value="3" />
-                <Picker.Item label="African American" value="4" />
+                <Picker.Item label="Latino" value="4" />
+                <Picker.Item label="Latino" value="4" />
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
@@ -381,8 +382,8 @@ const ApplyJob = (props) => {
             </View>
             {props.requires ? (
               <Text style={styles.requireTxt}>
-                All this fields are required :- Resume,Full Name,Email,Phone
-                number, current company,work status,visa status,
+                All this fields are required :- Resume, Full Name, Email, Phone
+                Number, Current Company, Work Status, Visa Status
               </Text>
             ) : null}
           </View>

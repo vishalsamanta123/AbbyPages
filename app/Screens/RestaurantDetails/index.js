@@ -36,7 +36,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
-  console.log("restroDetail: ", restroDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -126,20 +125,24 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   };
   const _handlePopularDish = (item) => {
     return (
-      <View style={styles.PopularConatiner}>
-        <Image
-          style={styles.PopularDishImg}
-          resizeMode="contain"
-          source={{ uri: item?.image }}
-        />
-        <View style={{ padding: 10 }}>
-          <Text numberOfLines={1} style={styles.DishNameTxt}>
-            {item.item_name}
-          </Text>
-          <Text style={styles.DishNameTxt}>${item.price}</Text>
-          <Text style={styles.ImgeDetailTxt}>9 photos | 33 Reviews</Text>
-        </View>
-      </View>
+      <>
+        {item.status == 1 && (
+          <View style={styles.PopularConatiner}>
+            <Image
+              style={styles.PopularDishImg}
+              resizeMode="contain"
+              source={{ uri: item?.image }}
+            />
+            <View style={{ padding: 10 }}>
+              <Text numberOfLines={1} style={styles.DishNameTxt}>
+                {item.item_name}
+              </Text>
+              <Text style={styles.DishNameTxt}>${item.price}</Text>
+              <Text style={styles.ImgeDetailTxt}>1 photos | 0 Reviews</Text>
+            </View>
+          </View>
+        )}
+      </>
     );
   };
   const _handleReview = (item) => {
@@ -230,10 +233,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       </Fragment>
     );
   };
-  const onPressReservation = () => {
+  const onPressReservation = (type) => {
     navigation.navigate("RestauranrtBooking", {
       detail: restroDetail,
-      booking_type: 1,
+      booking_type: type,
     });
   };
   const onPressFullMenu = () => {

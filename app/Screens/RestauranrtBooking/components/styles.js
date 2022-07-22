@@ -191,12 +191,12 @@ const Styles = StyleSheet.create({
   TextInputImg: {
     position: "absolute",
     right: 0,
-    marginRight: 40,
+    marginRight: 20,
     marginTop: 30,
   },
   TextInputImageStyle: {
-    width: 21,
-    height: 21,
+    width: 18,
+    height: 18,
   },
   FindTableContain: {
     paddingTop: 10,
@@ -239,7 +239,7 @@ const Styles = StyleSheet.create({
     borderRadius: 9,
     justifyContent: "center",
     paddingLeft: 25,
-    margin: 10,
+    marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -278,6 +278,18 @@ const Styles = StyleSheet.create({
     marginTop: 4,
     borderWidth: 1,
     flexDirection: "row",
+  },
+  peopleWithVw: {
+    marginHorizontal: 20,
+    paddingVertical: 4,
+    backgroundColor: WHITE_COLOR_CODE,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  peopleWithTxt: {
+    fontSize: 20,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
 });
 export default Styles;

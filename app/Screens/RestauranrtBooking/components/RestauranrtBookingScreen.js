@@ -10,8 +10,6 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   TouchableOpacity,
-  SectionList,
-  Platform,
 } from "react-native";
 import _ from "lodash";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -21,15 +19,8 @@ import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";
-import {
-  LINE_COMMON_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import moment from "moment";
+import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
-const { width, height } = Dimensions.get("window");
 const RestauranrtBookingScreen = (props) => {
   const initialRegion = {
     latitude: props.restroDetail.latitude
@@ -186,7 +177,47 @@ const RestauranrtBookingScreen = (props) => {
               onConfirm={props.handleTimeConfirm}
               onCancel={() => props.setTimePickerVisibility(false)}
             />
-            <View>
+            <TouchableOpacity
+              onPress={() => props.setPeoplePicker(!props.peoplePicker)}
+              style={[
+                styles.CalenderSelect,
+                { marginBottom: props.peoplePicker ? 2 : 10 },
+              ]}
+            >
+              <Text style={styles.DateSTyles}>
+                {props.SelectPeople ? props.SelectPeople : "People"}
+              </Text>
+              <View style={styles.TextInputImg}>
+                <Image
+                  style={styles.TextInputImageStyle}
+                  resizeMode="contain"
+                  source={require("../../../Assets/dropdown_icon.png")}
+                />
+              </View>
+            </TouchableOpacity>
+            {props.peoplePicker &&
+              props.peopleWith.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.peopleWithVw,
+                      {
+                        backgroundColor:
+                          1 + index === props.SelectPeople
+                            ? YELLOW_COLOR_CODE
+                            : null,
+                      },
+                    ]}
+                    onPress={() => {
+                      props.setSelectPeople(item.people);
+                      props.setPeoplePicker(!props.peoplePicker);
+                    }}
+                  >
+                    <Text style={styles.peopleWithTxt}>{item.people}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            {/* <View>
               <Input
                 onChangeText={(SelectPeople) =>
                   props.setSelectPeople(SelectPeople)
@@ -195,11 +226,15 @@ const RestauranrtBookingScreen = (props) => {
                 placeholder="People"
                 InputType="withScroll"
                 keyboardType="phone-pad"
+                containerStyle={{ height: 60 }}
               />
-              {/* <View style={styles.TextInputImg}>
-                                <Image style={styles.TextInputImageStyle} source={require('../../../Assets/dropdown_icon.png')} />
-                            </View> */}
-            </View>
+              <View style={styles.TextInputImg}>
+                <Image
+                  style={styles.TextInputImageStyle}
+                  source={require("../../../Assets/dropdown_icon.png")}
+                />
+              </View>
+            </View> */}
             <View style={styles.FindTableContain}>
               <Button
                 onPress={() => props.onPressTableFind(0)}

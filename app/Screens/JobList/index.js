@@ -136,7 +136,7 @@ const JobList = ({ navigation }) => {
   };
 
   const onPressJob = (item) => {
-    navigation.navigate("JobDetails", { detail: item.job_id });
+    navigation.navigate("JobDetails", { detail: item });
   };
   return (
     <View style={CommonStyles.container}>

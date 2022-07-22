@@ -15,18 +15,22 @@ const JobDetails = ({ route, navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    jobDetails();
+    if (route.params) {
+      const { detail } = route.params;
+      console.log("detail: ", detail);
+      jobDetails(detail);
+    }
   }, []);
-  const jobDetails = async () => {
-    const { detail } = route.params;
+  const jobDetails = async (data) => {
+    setVisible(true);
     const params = {
-      job_id: detail,
+      job_id: data.job_id,
     };
     try {
-      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
-      console.log('data: ', data.data);
+      console.log("data: ", data);
       if (data.status === 200) {
         setDetails(data.data);
         setVisible(false);
@@ -41,7 +45,11 @@ const JobDetails = ({ route, navigation }) => {
       setVisibleErr(true);
     }
   };
-  const applyNow = async () => {
+  const onPressJob = (item) => {
+    jobDetails(item);
+  };
+  
+  const applyNow = () => {
     navigation.navigate("ApplyJob", {
       details,
     });
@@ -91,6 +99,7 @@ const JobDetails = ({ route, navigation }) => {
         compareFun={compareFun}
         saveJob={saveJob}
         shareTo={shareTo}
+        onPressJob={onPressJob}
       />
       <Error
         message={errorMessage}
