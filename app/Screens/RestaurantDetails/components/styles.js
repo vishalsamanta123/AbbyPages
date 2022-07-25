@@ -73,6 +73,15 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: GREY_COLOR_CODE,
   },
+  viewText: {
+    paddingLeft: 12,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_GREEN_COLOR_CODE,
+  },
+  addressTxt: {
+    fontSize: 15,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
   AddOptnsTextMain: {
     fontFamily: FONT_FAMILY_REGULAR,
     color: GREY_COLOR_CODE,
@@ -382,13 +391,12 @@ const Styles = StyleSheet.create({
   MainConatiner: {
     paddingHorizontal: 10,
     flexDirection: "row",
-    alignItems: "center",
     paddingVertical: 10,
     flex: 1,
   },
   MainImgeStyle: {
     width: 80,
-    height: 80,
+    height: 100,
     borderRadius: 15,
     borderWidth: 0.2,
     borderColor: "grey",
@@ -431,6 +439,7 @@ const Styles = StyleSheet.create({
   },
   RatingVw: {
     flexDirection: "row",
+    alignItems: "center",
   },
   statusTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
