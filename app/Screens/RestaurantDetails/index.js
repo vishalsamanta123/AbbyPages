@@ -70,7 +70,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
-      console.log("dataDETAILS: ", data);
       if (data.status === 200) {
         setRestroDetail(data.data);
         // findTodayDate();

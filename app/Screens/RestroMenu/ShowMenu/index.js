@@ -33,6 +33,7 @@ const ShowMenuView = ({ route, navigation }) => {
   const [restroItemParentList, setRestroItemParentList] = useState([]);
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   const [selectRow, setSelectRow] = useState(false);
+  const [relodData, setRelodData] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -152,7 +153,6 @@ const ShowMenuView = ({ route, navigation }) => {
   };
   const onPressAddItem = (item, index) => {
     addToCart(item, 1); //value dalna h 1 ki jagah
-    setSelectRow(index);
   };
   const getqty = (item) => {
     var getIndex = _.findIndex(cartData, { item_id: item.item_id });
@@ -171,7 +171,8 @@ const ShowMenuView = ({ route, navigation }) => {
     //     return cartData[getIndex].quantity;
     // }
   };
-  const removeFromCart = (item) => {
+  const removeFromCart = (item, value) => {
+    console.log("item: ", item);
     if (cartData.length > 0) {
       var getIndex = _.findIndex(cartData, { item_id: item.item_id });
       if (getIndex >= 0) {
@@ -249,15 +250,16 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _handleSandwichDish = (item, index) => {
-    const setAddbtn = _.filter(cartData, (item) => {
+    const setAddbtn = _.filter(cartData, (item, index) => {
       return { item_id: item.item_id };
     });
+    console.log("setAddbtn: ", setAddbtn);
     const selected_row =
-      setAddbtn.length > 0
+      setAddbtn.length >= 0
         ? setAddbtn[index]?.item_id === item?.item_id
           ? true
           : false
-        : null;
+        : false;
     return (
       <>
         {item.status === 1 && (
@@ -283,7 +285,7 @@ const ShowMenuView = ({ route, navigation }) => {
                   source={require("../../../Assets/star_icon_filled.png")}
                 />
                 <Text style={styles.ReviewText}> 1 Review</Text>
-                {selected_row ? (
+                {selectRow ? (
                   // {addBtn === index ? selected_row ?
                   // <Text>true1</Text>
                   <InputSpinner
@@ -310,7 +312,11 @@ const ShowMenuView = ({ route, navigation }) => {
                   />
                 ) : (
                   <TouchableOpacity
-                    onPress={() => onPressAddItem(item, index)}
+                    onPress={() => {
+                      onPressAddItem(item, index);
+                      setSelectRow(selected_row);
+                      setRelodData(!relodData);
+                    }}
                     style={styles.AddBtnTouchable}
                   >
                     <Text style={styles.AddBtnTxt}>Add</Text>

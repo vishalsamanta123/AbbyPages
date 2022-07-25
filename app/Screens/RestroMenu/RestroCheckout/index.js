@@ -29,7 +29,7 @@ const RestroCheckoutView = ({ navigation }) => {
   const [cartData, setCartData] = useContext(CartContext);
   const [cartLocalData, setCartLocalData] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
-  const [location, setLocation] = useState([{}]);
+  const [location, setLocation] = useState([]);
   const [locationList, setLocationList] = useState([]);
 
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -63,10 +63,12 @@ const RestroCheckoutView = ({ navigation }) => {
       if (data.status === 200) {
         setLocationList(data.data.user_location && data.data.user_location);
         if (data.data.user_location) {
-          var getLocation = _.filter(data.data.user_location, (item) => {
-            return { primary_status: 1 };
+          // var getLocation = _.filter(data.data.user_location, (item) => {
+          //   return { primary_status: 1 };
+          // });
+          var getLocation = _.filter(data.data.user_location, {
+            primary_status: 1,
           });
-        //   var getLocation = _.filter(data.data.user_location, { primary_status: 1 });
           setLocation(getLocation);
         }
         setVisible(false);
@@ -77,7 +79,7 @@ const RestroCheckoutView = ({ navigation }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
   // useEffect(() => {
@@ -121,9 +123,9 @@ const RestroCheckoutView = ({ navigation }) => {
     try {
       setVisible(true);
       const cartLocalFunctionData = [...cartLocalData];
-      cartLocalFunctionData.splice(item.item_id, 1);
-      setCartLocalData(cartLocalFunctionData);
-      setCartData(cartLocalFunctionData);
+      const newItems = cartLocalFunctionData?.filter((ele, key) => key != index);
+      setCartLocalData(newItems);
+      setCartData(newItems);
       const FinalAmount = cartLocalFunctionData.reduce(
         (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
         0
@@ -131,7 +133,8 @@ const RestroCheckoutView = ({ navigation }) => {
       setTotalAmount(FinalAmount);
       setVisible(false);
     } catch (error) {
-      console.log("error", error);
+      setErrorMessage(error.message)
+      setVisibleErr(false)
     }
   };
   const handleFinalAmount = (item, index) => {
@@ -184,13 +187,18 @@ const RestroCheckoutView = ({ navigation }) => {
     navigation.navigate("AddLocation");
   };
   function validationFrom() {
-    if (location == [{}]) {
+    if (location.length === 0) {
       setErrorMessage("Please enter address");
       setVisibleErr(true);
       return false;
     }
     if (dateTime == "") {
       setErrorMessage("Please enter date & time");
+      setVisibleErr(true);
+      return false;
+    }
+    if (cartLocalData.length === 0) {
+      setErrorMessage("Please add items");
       setVisibleErr(true);
       return false;
     }
@@ -204,7 +212,7 @@ const RestroCheckoutView = ({ navigation }) => {
         const orderData = await AsyncStorage.getItem("orderData");
         if (orderData !== "") {
           const params = {
-            address: location[0],
+            address: location ? location[0] : null,
             order_schedule_time: dateTime,
             business_id: JSON.parse(orderData).business_id,
             business_name: JSON.parse(orderData).business_name,
@@ -214,9 +222,9 @@ const RestroCheckoutView = ({ navigation }) => {
           navigation.navigate("CheckoutDetail");
           setVisible(false);
         }
-      } catch (e) {
+      } catch (erorr) {
         setVisible(false);
-        setErrorMessage(e);
+        setErrorMessage(erorr.message);
         setVisibleErr(true);
       }
     }

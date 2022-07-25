@@ -75,6 +75,8 @@ const AddLocationScreen = (props) => {
                                 fontFamily:FONT_FAMILY_REGULAR
                             },
                             listView: {
+                                marginLeft: 17,
+                                marginRight: 17,
                                 backgroundColor: WHITE_COLOR_CODE,
                             }
                         }}

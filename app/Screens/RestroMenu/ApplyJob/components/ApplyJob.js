@@ -351,7 +351,6 @@ const ApplyJob = (props) => {
                 <Picker.Item label="Indian" value="2" />
                 <Picker.Item label="African American" value="3" />
                 <Picker.Item label="Latino" value="4" />
-                <Picker.Item label="Latino" value="4" />
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
