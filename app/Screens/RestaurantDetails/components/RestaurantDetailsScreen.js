@@ -23,7 +23,11 @@ import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  LIGHT_RED_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
 import moment from "moment";
 const { width, height } = Dimensions.get("window");
@@ -702,6 +706,9 @@ const RestaurantDetailsScreen = (props) => {
                                 >
                                   {item.rating} ratings
                                 </Text>
+                                <Text numberOfLines={1} style={styles.viewText}>
+                                  Views {item.views}
+                                </Text>
                               </View>
                             </View>
                           </View>
@@ -716,14 +723,24 @@ const RestaurantDetailsScreen = (props) => {
                               {item.business_service_category}
                             </Text>
                           ) : null}
-                          {item.business_name ? (
+                          {item.login_status === 1 ? (
                             <Text numberOfLines={2} style={styles.statusTxt}>
                               Open Now
                             </Text>
-                          ) : // <Text numberOfLines={2} style={styles.statusTxt}>
-                          //   Close Now
-                          // </Text>
-                          null}
+                          ) : (
+                            <Text
+                              numberOfLines={2}
+                              style={[
+                                styles.statusTxt,
+                                {
+                                  color: LIGHT_RED_COLOR_CODE,
+                                },
+                              ]}
+                            >
+                              Close Now
+                            </Text>
+                          )}
+                          <Text style={styles.addressTxt}>{item.address}</Text>
                         </View>
                       </TouchableOpacity>
                     );
