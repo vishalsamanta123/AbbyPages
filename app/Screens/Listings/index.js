@@ -26,7 +26,6 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState("");
   const [inputSearch, setInputSearch] = useState("");
-  console.log("inputSearch: ", inputSearch);
   const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
@@ -60,13 +59,11 @@ const ListingsScreenView = ({ navigation, route }) => {
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      console.log("dataSEARCJH: ", data);
       if (data.status == 200) {
         setVisible(false);
         setRestroList(data.data);
@@ -92,7 +89,6 @@ const ListingsScreenView = ({ navigation, route }) => {
         limit: 10,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log("dataRESTRO: ", data);
       if (data.status === 200) {
         setRestroList(data.data);
         setVisible(false);
