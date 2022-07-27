@@ -121,6 +121,13 @@ const Styles = StyleSheet.create({
     btntxt: { color: BLACK_COLOR_CODE, fontFamily: FONT_FAMILY_REGULAR },
 
     btnstyle: { marginTop: 10, backgroundColor: YELLOW_COLOR_CODE },
+    selectvwe: {
+        marginTop: 8,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
     tchvwe: {
         paddingLeft: 25,
         paddingVertical:12,
@@ -177,12 +184,10 @@ const Styles = StyleSheet.create({
         marginHorizontal: 0,
         marginTop: 5,
     },
-    benifitsnme:{
-        color: BLACK_COLOR_CODE,
-        paddingVertical: 2,
-        fontFamily: FONT_FAMILY_REGULAR,
+    categytxt: {
+        color: LIGHT_BLACK_COLOR_CODE,
         fontSize: 15,
-        paddingLeft: 5,
-    }
+        fontFamily: FONT_FAMILY_REGULAR
+    },
 })
 export default Styles;

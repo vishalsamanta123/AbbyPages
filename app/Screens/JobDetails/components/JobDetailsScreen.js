@@ -10,7 +10,6 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import HTML from "react-native-render-html";
-import CommonStyles from "../../../Utils/CommonStyles";
 
 const JobDetailsScreen = (props) => {
   return (
