@@ -20,18 +20,10 @@ const ConfirmReservationView = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const isFocused = useIsFocused();
 
-  useFocusEffect(
-    React.useCallback(() => {
-      getRestroData();
-      getProfile();
-      return () => {
-        getRestroData();
-        getProfile();
-      };
-    }, [navigation, route])
-  );
+  useEffect(() => {
+    getRestroData();
+  }, [isFocused]);
 
-  const [profileData, setProfileData] = useState(null);
   const [localUserData, setLocalUserData] = useState({
     firstName: "",
     lastName: "",
@@ -45,54 +37,52 @@ const ConfirmReservationView = ({ navigation, route }) => {
   const onPressCheckBox = () => {
     setSaveCheckBox(!SaveCheckBox);
   };
+
   const onPressEditDetails = () => {
     navigation.navigate("RestauranrtBooking", { detail: restroDetail });
   };
-  const getProfile = async () => {
-    setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setProfileData(data.data);
-      await userDatas();
-    }
-  };
-  const userDatas = async () => {
-    setVisible(false);
-    setLocalUserData({
-      firstName: profileData.first_name,
-      lastName: profileData.last_name,
-      emailAddress: profileData.email,
-      mobile: profileData.phone,
-      note: profileData.note,
-    });
-  };
-  const getRestroData = () => {
-    if (route?.params) {
-      const { reservationData, restroDetail } = route?.params;
-      setReservationData(reservationData);
-      setRestroDetail(restroDetail);
-    }
+
+  const getRestroData = async () => {
+    try {
+      setVisible(true);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setLocalUserData({
+          firstName: data.data.first_name ? data.data.first_name : null,
+          lastName: data.data.last_name ? data.data.last_name : null,
+          emailAddress: data.data.email ? data.data.email : null,
+          mobile: data.data.phone ? data.data.phone : null,
+          note: data.data.note ? data.data.note : null,
+        });
+      }
+      if (route?.params) {
+        const { reservationData, restroDetail } = route?.params;
+        setReservationData(reservationData);
+        setRestroDetail(restroDetail);
+        setVisible(false);
+      }
+    } catch (error) {}
   };
 
   const validationForm = () => {
-    if (localUserData.firstName == "") {
+    if (localUserData.firstName == null) {
       setVisibleErr(true);
       setErrorMessage("Please Enter First Name");
       return false;
     }
-    if (localUserData.lastName == "") {
+    if (localUserData.lastName == null) {
       setVisibleErr(true);
       setErrorMessage("Please Enter Last Name");
       return false;
     }
-    if (localUserData.email == "") {
+    if (localUserData.emailAddress == null) {
       setVisibleErr(true);
       setErrorMessage("Please Enter Email");
       return false;
     }
-    if (localUserData.mobile == "") {
+    if (localUserData.mobile == null) {
       setVisibleErr(true);
-      setErrorMessage("Please Enter Phone No.");
+      setErrorMessage("Please Enter Phone No. Also");
       return false;
     }
     return true;
@@ -107,13 +97,12 @@ const ConfirmReservationView = ({ navigation, route }) => {
         business_type: 1,
         booking_date: date,
         booking_time: reservationData.time,
-        note: localUserData.note,
         people: reservationData.people,
         first_name: localUserData.firstName,
         last_name: localUserData.lastName,
         phone: localUserData.mobile,
         email: localUserData.email,
-        // booking_type: reservationData.booking_type,
+        note: localUserData.note,
         order_booking_type: reservationData.booking_type == 1 ? 3 : 4,
         receive_special_offer: 1,
       };
@@ -121,7 +110,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.RESTAURANTS_TABLE_BOOKING,
         params
-        );
+      );
       if (data.status === 200) {
         setSuccessMessage(data.message);
         setVisibleSuccess(true);

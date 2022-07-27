@@ -42,7 +42,6 @@ const Input = (props) => {
           <Text
             style={[
               labelStyle,
-              labelStyleMain,
               {
                 top: isFocused ? (value === "" ? 20 : 11) : -13,
                 color: isFocused
@@ -57,6 +56,7 @@ const Input = (props) => {
                   : WHITE_COLOR_CODE,
                 fontSize: isFocused ? (value === "" ? 17 : 16) : 16,
               },
+              labelStyleMain,
             ]}
           >
             {placeholder}
@@ -79,11 +79,11 @@ const Input = (props) => {
           selectionColor={"#a5a5a5"}
           style={[
             textInput,
-            textInputStyle,
             {
               fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
               marginTop: InputType == null ? 9 : 19,
             },
+            textInputStyle,
           ]}
           onFocus={_handleFocus}
           onBlur={_handleBlur}

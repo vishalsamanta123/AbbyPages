@@ -84,6 +84,9 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       setErrorMessage(JSON.stringify(error));
     }
   };
+  const onPressRestro = (item) => {
+    handleRestroDetails(item);
+  };
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
@@ -121,20 +124,24 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   };
   const _handlePopularDish = (item) => {
     return (
-      <View style={styles.PopularConatiner}>
-        <Image
-          style={styles.PopularDishImg}
-          resizeMode="contain"
-          source={{ uri: item?.image }}
-        />
-        <View style={{ padding: 10 }}>
-          <Text numberOfLines={1} style={styles.DishNameTxt}>
-            {item.item_name}
-          </Text>
-          <Text style={styles.DishNameTxt}>${item.price}</Text>
-          <Text style={styles.ImgeDetailTxt}>9 photos | 33 Reviews</Text>
-        </View>
-      </View>
+      <>
+        {item.status == 1 && (
+          <View style={styles.PopularConatiner}>
+            <Image
+              style={styles.PopularDishImg}
+              resizeMode="contain"
+              source={{ uri: item?.image }}
+            />
+            <View style={{ padding: 10 }}>
+              <Text numberOfLines={1} style={styles.DishNameTxt}>
+                {item.item_name}
+              </Text>
+              <Text style={styles.DishNameTxt}>${item.price}</Text>
+              <Text style={styles.ImgeDetailTxt}>1 photos | 0 Reviews</Text>
+            </View>
+          </View>
+        )}
+      </>
     );
   };
   const _handleReview = (item) => {
@@ -225,10 +232,10 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       </Fragment>
     );
   };
-  const onPressReservation = (data, booking_type) => {
+  const onPressReservation = (type) => {
     navigation.navigate("RestauranrtBooking", {
-      detail: data,
-      booking_type: booking_type,
+      detail: restroDetail,
+      booking_type: type,
     });
   };
   const onPressFullMenu = () => {
@@ -305,6 +312,8 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         const { data } = await apiCall("POST", ENDPOINTS.POST_REVIEW, params);
         if (data.status === 200) {
           setVisible(false);
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
           handleRestroDetails(restroDetail);
           setReviewModal(false);
         } else {
@@ -408,13 +417,12 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         interest: restroDetail?.interest,
         views: restroDetail.views,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
         setSuccessMessage(data.message);
+        handleRestroDetails(restroDetail);
       } else {
         setVisible(false);
         setErrorMessage(data.message);
@@ -456,6 +464,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         onPressSubmit={onPressSubmit}
         shareTo={shareTo}
         saveResto={saveResto}
+        onPressRestro={onPressRestro}
       />
       <Error
         message={errorMessage}

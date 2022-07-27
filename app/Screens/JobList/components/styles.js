@@ -10,6 +10,8 @@ import {
   FONT_FAMILY_BOLD,
   LIGHT_BLACK_COLOR_CODE,
   FONT_FAMILY_LIGHT,
+  LIGHT_WHITE_COLOR,
+  LIGHT_GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   HeaderView: {
@@ -112,7 +114,7 @@ const Styles = StyleSheet.create({
     paddingLeft: 10,
   },
   HeaderViewMidle: {
-    flex: 2.5,
+    flex: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -176,6 +178,12 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: FONT_FAMILY_LIGHT,
   },
+  searchTxt: {
+    marginLeft: 20,
+    fontSize: 20,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginTop: 10,
+  },
   inputVw: {
     backgroundColor: WHITE_COLOR_CODE,
     height: 48,
@@ -184,16 +192,29 @@ const Styles = StyleSheet.create({
   input: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
-    color: LINE_COMMON_COLOR_CODE,
+    color: BLACK_COLOR_CODE,
     paddingLeft: 10,
   },
-  keyBoardVw: {
-    borderRadius: 10,
+  filterInputVw: {
+    borderRadius: 8,
     borderColor: BLACK_COLOR_CODE,
     borderWidth: 0.8,
-    paddingLeft: 10,
-    paddingHorizontal: 12,
+    height: 55,
     color: BLACK_COLOR_CODE,
+    marginTop: 10,
+  },
+  filterInputTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    left: 12,
+  },
+  filterInput: {
+    marginTop: 0,
+    paddingLeft: 10,
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   jobTitleVw: {
     borderWidth: 0.8,
@@ -211,6 +232,50 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  filterCon: {
+    borderColor: BLACK_COLOR_CODE,
+    borderWidth: 1,
+    paddingVertical: 5,
+    borderRadius: 10,
+    marginHorizontal: 12,
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
+  filterVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  filterTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    paddingHorizontal: 5,
+  },
+  filterDataVw: {
+    paddingVertical: 8,
+    paddingLeft: 10,
+  },
+  filterDataTxt: {
+    fontSize: 15,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  filterDatasVw: {
+    maxHeight: 250,
+    marginHorizontal: 10,
+  },
+  searchInput: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: LIGHT_GREY_COLOR_CODE,
+    marginTop: 5,
+    paddingLeft: 10,
+    marginHorizontal: 4,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    height: 42,
   },
 });
 export default Styles;

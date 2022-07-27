@@ -1,55 +1,92 @@
-import AsyncStorage from "@react-native-community/async-storage";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { apiCall } from "../../../Utils/httpClient";
 import ApplyJob from "./components/ApplyJob";
 import DocumentPicker from "react-native-document-picker";
 import Loader from "../../../Utils/Loader";
 import Error from "../../../Components/Modal/error";
-import Success from '../../../Components/Modal/success'
+import Success from "../../../Components/Modal/success";
 
 const ApplyJobView = ({ navigation, route }) => {
+  const [applyJob, setApplyJob] = useState({
+    resume: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    current_Company: "",
+    abby_profile_url: "",
+    linkedinUrl: "",
+    twitterUrl: "",
+    githubUrl: "",
+    portfolioUrl: "",
+    other_website: "",
+    cover_letter: "",
+    workStatus: "",
+    visaStatus: "",
+    additional_Info: "",
+    gender: "",
+    race: "",
+    veteran_status: "",
+  });
   const [visible, setVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [FullName, setFullName] = useState("");
-  const [EmailAddress, setEmailAddress] = useState("");
-  const [CurrentCompany, setCurrentCompany] = useState("");
-  const [AbbyPagesURL, setAbbyPagesURL] = useState("");
-  const [Linkedin, setLinkedin] = useState("");
-  const [TwitterUrl, setTwitterUrl] = useState("");
-  const [GithubUrl, setGithubUrl] = useState("");
-  const [PortfolioUrl, setPortfolioUrl] = useState("");
-  const [OtherWebsite, setOtherWebsite] = useState("");
-  const [AdditionalInfo, setAdditionalInfo] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [resume, setResume] = useState("");
-  const [coverLetter, setCoverLetter] = useState("");
-  const [YesOption, setYesOption] = useState(false);
-  const [NoOption, setNoOption] = useState(false);
-  const [gender, setGender] = useState("");
-  const [race, setRace] = useState("");
-  const [veteranStatus, setVeteranStatus] = useState("");
-  const [workStatus, setWorkStatus] = useState("");
-  const [visaStatus, setVisaStatus] = useState("");
+  const [requires, setRequires] = useState(false);
+  const [data, setData] = useState(false);
 
+  useEffect(() => {
+    getProfile();
+  }, [data]);
+
+  const getProfile = async () => {
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setApplyJob({
+          ...applyJob,
+          fullName: data.data.first_name
+            ? data.data.first_name + " " + data.data.last_name
+            : null,
+          email: data.data.email ? data.data.email : null,
+          phone: data.data.phone ? data.data.phone : null,
+          abby_profile_url: data.business_logo ? data.business_logo : null,
+        });
+        setData(!data);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
   const onPressYesBtn = (type, resp) => {
     if (type == 1) {
-      setWorkStatus(resp);
+      setApplyJob({
+        ...applyJob,
+        workStatus: resp,
+      });
     }
     if (type == 2) {
-      setVisaStatus(resp);
+      setApplyJob({
+        ...applyJob,
+        visaStatus: resp,
+      });
     }
   };
 
   const onPressNoBtn = (type, resp) => {
     if (type == 1) {
-      setWorkStatus(resp);
+      setApplyJob({
+        ...applyJob,
+        workStatus: resp,
+      });
     }
     if (type == 2) {
-      setVisaStatus(resp);
+      setApplyJob({
+        ...applyJob,
+        visaStatus: resp,
+      });
     }
   };
   const openUpload = async (resq) => {
@@ -59,110 +96,136 @@ const ApplyJobView = ({ navigation, route }) => {
     }).then((pdf) => {
       pdf.map((pdfFile) => {
         if (resq == 1) {
-          setResume(pdfFile);
+          setApplyJob({
+            ...applyJob,
+            resume: pdfFile,
+          });
         }
         if (resq == 2) {
-          setCoverLetter(pdfFile);
+          setApplyJob({
+            ...applyJob,
+            cover_letter: pdfFile,
+          });
         }
       });
     });
   };
+  const validations = () => {
+    setRequires(true);
+    if (applyJob.resume == "") {
+      setErrorMessage("Please select resume");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.fullName == "") {
+      setErrorMessage("Please fill fullname");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.email == "") {
+      setErrorMessage("Please fill email");
+      setVisibleErr(true);
+      return false;
+    }
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(applyJob.email) === false) {
+      setErrorMessage("Please fill proper email");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.phone == "") {
+      setErrorMessage("Please fill phone number");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.current_Company == "") {
+      setErrorMessage("Please fill current company name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.workStatus == "") {
+      setErrorMessage("Please fill work status");
+      setVisibleErr(true);
+      return false;
+    }
+    if (applyJob.visaStatus == "") {
+      setErrorMessage("Please fill visa status");
+      setVisibleErr(true);
+      return false;
+    }
+    setRequires(false);
+    return true;
+  };
   const onSubmit = async () => {
-    const { details } = route.params;
-    try {
-      setVisible(true);
-      let formData = new FormData();
-      formData.append("job_id", details.job_id);
-      formData.append("business_id", details.business_id);
-      formData.append("user_name", FullName);
-      formData.append("email", EmailAddress);
-      formData.append("phone", Phone);
-      formData.append("current_companyinfo", CurrentCompany);
-      formData.append("abbypages_profile_url", AbbyPagesURL);
-      formData.append("linkedin_url", Linkedin);
-      formData.append("twitter_url", TwitterUrl);
-      formData.append("github_url", GithubUrl);
-      formData.append("portfolio_url", PortfolioUrl);
-      formData.append("other_website", OtherWebsite);
-      formData.append("you_legally_authorized_to_work_status", workStatus);
-      formData.append(
-        "future_require_sponsorship_for_employment_visa",
-        visaStatus
-      );
-      formData.append("additional_information", AdditionalInfo);
-      formData.append("gender", gender);
-      formData.append("race", race);
-      formData.append("veteran_status", veteranStatus);
-      resume.name &&
-        formData.append("resume", {
-          name: resume.name,
-          type: resume.type,
-          uri: resume.uri,
-        });
-      coverLetter.name &&
-        formData.append("cover_letter", {
-          name: coverLetter.name,
-          type: coverLetter.type,
-          uri: coverLetter.uri,
-        });
-      const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, formData);
-      if (data.status === 200) {
-        setSuccessMessage(data.message);
-        setVisibleSuccess(true);
-        // navigation.navigate("JobDetails", { detail: details.job_id });
-        setVisible(false);
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
+    const valid = validations();
+    if (valid) {
+      const { details } = route.params;
+      try {
+        setVisible(true);
+        let formData = new FormData();
+        formData.append("job_id", details.job_id);
+        formData.append("business_id", details.business_id);
+        formData.append("user_name", applyJob.fullName);
+        formData.append("email", applyJob.email);
+        formData.append("phone", applyJob.phone);
+        formData.append("current_companyinfo", applyJob.current_Company);
+        formData.append("abbypages_profile_url", applyJob.abby_profile_url);
+        formData.append("linkedin_url", applyJob.linkedinUrl);
+        formData.append("twitter_url", applyJob.twitterUrl);
+        formData.append("github_url", applyJob.githubUrl);
+        formData.append("portfolio_url", applyJob.portfolioUrl);
+        formData.append("other_website", applyJob.other_website);
+        formData.append(
+          "you_legally_authorized_to_work_status",
+          applyJob.workStatus
+        );
+        formData.append(
+          "future_require_sponsorship_for_employment_visa",
+          applyJob.visaStatus
+        );
+        formData.append("additional_information", applyJob.additional_Info);
+        formData.append("gender", applyJob.gender);
+        formData.append("race", applyJob.race);
+        formData.append("veteran_status", applyJob.veteran_status);
+        applyJob?.resume?.name &&
+          formData.append("resume", {
+            name: applyJob.resume.name,
+            type: applyJob.resume.type,
+            uri: applyJob.resume.uri,
+          });
+        applyJob?.cover_letter?.name &&
+          formData.append("cover_letter", {
+            name: applyJob?.cover_letter?.name,
+            type: applyJob?.cover_letter?.type,
+            uri: applyJob?.cover_letter?.uri,
+          });
+        const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, formData);
+        if (data.status === 200) {
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
+          setVisible(false);
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
+      } catch (error) {
+        setErrorMessage(error);
         setVisibleErr(true);
       }
-    } catch (error) {
-      setErrorMessage(error);
-      setVisibleErr(true);
     }
   };
   return (
     <>
       {visible && <Loader state={visible} />}
       <ApplyJob
-        FullName={FullName}
-        EmailAddress={EmailAddress}
-        CurrentCompany={CurrentCompany}
-        setFullName={setFullName}
-        setEmailAddress={setEmailAddress}
-        setCurrentCompany={setCurrentCompany}
-        setAbbyPagesURL={setAbbyPagesURL}
-        AbbyPagesURL={AbbyPagesURL}
-        setLinkedin={setLinkedin}
-        Linkedin={Linkedin}
-        setTwitterUrl={setTwitterUrl}
-        TwitterUrl={TwitterUrl}
-        setGithubUrl={setGithubUrl}
-        GithubUrl={GithubUrl}
-        setPortfolioUrl={setPortfolioUrl}
-        PortfolioUrl={PortfolioUrl}
-        setOtherWebsite={setOtherWebsite}
-        setAdditionalInfo={setAdditionalInfo}
-        OtherWebsite={OtherWebsite}
-        AdditionalInfo={AdditionalInfo}
-        YesOption={YesOption}
-        NoOption={NoOption}
-        setPhone={setPhone}
-        Phone={Phone}
         onPressYesBtn={onPressYesBtn}
         onPressNoBtn={onPressNoBtn}
         onSubmit={onSubmit}
         openUpload={openUpload}
-        resume={resume}
-        coverLetter={coverLetter}
-        gender={gender}
-        setGender={setGender}
-        race={race}
-        setRace={setRace}
-        veteranStatus={veteranStatus}
-        setVeteranStatus={setVeteranStatus}
-        workStatus={workStatus}
-        visaStatus={visaStatus}
+        applyJob={applyJob}
+        setApplyJob={setApplyJob}
+        requires={requires}
       />
       <Error
         message={errorMessage}

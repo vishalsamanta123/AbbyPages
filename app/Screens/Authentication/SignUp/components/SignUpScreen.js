@@ -171,7 +171,7 @@ const SignUpScreen = (props) => {
             buttonText="Continue with Facebook"
             buttonLabelStyle={styles.FacebookBtnTxt}
             style={styles.FacebookBtnStyle}
-            // onPress={props.onPressFacebook}
+            onPress={props.onPressFacebook}
           />
           <Button
             buttonText="Continue with Google"

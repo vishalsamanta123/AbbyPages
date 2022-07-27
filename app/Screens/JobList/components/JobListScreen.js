@@ -73,7 +73,7 @@ const JobListScreen = (props) => {
             <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
                 source={
-                  item.user_like == 1
+                  item.user_like === 1
                     ? require("../../../Assets/like_icon_filled.png")
                     : require("../../../Assets/like_icon_disable.png")
                 }
@@ -112,14 +112,14 @@ const JobListScreen = (props) => {
               source={require("../../../Assets/map_list_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.setVisible(true)}>
+          <TouchableOpacity onPress={() => props.handleFilter()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
               source={require("../../../Assets/filter_icon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.setSearch(!props.search)}>
+          <TouchableOpacity onPress={() => props.handleSearch()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
@@ -145,16 +145,15 @@ const JobListScreen = (props) => {
               />
             </View>
           )}
+          }}
+        >
           <Text style={styles.hdngtxt}>
-            {props?.filter?.length} Results found
+            {props?.jobList?.length} Results found
           </Text>
         </View>
         <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
           <FlatList
-            // data={
-            //   props.filterData?.title === "" ? props?.jobList : props.filter
-            // }
-            data={props.filter}
+            data={props.jobList}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) => _renderJobList(item, index)}
@@ -166,13 +165,9 @@ const JobListScreen = (props) => {
               );
             }}
             onEndReached={() => {
-              // props.filter.length > 0
               !props.stopOffset
                 ? props.handleJobFilter(props.offset + 1)
                 : null;
-              // : !props.stopOffset
-              // ? props.handlejobsList(props.offset + 1)
-              // : null;
             }}
           />
         </View>

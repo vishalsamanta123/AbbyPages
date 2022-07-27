@@ -11,24 +11,28 @@ import _ from "lodash";
 
 const JobList = ({ navigation }) => {
   useEffect(() => {
-    // if (filterData?.title === "") {
-    //   handlejobsList(0);
-    // } else {
-    handleJobFilter(0);
-    // }
-  }, []);
-  const [filter, setFilter] = useState([]);
+    if (!search) {
+      handleJobFilter(0);
+    }
+  }, [jobList]);
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [loader, setLoader] = useState();
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState(false);
-  const [like, setLike] = useState(false);
   const [jobList, setJobList] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [offset, setoffset] = useState(0);
   const [filterData, setFilterData] = useState({
     title: "",
+    city_name: "",
+    category: "",
+    country: "",
+    state: "",
+    city: "",
+    job_type: "",
+    latitude: "",
+    longitude: "",
   });
   const goBack = () => {
     navigation.goBack(null);
@@ -39,6 +43,14 @@ const JobList = ({ navigation }) => {
       business_type: 2,
     });
   };
+  const handleSearch = () => {
+    setSearch(true);
+    setVisible(true);
+  };
+  const handleFilter = () => {
+    setSearch(false);
+    setVisible(true);
+  };
   const _hanldeSetLike = async (item) => {
     try {
       const params = {
@@ -46,9 +58,10 @@ const JobList = ({ navigation }) => {
         like_status: item?.user_like == 1 ? 0 : 1,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      console.log('data: ', data);
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
-        handlejobsList(offset);
+        handleJobFilter(offset);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
@@ -74,7 +87,6 @@ const JobList = ({ navigation }) => {
           item["longitude"] = i + 75.8577;
         });
         setJobList(data.data);
-        setFilter([]);
         setLoader(false);
       } else {
         setErrorMessage(data.message);
@@ -93,28 +105,22 @@ const JobList = ({ navigation }) => {
     setoffset(offSet);
     try {
       setLoader(true);
-      const limits = offSet + 1;
       const params = {
         job_title: filterData?.title ? filterData?.title : null,
+        city_name: filterData?.city_name ? filterData?.city_name : null,
+        category: filterData?.category ? filterData?.category : null,
+        country: filterData?.country ? filterData?.country : null,
+        state: filterData?.state ? filterData?.state : null,
         city: filterData?.city ? filterData?.city : null,
-        category: "",
-        country: "",
-        state: "",
-        latitude: "",
-        longitude: "",
-        job_type: "",
+        job_type: filterData?.job_type ? filterData?.job_type : null,
+        latitude: filterData?.latitude ? filterData?.latitude : null,
+        longitude: filterData?.longitude ? filterData?.longitude : null,
         offset: offSet,
-        limit: 10,
-        // limit: offSet == 0 ? 10 : 10 * limits,
+        limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
-        data.data.forEach(function (item, i) {
-          item["latitude"] = i + 22.7196;
-          item["longitude"] = i + 75.8577;
-        });
-        setFilter(data.data);
-        setJobList([]);
+        setJobList(data.data);
         setLoader(false);
         setVisible(false);
       } else {
@@ -129,45 +135,16 @@ const JobList = ({ navigation }) => {
       setVisibleErr(true);
     }
   };
-  const validationOfFilter = () => {
-    if (filterData?.title === null) {
-      setErrorMessage("please enter job keywords");
-      setVisibleErr(true);
-      return false;
-    }
-    return true;
-  };
-  const handleFilter = async () => {
-    const valid = validationOfFilter();
-    if (valid) {
-      setVisible(false);
-    }
-  };
+
   const onPressJob = (item) => {
-    navigation.navigate("JobDetails", { detail: item.job_id });
-  };
-  const searchJob = (searchKey) => {
-    // const lowerCased = searchKey.toLowerCase();
-    // const searchArray = [...jobList];
-    // const list = _.filter(searchArray, (item) => {
-    //   return item.company_name.toLowerCase().match(lowerCased);
-    // });
-    // if (searchKey == "") {
-    //   setLoader(true);
-    //   handlejobsList(0);
-    //   setLoader(false);
-    // } else {
-    //   setJobList(list);
-    // }
+    navigation.navigate("JobDetails", { detail: item });
   };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
       <JobListScreen
         _hanldeSetLike={_hanldeSetLike}
-        like={like}
         jobList={jobList}
-        filter={filter}
         filterData={filterData}
         onPressJob={onPressJob}
         goBack={goBack}
@@ -175,20 +152,26 @@ const JobList = ({ navigation }) => {
         onPressMap={onPressMap}
         search={search}
         setSearch={setSearch}
-        searchJob={searchJob}
         handlejobsList={handlejobsList}
         handleJobFilter={handleJobFilter}
+        handleSearch={handleSearch}
         stopOffset={stopOffset}
         offset={offset}
+        handleFilter={handleFilter}
       />
       <FilterPopUp
         visible={visible}
+        search={search}
         closeModel={() => setVisible(false)}
         setVisible={setVisible}
         goBack={goBack}
         setFilterData={setFilterData}
+        handleJobFilter={handleJobFilter}
         filterData={filterData}
-        handleFilter={handleFilter}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+        setVisibleErr={setVisibleErr}
+        setLoader={setLoader}
       />
       <Error
         message={errorMessage}

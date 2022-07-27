@@ -10,8 +10,6 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   TouchableOpacity,
-  SectionList,
-  Platform,
 } from "react-native";
 import _ from "lodash";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -21,15 +19,8 @@ import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";
-import {
-  LINE_COMMON_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import moment from "moment";
+import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
-const { width, height } = Dimensions.get("window");
 const RestauranrtBookingScreen = (props) => {
   const initialRegion = {
     latitude: props.restroDetail.latitude
@@ -152,23 +143,14 @@ const RestauranrtBookingScreen = (props) => {
                   source={require("../../../Assets/info_calendar_icon.png")}
                 />
               </View>
-              {/* <DateTimePickerModal
+              <DateTimePickerModal
                 isVisible={props.isDatePickerVisible}
                 mode="date"
                 date={new Date()}
+                minimumDate={new Date()}
                 onConfirm={props.handleDateConfirm}
                 onCancel={() => props.setDatePickerVisibility(false)}
-              /> */}
-              {props?.isDatePickerVisible && (
-                <DateTimePicker
-                  mode={"date"}
-                  display={"calendar"}
-                  onChange={props.handleDateConfirm}
-                  value={new Date(props?.date)}
-                  minimumDate={new Date()}
-                  minuteInterval={10}
-                />
-              )}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
@@ -187,18 +169,55 @@ const RestauranrtBookingScreen = (props) => {
                 />
               </View>
             </TouchableOpacity>
-            {props?.isTimePickerVisible && (
-              <DateTimePicker
-                mode={Platform.OS === "ios" ? "datetime" : "time"}
-                onChange={(event, time) => props.handleTimeConfirm(event, time)}
-                value={new Date(props?.time)}
-                // minuteInterval={10}
-                onError={(data) => {
-                  props.setTimePickerVisibility(!props?.isTimePickerVisible);
-                }}
-              />
-            )}
-            <View>
+            <DateTimePickerModal
+              isVisible={props.isTimePickerVisible}
+              mode="time"
+              date={new Date()}
+              minimumDate={new Date()}
+              onConfirm={props.handleTimeConfirm}
+              onCancel={() => props.setTimePickerVisibility(false)}
+            />
+            <TouchableOpacity
+              onPress={() => props.setPeoplePicker(!props.peoplePicker)}
+              style={[
+                styles.CalenderSelect,
+                { marginBottom: props.peoplePicker ? 2 : 10 },
+              ]}
+            >
+              <Text style={styles.DateSTyles}>
+                {props.SelectPeople ? props.SelectPeople : "People"}
+              </Text>
+              <View style={styles.TextInputImg}>
+                <Image
+                  style={styles.TextInputImageStyle}
+                  resizeMode="contain"
+                  source={require("../../../Assets/dropdown_icon.png")}
+                />
+              </View>
+            </TouchableOpacity>
+            {props.peoplePicker &&
+              props.peopleWith.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.peopleWithVw,
+                      {
+                        backgroundColor:
+                          1 + index === props.SelectPeople
+                            ? YELLOW_COLOR_CODE
+                            : null,
+                      },
+                    ]}
+                    onPress={() => {
+                      props.setSelectPeople(item.people);
+                      props.setPeoplePicker(!props.peoplePicker);
+                    }}
+                  >
+                    <Text style={styles.peopleWithTxt}>{item.people}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            {/* <View>
               <Input
                 onChangeText={(SelectPeople) =>
                   props.setSelectPeople(SelectPeople)
@@ -207,50 +226,38 @@ const RestauranrtBookingScreen = (props) => {
                 placeholder="People"
                 InputType="withScroll"
                 keyboardType="phone-pad"
+                containerStyle={{ height: 60 }}
               />
-              {/* <View style={styles.TextInputImg}>
-                                <Image style={styles.TextInputImageStyle} source={require('../../../Assets/dropdown_icon.png')} />
-                            </View> */}
-            </View>
+              <View style={styles.TextInputImg}>
+                <Image
+                  style={styles.TextInputImageStyle}
+                  source={require("../../../Assets/dropdown_icon.png")}
+                />
+              </View>
+            </View> */}
             <View style={styles.FindTableContain}>
               <Button
-                onPress={props.onPressTableFind}
+                onPress={() => props.onPressTableFind(0)}
                 buttonText="Find a Table"
               />
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={props.restaurantTimeData}
-                contentContainerStyle={{
-                  alignSelf: "center",
-                  paddingTop: 10,
-                }}
+                contentContainerStyle={styles.timeCon}
                 numColumns={5}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
                     onPress={() => props.onPressTime(item, index)}
                     key={index}
-                    style={{
-                      height: 35,
-                      width: 55,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      alignSelf: "center",
-                      margin: 2,
-                      borderWidth: 1,
-                      borderColor: LINE_COMMON_COLOR_CODE,
-                    }}
+                    style={styles.timePickVw}
                   >
-                    <Text
-                      style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}
-                    >
-                      {item.startTime}
-                    </Text>
+                    <Text style={styles.timeTxt}>{item.startTime}</Text>
                   </TouchableOpacity>
                 )}
               />
               {props.restaurantTimeData.length > 0 && (
                 <TouchableOpacity
-                  onPress={() => props.onPressReservationOnOtherDate()}
+                  onPress={() => props.onPressTableFind(1)}
                   style={styles.SeereservatnView}
                 >
                   <Image
@@ -265,42 +272,19 @@ const RestauranrtBookingScreen = (props) => {
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={props.reservationDateList}
-                contentContainerStyle={{
-                  paddingTop: 10,
-                  paddingHorizontal: 16,
-                }}
+                contentContainerStyle={styles.timeCon}
                 renderItem={({ item, index }) => {
                   return (
                     <View>
                       <TouchableOpacity
                         onPress={() => props.onSelectDate(item, index)}
                         key={index}
-                        style={{
-                          width: "100%",
-                          padding: 5,
-                          margin: 2, // alignSelf: "center",
-                          marginTop: 4,
-                          borderWidth: 1,
-                          flexDirection: "row",
-                        }}
+                        style={styles.datePickerVw}
                       >
                         <View style={{ flex: 5 }}>
-                          <Text
-                            style={{
-                              fontFamily: FONT_FAMILY_REGULAR,
-                              fontSize: 16,
-                            }}
-                          >
-                            {item.date}
-                          </Text>
+                          <Text style={styles.timeTxt}>{item.date}</Text>
                         </View>
-                        <View
-                          style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
+                        <View style={{ justifyContent: "center" }}>
                           <Image
                             style={styles.ArrowImge}
                             tintColor={BLACK_COLOR_CODE}
@@ -308,49 +292,29 @@ const RestauranrtBookingScreen = (props) => {
                           />
                         </View>
                       </TouchableOpacity>
-                      {props.showTimeBox == index && (
-                        <View
-                          style={{
-                            paddingVertical: 10,
-                            backgroundColor: "red",
-                          }}
-                        >
-                          <FlatList
-                            keyExtractor={(item, index) => index.toString()}
-                            data={props.reservationDateTimeList}
-                            contentContainerStyle={{
-                              alignSelf: "center",
-                              paddingTop: 10,
-                            }}
-                            numColumns={5}
-                            renderItem={({ item, index }) => (
-                              <TouchableOpacity
-                                onPress={() => props.onPressTime(item, index)}
-                                key={index}
-                                style={{
-                                  height: 35,
-                                  width: 55,
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  alignSelf: "center",
-                                  margin: 2,
-                                  borderWidth: 1,
+                      {props.showTimeBox == index ? (
+                        <FlatList
+                          keyExtractor={(item, index) => index.toString()}
+                          data={props.reservationDateTimeList}
+                          numColumns={5}
+                          renderItem={({ item, index }) => (
+                            <TouchableOpacity
+                              onPress={() => props.onPressTime(item, index)}
+                              key={index}
+                              style={[
+                                styles.timePickVw,
+                                {
                                   borderColor: BLACK_COLOR_CODE,
-                                }}
-                              >
-                                <Text
-                                  style={{
-                                    fontFamily: FONT_FAMILY_REGULAR,
-                                    fontSize: 16,
-                                  }}
-                                >
-                                  {item.startTime}
-                                </Text>
-                              </TouchableOpacity>
-                            )}
-                          />
-                        </View>
-                      )}
+                                },
+                              ]}
+                            >
+                              <Text style={styles.timeTxt}>
+                                {item.startTime}
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                        />
+                      ) : null}
                     </View>
                   );
                 }}

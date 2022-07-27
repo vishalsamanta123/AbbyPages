@@ -15,30 +15,42 @@ const JobDetails = ({ route, navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    jobDetails();
+    if (route.params) {
+      const { detail } = route.params;
+      console.log("detail: ", detail);
+      jobDetails(detail);
+    }
   }, []);
-  const jobDetails = async () => {
-    const { detail } = route.params;
+  const jobDetails = async (data) => {
+    setVisible(true);
     const params = {
-      job_id: 16,
+      job_id: data.job_id,
     };
     try {
-      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
+      console.log("data: ", data);
       if (data.status === 200) {
         setDetails(data.data);
         setVisible(false);
       } else {
         setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
       }
     } catch (error) {
-      console.log("error: ", error);
+      setVisible(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const applyNow = async () => {
     navigation.navigate("ApplyJob", { details, });
+  const onPressJob = (item) => {
+    jobDetails(item);
   };
+
   const compareFun = () => {
     alert("Coming Soon");
   };
@@ -46,9 +58,9 @@ const JobDetails = ({ route, navigation }) => {
     try {
       setVisible(true);
       const params = {
-        item_type: 1, // details.business_type,
+        item_type: details.business_type,
         item_id: details.business_id,
-        like: 4, // details.likes,
+        like: details.likes,
         favorite: details?.favorite,
         interest: details?.interest,
         views: details.views,
@@ -82,6 +94,7 @@ const JobDetails = ({ route, navigation }) => {
         compareFun={compareFun}
         saveJob={saveJob}
         shareTo={shareTo}
+        onPressJob={onPressJob}
       />
       <Error
         message={errorMessage}

@@ -511,8 +511,8 @@ function AuthLoading({ navigation }) {
             "localuserdata",
             JSON.stringify(data.data)
           );
-        } catch (e) {
-          console.log(e);
+        } catch (error) {
+          console.log(error.message);
         }
         dispatch({ type: "LOGIN", id: "userName", token: userToken });
       },
@@ -521,8 +521,8 @@ function AuthLoading({ navigation }) {
           await AsyncStorage.removeItem("localuserdata");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
-        } catch (e) {
-          console.log(e);
+        } catch (error) {
+          console.log(error.message);
         }
         dispatch({ type: "LOGOUT" });
       },
@@ -536,8 +536,8 @@ function AuthLoading({ navigation }) {
       userToken = null;
       try {
         userToken = await AsyncStorage.getItem("userToken");
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error.message);
       }
       dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
     }, 2000);

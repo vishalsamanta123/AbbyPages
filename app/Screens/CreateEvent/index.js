@@ -19,9 +19,10 @@ import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
 import Error from "../../Components/Modal/error";
 
 const CreateEventView = () => {
-  const [eventCategoryModalVisible, setEventCategoryModalVisible] = useState(false);
-  const [categoryListData, setCategoryListData] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [eventCategoryModalVisible, setEventCategoryModalVisible] =
+    useState(false);
+  const [categoryListData, setCategoryListData] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,7 +34,8 @@ const CreateEventView = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [isStartTimePickerVisible, setIsStartTimePickerVisible] = useState(false);
+  const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
+    useState(false);
   const [bookingDate, setBookingDate] = useState(false);
   const [checkbox, SetCheckBox] = useState(false);
   const [privateCheck, SetprivateCheck] = useState(false);
@@ -65,11 +67,11 @@ const CreateEventView = () => {
   });
 
   useEffect(() => {
-    getCategoryList()
-  }, [])
+    getCategoryList();
+  }, []);
   const _handleModalOpen = () => {
-    setEventCategoryModalVisible(true)
-  }
+    setEventCategoryModalVisible(true);
+  };
   const hideEndTimePicker = () => {
     setIsEndTimePickerVisible(false);
   };
@@ -232,7 +234,10 @@ const CreateEventView = () => {
             name: img.path.substring(img.path.lastIndexOf("/") + 1),
           });
         });
-        const response = await apiCall("POST", ENDPOINTS.CREATE_EVENTS, formData,
+        const response = await apiCall(
+          "POST",
+          ENDPOINTS.CREATE_EVENTS,
+          formData,
           { "Content-Type": "multipart/form-data" }
         );
         if (response.status === 200) {
@@ -241,12 +246,12 @@ const CreateEventView = () => {
           setVisible(false);
         } else {
           setVisible(false);
-          setErrorMessage('Network Error')
+          setErrorMessage("Network Error");
           setVisibleErr(true);
         }
       } catch (error) {
         setVisible(false);
-        setErrorMessage(error)
+        setErrorMessage(error);
         setVisibleErr(true);
       }
     }
@@ -299,19 +304,17 @@ const CreateEventView = () => {
   };
   const getCategoryList = async () => {
     try {
-      const response = await apiCall('POST', ENDPOINTS.GET_EVENT_CATEGORY_LIST);
+      const response = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
       if (response.status === 200) {
-        setCategoryListData(response.data.data)
+        setCategoryListData(response.data.data);
       } else {
       }
-    } catch (error) {
-      console.log('error: ', error);
-    }
-  }
+    } catch (error) {}
+  };
   const _handleSelectedCategory = (item) => {
     setSelectedCategory(item);
     setEventCategoryModalVisible(false);
-  }
+  };
   const renderCategoryListItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -319,11 +322,12 @@ const CreateEventView = () => {
         style={{
           flex: 1,
           borderBottomWidth: 0.3,
-          borderBottomColor: '#f2f2f2',
+          borderBottomColor: "#f2f2f2",
           padding: 10,
           paddingVertical: 15,
           marginHorizontal: 15,
-        }}>
+        }}
+      >
         <Text
           style={{
             fontFamily: FONT_FAMILY_REGULAR,
@@ -387,14 +391,12 @@ const CreateEventView = () => {
         PriceFrom={PriceFrom}
         setPriceTo={setPriceTo}
         PriceTo={PriceTo}
-
         eventCategoryModalVisible={eventCategoryModalVisible}
         setEventCategoryModalVisible={setEventCategoryModalVisible}
         _handleModalOpen={_handleModalOpen}
         renderCategoryListItem={renderCategoryListItem}
         categoryListData={categoryListData}
         selectedCategory={selectedCategory}
-
         nearByLocationData={nearByLocationData}
         setNearByLocationData={setNearByLocationData}
       />

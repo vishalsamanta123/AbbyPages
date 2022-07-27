@@ -52,20 +52,26 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
+    console.log(
+      "businessCategory.business_type: ",
+      businessCategory.business_type
+    );
     const params = {
       latitude: location.latitude,
       longitude: location.longitude,
       category_id: businessCategory.id,
     };
-    if (businessCategory.business_type === 1) {
-      navigation.navigate("Listings", { NEARBY_BUSINESS_SEARCH: params });
-      setVisible(false);
+    if (businessCategory.business_type == 1) {
+      navigation.navigate("Listings", { nearbySearch: params });
     }
-    if (businessCategory.business_type === 3) {
+    if (businessCategory.business_type == 2) {
+      navigation.navigate("ShopList", { nearbySearch: params });
+    }
+    if (businessCategory.business_type == 3) {
+      console.log("SSSS33");
       navigation.navigate("ServiceProviderListing", {
-        NEARBY_BUSINESS_SEARCH: params,
+        nearbySearch: params,
       });
-      setVisible(false);
     }
   };
   const onPressSearchBusinessCategory = async () => {

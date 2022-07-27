@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
-import { WHITE_COLOR_CODE } from "../../Utils/Constant";
+import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
 import { useFocusEffect, useLinkProps } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -17,22 +17,28 @@ const OrderHistoryView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const [offSet, setOffSet] = useState(0);
+  const [stopOffset, setstopOffset] = useState(false);
   const [itemCategoryList, setItemCategoryList] = useState("");
   const [orderItemParentList, setOrderItemParentList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
+  const [dataType, setDataType] = useState("allData");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   useEffect(() => {
-    handleOrderedItemList();
     handleItemCategoryList();
+    if (offSet == 0) {
+      handleOrderedItemList(offSet, isSelectedCatgory);
+    } else {
+      handleOrderedItemList(offSet, isSelectedCatgory);
+    }
   }, []);
-  useFocusEffect(
-    React.useCallback(() => {
-      handleOrderedItemList();
-      handleItemCategoryList();
-      return () => (handleOrderedItemList(), handleItemCategoryList());
-    }, [])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     handleOrderedItemList();
+  //     handleItemCategoryList();
+  //     return () => (handleOrderedItemList(), handleItemCategoryList());
+  //   }, [])
+  // );
   const handleItemCategoryList = async () => {
     setVisible(true);
     try {
@@ -45,29 +51,44 @@ const OrderHistoryView = ({ navigation }) => {
         setVisibleErr(true);
         setVisible(false);
       }
-    }
-    catch (error) {
+    } catch (error) {
       setVisible(false);
     }
-
   };
-  const handleOrderedItemList = async () => {
-    setVisible(true);
-    const params = {
-      business_type: 0,
-      offset: 0,
-    };
-    const { data } = await apiCall(
-      "POST",
-      ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
-      params
-    );
-    if (data.status === 200) {
-      setOrderItemParentList(data.data);
-      setOrderItemList(data.data);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+  const handleOrderedItemList = async (offset, type) => {
+    setOffSet(offset);
+    setIsSelectedCatgory(type);
+    try {
+      setVisible(true);
+      const params = {
+        business_type: type == 0 ? 0 : type,
+        offset: offset,
+      };
+      console.log("params: ", params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
+        params
+      );
+      console.log("dataLIST: ", data);
+      if (data.status === 200) {
+        setOrderItemList(data.data);
+        setVisible(false);
+      } else {
+        if (data.status === 201) {
+          setOrderItemList([]);
+          ToastAndroid.show(data.message, ToastAndroid.LONG);
+          setVisible(false);
+          setstopOffset(true);
+        } else {
+          setErrorMessage(data.message);
+
+          setVisibleErr(true);
+          setVisible(false);
+        }
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -75,30 +96,23 @@ const OrderHistoryView = ({ navigation }) => {
   const onpressOrder = (item) => {
     navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
   };
-  const _handleDataTypeSelected = (index, item, dataType) => {
-    // setIsSelectedCatgory(item.business_type_id);
-    setVisible(true);
-    if (dataType == "allData") {
-      setOrderItemList(orderItemParentList);
-    } else {
-      setIsSelectedCatgory(item.business_type_id);
-      const searchArray = [...orderItemParentList];
-      const filterData = _.filter(searchArray, {
-        business_type: item.business_type_id,
-      });
-      setOrderItemList(filterData);
-    }
-    setVisible(false);
-  };
   const _renderCategory = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => _handleDataTypeSelected(index, item)}
-        style={styles.lablestyle}>
-        <Text style={[styles.txtCat, {
-          color: item.business_type_id === isSelectedCatgory
-            ? WHITE_COLOR_CODE : "#ffe98e",
-        },]}>
+        onPress={() => handleOrderedItemList(0, item.business_type_id)}
+        style={styles.lablestyle}
+      >
+        <Text
+          style={[
+            styles.txtCat,
+            {
+              color:
+                item.business_type_id === isSelectedCatgory
+                  ? WHITE_COLOR_CODE
+                  : LIGHT_WHITE_COLOR,
+            },
+          ]}
+        >
           {item.business_type_name}
         </Text>
       </TouchableOpacity>
@@ -112,7 +126,11 @@ const OrderHistoryView = ({ navigation }) => {
         itemCategoryList={itemCategoryList}
         onpressOrder={onpressOrder}
         _renderCategory={_renderCategory}
-        _handleDataTypeSelected={_handleDataTypeSelected}
+        offSet={offSet}
+        stopOffset={stopOffset}
+        dataType={dataType}
+        isSelectedCatgory={isSelectedCatgory}
+        handleOrderedItemList={handleOrderedItemList}
       />
       <Error
         message={errorMessage}

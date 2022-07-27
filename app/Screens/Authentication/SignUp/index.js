@@ -6,7 +6,7 @@ import Geocoder from "react-native-geocoding";
 import DeviceInfo from "react-native-device-info";
 import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import Loader from "../../../Utils/Loader";
 import { UserContext, AuthContext } from "../../../Utils/UserContext";
 import Error from "../../../Components/Modal/error";
@@ -236,7 +236,6 @@ const SignUpView = ({ navigation }) => {
           "email",
         ]);
       }
-      console.log("Login success with permissions");
       if (result.isCancelled) {
         setErrorMessage("User cancelled request");
         setVisibleErr(true);
@@ -246,12 +245,6 @@ const SignUpView = ({ navigation }) => {
           const accessTokenFaceBook = data.accessToken;
           // alert(JSON.stringify(data))
           const responseCallback = (error, result) => {
-            console.log(
-              "accessTokenFaceBook: ",
-              accessTokenFaceBook,
-              " : Profile: ",
-              result
-            );
             var fbResponse = {
               // login_type: 1,//define business or personal
               user_name: result.name,
@@ -289,8 +282,8 @@ const SignUpView = ({ navigation }) => {
           new GraphRequestManager().addRequest(profileRequest).start();
         });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error.message);
     }
   };
   const _handleSocialLogin = async (params) => {

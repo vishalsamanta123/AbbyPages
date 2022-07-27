@@ -41,7 +41,9 @@ const ApplyJob = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Text numberOfLines={1} style={styles.AddPhotosTxt}>
-                  {props?.resume ? props?.resume?.name : "ReSume/CV"}
+                  {props?.applyJob?.resume
+                    ? props?.applyJob?.resume?.name
+                    : "ReSume/CV"}
                 </Text>
               </View>
               <View style={styles.BckArrowBack}>
@@ -52,26 +54,39 @@ const ApplyJob = (props) => {
             </TouchableOpacity>
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(FullName) => props.setFullName(FullName)}
-              value={props.FullName}
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  fullName: val,
+                })
+              }
+              value={props.applyJob?.fullName}
               secureTextEntry={false}
               placeholder="Full Name"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(EmailAddress) =>
-                props.setEmailAddress(EmailAddress)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  email: val,
+                })
               }
-              value={props.EmailAddress}
+              value={props?.applyJob.email}
               secureTextEntry={false}
               placeholder="Email"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(Phone) => props.setPhone(Phone)}
-              value={props.Phone}
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  phone: val,
+                })
+              }
+              value={props.applyJob.phone}
               secureTextEntry={false}
               placeholder="Phone"
               InputType="withScroll"
@@ -80,10 +95,13 @@ const ApplyJob = (props) => {
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(CurrentCompany) =>
-                props.setCurrentCompany(CurrentCompany)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  current_Company: val,
+                })
               }
-              value={props.CurrentCompany}
+              value={props.applyJob.current_Company}
               secureTextEntry={false}
               placeholder="Current Company"
               InputType="withScroll"
@@ -93,54 +111,78 @@ const ApplyJob = (props) => {
             <Text style={styles.HeadingTextStyle}>Links</Text>
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(AbbyPagesURL) =>
-                props.setAbbyPagesURL(AbbyPagesURL)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  abby_profile_url: val,
+                })
               }
-              value={props.AbbyPagesURL}
+              value={props.applyJob.abby_profile_url}
               secureTextEntry={false}
               placeholder="AbbyPages Profile URL"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(Linkedin) => props.setLinkedin(Linkedin)}
-              value={props.Linkedin}
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  linkedinUrl: val,
+                })
+              }
+              value={props.applyJob.linkedinUrl}
               secureTextEntry={false}
               placeholder="LinkedIn URL"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(TwitterUrl) => props.setTwitterUrl(TwitterUrl)}
-              value={props.TwitterUrl}
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  twitterUrl: val,
+                })
+              }
+              value={props.applyJob.twitterUrl}
               secureTextEntry={false}
               placeholder="Twitter URL"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(GithubUrl) => props.setGithubUrl(GithubUrl)}
-              value={props.GithubUrl}
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  githubUrl: val,
+                })
+              }
+              value={props.applyJob.githubUrl}
               secureTextEntry={false}
               placeholder="Github URL"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(PortfolioUrl) =>
-                props.setPortfolioUrl(PortfolioUrl)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  portfolioUrl: val,
+                })
               }
-              value={props.PortfolioUrl}
+              value={props.applyJob.portfolioUrl}
               secureTextEntry={false}
               placeholder="Portfolio URL"
               InputType="withScroll"
             />
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(OtherWebsite) =>
-                props.setOtherWebsite(OtherWebsite)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  other_website: val,
+                })
               }
-              value={props.OtherWebsite}
+              value={props.applyJob.other_website}
               secureTextEntry={false}
               placeholder="Other Website"
               InputType="withScroll"
@@ -158,7 +200,9 @@ const ApplyJob = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Text numberOfLines={1} style={styles.AddPhotosTxt}>
-                  {props.coverLetter ? props?.coverLetter?.name : "Upload File"}
+                  {props.applyJob.cover_letter
+                    ? props?.applyJob.cover_letter?.name
+                    : "Upload File"}
                 </Text>
               </View>
               <View style={styles.BckArrowBack}>
@@ -180,7 +224,7 @@ const ApplyJob = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   source={
-                    props.workStatus == 1
+                    props.applyJob.workStatus == 1
                       ? require("../../../../Assets/checked_circled_v1.png")
                       : require("../../../../Assets/unchecked_circled_v1.png")
                   }
@@ -195,7 +239,7 @@ const ApplyJob = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   source={
-                    props.workStatus == 2
+                    props.applyJob.workStatus == 2
                       ? require("../../../../Assets/checked_circled_v1.png")
                       : require("../../../../Assets/unchecked_circled_v1.png")
                   }
@@ -214,7 +258,7 @@ const ApplyJob = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   source={
-                    props.visaStatus == 1
+                    props.applyJob.visaStatus == 1
                       ? require("../../../../Assets/checked_circled_v1.png")
                       : require("../../../../Assets/unchecked_circled_v1.png")
                   }
@@ -229,7 +273,7 @@ const ApplyJob = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   source={
-                    props.visaStatus == 2
+                    props.applyJob.visaStatus == 2
                       ? require("../../../../Assets/checked_circled_v1.png")
                       : require("../../../../Assets/unchecked_circled_v1.png")
                   }
@@ -239,10 +283,13 @@ const ApplyJob = (props) => {
             </TouchableOpacity>
             <Input
               containerStyle={styles.TextinputContain}
-              onChangeText={(AdditionalInfo) =>
-                props.setAdditionalInfo(AdditionalInfo)
+              onChangeText={(val) =>
+                props.setApplyJob({
+                  ...props.applyJob,
+                  additional_Info: val,
+                })
               }
-              value={props.AdditionalInfo}
+              value={props.applyJob.additional_Info}
               secureTextEntry={false}
               placeholder="Additional Information"
               InputType="withScroll"
@@ -269,10 +316,13 @@ const ApplyJob = (props) => {
             </View>
             <View style={styles.container}>
               <Picker
-                selectedValue={`${props.gender}`}
+                selectedValue={props.applyJob.gender}
                 style={styles.pickerVw}
                 onValueChange={(itemValue, itemIndex) =>
-                  props.setGender(itemValue, itemIndex)
+                  props.setApplyJob({
+                    ...props.applyJob,
+                    gender: itemValue,
+                  })
                 }
               >
                 <Picker.Item label="Gender" />
@@ -287,17 +337,20 @@ const ApplyJob = (props) => {
             </View>
             <View style={styles.container}>
               <Picker
-                selectedValue={`${props.race}`}
+                selectedValue={props.applyJob.race}
                 style={styles.pickerVw}
                 onValueChange={(itemValue, itemIndex) =>
-                  props.setRace(itemValue, itemIndex)
+                  props.setApplyJob({
+                    ...props.applyJob,
+                    race: itemValue,
+                  })
                 }
               >
                 <Picker.Item label="Race" />
                 <Picker.Item label="American Indian" value="1" />
                 <Picker.Item label="Indian" value="2" />
                 <Picker.Item label="African American" value="3" />
-                <Picker.Item label="African American" value="4" />
+                <Picker.Item label="Latino" value="4" />
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
@@ -307,10 +360,13 @@ const ApplyJob = (props) => {
             </View>
             <View style={styles.container}>
               <Picker
-                selectedValue={`${props.veteranStatus}`}
+                selectedValue={props.applyJob.veteran_status}
                 style={styles.pickerVw}
                 onValueChange={(itemValue, itemIndex) =>
-                  props.setVeteranStatus(itemValue, itemIndex)
+                  props.setApplyJob({
+                    ...props.applyJob,
+                    veteran_status: itemValue,
+                  })
                 }
               >
                 <Picker.Item label="Veteran Status" />
@@ -323,10 +379,15 @@ const ApplyJob = (props) => {
                 />
               </View>
             </View>
+            {props.requires ? (
+              <Text style={styles.requireTxt}>
+                All this fields are required :- Resume, Full Name, Email, Phone
+                Number, Current Company, Work Status, Visa Status
+              </Text>
+            ) : null}
           </View>
           <Button
             buttonText="Submit Application"
-            buttonLabelStyle={styles.ADDBtnTxt}
             onPress={() => props.onSubmit()}
             style={styles.SubmitBtnMain}
           />

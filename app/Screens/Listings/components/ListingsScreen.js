@@ -11,7 +11,7 @@ const ListingsScreen = (props) => {
         onPress={() => props.onPressMap()}
         textInput={true}
         placeholder={"Tea Rooms Current..."}
-        onChangeText={(searchKey) => props.searchResto(searchKey)}
+        onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
         logoImg={false}
       />
@@ -21,7 +21,19 @@ const ListingsScreen = (props) => {
           data={props.restroList}
           renderItem={({ item, index }) => props._handleSerivces(item, index)}
           onEndReached={() => {
-            !props.stopOffset ? props?.handleRestroList(props.offSet + 1) : null;
+            props.search || props.inputSearch
+              ? !props.stopOffset
+                ? props?.handleSearchData(
+                    props.restroList.length > 5
+                      ? props.offSet + 1
+                      : props.offSet
+                  )
+                : null
+              : !props.stopOffset
+              ? props?.handleRestroList(
+                  props.restroList.length > 5 ? props.offSet + 1 : props.offSet
+                )
+              : null;
           }}
         />
       </View>

@@ -41,7 +41,6 @@ function ServiceListScreen(props) {
             </TouchableOpacity>
         )
     }
-    // console.log('isSelectedServiceId: ', props.subCategoryList)
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}

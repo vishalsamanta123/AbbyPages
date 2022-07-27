@@ -21,45 +21,50 @@ const ServiceProviderListingView = ({ navigation, route }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [search, setSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
   const [visible, setVisible] = useState(false);
   const [serviceData, setserviceData] = useState([]);
   const [offSet, setOffSet] = useState();
   const [stopOffset, setstopOffset] = useState(false);
 
   useEffect(() => {
-    const { NEARBY_BUSINESS_SEARCH } = route.params;
-    if (NEARBY_BUSINESS_SEARCH) {
-      handleServiceNEARBY(0);
+    if (route?.params?.nearbySearch) {
+      const { nearbySearch } = route?.params;
+      setSearch(nearbySearch);
+      if (search) {
+        handleServiceNearby(0);
+      }
     } else {
       handleServiceList(0);
     }
-  }, []);
-  const handleServiceNEARBY = async (offSet) => {
+  }, [search]);
+
+  const handleServiceNearby = async (offSet) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
-        latitude: NEARBY_BUSINESS_SEARCH.latitude,
-        longitude: NEARBY_BUSINESS_SEARCH.longitude,
-        category_id: NEARBY_BUSINESS_SEARCH.category_id,
-        limit: 10 * limits,
+        latitude: search.latitude,
+        longitude: search.longitude,
+        category_id: search.category_id,
+        limit: 10,
         offset: offSet,
+        business_type: 3,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      console.log("dataSEARCH: ", data);
-      if (data.status == 200) {
-        setVisible(false);
+      if (data.status === 200) {
         setserviceData(data.data);
+        setVisible(false);
       } else {
+        setVisible(false);
         setErrorMessage(data.message);
         setVisibleErr(true);
-        setVisible(false);
+        setstopOffset(true);
       }
     } catch (error) {
       setErrorMessage(data.message);
@@ -207,6 +212,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     });
   };
   const searchService = (searchKey) => {
+    setInputSearch(searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...serviceData];
     const list = _.filter(searchArray, (item) => {
@@ -214,7 +220,11 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleServiceList(0);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleServiceList(0);
+      }
       setVisible(false);
     } else {
       setserviceData(list);
@@ -226,11 +236,14 @@ const ServiceProviderListingView = ({ navigation, route }) => {
       <ServiceProviderListing
         searchService={searchService}
         serviceData={serviceData}
+        search={search}
+        handleServiceNearby={handleServiceNearby}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         handleServiceList={handleServiceList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}

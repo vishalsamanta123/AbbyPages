@@ -13,7 +13,6 @@ import moment from 'moment'
 import { useFocusEffect, useLinkProps } from '@react-navigation/native';
 
 const OrderDetail = ({ route, props, navigation }) => {
-    console.log('route: ', route);
     const Id = route.params.productData;
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');

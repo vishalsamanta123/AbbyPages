@@ -19,7 +19,7 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor:'red'
+    backgroundColor: "red",
   },
   FlexRowView: {
     flexDirection: "row",
@@ -191,12 +191,12 @@ const Styles = StyleSheet.create({
   TextInputImg: {
     position: "absolute",
     right: 0,
-    marginRight: 40,
+    marginRight: 20,
     marginTop: 30,
   },
   TextInputImageStyle: {
-    width: 21,
-    height: 21,
+    width: 18,
+    height: 18,
   },
   FindTableContain: {
     paddingTop: 10,
@@ -210,6 +210,7 @@ const Styles = StyleSheet.create({
   ArrowImge: {
     width: 14,
     height: 14,
+    marginRight: 5,
   },
   SeereservatnTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -238,7 +239,7 @@ const Styles = StyleSheet.create({
     borderRadius: 9,
     justifyContent: "center",
     paddingLeft: 25,
-    margin: 10,
+    marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -250,6 +251,45 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     color: YELLOW_COLOR_CODE,
     fontFamily: FONT_FAMILY_BLACK,
+  },
+  timeCon: {
+    paddingHorizontal: 18,
+    paddingTop: 10,
+  },
+  timePickVw: {
+    height: 35,
+    width: 55,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginHorizontal: 2,
+    marginVertical: 2,
+    borderWidth: 1,
+    borderColor: LINE_COMMON_COLOR_CODE,
+    marginTop: 5,
+  },
+  timeTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+  },
+  datePickerVw: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginTop: 4,
+    borderWidth: 1,
+    flexDirection: "row",
+  },
+  peopleWithVw: {
+    marginHorizontal: 20,
+    paddingVertical: 4,
+    backgroundColor: WHITE_COLOR_CODE,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  peopleWithTxt: {
+    fontSize: 20,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
 });
 export default Styles;

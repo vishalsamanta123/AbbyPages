@@ -24,44 +24,53 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [offSet, setOffSet] = useState();
+  const [search, setSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
+  const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
 
   useEffect(() => {
-    const { NEARBY_BUSINESS_SEARCH } = route.params;
-    if (NEARBY_BUSINESS_SEARCH) {
-      handleServiceNEARBY(0);
+    if (route?.params?.nearbySearch) {
+      const { nearbySearch } = route?.params;
+      setSearch(nearbySearch);
+      if (search) {
+        handleSearchData(0);
+      }
     } else {
-      handleRestroList(0);
+      if (inputSearch) {
+        handleSearchData(0);
+      } else {
+        handleRestroList(0);
+      }
     }
-  }, []);
+  }, [search, inputSearch]);
 
-  const handleServiceNEARBY = async (offSet) => {
+  const handleSearchData = async (offSet) => {
     setOffSet(offSet);
     try {
       setVisible(true);
-      const limits = offSet + 1;
       const params = {
-        latitude: NEARBY_BUSINESS_SEARCH.latitude,
-        longitude: NEARBY_BUSINESS_SEARCH.longitude,
-        category_id: NEARBY_BUSINESS_SEARCH.category_id,
-        limit: 10 * limits,
+        latitude: search.latitude,
+        longitude: search.longitude,
+        category_id: search.category_id,
+        limit: 10 + offSet,
         offset: offSet,
+        business_type: 1,
+        search_key: inputSearch ? inputSearch : null,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.NEARBY_BUSINESS_SEARCH,
+        ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      console.log("dataSEARCH: ", data);
       if (data.status == 200) {
         setVisible(false);
         setRestroList(data.data);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
+        setstopOffset(true);
         setVisible(false);
       }
     } catch (error) {
@@ -73,12 +82,12 @@ const ListingsScreenView = ({ navigation, route }) => {
   const handleRestroList = async (offSet) => {
     setOffSet(offSet);
     try {
+      setVisible(true);
       const params = {
         business_type: 1,
         offset: offSet,
         limit: 10,
       };
-      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
       if (data.status === 200) {
         setRestroList(data.data);
@@ -116,7 +125,8 @@ const ListingsScreenView = ({ navigation, route }) => {
         setVisible(false);
       }
     } catch (error) {
-      console.log("error: ", error);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const _handleSerivces = (item) => {
@@ -323,31 +333,21 @@ const ListingsScreenView = ({ navigation, route }) => {
       business_type: 1,
     });
   };
-  const searchResto = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...restroList];
-    const list = _.filter(searchArray, (item) => {
-      return item.business_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setVisible(true);
-      handleRestroList(0);
-      setVisible(false);
-    } else {
-      setRestroList(list);
-    }
-  };
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ListingsScreen
-        searchResto={searchResto}
         restroList={restroList}
+        search={search}
+        setInputSearch={setInputSearch}
+        handleSearchData={handleSearchData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         handleRestroList={handleRestroList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}

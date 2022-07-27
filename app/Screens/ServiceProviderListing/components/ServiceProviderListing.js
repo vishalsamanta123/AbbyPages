@@ -20,7 +20,15 @@ const ServiceProviderListing = (props) => {
         data={props.serviceData}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
         onEndReached={() => {
-          !props.stopOffset ? props?.handleServiceList(props.offSet + 1) : null;
+          !props.inputSearch == ""
+            ? null
+            : props.search
+            ? !props.stopOffset
+              ? props?.handleServiceNearby(props.offSet + 1)
+              : null
+            : !props.stopOffset
+            ? props?.handleServiceList(props.offSet + 1)
+            : null;
         }}
       />
     </KeyboardAvoidingView>

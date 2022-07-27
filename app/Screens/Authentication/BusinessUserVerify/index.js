@@ -78,7 +78,6 @@ const BusinessUserVerify = ({ route, navigation }) => {
   }
   return (
     <View style={{ flex: 1 }}>
-      {/* {console.log('navigation ==>', email)} */}
       {visible && <Loader state={visible} />}
       <BusinessUserVerifyScreen
         // otp={otp}

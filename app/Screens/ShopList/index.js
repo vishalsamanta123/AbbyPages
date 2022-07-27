@@ -16,7 +16,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
-const ShopList = ({ navigation }) => {
+const ShopList = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -25,10 +25,20 @@ const ShopList = ({ navigation }) => {
   const [offSet, setOffSet] = useState();
   const [stopOffset, setstopOffset] = useState(false);
   const [shopList, setShopList] = useState([]);
+  const [search, setSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
 
   useEffect(() => {
-    handleShopList(0);
-  }, []);
+    if (route?.params?.nearbySearch) {
+      const { nearbySearch } = route?.params;
+      setSearch(nearbySearch);
+      if (search) {
+        handleServiceNearby(0);
+      }
+    } else {
+      handleShopList(0);
+    }
+  }, [search]);
 
   const handleShopList = async (offSet) => {
     setOffSet(offSet);
@@ -54,6 +64,38 @@ const ShopList = ({ navigation }) => {
     } catch (error) {
       setVisibleErr(true);
       setErrorMessage(error.message);
+    }
+  };
+  const handleServiceNearby = async (offSet) => {
+    setOffSet(offSet);
+    try {
+      setVisible(true);
+      const params = {
+        latitude: search.latitude,
+        longitude: search.longitude,
+        category_id: search.category_id,
+        limit: 10,
+        offset: offSet,
+        business_type: 2,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.GET_NEW_BUSINESS,
+        params
+      );
+      if (data.status === 200) {
+        setShopList(data.data);
+        setVisible(false);
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setstopOffset(true);
+      }
+    } catch (error) {
+      setErrorMessage(data.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const onPressShop = (item) => {
@@ -200,6 +242,7 @@ const ShopList = ({ navigation }) => {
     });
   };
   const searchInput = (searchKey) => {
+    setInputSearch(searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...shopList];
     const list = _.filter(searchArray, (item) => {
@@ -207,7 +250,11 @@ const ShopList = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleShopList(0);
+      if (search) {
+        handleServiceNearby(0);
+      } else {
+        handleShopList(0);
+      }
       setVisible(false);
     }
     setShopList(list);
@@ -220,9 +267,12 @@ const ShopList = ({ navigation }) => {
         shopList={shopList}
         _handleShopList={_handleShopList}
         onPressMap={onPressMap}
+        search={search}
+        handleServiceNearby={handleServiceNearby}
         handleShopList={handleShopList}
         offSet={offSet}
         stopOffset={stopOffset}
+        inputSearch={inputSearch}
       />
       <Error
         message={errorMessage}
