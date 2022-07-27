@@ -138,7 +138,7 @@ const OrderHistory = (props) => {
           ]}
         >
           <TouchableOpacity
-            onPress={() => props._handleDataTypeSelected("a", "b", "allData")}
+            onPress={() => props.handleOrderedItemList(0, 0)}
             style={[styles.lablestyle, { backgroundColor: YELLOW_COLOR_CODE }]}
           >
             <Text
@@ -175,7 +175,10 @@ const OrderHistory = (props) => {
               renderItem={({ item, index }) => _handleOrders(item, index)}
               onEndReached={() => {
                 !props.stopOffset
-                  ? props?.handleOrderedItemList(props.offSet + 1)
+                  ? props?.handleOrderedItemList(
+                      props.orderItemList.length > 5 ? props.offSet + 1 : null,
+                      props.isSelectedCatgory
+                    )
                   : null;
               }}
             />

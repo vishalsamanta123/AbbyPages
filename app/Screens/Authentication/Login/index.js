@@ -120,9 +120,7 @@ const SignInView = ({ navigation }) => {
           device_type: deviceType,
           device_token: fcmToken,
         };
-        console.log("params: ", params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
-        console.log("dataLogin: ", data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           if (data.data.verified === 1) {
@@ -201,22 +199,14 @@ const SignInView = ({ navigation }) => {
           "email",
         ]);
       }
-      console.log("Login success with permissions");
       if (result.isCancelled) {
         setErrorMessage("User cancelled request");
         setVisibleErr(true);
-        // console.log("User cancelled request");
       } else {
         AccessToken.getCurrentAccessToken().then((data) => {
           const accessTokenFaceBook = data.accessToken;
           // alert(JSON.stringify(data))
           const responseCallback = (error, result) => {
-            console.log(
-              "accessTokenFaceBook: ",
-              accessTokenFaceBook,
-              " : Profile: ",
-              result
-            );
             var fbResponse = {
               // login_type: 1,//define business or personal
               user_name: result.name,
@@ -254,8 +244,8 @@ const SignInView = ({ navigation }) => {
           new GraphRequestManager().addRequest(profileRequest).start();
         });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error.message);
     }
   };
   const _handleSocialLogin = async (params) => {
@@ -264,7 +254,6 @@ const SignInView = ({ navigation }) => {
     setVisible(true);
     try {
       const { data } = await apiCall("POST", ENDPOINTS.SOCIAL_LOGIN, prms);
-      console.log("dataSOCIAL: ", data);
       if (data.status === 200) {
         if (params.signup_mode === 1) {
           LoginManager.logOut();

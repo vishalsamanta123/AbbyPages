@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
@@ -25,11 +25,11 @@ const OrderHistoryView = ({ navigation }) => {
   const [dataType, setDataType] = useState("allData");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   useEffect(() => {
+    handleItemCategoryList();
     if (offSet == 0) {
-      handleItemCategoryList();
-      handleOrderedItemList(offSet);
+      handleOrderedItemList(offSet, isSelectedCatgory);
     } else {
-      handleOrderedItemList(offSet);
+      handleOrderedItemList(offSet, isSelectedCatgory);
     }
   }, []);
   // useFocusEffect(
@@ -55,32 +55,37 @@ const OrderHistoryView = ({ navigation }) => {
       setVisible(false);
     }
   };
-  const handleOrderedItemList = async (offset) => {
+  const handleOrderedItemList = async (offset, type) => {
     setOffSet(offset);
+    setIsSelectedCatgory(type);
     try {
       setVisible(true);
       const params = {
-        business_type: 0,
+        business_type: type == 0 ? 0 : type,
         offset: offset,
-        // limit:10
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
+      console.log("dataLIST: ", data);
       if (data.status === 200) {
-        if (dataType == "allData") {
-          setOrderItemList(data.data);
-        } else {
-          setOrderItemParentList(data.data);
-        }
+        setOrderItemList(data.data);
         setVisible(false);
       } else {
-        setErrorMessage(data.message);
-        setstopOffset(true);
-        setVisibleErr(true);
-        setVisible(false);
+        if (data.status === 201) {
+          setOrderItemList([]);
+          ToastAndroid.show(data.message, ToastAndroid.LONG);
+          setVisible(false);
+          setstopOffset(true);
+        } else {
+          setErrorMessage(data.message);
+
+          setVisibleErr(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -91,26 +96,10 @@ const OrderHistoryView = ({ navigation }) => {
   const onpressOrder = (item) => {
     navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
   };
-  const _handleDataTypeSelected = (index, item, dataType) => {
-    setVisible(true);
-    setDataType(dataType);
-    if (dataType == "allData") {
-      setIsSelectedCatgory(item.business_type_id);
-      setOrderItemList(orderItemParentList);
-    } else {
-      setIsSelectedCatgory(item.business_type_id);
-      const searchArray = [...orderItemParentList];
-      const filterData = _.filter(searchArray, {
-        business_type: item.business_type_id,
-      });
-      setOrderItemList(filterData);
-    }
-    setVisible(false);
-  };
   const _renderCategory = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => _handleDataTypeSelected(index, item)}
+        onPress={() => handleOrderedItemList(0, item.business_type_id)}
         style={styles.lablestyle}
       >
         <Text
@@ -137,10 +126,10 @@ const OrderHistoryView = ({ navigation }) => {
         itemCategoryList={itemCategoryList}
         onpressOrder={onpressOrder}
         _renderCategory={_renderCategory}
-        _handleDataTypeSelected={_handleDataTypeSelected}
         offSet={offSet}
         stopOffset={stopOffset}
         dataType={dataType}
+        isSelectedCatgory={isSelectedCatgory}
         handleOrderedItemList={handleOrderedItemList}
       />
       <Error

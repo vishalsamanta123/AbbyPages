@@ -29,22 +29,17 @@ const ShowMenu = (props) => {
         // onPress={() => ('ram')}
       />
       <View style={[CommonStyles.body]}>
-        <View
-          style={[
-            styles.FlatlistContain,
-            { flexDirection: "row", backgroundColor: YELLOW_COLOR_CODE },
-          ]}
-        >
+        <View style={styles.FlatlistContain}>
           <TouchableOpacity
-            onPress={() => props._handleDataTypeSelected("a", "b", "allData")}
-            style={[styles.lablestyle, { backgroundColor: YELLOW_COLOR_CODE }]}
+            onPress={() => props._handleDataTypeSelected("allData", null, null)}
+            style={styles.lablestyle}
           >
             <Text
               style={[
                 styles.txtCat,
                 {
                   color:
-                    props.dataType == "allData"
+                    props.dataType === "allData"
                       ? WHITE_COLOR_CODE
                       : LIGHT_WHITE_COLOR,
                 },
@@ -65,23 +60,8 @@ const ShowMenu = (props) => {
         </View>
         <ScrollView>
           <View style={styles.MainContainer}>
-            <View
-              style={{
-                width: "100%",
-                height: 50,
-                flexDirection: "row",
-                backgroundColor: WHITE_COLOR_CODE,
-                borderRadius: 10,
-                marginBottom: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            <View style={styles.searchVw}>
+              <View style={styles.searchInputVw}>
                 <Image
                   source={require("../../../../Assets/search_field_icon.png")}
                 />
@@ -90,12 +70,8 @@ const ShowMenu = (props) => {
                 <TextInput
                   onChangeText={(searchKey) => props.searchItem(searchKey)}
                   placeholder={"Search"}
-                  style={{
-                    fontSize: 16,
-                    fontFamily: FONT_FAMILY_REGULAR,
-                    borderRadius: 5,
-                    flex: 1,
-                  }}
+                  value={props.search}
+                  style={styles.searchInput}
                 />
               </View>
             </View>

@@ -132,7 +132,7 @@ const PlaceOrderView = ({ navigation }) => {
           params
         );
         if (data.status === 200) {
-          setCartData("");
+          setCartData([]);
           try {
             await AsyncStorage.removeItem("orderData");
           } catch (exception) {

@@ -22,9 +22,30 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopColor: WHITE_COLOR_CODE,
     borderTopWidth: 0.3,
+    flexDirection: "row",
+    backgroundColor: YELLOW_COLOR_CODE,
   },
   MainContainer: {
     padding: 15,
+  },
+  searchVw: {
+    width: "100%",
+    height: 50,
+    flexDirection: "row",
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  searchInputVw: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  searchInput: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    borderRadius: 5,
+    flex: 1,
   },
   MainHeadText: {
     fontFamily: FONT_FAMILY_REGULAR,

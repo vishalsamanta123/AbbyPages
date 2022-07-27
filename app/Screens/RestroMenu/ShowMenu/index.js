@@ -31,9 +31,8 @@ const ShowMenuView = ({ route, navigation }) => {
   const [restroItemCategoryList, setRestroItemCategoryList] = useState([]);
   const [restroItemList, setRestroItemList] = useState([]);
   const [restroItemParentList, setRestroItemParentList] = useState([]);
-  const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
-  const [selectRow, setSelectRow] = useState(false);
-  const [relodData, setRelodData] = useState(false);
+  const [isSelectedCatgory, setIsSelectedCatgory] = useState(null);
+  const [search, setSearch] = useState("");
 
   useFocusEffect(
     React.useCallback(() => {
@@ -98,10 +97,9 @@ const ShowMenuView = ({ route, navigation }) => {
         ENDPOINTS.BUSINESS_ITEM_LIST,
         params
       );
-      console.log("data: ", data.data);
       if (data.status === 200) {
-        setRestroItemParentList(data.data); //use like a parent for filter
         setRestroItemList(data.data);
+        setRestroItemParentList(data.data); //use like a parent for filter
         setVisible(false);
       } else {
         setErrorMessage(data.message);
@@ -113,20 +111,18 @@ const ShowMenuView = ({ route, navigation }) => {
       setErrorMessage(error.message);
     }
   };
-  const _handleDataTypeSelected = (index, item, dataType) => {
-    setDataType(dataType);
-    setVisible(true);
-    if (dataType == "allData") {
-      setRestroItemList(restroItemParentList);
+  const _handleDataTypeSelected = (type, itemSelected, index) => {
+    setDataType(type);
+    if (type === "allData") {
+      setIsSelectedCatgory(null);
+      handleRestroItemList(route?.params?.detail);
     } else {
-      setIsSelectedCatgory(item.business_item_category_id);
-      const searchArray = [...restroItemParentList];
-      const filterData = _.filter(searchArray, {
-        business_item_category_id: item.business_item_category_id,
+      setIsSelectedCatgory(itemSelected.business_item_category_id);
+      const filterData = _.filter(restroItemParentList, {
+        business_item_category_id: itemSelected.business_item_category_id,
       });
       setRestroItemList(filterData);
     }
-    setVisible(false);
   };
   const _renderCategory = (item, index) => {
     const selectedColor =
@@ -135,7 +131,7 @@ const ShowMenuView = ({ route, navigation }) => {
         : "#ffe98e";
     return (
       <TouchableOpacity
-        onPress={() => _handleDataTypeSelected(index, item)}
+        onPress={() => _handleDataTypeSelected("catg", item, index)}
         style={styles.lablestyle}
       >
         <Text
@@ -250,16 +246,6 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _handleSandwichDish = (item, index) => {
-    const setAddbtn = _.filter(cartData, (item, index) => {
-      return { item_id: item.item_id };
-    });
-    console.log("setAddbtn: ", setAddbtn);
-    const selected_row =
-      setAddbtn.length >= 0
-        ? setAddbtn[index]?.item_id === item?.item_id
-          ? true
-          : false
-        : false;
     return (
       <>
         {item.status === 1 && (
@@ -285,7 +271,8 @@ const ShowMenuView = ({ route, navigation }) => {
                   source={require("../../../Assets/star_icon_filled.png")}
                 />
                 <Text style={styles.ReviewText}> 1 Review</Text>
-                {selectRow ? (
+                {cartData &&
+                cartData.some(({ item_id }) => item_id === item.item_id) ? (
                   // {addBtn === index ? selected_row ?
                   // <Text>true1</Text>
                   <InputSpinner
@@ -314,8 +301,6 @@ const ShowMenuView = ({ route, navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       onPressAddItem(item, index);
-                      setSelectRow(selected_row);
-                      setRelodData(!relodData);
                     }}
                     style={styles.AddBtnTouchable}
                   >
@@ -338,15 +323,23 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const searchItem = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...restroItemList];
-    const list = _.filter(searchArray, (item) => {
-      return item.item_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setRestroItemList(restroItemParentList);
+    setSearch(searchKey);
+    if (searchKey.length == 0) {
+      if (dataType === "allData") {
+        // handleRestroItemList(route?.params?.detail);
+        setRestroItemList(restroItemParentList);
+      } else {
+        const filterData = _.filter(restroItemParentList, {
+          business_item_category_id: isSelectedCatgory,
+        });
+        setRestroItemList(filterData);
+      }
+    } else {
+      const searchedData = restroItemParentList.filter((x) => {
+        return x.item_name.toLowerCase().includes(searchKey.toLowerCase());
+      });
+      setRestroItemList([...searchedData]);
     }
-    setRestroItemList(list);
   };
   return (
     <View style={CommonStyles.container}>
@@ -361,6 +354,7 @@ const ShowMenuView = ({ route, navigation }) => {
         _handleDataTypeSelected={_handleDataTypeSelected}
         _handleSandwichDish={_handleSandwichDish}
         dataType={dataType}
+        search={search}
       />
       <Error
         message={errorMessage}

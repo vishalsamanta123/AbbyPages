@@ -24,7 +24,6 @@ export const CartProvider = (props) => {
 export const ServiceProviderContext = React.createContext();
 export const ServiceProvider = (props) => {
     const [serviceProviderData, setServiceProviderData] = useState([]);
-    console.log('serviceProviderData: ', serviceProviderData);
     return (
         <ServiceProviderContext.Provider value={[serviceProviderData, setServiceProviderData]}>
             {props.children}

@@ -50,22 +50,20 @@ const RestroCheckoutView = ({ navigation }) => {
     hideDateTimePicker();
   };
   useEffect(() => {
-    setCartLocalData(cartData);
     _handleDetails();
+    setCartLocalData(cartData);
     handleFinalAmount();
     const DateTime = moment().format("h:mm:ss a,Do MMMM");
     setDateTime(DateTime);
   }, []);
   const _handleDetails = async () => {
-    setVisible(true);
     try {
+      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
+      console.log('data: ', data);
       if (data.status === 200) {
         setLocationList(data.data.user_location && data.data.user_location);
         if (data.data.user_location) {
-          // var getLocation = _.filter(data.data.user_location, (item) => {
-          //   return { primary_status: 1 };
-          // });
           var getLocation = _.filter(data.data.user_location, {
             primary_status: 1,
           });
@@ -78,6 +76,8 @@ const RestroCheckoutView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+    console.log('error: ', error);
+      setVisible(false);
       setVisibleErr(true);
       setErrorMessage(error.message);
     }
@@ -123,7 +123,9 @@ const RestroCheckoutView = ({ navigation }) => {
     try {
       setVisible(true);
       const cartLocalFunctionData = [...cartLocalData];
-      const newItems = cartLocalFunctionData?.filter((ele, key) => key != index);
+      const newItems = cartLocalFunctionData?.filter(
+        (ele, key) => key != index
+      );
       setCartLocalData(newItems);
       setCartData(newItems);
       const FinalAmount = cartLocalFunctionData.reduce(
@@ -133,8 +135,8 @@ const RestroCheckoutView = ({ navigation }) => {
       setTotalAmount(FinalAmount);
       setVisible(false);
     } catch (error) {
-      setErrorMessage(error.message)
-      setVisibleErr(false)
+      setErrorMessage(error.message);
+      setVisibleErr(false);
     }
   };
   const handleFinalAmount = (item, index) => {
