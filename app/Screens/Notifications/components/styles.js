@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
+import { FONT_FAMILY_REGULAR, GREY_COLOR_CODE, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     EmailContainer: {
         padding: 15,
@@ -14,13 +14,18 @@ const Styles = StyleSheet.create({
         lineHeight: 24,
         fontSize: 14,
         color: LIGHT_GREY_COLOR_CODE,
-        marginTop:2
+        marginTop: 2
     },
     TimingTextMain: {
         fontFamily: FONT_FAMILY_REGULAR,
         lineHeight: 25,
         fontSize: 14,
         color: LIGHT_GREY_COLOR_CODE
+    },
+    notificationttle: {
+        fontFamily: FONT_FAMILY_REGULAR,
+        fontSize: 15,
+        color: GREY_COLOR_CODE
     }
 
 })

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, View, Text, FlatList } from 'react-native';
+import styles from './styles'
 import Header from '../../../Components/Header'
 import CommonStyles from '../../../Utils/CommonStyles'
-import styles from './styles'
 import { YELLOW_COLOR_CODE } from '../../../Utils/Constant';
 const ManageFriendInvite = (props) => {
     return (

@@ -1,11 +1,21 @@
-import { StyleSheet } from 'react-native';
-import { FONT_FAMILY_BOLD, YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE } from '../../../../Utils/Constant';
+import { Platform, StyleSheet } from 'react-native';
+import { FONT_FAMILY_BOLD, YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE, GREY_COLOR_CODE, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE, LIGHT_BLACK_COLOR_CODE } from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     inputwvwe: {
         justifyContent: 'center',
         paddingTop: 10
     },
     container: {
+        height: 60,
+        borderColor: '#d8d8d8',
+        borderWidth: 1,
+        borderRadius: 12,
+        flexDirection: 'row',
+        margin: 10,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    secContainer: {
         height: 60,
         borderColor: '#d8d8d8',
         borderWidth: 1,
@@ -64,6 +74,15 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    TxtInptStyle: {
+        borderBottomWidth: 0.5,
+        borderColor: GREY_COLOR_CODE,
+        fontSize: 17,
+        paddingLeft: 15,
+        color: GREY_COLOR_CODE,
+        height: Platform.OS === 'ios' ? 60 : 50
+        // height:60
+    },
     alluncheck: {
         width: 40,
         height: 40
@@ -101,6 +120,69 @@ const Styles = StyleSheet.create({
 
     btntxt: { color: BLACK_COLOR_CODE, fontFamily: FONT_FAMILY_REGULAR },
 
-    btnstyle: { marginTop: 10, backgroundColor: YELLOW_COLOR_CODE }
+    btnstyle: { marginTop: 10, backgroundColor: YELLOW_COLOR_CODE },
+    tchvwe: {
+        paddingLeft: 25,
+        paddingVertical:12,
+        // height: 65,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#d8d8d8',
+        width: '92%',
+        justifyContent: 'center',
+        marginBottom: 5
+    },
+    slctdtxt: {
+        fontSize: 17,
+        color: BLACK_COLOR_CODE,
+        fontFamily: FONT_FAMILY_REGULAR,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(100,100,100, 0.2)'
+    },
+    alertBackground: {
+        margin: 10,
+        borderRadius: 5,
+        paddingVertical: 20,
+        backgroundColor: LIGHT_GREY_COLOR_CODE,
+    },
+    selectyoursize: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    sizeslct: {
+        fontSize: 18,
+        fontFamily: FONT_FAMILY_REGULAR,
+        color: WHITE_COLOR_CODE
+    },
+    cancelvwe: {
+        position: "absolute",
+        right: 5,
+        top: 5
+    },
+    closeicon: {
+        height: 25,
+        width: 25,
+        zIndex: 1
+    },
+    dropdownSkillView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: WHITE_COLOR_CODE,
+        marginVertical: 7,
+        paddingVertical: 10,
+        paddingHorizontal: 9,
+        marginHorizontal: 0,
+        marginTop: 5,
+    },
+    benifitsnme:{
+        color: BLACK_COLOR_CODE,
+        paddingVertical: 2,
+        fontFamily: FONT_FAMILY_REGULAR,
+        fontSize: 15,
+        paddingLeft: 5,
+    }
 })
 export default Styles;

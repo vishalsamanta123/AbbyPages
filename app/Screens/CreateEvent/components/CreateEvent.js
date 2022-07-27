@@ -92,8 +92,8 @@ const CreateEvent = (props) => {
                         <TouchableOpacity style={styles.container}
                             onPress={() => props.showEndTimePicker()}>
                             <View style={styles.CameraImgView}>
-                                <Text style={styles.AddPhotosTxt}>{
-                                    props.selectedEndTime ? props.selectedEndTime : "End Time"
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.selectedEndTime ? props.selectedEndTime : "End Time"
                                 }</Text>
                             </View>
                             <View style={styles.BckArrowBack}>
@@ -144,7 +144,6 @@ const CreateEvent = (props) => {
                                     borderRadius: 8,
                                     borderWidth: 1,
                                     alignItems: "center",
-                                    // height: 70,
                                     paddingVertical: 6
                                 },
                                 textInput: {
@@ -161,7 +160,6 @@ const CreateEvent = (props) => {
                             autoFocus={false}
                             returnKeyType={'default'}
                         />
-
                         <Input
                             onChangeText={(BusinessName) => props.setBusinessName(BusinessName)}
                             value={props.BusinessName}
@@ -224,8 +222,6 @@ const CreateEvent = (props) => {
                             autoFocus={false}
                             returnKeyType={'default'}
                         />
-
-
                         {/* <Input
                             onChangeText={(NearBy) => props.setNearBy(NearBy)}
                             value={props.NearBy}
@@ -291,7 +287,6 @@ const CreateEvent = (props) => {
                             </View>
                         </TouchableOpacity>
                                 */}
-
                         <TouchableOpacity onPress={() => props._handleModalOpen()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Text style={styles.AddPhotosTxt}>
@@ -314,7 +309,6 @@ const CreateEvent = (props) => {
                                 <Text style={styles.AddPhotosTxt}>Public Venue</Text>
                             </View>
                         </TouchableOpacity>
-
                         <Button buttonText="Create Event" style={{ marginTop: 10 }}
                             onPress={props.onPressCreateEvent}
                         />
@@ -325,15 +319,13 @@ const CreateEvent = (props) => {
                     </View>
                 </ScrollView>
             </View>
-
             {/*  */}
             <Modal
                 animationType="slide"
                 visible={props.eventCategoryModalVisible}
                 onRequestClose={() => {
                     props.setEventCategoryModalVisible(false);
-                }}
-            >
+                }}>
                 <View style={{ alignItems: "center" }}>
                     <View style={styles.moadlvwe}>
                         <View style={styles.headervwe}>
@@ -362,8 +354,6 @@ const CreateEvent = (props) => {
                     </View>
                 </View>
             </Modal>
-
-
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -389,7 +379,6 @@ const CreateEvent = (props) => {
                     </View>
                 </TouchableOpacity>
             </Modal>
-
         </KeyboardAvoidingView >
     )
 }

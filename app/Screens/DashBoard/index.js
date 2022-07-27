@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import DashBoardScreen from "./components/DashBoardScreen";
 import CommonStyles from "../../Utils/CommonStyles";
@@ -33,7 +33,6 @@ const DashBoardView = ({ navigation }) => {
     navigation.navigate("EventListings");
   };
   const onPressShopping = () => {
-    // navigation.navigate('ProductListing')
     navigation.navigate("ShopList");
   };
   const onPressProvider = () => {

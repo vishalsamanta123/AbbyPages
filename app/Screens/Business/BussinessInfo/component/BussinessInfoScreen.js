@@ -41,7 +41,6 @@ const BussinessInfoScreen = (props) => {
                         </MapView>
                     }
                 </View>
-
                 <ScrollView>
                     <View style={styles.mainboxvwe}>
                         <View style={styles.secmainvwe}>

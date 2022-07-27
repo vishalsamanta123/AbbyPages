@@ -2,8 +2,8 @@ import React from 'react';
 import {
     View,
     Text,
-    StatusBar,
     Image,
+    StatusBar,
     ScrollView
 } from 'react-native';
 import styles from './styles';

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_THIN, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     LocatnSrchCntain: {
         flex: 2.8,

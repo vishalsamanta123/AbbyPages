@@ -1,15 +1,15 @@
 import React from "react";
 import {
   View,
-  Image,
-  StatusBar,
-  TextInput,
   Text,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableOpacity,
   Modal,
+  Image,
   FlatList,
+  TextInput,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import styles from "./styles";
 import {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
-import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
+import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import GetStartedScreen from "./component/GetStartedScreen";
 import Loader from "../../../Utils/Loader";

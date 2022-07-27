@@ -28,7 +28,7 @@ const JobManagementList = (props) => {
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <View style={styles.PlusView}>
-                    <Text style={styles.JobDscrptn}>Job Description hh</Text>
+                    <Text style={styles.JobDscrptn}>Job Description wr</Text>
                     <TouchableOpacity onPress={() => props.onPressAdd()}  >
                         <Image style={styles.PlusImge} source={require('../../../../Assets/qty_minus_icon3.png')} />
                     </TouchableOpacity>
@@ -36,8 +36,7 @@ const JobManagementList = (props) => {
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
                     data={props?.tableData}
-                    renderItem={({ item, index }) => props._handleTableData(item, index)
-                    }
+                    renderItem={({ item, index }) => props._handleTableData(item, index)}
                 />
             </View>
         </KeyboardAvoidingView >

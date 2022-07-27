@@ -11,13 +11,12 @@ import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
 const AddTable = ({ route, navigation }) => {
-    const HedarType = route.params ? route.params.type : null
-    const tableNo = route.params ? route.params.TableData.table_no : null
-    const sittingPerson = route.params ? route.params.TableData.sitting_person : null
-    const tableImg = route.params ? route.params.TableData.table_img : null
-    const ImgBaseUrl = route.params ? route.params.ImgBaseUrl : null
-    const tableIds = route.params ? route.params.TableData.id : null
-
+    const HedarType = route.params ? route.params.type : null;
+    const tableNo = route.params ? route.params.TableData.table_no : null;
+    const sittingPerson = route.params ? route.params.TableData.sitting_person : null;
+    const tableImg = route.params ? route.params.TableData.table_img : null;
+    const ImgBaseUrl = route.params ? route.params.ImgBaseUrl : null;
+    const tableIds = route.params ? route.params.TableData.id : null;
 
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -156,13 +155,10 @@ const AddTable = ({ route, navigation }) => {
                 itemImage={itemImage}
                 tableNumber={tableNumber}
                 setTableNumber={setTableNumber}
-
                 setSitingPerson={setSitingPerson}
                 sitingPerson={sitingPerson}
-
                 onPressSave={onPressSave}
                 onPressProfileImage={onPressProfileImage}
-
                 tableImg={tableImg}
                 ImgBaseUrl={ImgBaseUrl}
             />

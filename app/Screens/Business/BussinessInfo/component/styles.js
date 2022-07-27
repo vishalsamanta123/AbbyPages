@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import {
+    BLACK_COLOR_CODE,
     YELLOW_COLOR_CODE,
     FONT_FAMILY_REGULAR,
     LIGHT_GREY_COLOR_CODE,
-    BLACK_COLOR_CODE
 } from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     allmainimg: {

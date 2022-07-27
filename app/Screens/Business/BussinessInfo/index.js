@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import BussinessInfoScreen from './component/BussinessInfoScreen';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -14,20 +12,17 @@ const BussinessInfo = ({ navigation }) => {
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
-
     const [profileData, setProfileData] = useState('');
 
     const onPressConfirm = () => {
         navigation.navigate('Confirm')
     }
     useEffect(() => {
-        // alert(4)
         getProfile()
     }, [])
     const getProfile = async () => {
         setVisible(true)
-        const { data } = await apiCall
-            ('POST', ENDPOINTS.GET_USER_PROFILE);
+        const { data } = await apiCall('POST', ENDPOINTS.GET_USER_PROFILE);
         if (data.status === 200) {
             setProfileData(data.data)
             setVisible(false)
@@ -71,7 +66,6 @@ const BussinessInfo = ({ navigation }) => {
                 navToBasicInfo={navToBasicInfo}
             />
             {visible && <Loader state={visible} />}
-
         </View>
     )
 }

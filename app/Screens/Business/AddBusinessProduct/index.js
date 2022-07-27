@@ -22,14 +22,14 @@ const AddBusinessProduct = ({ route, navigation }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
     const [HedarType, setHedarType] = useState(type)
-    
+
     const Id = route.params ? route.params.productId : null
     const [productId, setProductId] = useState(Id)
-    
+
     const [itemImage, setItemImage] = useState('')
     const [productName, setProductName] = useState()
     const [productPrice, setProductPrice] = useState()
-    
+
     const [productDiscount, setProductDiscount] = useState()
     const [productQuanlity, setProductQuanlity] = useState()
     const [productSize, setProductSize] = useState()
@@ -39,7 +39,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
     const [productWeight, setProductWeight] = useState()
     const [productBrand, setProductBrand] = useState()
     const [ProductImg, setProductImg] = useState()
-    
+
     const [businessCategory, setbusinessCategory] = useState(false)
     const [CategoryData, SetCategoryData] = useState([])
     const [CategoryId, SetCategoryId] = useState()
@@ -48,13 +48,13 @@ const AddBusinessProduct = ({ route, navigation }) => {
     const [SubCategory, SetSubCategory] = useState(false)
     const [SubCategoryId, SetSubCategoryId] = useState()
     const [SubCategoryName, SetSubCategoryName] = useState()
-    
+
     const [BusiCategory, SetBusiCategory] = useState(false)
     const [SelectImgUri, setSelectImgUri] = useState()
     const [camerastate, setCamerastate] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
     const [modalVisible, setModalVisible] = useState(false)
-    
+
     useFocusEffect(
         React.useCallback(() => {
             ProductDetails()
@@ -105,7 +105,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
             try {
                 setVisible(true)
                 const params = { product_id: productId }
-                const { data } = await apiCall ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
+                const { data } = await apiCall('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_DETAILS, params);
                 if (data.status === 200) {
                     setProductName(data.data.product_name)
                     setProductPrice(data.data.price)
@@ -153,25 +153,51 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 })
                     :
                     null
-                formdata.append("business_type", 2)
-                productId == null ? null : formdata.append("product_id", productId)
-                formdata.append("category_id", CategoryId)
-                formdata.append("sub_category_id", SubCategoryId)
+                // formdata.append("business_type", 2)
+                // productId == null ? null : formdata.append("product_id", productId)
+                // formdata.append("category_id", CategoryId)
+                // formdata.append("sub_category_id", SubCategoryId)
+                // formdata.append("business_category_id", 1)
+                // formdata.append("product_name", productName)
+                // formdata.append("quantity", productQuanlity)
+                // formdata.append("price", productPrice)
+                // formdata.append("discount", productDiscount)
+                // formdata.append("final_price", productFinalPrice)
+                // formdata.append("description", productDescription)
+                // formdata.append("product_size", selectedSize)
+                // formdata.append("product_color", productColor)
+                // formdata.append("product_weight", productWeight)
+                // formdata.append("company_brand", productBrand)
+
+                formdata.append('business_type', 2)
+                formdata.append('category_id', CategoryId)
+                formdata.append('sub_category_id', SubCategoryId)
                 formdata.append("business_category_id", 1)
-                formdata.append("product_name", productName)
+                formdata.append("product_name",productName)
                 formdata.append("quantity", productQuanlity)
-                formdata.append("price", productPrice)
-                formdata.append("discount", productDiscount)
-                formdata.append("final_price", productFinalPrice)
-                formdata.append("description", productDescription)
-                formdata.append("product_size", selectedSize)
-                formdata.append("product_color", productColor)
-                formdata.append("product_weight", productWeight)
+                formdata.append('price', productPrice)
+                formdata.append('discount',productDiscount)
+                formdata.append('final_price', productFinalPrice)
+                formdata.append('description', productDescription)
+                formdata.append('product_size', selectedSize)
+                formdata.append('product_color', productColor)
+                formdata.append('product_weight', productWeight)
                 formdata.append("company_brand", productBrand)
-                const { data } = await apiCall ('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
+                formdata.append("dispatch_origin", 1)
+                formdata.append("processing_time", 4)
+                formData.append("fixed_postage_prices", 100)
+                formdata.append("destination", 2)
+                formdata.append("What_is_it", 1)
+                formdata.append("who_made_it", "i_did")
+                formdata.append("When_it_made", 2019 - 2019)
+                formdata.append("product_type", 1)
+
+                console.log('formdata: ', formdata);
+                const { data } = await apiCall('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
+                console.log('data: ', data);
                 if (data.status === 200) {
-                    // navigation.navigate('MyRestaurantItem')
-                    navigation.navigate('MyProductList')
+                    // navigation.navigate('MyProductList')
+
                     // setVisibleSuccess(true);
                     // setSuccessMessage(data.message);
                     setVisible(false);
@@ -354,11 +380,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
 
     const onPressBusinessCategories = (item) => {
         SetBusiCategory(!BusiCategory)
-        SubCategoryId ?
-            busiCategoryFun()
-            :
-            null
-
+        SubCategoryId ? busiCategoryFun() : null
     }
 
     const busiCategoryFun = async () => {
@@ -368,8 +390,8 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 business_type: 2,
                 category_id: SubCategoryId
             }
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_CATEGORY, params);
+            const { data } = await apiCall('POST', ENDPOINTS.GET_BUSINESS_PRODUCT_CATEGORY, params);
+            console.log('data.status', data.status);
             if (data.status === 200) {
                 setErrorMessage(data.message);
                 // SetSubCategoryData(data.data.category_data)

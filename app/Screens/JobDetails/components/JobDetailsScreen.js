@@ -6,10 +6,11 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
   FONT_FAMILY_BOLD,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import HTML from "react-native-render-html";
+import CommonStyles from "../../../Utils/CommonStyles";
 
 const JobDetailsScreen = (props) => {
   return (
@@ -88,42 +89,32 @@ const JobDetailsScreen = (props) => {
                   marginTop: 15,
                   justifyContent: "space-around",
                 },
-              ]}
-            >
+              ]}>
               <View
                 style={[
                   styles.btnmncon,
                   { borderRightWidth: 1, borderColor: "lightgrey" },
-                ]}
-              >
+                ]}>
                 <Image source={require("../../../Assets/save_icon.png")} />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
-                  Report
-                </Text>
+                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>Report</Text>
               </View>
               <TouchableOpacity
                 onPress={() => props.shareTo()}
                 style={[
                   styles.btnmncon,
                   { borderRightWidth: 1, borderColor: "lightgrey" },
-                ]}
-              >
+                ]}>
                 <Image
                   style={[styles.icon, { height: 22, width: 25 }]}
                   source={require("../../../Assets/share_icon.png")}
                 />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
-                  Share
-                </Text>
+                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>Share</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => props.saveJob()}
-                style={styles.btnmncon}
-              >
+                style={styles.btnmncon}>
                 <Image source={require("../../../Assets/save_icon.png")} />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
-                  Save
-                </Text>
+                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -135,9 +126,7 @@ const JobDetailsScreen = (props) => {
                   style={styles.icon}
                   source={require("../../../Assets/musical-sign-of-one-dots.png")}
                 />
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
-                  Work Location :
-                </Text>
+                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Work Location :</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{props?.details?.job_address}</Text>
@@ -149,9 +138,7 @@ const JobDetailsScreen = (props) => {
                   style={styles.icon}
                   source={require("../../../Assets/musical-sign-of-one-dots.png")}
                 />
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
-                  Industry :
-                </Text>
+                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Industry :</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{props?.details?.company_name}</Text>
@@ -163,9 +150,7 @@ const JobDetailsScreen = (props) => {
                   style={styles.icon}
                   source={require("../../../Assets/musical-sign-of-one-dots.png")}
                 />
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
-                  Job Level :
-                </Text>
+                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Job Level :</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{props?.details?.job_level}</Text>
@@ -214,9 +199,7 @@ const JobDetailsScreen = (props) => {
                   style={styles.icon}
                   source={require("../../../Assets/musical-sign-of-one-dots.png")}
                 />
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
-                  Skills Requires :
-                </Text>
+                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Skills Requires :</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{props?.details?.skills}</Text>
@@ -228,9 +211,7 @@ const JobDetailsScreen = (props) => {
                   style={styles.icon}
                   source={require("../../../Assets/musical-sign-of-one-dots.png")}
                 />
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
-                  Language :
-                </Text>
+                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Language :</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.text}>{props?.details?.language}</Text>
@@ -240,9 +221,7 @@ const JobDetailsScreen = (props) => {
           <View
             style={[styles.maincontainers, { paddingRight: 30, padding: 0 }]}
           >
-            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>
-              Job Description
-            </Text>
+            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>Job Description</Text>
             <View style={[styles.basiccon, { paddingLeft: 10 }]}>
               <HTML
                 contentWidth={50}
@@ -255,9 +234,7 @@ const JobDetailsScreen = (props) => {
           <View
             style={[styles.maincontainers, { paddingRight: 30, padding: 0 }]}
           >
-            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>
-              Job Requirement
-            </Text>
+            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>Job Requirement</Text>
             <View style={[styles.basiccon, { paddingLeft: 10 }]}>
               <HTML
                 contentWidth={50}
@@ -302,8 +279,7 @@ const JobDetailsScreen = (props) => {
                       style={[
                         styles.text,
                         { fontSize: 15, fontFamily: FONT_FAMILY_BOLD },
-                      ]}
-                    >
+                      ]}>
                       {item.day}
                     </Text>
                   </View>

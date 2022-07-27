@@ -71,12 +71,12 @@ export default {
   GET_OPENING_CLOSE_HOURS: "/api/business/getBusinessOpeningClosingHours",
   ADD_PHOTO_VIDEO: "/api/business/addBusinessPhotoVideo",
   BUSINESS_CATEGORY_UPDATE: "/api/business/businessCategoryUpdate",
-  GET_BUSINESS_JOB_LIST: "api/jobs/getJobListforBusiness",
+  GET_BUSINESS_JOB_LIST: "/api/jobs/getJobListforBusiness",
   GET_JOB_LIST: "api/jobs/getJobListDetails",
   GET_JOB_DETAILS: "api/jobs/getJobDetailForUser",
   GET_BUSINESS_CATEGORY_LIST: "api/services/getBusinessCategory",
-  GET_BUSINESS_PRODUCT_CATEGORY: "api/services/getBusinessProductCategory",
-  ADD_PRODUCT_ITEM: "api/product/addProduct",
+  GET_BUSINESS_PRODUCT_CATEGORY: "/api/services/getBusinessProductCategory",
+  ADD_PRODUCT_ITEM: "/api/product/addProduct",
   BUSINESS_PRODUCT_LIST: "api/product/productList",
 
   GET_BUSINESS_PRODUCT_DETAILS: "api/product/getProductDetails",
@@ -91,10 +91,10 @@ export default {
   GET_EVENT_LIST: "/api/events/getEventList",
   GET_EVENT_DETAILS: "/api/events/getEventDetails",
   JOB_FILTER: "/api/jobs/JobSearchFilter",
+  
+  ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/restoItemsRemoveShow",
+  ITEM_CATEGORY_REMOVE_SHOW: "/api/restaurants/itemsCategoryRemoveShow",
   GET_JOB_CATEGORY: "/api/jobs/getJobCategory",
   GET_PLACES: "/api/masterTableData/getStateCountry",
   GET_NEW_BUSINESS: "api/business/businessListNew",
-
-  ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/restoItemsRemoveShow",
-  ITEM_CATEGORY_REMOVE_SHOW: "/api/restaurants/itemsCategoryRemoveShow",
 };

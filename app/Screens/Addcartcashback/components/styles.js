@@ -1,5 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, YELLOW_COLOR_CODE,LIGHT_GREY_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
+import {
+    GREY_COLOR_CODE,
+    YELLOW_COLOR_CODE,
+    FONT_FAMILY_REGULAR,
+    LIGHT_GREY_COLOR_CODE,
+    LINE_COMMON_COLOR_CODE,
+} from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     ContainerView: {
         padding: 15
@@ -39,7 +45,7 @@ const Styles = StyleSheet.create({
         lineHeight: 20,
         paddingTop: 10
     },
-    YellowText:{
+    YellowText: {
         color: YELLOW_COLOR_CODE
     }
 })

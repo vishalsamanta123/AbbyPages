@@ -83,10 +83,8 @@ const GetStartedScreen = (props) => {
                   })}
               </View>
             </View>
-            <TouchableOpacity
-              onPress={() => props.onPressBusinessCategories()}
-              style={{ paddingRight: 10 }}
-            >
+            <TouchableOpacity onPress={() => props.onPressBusinessCategories()}
+              style={{ paddingRight: 10 }}>
               {props.businessCategory ? (
                 <Image
                   style={{ width: 25, height: 25 }}
@@ -130,7 +128,7 @@ const GetStartedScreen = (props) => {
               />
             ) : (
               <View style={styles.nodatafndtxtvwe}>
-                <Text style={{ fontSize: 18 }}>Thare is no data found</Text>
+                <Text style={{ fontSize: 18 }}>There is no data found</Text>
               </View>
             )}
           </View>
