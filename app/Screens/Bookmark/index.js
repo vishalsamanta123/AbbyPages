@@ -7,7 +7,6 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 const BookmarkView = () => {
     const [userData, setUserData] = useContext(UserContext);
     const [bookmarkData,setBookmarkData] = useState('');
-    console.log('bookmarkData: ', bookmarkData);
     useEffect(() => {
         // getUserProfile();
     }, []);

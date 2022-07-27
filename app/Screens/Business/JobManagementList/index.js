@@ -41,7 +41,6 @@ const JobManagementListView = ({ navigation }) => {
             }
         }
         catch (error) {
-            console.log('error: ', error);
         }
     }
     const _handleTableData = () => {

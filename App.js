@@ -64,7 +64,6 @@ const App = () => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
       getFcmToken();
-      console.log("Authorization status:", authStatus);
     }
   }
   const getFcmToken = async () => {
@@ -72,7 +71,6 @@ const App = () => {
     if (fcmToken) {
       // console.log(fcmToken);
       await AsyncStorage.setItem("fcmToken", fcmToken);
-      console.log("Your Firebase Token is:", fcmToken);
     } else {
       console.log("Failed", "No token received");
     }

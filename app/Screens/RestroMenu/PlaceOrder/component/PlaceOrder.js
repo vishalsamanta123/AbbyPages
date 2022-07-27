@@ -25,7 +25,7 @@ const PlaceOrder = (props) => {
           <Text style={styles.CheckOutText}>
             {props.businessName && props.businessName}
           </Text>
-          <View style={{ minHeight: 100 }}>
+          <View style={{ minHeight: 80 }}>
             <FlatList
               data={props.cartLocalData}
               keyExtractor={(item, index) => index}

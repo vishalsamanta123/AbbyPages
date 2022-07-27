@@ -31,7 +31,6 @@ const UserVerify = ({ route, navigation }) => {
       };
       try {
         const { data } = await apiCall("POST", ENDPOINTS.USER_VERIFY, params);
-        console.log("data: ", data);
         if (data.status === 200) {
           setVisible(false);
           setUserData(data.data);
@@ -60,7 +59,6 @@ const UserVerify = ({ route, navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.RESENT_OTP, params);
-      console.log("dataRESND: ", data);
       if (data.status === 200) {
         setVisible(false);
         setSuccessMessage(data.message);

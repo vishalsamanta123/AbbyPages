@@ -76,7 +76,7 @@ const JobListScreen = (props) => {
             <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
                 source={
-                  item.user_like == 1
+                  item.user_like === 1
                     ? require("../../../Assets/like_icon_filled.png")
                     : require("../../../Assets/like_icon_disable.png")
                 }

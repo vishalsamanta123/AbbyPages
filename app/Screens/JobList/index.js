@@ -58,6 +58,7 @@ const JobList = ({ navigation }) => {
         like_status: item?.user_like == 1 ? 0 : 1,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      console.log('data: ', data);
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
         handleJobFilter(offset);

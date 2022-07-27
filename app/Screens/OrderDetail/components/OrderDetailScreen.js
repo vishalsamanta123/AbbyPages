@@ -139,7 +139,7 @@ const OrderDetailScreen = (props) => {
               {props?.orderDetail?.order_status === 1 && " Accepted"}
               {props?.orderDetail?.order_status === 2 && " In Process"}
               {props?.orderDetail?.order_status === 3 && " Cancelled By User"}
-              {props?.orderDetail?.order_status === 3 &&
+              {props?.orderDetail?.order_status === 4 &&
                 " Cancelled By Business"}
               {props?.orderDetail?.order_status === 5 && " Completed"}
             </Text>
@@ -204,7 +204,7 @@ const OrderDetailScreen = (props) => {
                     <View style={{ flexDirection: "row" }}>
                       <Image
                         tintColor={
-                          props.orderDetail.order_process == 1
+                          props.orderDetail.order_process === 1
                             ? YELLOW_COLOR_CODE
                             : "#c1bcbc"
                         }
@@ -219,7 +219,7 @@ const OrderDetailScreen = (props) => {
                     >
                       <Image
                         tintColor={
-                          props.orderDetail.order_process == 2
+                          props.orderDetail.order_process === 2
                             ? YELLOW_COLOR_CODE
                             : "#c1bcbc"
                         }
@@ -234,7 +234,7 @@ const OrderDetailScreen = (props) => {
                     >
                       <Image
                         tintColor={
-                          props.orderDetail.order_process == 3
+                          props.orderDetail.order_process === 3
                             ? YELLOW_COLOR_CODE
                             : "#c1bcbc"
                         }
@@ -249,7 +249,7 @@ const OrderDetailScreen = (props) => {
                     >
                       <Image
                         tintColor={
-                          props.orderDetail.order_process == 4
+                          props.orderDetail.order_process === 4
                             ? YELLOW_COLOR_CODE
                             : "#c1bcbc"
                         }

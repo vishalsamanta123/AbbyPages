@@ -32,6 +32,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
         order_booking_type: orderDetail.order_booking_type,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_ITEM_ORDER_DETAILS, params);
+      console.log('data: ', data);
       if (data.status === 200) {
         setOrderDetail(data.data);
         setVisible(false);
