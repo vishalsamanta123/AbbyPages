@@ -11,7 +11,7 @@ import Input from '../../../Components/Input';
 import Button from '../../../Components/Button';
 import Header from '../../../Components/Header';
 import CommonStyles from '../../../Utils/CommonStyles';
-import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, YELLOW_COLOR_CODE, FONT_FAMILY_BOLD } from '../../../Utils/Constant';
+import { WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const InviteFriends = (props) => {
     return (
         <View style={[CommonStyles.container]}>
@@ -65,7 +65,7 @@ const InviteFriends = (props) => {
                         <Button
                             buttonText="Save Email Invites"
                             buttonLabelStyle={styles.ADDBtnTxt}
-                            onPress={()=>props.handleSaveEmail()}
+                            onPress={() => props.handleSaveEmail()}
                         />
                     </View>
                 </ScrollView>

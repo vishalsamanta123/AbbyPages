@@ -37,9 +37,7 @@ const JobDetails = ({ route, navigation }) => {
     }
   };
   const applyNow = async () => {
-    navigation.navigate("ApplyJob", {
-      details,
-    });
+    navigation.navigate("ApplyJob", { details, });
   };
   const compareFun = () => {
     alert("Coming Soon");
@@ -70,9 +68,7 @@ const JobDetails = ({ route, navigation }) => {
     }
   };
   const shareTo = async () => {
-    const result = await Share.share({
-      message: "Share Job with others",
-    });
+    const result = await Share.share({ message: "Share Job with others" });
     if (result.action) {
       console.log("result: ", result.action);
     }

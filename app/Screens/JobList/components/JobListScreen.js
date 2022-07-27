@@ -1,19 +1,19 @@
 import React from "react";
 import {
   View,
-  StatusBar,
-  TouchableOpacity,
   Text,
   Image,
   FlatList,
   TextInput,
+  StatusBar,
+  TouchableOpacity,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
-  SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
 } from "../../../Utils/Constant";
 import moment from "moment";
 
@@ -22,8 +22,7 @@ const JobListScreen = (props) => {
     return (
       <TouchableOpacity
         onPress={() => props.onPressJob(item)}
-        style={styles.dataCon}
-      >
+        style={styles.dataCon}>
         <View>
           <Image
             style={styles.posterimg}
@@ -45,9 +44,7 @@ const JobListScreen = (props) => {
               resizeMode="contain"
               source={require("../../../Assets/info_marker_icon.png")}
             />
-            <Text numberOfLines={3} style={styles.text}>
-              {item.job_address}
-            </Text>
+            <Text numberOfLines={3} style={styles.text}>{item.job_address}</Text>
           </View>
           <View style={styles.basiccon}>
             <Image
@@ -98,8 +95,7 @@ const JobListScreen = (props) => {
       <View style={[CommonStyles.header]}>
         <TouchableOpacity
           onPress={() => props.goBack()}
-          style={styles.HeaderView}
-        >
+          style={styles.HeaderView}>
           <Image
             style={{ width: 35, height: 25 }}
             source={require("../../../Assets/header_back_btn.png")}
@@ -138,8 +134,7 @@ const JobListScreen = (props) => {
             paddingHorizontal: 10,
             paddingVertical: 10,
             backgroundColor: "#f2f2f2",
-          }}
-        >
+          }}>
           {props.search && (
             <View style={styles.inputVw}>
               <TextInput

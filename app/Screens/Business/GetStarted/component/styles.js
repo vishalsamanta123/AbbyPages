@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 import {
-    YELLOW_COLOR_CODE,
-    FONT_FAMILY_REGULAR,
     FONT_FAMILY_BOLD,
-    LIGHT_BLACK_COLOR_CODE,
-    LIGHT_GREY_COLOR_CODE,
     WHITE_COLOR_CODE,
     BLACK_COLOR_CODE,
+    YELLOW_COLOR_CODE,
+    FONT_FAMILY_REGULAR,
+    LIGHT_GREY_COLOR_CODE,
+    LIGHT_BLACK_COLOR_CODE,
 } from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     AddPhotosText: {
@@ -86,7 +86,6 @@ const Styles = StyleSheet.create({
         padding: 5,
         borderRadius: 7,
         flexDirection: "row",
-        // marginBottom: '2%',
         backgroundColor: '#f2f2f2',
         marginLeft: 4,
         marginTop: 5
@@ -101,7 +100,6 @@ const Styles = StyleSheet.create({
     iconimg: {
         width: 20,
         height: 20,
-        // borderRadius:15
     },
     lstimgvwe: {
         flex: 0.5,
@@ -110,7 +108,6 @@ const Styles = StyleSheet.create({
     },
     buscatevwe: {
         backgroundColor: "rgba(0,0,0,0)",
-        // margin: 10,
         marginLeft: 16,
         marginRight: 16,
         borderColor: "#d8d8d8",
@@ -122,7 +119,6 @@ const Styles = StyleSheet.create({
     },
     buscatesecvwe: {
         backgroundColor: "rgba(0,0,0,0)",
-        // height: 70,
         paddingTop: 20,
         paddingBottom: 20,
         width: "95%",

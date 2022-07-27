@@ -20,19 +20,14 @@ const ConfirmScreen = (props) => {
                 RightImg={null}
             />
             <View style={[CommonStyles.body]}>
-
                 <View style={styles.FlatlistContain}>
                     <Image style={styles.RightImgeStyle}
                         source={require('../../../../Assets/check_icon_info_small.png')} />
-                    <Text style={styles.NoteText}>
-                        You can now manage itinformation on AbbyPages
-                        </Text>
+                    <Text style={styles.NoteText}>You can now manage itinformation on AbbyPages</Text>
                 </View>
                 <ScrollView>
                     <View style={styles.EnjoyView}>
-                        <Text style={styles.EnjoyText}>
-                            ENJOY THIS OFFER FOR NEW BUSSINESS ON ABBYPAGES.
-                        </Text>
+                        <Text style={styles.EnjoyText}>ENJOY THIS OFFER FOR NEW BUSSINESS ON ABBYPAGES.</Text>
                     </View>
                     <View style={styles.AbbyPagesView}>
                         <Text style={styles.AbbyPagesText}>
@@ -67,8 +62,8 @@ const ConfirmScreen = (props) => {
                         <Image source={require('../../../../Assets/confirm_s_icon_4.png')} />
                         <View style={styles.creditvwe}>
                             <Text style={styles.FreeSignUpText}>Start now with $300 free
-                            credit. Expires in 01:59:36
-                        </Text>
+                                credit. Expires in 01:59:36
+                            </Text>
                         </View>
                         <Button
                             buttonText="Get Staterd"

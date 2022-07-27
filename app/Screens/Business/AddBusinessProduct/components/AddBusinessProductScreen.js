@@ -129,7 +129,7 @@ const AddBusinessProductScreen = (props) => {
                         :
                         null
                     }
-                    <View style={styles.categoryvwe}>
+                    {/* <View style={styles.categoryvwe}>
                         <TouchableOpacity
                             onPress={() => props.onPressBusinessCategories()}
                             style={styles.catetchvwe}>
@@ -146,7 +146,7 @@ const AddBusinessProductScreen = (props) => {
                                 }
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                     <Input
                         onChangeText={(productName) => props.setProductName(productName)}
                         value={props.productName}

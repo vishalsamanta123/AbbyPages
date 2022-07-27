@@ -42,7 +42,7 @@ const BusinessLocation = (props) => {
                     </View>
                     <View style={styles.selectOptionContain}>
                         <View style={[styles.WriteTextView, { paddingLeft: 0, paddingTop: 0 }]}>
-                            <Text style={styles.WriteOwnText}>Set up a radius aroung your business</Text>
+                            <Text style={styles.WriteOwnText}>Set up a radius around your business</Text>
                             <Text style={[styles.ShareText, { lineHeight: 20, paddingTop: 10 }]}>
                                 Attract nearby customers by showing
                                 your ad in locations where you do business.
@@ -63,8 +63,6 @@ const BusinessLocation = (props) => {
                                     // value={locaton}
                                 // />*/}
 
-
-
                                 <RNSlider
                                     // step={1}
                                     style={{ width: '95%', height: 40 }}
@@ -75,7 +73,6 @@ const BusinessLocation = (props) => {
                                     // thumbStyle={[styles.thumb]}
                                     minimumTrackTintColor={YELLOW_COLOR_CODE}
                                 />
-
 
                             </View>
                         </View>

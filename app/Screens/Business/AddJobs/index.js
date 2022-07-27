@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import AddJobsScreen from './components/AddJobsScreen';
+import React, { useEffect, useState } from 'react';
+import moment from "moment";
+import Loader from '../../../Utils/Loader';
 import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
-import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from '../../../Utils/Constant';
+import AddJobsScreen from './components/AddJobsScreen';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
 const AddJobs = ({ navigation }) => {
+    let today = moment(today).format("DD-MM-YYYY");
+    let benefits_Date = moment(today);
+    const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] = useState(false);
+    const [jobCategoryList, setJobCategoryList] = useState('');
+    const [selectedJobCategory, setSelectedJobCategory] = useState('');
+
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
@@ -44,6 +51,91 @@ const AddJobs = ({ navigation }) => {
     const [city, setcity] = useState('');
     const [jobBenefits, setJobBenefits] = useState('');
     const [box, setbox] = useState(true)
+    const [jobRequirements, setJobReqiurements] = useState('');
+    const [jobLevel, setJobLevel] = useState('');
+    const [language, setLanguage] = useState('');
+    const [startTimeDay, setStartTimeDay] = useState('');
+    const [endTimeDay, setEndTimeDay] = useState('');
+    const [skills, setSkills] = useState('');
+    /* Start time */
+    const [isStartTimePickerVisible, setIsStartTimePickerVisible] = useState(false);
+    const [startTime, setStartTime] = useState("");
+    /* End time */
+    const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
+    const [endTime, setEndTime] = useState("");
+    /*  */
+    const [itemType, setItemType] = useState('');
+    const [menuTypeVisible, setMenuTypeVisible] = useState(false);
+    const [selectedServices, setSelectedServices] = useState([]);
+    const benifitsStaticContent = [
+        {
+            job_benefits_id: 1,
+            job_benefits_name: "Game",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 2,
+            job_benefits_name: "Releax",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 3,
+            job_benefits_name: "Travel",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 4,
+            job_benefits_name: "Pizza",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 5,
+            job_benefits_name: "Insurance",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 6,
+            job_benefits_name: "Wi-fi",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 7,
+            job_benefits_name: "Laptop",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 8,
+            job_benefits_name: "Opportunities",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 9,
+            job_benefits_name: "Salary review",
+            status: 1,
+            created_at: benefits_Date
+        },
+        {
+            job_benefits_id: 10,
+            job_benefits_name: "Business expense",
+            status: 1,
+            created_at: benefits_Date
+        },
+    ];
+
+    useEffect(() => {
+        getCountryList();
+        getStateList();
+        getCityList();
+        getJobCategoryList();
+    }, [])
     const _handleFocus = () => {
         setbox(!box);
     }
@@ -104,7 +196,6 @@ const AddJobs = ({ navigation }) => {
                 state_id: selectedState.state_id
             }
             const response = await apiCall('POST', ENDPOINTS.COUNTRY_LIST, params);
-            console.log('city_LIST: ', response);
             if (response.status === 200) {
                 setCityList(response.data.data)
             }
@@ -116,10 +207,11 @@ const AddJobs = ({ navigation }) => {
             console.log('error: ', error);
         }
     }
+
     const onPressSubmit = async () => {
         const valid = validationFrom();
         if (valid) {
-            setVisible(true)
+            setVisible(true);
             try {
                 const params = {
                     business_id: null,
@@ -128,35 +220,40 @@ const AddJobs = ({ navigation }) => {
                     email: EmailID,
                     interview_details: InterviewDetails,
                     job_address: JobAddress,
-                    job_benefits: jobBenefits,
-                    job_category_id: 1,
+                    job_benefits: selectedServices,
+                    job_category_id: selectedJobCategory.id,
                     job_description: JobDescription,
-                    job_end_time_day: 5,
-                    job_end_timing: JobTimeings,
-                    job_level: "job_level",
-                    job_location_city: city,
+                    job_end_time_day: endTimeDay,
+                    job_end_timing: endTime,
+                    job_level: jobLevel,
+
                     job_location_country: selectedCountry.country_id,
                     job_location_state: selectedState.state_id,
-                    job_requirements: 'asdasd',
-                    job_start_time_day: '1',
-                    job_start_timing: "16:44",
+                    job_location_city: selectedCity.city_id,
+
+                    created_at: today,
+                    job_benefits_id: itemType.id,
+
+                    job_requirements: jobRequirements,
+                    job_start_time_day: startTimeDay,
+                    job_start_timing: startTime,
                     job_status: null,
-                    job_timing: JobTimeings,
+                    job_timing: null,
                     job_title: JobTitle,
                     job_type: 1,
-                    language: 'asdasda',
+                    language: language,
                     monthly_in_hand_salary_from: SalaryFrom,//2000
                     monthly_in_hand_salary_to: SalaryTo,//"20000",
                     no_of_openings: Openings,//10
                     phone_no: PhoneNumber,
-                    skills: 'asdasd'
+                    skills: skills,
+                    status: 1,
                 }
-                console.log('params', params);
                 const { data } = await apiCall('POST', ENDPOINTS.CREATE_JOB, params);
-                console.log('data: ', data);
                 if (data.status === 200) {
-                    // setErrorMessage(data.message);
-                    navigation.navigate('JobManagementList')
+                    setSuccessMessage(data.message)
+                    setVisibleSuccess(true)
+                    // navigation.navigate('JobManagementList');
                     setVisible(false);
                 } else {
                     setVisible(false);
@@ -165,13 +262,19 @@ const AddJobs = ({ navigation }) => {
                 };
             } catch (error) {
                 setErrorMessage(error);
+                console.log('error: ', error);
                 setVisibleErr(true);
                 setVisible(false);
             };
         }
     }
-
     function validationFrom() {
+        if (selectedJobCategory.category_name == "" ||
+            selectedJobCategory.category_name === undefined) {
+            setErrorMessage('Please select job category');
+            setVisibleErr(true)
+            return false;
+        }
         if (JobTitle == "") {
             setErrorMessage('Please enter job title');
             setVisibleErr(true)
@@ -179,6 +282,16 @@ const AddJobs = ({ navigation }) => {
         }
         if (Openings == "") {
             setErrorMessage('Please enter no of openings');
+            setVisibleErr(true);
+            return false;
+        }
+        if (startTimeDay == "") {
+            setErrorMessage('Please enter your start time day');
+            setVisibleErr(true);
+            return false;
+        }
+        if (endTimeDay == "") {
+            setErrorMessage('Please enter your end time day');
             setVisibleErr(true);
             return false;
         }
@@ -192,17 +305,17 @@ const AddJobs = ({ navigation }) => {
             setVisibleErr(true);
             return false;
         }
-        if (selectedCountry.name == "") {
+        if (selectedCountry.name == "" || selectedCountry.name === undefined) {
             setErrorMessage('Please enter job country');
             setVisibleErr(true);
             return false;
         }
-        if (selectedState.name == "") {
+        if (selectedState.name == "" || selectedState.name === undefined) {
             setErrorMessage('Please enter job state');
             setVisibleErr(true);
             return false;
         }
-        if (city == "") {
+        if (selectedCity.name == "" || selectedCity.name === undefined) {
             setErrorMessage('Please enter job city');
             setVisibleErr(true);
             return false;
@@ -212,13 +325,33 @@ const AddJobs = ({ navigation }) => {
             setVisibleErr(true);
             return false;
         }
+        if (jobRequirements == "") {
+            setErrorMessage('Please enter job requirements');
+            setVisibleErr(true);
+            return false;
+        }
+        if (startTime == "") {
+            setErrorMessage('Please select your start time');
+            setVisibleErr(true);
+            return false;
+        }
+        if (endTime == "") {
+            setErrorMessage('Please select your end time');
+            setVisibleErr(true);
+            return false;
+        }
         if (JobTimeings == "") {
             setErrorMessage('Please enter job time');
             setVisibleErr(true);
             return false;
         }
         if (InterviewDetails == "") {
-            setErrorMessage('Please enter interview details');
+            setErrorMessage('Please enter your interview details');
+            setVisibleErr(true);
+            return false;
+        }
+        if (jobLevel == "") {
+            setErrorMessage('Please enter your job level');
             setVisibleErr(true);
             return false;
         }
@@ -229,6 +362,11 @@ const AddJobs = ({ navigation }) => {
         }
         if (CompanyPersonName == "") {
             setErrorMessage('Please enter company person name');
+            setVisibleErr(true);
+            return false;
+        }
+        if (language == "") {
+            setErrorMessage('Please enter which language you speak');
             setVisibleErr(true);
             return false;
         }
@@ -244,6 +382,16 @@ const AddJobs = ({ navigation }) => {
         }
         if (JobAddress == "") {
             setErrorMessage('Please enter job address');
+            setVisibleErr(true);
+            return false;
+        }
+        if (selectedServices == "") {
+            setErrorMessage('Please select your benefits');
+            setVisibleErr(true);
+            return false;
+        }
+        if (skills == "") {
+            setErrorMessage('Please enter your skills');
             setVisibleErr(true);
             return false;
         }
@@ -337,10 +485,165 @@ const AddJobs = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
+    const SearchCountry = (searchKey) => {
+        if (searchKey) {
+            const lowerCased = searchKey.toLowerCase();
+            let list = countryList.filter(data => data.name.toLowerCase().includes(lowerCased))
+            setCountryList(list.length > 0 ? list : countryList);
+        }
+        else {
+            getCountryList();
+        }
+    }
+    const SearchState = (searchKey) => {
+        if (searchKey) {
+            const lowerCased = searchKey.toLowerCase();
+            let list = stateList.filter(data => data.name.toLowerCase().includes(lowerCased))
+            setStateList(list.length > 0 ? list : stateList);
+        }
+        else {
+            getStateList();
+        }
+    }
+    const SearchCity = (searchKey) => {
+        if (searchKey) {
+            const lowerCased = searchKey.toLowerCase();
+            let list = cityList.filter(data => data.name.toLowerCase().includes(lowerCased))
+            setCityList(list.length > 0 ? list : cityList);
+        }
+        else {
+            getCityList();
+        }
+    }
+    const showTimePicker = () => {
+        setIsStartTimePickerVisible(true);
+    };
+    const hideTimePicker = () => {
+        setIsStartTimePickerVisible(false);
+    };
+    const handleTimeConfirm = (date) => {
+        const value = moment(date).format(" h:mm a");
+        setStartTime(value);
+        hideTimePicker();
+    };
+    // End time
+    const showEndTimePicker = () => {
+        setIsEndTimePickerVisible(true);
+    };
+    const hideEndTimePicker = () => {
+        setIsEndTimePickerVisible(false);
+    };
+    const handleEndTimeConfirm = (date) => {
+        const value = moment(date).format(" h:mm a");
+        setEndTime(value);
+        hideEndTimePicker();
+    };
+    const _handleOpenJobCategory = () => {
+        setAddJobCategoryModalVisible(true)
+    }
+    const getJobCategoryList = async () => {
+        try {
+            const params = {
+                parents_id: 0
+            }
+            const response = await apiCall('POST', ENDPOINTS.GET_JOB_CATEGORY, params);
+            if (response.status === 200) {
+                setJobCategoryList(response.data.data)
+            } else {
+            }
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    }
+    const _handleSelectedJobCategory = (item) => {
+        setSelectedJobCategory(item);
+        setAddJobCategoryModalVisible(false);
+    }
+    const renderJobCategoryListItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => _handleSelectedJobCategory(item)}
+                style={{
+                    flex: 1,
+                    borderBottomWidth: 0.3,
+                    borderBottomColor: '#f2f2f2',
+                    padding: 10,
+                    paddingVertical: 15,
+                    marginHorizontal: 15,
+                }}>
+                <Text
+                    style={{
+                        fontFamily: FONT_FAMILY_REGULAR,
+                        fontSize: 15,
+                        color: BLACK_COLOR_CODE,
+                    }}>
+                    {item.category_name}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+    const handleSelectedName = async (item, index) => {
+        setItemType(item)
+        let data = [...selectedServices]
+        data.push(item)
+        setSelectedServices(data);
+    }
+    const renderStaticContentData = ({ item, index }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => handleSelectedName(item, index)}
+                style={{ flex: 1, padding: 10 }}>
+                <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15, color: WHITE_COLOR_CODE }}>
+                    {item.job_benefits_name}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
+    const navigateAndCloseSuccessModal = () => {
+        setVisibleSuccess(false);
+        navigation.navigate('JobManagementList')
+    }
+
+
     return (
         <View style={{ flex: 1 }}>
             {visible && <Loader state={visible} />}
             <AddJobsScreen
+                selectedServices={selectedServices}
+                benifitsStaticContent={benifitsStaticContent}
+
+                itemType={itemType}
+                menuTypeVisible={menuTypeVisible}
+                setMenuTypeVisible={setMenuTypeVisible}
+                renderStaticContentData={renderStaticContentData}
+
+                _handleOpenJobCategory={_handleOpenJobCategory}
+                addJobCategoryModalVisible={addJobCategoryModalVisible}
+                setAddJobCategoryModalVisible={setAddJobCategoryModalVisible}
+                renderJobCategoryListItem={renderJobCategoryListItem}
+                jobCategoryList={jobCategoryList}
+                selectedJobCategory={selectedJobCategory}
+
+                startTimeDay={startTimeDay}
+                setStartTimeDay={setStartTimeDay}
+                endTimeDay={endTimeDay}
+                setEndTimeDay={setEndTimeDay}
+                language={language}
+                setLanguage={setLanguage}
+                skills={skills}
+                setSkills={setSkills}
+                showEndTimePicker={showEndTimePicker}
+                hideEndTimePicker={hideEndTimePicker}
+                handleEndTimeConfirm={handleEndTimeConfirm}
+                endTime={endTime}
+                isEndTimePickerVisible={isEndTimePickerVisible}
+
+                startTime={startTime}
+                showTimePicker={showTimePicker}
+                hideTimePicker={hideTimePicker}
+                isStartTimePickerVisible={isStartTimePickerVisible}
+                handleTimeConfirm={handleTimeConfirm}
+
                 onPressToPreview={onPressToPreview}
                 JobTitle={JobTitle}
                 setJobTitle={setJobTitle}
@@ -376,11 +679,12 @@ const AddJobs = ({ navigation }) => {
                 city={city}
                 jobBenefits={jobBenefits}
                 setJobBenefits={setJobBenefits}
+                jobLevel={jobLevel}
+                setJobLevel={setJobLevel}
 
                 renderCountryListItem={renderCountryListItem}
                 countryVisible={countryVisible}
                 setCountryVisible={setCountryVisible}
-
                 _handleModalOpen={_handleModalOpen}
                 countryList={countryList}
                 selectedCountry={selectedCountry}
@@ -398,6 +702,11 @@ const AddJobs = ({ navigation }) => {
                 cityVisible={cityVisible}
                 setCityVisible={setCityVisible}
                 selectedCity={selectedCity}
+                jobRequirements={jobRequirements}
+                setJobReqiurements={setJobReqiurements}
+                SearchCountry={SearchCountry}
+                SearchState={SearchState}
+                SearchCity={SearchCity}
             />
             <Error
                 message={errorMessage}
@@ -407,7 +716,7 @@ const AddJobs = ({ navigation }) => {
             <Success
                 message={successMessage}
                 visible={visibleSuccess}
-                closeModel={() => ('Home', setVisibleSuccess(false))}
+                closeModel={() => navigateAndCloseSuccessModal()}
             />
         </View>
     )

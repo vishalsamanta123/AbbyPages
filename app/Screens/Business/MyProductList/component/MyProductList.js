@@ -30,7 +30,7 @@ const MyProductListView = (props) => {
                             />
                             :
                             <View style={{ height: 200, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 18 }}>Thare is no item data </Text>
+                                <Text style={{ fontSize: 18 }}>There is no item data </Text>
                             </View>
                         }
                     </View>

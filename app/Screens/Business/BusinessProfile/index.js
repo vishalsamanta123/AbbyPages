@@ -5,34 +5,32 @@ import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 import {
     View,
+    Text,
     Image,
-    Text, TouchableOpacity
+    TouchableOpacity
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import styles from './components/styles';
-import {
-    apiCall
-} from '../../../Utils/httpClient';
-import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
+import styles from './components/styles';
+import { apiCall } from '../../../Utils/httpClient';
+import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const BusinessProfileView = ({ navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [visibleErr, setVisibleErr] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
 
-    const [camerastate, setCamerastate] = useState(false)
-    const [itemImage, setItemImage] = useState('')
-    const [LocitemImage, setLocItemImage] = useState('')
-    const [imgBaseUrl, setimgBaseUrl] = useState('')
-    const [SelectImgUri, setSelectImgUri] = useState('')
-    const [businessLogoId, setBusinessLogoId] = useState('')
-
+    const [camerastate, setCamerastate] = useState(false);
+    const [itemImage, setItemImage] = useState('');
+    const [LocitemImage, setLocItemImage] = useState('');
+    const [imgBaseUrl, setimgBaseUrl] = useState('');
+    const [SelectImgUri, setSelectImgUri] = useState('');
+    const [businessLogoId, setBusinessLogoId] = useState('');
     const [profileData, setProfileData] = useState('');
     const [sliderUrl, setSliderUrl] = useState('');
 
@@ -56,15 +54,16 @@ const BusinessProfileView = ({ navigation }) => {
 
     const businessLogo = async () => {
         setVisible(true)
-        const { data } = await apiCall
-            ('POST', ENDPOINTS.GET_USER_PROFILE);
+        const { data } = await apiCall('POST', ENDPOINTS.GET_USER_PROFILE);
         if (data.status === 200) {
             setProfileData(data.data)
             setLocItemImage(data.business_logo + data.data.logo)
             setVisible(false)
             setSliderUrl(data.business_image_url)
-        };
-
+        }
+        else {
+            setVisible(true);
+        }
     }
 
     const _handleportfolioData = () => {
@@ -80,7 +79,6 @@ const BusinessProfileView = ({ navigation }) => {
         navigation.navigate('PhotosVideo');
     }
     const onPressEditBtn = () => {
-        alert('LP')
         navigation.navigate('BasicInformation');
     }
 
@@ -142,8 +140,6 @@ const BusinessProfileView = ({ navigation }) => {
                     }
                     onPressSave(uploadData)
                     setLocItemImage('')
-
-
                 }
             });
         });
@@ -202,7 +198,6 @@ const BusinessProfileView = ({ navigation }) => {
                 itemImage={itemImage}
                 LocitemImage={LocitemImage}
                 imgBaseUrl={imgBaseUrl}
-
                 profileData={profileData}
                 sliderUrl={sliderUrl}
                 photosVideos={photosVideos}
@@ -210,7 +205,6 @@ const BusinessProfileView = ({ navigation }) => {
                 AddEditBusinessCategoryFun={AddEditBusinessCategoryFun}
             />
             {visible && <Loader state={visible} />}
-
             <Dialog
                 dialogStyle={{
                     position: 'absolute', bottom: 0,
@@ -220,8 +214,7 @@ const BusinessProfileView = ({ navigation }) => {
                 }}
                 visible={camerastate}
                 onTouchOutside={() => setCamerastate(false)}
-                onHardwareBackPress={() => setCamerastate(false)}
-            >
+                onHardwareBackPress={() => setCamerastate(false)}>
                 <Error
                     message={errorMessage}
                     visible={visibleErr}

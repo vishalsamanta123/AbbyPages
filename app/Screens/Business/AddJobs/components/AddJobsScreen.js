@@ -1,18 +1,20 @@
 import React from 'react';
 import {
-    View,
     Text,
-    ScrollView,
-    Image,
-    TouchableOpacity,
-    FlatList,
+    View,
     Modal,
+    Image,
+    FlatList,
+    TextInput,
+    ScrollView,
+    TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
-import Header from '../../../../Components/Header';
-import Button from '../../../../Components/Button';
-import CommonStyles from '../../../../Utils/CommonStyles';
 import Input from '../../../../Components/Input';
+import Button from '../../../../Components/Button';
+import Header from '../../../../Components/Header';
+import CommonStyles from '../../../../Utils/CommonStyles';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 const AddJobs = (props) => {
     return (
@@ -28,6 +30,18 @@ const AddJobs = (props) => {
                         <Text style={styles.basictxt}>Basic Job Details</Text>
                     </View>
                     <View style={styles.inputwvwe}>
+
+                        <TouchableOpacity onPress={() => props._handleOpenJobCategory()} style={styles.container}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.selectedJobCategory.category_name ? props.selectedJobCategory.category_name : 'Job category'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                        </TouchableOpacity>
+
                         <Input
                             onChangeText={(JobTitle) => props.setJobTitle(JobTitle)}
                             value={props.JobTitle}
@@ -41,6 +55,22 @@ const AddJobs = (props) => {
                             secureTextEntry={false}
                             placeholder="No Of Openings *"
                             InputType="withScroll"
+                        />
+                        <Input
+                            onChangeText={(startTimeDay) => props.setStartTimeDay(startTimeDay)}
+                            value={props.startTimeDay}
+                            secureTextEntry={false}
+                            placeholder="Start working days*"
+                            InputType="withScroll"
+                            keyboardType={'numeric'}
+                        />
+                        <Input
+                            onChangeText={(endTimeDay) => props.setEndTimeDay(endTimeDay)}
+                            value={props.endTimeDay}
+                            secureTextEntry={false}
+                            placeholder="End working days*"
+                            InputType="withScroll"
+                            keyboardType={'numeric'}
                         />
                         <Input
                             onChangeText={(SalaryFrom) => props.setSalaryFrom(SalaryFrom)}
@@ -76,14 +106,6 @@ const AddJobs = (props) => {
                                 <Image source={require('../../../../Assets/dropdown_icon.png')} />
                             </View>
                         </TouchableOpacity>
-
-                        {/* <Input
-                            onChangeText={(city) => props.setcity(city)}
-                            value={props.city}
-                            secureTextEntry={false}
-                            placeholder="Job city"
-                            InputType="withScroll"
-                        /> */}
                         <TouchableOpacity onPress={() => props._handleCityModalOpen()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Text style={styles.AddPhotosTxt}>
@@ -126,6 +148,13 @@ const AddJobs = (props) => {
                             InputType="withScroll"
                         />
                     </View>
+                    <Input
+                        onChangeText={(jobRequirements) => props.setJobReqiurements(jobRequirements)}
+                        value={props.jobRequirements}
+                        secureTextEntry={false}
+                        placeholder="Job Requirements*"
+                        InputType="withScroll"
+                    />
                     <View style={styles.inputwvwe}>
                         <Input
                             onChangeText={(JobTimeings) => props.setJobTimeings(JobTimeings)}
@@ -134,11 +163,53 @@ const AddJobs = (props) => {
                             placeholder="Job Timeings *"
                             InputType="withScroll"
                         />
+                        <TouchableOpacity style={styles.secContainer}
+                            onPress={() => props.showTimePicker()}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.startTime ? props.startTime : 'Start Time'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                            <DateTimePickerModal
+                                isVisible={props.isStartTimePickerVisible}
+                                mode='time'
+                                onConfirm={props.handleTimeConfirm}
+                                onCancel={props.hideTimePicker}
+                            />
+                        </TouchableOpacity>
+                        {/* End time */}
+                        <TouchableOpacity style={styles.secContainer}
+                            onPress={() => props.showEndTimePicker()}>
+                            <View style={styles.CameraImgView}>
+                                <Text style={styles.AddPhotosTxt}>
+                                    {props.endTime ? props.endTime : 'End Time'}
+                                </Text>
+                            </View>
+                            <View style={styles.BckArrowBack}>
+                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            </View>
+                            <DateTimePickerModal
+                                isVisible={props.isEndTimePickerVisible}
+                                mode='time'
+                                onConfirm={props.handleEndTimeConfirm}
+                                onCancel={props.hideEndTimePicker}
+                            />
+                        </TouchableOpacity>
                         <Input
                             onChangeText={(InterviewDetails) => props.setInterviewDetails(InterviewDetails)}
                             value={props.InterviewDetails}
                             secureTextEntry={false}
                             placeholder="Interview Details *"
+                            InputType="withScroll"
+                        />
+                        <Input
+                            onChangeText={(jobLevel) => props.setJobLevel(jobLevel)}
+                            value={props.jobLevel}
+                            secureTextEntry={false}
+                            placeholder="Job level*"
                             InputType="withScroll"
                         />
                     </View>
@@ -158,6 +229,13 @@ const AddJobs = (props) => {
                             value={props.CompanyPersonName}
                             secureTextEntry={false}
                             placeholder="Company Person Name *"
+                            InputType="withScroll"
+                        />
+                        <Input
+                            onChangeText={(language) => props.setLanguage(language)}
+                            value={props.language}
+                            secureTextEntry={false}
+                            placeholder="Language"
                             InputType="withScroll"
                         />
                         <Input
@@ -188,6 +266,32 @@ const AddJobs = (props) => {
                                 InputType="withScroll"
                             />
                         </View>
+                        <View style={{
+                            justifyContent: 'center', alignItems: 'center',
+                            marginBottom: 10, marginTop: 10
+                        }}>
+                            <TouchableOpacity onPress={() => props.setMenuTypeVisible()}
+                                style={styles.tchvwe}>
+                                {/* <Text style={styles.slctdtxt}> */}
+                                {props?.selectedServices?.map((data) => {
+                                    return (
+                                        <View style={{}}>
+                                            <Text style={styles.slctdtxt}>•{
+                                                data.job_benefits_name
+                                            }</Text>
+                                        </View>
+                                    );
+                                })}
+                                {/* </Text> */}
+                            </TouchableOpacity>
+                        </View>
+                        <Input
+                            onChangeText={(skills) => props.setSkills(skills)}
+                            value={props.skills}
+                            secureTextEntry={false}
+                            placeholder="Skills"
+                            InputType="withScroll"
+                        />
                     </View>
                     <View style={styles.footermainvwe}>
                         <View style={styles.conditionvwe}>
@@ -213,7 +317,6 @@ const AddJobs = (props) => {
                     </View>
                 </ScrollView>
             </View>
-
             {/* Country Modal */}
             <Modal
                 animationType="slide"
@@ -238,6 +341,13 @@ const AddJobs = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={{ marginBottom: "15%" }}>
+                            <View style={{ width: '100%' }}>
+                                <TextInput
+                                    placeholder={"Search country"}
+                                    onChangeText={(text) => props.SearchCountry(text)}
+                                    style={styles.TxtInptStyle}
+                                />
+                            </View>
                             <FlatList
                                 data={props.countryList}
                                 renderItem={(item) => props.renderCountryListItem(item)}
@@ -272,6 +382,13 @@ const AddJobs = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={{ marginBottom: "15%" }}>
+                            <View style={{ width: '100%' }}>
+                                <TextInput
+                                    placeholder={"Search state"}
+                                    onChangeText={(text) => props.SearchState(text)}
+                                    style={styles.TxtInptStyle}
+                                />
+                            </View>
                             <FlatList
                                 data={props.stateList}
                                 renderItem={(item) => props.renderStateListItem(item)}
@@ -319,6 +436,13 @@ const AddJobs = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={{ marginBottom: "15%" }}>
+                            <View style={{ width: '100%' }}>
+                                <TextInput
+                                    placeholder={"Search city"}
+                                    onChangeText={(text) => props.SearchCity(text)}
+                                    style={styles.TxtInptStyle}
+                                />
+                            </View>
                             <FlatList
                                 data={props.cityList}
                                 renderItem={(item) => props.renderCityListItem(item)}
@@ -341,8 +465,71 @@ const AddJobs = (props) => {
                 </View>
             </Modal>
             {/*  */}
+            <Modal
+                animationType="slide"
+                visible={props.addJobCategoryModalVisible}
+                onRequestClose={() => {
+                    props.setAddJobCategoryModalVisible(false);
+                }}>
+                <View style={{ alignItems: "center" }}>
+                    <View style={styles.moadlvwe}>
+                        <View style={styles.headervwe}>
+                            <View style={{ flex: 1 }} />
+                            <View style={styles.arealstvwe}>
+                                <Text style={styles.arealsttxt}>
+                                    Job category list
+                                </Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => props.setAddJobCategoryModalVisible(false)}
+                                style={styles.cancelbtnimgvwe}>
+                                <Image
+                                    style={styles.cancelimg}
+                                    source={require("../../../../Assets/cancelModalBtn.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginBottom: "15%" }}>
+                            <FlatList
+                                data={props.jobCategoryList}
+                                renderItem={(item) => props.renderJobCategoryListItem(item)}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            {/*  */}
 
-
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={props.menuTypeVisible}
+                onRequestClose={() => {
+                    props.setMenuTypeVisible(!props.menuTypeVisible);
+                }}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.centeredView}>
+                    <View style={styles.alertBackground}>
+                        <View style={styles.selectyoursize}>
+                            <Text style={styles.sizeslct}>Select your dish type</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={styles.cancelvwe}
+                            underlayColor={"#F5F5F5"}
+                            onPress={() => props.setMenuTypeVisible(false)}>
+                            <Image style={styles.closeicon}
+                                source={require('../../../../Assets/cancelModalBtn.png')}
+                            />
+                        </TouchableOpacity>
+                        <FlatList
+                            data={props.benifitsStaticContent}
+                            renderItem={(item) => props.renderStaticContentData(item)}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </Modal>
         </View>
     )
 }

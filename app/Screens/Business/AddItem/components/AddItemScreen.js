@@ -142,7 +142,7 @@ const AddItemScreen = (props) => {
                     style={styles.centeredView}>
                     <View style={styles.alertBackground}>
                         <View style={styles.selectyoursize}>
-                            <Text style={styles.sizeslct}>Select your size</Text>
+                            <Text style={styles.sizeslct}>Select your dish type</Text>
                         </View>
                         <TouchableOpacity
                             style={styles.cancelvwe}

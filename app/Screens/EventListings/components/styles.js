@@ -12,7 +12,7 @@ const Styles = StyleSheet.create({
     },
     txtCat: {
         fontSize: 15,
-        lineHeight:18, 
+        lineHeight: 18,
         color: WHITE_COLOR_CODE,
         fontFamily: FONT_FAMILY_REGULAR,
     },
@@ -40,7 +40,7 @@ const Styles = StyleSheet.create({
     },
     hdngtxt: {
         fontSize: 17,
-        lineHeight:20,
+        lineHeight: 20,
         fontFamily: FONT_FAMILY_REGULAR,
         color: "#3a3838"
     },
@@ -53,11 +53,11 @@ const Styles = StyleSheet.create({
     },
     text: {
         color: SMALL_TEXT_COLOR_CODE,
-        fontFamily:FONT_FAMILY_REGULAR
+        fontFamily: FONT_FAMILY_REGULAR
     },
     yellowtxt: {
         color: YELLOW_COLOR_CODE,
-        fontFamily:FONT_FAMILY_REGULAR
+        fontFamily: FONT_FAMILY_REGULAR
     },
     intcon: {
         flexDirection: "row",
@@ -66,8 +66,8 @@ const Styles = StyleSheet.create({
     minicon: {
         flexDirection: "row",
         alignItems: "center",
-        paddingTop:2,
-        paddingBottom:2
+        paddingTop: 2,
+        paddingBottom: 2
     },
     btncon: {
         paddingVertical: 10,
@@ -76,6 +76,10 @@ const Styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 10,
         marginRight: 10
+    },
+    buytckttxt: {
+        fontFamily: FONT_FAMILY_REGULAR,
+        lineHeight: 16
     }
 },
 );

@@ -9,7 +9,6 @@ import ENDPOINTS from '../../Utils/apiEndPoints';
 import Loader from '../../Utils/Loader';
 import Success from '../../Components/Modal/success';
 import Error from '../../Components/Modal/error';
-import { FONT_FAMILY_REGULAR, GREY_COLOR_CODE } from '../../Utils/Constant';
 const NotificationsView = () => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -49,7 +48,7 @@ const NotificationsView = () => {
     const _handleNotificationData = (item) => {
         return (
             <View style={styles.EmailContainer}>
-                <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 15, color: GREY_COLOR_CODE }}>
+                <Text style={styles.notificationttle}>
                     {'Notification ID :' + ' ' + item.notification_id}
                 </Text>
                 <Text style={styles.NotificationText}>{item.message}</Text>
