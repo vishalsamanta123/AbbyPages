@@ -47,10 +47,10 @@ const JobDetails = ({ route, navigation }) => {
   };
   const applyNow = async () => {
     navigation.navigate("ApplyJob", { details, });
+  }
   const onPressJob = (item) => {
     jobDetails(item);
   };
-
   const compareFun = () => {
     alert("Coming Soon");
   };

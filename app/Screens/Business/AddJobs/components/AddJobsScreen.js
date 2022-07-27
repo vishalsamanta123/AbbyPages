@@ -265,6 +265,13 @@ const AddJobs = (props) => {
                                 placeholder="Job Adress *"
                                 InputType="withScroll"
                             />
+                            <Input
+                                onChangeText={(skills) => props.setSkills(skills)}
+                                value={props.skills}
+                                secureTextEntry={false}
+                                placeholder="Skills"
+                                InputType="withScroll"
+                            />
                         </View>
                         <View style={{
                             justifyContent: 'center', alignItems: 'center',
@@ -272,26 +279,15 @@ const AddJobs = (props) => {
                         }}>
                             <TouchableOpacity onPress={() => props.setMenuTypeVisible()}
                                 style={styles.tchvwe}>
-                                {/* <Text style={styles.slctdtxt}> */}
-                                {props?.selectedServices?.map((data) => {
+                                {props?.selectedBenefits?.map((data) => {
                                     return (
                                         <View style={{}}>
-                                            <Text style={styles.slctdtxt}>•{
-                                                data.job_benefits_name
-                                            }</Text>
+                                            <Text style={styles.slctdtxt}>•{data.job_benefits_name}</Text>
                                         </View>
                                     );
                                 })}
-                                {/* </Text> */}
                             </TouchableOpacity>
                         </View>
-                        <Input
-                            onChangeText={(skills) => props.setSkills(skills)}
-                            value={props.skills}
-                            secureTextEntry={false}
-                            placeholder="Skills"
-                            InputType="withScroll"
-                        />
                     </View>
                     <View style={styles.footermainvwe}>
                         <View style={styles.conditionvwe}>
@@ -513,7 +509,7 @@ const AddJobs = (props) => {
                     style={styles.centeredView}>
                     <View style={styles.alertBackground}>
                         <View style={styles.selectyoursize}>
-                            <Text style={styles.sizeslct}>Select your dish type</Text>
+                            <Text style={styles.sizeslct}>Select job bennifits</Text>
                         </View>
                         <TouchableOpacity
                             style={styles.cancelvwe}
@@ -525,11 +521,12 @@ const AddJobs = (props) => {
                         </TouchableOpacity>
                         <FlatList
                             data={props.benifitsStaticContent}
-                            renderItem={(item) => props.renderStaticContentData(item)}
+                            renderItem={(item,index) => props.renderStaticContentData(item,index)}
                         />
                     </View>
                 </TouchableOpacity>
             </Modal>
+
         </View>
     )
 }
