@@ -22,7 +22,8 @@ const JobListScreen = (props) => {
     return (
       <TouchableOpacity
         onPress={() => props.onPressJob(item)}
-        style={styles.dataCon}>
+        style={styles.dataCon}
+      >
         <View>
           <Image
             style={styles.posterimg}
@@ -44,7 +45,9 @@ const JobListScreen = (props) => {
               resizeMode="contain"
               source={require("../../../Assets/info_marker_icon.png")}
             />
-            <Text numberOfLines={3} style={styles.text}>{item.job_address}</Text>
+            <Text numberOfLines={3} style={styles.text}>
+              {item.job_address}
+            </Text>
           </View>
           <View style={styles.basiccon}>
             <Image
@@ -95,7 +98,8 @@ const JobListScreen = (props) => {
       <View style={[CommonStyles.header]}>
         <TouchableOpacity
           onPress={() => props.goBack()}
-          style={styles.HeaderView}>
+          style={styles.HeaderView}
+        >
           <Image
             style={{ width: 35, height: 25 }}
             source={require("../../../Assets/header_back_btn.png")}
@@ -129,24 +133,7 @@ const JobListScreen = (props) => {
         </View>
       </View>
       <View style={[CommonStyles.body]}>
-        <View
-          style={{
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            backgroundColor: "#f2f2f2",
-          }}>
-          {props.search && (
-            <View style={styles.inputVw}>
-              <TextInput
-                placeholder={"Search job ..."}
-                placeholderTextColor={SMALL_TEXT_COLOR_CODE}
-                style={styles.input}
-                onChangeText={(searchKey) => props.searchJob(searchKey)}
-              />
-            </View>
-          )}
-          }}
-        >
+        <View style={styles.resultTxt}>
           <Text style={styles.hdngtxt}>
             {props?.jobList?.length} Results found
           </Text>

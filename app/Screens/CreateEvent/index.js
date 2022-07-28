@@ -234,13 +234,15 @@ const CreateEventView = () => {
             name: img.path.substring(img.path.lastIndexOf("/") + 1),
           });
         });
-        const response = await apiCall(
+        console.log("formData: ", formData);
+        const { data } = await apiCall(
           "POST",
           ENDPOINTS.CREATE_EVENTS,
           formData,
           { "Content-Type": "multipart/form-data" }
         );
-        if (response.status === 200) {
+        console.log("dataSCDD: ", data);
+        if (data.status === 200) {
           setSuccessMessage("Event added successfully");
           setVisibleSuccess(true);
           setVisible(false);
