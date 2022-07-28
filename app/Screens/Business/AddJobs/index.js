@@ -11,7 +11,6 @@ import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../.
 const AddJobs = ({ navigation }) => {
     let today = moment(today).format("DD-MM-YYYY");
     let benefits_Date = moment(today);
-    console.log('benefits_Date: ', benefits_Date);
     const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] = useState(false);
     const [jobCategoryList, setJobCategoryList] = useState('');
     const [selectedJobCategory, setSelectedJobCategory] = useState('');

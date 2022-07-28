@@ -75,7 +75,6 @@ const AddCategoryScreen = (props) => {
                     </View>
                 </TouchableOpacity>
             </Modal>
-
         </View>
     );
 };

@@ -1,14 +1,12 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import AddText from './components/AddText';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
 import Success from '../../../Components/Modal/success';
-import {
-    apiCall, setDefaultHeader
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
-import { useFocusEffect, useLinkProps } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const AddTextView = ({ navigation }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -27,13 +25,11 @@ const AddTextView = ({ navigation }) => {
     );
 
     const getProfile = async () => {
-        const { data } = await apiCall
-            ('POST', ENDPOINTS.GET_USER_PROFILE);
+        const { data } = await apiCall('POST', ENDPOINTS.GET_USER_PROFILE);
         if (data.status === 200) {
             data.data.business_info ? setWriteOwnTxt(data.data.business_info[0].text) : null
         };
     };
-
 
     const onPressTextOptn = () => {
         setTextOptn(!textOptn)
@@ -49,8 +45,7 @@ const AddTextView = ({ navigation }) => {
                 const params = {
                     'text': writeOwnTxt
                 };
-                const { data } = await apiCall
-                    ('POST', ENDPOINTS.ADD_BUSINEES_INFO, params);
+                const { data } = await apiCall('POST', ENDPOINTS.ADD_BUSINEES_INFO, params);
                 if (data.status === 200) {
                     navigation.navigate('AddKeybord')
                     setVisible(false);

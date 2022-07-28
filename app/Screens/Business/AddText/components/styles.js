@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { WHITE_COLOR_CODE, FONT_FAMILY_BOLD, LIGHT_GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, FONT_FAMILY_THIN, FONT_FAMILY_LIGHT, YELLOW_COLOR_CODE } from '../../../../Utils/Constant';
+import { LIGHT_GREY_COLOR_CODE, LINE_COMMON_COLOR_CODE, FONT_FAMILY_REGULAR, YELLOW_COLOR_CODE } from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     WriteTextView: {
         padding: 15
     },
     WriteText: {
         fontFamily: FONT_FAMILY_REGULAR,
-         fontSize: 17
+        fontSize: 17
     },
     TimeLineImge: {
         width: '100%',
@@ -61,12 +61,12 @@ const Styles = StyleSheet.create({
         fontSize: 13,
         color: LIGHT_GREY_COLOR_CODE
     },
-    InputStyleTxt:{
-        height: 50, 
-        borderWidth: 1, 
+    InputStyleTxt: {
+        height: 50,
+        borderWidth: 1,
         paddingLeft: 10,
         borderColor: YELLOW_COLOR_CODE,
-        borderRadius:5
+        borderRadius: 5
     }
 })
 export default Styles;

@@ -15,7 +15,7 @@ import Button from '../../../../Components/Button';
 import Header from '../../../../Components/Header';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 const AddJobs = (props) => {
     return (
         <View style={[CommonStyles.container]}>
@@ -279,6 +279,13 @@ const AddJobs = (props) => {
                         }}>
                             <TouchableOpacity onPress={() => props.setMenuTypeVisible()}
                                 style={styles.tchvwe}>
+                                <Text style={{
+                                    fontSize: 17,
+                                    fontFamily: FONT_FAMILY_REGULAR,
+                                    color:BLACK_COLOR_CODE
+                                }}>
+                                    {props?.selectedBenefits.length > 0 ? null : "Select job benefits"}
+                                </Text>
                                 {props?.selectedBenefits?.map((data) => {
                                     return (
                                         <View style={{}}>
@@ -521,7 +528,7 @@ const AddJobs = (props) => {
                         </TouchableOpacity>
                         <FlatList
                             data={props.benifitsStaticContent}
-                            renderItem={(item,index) => props.renderStaticContentData(item,index)}
+                            renderItem={(item, index) => props.renderStaticContentData(item, index)}
                         />
                     </View>
                 </TouchableOpacity>
