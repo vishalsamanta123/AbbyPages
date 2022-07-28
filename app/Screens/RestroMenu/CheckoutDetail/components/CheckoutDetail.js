@@ -181,6 +181,7 @@ const CheckoutDetail = (props) => {
                 secureTextEntry={false}
                 placeholder="Card Number"
                 InputType="withScroll"
+                maxLength={16}
               />
               <Input
                 onChangeText={(CardExpiry) => props.setCardExpiry(CardExpiry)}

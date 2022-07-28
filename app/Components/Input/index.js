@@ -5,6 +5,7 @@ import {
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
 } from "../../Utils/Constant";
+
 const Input = (props) => {
   const [isFocused, setIsfocused] = useState(true);
   const {
@@ -24,6 +25,7 @@ const Input = (props) => {
     maxLength,
     labelStyleMain,
     secureTextEntry,
+    selectionColor,
   } = props;
   const { container, textInput, labelStyle } = style;
   const _handleFocus = () => {
@@ -33,7 +35,7 @@ const Input = (props) => {
     value === "" && setIsfocused(true);
   };
   const onPressEye = () => {
-    setShowPassword(!showPassword);
+    // setShowPassword(!showPassword);
   };
   return (
     <Fragment>
@@ -76,7 +78,7 @@ const Input = (props) => {
           secureTextEntry={secureTextEntry}
           value={value}
           placeholderTextColor={placeholderTextColor}
-          selectionColor={"#a5a5a5"}
+          selectionColor={selectionColor ? selectionColor : "#a5a5a5"}
           style={[
             textInput,
             {

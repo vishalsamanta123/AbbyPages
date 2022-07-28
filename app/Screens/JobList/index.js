@@ -58,7 +58,7 @@ const JobList = ({ navigation }) => {
         like_status: item?.user_like == 1 ? 0 : 1,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
-      console.log('data: ', data);
+      console.log("data: ", data);
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
         handleJobFilter(offset);
@@ -118,7 +118,9 @@ const JobList = ({ navigation }) => {
         offset: offSet,
         limit: 10 + offSet,
       };
+      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
+      console.log("data: ", data);
       if (data.status == 200) {
         setJobList(data.data);
         setLoader(false);
