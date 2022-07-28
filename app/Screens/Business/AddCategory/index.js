@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
   View,
-  TouchableOpacity,
   Text,
   Image,
   ToastAndroid,
+  TouchableOpacity,
 } from "react-native";
 import AddCategoryScreen from "./components/AddCategoryScreen";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -17,9 +17,9 @@ import Success from "../../../Components/Modal/success";
 import styles from "./components/styles";
 import {
   BLACK_COLOR_CODE,
-  LIGHT_GREY_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  LIGHT_GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const AddCategory = ({ navigation, route }) => {
   const params = route.params;
@@ -40,7 +40,7 @@ const AddCategory = ({ navigation, route }) => {
       if (params) {
         setEditDeleteType(params);
       }
-      return () => {};
+      return () => { };
     }, [editDeleteType])
   );
   const onPressSave = async () => {
@@ -90,11 +90,7 @@ const AddCategory = ({ navigation, route }) => {
       const params = {
         business_type: 1,
       };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.GET_CATEGORY_LIST,
-        params
-      );
+      const { data } = await apiCall("POST", ENDPOINTS.GET_CATEGORY_LIST, params);
       if (data.status === 200) {
         setGetCategoryList(data.data);
         setVisible(false);
@@ -114,21 +110,17 @@ const AddCategory = ({ navigation, route }) => {
         business_item_category_id: item.business_item_category_id,
         business_type: 1,
       };
-      const response = await apiCall(
-        "POST",
-        ENDPOINTS.ITEM_CATEGORY_REMOVE_SHOW,
-        params
-      );
+      const response = await apiCall("POST", ENDPOINTS.ITEM_CATEGORY_REMOVE_SHOW, params);
       if (response.status === 200) {
         item.status === 0
           ? ToastAndroid.show(
-              "Categories successfully active",
-              ToastAndroid.SHORT
-            )
+            "Categories successfully active",
+            ToastAndroid.SHORT
+          )
           : ToastAndroid.show(
-              "Categories successfully un-active",
-              ToastAndroid.SHORT
-            );
+            "Categories successfully un-active",
+            ToastAndroid.SHORT
+          );
         getCategoryListFun();
       } else {
       }

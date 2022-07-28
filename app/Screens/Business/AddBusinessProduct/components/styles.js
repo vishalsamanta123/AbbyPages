@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         padding: 5,
         borderRadius: 7,
         flexDirection: "row",
-        // marginBottom: '2%',
         backgroundColor: '#f2f2f2',
         marginLeft: 4,
         marginTop: 5

@@ -210,6 +210,7 @@ const CreateEventView = () => {
       try {
         let formData = new FormData();
         formData.append("event_id", 1);
+        formData.append("business_id", 352);
         formData.append("business_name", BusinessName);
         formData.append("event_address_type", 2);
         formData.append("event_date", selectedDate);
@@ -222,8 +223,10 @@ const CreateEventView = () => {
         formData.append("longitude", locationData.find_me_long);
         formData.append("near_by_address", nearByLocationData.find_me_in);
         formData.append("official_website_url", OfficialWeb);
-        formData.append("price_range_from", PriceFrom);
-        formData.append("price_range_to", PriceTo);
+        // formData.append("price_range_from", PriceFrom);
+        formData.append("price_range_from", undefined);
+        formData.append("price_range_to", undefined);
+        // formData.append("price_range_to", PriceTo);
         formData.append("tickets_url", TicketURL);
         formData.append("event_category_id", selectedCategory.id);
         formData.append("event_charge_type", 1);
@@ -234,12 +237,14 @@ const CreateEventView = () => {
             name: img.path.substring(img.path.lastIndexOf("/") + 1),
           });
         });
+        console.log('formData: ', formData);
         const response = await apiCall(
           "POST",
           ENDPOINTS.CREATE_EVENTS,
           formData,
           { "Content-Type": "multipart/form-data" }
         );
+        console.log('response: ', response.data);
         if (response.status === 200) {
           setSuccessMessage("Event added successfully");
           setVisibleSuccess(true);
@@ -309,7 +314,7 @@ const CreateEventView = () => {
         setCategoryListData(response.data.data);
       } else {
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const _handleSelectedCategory = (item) => {
     setSelectedCategory(item);
@@ -409,8 +414,8 @@ const CreateEventView = () => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+      // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );

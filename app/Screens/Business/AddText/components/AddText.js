@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Image,
     StatusBar,
     Text,
     KeyboardAvoidingView,
-    FlatList,
-    ImageBackground, ScrollView, TextInput
+    ScrollView, TextInput
 } from 'react-native';
 import styles from './styles';
 import Header from '../../../../Components/Header';
@@ -14,7 +13,7 @@ import Button from '../../../../Components/Button';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import Input from '../../../../Components/Input';
 
-import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE } from '../../../../Utils/Constant';
+import { WHITE_COLOR_CODE } from '../../../../Utils/Constant';
 const AddText = (props) => {
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>

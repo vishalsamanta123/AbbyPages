@@ -11,7 +11,6 @@ const AddBusinessProductScreen = (props) => {
         <View style={CommonStyles.container}>
             <Header
                 HeaderText={props.HedarType == 'Edit' ? 'Edit Product' : 'Add Product'}
-                // HeaderText='Add Product'
                 RightImg={null}
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>

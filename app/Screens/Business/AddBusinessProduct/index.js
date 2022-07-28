@@ -4,9 +4,7 @@ import AddBusinessProductScreen from './components/AddBusinessProductScreen';
 import CommonStyles from '../../../Utils/CommonStyles';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import ImagePicker from 'react-native-image-crop-picker';
-import {
-    apiCall
-} from '../../../Utils/httpClient';
+import { apiCall } from '../../../Utils/httpClient';
 import ENDPOINTS from '../../../Utils/apiEndPoints';
 import Loader from '../../../Utils/Loader';
 import Error from '../../../Components/Modal/error';
@@ -173,10 +171,10 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 formdata.append('category_id', CategoryId)
                 formdata.append('sub_category_id', SubCategoryId)
                 formdata.append("business_category_id", 1)
-                formdata.append("product_name",productName)
+                formdata.append("product_name", productName)
                 formdata.append("quantity", productQuanlity)
                 formdata.append('price', productPrice)
-                formdata.append('discount',productDiscount)
+                formdata.append('discount', productDiscount)
                 formdata.append('final_price', productFinalPrice)
                 formdata.append('description', productDescription)
                 formdata.append('product_size', selectedSize)
@@ -280,7 +278,6 @@ const AddBusinessProduct = ({ route, navigation }) => {
         //     setVisibleErr(true);
         //     return false;
         // }
-
         return true;
     }
 
