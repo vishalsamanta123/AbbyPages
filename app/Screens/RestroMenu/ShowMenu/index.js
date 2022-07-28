@@ -125,26 +125,31 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _renderCategory = (item, index) => {
+    console.log("itemCAS: ", item);
     const selectedColor =
       item.business_item_category_id === isSelectedCatgory
         ? WHITE_COLOR_CODE
         : "#ffe98e";
     return (
-      <TouchableOpacity
-        onPress={() => _handleDataTypeSelected("catg", item, index)}
-        style={styles.lablestyle}
-      >
-        <Text
-          style={[
-            styles.txtCat,
-            {
-              color: selectedColor,
-            },
-          ]}
-        >
-          {item.category_name}
-        </Text>
-      </TouchableOpacity>
+      <>
+        {item.status === 1 && (
+          <TouchableOpacity
+            onPress={() => _handleDataTypeSelected("catg", item, index)}
+            style={styles.lablestyle}
+          >
+            <Text
+              style={[
+                styles.txtCat,
+                {
+                  color: selectedColor,
+                },
+              ]}
+            >
+              {item.category_name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </>
     );
   };
   const onPressAddItem = (item, index) => {
@@ -168,7 +173,6 @@ const ShowMenuView = ({ route, navigation }) => {
     // }
   };
   const removeFromCart = (item, value) => {
-    console.log("item: ", item);
     if (cartData.length > 0) {
       var getIndex = _.findIndex(cartData, { item_id: item.item_id });
       if (getIndex >= 0) {
@@ -248,7 +252,7 @@ const ShowMenuView = ({ route, navigation }) => {
   const _handleSandwichDish = (item, index) => {
     return (
       <>
-        {item.status === 1 && (
+        {item.status == 1 && (
           <View key={index} style={styles.ConatinView}>
             <Image
               style={styles.DishImgeStyle}

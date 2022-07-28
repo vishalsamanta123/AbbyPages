@@ -41,6 +41,11 @@ const Styles = StyleSheet.create({
     height: 25,
     width: 25,
   },
+  resultTxt: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "#f2f2f2",
+  },
   hdngtxt: {
     fontSize: 18,
     lineHeight: 20,
@@ -114,7 +119,7 @@ const Styles = StyleSheet.create({
     paddingLeft: 10,
   },
   HeaderViewMidle: {
-    flex: 20,
+    flex: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -122,6 +127,15 @@ const Styles = StyleSheet.create({
     color: WHITE_COLOR_CODE,
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 18,
+  },
+  resetVw: {
+    paddingHorizontal: 10,
+    top: 5,
+  },
+  resetTxt: {
+    fontSize: 16,
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_BOLD,
   },
   FilterImgeView: {
     flex: 2,
@@ -200,7 +214,6 @@ const Styles = StyleSheet.create({
     borderColor: BLACK_COLOR_CODE,
     borderWidth: 0.8,
     height: 55,
-    color: BLACK_COLOR_CODE,
     marginTop: 10,
   },
   filterInputTxt: {
@@ -240,29 +253,37 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 12,
     paddingHorizontal: 10,
-    marginTop: 10,
+    marginVertical: 10,
   },
   filterVw: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingHorizontal: 5,
   },
   filterTxt: {
     fontSize: 18,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingHorizontal: 5,
+    bottom: 12,
+    width: "90%",
   },
   filterDataVw: {
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingLeft: 10,
+    borderBottomWidth: 0.9,
+    borderColor: YELLOW_COLOR_CODE,
   },
   filterDataTxt: {
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+  selectionModalVw: {
+    flex: 1,
+    marginTop: 5,
+    paddingHorizontal: 10,
+  },
   filterDatasVw: {
-    maxHeight: 250,
     marginHorizontal: 10,
   },
   searchInput: {
@@ -275,7 +296,28 @@ const Styles = StyleSheet.create({
     color: LIGHT_BLACK_COLOR_CODE,
     fontSize: 16,
     fontFamily: FONT_FAMILY_REGULAR,
-    height: 42,
+    height: 50,
+  },
+  typeVw: {
+    marginTop: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  typeTxt: {
+    fontSize: 20,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  noDataVw: {
+    height: 200,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  noDataTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
 });
 export default Styles;

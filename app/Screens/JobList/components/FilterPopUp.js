@@ -10,6 +10,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Modal,
 } from "react-native";
 import Dialog, { SlideAnimation } from "react-native-popup-dialog";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -33,26 +34,12 @@ export default function FilterPopUp(props) {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [hireType, setHireType] = useState([]);
-  const handleJobType = () => {
-    setHireType([
-      {
-        name: "Full Time",
-      },
-      {
-        name: "Part Time",
-      },
-      {
-        name: "Intership",
-      },
-      {
-        name: "Freelancer",
-      },
-    ]);
-  };
+  const [selection, setSelection] = useState(null);
   const [filterData, setFilterData] = useState({
     categoryName: "",
     country: "",
     state: "",
+    city: "",
     hire_type: "",
   });
 
@@ -67,6 +54,7 @@ export default function FilterPopUp(props) {
     return () => backHandler.remove();
   }, []);
   const handleCategory = async () => {
+    setSelection(true);
     try {
       props.setLoader(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_CATEGORY);
@@ -80,7 +68,8 @@ export default function FilterPopUp(props) {
       props.setLoader(false);
     }
   };
-  const getPlaces = async (type) => {
+  const getPlaces = async (type, selection) => {
+    setSelection(true);
     try {
       props.setLoader(true);
       const params = {
@@ -109,7 +98,23 @@ export default function FilterPopUp(props) {
       props.setLoader(false);
     }
   };
-
+  const handleJobType = (selection) => {
+    setSelection(true);
+    setHireType([
+      {
+        name: "Full Time",
+      },
+      {
+        name: "Part Time",
+      },
+      {
+        name: "Intership",
+      },
+      {
+        name: "Freelancer",
+      },
+    ]);
+  };
   const handleFilter = async () => {
     props.setVisible(false);
     props.handleJobFilter(0);
@@ -117,15 +122,7 @@ export default function FilterPopUp(props) {
 
   const PickerComponent = ({ title, name, handleData, data, properWidth }) => {
     return (
-      <TouchableOpacity
-        onPress={(type) => handleData(type)}
-        style={[
-          styles.filterCon,
-          {
-            marginBottom: data.length > 0 ? 0 : 10,
-          },
-        ]}
-      >
+      <View style={styles.filterCon}>
         <Text
           style={[
             styles.filterTxt,
@@ -139,24 +136,17 @@ export default function FilterPopUp(props) {
         >
           {title}
         </Text>
-        <View style={[styles.filterVw]}>
-          <Text
-            style={[
-              styles.filterTxt,
-              {
-                bottom: 12,
-              },
-            ]}
-          >
-            {name}
-          </Text>
-          <Image
-            resizeMode={"contain"}
-            style={{ bottom: 10 }}
-            source={require("../../../Assets/qty_minus_icon3.png")}
-          />
+        <View style={styles.filterVw}>
+          <Text style={styles.filterTxt}>{name}</Text>
+          <TouchableOpacity onPress={(type) => handleData(type)}>
+            <Image
+              resizeMode={"contain"}
+              style={{ bottom: 10 }}
+              source={require("../../../Assets/qty_minus_icon3.png")}
+            />
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
   const handleSearch = (search, type) => {
@@ -202,24 +192,38 @@ export default function FilterPopUp(props) {
       }
     }
   };
+  const handleReset = () => {
+    setFilterData({
+      categoryName: "",
+      country: "",
+      state: "",
+      city: "",
+      hire_type: "",
+    });
+    props.setFilterData({
+      title: "",
+      city_name: "",
+      category: "",
+      country: "",
+      state: "",
+      city: "",
+      job_type: "",
+    });
+  };
   return (
-    <Dialog
-      visible={props.visible}
-      width={props.search ? "90%" : "100%"}
-      height={props.search ? "50%" : "100%"}
-      useNativeDriver={true}
-      dialogAnimation={new SlideAnimation({ slideFrom: "bottom" })}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        hidden={false}
-        backgroundColor={YELLOW_COLOR_CODE}
-        translucent={false}
-      />
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : null}
+    <View>
+      <Dialog
+        visible={props.visible}
+        width={props.search ? "90%" : "100%"}
+        height={props.search ? "50%" : "100%"}
+        dialogAnimation={new SlideAnimation({ slideFrom: "bottom" })}
       >
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor={YELLOW_COLOR_CODE}
+          translucent={false}
+        />
         <View style={CommonStyles.header}>
           <TouchableOpacity
             onPress={() => props.closeModel()}
@@ -238,6 +242,13 @@ export default function FilterPopUp(props) {
               {props.search ? "Search Job" : "Filter Jobs"}
             </Text>
           </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => handleReset()}
+            style={styles.resetVw}
+          >
+            <Text style={styles.resetTxt}>Reset</Text>
+          </TouchableOpacity>
           {/* <View style={styles.FilterImgeView}>
           <Image source={require("../../../Assets/filter_icon.png")} />
           <Image
@@ -247,8 +258,8 @@ export default function FilterPopUp(props) {
         </View> */}
         </View>
         <ScrollView
-          nestedScrollEnabled={true}
-          keyboardShouldPersistTaps={"always"}
+          nestedScrollEnabled
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 10 }}
         >
           <View style={{ flex: 1 }}>
             <Text style={styles.searchTxt}>Refine your search</Text>
@@ -256,10 +267,13 @@ export default function FilterPopUp(props) {
               <Input
                 containerStyle={styles.filterInputVw}
                 textInputStyle={styles.filterInput}
+                selectionColor={LIGHT_BLACK_COLOR_CODE}
                 labelStyleMain={[
                   styles.filterInputTxt,
                   {
                     top: props?.filterData?.title === "" ? 10 : -14,
+                    backgroundColor:
+                      props?.filterData?.title === "" ? "" : WHITE_COLOR_CODE,
                   },
                 ]}
                 placeholder={"Any Keywords.."}
@@ -275,10 +289,15 @@ export default function FilterPopUp(props) {
               <Input
                 containerStyle={styles.filterInputVw}
                 textInputStyle={styles.filterInput}
+                selectionColor={LIGHT_BLACK_COLOR_CODE}
                 labelStyleMain={[
                   styles.filterInputTxt,
                   {
                     top: props?.filterData?.city_name === "" ? 10 : -14,
+                    backgroundColor:
+                      props?.filterData?.city_name === ""
+                        ? ""
+                        : WHITE_COLOR_CODE,
                   },
                 ]}
                 placeholder={"City ,postalcode.."}
@@ -300,221 +319,35 @@ export default function FilterPopUp(props) {
                     data={category}
                     properWidth={90}
                   />
-                  {category.length > 0 && (
-                    <ScrollView
-                      nestedScrollEnabled
-                      contentContainerStyle={styles.filterDatasVw}
-                    >
-                      <>
-                        <TextInput
-                          placeholder="Search Category"
-                          style={styles.searchInput}
-                          placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
-                          onChangeText={(search, type) =>
-                            handleSearch(search, null)
-                          }
-                        />
-                        {category.map((item) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                props.setFilterData({
-                                  ...props.filterData,
-                                  category: item.id,
-                                });
-                                setFilterData({
-                                  ...filterData,
-                                  categoryName: item.category_name,
-                                });
-                                setCategory([]);
-                              }}
-                              style={styles.filterDataVw}
-                            >
-                              <Text style={styles.filterDataTxt}>
-                                {item.category_name}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </>
-                    </ScrollView>
-                  )}
+
                   <PickerComponent
                     name={filterData.country}
-                    handleData={() => getPlaces(0)}
+                    handleData={() => getPlaces(0, 1)}
                     title={"Country"}
                     data={country}
-                    properWidth={80}
+                    properWidth={81}
                   />
-                  {country.length > 0 && (
-                    <ScrollView
-                      nestedScrollEnabled
-                      contentContainerStyle={styles.filterDatasVw}
-                    >
-                      <>
-                        <TextInput
-                          placeholder="Search Country"
-                          style={styles.searchInput}
-                          placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
-                          onChangeText={(search, type) =>
-                            handleSearch(search, 0)
-                          }
-                        />
-                        {country.map((item) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                props.setFilterData({
-                                  ...props.filterData,
-                                  country: item.country_id,
-                                });
-                                setFilterData({
-                                  ...filterData,
-                                  country: item.name,
-                                });
-                                setCountry([]);
-                              }}
-                              style={styles.filterDataVw}
-                            >
-                              <Text style={styles.filterDataTxt}>
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </>
-                    </ScrollView>
-                  )}
                   <PickerComponent
                     name={filterData.state}
-                    handleData={() => getPlaces(1)}
+                    handleData={() => getPlaces(1, 2)}
                     title={"State"}
                     data={state}
                     properWidth={58}
                   />
-                  {state.length > 0 && (
-                    <ScrollView
-                      nestedScrollEnabled
-                      contentContainerStyle={styles.filterDatasVw}
-                    >
-                      <>
-                        <TextInput
-                          placeholder="Search State"
-                          style={styles.searchInput}
-                          placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
-                          onChangeText={(search, type) =>
-                            handleSearch(search, 1)
-                          }
-                        />
-                        {state.map((item) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                props.setFilterData({
-                                  ...props.filterData,
-                                  state: item.state_id,
-                                });
-                                setFilterData({
-                                  ...filterData,
-                                  state: item.name,
-                                });
-                                setState([]);
-                              }}
-                              style={styles.filterDataVw}
-                            >
-                              <Text style={styles.filterDataTxt}>
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </>
-                    </ScrollView>
-                  )}
                   <PickerComponent
                     title={"City"}
                     name={filterData.city}
-                    handleData={() => getPlaces(2)}
+                    handleData={() => getPlaces(2, 3)}
                     data={city}
                     properWidth={45}
                   />
-                  {city.length > 0 && (
-                    <ScrollView
-                      nestedScrollEnabled
-                      contentContainerStyle={styles.filterDatasVw}
-                    >
-                      <>
-                        <TextInput
-                          placeholder="Search City"
-                          style={styles.searchInput}
-                          placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
-                          onChangeText={(search, type) =>
-                            handleSearch(search, 2)
-                          }
-                        />
-                        {city.map((item) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                props.setFilterData({
-                                  ...props.filterData,
-                                  city: item.city_id,
-                                });
-                                setFilterData({
-                                  ...filterData,
-                                  city: item.name,
-                                });
-                                setCity([]);
-                              }}
-                              style={styles.filterDataVw}
-                            >
-                              <Text style={styles.filterDataTxt}>
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </>
-                    </ScrollView>
-                  )}
                   <PickerComponent
                     title={"Hire Type"}
                     name={filterData.hire_type}
-                    handleData={() => handleJobType()}
+                    handleData={() => handleJobType(4)}
                     data={hireType}
                     properWidth={100}
                   />
-                  {hireType.length > 0 && (
-                    <ScrollView
-                      nestedScrollEnabled
-                      contentContainerStyle={styles.filterDatasVw}
-                    >
-                      <>
-                        {hireType.map((item) => {
-                          return (
-                            <TouchableOpacity
-                              onPress={() => {
-                                props.setFilterData({
-                                  ...props.filterData,
-                                  job_type: item.name,
-                                });
-                                setFilterData({
-                                  ...filterData,
-                                  hire_type: item.name,
-                                });
-                                setHireType([]);
-                              }}
-                              style={styles.filterDataVw}
-                            >
-                              <Text style={styles.filterDataTxt}>
-                                {item.name}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </>
-                    </ScrollView>
-                  )}
                 </>
               )}
             </View>
@@ -523,8 +356,227 @@ export default function FilterPopUp(props) {
             </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </Dialog>
+      </Dialog>
+
+      <Modal
+        visible={selection}
+        onRequestClose={() => {
+          setSelection(false);
+          setCategory([]);
+          setCountry([]);
+          setState([]);
+          setCity([]);
+          setHireType([]);
+        }}
+      >
+        <View style={styles.selectionModalVw}>
+          <>
+            <View style={styles.typeVw}>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text style={styles.typeTxt}>
+                  {category.length > 0
+                    ? "Select Category"
+                    : country.length > 0
+                    ? "Select Country"
+                    : state.length > 0
+                    ? "Select State"
+                    : city.length > 0
+                    ? "Select City"
+                    : hireType.length > 0
+                    ? "Select Hire Type"
+                    : null}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelection(false);
+                  setCategory([]);
+                  setCountry([]);
+                  setState([]);
+                  setCity([]);
+                  setHireType([]);
+                }}
+              >
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  resizeMode={"contain"}
+                  source={require("../../../Assets/cancelModalBtn.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            {hireType.length > 0 ? null : (
+              <TextInput
+                placeholder={
+                  category.length > 0
+                    ? "Search Category"
+                    : country.length > 0
+                    ? "Search Country"
+                    : state.length > 0
+                    ? "Search State"
+                    : city.length > 0
+                    ? "Search City"
+                    : null
+                }
+                style={styles.searchInput}
+                placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
+                onChangeText={(search, type) =>
+                  handleSearch(
+                    search,
+                    category.length > 0
+                      ? null
+                      : country.length > 0
+                      ? 0
+                      : state.length > 0
+                      ? 1
+                      : city.length > 0
+                      ? 2
+                      : null
+                  )
+                }
+              />
+            )}
+          </>
+          <ScrollView contentContainerStyle={styles.filterDatasVw}>
+            {category.length > 0 && (
+              <>
+                {category.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.setFilterData({
+                          ...props.filterData,
+                          category: item.id,
+                        });
+                        setFilterData({
+                          ...filterData,
+                          categoryName: item.category_name,
+                        });
+                        setCategory([]);
+                        setSelection(false);
+                      }}
+                      style={styles.filterDataVw}
+                    >
+                      <Text style={styles.filterDataTxt}>
+                        {item.category_name}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            )}
+            {country.length > 0 && (
+              <>
+                {country.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.setFilterData({
+                          ...props.filterData,
+                          country: item.country_id,
+                        });
+                        setFilterData({
+                          ...filterData,
+                          country: item.name,
+                        });
+                        setCountry([]);
+                        setSelection(false);
+                      }}
+                      style={styles.filterDataVw}
+                    >
+                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            )}
+            {state.length > 0 && (
+              <>
+                {state.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.setFilterData({
+                          ...props.filterData,
+                          state: item.state_id,
+                        });
+                        setFilterData({
+                          ...filterData,
+                          state: item.name,
+                        });
+                        setState([]);
+                        setSelection(false);
+                      }}
+                      style={styles.filterDataVw}
+                    >
+                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            )}
+            {city.length > 0 && (
+              <>
+                {city.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.setFilterData({
+                          ...props.filterData,
+                          city: item.city_id,
+                        });
+                        setFilterData({
+                          ...filterData,
+                          city: item.name,
+                        });
+                        setCity([]);
+                        setSelection(false);
+                      }}
+                      style={styles.filterDataVw}
+                    >
+                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            )}
+            {hireType.length > 0 && (
+              <>
+                {hireType.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.setFilterData({
+                          ...props.filterData,
+                          job_type: item.name,
+                        });
+                        setFilterData({
+                          ...filterData,
+                          hire_type: item.name,
+                        });
+                        setHireType([]);
+                        setSelection(false);
+                      }}
+                      style={styles.filterDataVw}
+                    >
+                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            )}
+            {category.length == 0 &&
+            country.length == 0 &&
+            state.length == 0 &&
+            city.length == 0 &&
+            hireType.length == 0 ? (
+              <View style={styles.noDataVw}>
+                <Text style={styles.noDataTxt}>There is no data available</Text>
+              </View>
+            ) : null}
+          </ScrollView>
+        </View>
+      </Modal>
+    </View>
   );
 }
 {

@@ -155,7 +155,6 @@ const ServiceProviderListingView = ({ navigation }) => {
     });
   };
   const searchService = (searchKey) => {
-    console.log("searchKey", searchKey);
     const lowerCased = searchKey.toLowerCase();
     const searchArray = [...serviceData];
     const list = _.filter(searchArray, (item) => {

@@ -14,7 +14,7 @@ import CommonStyles from '../../../Utils/CommonStyles';
 
 const JobManagementListView = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
-    const [businessJobList, setJobBusinessList] = useState('');
+    const [businessJobList, setJobBusinessList] = useState([]);
     const [tableData, setTableData] = useState([
         {
             id: '0'
@@ -37,9 +37,9 @@ const JobManagementListView = ({ navigation }) => {
                 offset: 0
             }
             const response = await apiCall('POST', ENDPOINTS.GET_BUSINESS_JOB_LIST, params)
+            // console.log('Job list', response.data.data);
             if (response.status === 200) {
                 setJobBusinessList(response.data.data)
-                console.log('Job list', response.data.data);
                 setVisible(false);
             }
             else {
@@ -52,6 +52,7 @@ const JobManagementListView = ({ navigation }) => {
         }
     }
     const _handleTableData = (item) => {
+    console.log('item: ', item);
         return (
             <View style={styles.MainContain}>
                 <View style={styles.JobContainer}>

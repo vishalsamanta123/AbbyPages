@@ -35,7 +35,7 @@ const JobManagementList = (props) => {
                 </View>
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
-                    data={props?.tableData}
+                    data={props?.businessJobList}
                     renderItem={({ item, index }) => props._handleTableData(item, index)}
                 />
             </View>

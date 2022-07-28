@@ -13,7 +13,7 @@ const EventListing = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   const [isSelectedDay, setIsSelectedDay] = useState(0);
-  const [eventsList, setEventsList] = useState("");
+  const [eventsList, setEventsList] = useState([]);
   const [stopOffset, setstopOffset] = useState(false);
   const [offset, setoffset] = useState(0);
   const [dataType, setDataType] = useState(
@@ -54,21 +54,25 @@ const EventListing = ({ navigation }) => {
         offset: offSet,
         limit: 10 + offSet,
       };
-      const response = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
-      if (response.status === 200) {
-        setEventsList(response?.data?.data);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
+      console.log("response: ", data);
+      if (data.status === 200) {
+        setEventsList(data?.data);
         setLoader(false);
       } else {
         setLoader(false);
         setVisibleErr(true);
-        setErrorMessage("No data found");
+        setErrorMessage(data.message);
         setstopOffset(true);
       }
     } catch (error) {
       setLoader(false);
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
+  };
+  const handleCraeteEvent = () => {
+    navigation.navigate("CreateEvent");
   };
   return (
     <View style={CommonStyles.container}>
@@ -84,6 +88,7 @@ const EventListing = ({ navigation }) => {
         eventsList={eventsList}
         stopOffset={stopOffset}
         getEventList={getEventList}
+        handleCraeteEvent={handleCraeteEvent}
         offset={offset}
       />
       <Error
