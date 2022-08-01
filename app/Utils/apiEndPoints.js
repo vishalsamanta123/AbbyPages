@@ -97,4 +97,5 @@ export default {
   GET_JOB_CATEGORY: "/api/jobs/getJobCategory",
   GET_PLACES: "/api/masterTableData/getStateCountry",
   GET_NEW_BUSINESS: "api/business/businessListNew",
+  ORDER_CANCEL_BYUSER: 'api/orders/orderCancelByUser',
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { Alert, ToastAndroid, View } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import OrderDetailScreen from "./components/OrderDetailScreen";
 import { apiCall } from "../../Utils/httpClient";
@@ -15,6 +15,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [visible, setVisible] = useState(false);
 
   const [orderDetail, setOrderDetail] = useState("");
+  console.log('orderDetail: ', orderDetail);
   const [businessType, setBusinessType] = useState("");
   useEffect(() => {
     if (route.params) {
@@ -31,8 +32,11 @@ const OrderDetailIndex = ({ route, navigation }) => {
         business_type: orderDetail.business_type,
         order_booking_type: orderDetail.order_booking_type,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_ITEM_ORDER_DETAILS, params);
-      console.log('data: ', data);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUSINESS_ITEM_ORDER_DETAILS,
+        params
+      );
       if (data.status === 200) {
         setOrderDetail(data.data);
         setVisible(false);
@@ -47,10 +51,59 @@ const OrderDetailIndex = ({ route, navigation }) => {
       setVisibleErr(true);
     }
   };
+  const onPressCancel = () => {
+    Alert.alert(
+      "",
+      "Are you sure you want cancel this order",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => cancelOrder() },
+      ],
+      { cancelable: false }
+    );
+  };
+  const cancelOrder = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        order_id: orderDetail.order_id,
+        business_type: orderDetail.business_type,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.ORDER_CANCEL_BYUSER,
+        params
+      );
+      if (data.status === 200) {
+        setVisible(false);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
+        getOrderDetail(orderDetail);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
+  };
+  const onPressInvoice = () => {
+    alert("Working");
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <OrderDetailScreen orderDetail={orderDetail} />
+      <OrderDetailScreen
+        orderDetail={orderDetail}
+        onPressCancel={onPressCancel}
+        onPressInvoice={onPressInvoice}
+      />
       <Error
         message={errorMessage}
         visible={visibleErr}

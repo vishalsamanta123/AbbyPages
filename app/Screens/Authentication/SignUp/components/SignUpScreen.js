@@ -18,8 +18,11 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Header from "../../../../Components/Header";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 const SignUpScreen = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -43,7 +46,10 @@ const SignUpScreen = (props) => {
         HeaderText=""
         HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        keyboardShouldPersistTaps={"always"}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
             <Text style={styles.WelcomeTxt}>Create Account,</Text>
@@ -127,8 +133,7 @@ const SignUpScreen = (props) => {
             <TouchableOpacity
               onPress={() => showDatePicker()}
               style={{
-                // height: 60,
-                padding: 20,
+                padding: 22,
                 borderColor: "#d8d8d8",
                 borderWidth: 1,
                 borderRadius: 12,
@@ -136,8 +141,6 @@ const SignUpScreen = (props) => {
                 margin: 10,
                 marginLeft: 15,
                 marginRight: 15,
-                // flex:1,
-                // backgroundColor:"red",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
@@ -158,7 +161,56 @@ const SignUpScreen = (props) => {
               mode="date"
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
+              maximumDate={new Date()}
             />
+            <View style={styles.addressVw}>
+              <GooglePlacesAutocomplete
+                placeholder="Address"
+                fetchDetails={true}
+                onPress={(data, details = null) => {
+                  props.setRegistrationData({
+                    ...props.registrationData,
+                    address: details.formatted_address,
+                    latitude: details.geometry.location.lat,
+                    longitude: details.geometry.location.lng,
+                  });
+                }}
+                
+                value={props.registrationData.address}
+                query={{
+                  key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
+                  language: "en",
+                }}
+                textInputProps={{
+                  placeholderTextColor: BLACK_COLOR_CODE,
+                  onChangeText: (e) => {
+                    props.setRegistrationData({
+                      ...props.registrationData,
+                      address: e,
+                    });
+                  },
+                  value: props.registrationData.address,
+                }}
+                styles={{
+                  textInputContainer: {
+                    fontSize: 15,
+                    fontFamily: FONT_FAMILY_REGULAR,
+                    color: BLACK_COLOR_CODE,
+                  },
+                  textInput: {
+                    fontSize: 15,
+                    color: BLACK_COLOR_CODE,
+                    fontFamily: FONT_FAMILY_REGULAR,
+                  },
+                  listView: {
+                    backgroundColor: WHITE_COLOR_CODE,
+                  },
+                }}
+                minLength={2}
+                autoFocus={false}
+                returnKeyType={"default"}
+              />
+            </View>
           </View>
         </View>
         <View style={styles.ButtonContainer}>

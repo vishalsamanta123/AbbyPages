@@ -125,7 +125,6 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _renderCategory = (item, index) => {
-    console.log("itemCAS: ", item);
     const selectedColor =
       item.business_item_category_id === isSelectedCatgory
         ? WHITE_COLOR_CODE
@@ -250,6 +249,7 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _handleSandwichDish = (item, index) => {
+    console.log("item: ", item);
     return (
       <>
         {item.status == 1 && (
@@ -268,7 +268,23 @@ const ShowMenuView = ({ route, navigation }) => {
                 <Text numberOfLines={2} style={styles.DiscrptnTxtStyle}>
                   {item.description}
                 </Text>
-                <Text style={styles.PriceOfDishTxt}>${item.price}</Text>
+                {item.discounted_price ? (
+                  <Text style={styles.PriceOfDishTxt}>
+                    ${item.discounted_price}
+                  </Text>
+                ) : null}
+                <Text
+                  style={[
+                    styles.PriceOfDishTxt,
+                    {
+                      textDecorationLine: item?.discounted_price
+                        ? "line-through"
+                        : "none",
+                    },
+                  ]}
+                >
+                  {item.price}
+                </Text>
               </TouchableOpacity>
               <View style={styles.ReviewView}>
                 <Image

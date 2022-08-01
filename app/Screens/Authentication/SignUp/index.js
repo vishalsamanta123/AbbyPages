@@ -38,7 +38,11 @@ const SignUpView = ({ navigation }) => {
     password: "",
     zip_code: "",
     birth_date: "",
+    address: "",
+    latitude: "",
+    longitude: "",
   });
+  console.log('registrationData: ', registrationData);
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
@@ -92,6 +96,11 @@ const SignUpView = ({ navigation }) => {
       setVisibleErr(true);
       return false;
     }
+    if (registrationData.address == "") {
+      setErrorMessage("Please Enter Address");
+      setVisibleErr(true);
+      return false;
+    }
     return true;
   }
   const onPressSingUp = async () => {
@@ -111,6 +120,7 @@ const SignUpView = ({ navigation }) => {
             password: "",
             zip_code: "",
             birth_date: "",
+            address: "",
           });
           setVisible(false);
         } else {
