@@ -22,23 +22,12 @@ const OrderHistoryView = ({ navigation }) => {
   const [itemCategoryList, setItemCategoryList] = useState("");
   const [orderItemParentList, setOrderItemParentList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
-  const [dataType, setDataType] = useState("allData");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   useEffect(() => {
     handleItemCategoryList();
-    if (offSet == 0) {
-      handleOrderedItemList(offSet, isSelectedCatgory);
-    } else {
-      handleOrderedItemList(offSet, isSelectedCatgory);
-    }
+    handleOrderedItemList(0, isSelectedCatgory);
   }, []);
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     handleOrderedItemList();
-  //     handleItemCategoryList();
-  //     return () => (handleOrderedItemList(), handleItemCategoryList());
-  //   }, [])
-  // );
+
   const handleItemCategoryList = async () => {
     setVisible(true);
     try {
@@ -64,13 +53,11 @@ const OrderHistoryView = ({ navigation }) => {
         business_type: type == 0 ? 0 : type,
         offset: offset,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
-      console.log("dataLIST: ", data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);
@@ -128,7 +115,6 @@ const OrderHistoryView = ({ navigation }) => {
         _renderCategory={_renderCategory}
         offSet={offSet}
         stopOffset={stopOffset}
-        dataType={dataType}
         isSelectedCatgory={isSelectedCatgory}
         handleOrderedItemList={handleOrderedItemList}
       />

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   PriceOfDishTxt: {
     color: BLACK_COLOR_CODE,
     fontSize: 19,
-    lineHeight: 35,
+    lineHeight: 24,
     fontFamily: FONT_FAMILY_REGULAR,
   },
   ReviewView: {

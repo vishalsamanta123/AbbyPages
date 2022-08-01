@@ -30,7 +30,7 @@ const OrderHistory = (props) => {
           {item.business_type === 1 && (
             <Text style={styles.ReviewText}>
               Order Type:
-              {item.order_booking_type === 1 && " Food"}
+              {item.order_booking_type === 1 && " Food Order"}
               {item.order_booking_type === 2 && " Item Order"}
               {item.order_booking_type === 3 && " Table Reservation"}
               {item.order_booking_type === 4 && " AYCE Outdoor Seating"}
@@ -138,7 +138,7 @@ const OrderHistory = (props) => {
           ]}
         >
           <TouchableOpacity
-            onPress={() => props.handleOrderedItemList(0, 0)}
+            onPress={() => props.handleOrderedItemList(props.offSet, 0)}
             style={[styles.lablestyle, { backgroundColor: YELLOW_COLOR_CODE }]}
           >
             <Text
@@ -146,7 +146,7 @@ const OrderHistory = (props) => {
                 styles.txtCat,
                 {
                   color:
-                    props.dataType == "allData"
+                    props.isSelectedCatgory == 0
                       ? WHITE_COLOR_CODE
                       : LIGHT_WHITE_COLOR,
                 },
@@ -173,14 +173,14 @@ const OrderHistory = (props) => {
               data={props.orderItemList}
               keyExtractor={(item, index) => index}
               renderItem={({ item, index }) => _handleOrders(item, index)}
-              onEndReached={() => {
-                !props.stopOffset
-                  ? props?.handleOrderedItemList(
-                      props.orderItemList.length > 5 ? props.offSet + 1 : null,
-                      props.isSelectedCatgory
-                    )
-                  : null;
-              }}
+              // onEndReached={() => {
+              //   !props.stopOffset
+              //     ? props?.handleOrderedItemList(
+              //         props.orderItemList.length > 5 ? props.offSet + 1 : null,
+              //         props.isSelectedCatgory
+              //       )
+              //     : null;
+              // }}
             />
           </View>
         ) : (
