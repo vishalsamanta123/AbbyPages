@@ -12,7 +12,7 @@ const ServiceProviderListing = (props) => {
         placeholder={"Developer Plumber..."}
         textInput={true}
         type="Map"
-        onChangeText={(searchKey) => props.searchService(searchKey)}
+        onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         logoImg={false}
       />
       <FlatList
@@ -20,14 +20,16 @@ const ServiceProviderListing = (props) => {
         data={props.serviceData}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
         onEndReached={() => {
-          !props.inputSearch == ""
-            ? null
-            : props.search
+          props.search || props.inputSearch
             ? !props.stopOffset
-              ? props?.handleServiceNearby(props.offSet + 1)
+              ? props?.handleSearchData(
+                  props.serviceData.length > 5 ? props.offSet + 1 : props.offSet
+                )
               : null
             : !props.stopOffset
-            ? props?.handleServiceList(props.offSet + 1)
+            ? props?.handleServiceList(
+                props.serviceData.length > 5 ? props.offSet + 1 : props.offSet
+              )
             : null;
         }}
       />
