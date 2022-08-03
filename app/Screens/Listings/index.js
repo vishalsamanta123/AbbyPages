@@ -49,7 +49,11 @@ const ListingsScreenView = ({ navigation, route }) => {
   const handleSearchData = async (offSet) => {
     setOffSet(offSet);
     try {
-      setVisible(true);
+      if (inputSearch) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
@@ -68,10 +72,15 @@ const ListingsScreenView = ({ navigation, route }) => {
         setVisible(false);
         setRestroList(data.data);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setstopOffset(true);
-        setVisible(false);
+        if (data.status === 201) {
+          setRestroList([]);
+          setVisible(false);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setstopOffset(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setErrorMessage(data.message);
@@ -116,9 +125,16 @@ const ListingsScreenView = ({ navigation, route }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
       if (data.status == 200) {
-        ToastAndroid.show(data.message, ToastAndroid.SHORT);
         setVisible(false);
-        handleRestroList(offSet);
+        if (search) {
+          if (inputSearch) {
+            handleSearchData(offSet);
+          }
+          handleSearchData(offSet);
+        } else {
+          handleRestroList(offSet);
+        }
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);

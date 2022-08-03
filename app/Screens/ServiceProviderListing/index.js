@@ -33,38 +33,52 @@ const ServiceProviderListingView = ({ navigation, route }) => {
       const { nearbySearch } = route?.params;
       setSearch(nearbySearch);
       if (search) {
-        handleServiceNearby(0);
+        handleSearchData(0);
       }
     } else {
-      handleServiceList(0);
+      if (inputSearch) {
+        handleSearchData(0);
+      } else {
+        handleServiceList(0);
+      }
     }
-  }, [search]);
+  }, [search, inputSearch]);
 
-  const handleServiceNearby = async (offSet) => {
+  const handleSearchData = async (offSet) => {
     setOffSet(offSet);
     try {
-      setVisible(true);
+      if (inputSearch) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10,
+        limit: 10 + offSet,
         offset: offSet,
         business_type: 3,
+        search_key: inputSearch ? inputSearch : null,
       };
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      if (data.status === 200) {
+      if (data.status == 200) {
+        setVisible(false);
         setserviceData(data.data);
-        setVisible(false);
       } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setstopOffset(true);
+        if (data.status === 201) {
+          setVisible(false);
+          setserviceData([]);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setstopOffset(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setErrorMessage(data.message);
@@ -110,7 +124,14 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     if (data.status == 200) {
       ToastAndroid.show(data.message, ToastAndroid.SHORT);
       setVisible(false);
-      handleServiceList(offSet);
+      if (search) {
+        if (inputSearch) {
+          handleSearchData(offSet);
+        }
+        handleSearchData(offSet);
+      } else {
+        handleServiceList(offSet);
+      }
     } else {
       setErrorMessage(data.message);
       setVisibleErr(true);
@@ -221,7 +242,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     if (searchKey == "") {
       setVisible(true);
       if (search) {
-        handleServiceNearby(0);
+        handleSearchData(0);
       } else {
         handleServiceList(0);
       }
@@ -237,13 +258,14 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         searchService={searchService}
         serviceData={serviceData}
         search={search}
-        handleServiceNearby={handleServiceNearby}
+        handleSearchData={handleSearchData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         handleServiceList={handleServiceList}
         offSet={offSet}
         stopOffset={stopOffset}
         inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
       />
       <Error
         message={errorMessage}
