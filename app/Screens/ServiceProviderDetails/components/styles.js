@@ -10,6 +10,7 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
+  FONT_FAMILY_BOLD,
 } from "../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
@@ -90,6 +91,12 @@ const Styles = StyleSheet.create({
   },
   timetxt: {
     color: LIGHT_GREY_COLOR_CODE,
+  },
+  requestQusVw: {
+    marginTop: "5%",
+    padding: 13,
+    width: "100%",
+    elevation: 1,
   },
   centermainvwe: {
     borderColor: WHITE_COLOR_CODE,
@@ -289,10 +296,59 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
   },
+  ratedProfileVw: {
+    flex: 4.5,
+    paddingBottom: 5,
+    paddingTop: 15,
+    flexDirection: "row",
+  },
+  ratedProfile: {
+    width: 75,
+    height: 75,
+    borderRadius: 50,
+  },
+  titleTxt: {
+    fontSize: 16,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  ratingVw: {
+    backgroundColor: LIGHT_GREEN_COLOR_CODE,
+    width: 38,
+    height: 23,
+    borderRadius: 3,
+  },
+  ratingTxt: {
+    color: WHITE_COLOR_CODE,
+    textAlign: "center",
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  ratingNameTxt: {
+    color: LIGHT_GREY_COLOR_CODE,
+    fontSize: 15,
+    fontFamily: FONT_FAMILY_REGULAR,
+    paddingLeft: 5,
+  },
+  nameTxt: {
+    fontSize: 13,
+    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  descriptionTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    lineHeight: 18,
+    color: LIGHT_GREY_COLOR_CODE,
+    fontSize: 12,
+  },
   highlightxt: {
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_BLACK_COLOR_CODE,
+  },
+  ratedVws: {
+    borderBottomWidth: 0.5,
+    paddingBottom: 20,
+    borderBottomColor: "#dadada",
   },
   serviceview: {
     backgroundColor: WHITE_COLOR_CODE,
@@ -433,6 +489,99 @@ const Styles = StyleSheet.create({
     backgroundColor: WHITE_COLOR_CODE,
     padding: 15,
     marginTop: 10,
+  },
+  relatedItemsTxt: {
+    marginLeft: 16,
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  relatedItems: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 4,
+    marginBottom: 10,
+  },
+  MainConatiner: {
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    paddingVertical: 10,
+    flex: 1,
+  },
+  MainImgeStyle: {
+    width: 80,
+    height: 100,
+    borderRadius: 15,
+    borderWidth: 0.2,
+    borderColor: "grey",
+    marginBottom: 5,
+  },
+  MainConatinerView: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  MainServiceName: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16.5,
+  },
+  AddressTxtStyle: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 12,
+    color: GREY_COLOR_CODE,
+    lineHeight: 15,
+  },
+  InformationView: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 2,
+  },
+  statusVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 3,
+  },
+  RatingVw: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  statusTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_GREEN_COLOR_CODE,
+    fontSize: 16,
+  },
+  RatingStyles: {
+    backgroundColor: "#a3d74e",
+    width: 28,
+    height: 19,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+  },
+  RatingStylesTxt: {
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_BOLD,
+    fontSize: 11,
+  },
+  RatingTextMain: {
+    paddingLeft: 8,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: GREY_COLOR_CODE,
+  },
+  viewText: {
+    paddingLeft: 12,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_GREEN_COLOR_CODE,
+  },
+  AddressTextStyles: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 12,
+    color: GREY_COLOR_CODE,
+  },
+  addressTxt: {
+    fontSize: 15,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
 });
 export default Styles;

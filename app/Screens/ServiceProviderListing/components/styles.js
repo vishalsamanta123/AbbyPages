@@ -4,6 +4,7 @@ import {
   FONT_FAMILY_BOLD,
   GREY_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainConatiner: {
@@ -68,6 +69,16 @@ const Styles = StyleSheet.create({
     paddingLeft: 10,
     fontFamily: FONT_FAMILY_REGULAR,
     color: GREY_COLOR_CODE,
+  },
+  emptyConVw: {
+    height: 200,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyConTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
 });
 export default Styles;
