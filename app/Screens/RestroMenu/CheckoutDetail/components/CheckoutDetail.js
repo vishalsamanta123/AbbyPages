@@ -169,6 +169,8 @@ const CheckoutDetail = (props) => {
                   secureTextEntry={false}
                   placeholder="Phone Number"
                   InputType="withScroll"
+                  maxLength={10}
+                  keyboardType={"phone-pad"}
                 />
                 {/* <Image
                   style={styles.ArrowDownImge}
@@ -196,6 +198,7 @@ const CheckoutDetail = (props) => {
                 secureTextEntry={false}
                 placeholder="CVV"
                 InputType="withScroll"
+                maxLength={3}
               />
               <Input
                 onChangeText={(ZipCode) => props.setZipCode(ZipCode)}

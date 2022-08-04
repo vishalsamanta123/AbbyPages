@@ -115,7 +115,7 @@ export default function FilterPopUp(props) {
       },
     ]);
   };
-  const handleFilter = async () => {
+  const handleFilterDone = async () => {
     props.setVisible(false);
     props.handleJobFilter(0);
   };
@@ -352,7 +352,7 @@ export default function FilterPopUp(props) {
               )}
             </View>
             <View style={{ marginTop: 20 }}>
-              <Button buttonText={"Filter"} onPress={() => handleFilter()} />
+              <Button buttonText={"Filter"} onPress={() => handleFilterDone()} />
             </View>
           </View>
         </ScrollView>

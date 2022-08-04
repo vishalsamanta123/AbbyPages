@@ -19,6 +19,15 @@ const ListingsScreen = (props) => {
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={props.restroList}
+          ListEmptyComponent={() => {
+            return (
+              <View style={styles.emptyConVw}>
+                <Text style={styles.emptyConTxt}>
+                  No Restaurant is available
+                </Text>
+              </View>
+            );
+          }}
           renderItem={({ item, index }) => props._handleSerivces(item, index)}
           onEndReached={() => {
             props.search || props.inputSearch

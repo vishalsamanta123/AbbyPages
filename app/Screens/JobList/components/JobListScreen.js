@@ -153,7 +153,9 @@ const JobListScreen = (props) => {
             }}
             onEndReached={() => {
               !props.stopOffset
-                ? props.handleJobFilter(props.offset + 1)
+                ? props.handleJobFilter(
+                    props.jobList.length > 5 ? props.offset + 1 : 0
+                  )
                 : null;
             }}
           />

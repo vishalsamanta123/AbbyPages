@@ -13,7 +13,7 @@ const StepThird = ({ navigation }) => {
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
   const [serviceProviderData, setServiceProviderData] = useContext(
     ServiceProviderContext
-  );
+    );
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -27,6 +27,7 @@ const StepThird = ({ navigation }) => {
     booking_date: "",
     description: "",
   });
+  console.log('ZipCode: ', ZipCode);
   const validationFormForAddress = () => {
     if (ZipCode.address == "") {
       setErrorMessage("Please Select Location");

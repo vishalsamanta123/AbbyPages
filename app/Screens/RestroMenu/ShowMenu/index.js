@@ -157,7 +157,8 @@ const ShowMenuView = ({ route, navigation }) => {
   const getqty = (item) => {
     var getIndex = _.findIndex(cartData, { item_id: item.item_id });
     const FinalAmount = cartData.reduce(
-      (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
+      (accumulatedTotal, curr) =>
+        accumulatedTotal + (curr.total_item_price - curr.item_discount),
       0
     );
     setTotalAmount(FinalAmount);
@@ -181,7 +182,7 @@ const ShowMenuView = ({ route, navigation }) => {
             cartData[getIndex].total_item_price - cartData[getIndex].price;
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + curr.total_item_price,
+              accumulatedTotal + (curr.total_item_price - curr.item_discount),
             0
           );
           setTotalAmount(FinalAmount);
@@ -191,7 +192,7 @@ const ShowMenuView = ({ route, navigation }) => {
           cartData.splice(getIndex, 1);
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + curr.total_item_price,
+              accumulatedTotal + (curr.total_item_price - curr.item_discount),
             0
           );
           setTotalAmount(FinalAmount);
@@ -220,7 +221,7 @@ const ShowMenuView = ({ route, navigation }) => {
             cartData[getIndex].price * value;
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + curr.total_item_price,
+              accumulatedTotal + (curr.total_item_price - curr.item_discount),
             0
           );
           setTotalAmount(FinalAmount);
@@ -229,7 +230,7 @@ const ShowMenuView = ({ route, navigation }) => {
           setCartData((curr) => [...curr, cartItem]);
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + curr.total_item_price,
+              accumulatedTotal + (curr.total_item_price - curr.item_discount),
             0
           );
           setTotalAmount(FinalAmount);
@@ -237,7 +238,8 @@ const ShowMenuView = ({ route, navigation }) => {
       } else {
         setCartData((curr) => [...curr, cartItem]);
         const FinalAmount = cartData.reduce(
-          (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
+          (accumulatedTotal, curr) =>
+            accumulatedTotal + (curr.total_item_price - curr.item_discount),
           0
         );
         setTotalAmount(FinalAmount);
@@ -249,7 +251,6 @@ const ShowMenuView = ({ route, navigation }) => {
     }
   };
   const _handleSandwichDish = (item, index) => {
-    console.log("item: ", item);
     return (
       <>
         {item.status == 1 && (

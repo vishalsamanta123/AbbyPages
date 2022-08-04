@@ -87,7 +87,7 @@ const ShowMenu = (props) => {
             style={{ marginBottom: 20 }}
             onPress={() => props.onPressCheckOut()}
             buttonText={
-              props.totalAmount && props.totalAmount
+              props.totalAmount
                 ? "Checkout - $" + props.totalAmount
                 : "Checkout"
             }

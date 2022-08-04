@@ -99,6 +99,33 @@ const CheckoutDetailView = ({ navigation }) => {
       setVisibleErr(true);
       return false;
     }
+    if (paymentMethod) {
+      if (AddCard === "") {
+        setErrorMessage("Please enter online order phone number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (CardNumber === "") {
+        setErrorMessage("Please enter online Card number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (CardExpiry === "") {
+        setErrorMessage("Please enter online card expiry number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (CVVNumber === "") {
+        setErrorMessage("Please enter online card cvv number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (ZipCode === "") {
+        setErrorMessage("Please enter online zipCode");
+        setVisibleErr(true);
+        return false;
+      }
+    }
     return true;
   }
   const onPressContinue = async () => {
@@ -136,6 +163,11 @@ const CheckoutDetailView = ({ navigation }) => {
             mobile,
             order_payment_type,
             order_description,
+            AddCard,
+            CardNumber,
+            CardExpiry,
+            CVVNumber,
+            ZipCode,
           };
           await AsyncStorage.setItem("orderData", JSON.stringify(params));
           setVisible(false);

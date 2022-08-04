@@ -10,6 +10,7 @@ import Error from "../../Components/Modal/error";
 
 const JobDetails = ({ route, navigation }) => {
   const [details, setDetails] = useState([]);
+  console.log('details: ', details);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -46,8 +47,8 @@ const JobDetails = ({ route, navigation }) => {
     }
   };
   const applyNow = async () => {
-    navigation.navigate("ApplyJob", { details, });
-  }
+    navigation.navigate("ApplyJob", { details });
+  };
   const onPressJob = (item) => {
     jobDetails(item);
   };
@@ -56,24 +57,33 @@ const JobDetails = ({ route, navigation }) => {
   };
   const saveJob = async () => {
     try {
-      setVisible(true);
+      // setVisible(true);
       const params = {
         item_type: details.business_type,
-        item_id: details.business_id,
-        like: details.likes,
+        item_id: details?.business_id,
+        like: details?.likes,
         favorite: details?.favorite,
         interest: details?.interest,
-        views: details.views,
+        views: details?.views,
+
+        // item_type: restroDetail.business_type,
+        // item_id: restroDetail.business_id,
+        // like: restroDetail.likes,
+        // favorite: restroDetail?.favorite,
+        // interest: restroDetail?.interest,
+        // views: restroDetail.views,
       };
+      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);
         setSuccessMessage(data.message);
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        // setErrorMessage(data.message);
+        // setVisibleErr(true);
       }
     } catch (error) {
       setVisible(false);

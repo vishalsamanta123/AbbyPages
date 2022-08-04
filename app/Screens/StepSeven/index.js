@@ -54,7 +54,6 @@ const StepSeven = ({ navigation }) => {
         booking_date: serviceProviderData?.booking_date,
       };
       const { data } = await apiCall("POST", ENDPOINTS.SERVICE_BOOKING, params);
-      console.log("dataSSS: ", data);
       if (data.status == 200) {
         setVisibleSuccess(true);
         setserviceProviderData("");

@@ -43,7 +43,6 @@ const StepThirdScreen = (props) => {
           <View style={styles.inputwvwe}>
             <GooglePlacesAutocomplete
               placeholder={"Zip code or location"}
-              // setAddressText={props.profileData.find_me_in}
               value={props.ZipCode.address}
               fetchDetails={true}
               onPress={(data, details = null) => {
@@ -54,12 +53,18 @@ const StepThirdScreen = (props) => {
                   longitude: details.geometry.location.lng,
                 });
               }}
-              onChangeText={(address) =>
-                props.setZipCode({
-                  ...props.ZipCode,
-                  address: address,
-                })
-              }
+              textInputProps={{
+                placeholderTextColor: BLACK_COLOR_CODE,
+                onChangeText: (text) => {
+                  props.setZipCode({
+                    ...props.ZipCode,
+                    address: text,
+                    latitude: text == "" ? "" : props.ZipCode.latitude,
+                    longitude: text == "" ? "" : props.ZipCode.longitude,
+                  });
+                },
+                value: props.ZipCode.address,
+              }}
               query={{
                 key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
                 language: "en",
@@ -83,7 +88,7 @@ const StepThirdScreen = (props) => {
                 },
                 listView: {
                   backgroundColor: WHITE_COLOR_CODE,
-                  margin: 10,
+                  marginHorizontal: 10,
                 },
               }}
               minLength={2}
@@ -110,8 +115,8 @@ const StepThirdScreen = (props) => {
             >
               <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
                 {props.ZipCode &&
-                  props?.ZipCode?.booking_date &&
-                  props?.ZipCode?.booking_date
+                props?.ZipCode?.booking_date &&
+                props?.ZipCode?.booking_date
                   ? props.ZipCode.booking_date
                   : "Date"}
               </Text>
@@ -135,11 +140,12 @@ const StepThirdScreen = (props) => {
                 borderRadius: 8,
                 justifyContent: "center",
                 padding: 15,
-              }}>
+              }}
+            >
               <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
                 {props.ZipCode &&
-                  props.ZipCode.booking_time &&
-                  props.ZipCode.booking_time
+                props.ZipCode.booking_time &&
+                props.ZipCode.booking_time
                   ? props.ZipCode.booking_time
                   : "Time"}
               </Text>
@@ -162,7 +168,7 @@ const StepThirdScreen = (props) => {
               multiline
               placeholder="Description"
               InputType="withScroll"
-            // containerStyle={{marginBottom:20}}
+              // containerStyle={{marginBottom:20}}
             />
           </View>
         </View>
