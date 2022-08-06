@@ -1,7 +1,9 @@
 import React from "react";
-import { View, FlatList, KeyboardAvoidingView } from "react-native";
+import { View, FlatList, KeyboardAvoidingView, Text } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
+import styles from "./styles";
+
 const ListingsScreen = (props) => {
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>

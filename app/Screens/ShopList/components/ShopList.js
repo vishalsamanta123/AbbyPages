@@ -11,7 +11,7 @@ const ShopList = (props) => {
         onPress={() => props.onPressMap()}
         textInput={true}
         placeholder={"Search Shop"}
-        onChangeText={(searchKey) => props.searchInput(searchKey)}
+        onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
         logoImg={false}
       />
@@ -22,14 +22,16 @@ const ShopList = (props) => {
           data={props.shopList}
           renderItem={({ item, index }) => props._handleShopList(item, index)}
           onEndReached={() => {
-            !props.inputSearch == ""
-              ? null
-              : props.search
+            props.search || props.inputSearch
               ? !props.stopOffset
-                ? props?.handleServiceNearby(props.offSet + 1)
+                ? props?.handleSearchData(
+                    props.shopList.length > 5 ? props.offSet + 1 : props.offSet
+                  )
                 : null
               : !props.stopOffset
-              ? props?.handleShopList(props.offSet + 1)
+              ? props?.handleShopList(
+                  props.shopList.length > 5 ? props.offSet + 1 : props.offSet
+                )
               : null;
           }}
         />
