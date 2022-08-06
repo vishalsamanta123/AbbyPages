@@ -30,6 +30,7 @@ import FilterPopUp from "./components/FilterPopUp";
 const ProductListing = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
+  console.log("shoppingCartData: ", shoppingCartData);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -52,20 +53,10 @@ const ProductListing = ({ navigation, route }) => {
     sorting: "",
   });
 
-  // useEffect(() => {
-  //   if (route.params) {
-  //     const { detail } = route.params;
-  //     setProductList(detail); //state (close because of the array error)
-  //     // handleProductList(0); //function
-  //     handleFilterProduct();
-  //   }
-  // }, []);
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {
         const { detail } = route.params;
-        // setProductList(detail);//state (close because of the array error)
-        // handleProductList(0); //function
         productOrderData(detail);
         handleFilterProduct();
       }
@@ -85,10 +76,9 @@ const ProductListing = ({ navigation, route }) => {
   const handleProductList = async (offset) => {
     setOffSet(offset);
     try {
-      const limits = offset + 2;
       setVisible(true);
       const params = {
-        limit: offset === 0 ? 20 : 10 * limits,
+        limit: 10,
         offset: offset,
       };
       const { data } = await apiCall(
@@ -130,11 +120,13 @@ const ProductListing = ({ navigation, route }) => {
           : null,
         product_filter: filterData.sorting ? filterData.sorting : null,
       };
+      console.log("paramsparams", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.FILTER_PRODUCTLIST,
         params
       );
+      console.log("dataPRODUCT: ", data);
       if (data.status === 200) {
         setVisible(false);
         setProductList(data.data);
@@ -163,7 +155,6 @@ const ProductListing = ({ navigation, route }) => {
       return item.product_name.toLowerCase().match(lowerCased);
     });
     if (searchKey == "") {
-      // handleProductList(0);
       handleFilterProduct();
     }
     setProductList(list);
@@ -205,8 +196,8 @@ const ProductListing = ({ navigation, route }) => {
         setShoppingCartData((curr) => [...curr, cartProduct]);
         // await AsyncStorage.setItem('localCartData', JSON.stringify(shoppingCartData))
       }
-    } catch (e) {
-      setErrorMessage(e);
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
@@ -244,11 +235,6 @@ const ProductListing = ({ navigation, route }) => {
     addProductOnCart(item, value);
   };
   const _renderProductList = (item, index) => {
-    const setaddbtn = _.filter(shoppingCartData, {
-      product_id: item.product_id,
-    });
-    const selected_row = setaddbtn.length > 0 ? true : false;
-    // const selected_row = setaddbtn.length > 0 ? setaddbtn.product_id === item.product_id ? true : false : false
     return (
       <View key={index} style={styles.flatlistcon}>
         <TouchableOpacity onPress={() => onPressProductDetail(item)}>
@@ -259,71 +245,46 @@ const ProductListing = ({ navigation, route }) => {
           />
         </TouchableOpacity>
         <View style={{ paddingTop: 5 }}>
-          <Text numberOfLines={1} style={[styles.text, { width: "95%" }]}>
+          <Text numberOfLines={1} style={styles.nameTxt}>
             {item.product_name}
           </Text>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
-              {item.final_price}
-            </Text>
-            <View>
-              <Text
-                style={[
-                  styles.text,
-                  { marginLeft: 20, color: YELLOW_COLOR_CODE },
-                ]}
-              >
-                {item.price}
-              </Text>
-              <View
-                style={{
-                  // borderBottomColor: 'black',
-                  borderBottomWidth: 1,
-                  marginLeft: 20,
-                  bottom: 9,
-                  opacity: 0.2,
-                }}
-              />
-            </View>
-          </View>
-          {selected_row ? (
+          <Text style={styles.finalPriceTxt}>
+            {item.final_price}
+            {"      "}
+            <Text style={styles.cutPriceTxt}>{item.price}</Text>
+          </Text>
+
+          {shoppingCartData &&
+          shoppingCartData?.some(
+            ({ product_id }) => product_id === item.product_id
+          ) ? (
             <InputSpinner
               value={getqty(item)}
-              onDecrease={(val) => removeFromCart(item, val)}
-              onIncrease={(val) => addProductOnCart(item, val)}
-              // min={1}
+              onIncrease={(value) => addProductOnCart(item, value)}
+              onDecrease={(value) => removeFromCart(item, value)}
               max={10}
               step={1}
+              // min={1}
               editable={false}
               rounded={false}
+              height={34}
+              width={"100%"}
               textColor={WHITE_COLOR_CODE}
               colorMax={YELLOW_COLOR_CODE}
               colorMin={YELLOW_COLOR_CODE}
               colorPress={YELLOW_COLOR_CODE}
-              color={YELLOW_COLOR_CODE}
-              inputStyle={{ backgroundColor: "transparent" }}
-              buttonPressStyle={{
-                height: 25,
-                width: 25,
-                backgroundColor: YELLOW_COLOR_CODE,
-              }}
-              buttonStyle={{ height: 25, width: 25, justifyContent: "center" }}
+              buttonPressTextColor={YELLOW_COLOR_CODE}
+              buttonFontSize={30}
+              inputStyle={styles.spinnerInput}
+              buttonStyle={styles.addItemBttn}
               buttonFontFamily={FONT_FAMILY_REGULAR}
-              style={styles.AddBtnTouchable}
+              style={styles.spinnerVw}
             />
           ) : (
             <Button
               onPress={() => onPressAddProduct(item, 1)}
-              style={{
-                padding: 0,
-                paddingVertical: 5,
-                width: "100%",
-                marginVertical: 5,
-              }}
-              buttonLabelStyle={{
-                fontSize: 14,
-                fontFamily: FONT_FAMILY_REGULAR,
-              }}
+              style={styles.addBttn}
+              buttonLabelStyle={styles.addBttnTxt}
               buttonText="Add"
             />
           )}

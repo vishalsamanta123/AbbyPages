@@ -27,6 +27,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+
 const ShopDetail = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -55,7 +56,6 @@ const ShopDetail = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      setShopDetail(detail); //state
       handleShopDetail(detail); //function
     }
   }, []);
@@ -71,6 +71,7 @@ const ShopDetail = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
+      console.log("data DEATILS: ", data);
       if (data.status === 200) {
         setShopDetail(data.data);
         setVisible(false);
@@ -81,7 +82,7 @@ const ShopDetail = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
   const setSliderPage = (event) => {
@@ -287,6 +288,7 @@ const ShopDetail = ({ navigation, route }) => {
         setVisible(false);
         setVisibleSuccess(true);
         setSuccessMessage(data.message);
+        handleShopDetail(shopDetail);
       } else {
         setVisible(false);
         setErrorMessage(data.message);
@@ -408,6 +410,9 @@ const ShopDetail = ({ navigation, route }) => {
       </View>
     );
   };
+  const onPressShop = (item) => {
+    handleShopDetail(item);
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -437,6 +442,7 @@ const ShopDetail = ({ navigation, route }) => {
         onPressSubmit={onPressSubmit}
         shareTo={shareTo}
         saveResto={saveResto}
+        onPressShop={onPressShop}
       />
       <Error
         message={errorMessage}

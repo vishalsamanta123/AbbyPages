@@ -29,6 +29,11 @@ const Styles = StyleSheet.create({
     paddingLeft: 5,
     borderRadius: 5,
   },
+  searchInput: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+    width: "90%",
+  },
   filtericonCon: {
     backgroundColor: "#a48400",
     height: 39,
@@ -37,9 +42,62 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
   },
+  nameTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    fontSize: 14,
+    width: "95%",
+  },
+  finalPriceTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: YELLOW_COLOR_CODE,
+    fontSize: 14,
+  },
+  cutPriceTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: YELLOW_COLOR_CODE,
+    textDecorationLine: "line-through",
+    textDecorationColor: BLACK_COLOR_CODE,
+  },
   text: {
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
+  },
+  spinnerVw: {
+    backgroundColor: YELLOW_COLOR_CODE,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 6,
+  },
+  spinnerInput: {
+    backgroundColor: "transparent",
+    fontSize: 24,
+    top: 10,
+    paddingTop: 0,
+  },
+  addItemBttn: {
+    height: 28,
+    width: 32,
+    paddingTop: 0,
+    top: -2,
+    backgroundColor: "transparent",
+  },
+  addBttn: {
+    padding: 0,
+    paddingVertical: 8,
+    width: "100%",
+    marginVertical: 5,
+  },
+  addBttnTxt: {
+    fontSize: 14,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  AddBtnTxt: {
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
   },
   productimg: {
     width: "100%",
@@ -89,7 +147,7 @@ const Styles = StyleSheet.create({
   },
   filterVw: {
     flexGrow: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 18,
   },
   typesTxt: {
     fontSize: 17,
@@ -130,11 +188,10 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
   },
   sortingVw: {
-    width: "30%",
-    marginHorizontal: 5,
+    paddingVertical: 6,
   },
   sortingText: {
-    fontSize: 15,
+    fontSize: 14,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
