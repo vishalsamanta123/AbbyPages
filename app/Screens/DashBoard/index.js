@@ -91,7 +91,7 @@ const DashBoardView = ({ navigation }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
   return (

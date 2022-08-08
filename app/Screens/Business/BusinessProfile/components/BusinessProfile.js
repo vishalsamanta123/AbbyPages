@@ -135,6 +135,7 @@ const BusinessInformation = (props) => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
+                            {/* icons  */}
                             <View style={[styles.FollowersCountView, { paddingTop: 20 }]}>
                                 <View style={styles.OptionViewContain}>
                                     <TouchableOpacity style={styles.ImageView}>
@@ -157,7 +158,7 @@ const BusinessInformation = (props) => {
                             </View>
                         </View>
                     </View>
-                    <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
+                    {/* <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Updates during Coronavirus</Text>
                         <View style={styles.ViewContainer}>
                             <Image source={require('../../../../Assets/st_icon_5.png')} />
@@ -174,7 +175,9 @@ const BusinessInformation = (props) => {
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
-                    </View>
+                    </View> */}
+
+                    {/* Edit Categories */}
                     <View style={styles.BookMarkContainer}>
                         <Text style={styles.MainContainText}>Categories & Services</Text>
                         <Text style={styles.CategoriesDcptnText}>
@@ -208,6 +211,7 @@ const BusinessInformation = (props) => {
                             onPress={() => props.AddEditBusinessCategoryFun()}
                         />
                     </View>
+                    {/* Edit Amenities */}
                     <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Amenities and more</Text>
                         <View style={styles.ViewContainer}>
@@ -223,9 +227,10 @@ const BusinessInformation = (props) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <Button buttonText="Edit" style={{ width: "100%" }} />
+                        <Button onPress={() => props.onPressEditBtn()} buttonText="Edit" style={{ width: "100%" }} />
                     </View>
-                    <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
+                    {/* Edit Hours of operation  */}
+                    {/* <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Hours of operation</Text>
                         <View style={styles.ViewContainer}>
                             <Image source={require('../../../../Assets/st_icon_8.png')} />
@@ -239,7 +244,8 @@ const BusinessInformation = (props) => {
                             </View>
                         </View>
                         <Button buttonText="Edit" style={{ width: "100%" }} />
-                    </View>
+                    </View> */}
+                    {/* Edit special hours */}
                     <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Upcoming special hours</Text>
                         <View style={styles.ViewContainer}>
@@ -328,7 +334,7 @@ const BusinessInformation = (props) => {
                         </View>
                         <Button buttonText="$" style={{ width: "100%" }} />
                     </View>
-                    <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
+                    {/* <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Portfolio</Text>
                         <FlatList
                             keyExtractor={(item, index) => index.toString()}
@@ -349,7 +355,7 @@ const BusinessInformation = (props) => {
                             </TouchableOpacity>
                             <Button buttonText="$" style={{ width: "100%" }} />
                         </View>
-                    </View>
+                    </View> */}
                     <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Call to Action</Text>
                         <View style={styles.ViewContainer}>
