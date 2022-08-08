@@ -118,9 +118,7 @@ const JobList = ({ navigation }) => {
         offset: offSet,
         limit: 10 + offSet,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
-      console.log("data: ", data);
       if (data.status == 200) {
         setJobList(data.data);
         setLoader(false);

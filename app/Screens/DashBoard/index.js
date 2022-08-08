@@ -68,7 +68,6 @@ const DashBoardView = ({ navigation }) => {
       navigation.navigate("ShopList", { nearbySearch: params });
     }
     if (businessCategory.business_type == 3) {
-      console.log("SSSS33");
       navigation.navigate("ServiceProviderListing", {
         nearbySearch: params,
       });
@@ -81,8 +80,6 @@ const DashBoardView = ({ navigation }) => {
       const { data } = await apiCall("POST", ENDPOINTS.GET_SERVICES_DETAIL);
       if (data.status === 200) {
         setDashBoardDetail(data.data);
-        // setVisibleSuccess(true);
-        // setSuccessMessage(data.message);
         setVisible(false);
       } else {
         setErrorMessage(data.message);
@@ -92,6 +89,7 @@ const DashBoardView = ({ navigation }) => {
     } catch (error) {
       setVisibleErr(true);
       setErrorMessage(error.message);
+      setVisible(false);
     }
   };
   return (

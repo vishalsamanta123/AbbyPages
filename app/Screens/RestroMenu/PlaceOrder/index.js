@@ -35,6 +35,7 @@ const PlaceOrderView = ({ navigation }) => {
   const getOrderDetails = async () => {
     try {
       const orderData = await AsyncStorage.getItem("orderData");
+      console.log('orderData: ', orderData);
       if (orderData !== "") {
         setBusinessName(JSON.parse(orderData).business_name);
       }

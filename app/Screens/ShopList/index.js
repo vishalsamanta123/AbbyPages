@@ -33,12 +33,16 @@ const ShopList = ({ navigation, route }) => {
       const { nearbySearch } = route?.params;
       setSearch(nearbySearch);
       if (search) {
-        handleServiceNearby(0);
+        handleSearchData(0);
       }
     } else {
-      handleShopList(0);
+      if (inputSearch) {
+        handleSearchData(0);
+      } else {
+        handleShopList(0);
+      }
     }
-  }, [search]);
+  }, [search, inputSearch]);
 
   const handleShopList = async (offSet) => {
     setOffSet(offSet);
@@ -49,48 +53,62 @@ const ShopList = ({ navigation, route }) => {
         offset: offSet,
         limit: 10,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setShopList(data.data);
         setVisible(false);
       } else {
-        setstopOffset(true);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
+        if (data.status === 201) {
+          setShopList([]);
+          setVisible(false);
+        } else {
+          setstopOffset(true);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setVisibleErr(true);
       setErrorMessage(error.message);
     }
   };
-  const handleServiceNearby = async (offSet) => {
+
+  const handleSearchData = async (offSet) => {
     setOffSet(offSet);
     try {
-      setVisible(true);
+      if (inputSearch) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
       const params = {
         latitude: search.latitude,
         longitude: search.longitude,
         category_id: search.category_id,
-        limit: 10,
+        limit: 10 + offSet,
         offset: offSet,
-        business_type: 2,
+        business_type: 1,
+        search_key: inputSearch ? inputSearch : null,
       };
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
-      if (data.status === 200) {
+      if (data.status == 200) {
+        setVisible(false);
         setShopList(data.data);
-        setVisible(false);
       } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setstopOffset(true);
+        if (data.status === 201) {
+          setShopList([]);
+          setVisible(false);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setstopOffset(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setErrorMessage(data.message);
@@ -98,6 +116,7 @@ const ShopList = ({ navigation, route }) => {
       setVisible(false);
     }
   };
+
   const onPressShop = (item) => {
     navigation.navigate("ShopDetail", { detail: item });
   };
@@ -109,9 +128,16 @@ const ShopList = ({ navigation, route }) => {
     };
     const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
     if (data.status == 200) {
+      if (search) {
+        if (inputSearch) {
+          handleSearchData(offSet);
+        }
+        handleSearchData(offSet);
+      } else {
+        handleShopList(offSet);
+      }
       ToastAndroid.show(data.message, ToastAndroid.SHORT);
       setVisible(false);
-      handleShopList(offSet);
     } else {
       setErrorMessage(data.message);
       setVisibleErr(true);
@@ -241,38 +267,21 @@ const ShopList = ({ navigation, route }) => {
       business_type: 2,
     });
   };
-  const searchInput = (searchKey) => {
-    setInputSearch(searchKey);
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...shopList];
-    const list = _.filter(searchArray, (item) => {
-      return item.business_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setVisible(true);
-      if (search) {
-        handleServiceNearby(0);
-      } else {
-        handleShopList(0);
-      }
-      setVisible(false);
-    }
-    setShopList(list);
-  };
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ShopListScreen
-        searchInput={searchInput}
         shopList={shopList}
         _handleShopList={_handleShopList}
         onPressMap={onPressMap}
         search={search}
-        handleServiceNearby={handleServiceNearby}
+        handleSearchData={handleSearchData}
         handleShopList={handleShopList}
         offSet={offSet}
         stopOffset={stopOffset}
         inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
       />
       <Error
         message={errorMessage}

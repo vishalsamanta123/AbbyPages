@@ -20,20 +20,16 @@ const ProductListingScreen = (props) => {
         HeaderText="Product"
         RightImg={require("../../../Assets/cart_icon_header.png")}
         onPress={() => props.onPressCart()}
-        cartLength={props.shoppingCartData.length}
+        cartLength={props?.shoppingCartData?.length}
       />
-      <View style={[CommonStyles.body, {}]}>
+      <View style={CommonStyles.body}>
         <View style={styles.inputconmn}>
           <View style={styles.inputconsmall}>
             <Image source={require("../../../Assets/search_field_icon.png")} />
             <TextInput
               placeholder="Search"
               onChangeText={(searchKey) => props.SearchProduct(searchKey)}
-              style={{
-                fontFamily: FONT_FAMILY_REGULAR,
-                fontSize: 16,
-                flex: 1,
-              }}
+              style={styles.searchInput}
             />
           </View>
           <TouchableOpacity

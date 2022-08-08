@@ -30,10 +30,12 @@ const StepFifth = ({ navigation, route }) => {
     const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
     if (data.status === 200) {
       setProfileData(data.data);
-      await setLocalUserData({
-        email: profileData?.email,
-        mobile: profileData?.phone ? profileData?.phone : "",
-        user_name: profileData?.first_name + " " + profileData?.last_name,
+      setLocalUserData({
+        email: data.data?.email ? data.data?.email : "",
+        mobile: data.data?.phone ? data.data?.phone : "",
+        user_name: data.data?.first_name
+          ? data.data?.first_name + " " + data.data?.last_name
+          : "",
       });
     }
   };

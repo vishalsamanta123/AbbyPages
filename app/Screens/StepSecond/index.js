@@ -66,8 +66,6 @@ const StepSecond = ({ navigation, route }) => {
       if (data.status === 200) {
         const params = {
           serviceDetail,
-          // selectedCategory: 389,
-          // selectedSubCategory: 389,
           selectedCategory: selectedCategory,
           selectedSubCategory: selectedCategory,
         };

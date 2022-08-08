@@ -17,7 +17,10 @@ import styles from "./styles";
 import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  LIGHT_RED_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import Dialog, {
   DialogContent,
   SlideAnimation,
@@ -101,12 +104,7 @@ const ServiceProviderDetailsScreen = (props) => {
             </View>
             <Button
               buttonText="Request Quote"
-              style={{
-                marginTop: "5%",
-                padding: 13,
-                width: "100%",
-                elevation: 1,
-              }}
+              style={styles.requestQusVw}
               buttonLabelStyle={styles.startedbtntxt}
               onPress={() => props.onPressQuotes()}
             />
@@ -118,7 +116,7 @@ const ServiceProviderDetailsScreen = (props) => {
               style={styles.addphotovwe}
             >
               <Image source={require("../../../Assets/add_photo_icon.png")} />
-              <Text style={styles.addtxt}> Add Photo </Text>
+              <Text style={styles.addtxt}>Add Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -127,7 +125,7 @@ const ServiceProviderDetailsScreen = (props) => {
               style={styles.addphotovwe}
             >
               <Image source={require("../../../Assets/share_icon.png")} />
-              <Text style={styles.addtxt}> Share </Text>
+              <Text style={styles.addtxt}>Share</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -135,25 +133,26 @@ const ServiceProviderDetailsScreen = (props) => {
               }}
               style={styles.sharephotovwe}
             >
-              <Image 
-              style={{
-                backgroundColor:
-                  props?.serviceDetail?.favorite === 1
-                    ? YELLOW_COLOR_CODE
-                    : null,
-              }}
-              source={require("../../../Assets/save_icon.png")} />
-              <Text style={styles.addtxt}> Save</Text>
+              <Image
+                style={{
+                  tintColor:
+                    props?.serviceDetail?.user_like > 0
+                      ? YELLOW_COLOR_CODE
+                      : null,
+                }}
+                source={require("../../../Assets/save_icon.png")}
+              />
+              <Text style={styles.addtxt}>Save</Text>
             </TouchableOpacity>
           </View>
-          <FlatList
+          {/* <FlatList
             horizontal={true}
             keyExtractor={(item, index) => index.toString()}
             // data={props?.serviceDetail?.recommended_business}
             data={props.handleOptions}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => props._handleOptions(item, index)}
-          />
+          /> */}
           <View style={styles.dinevwe}>
             <View style={styles.coviduudatevew}>
               <Text style={styles.coviduudatetxt}>COVID-19 Updates</Text>
@@ -302,12 +301,6 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.photoview}>
               <View style={styles.photosecview}>
                 <Text style={styles.pandvtxt}>Photos and Videos</Text>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => props.seeAll()}
-                >
-                  <Text style={styles.seealltxt}>See All</Text>
-                </TouchableOpacity>
               </View>
               <FlatList
                 horizontal={true}
@@ -322,14 +315,14 @@ const ServiceProviderDetailsScreen = (props) => {
           )}
           <View style={styles.serviceview}>
             <View style={styles.sirsecview}>
-              <Text style={styles.coviduudatetxt}> Services Offered </Text>
+              <Text style={styles.coviduudatetxt}>Services Offered</Text>
               <Text style={styles.sixmore}>
-                {props?.serviceDetail?.business_category?.length} more Services
+                {props?.serviceDetail?.business_category?.length} Services
               </Text>
             </View>
             <FlatList
               keyExtractor={(item, index) => index.toString()}
-              data={props.serviceDetail.business_category}
+              data={props?.serviceDetail?.business_category}
               renderItem={({ item, index }) => {
                 return (
                   <View style={styles.serceainview}>
@@ -505,6 +498,91 @@ const ServiceProviderDetailsScreen = (props) => {
               renderItem={({ item, index }) => props._handleReview(item, index)}
             />
           </View>
+          {props?.serviceDetail?.recommended_business && (
+            <>
+              <Text style={styles.relatedItemsTxt}>Related Services</Text>
+              <View style={styles.relatedItems}>
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  contentContainerStyle={{ flexGrow: 1 }}
+                >
+                  {props?.serviceDetail?.recommended_business.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => props.onPressService(item)}
+                        style={styles.MainConatiner}
+                      >
+                        <View>
+                          <Image
+                            style={styles.MainImgeStyle}
+                            resizeMode="contain"
+                            source={{
+                              uri: item.logo,
+                            }}
+                          />
+                        </View>
+                        <View style={styles.MainConatinerView}>
+                          <View style={styles.InformationView}>
+                            <View style={{ flex: 5 }}>
+                              <Text style={styles.MainServiceName}>
+                                {item.business_name}
+                              </Text>
+                              <View style={styles.RatingVw}>
+                                <View style={styles.RatingStyles}>
+                                  <Text style={styles.RatingStylesTxt}>
+                                    5.0
+                                  </Text>
+                                </View>
+                                <Text
+                                  numberOfLines={1}
+                                  style={styles.RatingTextMain}
+                                >
+                                  {item.rating} ratings
+                                </Text>
+                                <Text numberOfLines={1} style={styles.viewText}>
+                                  Views {item.views}
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                          {item.business_service_category ? (
+                            <Text
+                              numberOfLines={2}
+                              style={[
+                                styles.AddressTextStyles,
+                                { paddingRight: 5 },
+                              ]}
+                            >
+                              {item.business_service_category}
+                            </Text>
+                          ) : null}
+                          {item.login_status === 1 ? (
+                            <Text numberOfLines={2} style={styles.statusTxt}>
+                              Open Now
+                            </Text>
+                          ) : (
+                            <Text
+                              numberOfLines={2}
+                              style={[
+                                styles.statusTxt,
+                                {
+                                  color: LIGHT_RED_COLOR_CODE,
+                                },
+                              ]}
+                            >
+                              Close Now
+                            </Text>
+                          )}
+                          <Text style={styles.addressTxt}>{item.address}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </>
+          )}
         </ScrollView>
         <View>
           <Dialog

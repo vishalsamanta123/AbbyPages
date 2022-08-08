@@ -1,7 +1,9 @@
 import React from "react";
-import { View, FlatList, KeyboardAvoidingView } from "react-native";
+import { View, FlatList, KeyboardAvoidingView, Text } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
+import styles from "./styles";
+
 const ListingsScreen = (props) => {
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
@@ -19,6 +21,15 @@ const ListingsScreen = (props) => {
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={props.restroList}
+          ListEmptyComponent={() => {
+            return (
+              <View style={styles.emptyConVw}>
+                <Text style={styles.emptyConTxt}>
+                  No Restaurant is available
+                </Text>
+              </View>
+            );
+          }}
           renderItem={({ item, index }) => props._handleSerivces(item, index)}
           onEndReached={() => {
             props.search || props.inputSearch

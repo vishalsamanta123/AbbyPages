@@ -42,7 +42,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
     description: "",
     title: "",
     business_rating: "",
-    business_type: 1,
+    business_type: 3,
     business_id: restroDetail.business_id,
   });
   // const [business_id, setBusinessId] = useState(0);

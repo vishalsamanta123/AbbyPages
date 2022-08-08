@@ -100,10 +100,15 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         setserviceData(data.data);
         setVisible(false);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setstopOffset(true);
-        setVisible(false);
+        if (data.status === 201) {
+          setserviceData([]);
+          setVisible(false);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setstopOffset(true);
+          setVisible(false);
+        }
       }
     } catch (error) {
       setVisible(false);

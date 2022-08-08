@@ -23,7 +23,10 @@ import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  LIGHT_RED_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import { Rating, AirbnbRating } from "react-native-ratings";
 const { width, height } = Dimensions.get("window");
 const ShopDetail = (props) => {
@@ -202,16 +205,14 @@ const ShopDetail = (props) => {
                 {props.shopDetail && props.shopDetail.rating} ratings |{" "}
               </Text>
               <Text style={styles.MainClosedTime}>
-                {props.shopDetail && props.shopDetail.login_status === 1
+                {props.shopDetail && props?.shopDetail?.login_status === 1
                   ? "Open"
                   : "Closed"}
               </Text>
               <Text style={styles.RatingTextMain}>
-                {props.shopDetail &&
-                  props.shopDetail.business_open_time &&
+                {props.shopDetail.business_open_time &&
                   ": " + props.shopDetail.business_open_time.open_time + "-"}
-                {props.shopDetail &&
-                  props.shopDetail.business_open_time &&
+                {props.shopDetail.business_open_time &&
                   props.shopDetail.business_open_time.close_time}
               </Text>
             </View>
@@ -239,7 +240,15 @@ const ShopDetail = (props) => {
                 onPress={() => props.saveResto()}
                 style={styles.SaveContainer}
               >
-                <Image source={require("../../../Assets/save_icon.png")} />
+                <Image
+                  style={{
+                    tintColor:
+                      props?.shopDetail?.user_like > 0
+                        ? YELLOW_COLOR_CODE
+                        : null,
+                  }}
+                  source={require("../../../Assets/save_icon.png")}
+                />
                 <Text style={styles.AddOptnsTextMain}>Save</Text>
               </TouchableOpacity>
             </View>
@@ -437,8 +446,8 @@ const ShopDetail = (props) => {
               <TouchableOpacity
                 onPress={() =>
                   props.handleGetDirections(
-                    props.shopDetail && props.shopDetail.latitude,
-                    props.shopDetail && props.shopDetail.longitude
+                    props.shopDetail.latitude,
+                    props.shopDetail.longitude
                   )
                 }
               >
@@ -466,45 +475,45 @@ const ShopDetail = (props) => {
               </Marker>
             </MapView>
             <Text style={styles.ChoosedLocationTxt}>
-              {props.shopDetail && props.shopDetail.address}
+              {props?.shopDetail?.address}
             </Text>
-            <View style={styles.DaysContainer}>
-              <FlatList
-                keyExtractor={(item, index) => index.toString()}
-                data={
-                  props.shopDetail.business_service_time &&
-                  props.shopDetail.business_service_time
-                }
-                renderItem={({ item, index }) => (
-                  <View key={index} style={{ flexDirection: "row" }}>
-                    <Text style={styles.DaysMainText}>{item.day} </Text>
-                    <Text style={styles.DaysMainText}> {item.open_time}</Text>
-                    <Text style={styles.DaysMainText}> {item.close_time}</Text>
-                  </View>
-                )}
-              />
-            </View>
+            {props?.shopDetail?.business_service_time?.length > 0 && (
+              <View style={styles.DaysContainer}>
+                <FlatList
+                  keyExtractor={(item, index) => index.toString()}
+                  data={props.shopDetail.business_service_time}
+                  renderItem={({ item, index }) => (
+                    <View key={index} style={{ flexDirection: "row" }}>
+                      <Text style={styles.DaysMainText}>{item.day} </Text>
+                      <Text style={styles.DaysMainText}> {item.open_time}</Text>
+                      <Text style={styles.DaysMainText}>
+                        {" "}
+                        {item.close_time}
+                      </Text>
+                    </View>
+                  )}
+                />
+              </View>
+            )}
             {/*  <View style={styles.EditBusinessInfoView}>
                                 <Image source={require('../../../Assets/edit_pencil_icon.png')} />
                                 <Text style={styles.EditTextStyle}> Edit bussiness info</Text>
                             </View>
                         </View> */}
           </View>
-
-          <View style={styles.PopularDishContain}>
-            <Text style={styles.CovidMainTxt}>Photos</Text>
-            <FlatList
-              keyExtractor={(item, index) => index.toString()}
-              data={
-                props.shopDetail &&
-                props.shopDetail.image &&
-                props.shopDetail.image
-              }
-              horizontal={true}
-              renderItem={({ item, index }) => props._handlePhotos(item, index)}
-            />
-          </View>
-
+          {props?.shopDetail?.image?.length > 0 && (
+            <View style={styles.PopularDishContain}>
+              <Text style={styles.CovidMainTxt}>Photos</Text>
+              <FlatList
+                keyExtractor={(item, index) => index.toString()}
+                data={props.shopDetail.image}
+                horizontal={true}
+                renderItem={({ item, index }) =>
+                  props._handlePhotos(item, index)
+                }
+              />
+            </View>
+          )}
           <View style={styles.AboutBusinessContain}>
             <View style={styles.FlexDirectnStyle}>
               <Text style={styles.CovidMainTxt}>About the Business</Text>
@@ -530,11 +539,13 @@ const ShopDetail = (props) => {
           <View style={styles.ReviewFullList}>
             <View style={[styles.FlexDirectnStyle, { paddingTop: 0 }]}>
               <Text style={styles.CovidMainTxt}>Review & Ratings</Text>
-              <TouchableOpacity onPress={() => props.setReviewModal(true)}>
+              <TouchableOpacity
+                onPress={() => props.setReviewModal(!props.reviewModal)}
+              >
                 <Text style={styles.WriteReviewTxt}>Write a Review</Text>
               </TouchableOpacity>
             </View>
-            {props.reviewModal && props.reviewModal === true && (
+            {props.reviewModal && (
               <View>
                 <Rating
                   onFinishRating={(rating) =>
@@ -544,11 +555,7 @@ const ShopDetail = (props) => {
                   //     ...props.reviewData,
                   //     business_rating: rating
                   // })}
-                  style={{
-                    paddingVertical: 10,
-                    paddingLeft: 20,
-                    alignSelf: "flex-start",
-                  }}
+                  style={styles.ratingConVw}
                   imageSize={30}
                 />
                 <Input
@@ -586,14 +593,98 @@ const ShopDetail = (props) => {
             )}
             <FlatList
               keyExtractor={(item, index) => index.toString()}
-              data={
-                props.shopDetail &&
-                props.shopDetail.business_review &&
-                props.shopDetail.business_review
-              }
+              data={props.shopDetail.business_review}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item, index }) => props._handleReview(item, index)}
             />
+            {props?.shopDetail?.recommended_business && (
+              <>
+                <Text style={styles.relatedItemsTxt}>Related Shops</Text>
+                <View style={styles.relatedItems}>
+                  <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    contentContainerStyle={{ flexGrow: 1 }}
+                  >
+                    {props?.shopDetail?.recommended_business.map((item) => {
+                      return (
+                        <TouchableOpacity
+                          onPress={() => props.onPressShop(item)}
+                          style={styles.MainConatiner}
+                        >
+                          <View>
+                            <Image
+                              style={styles.MainImgeStyle}
+                              resizeMode="contain"
+                              source={{ uri: item.logo }}
+                            />
+                          </View>
+                          <View style={styles.MainConatinerView}>
+                            <View style={styles.InformationView}>
+                              <View style={{ flex: 5 }}>
+                                <Text style={styles.MainServiceName}>
+                                  {item.business_name}
+                                </Text>
+                                <View style={styles.RatingVw}>
+                                  <View style={styles.RatingStyles}>
+                                    <Text style={styles.RatingStylesTxt}>
+                                      5.0
+                                    </Text>
+                                  </View>
+                                  <Text
+                                    numberOfLines={1}
+                                    style={styles.RatingTextMain}
+                                  >
+                                    {item.rating} ratings
+                                  </Text>
+                                  <Text
+                                    numberOfLines={1}
+                                    style={styles.viewText}
+                                  >
+                                    Views {item.views}
+                                  </Text>
+                                </View>
+                              </View>
+                            </View>
+                            {item.business_service_category ? (
+                              <Text
+                                numberOfLines={2}
+                                style={[
+                                  styles.AddressTextStyles,
+                                  { paddingRight: 5 },
+                                ]}
+                              >
+                                {item.business_service_category}
+                              </Text>
+                            ) : null}
+                            {item.login_status === 1 ? (
+                              <Text numberOfLines={2} style={styles.statusTxt}>
+                                Open Now
+                              </Text>
+                            ) : (
+                              <Text
+                                numberOfLines={2}
+                                style={[
+                                  styles.statusTxt,
+                                  {
+                                    color: LIGHT_RED_COLOR_CODE,
+                                  },
+                                ]}
+                              >
+                                Close Now
+                              </Text>
+                            )}
+                            <Text style={styles.addressTxt}>
+                              {item.address}
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              </>
+            )}
           </View>
           <Dialog
             visible={props.DialogVisible}

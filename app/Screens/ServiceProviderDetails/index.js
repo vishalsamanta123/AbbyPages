@@ -45,7 +45,6 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     business_id: "",
   });
   const [serviceDetail, setServiceDetail] = useState([]);
-  console.log("serviceDetail: ", serviceDetail);
   const [handleOptions, setHandleOptions] = useState([
     {
       id: "1",
@@ -59,9 +58,9 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      handleServiceDetails(detail); //function
+      handleServiceDetails(detail);
     }
-  }, [navigation]);
+  }, []);
   const handleServiceDetails = async (data) => {
     setVisible(true);
     const params = {
@@ -164,120 +163,56 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       </View>
     );
   };
+
   const _handleReview = (item, index) => {
     return (
-      <View
-        style={{
-          borderBottomWidth: 0.5,
-          paddingBottom: 20,
-          borderBottomColor: "#dadada",
-        }}
-      >
-        <View
-          style={{
-            flex: 4.5,
-            paddingBottom: 15,
-            paddingTop: 15,
-
-            flexDirection: "row",
-          }}
-        >
+      <View style={styles.ratedVws}>
+        <View style={styles.ratedProfileVw}>
           {item.profile_image ? (
             <Image
-              style={{
-                width: 75,
-                height: 75,
-                borderRadius: 50,
-              }}
+              style={styles.ratedProfile}
               source={{ uri: item.profile_image }}
             />
           ) : (
             <Image
-              style={{
-                width: 75,
-                height: 75,
-                borderRadius: 50,
-              }}
+              style={styles.ratedProfile}
               source={require("../../Assets/extraImages/salooonimg.jpg")}
             />
           )}
           <View style={{ paddingLeft: 10 }}>
             <View style={{ width: "75%" }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: BLACK_COLOR_CODE,
-                  fontFamily: FONT_FAMILY_REGULAR,
-                }}
-              >
-                {item.title}
-              </Text>
+              <Text style={styles.titleTxt}>{item.title}</Text>
             </View>
-            <Text
-              style={{
-                fontSize: 13,
-                color: LIGHT_GREY_COLOR_CODE,
-                fontFamily: FONT_FAMILY_REGULAR,
-              }}
-            >
+            <Text style={styles.nameTxt}>
               by{" "}
-              <Text
-                style={{
-                  fontSize: 13,
-                  color: YELLOW_COLOR_CODE,
-                  fontFamily: FONT_FAMILY_REGULAR,
-                }}
-              >
+              <Text style={styles.nameTxt}>
                 {item.first_name + item.last_name}
               </Text>{" "}
               | {moment(item.create_date).endOf("day").fromNow()}{" "}
             </Text>
 
             <View style={{ flexDirection: "row" }}>
-              <View
-                style={{
-                  backgroundColor: LIGHT_GREEN_COLOR_CODE,
-                  width: 38,
-                  height: 23,
-                  borderRadius: 3,
-                }}
-              >
-                <Text
-                  style={{
-                    color: WHITE_COLOR_CODE,
-                    textAlign: "center",
-                    fontFamily: FONT_FAMILY_REGULAR,
-                  }}
-                >
-                  {item.business_rating}
-                </Text>
+              <View style={styles.ratingVw}>
+                <Text style={styles.ratingTxt}>{item.business_rating}</Text>
               </View>
-              <Text style={{ color: LIGHT_GREY_COLOR_CODE }}>
+              <Text style={styles.ratingNameTxt}>
                 {item.business_rating == 0 && "No Rating Yet"}
                 {item.business_rating == 1 && "Bad"}
                 {item.business_rating == 2 && "Ok"}
                 {item.business_rating == 3 && "Good"}
                 {item.business_rating == 4 && "Very Good"}
-                {item.business_rating == 5 && "Excellent"}{" "}
+                {item.business_rating == 5 && "Excellent"}
               </Text>
             </View>
           </View>
         </View>
         <View>
-          <Text
-            style={{
-              fontFamily: FONT_FAMILY_REGULAR,
-              lineHeight: 18,
-              color: LIGHT_GREY_COLOR_CODE,
-              fontSize: 12,
-            }}
-          >
-            {item.description}
-          </Text>
+          <Text style={styles.descriptionTxt}>{item.description}</Text>
         </View>
       </View>
     );
   };
+  
   function validationFormReview() {
     if (reviewData.title == "") {
       setErrorMessage("Please enter title");
@@ -387,7 +322,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const saveResto = async () => {
     try {
       const params = {
-        item_type: 1,//serviceDetail.business_type,
+        item_type: 1, //serviceDetail.business_type,
         item_id: serviceDetail.business_id,
         like: serviceDetail.likes,
         favorite: serviceDetail?.favorite,
@@ -407,6 +342,9 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       setErrorMessage(error.message);
       setVisibleErr(true);
     }
+  };
+  const onPressService = (item) => {
+    handleServiceDetails(item);
   };
   return (
     <View style={CommonStyles.container}>
@@ -433,6 +371,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         addPhotoModal={addPhotoModal}
         saveResto={saveResto}
         shareTo={shareTo}
+        onPressService={onPressService}
       />
       <Error
         message={errorMessage}
