@@ -16,6 +16,7 @@ import Input from '../../../../Components/Input';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import { FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE, GREY_COLOR_CODE, LIGHT_BLACK_COLOR_CODE, FONT_FAMILY_BOLD } from '../../../../Utils/Constant';
 const OpeningHours = (props) => {
+    const [handleActiveStatus, setHandleActiveStatus] = useState(false)
     return (
         <KeyboardAvoidingView style={[CommonStyles.container]}>
             <StatusBar
@@ -474,7 +475,13 @@ const OpeningHours = (props) => {
                     </View>
                     <View style={[styles.MainCOntainer, { marginTop: 15,marginBottom:10 }]}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                            <TouchableOpacity onPress={() => setHandleActiveStatus(!handleActiveStatus)}>
+                            {!handleActiveStatus ?
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                                :
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_checked.png')} />
+                            }
+                            </TouchableOpacity>
                             <Text style={styles.markMyBusiness}>
                                 Mark my business as closed
                             </Text>
@@ -485,7 +492,13 @@ const OpeningHours = (props) => {
                            customers know by choosing one of these options.
                         </Text>
                         <View style={styles.TemporilyCloseView}>
-                            <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                        <TouchableOpacity onPress={() => setHandleActiveStatus(!handleActiveStatus)}>
+                            {!handleActiveStatus ?
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                                :
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_checked.png')} />
+                            }
+                            </TouchableOpacity>
                             <Text style={styles.markMyBusiness}>
                                 Temporarily Closed
                             </Text>
@@ -507,7 +520,13 @@ const OpeningHours = (props) => {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 20 }}>
-                            <Image style={{ marginTop: 3 }} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                        <TouchableOpacity onPress={() => setHandleActiveStatus(!handleActiveStatus)}>
+                            {!handleActiveStatus ?
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_unchecked.png')} />
+                                :
+                                <Image style={styles.ImgeRadio} source={require('../../../../Assets/radio_circled_checked.png')} />
+                            }
+                            </TouchableOpacity>
                             <Text style={styles.markMyBusiness}>
                                 Temporarily Closed
                             </Text>

@@ -45,7 +45,7 @@ const Styles = StyleSheet.create({
         marginTop: 15,
         position: 'absolute',
         right: 20,
-        bottom: 30,
+        bottom: 5,
         height: 35,
         borderRadius: 20,
         justifyContent: 'center',
@@ -65,7 +65,7 @@ const Styles = StyleSheet.create({
         fontFamily: FONT_FAMILY_REGULAR,
         lineHeight: 17, fontSize: 12,
         color: LIGHT_GREY_COLOR_CODE,
-        width: '80%'
+        // width: '80%'
     },
     HeadingTxt: {
         fontFamily: FONT_FAMILY_BOLD,

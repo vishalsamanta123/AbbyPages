@@ -160,7 +160,7 @@ const AddJobs = (props) => {
                             onChangeText={(JobTimeings) => props.setJobTimeings(JobTimeings)}
                             value={props.JobTimeings}
                             secureTextEntry={false}
-                            placeholder="Job Timeings *"
+                            placeholder="Job Timings *"
                             InputType="withScroll"
                         />
                         <TouchableOpacity style={styles.secContainer}
