@@ -16,6 +16,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+
 const ShopList = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -51,7 +52,7 @@ const ShopList = ({ navigation, route }) => {
       const params = {
         business_type: 2,
         offset: offSet,
-        limit: 10,
+        limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
       if (data.status === 200) {
@@ -88,7 +89,7 @@ const ShopList = ({ navigation, route }) => {
         category_id: search.category_id,
         limit: 10 + offSet,
         offset: offSet,
-        business_type: 1,
+        business_type: 2,
         search_key: inputSearch ? inputSearch : null,
       };
       const { data } = await apiCall(

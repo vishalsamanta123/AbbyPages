@@ -43,6 +43,7 @@ const ProductListingScreen = (props) => {
           <FlatList
             data={props.productList}
             numColumns={2}
+            extraData={props.reload}
             ListEmptyComponent={() => {
               return (
                 <View style={styles.emptyVw}>
