@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Image, Alert } from 'react-native';
 import MyProductList from './component/MyProductList';
 import styles from './component/styles';
 import { YELLOW_COLOR_CODE } from '../../../Utils/Constant';
@@ -32,7 +32,10 @@ const MyProductListView = ({ navigation }) => {
     const productList = async () => {
         setVisible(true)
         try {
-            const { data } = await apiCall('POST', ENDPOINTS.BUSINESS_PRODUCT_LIST);
+            const { data } = await apiCall('POST', ENDPOINTS.BUSINESS_PRODUCT_LIST, {
+                limit: 10,
+                offset: 0
+            });
             if (data.status === 200) {
                 setVisible(false);
                 setProductListData(data.data)
@@ -70,6 +73,7 @@ const MyProductListView = ({ navigation }) => {
                             <Text style={[styles.PriceOfDishTxt]}> ({item.discount}% off)</Text>
                         </View>
                         <Text numberOfLines={2} style={styles.DiscrptnTxtStyle} >{item.description}</Text>
+                        
                     </View>
                 </View>
             </TouchableOpacity >

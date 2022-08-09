@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, YellowBox, FlatList,TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, YellowBox, FlatList, TouchableOpacity } from 'react-native';
 import CommonStyles from '../../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../../Components/Button';
 import Input from '../../../../../Components/Input';
 import Header from '../../../../../Components/Header';
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, BLACK_COLOR_CODE,FONT_FAMILY_BOLD } from '../../../../../Utils/Constant';
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_BOLD } from '../../../../../Utils/Constant';
 import moment from 'moment'
+import { Picker } from "@react-native-community/picker";
 const ShoppingOrderDetailsScreen = (props) => {
     return (
         <View style={CommonStyles.container}>
@@ -85,7 +86,7 @@ const ShoppingOrderDetailsScreen = (props) => {
                             </Text>
                         </View>
                     </View>
-                    <View style={{ marginBottom: 80 }}>
+                    <View style={{ marginBottom: 20 }}>
                         {props.orderData ?
                             props.orderData.items.map((item) => {
                                 return (
@@ -117,45 +118,124 @@ const ShoppingOrderDetailsScreen = (props) => {
                         }
                     </View>
 
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                        <View style={styles.selectvwe}>
+                            <TouchableOpacity
+                                style={styles.tchvwe}>
+                                <Picker
+                                    selectedValue={props.orderProcess?.process}
+                                    style={styles.pickerVw}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        props.setOrderProcess({
+                                            ...props.orderProcess,
+                                            process: itemValue,
+                                        })
+                                    }
+                                    mode={"dropdown"}
+                                >
+                                    <Picker.Item label="Update Order Process" />
+                                    <Picker.Item label="ordered" value={1} />
+                                    <Picker.Item label="packed" value={2} />
+                                    <Picker.Item label="shipped" value={3} />
+                                    <Picker.Item label="delivered" value={4} />
+                                </Picker>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.selectvwe}>
+                            <TouchableOpacity
+                                style={styles.tchvwe}>
+                                <Picker
+                                    selectedValue={props?.orderProcess?.orderStatus}
+                                    style={styles.pickerVw}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        props.setOrderProcess({
+                                            ...props.orderProcess,
+                                            orderStatus: itemValue,
+                                        })
+                                    }
+                                    mode={"dropdown"}
+                                >
+                                    <Picker.Item label="Update status" />
+                                    <Picker.Item label="Pending" value={0} />
+                                    <Picker.Item label="Accept" value={1} />
+                                    <Picker.Item label="In process" value={2} />
+                                    <Picker.Item label="Cancel" value={4} />
+                                    <Picker.Item label="Completed" value={5} />
+                                </Picker>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
 
+
+                    <View style={{marginHorizontal: 10}}>
+                        <Button
+                            style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '100%' }}
+                            buttonText="Update"
+                            onPress={() => props?.orderStatusUpdate(props.orderData)}
+                            // isDisabled={props.orderProcess.}
+                        />
+                    </View>
+
+                    <View style={{ padding: 20 }}>
+                        <Text style={styles.orderStatusTxt}>OrderStatus</Text>
+                        {props.orderData ?
+                        <View>
+                            <View style={{ flexDirection: "row" }}>
+                                <Image
+                                    tintColor={
+                                        props?.orderData?.order_process >= 1
+                                            ? YELLOW_COLOR_CODE
+                                            : "#c1bcbc"
+                                    }
+                                    source={require("../../../../../Assets/final_order1.png")}
+                                />
+                                <Text style={[styles.text, { fontSize: 15 }]}>
+                                    {""} Ordered
+                                </Text>
+                            </View>
+                            <View style={styles.orderStatusVw}>
+                                <Image
+                                    tintColor={
+                                        props?.orderData?.order_process >= 2
+                                            ? YELLOW_COLOR_CODE
+                                            : "#c1bcbc"
+                                    }
+                                    style={{ right: 2 }}
+                                    source={require("../../../../../Assets/final_order.png")}
+                                />
+                                <Text style={[styles.text, { fontSize: 15 }]}>Packed</Text>
+                            </View>
+                            <View style={styles.orderStatusVw}>
+                                <Image
+                                    tintColor={
+                                        props?.orderData?.order_process >= 3
+                                            ? YELLOW_COLOR_CODE
+                                            : "#c1bcbc"
+                                    }
+                                    style={{ right: 2 }}
+                                    source={require("../../../../../Assets/final_order.png")}
+                                />
+                                <Text style={[styles.text, { fontSize: 15 }]}>Shipped</Text>
+                            </View>
+                            <View style={styles.orderStatusVw}>
+                                <Image
+                                    tintColor={
+                                        props?.orderData.order_process >= 4 ||
+                                            props?.orderData?.order_status === 5
+                                            ? YELLOW_COLOR_CODE
+                                            : "#c1bcbc"
+                                    }
+                                    style={{ right: 2 }}
+                                    source={require("../../../../../Assets/final_order.png")}
+                                />
+                                <Text style={[styles.text, { fontSize: 15 }]}>
+                                    Delievered
+                                </Text>
+                            </View>
+                        </View>
+                        : null}
+                    </View>
                 </ScrollView>
-                <View style={[styles.localFooter], { position: 'absolute', bottom: 5, flexDirection: 'row', padding: 8 }}>
-                    {
-                        props.orderData ?
-                            props.orderData.order_status == '4' ?
-                                <Button
-                                    style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '100%' }}
-                                    buttonText="Canceled"
-                                // onPress={() => props.cancelOrder(props.orderData)}
-                                />
-                                :
-                                <Button
-                                    style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '50%' }}
-                                    buttonText="Cancel"
-                                    onPress={() => props.cancelOrder(props.orderData)}
-                                />
-                            :
-                            null
-                    }
-                    {
-                        props.orderData ?
-                            props.orderData.order_status == '1' ?
-                                <Button
-                                    style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '50%' }}
-                                    buttonText='Confirmed'
-                                />
-                                : props.orderData.order_status == '0' ?
-                                    <Button
-                                        style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '50%' }}
-                                        buttonText="Confirm"
-                                        onPress={() => props.orderConfirm(props.orderData)}
-                                    />
-                                    :
-                                    null
-                            :
-                            null
-                    }
-                </View>
             </View>
         </View >
     );

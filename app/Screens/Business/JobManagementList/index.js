@@ -79,7 +79,7 @@ const JobManagementListView = ({ navigation }) => {
                 job_id: id,
                 job_status: status,
             }
-            const response = await apiCall('POST', ENDPOINTS.jobRemoveStatusUpdate, params)
+            const response = await apiCall('POST', ENDPOINTS.JOB_REMOVE_STATUS_UPDATE, params)
             console.log('Job list', response.data);
             if (response.status === 200) {
                 getBussinessJobList()

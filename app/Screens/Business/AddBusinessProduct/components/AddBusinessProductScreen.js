@@ -196,7 +196,7 @@ const AddBusinessProductScreen = (props) => {
                         <TouchableOpacity onPress={() => props.setModalVisible()}
                             style={styles.tchvwe}>
                             <Text style={styles.slctdtxt}>
-                                {props?.selectedSize ? props?.selectedSize : "Select your size"}
+                                {props?.selectedSize.length > 0 ? props?.selectedSize : "Select your size"}
                             </Text>
                         </TouchableOpacity>
                     </View>

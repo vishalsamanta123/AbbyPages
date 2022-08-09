@@ -99,5 +99,9 @@ export default {
   GET_NEW_BUSINESS: "api/business/businessListNew",
   ORDER_CANCEL_BYUSER: 'api/orders/orderCancelByUser',
   // Update job status
-  jobRemoveStatusUpdate: '/api/jobs/jobRemoveStatusUpdate'
+  JOB_REMOVE_STATUS_UPDATE: '/api/jobs/jobRemoveStatusUpdate',
+  // update product status
+  PRODUCT_STATUS_UPDATE: "/api/product/productStatusUpdate",
+  // add and Edit product in bussines
+  ADD_PRODUCT_FOR_STORE: "/api/store/addProductForStore",
 };

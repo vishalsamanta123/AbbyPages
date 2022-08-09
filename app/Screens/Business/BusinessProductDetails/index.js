@@ -53,45 +53,93 @@ const OrderDetail = ({ route, props, navigation }) => {
     }
 
 
-    const DeleteProductMsg = () =>
-        Alert.alert(
-            "",
-            "Are you sure you want delete this product",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => deleteProduct() }
-            ],
-            { cancelable: false }
-        );
+    // const DeleteProductMsg = (ProductData) =>
+    // console.log('ProductData: ', ProductData);
+    //     Alert.alert(
+    //         "",
+    //         "Are you sure you want delete this product",
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 onPress: () => console.log("Cancel Pressed"),
+    //                 style: "cancel"
+    //             },
+    //             { text: "OK", onPress: () => productStatus({
+    //                 id: ProductData?.product_id,
+    //                 status: ProductData?.status,
+    //                 is_delete: 1
+    //             }) }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    const DeleteProductMsg = (item) =>
+    Alert.alert(
+        "",
+        "Are you sure you want delete this Job?",
+        [
+            {
+                text: "Cancel",
+                style: "cancel"
+            },
+            { text: "OK", onPress: () => productStatus({
+                id: item?.product_id,
+                status: item?.status,
+                is_delete: 1
+            }) }
+        ],
+        { cancelable: false }
+    );
 
-    const deleteProduct = async () => {
-        setVisible(true)
+    // const deleteProduct = async () => {
+    //     setVisible(true)
+    //     try {
+    //         const params = {
+    //             product_id: productId,
+    //             delete_type: '1'
+    //         }
+    //         const { data } = await apiCall
+    //             ('POST', ENDPOINTS.BUSINESS_PRODUCT_DELETE, params);
+    //         if (data.status === 200) {
+    //             navigation.navigate('MyProductList')
+    //             setVisible(false);
+    //             // setSuccessMessage('Product delete successfully')
+    //             // setVisibleSuccess(true)
+    //         } else {
+    //             setVisible(false);
+    //             setErrorMessage(data.message);
+    //             setVisibleErr(true);
+    //         };
+    //     } catch (error) {
+    //         setErrorMessage(error);
+    //         setVisibleErr(true);
+    //         setVisible(false);
+    //     };
+    // }
+
+
+    const productStatus = async ({id, status, is_delete}) => {
+        setVisible(true);
         try {
             const params = {
-                product_id: productId,
-                delete_type: '1'
+                is_delete: is_delete,
+                product_id: id,
+                status: status,
             }
-            const { data } = await apiCall
-                ('POST', ENDPOINTS.BUSINESS_PRODUCT_DELETE, params);
-            if (data.status === 200) {
+            console.log('params: ', params);
+            const response = await apiCall('POST', ENDPOINTS.PRODUCT_STATUS_UPDATE, params)
+            console.log('Job list', response.data);
+            if (response.status === 200) {
                 navigation.navigate('MyProductList')
                 setVisible(false);
-                // setSuccessMessage('Product delete successfully')
-                // setVisibleSuccess(true)
-            } else {
+            }
+            else {
                 setVisible(false);
-                setErrorMessage(data.message);
-                setVisibleErr(true);
-            };
-        } catch (error) {
-            setErrorMessage(error);
-            setVisibleErr(true);
+            }
+        }
+        catch (error) {
+            console.log('error: ', error);
             setVisible(false);
-        };
+        }
     }
 
     const editProduct = () => {
@@ -105,6 +153,7 @@ const OrderDetail = ({ route, props, navigation }) => {
                 ProductData={ProductData}
                 DeleteProductMsg={DeleteProductMsg}
                 editProduct={editProduct}
+                productStatus={productStatus}
             />
             <Error
                 message={errorMessage}

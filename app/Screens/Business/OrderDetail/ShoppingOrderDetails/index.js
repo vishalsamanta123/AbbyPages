@@ -19,6 +19,10 @@ const ShoppingOrderDetails = ({ route, props, navigation }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
     const [orderData, setorderData] = useState()
+    const [orderProcess, setOrderProcess] = useState({
+        process: '',
+        orderStatus: ''
+    })
 
 
     useEffect(() => {
@@ -52,7 +56,7 @@ const ShoppingOrderDetails = ({ route, props, navigation }) => {
                 order_id: orderId
             }
             const { data } = await apiCall
-                ('POST', ENDPOINTS.GET_ORDER_DETAILS, params);
+            ('POST', ENDPOINTS.GET_ORDER_DETAILS, params);
             if (data.status === 200) {
                 setorderData(data.data)
                 setVisible(false);
@@ -70,18 +74,18 @@ const ShoppingOrderDetails = ({ route, props, navigation }) => {
 
 
 
-    const orderConfirm = async (item) => {
+    const orderStatusUpdate = async (item) => {
         setVisible(true)
         try {
             const params = {
                 order_id: item.order_id,
-                order_status: 1,
+                order_status: orderProcess.orderStatus,
                 business_type: item.business_type,
-                order_process: 1
+                order_process: orderProcess.process
             }
 
             const { data } = await apiCall
-                ('POST', ENDPOINTS.ORDER_STATUS_UPDATE, params);
+            ('POST', ENDPOINTS.ORDER_STATUS_UPDATE, params);
             if (data.status === 200) {
                 getOrderDetailsFun()
                 setVisible(false);
@@ -136,9 +140,10 @@ const ShoppingOrderDetails = ({ route, props, navigation }) => {
             <ShoppingOrderDetailsScreen
                 onPressUpdate={onPressUpdate}
                 orderData={orderData}
-                orderConfirm={orderConfirm}
-                cancelOrder={cancelOrder}
                 goBackFun={goBackFun}
+                orderProcess={orderProcess}
+                setOrderProcess={setOrderProcess}
+                orderStatusUpdate={orderStatusUpdate}
             />
             <Error
                 message={errorMessage}
