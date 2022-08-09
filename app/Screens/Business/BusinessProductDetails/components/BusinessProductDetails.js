@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, Image, ScrollView, YellowBox, Animated, useWindowDimensions, ImageBackground } from 'react-native';
+import { View, Text, Image, ScrollView, YellowBox, Animated, useWindowDimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../Components/Button';
@@ -100,10 +100,26 @@ const BusinessProductDetails = (props) => {
                                 <Text style={[styles.PriceOfDishTxt]}> ${props.ProductData.price}</Text>
                                 <Text style={[styles.PriceOfDishTxt]}> ({props.ProductData.discount}% off)</Text>
                             </View>
-                            <View style={styles.basiccon}>
+                            <View style={[styles.basiccon, { justifyContent: 'space-between', marginBottom: 10 }]}>
                                 <Text style={[styles.text, { width: null, fontSize: 14, lineHeight: 19 }]}>
                                     Categories: {props.ProductData.sub_category_name}
                                 </Text>
+                                <TouchableOpacity
+                                    style={styles.switchstyle}
+                                    onPress={() => props.productStatus({
+                                        id: props.ProductData?.product_id,
+                                        status: props.ProductData?.status == 1 ? 0 : 1,
+                                        is_delete: 0,
+                                    })}
+                                >
+                                    {props.ProductData?.status === 1 ? (
+                                        <Image source={require("../../../../Assets/active_switch.png")} />
+                                    ) : (
+                                        <Image
+                                            source={require("../../../../Assets/unactive_switch.png")}
+                                        />
+                                    )}
+                                </TouchableOpacity>
                             </View>
                             <View style={[styles.localFooter], { marginTop: 15, width: '100%', flexDirection: 'row' }}>
                                 <View style={{ width: '50%' }}>
@@ -117,7 +133,7 @@ const BusinessProductDetails = (props) => {
                                     <Button
                                         style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE }}
                                         buttonText="Delete"
-                                        onPress={() => props.DeleteProductMsg()}
+                                        onPress={() => props.DeleteProductMsg(props.ProductData)}
                                     />
                                 </View>
                             </View>

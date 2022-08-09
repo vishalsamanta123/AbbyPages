@@ -50,7 +50,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
     const [BusiCategory, SetBusiCategory] = useState(false)
     const [SelectImgUri, setSelectImgUri] = useState()
     const [camerastate, setCamerastate] = useState(false);
-    const [selectedSize, setSelectedSize] = useState('');
+    const [selectedSize, setSelectedSize] = useState([]);
     const [modalVisible, setModalVisible] = useState(false)
 
     useFocusEffect(
@@ -83,6 +83,9 @@ const AddBusinessProduct = ({ route, navigation }) => {
         },
     ];
     const handleSelectedName = (item) => {
+        const array = [...selectedSize]
+        array.push(item.name)
+        // setSelectedSize(array);
         setSelectedSize(item.name);
         setModalVisible(false);
     }
@@ -139,7 +142,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
             setVisible(true)
             try {
                 let formdata = new FormData();
-                SelectImgUri ? SelectImgUri.map((image) => {
+                SelectImgUri && SelectImgUri.map((image) => {
                     var filename = image.path.substring(image.path.lastIndexOf('/') + 1);
                     return (
                         formdata.append("product_image", {
@@ -149,10 +152,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
                         })
                     )
                 })
-                    :
-                    null
                 // formdata.append("business_type", 2)
-                // productId == null ? null : formdata.append("product_id", productId)
                 // formdata.append("category_id", CategoryId)
                 // formdata.append("sub_category_id", SubCategoryId)
                 // formdata.append("business_category_id", 1)
@@ -166,7 +166,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 // formdata.append("product_color", productColor)
                 // formdata.append("product_weight", productWeight)
                 // formdata.append("company_brand", productBrand)
-
+                productId == null ? null : formdata.append("product_id", productId)
                 formdata.append('business_type', 2)
                 formdata.append('category_id', CategoryId)
                 formdata.append('sub_category_id', SubCategoryId)
@@ -183,7 +183,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 formdata.append("company_brand", productBrand)
                 formdata.append("dispatch_origin", 1)
                 formdata.append("processing_time", 4)
-                formData.append("fixed_postage_prices", 100)
+                formdata.append("fixed_postage_prices", 100)
                 formdata.append("destination", 2)
                 formdata.append("What_is_it", 1)
                 formdata.append("who_made_it", "i_did")
@@ -191,13 +191,12 @@ const AddBusinessProduct = ({ route, navigation }) => {
                 formdata.append("product_type", 1)
 
                 console.log('formdata: ', formdata);
-                const { data } = await apiCall('POST', ENDPOINTS.ADD_PRODUCT_ITEM, formdata);
+                const { data } = await apiCall('POST', ENDPOINTS.ADD_PRODUCT_FOR_STORE, formdata);
                 console.log('data: ', data);
                 if (data.status === 200) {
-                    // navigation.navigate('MyProductList')
-
+                    navigation.navigate('MyProductList')
                     // setVisibleSuccess(true);
-                    // setSuccessMessage(data.message);
+                    setSuccessMessage(data.message);
                     setVisible(false);
                 } else {
                     setVisible(false);
@@ -205,7 +204,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
                     setVisibleErr(true);
                 };
             } catch (error) {
-                setErrorMessage(error);
+                setErrorMessage(error.message);
                 setVisibleErr(true);
                 setVisible(false);
             };
@@ -535,7 +534,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
             <Success
                 message={successMessage}
                 visible={visibleSuccess}
-                closeModel={() => ('Home', setVisibleSuccess(false))}
+                closeModel={() => setVisibleSuccess(!visibleSuccess)}
             />
             <Dialog
                 dialogStyle={{
