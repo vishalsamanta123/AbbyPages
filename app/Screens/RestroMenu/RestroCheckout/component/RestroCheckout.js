@@ -103,7 +103,7 @@ const RestroCheckout = (props) => {
               />
               <View style={styles.AddressTextView}>
                 <Text style={styles.AddressTextStyle}>
-                  {props.dateTime && props.dateTime
+                  {props?.dateTime
                     ? "scheduled for " + props.dateTime
                     : "Please Select Schedule"}
                 </Text>

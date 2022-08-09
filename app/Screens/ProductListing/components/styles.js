@@ -139,6 +139,15 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 18,
   },
+  resetVw: {
+    paddingHorizontal: 10,
+    top: 5,
+  },
+  resetTxt: {
+    fontSize: 16,
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_BOLD,
+  },
   filterImgeView: {
     flexDirection: "row",
     alignItems: "center",
@@ -174,10 +183,13 @@ const Styles = StyleSheet.create({
     borderRadius: 8,
   },
   pickerVw: {
-    backgroundColor: WHITE_COLOR_CODE,
-    marginLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
+    paddingLeft: 8,
+  },
+  colorVw: {
+    paddingVertical: 5,
+    marginVertical: 2,
   },
   sortingCon: {
     flexDirection: "row",
@@ -227,7 +239,7 @@ const Styles = StyleSheet.create({
   },
   subCategoryTxt: {
     paddingLeft: 10,
-    color: YELLOW_COLOR_CODE,
+    color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
   },

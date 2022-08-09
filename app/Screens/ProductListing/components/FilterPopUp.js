@@ -36,6 +36,51 @@ export default function FilterPopUp(props) {
   const [productCatg, setProductCatg] = useState([]);
   const [productSubCatg, setProductSubCatg] = useState([]);
   const [selected, setSelected] = useState();
+  const [openColors, setOpenColors] = useState(false);
+  const Colors = [
+    {
+      color: "Red",
+    },
+    {
+      color: "Green",
+    },
+    {
+      color: "White",
+    },
+    {
+      color: "Orange",
+    },
+    {
+      color: "Blue",
+    },
+    {
+      color: "Black",
+    },
+    {
+      color: "Pink",
+    },
+    {
+      color: "Gray",
+    },
+    {
+      color: "Violet",
+    },
+    {
+      color: "Silver",
+    },
+    {
+      color: "Maroon",
+    },
+    {
+      color: "Brown",
+    },
+    {
+      color: "Tan",
+    },
+    {
+      color: "Indigo",
+    },
+  ];
   const [multiSliderValue, setMultiSliderValue] = React.useState([0]);
   useEffect(() => {
     // if (selected === "") {
@@ -75,6 +120,31 @@ export default function FilterPopUp(props) {
       console.log("error: ", error);
     }
   };
+  const handleColors = (val) => {
+    const value = val;
+    const selected = props.filterData.color ?? [];
+    selected.push(value);
+    props.setFilterData({
+      ...props.filterData,
+      color: selected,
+    });
+  };
+  const handleReset = () => {
+    props.setFilterData({
+      color: [],
+      category_id: "",
+      sub_category_id: "",
+      size: "",
+      company_brand: "",
+      max_price: "",
+      min_price: "",
+      product_size: "",
+      product_tags: "",
+      sorting: "",
+    });
+    setProductSubCatg([]);
+    setSelected(null);
+  };
   const handleFilter = () => {
     props.closeModel();
     props.handleFilterProduct();
@@ -108,7 +178,10 @@ export default function FilterPopUp(props) {
         />
         <View style={CommonStyles.header}>
           <TouchableOpacity
-            onPress={() => props.closeModel()}
+            onPress={() => {
+              props.closeModel();
+              handleReset()
+            }}
             style={styles.headerArrow}
           >
             <Image source={require("../../../Assets/header_back_btn.png")} />
@@ -116,6 +189,13 @@ export default function FilterPopUp(props) {
           <View style={styles.headerViewMidle}>
             <Text style={styles.headerMiddleTxt}>Filter Product</Text>
           </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => handleReset()}
+            style={styles.resetVw}
+          >
+            <Text style={styles.resetTxt}>Reset</Text>
+          </TouchableOpacity>
           {/* <View style={styles.filterImgeView}>
             <Image source={require("../../../Assets/filter_icon.png")} />
             <Image
@@ -263,23 +343,31 @@ export default function FilterPopUp(props) {
             </View>
           ) : null}
           <Text style={styles.typesTxt}>Select Color</Text>
-          <View style={styles.container}>
-            <Picker
-              selectedValue={props.filterData.color}
-              style={styles.pickerVw}
-              onValueChange={(itemValue, itemIndex) =>
-                props.setFilterData({
-                  ...props.filterData,
-                  color: itemValue,
-                })
-              }
-              mode={"dropdown"}
-            >
-              <Picker.Item label="Color" />
-              <Picker.Item label="Red" value="red" />
-              <Picker.Item label="Blue" value="blue" />
-            </Picker>
-          </View>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => setOpenColors(!openColors)}
+            style={[styles.container, { justifyContent: "center" }]}
+          >
+            <Text style={[styles.pickerVw]}>
+              {props.filterData.color.length > 0
+                ? props.filterData.color + ""
+                : "Color"}
+            </Text>
+          </TouchableOpacity>
+          {openColors ? (
+            <>
+              {Colors?.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.colorVw}
+                    onPress={() => handleColors(item.color, index)}
+                  >
+                    <Text style={styles.pickerVw}>{item.color}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </>
+          ) : null}
           <Text style={styles.typesTxt}>Select Size</Text>
           <View style={styles.container}>
             <Picker

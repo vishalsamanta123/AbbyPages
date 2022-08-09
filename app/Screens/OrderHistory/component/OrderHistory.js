@@ -130,93 +130,83 @@ const OrderHistory = (props) => {
         HeaderText="Order History"
         type="Drawer"
       />
-      <View style={[CommonStyles.body]}>
-        <View
-          style={[
-            styles.FlatlistContain,
-            { flexDirection: "row", backgroundColor: YELLOW_COLOR_CODE },
-          ]}
+      <View style={styles.topCont}>
+        <TouchableOpacity
+          onPress={() => props.handleOrderedItemList(props.offSet, 0)}
+          style={styles.lablestyle}
         >
-          <TouchableOpacity
-            onPress={() => props.handleOrderedItemList(props.offSet, 0)}
-            style={[styles.lablestyle, { backgroundColor: YELLOW_COLOR_CODE }]}
-          >
-            <Text
-              style={[
-                styles.txtCat,
-                {
-                  color:
-                    props.isSelectedCatgory == 0
-                      ? WHITE_COLOR_CODE
-                      : LIGHT_WHITE_COLOR,
-                },
-              ]}
-            >
-              All
-            </Text>
-          </TouchableOpacity>
-          <FlatList
-            data={props.itemCategoryList}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: YELLOW_COLOR_CODE,
-            }}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => props._renderCategory(item, index)}
-          />
-        </View>
-        {props.orderItemList ? (
-          <View style={[styles.FriendContainer]}>
-            <FlatList
-              data={props.orderItemList}
-              keyExtractor={(item, index) => index}
-              renderItem={({ item, index }) => _handleOrders(item, index)}
-              // onEndReached={() => {
-              //   !props.stopOffset
-              //     ? props?.handleOrderedItemList(
-              //         props.orderItemList.length > 5 ? props.offSet + 1 : null,
-              //         props.isSelectedCatgory
-              //       )
-              //     : null;
-              // }}
-            />
-          </View>
-        ) : (
-          <View
+          <Text
             style={[
-              styles.FriendContainer,
+              styles.txtCat,
               {
-                justifyContent: "center",
-                alignItems: "center",
+                color:
+                  props.isSelectedCatgory == 0
+                    ? WHITE_COLOR_CODE
+                    : LIGHT_WHITE_COLOR,
               },
             ]}
           >
-            <View style={[styles.cardCon]}>
-              <View style={styles.imgCon}>
-                <Image
-                  source={require("../../../Assets/order_icon_box_large.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  CommonStyles.text,
-                  {
-                    bottom: 25,
-                    fontSize: 18,
-                    color: "#6c6c6c",
-                    lineHeight: 25,
-                    textAlign: "center",
-                  },
-                ]}
-              >
-                Look like you don't have any orders yet.
-              </Text>
-            </View>
-          </View>
-        )}
+            All
+          </Text>
+        </TouchableOpacity>
+        <FlatList
+          data={props?.itemCategoryList}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => props._renderCategory(item, index)}
+        />
       </View>
+      {props.orderItemList ? (
+        <View style={[styles.FriendContainer]}>
+          <FlatList
+            data={props.orderItemList}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item, index }) => _handleOrders(item, index)}
+            // onEndReached={() => {
+            //   !props.stopOffset
+            //     ? props?.handleOrderedItemList(
+            //         props.orderItemList.length > 5 ? props.offSet + 1 : null,
+            //         props.isSelectedCatgory
+            //       )
+            //     : null;
+            // }}
+          />
+        </View>
+      ) : (
+        <View
+          style={[
+            styles.FriendContainer,
+            {
+              justifyContent: "center",
+              alignItems: "center",
+            },
+          ]}
+        >
+          <View style={[styles.cardCon]}>
+            <View style={styles.imgCon}>
+              <Image
+                source={require("../../../Assets/order_icon_box_large.png")}
+              />
+            </View>
+            <Text
+              style={[
+                CommonStyles.text,
+                {
+                  bottom: 25,
+                  fontSize: 18,
+                  color: "#6c6c6c",
+                  lineHeight: 25,
+                  textAlign: "center",
+                },
+              ]}
+            >
+              Look like you don't have any orders yet.
+            </Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 };

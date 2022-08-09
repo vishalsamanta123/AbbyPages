@@ -6,6 +6,7 @@ import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
+import moment from "moment";
 
 const EventListing = ({ navigation }) => {
   const [loader, setLoader] = useState();
@@ -14,18 +15,31 @@ const EventListing = ({ navigation }) => {
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
   const [isSelectedDay, setIsSelectedDay] = useState(0);
   const [eventsList, setEventsList] = useState([]);
+  const [events, setEvents] = useState([]);
   const [stopOffset, setstopOffset] = useState(false);
   const [offset, setoffset] = useState(0);
-  const [dataType, setDataType] = useState(
-    [
-      { id: 0, name: "Festivals and Fairs" },
-      { id: 1, name: "Food and Drinks" },
-      { id: 2, name: "NightLife" },
-      { id: 3, name: "Beardo" },
-    ],
-    []
-  );
-  useEffect(() => getEventList(0), []);
+  const [dataType, setDataType] = useState([]);
+
+  const handleCategory = async () => {
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
+      if (data.status === 200) {
+        setDataType(data.data);
+      } else {
+        setVisibleErr(true);
+        setErrorMessage(data.message);
+        setstopOffset(true);
+      }
+    } catch (error) {
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+  useEffect(() => {
+    handleCategory();
+    getEventList(0);
+    handlePopularEvents();
+  }, []);
   const _handleDataTypeSelected = (index, item) => {
     setIsSelectedCatgory(index);
   };
@@ -46,6 +60,26 @@ const EventListing = ({ navigation }) => {
   const onPressEvent = (item) => {
     navigation.navigate("EventDetails", { item: item });
   };
+  const handlePopularEvents = async () => {
+    try {
+      setLoader(true);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_POPULAR_EVENTS);
+      if (data.status === 200) {
+        setEvents(data.data);
+        setLoader(false);
+      } else {
+        setLoader(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message);
+        setstopOffset(true);
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+
   const getEventList = async (offSet) => {
     setoffset(offSet);
     try {
@@ -55,7 +89,6 @@ const EventListing = ({ navigation }) => {
         limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
-      console.log("response: ", data);
       if (data.status === 200) {
         setEventsList(data?.data);
         setLoader(false);
@@ -86,6 +119,7 @@ const EventListing = ({ navigation }) => {
         _handleDaySelected={_handleDaySelected}
         onPressEvent={onPressEvent}
         eventsList={eventsList}
+        events={events}
         stopOffset={stopOffset}
         getEventList={getEventList}
         handleCraeteEvent={handleCraeteEvent}

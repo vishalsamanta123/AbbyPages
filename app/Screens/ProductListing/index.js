@@ -37,11 +37,13 @@ const ProductListing = ({ navigation, route }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [stopOffset, setstopOffset] = useState(false);
+  const [reload, setReload] = useState(false);
   const [offSet, setOffSet] = useState();
   const [productList, setProductList] = useState([]);
+  console.log("productList: ", productList);
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState({
-    color: "",
+    color: [],
     category_id: "",
     sub_category_id: "",
     size: "",
@@ -52,7 +54,6 @@ const ProductListing = ({ navigation, route }) => {
     product_tags: "",
     sorting: "",
   });
-
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {
@@ -70,35 +71,7 @@ const ProductListing = ({ navigation, route }) => {
       };
       await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
     } catch (error) {
-      console.log("errorHuMe", error);
-    }
-  };
-  const handleProductList = async (offset) => {
-    setOffSet(offset);
-    try {
-      setVisible(true);
-      const params = {
-        limit: 10,
-        offset: offset,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.GET_PRODUCT_LIST,
-        params
-      );
-      if (data.status === 200) {
-        setVisible(false);
-        setProductList(data.data);
-      } else {
-        setstopOffset(true);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setErrorMessage(data.message);
-      setVisibleErr(true);
-      setVisible(false);
+      console.log("errorHuMe", error.message);
     }
   };
   const handleFilterProduct = async () => {
@@ -111,7 +84,7 @@ const ProductListing = ({ navigation, route }) => {
           : null,
         max_price: filterData.max_price ? filterData.max_price : null,
         min_price: 0,
-        product_color: filterData.color ? filterData.color : null,
+        product_color: filterData?.color ? filterData?.color : null,
         product_size: filterData.product_size ? filterData.product_size : null,
         product_tags: filterData.product_tags ? filterData.product_tags : null,
         status: 1,
@@ -120,13 +93,11 @@ const ProductListing = ({ navigation, route }) => {
           : null,
         product_filter: filterData.sorting ? filterData.sorting : null,
       };
-      console.log("paramsparams", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.FILTER_PRODUCTLIST,
         params
       );
-      console.log("dataPRODUCT: ", data);
       if (data.status === 200) {
         setVisible(false);
         setProductList(data.data);
@@ -164,19 +135,23 @@ const ProductListing = ({ navigation, route }) => {
     navigation.navigate("ProductDetails", { detail: detail });
   };
   const addProductOnCart = async (item, value) => {
+  console.log('item: ', item);
     try {
       const cartProduct = {
+        business_id: item.business_id,
+        business_type: item.business_type,
         product_id: item.product_id,
         product_name: item.product_name,
         price: item.final_price,
         quantity: value,
         total_product_price: item.final_price * value,
         product_discount: item.price - item.final_price,
-        product_weight: item.product_weight,
         product_size: item.product_size,
         product_color: item.product_color,
         product_brand: item.company_brand,
-        product_description: item.description,
+        category_id: item.category_id,
+        sku: item.sku,
+        sub_category_id: item.sub_category_id,
         product_image: item.product_image,
       };
       if (shoppingCartData.length > 0) {
@@ -218,6 +193,7 @@ const ProductListing = ({ navigation, route }) => {
         if (shoppingCartData[getIndex].quantity === 0) {
           shoppingCartData.splice(getIndex, 1);
           setShoppingCartData(shoppingCartData);
+          setReload(!reload);
           shoppingCartData.length == 0;
         }
       }
@@ -231,8 +207,8 @@ const ProductListing = ({ navigation, route }) => {
       return shoppingCartData[getIndex].quantity;
     }
   };
-  const onPressAddProduct = (item, value) => {
-    addProductOnCart(item, value);
+  const onPressAddProduct = (item, index) => {
+    addProductOnCart(item, 1);
   };
   const _renderProductList = (item, index) => {
     return (
@@ -282,7 +258,7 @@ const ProductListing = ({ navigation, route }) => {
             />
           ) : (
             <Button
-              onPress={() => onPressAddProduct(item, 1)}
+              onPress={() => onPressAddProduct(item, index)}
               style={styles.addBttn}
               buttonLabelStyle={styles.addBttnTxt}
               buttonText="Add"
@@ -307,8 +283,8 @@ const ProductListing = ({ navigation, route }) => {
         SearchProduct={SearchProduct}
         productList={productList}
         onPressProductDetail={onPressProductDetail}
-        handleProductList={handleProductList}
         onPressFilter={onPressFilter}
+        reload={reload}
       />
       <FilterPopUp
         filter={filter}
@@ -331,33 +307,3 @@ const ProductListing = ({ navigation, route }) => {
   );
 };
 export default ProductListing;
-//  {
-// "business_type":2,
-// "business_id":2,
-// "item":[
-// {"product_id":57,
-// "product_name":"Royal Enfield Classic 350 Redditch Red",
-// "price":"180000",
-// "quantity":1,
-// "total_product_price":180000,
-// "product_discount":1,
-// "product_brand":"royal Enfild",
-// "product_weight":"100 kg",
-// "product_size":"XXL",
-// "product_color":"Red",
-// "product_description":"hello"}],
-// "first_name":"development itinformatix",
-// "last_name":"it",
-// "email":"devitinformatix@gmail.com",
-// "mobile":"+917389892020",
-// "address":"Indore, Madhya Pradesh, India",
-// "latitude":"22.7195687",
-// "longitude":"75.8577258",
-// "order_description":"hello",
-// "order_payment_type":1,
-// "total_order_amount":180000,
-// "order_discount":0,
-// "total_amount":180000,
-// "order_booking_type":2,
-// "delivery_type":1
-// }

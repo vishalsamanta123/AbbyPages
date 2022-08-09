@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall } from "../Utils/httpClient";
@@ -14,11 +21,32 @@ import {
   BLACK_COLOR_CODE,
 } from "../Utils/Constant";
 import { useFocusEffect } from "@react-navigation/native";
-import { AuthContext } from "../Utils/UserContext";
+import {
+  AuthContext,
+  UserContext,
+  CartContext,
+  ServiceProviderContext,
+  ServiceProviderContextQueAnsData,
+  ShoppingCartContext,
+  OrderCategorySelect,
+  AddItemCategory,
+} from "../Utils/UserContext";
 
 const DesignDrawer = () => {
   const { signOut } = React.useContext(AuthContext);
   const [profileData, setProfileData] = useState("");
+  const [userData, setUserData] = useState(UserContext);
+  const [cartData, setCartData] = useState(CartContext);
+  const [serviceProviderData, setServiceProviderData] = useState(
+    ServiceProviderContext
+  );
+  const [serviceProviderQueAnsData, setServiceProviderQueAnsData] = useState(
+    ServiceProviderContextQueAnsData
+  );
+  const [shoppingCartData, setShoppingCartData] = useState(ShoppingCartContext);
+  const [acctiveSelectedCatgory, setAcctiveSelectedCatgory] =
+    useState(OrderCategorySelect);
+  const [activeCategory, setactiveCategory] = useState(AddItemCategory);
   const [logoBaseImgUrl, setLogoBaseImgUrl] = useState("");
   const [loginType, setLoginType] = useState("");
   useFocusEffect(
@@ -34,6 +62,37 @@ const DesignDrawer = () => {
       setLogoBaseImgUrl(data.business_logo);
     }
   };
+  const onPressLogout = () => {
+    Alert.alert(
+      "",
+      "Are you sure you want Logout",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => signOutFun() },
+      ],
+      { cancelable: false }
+    );
+  };
+  const signOutFun = () => {
+    signOut();
+    setAcctiveSelectedCatgory({
+      activeIndex: 0,
+      businsessType: 1,
+    });
+    setactiveCategory({
+      activeIndex: 0,
+      categoryId: 1,
+    });
+    setShoppingCartData([]);
+    setServiceProviderQueAnsData([]);
+    setUserData([]);
+    setCartData([]);
+    setServiceProviderData([]);
+    setProfileData("");
+  };
   // const getLoginType = async () => {
   //     const localuserdata = await AsyncStorage.getItem('localuserdata');
   //     if (localuserdata !== '') {
@@ -47,7 +106,8 @@ const DesignDrawer = () => {
           {profileData.login_type == 2 ? (
             <Image
               style={styles.UserImge}
-              source={{ uri: logoBaseImgUrl + profileData.logo }} />
+              source={{ uri: logoBaseImgUrl + profileData.logo }}
+            />
           ) : (
             <Image
               style={styles.UserImge}
@@ -58,13 +118,15 @@ const DesignDrawer = () => {
             {profileData.login_type == 2 ? (
               <Text
                 numberOfLines={1}
-                style={[styles.UserNameText, { width: 120 }]}>
+                style={[styles.UserNameText, { width: 120 }]}
+              >
                 {profileData.business_name}
               </Text>
             ) : (
               <Text
                 numberOfLines={1}
-                style={[styles.UserNameText, { width: 120 }]}>
+                style={[styles.UserNameText, { width: 120 }]}
+              >
                 {profileData.first_name + profileData.last_name}
               </Text>
             )}
@@ -73,7 +135,7 @@ const DesignDrawer = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity onPress={signOut}>
+        <TouchableOpacity onPress={() => onPressLogout()}>
           <Image source={require("../Assets/menu-logout-icon.png")} />
         </TouchableOpacity>
       </View>
@@ -91,7 +153,10 @@ export function customDrawerContents(props) {
           </View>
           <TouchableOpacity
             style={styles.contactUsContainer}
-            onPress={() => { props.navigation.navigate("DashBoard"); }}>
+            onPress={() => {
+              props.navigation.navigate("DashBoard");
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
@@ -106,7 +171,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("ProfileSettings");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/profile_icon_menu.png")} />
             </View>
@@ -118,7 +184,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("FollowingList");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/following_icon_menu.png")} />
             </View>
@@ -130,7 +197,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("FollowerList");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/followers_icon_menu.png")} />
             </View>
@@ -142,7 +210,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("CreateEvent");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/events_icon_menu.png")} />
             </View>
@@ -154,7 +223,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("OrderHistory");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/order_icon_menu.png")} />
             </View>
@@ -166,7 +236,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Reviews");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/star_icon_menu.png")} />
             </View>
@@ -178,7 +249,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Bookmark");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/bookmark_icon_menu.png")} />
             </View>
@@ -190,7 +262,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Collections");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/collection_icon_menu.png")} />
             </View>
@@ -202,7 +275,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Notifications");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
@@ -217,7 +291,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("RecentActivity");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
@@ -232,7 +307,8 @@ export function customDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Friends");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/following_icon_menu.png")} />
             </View>
@@ -274,7 +350,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessHome");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -289,7 +366,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessProfile");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -304,7 +382,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BussinessInfo");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -319,7 +398,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("OpeningHours");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -334,7 +414,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("JobManagementList");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -349,7 +430,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("RestaurantManagement");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -364,7 +446,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessOrderHistory");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -379,7 +462,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("MyProductList");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -394,7 +478,8 @@ export function BusinessDrawerContents(props) {
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessChangePassword");
-            }}>
+            }}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}

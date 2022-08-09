@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   },
   lablestyle: {
     flexDirection: "row",
-    margin: 15,
+    marginHorizontal: 20,
+    marginVertical: 10,
   },
   txtCat: {
     fontSize: 15,
@@ -33,8 +34,14 @@ const styles = StyleSheet.create({
   FriendContainer: {
     flex: 1,
   },
-  FlatlistContain: {
+  topCont: {
+    paddingVertical: 5,
+    flexDirection: "row",
     width: "100%",
+    alignItems: "center",
+    backgroundColor: YELLOW_COLOR_CODE,
+  },
+  FlatlistContain: {
     borderTopColor: WHITE_COLOR_CODE,
     borderTopWidth: 0.3,
   },
