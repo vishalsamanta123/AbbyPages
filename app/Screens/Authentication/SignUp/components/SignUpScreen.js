@@ -219,7 +219,7 @@ const SignUpScreen = (props) => {
             buttonLabelStyle={styles.LoginBtnTxt}
             onPress={props.onPressSingUp}
           />
-          <Button
+          {/* <Button
             buttonText="Continue with Facebook"
             buttonLabelStyle={styles.FacebookBtnTxt}
             style={styles.FacebookBtnStyle}
@@ -230,7 +230,7 @@ const SignUpScreen = (props) => {
             buttonLabelStyle={styles.LoginBtnTxt}
             onPress={props.onPressGoogle}
             style={styles.GoogleBtnStyle}
-          />
+          /> */}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

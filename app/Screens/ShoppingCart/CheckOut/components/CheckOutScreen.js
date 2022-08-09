@@ -178,7 +178,8 @@ const CheckOutScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
-        HeaderText="Confirm Order"
+        HeaderText={"Confirm Order"}
+        logoImg={false}
         headerSecondText="confirm order with the following details"
         RightImg={require("../../../../Assets/trash_icon_header.png")}
         onPress={() => props.onPressDeleteCart()}

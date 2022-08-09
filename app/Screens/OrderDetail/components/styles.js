@@ -12,8 +12,9 @@ import {
 } from "../../../Utils/Constant";
 const styles = StyleSheet.create({
   restoImg: {
-    width: "100%",
     height: 200,
+    marginTop: 10,
+    marginHorizontal: 10,
   },
   mainContentVw: {
     paddingVertical: 10,

@@ -57,7 +57,7 @@ const LoginScreen = (props) => {
             buttonLabelStyle={styles.LoginBtnTxt}
             onPress={() => props.onPressLogin()}
           />
-          <Button
+          {/* <Button
             buttonText="Continue with Facebook"
             buttonLabelStyle={styles.FacebookBtnTxt}
             style={styles.FacebookBtnStyle}
@@ -68,7 +68,7 @@ const LoginScreen = (props) => {
             buttonLabelStyle={styles.LoginBtnTxt}
             onPress={props.onPressGoogle}
             style={styles.GoogleBtnStyle}
-          />
+          /> */}
           <TouchableOpacity
             onPress={() => props.onPressSignUp()}
             style={{ paddingTop: 10 }}>

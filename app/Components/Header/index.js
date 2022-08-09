@@ -1,4 +1,4 @@
-import React, { useContext, } from "react";
+import React, { useContext } from "react";
 import {
   Text,
   StyleSheet,
@@ -69,12 +69,21 @@ const Header = (props) => {
           textInput === true ? iptcontainer : container,
           mncontainer,
           {
-            paddingVertical: HeaderText != "" ? editHdr ? editHdr : 15 : textInput === true ? 10 : 0,
+            paddingVertical:
+              HeaderText != ""
+                ? editHdr
+                  ? editHdr
+                  : 15
+                : textInput === true
+                ? 10
+                : 0,
           },
-        ]}>
+        ]}
+      >
         <TouchableOpacity
           onPress={() => (type === "Drawer" ? handleDrawer() : OnpressBack())}
-          style={HeaderView}>
+          style={HeaderView}
+        >
           {leftImg === "header-back-btn.png" ? (
             <Image style={{ width: 35, height: 25 }} source={leftImg} />
           ) : (
@@ -126,28 +135,8 @@ const Header = (props) => {
             <TouchableOpacity onPress={onPress}>
               <Image style={{ height: 24, width: 24 }} source={RightImg} />
               {cartLength > 0 && (
-                <View
-                  style={{
-                    position: "absolute",
-                    zIndex: 1,
-                    right: -5,
-                    height: 15,
-                    width: 15,
-                    borderRadius: 50,
-                    backgroundColor: WHITE_COLOR_CODE,
-                    top: -5,
-                  }}>
-                  <Text
-                    style={{
-                      fontFamily: FONT_FAMILY_REGULAR,
-                      color: YELLOW_COLOR_CODE,
-                      fontSize: 12,
-                      textAlign: "center",
-                      bottom: 2,
-                    }}
-                  >
-                    {cartLength}
-                  </Text>
+                <View style={styles.cartAddedVw}>
+                  <Text style={styles.cartAddedTxt}>{cartLength}</Text>
                 </View>
               )}
             </TouchableOpacity>
@@ -189,7 +178,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 12,
     color: WHITE_COLOR_CODE,
-    paddingBottom: 12,
   },
   MainDotView: {
     flexDirection: "row",
@@ -213,6 +201,23 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 4,
     width: "84%",
+  },
+  cartAddedVw: {
+    position: "absolute",
+    zIndex: 1,
+    right: -5,
+    height: 15,
+    width: 15,
+    borderRadius: 50,
+    backgroundColor: WHITE_COLOR_CODE,
+    top: -5,
+  },
+  cartAddedTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: YELLOW_COLOR_CODE,
+    fontSize: 12,
+    textAlign: "center",
+    bottom: 2,
   },
 });
 export default Header;

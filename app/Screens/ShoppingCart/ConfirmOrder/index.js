@@ -42,13 +42,12 @@ const ConfirmOrderView = ({ navigation }) => {
     );
     setTotalOrderAmount(total_order_amount);
     const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    console.log("data: ", data);
     if (data.status === 200) {
       setLocalUserData({
-        first_name: data.data.first_name ? data.data.first_name : null,
-        last_name: data.data.last_name ? data.data.last_name : null,
-        email: data.data.email ? data.data.email : null,
-        mobile: data.data.modile ? data.data.modile : null,
+        first_name: data.data.first_name ? data.data.first_name : "",
+        last_name: data.data.last_name ? data.data.last_name : "",
+        email: data.data.email ? data.data.email : "",
+        mobile: data.data.modile ? data.data.modile : "",
       });
     }
   };
@@ -70,12 +69,12 @@ const ConfirmOrderView = ({ navigation }) => {
   };
   const validationForOrder = () => {
     if (localUserData.first_name == "") {
-      setErrorMessage("Please Enter FirstName");
+      setErrorMessage("Please Enter First Name");
       setVisibleErr(true);
       return false;
     }
     if (localUserData.last_name == "") {
-      setErrorMessage("Please Enter LastName");
+      setErrorMessage("Please Enter Last Name");
       setVisibleErr(true);
       return false;
     }
@@ -85,7 +84,7 @@ const ConfirmOrderView = ({ navigation }) => {
       return false;
     }
     if (localUserData.mobile == "") {
-      setErrorMessage("Please Enter LastName");
+      setErrorMessage("Please Enter Mobile Number");
       setVisibleErr(true);
       return false;
     }
@@ -102,27 +101,23 @@ const ConfirmOrderView = ({ navigation }) => {
           last_name: localUserData.last_name,
           email: localUserData.email,
           mobile: localUserData.mobile,
-          order_description: localUserData.description,
           business_type: orderData.businessDetail.business_type,
           business_id: orderData.businessDetail.business_id,
           address: orderData.location[0].location,
-          latitude: orderData.location.latitude,
-          longitude: orderData.location.longitude,
+          latitude: orderData.location[0].latitude,
+          longitude: orderData.location[0].longitude,
           order_payment_type: orderData.order_payment_type, //online or COD
-          total_order_amount: total_order_amount,
-          total_amount: total_order_amount,
+          total_order_amount: JSON.stringify(total_order_amount),
+          total_amount: JSON.stringify(total_order_amount),
           order_discount: 0,
           delivery_type: 1, //takeaway or delievery
           order_booking_type: 2, //table ,outside,foodand item
         };
-
-        console.log("paramsparams: ", params);
         const { data } = await apiCall(
           "POST",
-          ENDPOINTS.PRODUCT_BOOKING,
+          ENDPOINTS.PRODUCT_ORDER_BOOKING,
           params
         );
-        console.log("dataLIST: ", data);
         if (data.status == 200) {
           setSuccessMessage(data.message);
           setVisibleSuccess(true);

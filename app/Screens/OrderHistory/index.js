@@ -26,7 +26,7 @@ const OrderHistoryView = ({ navigation }) => {
   useEffect(() => {
     handleItemCategoryList();
     handleOrderedItemList(0, isSelectedCatgory);
-  }, []);
+  }, [isSelectedCatgory]);
 
   const handleItemCategoryList = async () => {
     setVisible(true);
@@ -58,18 +58,18 @@ const OrderHistoryView = ({ navigation }) => {
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
+      console.log("dataLIST OF ORDERS: ", data.data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);
       } else {
         if (data.status === 201) {
           setOrderItemList([]);
-          ToastAndroid.show(data.message, ToastAndroid.LONG);
+          ToastAndroid.show(data.message, ToastAndroid.CENTER);
           setVisible(false);
           setstopOffset(true);
         } else {
           setErrorMessage(data.message);
-
           setVisibleErr(true);
           setVisible(false);
         }

@@ -50,6 +50,7 @@ export default {
   GET_PRODUCT_DETAIL: "/api/product/getProductDetails",
   PRODUCT_REVIEW: "/api/reviewRating/productReview",
   PRODUCT_BOOKING: "/api/orders/ordersShopingProduct",
+  PRODUCT_ORDER_BOOKING: "/api/orders/ordersStoreShopingProduct",
 
   GET_BUSINESS_CATEGORY_DETAILS: "/api/services/getcategory",
   GET_USER_BUSINESS_DETAILS: "/api/userAuth/getUserProfileDetails",
@@ -90,6 +91,7 @@ export default {
   GET_EVENT_CATEGORY_LIST: "/api/events/getEventCategoryList",
   GET_EVENT_LIST: "/api/events/getEventList",
   GET_EVENT_DETAILS: "/api/events/getEventDetails",
+  GET_POPULAR_EVENTS: "/api/events/getPopularEvents",
   JOB_FILTER: "/api/jobs/JobSearchFilter",
   
   ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/restoItemsRemoveShow",

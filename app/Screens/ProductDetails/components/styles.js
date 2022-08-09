@@ -12,8 +12,7 @@ const Styles = StyleSheet.create({
   bannerimg: {
     width: 360,
     height: 240,
-    // alignSelf: "center",
-    // justifyContent: "flex-end",
+    justifyContent: "flex-end",
     // alignItems: "flex-end"
   },
   infocon: {

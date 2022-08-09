@@ -25,21 +25,17 @@ import {
 const ConfirmOrder = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
       <Header
         RightImg={require("../../../../Assets/trash_icon_header.png")}
-        HeaderText={"Confirm Order"}
+        HeaderText={" Confirm Order "}
+        headerSecondText={false}
         onPress={() => props.onPressDeleteCart()}
-        stheaderSecondText={{ paddingBottom: 0 }}
+        logoImg={false}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>
           <Input
-            value={props.localUserData && props.localUserData.first_name}
+            value={props?.localUserData?.first_name}
             onChangeText={(val) =>
               props.setLocalUserData({
                 ...props.localUserData,
@@ -51,11 +47,11 @@ const ConfirmOrder = (props) => {
               backgroundColor: "#f2f2f2",
             }}
             placeholderTextColor={GREY_COLOR_CODE}
-            placeholder={"Name"}
+            placeholder={"First Name"}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
           <Input
-            value={props.localUserData && props.localUserData.last_name}
+            value={props?.localUserData?.last_name}
             onChangeText={(val) =>
               props.setLocalUserData({
                 ...props.localUserData,
@@ -67,7 +63,7 @@ const ConfirmOrder = (props) => {
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
           <Input
-            value={props.localUserData && props.localUserData.email}
+            value={props?.localUserData?.email}
             onChangeText={(val) =>
               props.setLocalUserData({
                 ...props.localUserData,
@@ -79,7 +75,7 @@ const ConfirmOrder = (props) => {
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
           <Input
-            value={props.localUserData && props.localUserData.mobile}
+            value={props?.localUserData?.mobile}
             onChangeText={(val) =>
               props.setLocalUserData({
                 ...props.localUserData,
@@ -88,10 +84,11 @@ const ConfirmOrder = (props) => {
             }
             placeholderTextColor={GREY_COLOR_CODE}
             placeholder={"Phone"}
+            maxLength={10}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
           <Input
-            value={props.localUserData && props.localUserData.description}
+            value={props?.localUserData?.description}
             onChangeText={(val) =>
               props.setLocalUserData({
                 ...props.localUserData,
@@ -105,16 +102,18 @@ const ConfirmOrder = (props) => {
           <View style={styles.TextInputView}>
             <Text style={styles.FirsNameTxt}>Payment Method</Text>
             <Text style={styles.NameTextStyle}>
-              {props?.orderData?.order_payment_type == 1
+              {props?.orderData?.order_payment_type === 1
                 ? "Cash On Delievery"
                 : "Pay Online"}
             </Text>
           </View>
           <View style={styles.TextInputView}>
             <Text style={styles.FirsNameTxt}>Address</Text>
-            <Text style={styles.NameTextStyle}>
-              {props?.orderData?.location[0]?.location}
-            </Text>
+            {props?.orderData?.location && (
+              <Text style={styles.NameTextStyle}>
+                {props?.orderData?.location[0]?.location}
+              </Text>
+            )}
           </View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}

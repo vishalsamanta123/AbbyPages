@@ -13,9 +13,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
   const [orderDetail, setOrderDetail] = useState("");
-  console.log('orderDetail: ', orderDetail);
   const [businessType, setBusinessType] = useState("");
   useEffect(() => {
     if (route.params) {

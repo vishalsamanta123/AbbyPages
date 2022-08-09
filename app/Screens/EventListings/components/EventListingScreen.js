@@ -15,6 +15,7 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  SMALL_TEXT_COLOR_CODE,
 } from "../../../Utils/Constant";
 const EventListingScreen = (props) => {
   const _renderCategory = (item, index) => {
@@ -22,10 +23,11 @@ const EventListingScreen = (props) => {
       index === props.isSelectedCatgory ? WHITE_COLOR_CODE : "#ffe98e";
     return (
       <TouchableOpacity
+        activeOpacity={1}
         onPress={() => props._handleDataTypeSelected(index, item)}
         style={styles.lablestyle}
       >
-        <Text style={[styles.txtCat, { color: selectedColor }]}>
+        <Text style={[styles.txtCat, { color: WHITE_COLOR_CODE }]}>
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -113,61 +115,75 @@ const EventListingScreen = (props) => {
         onPress={() => props.handleCraeteEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
-      <View
-        style={[
-          CommonStyles.body,
-          {
-            paddingBottom: "24%",
-          },
-        ]}
-      >
-        <View
-          style={{
-            borderTopWidth: 0.3,
-            borderColor: "#ffe98e",
-            borderBottomWidth: 0.3,
-          }}
-        >
-          <FlatList
-            data={props.dataType}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={{ backgroundColor: YELLOW_COLOR_CODE }}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _renderCategory(item, index)}
-          />
-          <View
-            style={{
-              borderWidth: 0.3,
-              borderColor: "#ffe98e",
-            }}
-          />
-          <FlatList
-            data={props.dayData}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: YELLOW_COLOR_CODE,
-            }}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _renderTime(item, index)}
-          />
-        </View>
-        <View style={{ paddingTop: 10 }}>
-          <FlatList
-            data={props.eventsList}
-            showsVerticalScrollIndicator={false}
-            style={{}}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _renderEventList(item, index)}
-            onEndReached={() => {
-              !props.stopOffset ? props.getEventList(props.offset + 1) : null;
-            }}
-          />
+      <Text style={styles.eventTitlesTxt}>
+        Abbypages Events
+        <Text style={{ color: SMALL_TEXT_COLOR_CODE }}> (Latest) </Text>
+      </Text>
+
+      <View style={styles.latestVw}>
+        <Image
+          resizeMode={"contain"}
+          style={styles.latestImg}
+          source={{ uri: props?.events?.upcoming_events?.events_image }}
+        />
+        <View style={styles.latestTxtVw}>
+          <Text style={styles.latestNameTxt}>
+            {props?.events?.upcoming_events?.event_name}
+          </Text>
+          <Text style={styles.latestDateTxt}>
+            {moment
+              .unix(props?.events?.upcoming_events?.event_date)
+              .format("dddd, MMMM Do, YYYY")}
+          </Text>
         </View>
       </View>
+
+      {/* <View
+        style={{
+          borderTopWidth: 0.3,
+          borderColor: "#ffe98e",
+          borderBottomWidth: 0.3,
+        }}
+      >
+        <FlatList
+          data={props?.dataType}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={{ backgroundColor: YELLOW_COLOR_CODE }}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => _renderCategory(item, index)}
+        />
+        <View
+          style={{
+            borderWidth: 0.3,
+            borderColor: "#ffe98e",
+          }}
+        />
+        <FlatList
+          data={props.dayData}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={{
+            backgroundColor: YELLOW_COLOR_CODE,
+          }}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => _renderTime(item, index)}
+        />
+      </View>
+      <View style={{ paddingTop: 10 }}>
+        <FlatList
+          data={props.eventsList}
+          showsVerticalScrollIndicator={false}
+          style={{}}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => _renderEventList(item, index)}
+          onEndReached={() => {
+            !props.stopOffset ? props.getEventList(props.offset + 1) : null;
+          }}
+        />
+      </View> */}
     </View>
   );
 };

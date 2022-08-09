@@ -30,6 +30,7 @@ import FilterPopUp from "./components/FilterPopUp";
 const ProductListing = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
+  console.log("shoppingCartData: ", shoppingCartData);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -39,6 +40,7 @@ const ProductListing = ({ navigation, route }) => {
   const [reload, setReload] = useState(false);
   const [offSet, setOffSet] = useState();
   const [productList, setProductList] = useState([]);
+  console.log("productList: ", productList);
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState({
     color: [],
@@ -70,34 +72,6 @@ const ProductListing = ({ navigation, route }) => {
       await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
     } catch (error) {
       console.log("errorHuMe", error.message);
-    }
-  };
-  const handleProductList = async (offset) => {
-    setOffSet(offset);
-    try {
-      setVisible(true);
-      const params = {
-        limit: 10,
-        offset: offset,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.GET_PRODUCT_LIST,
-        params
-      );
-      if (data.status === 200) {
-        setVisible(false);
-        setProductList(data.data);
-      } else {
-        setstopOffset(true);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setErrorMessage(data.message);
-      setVisibleErr(true);
-      setVisible(false);
     }
   };
   const handleFilterProduct = async () => {
@@ -161,19 +135,23 @@ const ProductListing = ({ navigation, route }) => {
     navigation.navigate("ProductDetails", { detail: detail });
   };
   const addProductOnCart = async (item, value) => {
+  console.log('item: ', item);
     try {
       const cartProduct = {
+        business_id: item.business_id,
+        business_type: item.business_type,
         product_id: item.product_id,
         product_name: item.product_name,
         price: item.final_price,
         quantity: value,
         total_product_price: item.final_price * value,
         product_discount: item.price - item.final_price,
-        product_weight: item.product_weight,
         product_size: item.product_size,
         product_color: item.product_color,
         product_brand: item.company_brand,
-        product_description: item.description,
+        category_id: item.category_id,
+        sku: item.sku,
+        sub_category_id: item.sub_category_id,
         product_image: item.product_image,
       };
       if (shoppingCartData.length > 0) {
@@ -305,7 +283,6 @@ const ProductListing = ({ navigation, route }) => {
         SearchProduct={SearchProduct}
         productList={productList}
         onPressProductDetail={onPressProductDetail}
-        handleProductList={handleProductList}
         onPressFilter={onPressFilter}
         reload={reload}
       />
