@@ -7,46 +7,103 @@ import {
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  containers: {
+    marginHorizontal: 18,
+    marginTop: 8,
+  },
   eventTitlesTxt: {
     fontSize: 20,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
-    marginHorizontal: 16,
-    marginVertical: 8,
   },
-  latestVw: {
+  seeAllTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: SMALL_TEXT_COLOR_CODE,
+  },
+  seeForTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: SMALL_TEXT_COLOR_CODE,
+    marginLeft: 4,
+  },
+  seeForImg: {
+    width: 16,
+    height: 16,
+    marginLeft: 8,
+    resizeMode: "contain",
+    top: 2,
+  },
+  containerVw: {
     paddingVertical: 10,
     flexDirection: "row",
-    paddingHorizontal: 16,
+    alignItems: "center",
   },
-  latestImg: {
+  eventImg: {
     width: 110,
     height: 110,
     borderRadius: 10,
   },
-  latestTxtVw: {
+  allTxtVw: {
     paddingHorizontal: 8,
     paddingVertical: 10,
   },
-  latestNameTxt: {
+  nameTxt: {
     fontSize: 20,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
-  latestDateTxt: {
+  straightVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 2,
+  },
+  straightTxt: {
     fontSize: 12,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+  straightImg: {
+    width: 16,
+    height: 16,
+    resizeMode: "contain",
+    marginRight: 5,
+  },
+  seeAllBttn: {
+    marginBottom: 12,
+    marginVertical: 8,
+  },
+  seeAllBttnTxt: {
+    color: BLACK_COLOR_CODE,
+    fontSize: 18,
+  },
+  popularEventVw: {
+    paddingVertical: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingRight: 10,
+    marginBottom: 10,
+  },
+  allEventsVw: {
+    paddingHorizontal: 20,
+    flexGrow: 1,
+  },
   lablestyle: {
     flexDirection: "row",
-    margin: 10,
+    marginTop: 5,
+    paddingHorizontal: 5,
   },
-  txtCat: {
+  txtTimeCat: {
     fontSize: 15,
     lineHeight: 18,
     color: WHITE_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  timeDataImg: {
+    width: 16,
+    height: 2,
+    transform: [{ rotate: "90deg" }],
+    marginTop: 8,
   },
   mnCon: {
     margin: 5,
