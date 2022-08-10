@@ -23,5 +23,8 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
   },
+  scrollCon: {
+    flexGrow: 1,
+  },
 });
 export default Styles;

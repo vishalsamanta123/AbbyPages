@@ -47,6 +47,7 @@ const Header = (props) => {
     cartLength,
     editHdr,
     logoImg,
+    onPressBackFun,
   } = props;
   const OnpressBack = () => {
     navigation.goBack(null);
@@ -81,7 +82,13 @@ const Header = (props) => {
         ]}
       >
         <TouchableOpacity
-          onPress={() => (type === "Drawer" ? handleDrawer() : OnpressBack())}
+          onPress={() => {
+            onPressBackFun
+              ? onPressBackFun()
+              : type === "Drawer"
+              ? handleDrawer()
+              : OnpressBack();
+          }}
           style={HeaderView}
         >
           {leftImg === "header-back-btn.png" ? (

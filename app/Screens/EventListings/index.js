@@ -6,7 +6,7 @@ import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
-import moment from "moment";
+import AllEvents from "./components/AllEvents";
 
 const EventListing = ({ navigation }) => {
   const [loader, setLoader] = useState();
@@ -17,7 +17,9 @@ const EventListing = ({ navigation }) => {
   const [eventsList, setEventsList] = useState([]);
   const [events, setEvents] = useState([]);
   const [stopOffset, setstopOffset] = useState(false);
+  const [openAll, setOpenAll] = useState(false);
   const [offset, setoffset] = useState(0);
+  const [limit, setLimit] = useState(4);
   const [dataType, setDataType] = useState([]);
 
   const handleCategory = async () => {
@@ -39,25 +41,25 @@ const EventListing = ({ navigation }) => {
     handleCategory();
     getEventList(0);
     handlePopularEvents();
-  }, []);
+  }, [limit]);
   const _handleDataTypeSelected = (index, item) => {
     setIsSelectedCatgory(index);
   };
   const [dayData, setDayData] = useState(
     [
-      { id: 0, name: "Today" },
-      { id: 1, name: "Tomorrow" },
-      { id: 2, name: "This Weekend" },
-      { id: 3, name: "This Week" },
+      { id: 1, name: "Today" },
+      { id: 2, name: "Tomorrow" },
+      { id: 3, name: "This Weekend" },
+      { id: 4, name: "This Week" },
+      { id: 5, name: "Next Week" },
+      { id: 6, name: "Jump to Date" },
     ],
     []
   );
   const _handleDaySelected = (index, item) => {
-    setEventsList([]);
-    setIsSelectedDay(index);
-    getEventList(index);
+    getEventList(0, item);
   };
-  const onPressEvent = (item) => {
+  const navToEventDetail = (item) => {
     navigation.navigate("EventDetails", { item: item });
   };
   const handlePopularEvents = async () => {
@@ -80,23 +82,29 @@ const EventListing = ({ navigation }) => {
     }
   };
 
-  const getEventList = async (offSet) => {
+  const getEventList = async (offSet, type) => {
     setoffset(offSet);
+    setLoader(true);
     try {
-      setLoader(true);
       const params = {
         offset: offSet,
-        limit: 10 + offSet,
+        limit: limit + offSet,
+        event_type: type ? type : 0,
       };
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
       if (data.status === 200) {
         setEventsList(data?.data);
         setLoader(false);
       } else {
-        setLoader(false);
-        setVisibleErr(true);
-        setErrorMessage(data.message);
-        setstopOffset(true);
+        if (data.status === 201) {
+          setEventsList([]);
+          setLoader(false);
+        } else {
+          setLoader(false);
+          setVisibleErr(true);
+          setErrorMessage(data.message);
+          setstopOffset(true);
+        }
       }
     } catch (error) {
       setLoader(false);
@@ -110,21 +118,39 @@ const EventListing = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
-      <EventListingScreen
-        dataType={dataType}
-        _handleDataTypeSelected={_handleDataTypeSelected}
-        isSelectedCatgory={isSelectedCatgory}
-        dayData={dayData}
-        isSelectedDay={isSelectedDay}
-        _handleDaySelected={_handleDaySelected}
-        onPressEvent={onPressEvent}
-        eventsList={eventsList}
-        events={events}
-        stopOffset={stopOffset}
-        getEventList={getEventList}
-        handleCraeteEvent={handleCraeteEvent}
-        offset={offset}
-      />
+      {openAll ? (
+        <AllEvents
+          openAll={openAll}
+          setOpenAll={setOpenAll}
+          eventsList={eventsList}
+          navToEventDetail={navToEventDetail}
+          getEventList={getEventList}
+          setLimit={setLimit}
+          handleCraeteEvent={handleCraeteEvent}
+          offset={offset}
+          stopOffset={stopOffset}
+        />
+      ) : (
+        <EventListingScreen
+          dataType={dataType}
+          _handleDataTypeSelected={_handleDataTypeSelected}
+          isSelectedCatgory={isSelectedCatgory}
+          dayData={dayData}
+          isSelectedDay={isSelectedDay}
+          _handleDaySelected={_handleDaySelected}
+          navToEventDetail={navToEventDetail}
+          eventsList={eventsList}
+          events={events}
+          stopOffset={stopOffset}
+          getEventList={getEventList}
+          limit={limit}
+          setLimit={setLimit}
+          handleCraeteEvent={handleCraeteEvent}
+          offset={offset}
+          openAll={openAll}
+          setOpenAll={setOpenAll}
+        />
+      )}
       <Error
         message={errorMessage}
         visible={visibleErr}
