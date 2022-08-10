@@ -19,6 +19,7 @@ const ServiceOrderDetails = (route, props) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [visible, setVisible] = useState(false)
     const [orderData, setorderData] = useState()
+    const [orderStatus, setOrderStatus] = useState()
 
 
     useEffect(() => {
@@ -51,18 +52,17 @@ const ServiceOrderDetails = (route, props) => {
 
 
 
-    const orderConfirm = async (item) => {
+    const updateStatus = async (item) => {
         setVisible(true)
         try {
             const params = {
                 order_id: item.order_id,
-                order_status: 1,
+                order_status: orderStatus,
                 business_type: item.business_type,
-                order_process: 1
             }
 
             const { data } = await apiCall
-                ('POST', ENDPOINTS.ORDER_STATUS_UPDATE, params);
+            ('POST', ENDPOINTS.ORDER_STATUS_UPDATE, params);
             if (data.status === 200) {
                 getOrderDetailsFun()
                 setVisible(false);
@@ -117,8 +117,10 @@ const ServiceOrderDetails = (route, props) => {
             <ServiceOrderDetailsScreen
                 onPressUpdate={onPressUpdate}
                 orderData={orderData}
-                orderConfirm={orderConfirm}
+                updateStatus={updateStatus}
                 cancelOrder={cancelOrder}
+                setOrderStatus={setOrderStatus}
+                orderStatus={orderStatus}
             />
             <Error
                 message={errorMessage}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, YellowBox } from 'react-native';
+import { View, Text, Image, ScrollView, YellowBox, TouchableOpacity } from 'react-native';
 import CommonStyles from '../../../../../Utils/CommonStyles';
 import styles from './styles';
 import Button from '../../../../../Components/Button';
@@ -8,6 +8,7 @@ import Header from '../../../../../Components/Header';
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE, BLACK_COLOR_CODE } from '../../../../../Utils/Constant';
 import moment from 'moment'
 import { TextInput } from 'react-native-gesture-handler';
+import { Picker } from "@react-native-community/picker";
 const ServiceOrderDetailsScreen = (props) => {
     return (
         <View style={CommonStyles.container}>
@@ -68,8 +69,42 @@ const ServiceOrderDetailsScreen = (props) => {
                         </View>
 
                     </View>
+
+
+                    <View style={{ marginBottom: 20 }}>
+                        <View style={styles.selectvwe}>
+                            <TouchableOpacity
+                                style={styles.tchvwe}>
+                                <Picker
+                                    selectedValue={props?.orderStatus}
+                                    style={styles.pickerVw}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        props.setOrderStatus(itemValue)
+                                    }
+                                    mode={"dropdown"}
+                                >
+                                    <Picker.Item label="Update status" />
+                                    <Picker.Item label="Pending" value={0} />
+                                    <Picker.Item label="Accept" value={1} />
+                                    <Picker.Item label="In process" value={2} />
+                                    <Picker.Item label="Cancel" value={4} />
+                                    <Picker.Item label="Completed" value={5} />
+                                </Picker>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+
+                    <View style={{marginHorizontal: 10}}>
+                        <Button
+                            style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE, width: '100%' }}
+                            buttonText="Update"
+                            onPress={() => props?.updateStatus(props.orderData)}
+                            // isDisabled={props.orderProcess.}
+                        />
+                    </View>
                 </ScrollView>
-                <View style={[styles.localFooter], { position: 'absolute', bottom: 5, flexDirection: 'row', padding: 8 }}>
+                {/* <View style={[styles.localFooter], { position: 'absolute', bottom: 5, flexDirection: 'row', padding: 8 }}>
                     {
                         props.orderData ?
                             props.orderData.order_status == '4' ?
@@ -106,7 +141,7 @@ const ServiceOrderDetailsScreen = (props) => {
                             null
                     }
 
-                </View>
+                </View> */}
             </View>
         </View>
     );
