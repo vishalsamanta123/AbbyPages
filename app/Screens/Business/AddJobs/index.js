@@ -8,7 +8,8 @@ import Success from '../../../Components/Modal/success';
 import AddJobsScreen from './components/AddJobsScreen';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../../Utils/Constant';
-const AddJobs = ({ navigation }) => {
+const AddJobs = ({ navigation, route }) => {
+    const {item} = route?.params || []
     let today = moment(today).format("DD-MM-YYYY");
     let benefits_Date = moment(today);
     const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] = useState(false);
@@ -137,7 +138,32 @@ const AddJobs = ({ navigation }) => {
         getStateList();
         getCityList();
         getJobCategoryList();
+        setData()
     }, [])
+
+    const setData = () => {
+        setJobTitle(item?.job_title)
+        setOpenings(item?.no_of_openings)
+        setSalaryFrom(item?.monthly_in_hand_salary_from)
+        setSalaryTo(item?.monthly_in_hand_salary_to)
+        setJobDescription(item?.job_description)
+        setJobTimeings(item?.job_timing)
+        setInterviewDetails(item?.interview_details)
+        setCompanyName(item?.company_name)
+        setCompanyPersonName(item?.contact_person_name)
+        setPhoneNumber(item?.phone_no)
+        setEmailID(item?.email)
+        setJobAddress(item?.job_address)
+        setAddressState(item?.job_location_state)
+        setcity(item?.job_location_city)
+        setJobBenefits(item?.job_benefits)
+        setJobReqiurements(item?.job_requirements)
+        setJobLevel(item?.job_level)
+        setLanguage(item?.language)
+        setStartTimeDay(item?.job_start_time_day)
+        setEndTimeDay(item?.job_end_time_day)
+        setSkills(item?.skills)
+    }
     const _handleFocus = () => {
         setbox(!box);
     }
@@ -216,7 +242,7 @@ const AddJobs = ({ navigation }) => {
             // setVisible(true);
             try {
                 const params = {
-                    business_id: null,
+                    business_id: item?.business_id,
                     company_name: CompanyName,
                     contact_person_name: CompanyPersonName,
                     email: EmailID,
@@ -232,7 +258,7 @@ const AddJobs = ({ navigation }) => {
                     job_location_country: selectedCountry.country_id,
                     job_location_state: selectedState.state_id,
                     job_location_city: selectedCity.city_id,
-
+                    job_id: item?.job_id == null ? null :  item?.job_id,
                     created_at: today,
                     job_benefits_id: itemType.id,
 
