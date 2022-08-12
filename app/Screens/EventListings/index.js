@@ -13,13 +13,16 @@ const EventListing = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
-  const [isSelectedDay, setIsSelectedDay] = useState(0);
+  const [isSelectedDay, setIsSelectedDay] = useState(null);
   const [eventsList, setEventsList] = useState([]);
   const [events, setEvents] = useState([]);
   const [stopOffset, setstopOffset] = useState(false);
   const [openAll, setOpenAll] = useState(false);
   const [offset, setoffset] = useState(0);
+  const [openSearchDate, setOpenSearchDate] = useState(false);
   const [limit, setLimit] = useState(4);
+  const [eventType, setEventType] = useState(0);
+  const [searchDate, setSearchDate] = useState("");
   const [dataType, setDataType] = useState([]);
 
   const handleCategory = async () => {
@@ -41,7 +44,7 @@ const EventListing = ({ navigation }) => {
     handleCategory();
     getEventList(0);
     handlePopularEvents();
-  }, [limit]);
+  }, [limit, eventType]);
   const _handleDataTypeSelected = (index, item) => {
     setIsSelectedCatgory(index);
   };
@@ -52,12 +55,20 @@ const EventListing = ({ navigation }) => {
       { id: 3, name: "This Weekend" },
       { id: 4, name: "This Week" },
       { id: 5, name: "Next Week" },
-      { id: 6, name: "Jump to Date" },
+      // { id: 6, name: "Jump to Date" },
     ],
     []
   );
-  const _handleDaySelected = (index, item) => {
-    getEventList(0, item);
+  const _handleDaySelected = (item, index) => {
+    setIsSelectedDay(index);
+    setEventType(item);
+    if (item !== 6) {
+      getEventList(0);
+    } else {
+      if (item === 6) {
+        setOpenSearchDate(true);
+      }
+    }
   };
   const navToEventDetail = (item) => {
     navigation.navigate("EventDetails", { item: item });
@@ -82,14 +93,15 @@ const EventListing = ({ navigation }) => {
     }
   };
 
-  const getEventList = async (offSet, type) => {
+  const getEventList = async (offSet) => {
     setoffset(offSet);
     setLoader(true);
     try {
       const params = {
         offset: offSet,
         limit: limit + offSet,
-        event_type: type ? type : 0,
+        event_type: eventType,
+        search_date: searchDate ? searchDate : "",
       };
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
       if (data.status === 200) {
@@ -112,6 +124,11 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
+  const handleEndTimeConfirm = (date) => {
+    const value = moment(date).format(" h:mm a");
+    setSearchDate(value);
+    setOpenSearchDate(false);
+  };
   const handleCraeteEvent = () => {
     navigation.navigate("CreateEvent");
   };
@@ -125,10 +142,13 @@ const EventListing = ({ navigation }) => {
           eventsList={eventsList}
           navToEventDetail={navToEventDetail}
           getEventList={getEventList}
+          setEventType={setEventType}
           setLimit={setLimit}
           handleCraeteEvent={handleCraeteEvent}
           offset={offset}
           stopOffset={stopOffset}
+          handleEndTimeConfirm={handleEndTimeConfirm}
+          setOpenSearchDate={setOpenSearchDate}
         />
       ) : (
         <EventListingScreen
@@ -139,11 +159,13 @@ const EventListing = ({ navigation }) => {
           isSelectedDay={isSelectedDay}
           _handleDaySelected={_handleDaySelected}
           navToEventDetail={navToEventDetail}
+          openSearchDate={openSearchDate}
           eventsList={eventsList}
           events={events}
           stopOffset={stopOffset}
           getEventList={getEventList}
           limit={limit}
+          setEventType={setEventType}
           setLimit={setLimit}
           handleCraeteEvent={handleCraeteEvent}
           offset={offset}

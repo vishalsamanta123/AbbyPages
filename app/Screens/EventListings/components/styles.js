@@ -5,6 +5,7 @@ import {
   FONT_FAMILY_REGULAR,
   SMALL_TEXT_COLOR_CODE,
   BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
@@ -22,7 +23,7 @@ const Styles = StyleSheet.create({
     color: SMALL_TEXT_COLOR_CODE,
   },
   seeForTxt: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: FONT_FAMILY_REGULAR,
     color: SMALL_TEXT_COLOR_CODE,
     marginLeft: 4,
@@ -33,6 +34,7 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
     resizeMode: "contain",
     top: 2,
+    tintColor: SMALL_TEXT_COLOR_CODE,
   },
   containerVw: {
     paddingVertical: 10,
@@ -169,6 +171,16 @@ const Styles = StyleSheet.create({
   buytckttxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     lineHeight: 16,
+  },
+  emptyEventVw: {
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 50,
+  },
+  emptyEventTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
   },
 });
 export default Styles;
