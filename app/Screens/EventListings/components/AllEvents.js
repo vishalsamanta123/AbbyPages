@@ -1,5 +1,13 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  BackHandler,
+  FlatList,
+} from "react-native";
 import moment from "moment";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -7,29 +15,45 @@ import Header from "../../../Components/Header";
 import { SMALL_TEXT_COLOR_CODE } from "../../../Utils/Constant";
 
 const EventListingScreen = (props) => {
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      handleBack
+    );
+    return () => backHandler.remove();
+  }, []);
+  const handleBack = () => {
+    props.setOpenAll(false);
+    props.getEventList(0);
+    props.setLimit(4);
+    props.setEventType(0);
+  };
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="All Events"
-        onPressBackFun={() => {
-          props.setOpenAll(false);
-          props.getEventList(0);
-          props.setLimit(4);
-        }}
+        onPressBackFun={() => handleBack()}
         onPress={() => props.handleCraeteEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
-      <ScrollView
-        onScrollEndDrag={() => {
+      <FlatList
+        data={props.eventsList}
+        style={styles.allEventsVw}
+        ListEmptyComponent={() => {
+          return (
+            <View style={[styles.emptyEventVw, { height: 200 }]}>
+              <Text style={styles.emptyEventTxt}>No Data Found</Text>
+            </View>
+          );
+        }}
+        onEndReached={() => {
           !props.stopOffset
             ? props.getEventList(
                 props.eventsList.length > 5 ? props.offset + 1 : 0
               )
             : null;
         }}
-        contentContainerStyle={styles.allEventsVw}
-      >
-        {props.eventsList.map((item) => {
+        renderItem={({ item }) => {
           return (
             <View style={styles.containerVw}>
               <Image
@@ -84,8 +108,8 @@ const EventListingScreen = (props) => {
               </TouchableOpacity>
             </View>
           );
-        })}
-      </ScrollView>
+        }}
+      />
     </View>
   );
 };

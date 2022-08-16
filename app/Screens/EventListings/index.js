@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import EventListingScreen from "./components/EventListingScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -7,21 +8,37 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import AllEvents from "./components/AllEvents";
+import moment from "moment";
 
 const EventListing = ({ navigation }) => {
   const [loader, setLoader] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
-  const [isSelectedDay, setIsSelectedDay] = useState(0);
+  const [isSelectedDay, setIsSelectedDay] = useState(null);
   const [eventsList, setEventsList] = useState([]);
   const [events, setEvents] = useState([]);
   const [stopOffset, setstopOffset] = useState(false);
   const [openAll, setOpenAll] = useState(false);
   const [offset, setoffset] = useState(0);
+  const [openSearchDate, setOpenSearchDate] = useState(false);
   const [limit, setLimit] = useState(4);
+  const [eventType, setEventType] = useState(0);
+  const [searchDate, setSearchDate] = useState("");
   const [dataType, setDataType] = useState([]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      handleCategory();
+      getEventList(0);
+      handlePopularEvents();
+      return () => {
+        handleCategory();
+        getEventList(0);
+        handlePopularEvents();
+      };
+    }, [limit, eventType, searchDate])
+  );
   const handleCategory = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
@@ -37,11 +54,6 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
-  useEffect(() => {
-    handleCategory();
-    getEventList(0);
-    handlePopularEvents();
-  }, [limit]);
   const _handleDataTypeSelected = (index, item) => {
     setIsSelectedCatgory(index);
   };
@@ -56,8 +68,12 @@ const EventListing = ({ navigation }) => {
     ],
     []
   );
-  const _handleDaySelected = (index, item) => {
-    getEventList(0, item);
+  const _handleDaySelected = (item, index) => {
+    setEventType(item);
+    setIsSelectedDay(index);
+    if (item === 6) {
+      setOpenSearchDate(true);
+    }
   };
   const navToEventDetail = (item) => {
     navigation.navigate("EventDetails", { item: item });
@@ -82,14 +98,15 @@ const EventListing = ({ navigation }) => {
     }
   };
 
-  const getEventList = async (offSet, type) => {
+  const getEventList = async (offSet) => {
     setoffset(offSet);
     setLoader(true);
     try {
       const params = {
         offset: offSet,
         limit: limit + offSet,
-        event_type: type ? type : 0,
+        event_type: eventType,
+        search_date: searchDate ? searchDate : "",
       };
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
       if (data.status === 200) {
@@ -112,6 +129,11 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
+  const handleEndTimeConfirm = (selectedDate) => {
+    const date = moment(selectedDate).format();
+    setSearchDate(date);
+    setOpenSearchDate(false);
+  };
   const handleCraeteEvent = () => {
     navigation.navigate("CreateEvent");
   };
@@ -125,6 +147,7 @@ const EventListing = ({ navigation }) => {
           eventsList={eventsList}
           navToEventDetail={navToEventDetail}
           getEventList={getEventList}
+          setEventType={setEventType}
           setLimit={setLimit}
           handleCraeteEvent={handleCraeteEvent}
           offset={offset}
@@ -135,20 +158,26 @@ const EventListing = ({ navigation }) => {
           dataType={dataType}
           _handleDataTypeSelected={_handleDataTypeSelected}
           isSelectedCatgory={isSelectedCatgory}
+          handleEndTimeConfirm={handleEndTimeConfirm}
           dayData={dayData}
           isSelectedDay={isSelectedDay}
           _handleDaySelected={_handleDaySelected}
           navToEventDetail={navToEventDetail}
+          openSearchDate={openSearchDate}
           eventsList={eventsList}
           events={events}
           stopOffset={stopOffset}
           getEventList={getEventList}
           limit={limit}
+          setEventType={setEventType}
           setLimit={setLimit}
           handleCraeteEvent={handleCraeteEvent}
           offset={offset}
           openAll={openAll}
           setOpenAll={setOpenAll}
+          setIsSelectedDay={setIsSelectedDay}
+          setOpenSearchDate={setOpenSearchDate}
+          setSearchDate={setSearchDate}
         />
       )}
       <Error

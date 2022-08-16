@@ -16,16 +16,20 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { BLACK_COLOR_CODE } from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const CreateEvent = (props) => {
+  const hideDatePicker = () => {
+    props.setDatePickerVisibility(false);
+  };
+  const hideTimePicker = () => {
+    props.setIsStartTimePickerVisible(false);
+  };
+  const hideEndTimePicker = () => {
+    setIsEndTimePickerVisible(false);
+  };
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
@@ -42,23 +46,30 @@ const CreateEvent = (props) => {
           >
             <Text style={styles.ktchnlble}>Select event image</Text>
           </TouchableOpacity>
-          <View style={{ padding: 10 }}>
-            <View>{props.renderEventImage()}</View>
-          </View>
+          {props?.createEvent?.event_photo.length > 0 ? (
+            <View style={{ padding: 10 }}>
+              <View>{props.renderEventImage()}</View>
+            </View>
+          ) : null}
           <Input
-            onChangeText={(EventName) => props.setEventName(EventName)}
-            value={props.EventName}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                eventName: text,
+              })
+            }
+            value={props.createEvent?.eventName}
             secureTextEntry={false}
             placeholder="Event Name"
             InputType="withScroll"
           />
           <TouchableOpacity
-            onPress={() => props.showDatePicker()}
+            onPress={() => props.setDatePickerVisibility(true)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.selectedDate ? props.selectedDate : "Date"}
+                {props?.createEvent?.date ? props?.createEvent?.date : "Date"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -68,17 +79,19 @@ const CreateEvent = (props) => {
               isVisible={props.isDatePickerVisible}
               mode="date"
               minimumDate={new Date()}
-              onConfirm={props.handleConfirm}
-              onCancel={props.hideDatePicker}
+              onConfirm={(date) => props.handleConfirm(date)}
+              onCancel={hideDatePicker}
             />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => props.showTimePicker()}
+            onPress={() => props.setIsStartTimePickerVisible(true)}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.startTime ? props.startTime : "Start Time"}
+                {props?.createEvent?.start_time
+                  ? props?.createEvent?.start_time
+                  : "Start Time"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -87,17 +100,19 @@ const CreateEvent = (props) => {
             <DateTimePickerModal
               isVisible={props.isStartTimePickerVisible}
               mode="time"
-              onConfirm={props.handleTimeConfirm}
-              onCancel={props.hideTimePicker}
+              onConfirm={(date) => props.handleTimeConfirm(date)}
+              onCancel={hideTimePicker}
             />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => props.showEndTimePicker()}
+            onPress={() => props.setIsEndTimePickerVisible(true)}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.selectedEndTime ? props.selectedEndTime : "End Time"}
+                {props?.createEvent?.end_time
+                  ? props?.createEvent?.end_time
+                  : "End Time"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -106,121 +121,78 @@ const CreateEvent = (props) => {
             <DateTimePickerModal
               isVisible={props.isEndTimePickerVisible}
               mode="time"
-              onConfirm={props.handleEndTimeConfirm}
-              onCancel={props.hideEndTimePicker}
+              onConfirm={(date) => props.handleEndTimeConfirm(date)}
+              onCancel={hideEndTimePicker}
             />
           </TouchableOpacity>
           <GooglePlacesAutocomplete
-            placeholder={
-              props.nearByLocationData.find_me_in &&
-              props.nearByLocationData.find_me_in
-                ? props.nearByLocationData.find_me_in
-                : "Near by"
-            }
+            placeholder={"Near by location"}
             fetchDetails={true}
             onPress={(data, details = null) => {
-              props.setNearByLocationData({
-                ...props.nearByLocationData,
+              props.setCreateEvent({
+                ...props.createEvent,
                 find_me_in: data.description,
                 find_me_lat: details.geometry.location.lat,
                 find_me_long: details.geometry.location.lng,
               });
             }}
-            onChangeText={(address) =>
-              props.setNearByLocationData({
-                ...props.nearByLocationData,
-                find_me_in: address,
-              })
-            }
+            textInputProps={{
+              placeholderTextColor: BLACK_COLOR_CODE,
+              onChangeText: (text) => {
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  find_me_in: text,
+                });
+              },
+              value: props.createEvent.find_me_in,
+            }}
             query={{
               key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
               language: "en",
             }}
-            styles={{
-              textInputContainer: {
-                borderRadius: 4,
-                backgroundColor: WHITE_COLOR_CODE,
-                fontSize: 16,
-                marginHorizontal: 17,
-                margin: 8,
-                fontFamily: FONT_FAMILY_REGULAR,
-                borderColor: "#d8d8d8",
-                borderRadius: 8,
-                borderWidth: 1,
-                alignItems: "center",
-                paddingVertical: 6,
-              },
-              textInput: {
-                fontSize: 15,
-                color: BLACK_COLOR_CODE,
-              },
-              listView: {
-                width: "90%",
-                alignSelf: "center",
-                backgroundColor: WHITE_COLOR_CODE,
-              },
-            }}
+            styles={styles.addressInputVw}
             minLength={2}
             autoFocus={false}
             returnKeyType={"default"}
           />
           <Input
-            onChangeText={(BusinessName) => props.setBusinessName(BusinessName)}
-            value={props.BusinessName}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                businessName: text,
+              })
+            }
+            value={props?.createEvent?.businessName}
             secureTextEntry={false}
             placeholder="Business Name"
             InputType="withScroll"
           />
           <GooglePlacesAutocomplete
-            placeholder={
-              props.locationData.find_me_in && props.locationData.find_me_in
-                ? props.locationData.find_me_in
-                : "Address"
-            }
+            placeholder={"Address"}
             fetchDetails={true}
             onPress={(data, details = null) => {
-              props.setLocationData({
-                ...props.locationData,
-                find_me_in: data.description,
-                find_me_lat: details.geometry.location.lat,
-                find_me_long: details.geometry.location.lng,
+              props.setCreateEvent({
+                ...props.createEvent,
+                event_address: data.description,
+                event_Addr_lat: details.geometry.location.lat,
+                event_Addr_long: details.geometry.location.lng,
               });
             }}
-            onChangeText={(address) =>
-              props.setLocationData({
-                ...props.locationData,
-                find_me_in: address,
-              })
-            }
+            textInputProps={{
+              placeholderTextColor: BLACK_COLOR_CODE,
+              onChangeText: (text) => {
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  event_address: text,
+                });
+              },
+              value: props.createEvent.event_address,
+            }}
             query={{
               key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
               language: "en",
             }}
-            styles={{
-              textInputContainer: {
-                borderRadius: 4,
-                backgroundColor: WHITE_COLOR_CODE,
-                fontSize: 16,
-                marginHorizontal: 17,
-                margin: 8,
-                fontFamily: FONT_FAMILY_REGULAR,
-                borderColor: "#d8d8d8",
-                borderRadius: 8,
-                borderWidth: 1,
-                alignItems: "center",
-                // height: 70,
-                paddingVertical: 6,
-              },
-              textInput: {
-                fontSize: 15,
-                color: BLACK_COLOR_CODE,
-              },
-              listView: {
-                width: "90%",
-                alignSelf: "center",
-                backgroundColor: WHITE_COLOR_CODE,
-              },
-            }}
+            styles={styles.addressInputVw}
             minLength={2}
             autoFocus={false}
             returnKeyType={"default"}
@@ -232,10 +204,10 @@ const CreateEvent = (props) => {
                             placeholder="Near"
                             InputType="withScroll"
                             />*/}
-          <Button
+          {/* <Button
             buttonText="Search"
             style={{ marginTop: 5, marginBottom: 5 }}
-          />
+          /> */}
           {/*
                             <Input
                                 onChangeText={(WhatWhy) => props.setWhatWhy(WhatWhy)}
@@ -246,36 +218,61 @@ const CreateEvent = (props) => {
                             />
                             */}
           <Input
-            onChangeText={(description) => props.setDescription(description)}
-            value={props.description}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                description: text,
+              })
+            }
+            value={props.createEvent.description}
             secureTextEntry={false}
             placeholder="Description"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(OfficialWeb) => props.setOfficialWeb(OfficialWeb)}
-            value={props.OfficialWeb}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                official_Web: text,
+              })
+            }
+            value={props?.createEvent?.official_Web}
             secureTextEntry={false}
             placeholder="Official Website URL:"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(TicketURL) => props.setTicketURL(TicketURL)}
-            value={props.TicketURL}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                ticketURL: text,
+              })
+            }
+            value={props?.createEvent?.ticketURL}
             secureTextEntry={false}
             placeholder="Ticket URL:"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(PriceFrom) => props.setPriceFrom(PriceFrom)}
-            value={props.PriceFrom}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                priceFrom: text,
+              })
+            }
+            value={props?.createEvent?.priceFrom}
             secureTextEntry={false}
             placeholder="Price from"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(PriceTo) => props.setPriceTo(PriceTo)}
-            value={props.PriceTo}
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                priceTo: text,
+              })
+            }
+            value={props?.createEvent?.priceTo}
             secureTextEntry={false}
             placeholder="Price to"
             InputType="withScroll"
@@ -294,13 +291,13 @@ const CreateEvent = (props) => {
                         </TouchableOpacity>
                                 */}
           <TouchableOpacity
-            onPress={() => props._handleModalOpen()}
+            onPress={() => props.setEventCategoryModalVisible(true)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.selectedCategory.name
-                  ? props.selectedCategory.name
+                {props?.createEvent?.category_name
+                  ? props?.createEvent?.category_name
                   : "Category"}
               </Text>
             </View>
@@ -314,15 +311,13 @@ const CreateEvent = (props) => {
           >
             <View style={styles.CameraImgView}>
               <View>
-                {props.checkbox ? (
-                  <Image
-                    source={require("../../../Assets/checked_circled_icon_box.png")}
-                  />
-                ) : (
-                  <Image
-                    source={require("../../../Assets/unchecked_circled_icon_box.png")}
-                  />
-                )}
+                <Image
+                  source={
+                    props.checkbox
+                      ? require("../../../Assets/checked_circled_icon_box.png")
+                      : require("../../../Assets/unchecked_circled_icon_box.png")
+                  }
+                />
               </View>
               <Text style={styles.AddPhotosTxt}>Public Venue</Text>
             </View>
@@ -332,11 +327,11 @@ const CreateEvent = (props) => {
             style={{ marginTop: 10 }}
             onPress={props.onPressCreateEvent}
           />
-          <Button
+          {/* <Button
             buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
             buttonText="Cancel"
             style={{ marginTop: 10, backgroundColor: GREY_COLOR_CODE }}
-          />
+          /> */}
         </View>
       </ScrollView>
       <Modal
@@ -349,7 +344,7 @@ const CreateEvent = (props) => {
         <View style={{ alignItems: "center" }}>
           <View style={styles.moadlvwe}>
             <View style={styles.headervwe}>
-              <View style={{ flex: 1 }} />
+              <View style={{ flex: 0.5 }} />
               <View style={styles.arealstvwe}>
                 <Text style={styles.arealsttxt}>Category List</Text>
               </View>

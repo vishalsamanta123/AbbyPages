@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -21,13 +21,16 @@ import {
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Button from "../../../Components/Button";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 const EventListingScreen = (props) => {
+  const [alsoSeeFor, setAlsoSeeFor] = useState(false);
   const _renderTime = (item, index) => {
     const selectedColor =
       index === props.isSelectedDay ? YELLOW_COLOR_CODE : BLACK_COLOR_CODE;
     return (
       <TouchableOpacity
-        onPress={() => props._handleDaySelected(item.id)}
+        onPress={() => props._handleDaySelected(item.id, index)}
         style={styles.lablestyle}
       >
         <Text style={[styles.txtTimeCat, { color: selectedColor }]}>
@@ -41,8 +44,13 @@ const EventListingScreen = (props) => {
     );
   };
   const handleSeeAll = () => {
+    props?.setEventType(0);
     props.getEventList(0), props.setOpenAll(true);
     props.setLimit(12);
+    props.setSearchDate("");
+  };
+  const handleCloseDate = () => {
+    props.setOpenSearchDate(false);
   };
   return (
     <View style={CommonStyles.container}>
@@ -110,88 +118,123 @@ const EventListingScreen = (props) => {
           </View>
         )}
         <View style={styles.containers}>
+          <Text style={styles.eventTitlesTxt}>Events</Text>
           <View
             style={[styles.straightVw, { justifyContent: "space-between" }]}
           >
-            <Text style={styles.eventTitlesTxt}>Events</Text>
-            <TouchableOpacity onPress={() => handleSeeAll()}>
-              <Text style={styles.seeAllTxt}>See All</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setAlsoSeeFor(!alsoSeeFor);
+                if (alsoSeeFor) {
+                  props.setEventType(0);
+                  props.setIsSelectedDay(null);
+                }
+              }}
+              style={[styles.straightVw, styles.seeOnVw]}
+            >
+              <Text style={styles.seeOnTxt}>See Events For</Text>
+              <Image
+                style={styles.seeForImg}
+                source={
+                  alsoSeeFor
+                    ? require("../../../Assets/link_dropdown_icon_up.png")
+                    : require("../../../Assets/dropdown_icon1.png")
+                }
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.seeOnVw}
+              onPress={() => handleSeeAll()}
+            >
+              <Text style={styles.seeOnTxt}>See All</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.straightVw}>
-            <Text style={styles.seeForTxt}>See Events For</Text>
-            <Image
-              style={styles.seeForImg}
-              source={require("../../../Assets/dropdown_icon1.png")}
-            />
-          </View>
-          <FlatList
-            data={props.dayData}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _renderTime(item, index)}
-          />
+          {alsoSeeFor && (
+            <>
+              <FlatList
+                data={props.dayData}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => index}
+                renderItem={({ item, index }) => _renderTime(item, index)}
+              />
+              <DateTimePickerModal
+                isVisible={props?.openSearchDate}
+                mode={"date"}
+                onConfirm={(date) => props?.handleEndTimeConfirm(date)}
+                onCancel={handleCloseDate}
+              />
+            </>
+          )}
+
           <ScrollView>
-            {props.eventsList.map((item) => {
-              return (
-                <View style={styles.containerVw}>
-                  <Image
-                    resizeMode={"contain"}
-                    style={styles.eventImg}
-                    source={{
-                      uri: item?.events_image,
-                    }}
-                  />
-                  <TouchableOpacity
-                    onPress={() => props.navToEventDetail(item)}
-                    style={styles.allTxtVw}
-                  >
-                    <Text style={styles.nameTxt}>{item?.event_name}</Text>
-                    <View style={styles.straightVw}>
+            {props.eventsList.length > 0 ? (
+              <>
+                {props.eventsList.map((item) => {
+                  return (
+                    <View style={styles.containerVw}>
                       <Image
-                        style={styles.straightImg}
-                        source={require("../../../Assets/calendar_icon.png")}
+                        resizeMode={"contain"}
+                        style={styles.eventImg}
+                        source={{
+                          uri: item?.events_image,
+                        }}
                       />
-                      <Text style={styles.straightTxt}>
-                        {moment
-                          .unix(item?.event_date)
-                          .format("dddd, MMMM Do, YYYY")}
-                      </Text>
-                    </View>
-                    <View style={styles.straightVw}>
-                      <Image
-                        style={styles.straightImg}
-                        source={require("../../../Assets/info_marker_icon.png")}
-                      />
-                      <Text style={styles.straightTxt}>
-                        {item?.event_location}
-                      </Text>
-                    </View>
-                    <View style={styles.straightVw}>
-                      <Text
-                        style={[
-                          styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
-                        ]}
+                      <TouchableOpacity
+                        onPress={() => props.navToEventDetail(item)}
+                        style={styles.allTxtVw}
                       >
-                        {" "}
-                        {item?.interested}{" "}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
-                        ]}
-                      >
-                        Interested
-                      </Text>
+                        <Text style={styles.nameTxt}>{item?.event_name}</Text>
+                        <View style={styles.straightVw}>
+                          <Image
+                            style={styles.straightImg}
+                            source={require("../../../Assets/calendar_icon.png")}
+                          />
+                          <Text style={styles.straightTxt}>
+                            {moment
+                              .unix(item?.event_date)
+                              .format("dddd, MMMM Do, YYYY")}
+                          </Text>
+                        </View>
+                        <View style={styles.straightVw}>
+                          <Image
+                            style={styles.straightImg}
+                            source={require("../../../Assets/info_marker_icon.png")}
+                          />
+                          <Text style={styles.straightTxt}>
+                            {item?.event_location}
+                          </Text>
+                        </View>
+                        <View style={styles.straightVw}>
+                          <Text
+                            style={[
+                              styles.straightTxt,
+                              { color: SMALL_TEXT_COLOR_CODE },
+                            ]}
+                          >
+                            {" "}
+                            {item?.interested}{" "}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.straightTxt,
+                              { color: SMALL_TEXT_COLOR_CODE },
+                            ]}
+                          >
+                            Interested
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
+                  );
+                })}
+              </>
+            ) : (
+              <View style={styles.emptyEventVw}>
+                <Text style={styles.emptyEventTxt}>No Data Found for this</Text>
+              </View>
+            )}
           </ScrollView>
         </View>
         <View style={styles.containers}>
