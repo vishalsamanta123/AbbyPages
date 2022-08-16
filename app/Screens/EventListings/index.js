@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import EventListingScreen from "./components/EventListingScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -7,6 +8,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import AllEvents from "./components/AllEvents";
+import moment from "moment";
 
 const EventListing = ({ navigation }) => {
   const [loader, setLoader] = useState();
@@ -25,6 +27,18 @@ const EventListing = ({ navigation }) => {
   const [searchDate, setSearchDate] = useState("");
   const [dataType, setDataType] = useState([]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      handleCategory();
+      getEventList(0);
+      handlePopularEvents();
+      return () => {
+        handleCategory();
+        getEventList(0);
+        handlePopularEvents();
+      };
+    }, [limit, eventType, searchDate])
+  );
   const handleCategory = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
@@ -40,11 +54,6 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
-  useEffect(() => {
-    handleCategory();
-    getEventList(0);
-    handlePopularEvents();
-  }, [limit, eventType]);
   const _handleDataTypeSelected = (index, item) => {
     setIsSelectedCatgory(index);
   };
@@ -55,19 +64,15 @@ const EventListing = ({ navigation }) => {
       { id: 3, name: "This Weekend" },
       { id: 4, name: "This Week" },
       { id: 5, name: "Next Week" },
-      // { id: 6, name: "Jump to Date" },
+      { id: 6, name: "Jump to Date" },
     ],
     []
   );
   const _handleDaySelected = (item, index) => {
-    setIsSelectedDay(index);
     setEventType(item);
-    if (item !== 6) {
-      getEventList(0);
-    } else {
-      if (item === 6) {
-        setOpenSearchDate(true);
-      }
+    setIsSelectedDay(index);
+    if (item === 6) {
+      setOpenSearchDate(true);
     }
   };
   const navToEventDetail = (item) => {
@@ -124,9 +129,9 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
-  const handleEndTimeConfirm = (date) => {
-    const value = moment(date).format(" h:mm a");
-    setSearchDate(value);
+  const handleEndTimeConfirm = (selectedDate) => {
+    const date = moment(selectedDate).format();
+    setSearchDate(date);
     setOpenSearchDate(false);
   };
   const handleCraeteEvent = () => {
@@ -147,14 +152,13 @@ const EventListing = ({ navigation }) => {
           handleCraeteEvent={handleCraeteEvent}
           offset={offset}
           stopOffset={stopOffset}
-          handleEndTimeConfirm={handleEndTimeConfirm}
-          setOpenSearchDate={setOpenSearchDate}
         />
       ) : (
         <EventListingScreen
           dataType={dataType}
           _handleDataTypeSelected={_handleDataTypeSelected}
           isSelectedCatgory={isSelectedCatgory}
+          handleEndTimeConfirm={handleEndTimeConfirm}
           dayData={dayData}
           isSelectedDay={isSelectedDay}
           _handleDaySelected={_handleDaySelected}
@@ -171,6 +175,9 @@ const EventListing = ({ navigation }) => {
           offset={offset}
           openAll={openAll}
           setOpenAll={setOpenAll}
+          setIsSelectedDay={setIsSelectedDay}
+          setOpenSearchDate={setOpenSearchDate}
+          setSearchDate={setSearchDate}
         />
       )}
       <Error

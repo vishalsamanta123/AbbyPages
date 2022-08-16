@@ -17,55 +17,25 @@ import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
 import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
 import Error from "../../Components/Modal/error";
+import styles from "./components/styles";
 
 const CreateEventView = () => {
   const [eventCategoryModalVisible, setEventCategoryModalVisible] =
     useState(false);
   const [categoryListData, setCategoryListData] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [startTime, setStartTime] = useState("");
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState(false);
-  const [bookingDate, setBookingDate] = useState(false);
   const [checkbox, SetCheckBox] = useState(false);
-  const [privateCheck, SetprivateCheck] = useState(false);
-  const [FreeEvent, SetFreeEvent] = useState(false);
-  const [EventName, setEventName] = useState("");
-  const [BusinessName, setBusinessName] = useState("");
-  const [NearBy, setNearBy] = useState("");
-  const [WhatWhy, setWhatWhy] = useState("");
-  const [OfficialWeb, setOfficialWeb] = useState("");
-  const [TicketURL, setTicketURL] = useState("");
-  const [PriceFrom, setPriceFrom] = useState("");
-  const [PriceTo, setPriceTo] = useState("");
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
-  const [selectedEndTime, setSelectedEndTime] = useState("");
   const [visible, setVisible] = useState(false);
-  const [eventPhoto, setEventPhoto] = useState([]);
   const [eventModalVisible, setEventModalVisible] = useState("");
-  const [description, setDescription] = useState("");
-  const [locationData, setLocationData] = useState({
-    find_me_in: "",
-    find_me_lat: "",
-    find_me_long: "",
-  });
-
-  const [nearByLocationData, setNearByLocationData] = useState({
-    find_me_in: "",
-    find_me_lat: "",
-    find_me_long: "",
-  });
-
   const [createEvent, setCreateEvent] = useState({
     event_photo: "",
     eventName: "",
@@ -80,61 +50,33 @@ const CreateEventView = () => {
     event_Addr_lat: "",
     event_Addr_long: "",
     description: "",
-    Official_Web: "",
-    TicketURL: "",
+    official_Web: "",
+    ticketURL: "",
     priceFrom: "",
     priceTo: "",
-    category: "",
+    category_name: "",
+    category_id: "",
     checkbox_venue: "",
   });
   useEffect(() => {
     getCategoryList();
   }, []);
-  const _handleModalOpen = () => {
-    setEventCategoryModalVisible(true);
+
+  const getCategoryList = async () => {
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
+      if (data.status === 200) {
+        setCategoryListData(data.data);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
   };
-  const hideEndTimePicker = () => {
-    setIsEndTimePickerVisible(false);
-  };
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-  const handleEndTimeConfirm = (date) => {
-    const value = moment(date).format(" h:mm a");
-    setSelectedEndTime(value);
-    hideEndTimePicker();
-  };
-  const showEndTimePicker = () => {
-    setIsEndTimePickerVisible(true);
-  };
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = (date) => {
-    const value = moment(date).format("YYYY-MM-DD");
-    setSelectedDate(value);
-    hideDatePicker();
-  };
-  const showTimePicker = () => {
-    setIsStartTimePickerVisible(true);
-  };
-  const hideTimePicker = () => {
-    setIsStartTimePickerVisible(false);
-  };
-  const handleTimeConfirm = (date) => {
-    const value = moment(date).format(" h:mm a");
-    setStartTime(value);
-    hideTimePicker();
-  };
-  const onPressPublicVenue = () => {
-    SetCheckBox(!checkbox);
-  };
-  const onPressPrivateAdd = () => {
-    SetprivateCheck(!privateCheck);
-  };
-  const onPressFreeEvent = () => {
-    SetFreeEvent(!FreeEvent);
-  };
+
   const onPressOpenEventImage = () => {
     ImagePicker.openPicker({
       width: windowWidth,
@@ -142,77 +84,169 @@ const CreateEventView = () => {
       multiple: true,
       cropping: true,
     }).then((image) => {
-      setEventPhoto(image);
+      setCreateEvent({
+        ...createEvent,
+        event_photo: image,
+      });
       setEventModalVisible(false);
     });
   };
+
+  const handleConfirm = (date) => {
+    const value = moment(date).format("YYYY-MM-DD");
+    setCreateEvent({
+      ...createEvent,
+      date: value,
+    });
+    setDatePickerVisibility(false);
+  };
+
+  const handleTimeConfirm = (date) => {
+    const value = moment(date).format(" h:mm a");
+    setCreateEvent({
+      ...createEvent,
+      start_time: value,
+    });
+    setIsStartTimePickerVisible(false);
+  };
+
+  const handleEndTimeConfirm = (date) => {
+    const value = moment(date).format(" h:mm a");
+    setCreateEvent({
+      ...createEvent,
+      end_time: value,
+    });
+    setIsEndTimePickerVisible(false);
+  };
+
+  const renderEventImage = () => {
+    return (
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={createEvent.event_photo}
+        horizontal={true}
+        renderItem={({ item, index }) => {
+          return (
+            <View style={styles.imagesVw}>
+              <TouchableOpacity
+                style={styles.deleteImageVw}
+                onPress={() => deleteImage(index)}
+              >
+                <Image
+                  source={require("../../Assets/minus_icon_cart.png")}
+                  style={styles.deleteImage}
+                />
+              </TouchableOpacity>
+              <View style={{ marginLeft: "5%" }}>
+                <Image source={{ uri: item.path }} style={styles.eventImg} />
+              </View>
+            </View>
+          );
+        }}
+      />
+    );
+  };
+
+  function deleteImage(index) {
+    var imageArray = [...createEvent.event_photo];
+    imageArray.splice(index, 1);
+    setCreateEvent({
+      ...createEvent,
+      event_photo: imageArray,
+    });
+  }
+
+  const _handleSelectedCategory = (item) => {
+    setCreateEvent({
+      ...createEvent,
+      category_name: item.name,
+      category_id: item.id,
+    });
+    setEventCategoryModalVisible(false);
+  };
+
+  const renderCategoryListItem = ({ item }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => _handleSelectedCategory(item)}
+        style={styles.categoryItemVw}
+      >
+        <Text style={styles.categoryItemTxt}>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const onPressPublicVenue = () => {
+    SetCheckBox(!checkbox);
+  };
+
   function validationFrom() {
-    if (eventPhoto == "") {
+    if (createEvent.event_photo == "") {
       setErrorMessage("Please select event image");
       setVisibleErr(true);
       return false;
     }
-    if (EventName == "") {
+    if (createEvent.eventName == "") {
       setErrorMessage("Please enter event name");
       setVisibleErr(true);
       return false;
     }
-    if (selectedDate == "") {
+    if (createEvent.date == "") {
       setErrorMessage("Please select event date");
       setVisibleErr(true);
       return false;
     }
-    if (startTime == "") {
+    if (createEvent.start_time == "") {
       setErrorMessage("Please select Start time");
       setVisibleErr(true);
       return false;
     }
-    if (selectedEndTime == "") {
+    if (createEvent.end_time == "") {
       setErrorMessage("Please select end time");
       setVisibleErr(true);
       return false;
     }
-    if (nearByLocationData?.find_me_in == "") {
+    if (createEvent.find_me_in == "") {
       setErrorMessage("Please enter nearby location");
       setVisibleErr(true);
       return false;
     }
-    if (BusinessName == "") {
+    if (createEvent.businessName == "") {
       setErrorMessage("Please enter business name");
       setVisibleErr(true);
       return false;
     }
-    if (locationData?.find_me_in == "") {
+    if (createEvent.event_address == "") {
       setErrorMessage("Please enter Event address");
       setVisibleErr(true);
       return false;
     }
-    if (description == "") {
+    if (createEvent.description == "") {
       setErrorMessage("Please enter description");
       setVisibleErr(true);
       return false;
     }
-    if (OfficialWeb == "") {
+    if (createEvent.official_Web == "") {
       setErrorMessage("Please enter Official website URL");
       setVisibleErr(true);
       return false;
     }
-    if (TicketURL == "") {
+    if (createEvent.ticketURL == "") {
       setErrorMessage("Please enter Ticket URL");
       setVisibleErr(true);
       return false;
     }
-    if (PriceFrom == "") {
+    if (createEvent.priceFrom == "") {
       setErrorMessage("Enter price from");
       setVisibleErr(true);
       return false;
     }
-    if (PriceTo == "") {
-      setErrorMessage("Enter price from to");
+    if (createEvent.priceTo == "") {
+      setErrorMessage("Enter price upto");
       setVisibleErr(true);
       return false;
     }
-    if (selectedCategory.name == "" || selectedCategory.name == undefined) {
+    if (createEvent.category_name == "" || createEvent.category_id == "") {
       setErrorMessage("Please select event category");
       setVisibleErr(true);
       return false;
@@ -224,6 +258,7 @@ const CreateEventView = () => {
     }
     return true;
   }
+
   const onPressCreateEvent = async () => {
     const valid = validationFrom();
     if (valid) {
@@ -232,47 +267,43 @@ const CreateEventView = () => {
         let formData = new FormData();
         formData.append("event_id", 1);
         formData.append("business_id", 352);
-        formData.append("business_name", BusinessName);
-        formData.append("event_address_type", 2);
-        formData.append("event_date", selectedDate);
-        formData.append("event_description", description);
-        formData.append("event_end_time", selectedEndTime);
-        formData.append("event_location", locationData.find_me_in);
-        formData.append("event_name", EventName);
-        formData.append("event_start_time", startTime);
-        formData.append("latitude", locationData.find_me_lat);
-        formData.append("longitude", locationData.find_me_long);
-        formData.append("near_by_address", nearByLocationData.find_me_in);
-        formData.append("official_website_url", OfficialWeb);
-        // formData.append("price_range_from", PriceFrom);
-        formData.append("price_range_from", undefined);
-        formData.append("price_range_to", undefined);
-        // formData.append("price_range_to", PriceTo);
-        formData.append("tickets_url", TicketURL);
-        formData.append("event_category_id", selectedCategory.id);
-        formData.append("event_charge_type", 1);
-        eventPhoto?.map((img, index) => {
+        createEvent.event_photo?.map((img, index) => {
           return formData.append("events_image", {
             uri: img.path,
             type: img.mime,
             name: img.path.substring(img.path.lastIndexOf("/") + 1),
           });
         });
-        console.log("formData: ", formData);
+        formData.append("event_name", createEvent.eventName);
+        formData.append("event_date", createEvent.date);
+        formData.append("event_start_time", createEvent.start_time);
+        formData.append("event_end_time", createEvent.end_time);
+        formData.append("near_by_address", createEvent.find_me_in);
+        formData.append("business_name", createEvent.businessName);
+        formData.append("event_location", createEvent.event_address);
+        formData.append("latitude", createEvent.event_Addr_lat);
+        formData.append("longitude", createEvent.event_Addr_long);
+        formData.append("event_address_type", 2);
+        formData.append("event_description", createEvent.description);
+        formData.append("official_website_url", createEvent.official_Web);
+        formData.append("price_range_from", undefined);
+        formData.append("price_range_to", undefined);
+        formData.append("tickets_url", createEvent.ticketURL);
+        formData.append("event_category_id", createEvent.category_id);
+        formData.append("event_charge_type", 1);
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.CREATE_EVENTS,
           formData,
           { "Content-Type": "multipart/form-data" }
         );
-        console.log("dataCRAETED: ", data);
         if (data.status === 200) {
+          setVisible(false);
           setSuccessMessage("Event added successfully");
           setVisibleSuccess(true);
-          setVisible(false);
         } else {
           setVisible(false);
-          setErrorMessage("Network Error");
+          setErrorMessage(data.message);
           setVisibleErr(true);
         }
       } catch (error) {
@@ -282,99 +313,11 @@ const CreateEventView = () => {
       }
     }
   };
-  function deleteImage(index) {
-    var imageArray = [...eventPhoto];
-    imageArray.splice(index, 1);
-    setEventPhoto(imageArray);
-  }
-  const renderEventImage = () => {
-    return (
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={eventPhoto}
-        horizontal={true}
-        renderItem={({ item, index }) => {
-          return (
-            <View style={{ width: 120, height: 120, margin: 5 }}>
-              <TouchableOpacity
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: 20,
-                  position: "absolute",
-                  zIndex: 9,
-                  right: 5,
-                }}
-                onPress={() => deleteImage(index)}
-              >
-                <Image
-                  source={require("../../Assets/minus_icon_cart.png")}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    marginTop: 5,
-                  }}
-                />
-              </TouchableOpacity>
-              <View style={{ marginLeft: "5%", borderRadius: 30 }}>
-                <Image
-                  source={{ uri: item.path }}
-                  style={{ width: 120, height: 120, borderRadius: 10 }}
-                />
-              </View>
-            </View>
-          );
-        }}
-      />
-    );
-  };
-  const getCategoryList = async () => {
-    try {
-      const response = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
-      if (response.status === 200) {
-        setCategoryListData(response.data.data);
-      } else {
-      }
-    } catch (error) {}
-  };
-  const _handleSelectedCategory = (item) => {
-    setSelectedCategory(item);
-    setEventCategoryModalVisible(false);
-  };
-  const renderCategoryListItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => _handleSelectedCategory(item)}
-        style={{
-          flex: 1,
-          borderBottomWidth: 0.3,
-          borderBottomColor: "#f2f2f2",
-          padding: 10,
-          paddingVertical: 15,
-          marginHorizontal: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: BLACK_COLOR_CODE,
-          }}
-        >
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <CreateEvent
-        locationData={locationData}
-        setLocationData={setLocationData}
-        description={description}
-        setDescription={setDescription}
-        eventPhoto={eventPhoto}
         onPressOpenEventImage={onPressOpenEventImage}
         renderEventImage={renderEventImage}
         setEventModalVisible={setEventModalVisible}
@@ -382,49 +325,19 @@ const CreateEventView = () => {
         onPressCreateEvent={onPressCreateEvent}
         isEndTimePickerVisible={isEndTimePickerVisible}
         handleEndTimeConfirm={handleEndTimeConfirm}
-        hideEndTimePicker={hideEndTimePicker}
-        selectedEndTime={selectedEndTime}
-        showEndTimePicker={showEndTimePicker}
-        selectedDate={selectedDate}
+        setIsEndTimePickerVisible={setIsEndTimePickerVisible}
         isDatePickerVisible={isDatePickerVisible}
         handleConfirm={handleConfirm}
-        hideDatePicker={hideDatePicker}
-        showDatePicker={showDatePicker}
-        showTimePicker={showTimePicker}
+        setDatePickerVisibility={setDatePickerVisibility}
         isStartTimePickerVisible={isStartTimePickerVisible}
         handleTimeConfirm={handleTimeConfirm}
-        hideTimePicker={hideTimePicker}
-        startTime={startTime}
+        setIsStartTimePickerVisible={setIsStartTimePickerVisible}
         onPressPublicVenue={onPressPublicVenue}
-        onPressPrivateAdd={onPressPrivateAdd}
-        onPressFreeEvent={onPressFreeEvent}
-        FreeEvent={FreeEvent}
         checkbox={checkbox}
-        privateCheck={privateCheck}
-        setEventName={setEventName}
-        EventName={EventName}
-        setBusinessName={setBusinessName}
-        BusinessName={BusinessName}
-        setNearBy={setNearBy}
-        NearBy={NearBy}
-        setWhatWhy={setWhatWhy}
-        WhatWhy={WhatWhy}
-        setOfficialWeb={setOfficialWeb}
-        OfficialWeb={OfficialWeb}
-        setTicketURL={setTicketURL}
-        TicketURL={TicketURL}
-        setPriceFrom={setPriceFrom}
-        PriceFrom={PriceFrom}
-        setPriceTo={setPriceTo}
-        PriceTo={PriceTo}
         eventCategoryModalVisible={eventCategoryModalVisible}
         setEventCategoryModalVisible={setEventCategoryModalVisible}
-        _handleModalOpen={_handleModalOpen}
         renderCategoryListItem={renderCategoryListItem}
         categoryListData={categoryListData}
-        selectedCategory={selectedCategory}
-        nearByLocationData={nearByLocationData}
-        setNearByLocationData={setNearByLocationData}
         createEvent={createEvent}
         setCreateEvent={setCreateEvent}
       />
@@ -437,8 +350,6 @@ const CreateEventView = () => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
       />
     </View>
   );

@@ -6,6 +6,10 @@ import {
   SMALL_TEXT_COLOR_CODE,
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
+  LIGHT_GREY_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
+  LIGHT_WHITE_COLOR,
+  GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
@@ -17,27 +21,28 @@ const Styles = StyleSheet.create({
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
-  seeAllTxt: {
-    fontSize: 16,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: SMALL_TEXT_COLOR_CODE,
+  seeOnVw: {
+    borderColor: BLACK_COLOR_CODE,
+    borderWidth: 0.3,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 2,
   },
-  seeForTxt: {
+  seeOnTxt: {
     fontSize: 14,
     fontFamily: FONT_FAMILY_REGULAR,
-    color: SMALL_TEXT_COLOR_CODE,
-    marginLeft: 4,
+    color: LIGHT_BLACK_COLOR_CODE,
   },
   seeForImg: {
-    width: 16,
-    height: 16,
+    width: 14,
+    height: 14,
     marginLeft: 8,
     resizeMode: "contain",
     top: 2,
     tintColor: SMALL_TEXT_COLOR_CODE,
   },
   containerVw: {
-    paddingVertical: 10,
+    paddingVertical: 8,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -88,7 +93,6 @@ const Styles = StyleSheet.create({
   },
   allEventsVw: {
     paddingHorizontal: 20,
-    flexGrow: 1,
   },
   lablestyle: {
     flexDirection: "row",

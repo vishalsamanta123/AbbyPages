@@ -47,6 +47,7 @@ const EventListingScreen = (props) => {
     props?.setEventType(0);
     props.getEventList(0), props.setOpenAll(true);
     props.setLimit(12);
+    props.setSearchDate("");
   };
   const handleCloseDate = () => {
     props.setOpenSearchDate(false);
@@ -117,33 +118,37 @@ const EventListingScreen = (props) => {
           </View>
         )}
         <View style={styles.containers}>
+          <Text style={styles.eventTitlesTxt}>Events</Text>
           <View
             style={[styles.straightVw, { justifyContent: "space-between" }]}
           >
-            <Text style={styles.eventTitlesTxt}>Events</Text>
-            <TouchableOpacity onPress={() => handleSeeAll()}>
-              <Text style={styles.seeAllTxt}>See All</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setAlsoSeeFor(!alsoSeeFor);
+                if (alsoSeeFor) {
+                  props.setEventType(0);
+                  props.setIsSelectedDay(null);
+                }
+              }}
+              style={[styles.straightVw, styles.seeOnVw]}
+            >
+              <Text style={styles.seeOnTxt}>See Events For</Text>
+              <Image
+                style={styles.seeForImg}
+                source={
+                  alsoSeeFor
+                    ? require("../../../Assets/link_dropdown_icon_up.png")
+                    : require("../../../Assets/dropdown_icon1.png")
+                }
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.seeOnVw}
+              onPress={() => handleSeeAll()}
+            >
+              <Text style={styles.seeOnTxt}>See All</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              setAlsoSeeFor(!alsoSeeFor);
-              if (alsoSeeFor) {
-                props.setEventType(0);
-              }
-            }}
-            style={styles.straightVw}
-          >
-            <Text style={styles.seeForTxt}>See Events For</Text>
-            <Image
-              style={styles.seeForImg}
-              source={
-                alsoSeeFor
-                  ? require("../../../Assets/link_dropdown_icon_up.png")
-                  : require("../../../Assets/dropdown_icon1.png")
-              }
-            />
-          </TouchableOpacity>
           {alsoSeeFor && (
             <>
               <FlatList
@@ -156,8 +161,8 @@ const EventListingScreen = (props) => {
               />
               <DateTimePickerModal
                 isVisible={props?.openSearchDate}
-                mode="time"
-                onConfirm={props?.handleEndTimeConfirm}
+                mode={"date"}
+                onConfirm={(date) => props?.handleEndTimeConfirm(date)}
                 onCancel={handleCloseDate}
               />
             </>
