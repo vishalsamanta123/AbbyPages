@@ -68,7 +68,7 @@ const StepSeven = ({ navigation }) => {
       // navigation.navigate('StepEight');
     } catch (error) {
       setVisible(false);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };

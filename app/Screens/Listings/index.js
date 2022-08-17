@@ -117,7 +117,7 @@ const ListingsScreenView = ({ navigation, route }) => {
     } catch (error) {
       setVisibleErr(true);
       setVisible(false);
-      setErrorMessage(error.toString());
+      setErrorMessage(error.message);
     }
   };
   const onPressRestro = (item) => {

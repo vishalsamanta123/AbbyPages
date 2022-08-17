@@ -104,7 +104,7 @@ const OrderDetailScreen = (props) => {
             <View style={{ marginTop: 10 }}>
               <Button
                 style={styles.bttnsVw}
-                onPress={() => props.onPressCancel()}
+                onPress={() => props.setCancelOrder(true)}
                 buttonLabelStyle={styles.bttnsTxt}
                 buttonText={
                   props?.orderDetail?.order_booking_type === 3

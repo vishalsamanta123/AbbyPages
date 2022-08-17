@@ -40,7 +40,7 @@ const AddCategory = ({ navigation, route }) => {
       if (params) {
         setEditDeleteType(params);
       }
-      return () => { };
+      return () => {};
     }, [editDeleteType])
   );
   const onPressSave = async () => {
@@ -63,7 +63,7 @@ const AddCategory = ({ navigation, route }) => {
           setVisibleErr(true);
         }
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }
@@ -90,7 +90,11 @@ const AddCategory = ({ navigation, route }) => {
       const params = {
         business_type: 1,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.GET_CATEGORY_LIST, params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.GET_CATEGORY_LIST,
+        params
+      );
       if (data.status === 200) {
         setGetCategoryList(data.data);
         setVisible(false);
@@ -110,22 +114,27 @@ const AddCategory = ({ navigation, route }) => {
         business_item_category_id: item.business_item_category_id,
         business_type: 1,
       };
-      const response = await apiCall("POST", ENDPOINTS.ITEM_CATEGORY_REMOVE_SHOW, params);
+      const response = await apiCall(
+        "POST",
+        ENDPOINTS.ITEM_CATEGORY_REMOVE_SHOW,
+        params
+      );
       if (response.status === 200) {
         item.status === 0
           ? ToastAndroid.show(
-            "Categories successfully active",
-            ToastAndroid.SHORT
-          )
+              "Categories successfully active",
+              ToastAndroid.SHORT
+            )
           : ToastAndroid.show(
-            "Categories successfully un-active",
-            ToastAndroid.SHORT
-          );
+              "Categories successfully un-active",
+              ToastAndroid.SHORT
+            );
         getCategoryListFun();
       } else {
       }
     } catch (error) {
-      console.log("error: ", error);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const _renderCategory = (item) => {
@@ -191,6 +200,8 @@ const AddCategory = ({ navigation, route }) => {
         setEditModalVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
       setEditModalVisible(false);
     }

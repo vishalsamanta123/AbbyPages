@@ -117,7 +117,9 @@ export default function FilterPopUp(props) {
         // setProductCatg([]);
       }
     } catch (error) {
-      console.log("error: ", error);
+      props.setErrorMessage(error.message);
+      props.setVisibleErr(true);
+      props.setVisible(false);
     }
   };
   const handleColors = (val) => {
@@ -180,7 +182,7 @@ export default function FilterPopUp(props) {
           <TouchableOpacity
             onPress={() => {
               props.closeModel();
-              handleReset()
+              handleReset();
             }}
             style={styles.headerArrow}
           >

@@ -135,7 +135,6 @@ const ProductListing = ({ navigation, route }) => {
     navigation.navigate("ProductDetails", { detail: detail });
   };
   const addProductOnCart = async (item, value) => {
-  console.log('item: ', item);
     try {
       const cartProduct = {
         business_id: item.business_id,
@@ -292,6 +291,9 @@ const ProductListing = ({ navigation, route }) => {
         setFilterData={setFilterData}
         filterData={filterData}
         handleFilterProduct={handleFilterProduct}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+        setVisible={setVisible}
       />
       <Error
         message={errorMessage}

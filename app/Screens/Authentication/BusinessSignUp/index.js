@@ -97,9 +97,9 @@ const BusinessSignUpView = ({ navigation }) => {
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
-      } catch (e) {
+      } catch (error) {
         setVisible(false);
-        setErrorMessage(JSON.stringify(e));
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     }

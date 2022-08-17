@@ -147,9 +147,9 @@ const SignInView = ({ navigation }) => {
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
-      } catch (e) {
+      } catch (error) {
         setVisible(false);
-        setErrorMessage(JSON.stringify(e));
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     }
@@ -270,9 +270,9 @@ const SignInView = ({ navigation }) => {
         setErrorMessage(data.message);
         setVisibleErr(true);
       }
-    } catch (e) {
+    } catch (error) {
       setVisible(false);
-      setErrorMessage("Login with " + e);
+      setErrorMessage("Login with " + error.message);
       setVisibleErr(true);
     }
   };

@@ -21,7 +21,11 @@ const ForgotPasswordView = ({ navigation }) => {
         email: email,
       };
       try {
-        const { data } = await apiCall("POST", ENDPOINTS.FORGOT_PASSWORD, params);
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.FORGOT_PASSWORD,
+          params
+        );
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           setSuccessMessage("We have sent OTP on your email please check it.");
@@ -32,9 +36,9 @@ const ForgotPasswordView = ({ navigation }) => {
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
-      } catch (e) {
+      } catch (error) {
         setVisible(false);
-        setErrorMessage(e);
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     } else {

@@ -74,7 +74,11 @@ const GetStarted = ({ navigation, route }) => {
       setVisible(true);
       try {
         const params = businessRegistartionData;
-        const { data } = await apiCall("POST",ENDPOINTS.BUSINESS_SIGN_UP,params);
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.BUSINESS_SIGN_UP,
+          params
+        );
         if (data.status === 200) {
           navigation.navigate("BusinessUserVerify", { email: email });
           setBusinessRegistartionData({
@@ -94,7 +98,7 @@ const GetStarted = ({ navigation, route }) => {
           setVisibleErr(true);
         }
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }
@@ -106,14 +110,23 @@ const GetStarted = ({ navigation, route }) => {
   };
 
   const handleServiceList = async () => {
-    const { data } = await apiCall("POST",ENDPOINTS.GET_BUSINESS_CATEGORY_DETAILS);
-    if (data.status === 200) {
-      setServiceList(data.data);
-      setShowSelectCategory(data.data);
-      setServiceListForSearch(data.data);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.GET_BUSINESS_CATEGORY_DETAILS
+      );
+      if (data.status === 200) {
+        setServiceList(data.data);
+        setShowSelectCategory(data.data);
+        setServiceListForSearch(data.data);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
+      setVisible(false);
     }
   };
 

@@ -210,7 +210,7 @@ const ApplyJobView = ({ navigation, route }) => {
           setVisibleErr(true);
         }
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     }

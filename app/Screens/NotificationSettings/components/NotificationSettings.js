@@ -76,7 +76,10 @@ const NotificationSettings = (props) => {
                     )}
                     {item.primary_status !== 1 && (
                       <TouchableOpacity
-                        onPress={() => props.onPressDeleteEmail(item)}
+                        onPress={() => {
+                          props.setDeleteEmail(true);
+                          props.setDeleteEmailData(item);
+                        }}
                       >
                         <Image
                           resizeMode="contain"
@@ -1086,13 +1089,15 @@ const NotificationSettings = (props) => {
                 <TouchableOpacity
                   onPress={() =>
                     props.handlePushNotification(
-                      props?.pushNotificationSetting?.order_and_purchase_updates,
+                      props?.pushNotificationSetting
+                        ?.order_and_purchase_updates,
                       "order_and_purchase_updates"
                     )
                   }
                   style={styles.MainGetEmailView}
                 >
-                  {props?.pushNotificationSetting?.order_and_purchase_updates === 1 ? (
+                  {props?.pushNotificationSetting
+                    ?.order_and_purchase_updates === 1 ? (
                     <Image
                       source={require("../../../Assets/checked_squared_icon_small.png")}
                     />

@@ -308,7 +308,7 @@ const CreateEventView = () => {
         }
       } catch (error) {
         setVisible(false);
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     }

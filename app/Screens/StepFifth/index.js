@@ -27,16 +27,22 @@ const StepFifth = ({ navigation, route }) => {
     getProfile();
   }, []);
   const getProfile = async () => {
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setProfileData(data.data);
-      setLocalUserData({
-        email: data.data?.email ? data.data?.email : "",
-        mobile: data.data?.phone ? data.data?.phone : "",
-        user_name: data.data?.first_name
-          ? data.data?.first_name + " " + data.data?.last_name
-          : "",
-      });
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setProfileData(data.data);
+        setLocalUserData({
+          email: data.data?.email ? data.data?.email : "",
+          mobile: data.data?.phone ? data.data?.phone : "",
+          user_name: data.data?.first_name
+            ? data.data?.first_name + " " + data.data?.last_name
+            : "",
+        });
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const validationFormForLocalUserData = () => {

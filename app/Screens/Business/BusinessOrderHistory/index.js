@@ -80,9 +80,13 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
         setIsSelectedCatgory(selectIndex);
         setVisible(false);
       } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
         setVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -104,6 +108,8 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };

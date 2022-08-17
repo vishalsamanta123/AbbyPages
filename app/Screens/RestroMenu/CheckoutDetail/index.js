@@ -45,16 +45,22 @@ const CheckoutDetailView = ({ navigation }) => {
       setLocation(JSON.parse(orderData).address);
       setDeliveryType(JSON.parse(orderData).delivery_type);
     }
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setLocalUserData({
-        ...localUserData,
-        first_name: data?.data?.first_name ? data?.data.first_name : "",
-        last_name: data?.data?.last_name ? data?.data.last_name : "",
-        email: data?.data?.email ? data?.data?.email : "",
-        mobile: data?.data?.phone ? data?.data?.phone : "",
-        order_payment_type: paymentMethod ? 1 : 2,
-      });
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setLocalUserData({
+          ...localUserData,
+          first_name: data?.data?.first_name ? data?.data.first_name : "",
+          last_name: data?.data?.last_name ? data?.data.last_name : "",
+          email: data?.data?.email ? data?.data?.email : "",
+          mobile: data?.data?.phone ? data?.data?.phone : "",
+          order_payment_type: paymentMethod ? 1 : 2,
+        });
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const onPressPaymentMethod = () => {

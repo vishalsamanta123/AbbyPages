@@ -98,7 +98,7 @@ const UpdateProfileView = ({ navigation }) => {
       }
     } catch (error) {
       setVisible(false);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
@@ -128,14 +128,20 @@ const UpdateProfileView = ({ navigation }) => {
     }
   };
   const getProfileData = async () => {
-    setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setProfileData(data.data);
-      setCameraImage(data.data.profile_image);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      setVisible(true);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setProfileData(data.data);
+        setCameraImage(data.data.profile_image);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -176,21 +182,27 @@ const UpdateProfileView = ({ navigation }) => {
   const handleEditProfile = async () => {
     const valid = validationForEditProfile();
     if (valid == true) {
-      setVisible(true);
-      const params = profileData;
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.EDIT_USER_PROFILE,
-        params
-      );
-      if (data.status === 200) {
-        setSuccessMessage(data.message);
-        setVisibleSuccess(true);
-        setVisible(false);
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
+      try {
+        setVisible(true);
+        const params = profileData;
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.EDIT_USER_PROFILE,
+          params
+        );
+        if (data.status === 200) {
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
+          setVisible(false);
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
         setVisibleErr(true);
+        setVisible(false);
       }
     }
   };

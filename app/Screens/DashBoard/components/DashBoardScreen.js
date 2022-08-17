@@ -12,23 +12,14 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import styles from "./styles";
-import {
-  WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-} from "../../../Utils/Constant";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 const DashBoardScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
+    <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}
@@ -38,16 +29,20 @@ const DashBoardScreen = (props) => {
       />
       <ScrollView
         keyboardShouldPersistTaps={"always"}
-        contentContainerStyle={{ flexGrow: 1 }}>
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <View style={styles.LocatnSrchCntain}>
           <TouchableOpacity
             onPress={() => props.onPressSearchBusinessCategory()}
-            style={styles.TextInputView}>
+            style={styles.TextInputView}
+          >
             {props.businessCategory === "" ? (
-              <Text style={[
+              <Text
+                style={[
                   styles.TextInputStyle,
                   { paddingVertical: 16, color: "grey" },
-                ]}>
+                ]}
+              >
                 Eg: food, service, barber, hotel
               </Text>
             ) : (
@@ -72,39 +67,29 @@ const DashBoardScreen = (props) => {
                   longitude: details.geometry.location.lng,
                 });
               }}
-              onChangeText={(address) =>
-                props.setLocation({
-                  ...props.location,
-                  address: address,
-                })
-              }
+              textInputProps={{
+                placeholderTextColor: "grey",
+                onChangeText: (address) => {
+                  props.setLocation({
+                    ...props.location,
+                    address: address,
+                  });
+                },
+                value: props.location.address,
+              }}
               value={props.location.address}
               query={{
                 key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
                 language: "en",
               }}
-              styles={{
-                textInputContainer: {
-                  borderRadius: 4,
-                  backgroundColor: WHITE_COLOR_CODE,
-                  fontSize: 16,
-                  paddingLeft: 40,
-                  fontFamily: FONT_FAMILY_REGULAR,
-                },
-                textInput: {
-                  fontSize: 16,
-                  color: BLACK_COLOR_CODE,
-                },
-                listView: {
-                  backgroundColor: WHITE_COLOR_CODE,
-                },
-              }}
+              styles={styles.addressVw}
               minLength={2}
               autoFocus={false}
               returnKeyType={"default"}
             />
             <Image
               style={styles.TextInputImge}
+              resizeMode={"contain"}
               source={require("../../../Assets/map_field_icon.png")}
             />
           </View>
@@ -122,7 +107,8 @@ const DashBoardScreen = (props) => {
         <View style={styles.OptionsConatin}>
           <TouchableOpacity
             onPress={() => props.onPressRestro()}
-            style={styles.MainOptinsView}>
+            style={styles.MainOptinsView}
+          >
             <View style={styles.OptnsImgContain}>
               <Image
                 source={require("../../../Assets/restaurant_list_icon.png")}

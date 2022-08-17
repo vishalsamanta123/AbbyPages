@@ -41,8 +41,8 @@ const UserVerify = ({ route, navigation }) => {
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
-      } catch (err) {
-        setErrorMessage(err);
+      } catch (error) {
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }
@@ -68,9 +68,9 @@ const UserVerify = ({ route, navigation }) => {
         setErrorMessage(data.message);
         setVisibleErr(true);
       }
-    } catch (e) {
+    } catch (error) {
       setVisible(false);
-      setErrorMessage(e);
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };

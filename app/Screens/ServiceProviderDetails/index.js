@@ -83,7 +83,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(JSON.stringify(error));
+      setErrorMessage(error.message);
     }
   };
   const handlePhotos = (item, index) => {
@@ -152,8 +152,8 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisible(false);
-      // setErrorMessage(error);
-      // setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const _handleOptions = (item) => {
@@ -212,7 +212,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       </View>
     );
   };
-  
+
   function validationFormReview() {
     if (reviewData.title == "") {
       setErrorMessage("Please enter title");
@@ -258,7 +258,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         }
       } catch (error) {
         setVisibleErr(true);
-        setErrorMessage(error);
+        setErrorMessage(error.message);
       }
     }
   };

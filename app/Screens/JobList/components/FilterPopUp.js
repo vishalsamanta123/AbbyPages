@@ -65,6 +65,8 @@ export default function FilterPopUp(props) {
         props.setLoader(false);
       }
     } catch (error) {
+      props.setErrorMessage(error.message);
+      props.setVisibleErr(true);
       props.setLoader(false);
     }
   };
@@ -95,6 +97,8 @@ export default function FilterPopUp(props) {
         props.setLoader(false);
       }
     } catch (error) {
+      props.setErrorMessage(error.message);
+      props.setVisibleErr(true);
       props.setLoader(false);
     }
   };
@@ -352,7 +356,10 @@ export default function FilterPopUp(props) {
               )}
             </View>
             <View style={{ marginTop: 20 }}>
-              <Button buttonText={"Filter"} onPress={() => handleFilterDone()} />
+              <Button
+                buttonText={"Filter"}
+                onPress={() => handleFilterDone()}
+              />
             </View>
           </View>
         </ScrollView>
