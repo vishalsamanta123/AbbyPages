@@ -81,7 +81,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         }
       }
     } catch (error) {
-      setErrorMessage(data.message);
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -120,25 +120,31 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
   const onPressLike = async (detail) => {
-    setVisible(true);
-    const params = {
-      business_id: detail.business_id,
-      like_status: detail.user_like == 1 ? 0 : 1,
-    };
-    const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
-    if (data.status == 200) {
-      ToastAndroid.show(data.message, ToastAndroid.SHORT);
-      setVisible(false);
-      if (search) {
-        if (inputSearch) {
+    try {
+      setVisible(true);
+      const params = {
+        business_id: detail.business_id,
+        like_status: detail.user_like == 1 ? 0 : 1,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      if (data.status == 200) {
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        setVisible(false);
+        if (search) {
+          if (inputSearch) {
+            handleSearchData(offSet);
+          }
           handleSearchData(offSet);
+        } else {
+          handleServiceList(offSet);
         }
-        handleSearchData(offSet);
       } else {
-        handleServiceList(offSet);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
       }
-    } else {
-      setErrorMessage(data.message);
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }

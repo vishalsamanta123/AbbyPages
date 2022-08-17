@@ -56,7 +56,7 @@ const ProductDetails = ({ navigation, route }) => {
         setVisible(false);
       }
     } catch (error) {
-      setErrorMessage(data.message);
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -111,7 +111,7 @@ const ProductDetails = ({ navigation, route }) => {
           setVisible(false);
         }
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }

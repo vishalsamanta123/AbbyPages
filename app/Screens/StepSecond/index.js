@@ -51,33 +51,39 @@ const StepSecond = ({ navigation, route }) => {
   const onPressNext = async () => {
     const valid = validationForCategory();
     if (valid) {
-      setVisible(true);
-      const params = {
-        business_type: 3,
-        category_id: selectedCategory.category_id,
-        // category_id: 389,//selectedCategory.category_id
-        parent_question_id: 0,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.SERVICE_QUESTION_ANSWER,
-        params
-      );
-      if (data.status === 200) {
+      try {
+        setVisible(true);
         const params = {
-          serviceDetail,
-          selectedCategory: selectedCategory,
-          selectedSubCategory: selectedCategory,
+          business_type: 3,
+          category_id: selectedCategory.category_id,
+          // category_id: 389,//selectedCategory.category_id
+          parent_question_id: 0,
         };
-        setServiceProviderData(params);
-        setVisible(false);
-        if (data.question_status === "question_finished") {
-          navigation.navigate("StepThird");
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.SERVICE_QUESTION_ANSWER,
+          params
+        );
+        if (data.status === 200) {
+          const params = {
+            serviceDetail,
+            selectedCategory: selectedCategory,
+            selectedSubCategory: selectedCategory,
+          };
+          setServiceProviderData(params);
+          setVisible(false);
+          if (data.question_status === "question_finished") {
+            navigation.navigate("StepThird");
+          } else {
+            setQueAnsData(data.data);
+          }
         } else {
-          setQueAnsData(data.data);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setVisible(false);
         }
-      } else {
-        setErrorMessage(data.message);
+      } catch (error) {
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }
@@ -129,7 +135,7 @@ const StepSecond = ({ navigation, route }) => {
           setVisible(false);
         }
       } catch (error) {
-        setErrorMessage(data.message);
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }

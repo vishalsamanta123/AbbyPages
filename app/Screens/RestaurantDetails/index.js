@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useContext } from "react";
 import {
   Dimensions,
   View,
@@ -16,6 +16,7 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../Utils/Constant";
+import { useFocusEffect } from "@react-navigation/native";
 import ImagePicker from "react-native-image-crop-picker";
 import _ from "lodash";
 import styles from "./components/styles";
@@ -27,7 +28,10 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import { CartContext } from "../../Utils/UserContext";
+
 const RestaurantDetailsView = ({ navigation, route }) => {
+  const [cartData, setCartData] = useContext(CartContext);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -56,8 +60,19 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       const { detail } = route.params;
       setRestroDetail(detail); //state
       handleRestroDetails(detail); //function
+      setCartData([]);
     }
   }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params) {
+        const { detail } = route.params;
+        setRestroDetail(detail); //state
+        handleRestroDetails(detail); //function
+        setCartData([]);
+      }
+    }, [])
+  );
   const handleRestroDetails = async (data) => {
     setVisible(true);
     const params = {
@@ -81,7 +96,8 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisibleErr(true);
-      setErrorMessage(JSON.stringify(error));
+      setErrorMessage(error.message);
+      setVisible(false);
     }
   };
   const onPressRestro = (item) => {
@@ -322,8 +338,9 @@ const RestaurantDetailsView = ({ navigation, route }) => {
           setVisible(false);
         }
       } catch (error) {
+        setVisible(false);
         setVisibleErr(true);
-        setErrorMessage(error);
+        setErrorMessage(error.message);
       }
     }
   };
@@ -378,7 +395,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisible(false);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
@@ -430,7 +447,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       }
     } catch (error) {
       setVisible(false);
-      setErrorMessage(JSON.stringify(error));
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };

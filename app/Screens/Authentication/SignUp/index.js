@@ -42,7 +42,7 @@ const SignUpView = ({ navigation }) => {
     latitude: "",
     longitude: "",
   });
-  console.log('registrationData: ', registrationData);
+  console.log("registrationData: ", registrationData);
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
@@ -128,9 +128,9 @@ const SignUpView = ({ navigation }) => {
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
-      } catch (e) {
+      } catch (error) {
         setVisible(false);
-        setErrorMessage(JSON.stringify(e));
+        setErrorMessage(error.message);
         setVisibleErr(true);
       }
     }
@@ -318,9 +318,9 @@ const SignUpView = ({ navigation }) => {
         setErrorMessage(data.message);
         setVisibleErr(true);
       }
-    } catch (e) {
+    } catch (error) {
       setVisible(false);
-      setErrorMessage("Login with " + e);
+      setErrorMessage("Login with " + error.message);
       setVisibleErr(true);
     }
   };

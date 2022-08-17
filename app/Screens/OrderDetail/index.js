@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, ToastAndroid, View } from "react-native";
+import { ToastAndroid, View } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import OrderDetailScreen from "./components/OrderDetailScreen";
 import { apiCall } from "../../Utils/httpClient";
@@ -7,12 +7,14 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import QuestionModal from "../../Components/Modal/questionModal";
 const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [cancelOrder, setCancelOrder] = useState(false);
   const [orderDetail, setOrderDetail] = useState("");
   const [businessType, setBusinessType] = useState("");
   useEffect(() => {
@@ -44,29 +46,15 @@ const OrderDetailIndex = ({ route, navigation }) => {
         setVisibleErr(true);
       }
     } catch (error) {
-      setErrorMessage(error);
+      setErrorMessage(error.message);
       setVisible(false);
       setVisibleErr(true);
     }
   };
-  const onPressCancel = () => {
-    Alert.alert(
-      "",
-      "Are you sure you want cancel this order",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => cancelOrder() },
-      ],
-      { cancelable: false }
-    );
-  };
-  const cancelOrder = async () => {
+  const CanceledOrder = async () => {
     try {
       setVisible(true);
+      setCancelOrder(false);
       const params = {
         order_id: orderDetail.order_id,
         business_type: orderDetail.business_type,
@@ -99,8 +87,8 @@ const OrderDetailIndex = ({ route, navigation }) => {
       {visible && <Loader state={visible} />}
       <OrderDetailScreen
         orderDetail={orderDetail}
-        onPressCancel={onPressCancel}
         onPressInvoice={onPressInvoice}
+        setCancelOrder={setCancelOrder}
       />
       <Error
         message={errorMessage}
@@ -111,6 +99,12 @@ const OrderDetailIndex = ({ route, navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        message={"Are you sure you want cancel this order"}
+        surringVisible={cancelOrder}
+        positiveResponse={() => CanceledOrder()}
+        negativeResponse={() => setCancelOrder(false)}
       />
     </View>
   );

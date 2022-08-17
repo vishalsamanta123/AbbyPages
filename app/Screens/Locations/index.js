@@ -118,22 +118,28 @@ const LocationsView = ({ navigation }) => {
     navigation.navigate("AddLocation");
   };
   const onPressPrimary = async (location_id) => {
-    setVisible(true);
-    const params = {
-      location_id: location_id,
-    };
-    const { data } = await apiCall(
-      "POST",
-      ENDPOINTS.CHANGE_PRIMARY_LOCATION,
-      params
-    );
-    if (data.status === 200) {
-      DashBoardDetails();
-      setVisibleSuccess(true);
-      setSuccessMessage(data.message);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      setVisible(true);
+      const params = {
+        location_id: location_id,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.CHANGE_PRIMARY_LOCATION,
+        params
+      );
+      if (data.status === 200) {
+        DashBoardDetails();
+        setVisibleSuccess(true);
+        setSuccessMessage(data.message);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }

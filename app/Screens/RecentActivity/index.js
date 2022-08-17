@@ -34,7 +34,7 @@ const RecentActivityView = () => {
         setVisible(false);
       }
     } catch (error) {
-      setErrorMessage(data.message);
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }

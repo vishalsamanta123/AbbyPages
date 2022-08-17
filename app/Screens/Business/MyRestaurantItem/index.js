@@ -67,8 +67,8 @@ const MyRestaurantItemView = ({ navigation }) => {
         // setVisibleErr(true);
       }
     } catch (error) {
-      // setErrorMessage(error);
-      // setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -91,9 +91,9 @@ const MyRestaurantItemView = ({ navigation }) => {
         // setVisibleErr(true);
       }
     } catch (error) {
-      // setErrorMessage(error);
+      setErrorMessage(error.message);
       setGetItemList([]);
-      // setVisibleErr(true);
+      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -121,7 +121,9 @@ const MyRestaurantItemView = ({ navigation }) => {
       } else {
       }
     } catch (error) {
-      console.log("error: ", error);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const _handleDeleteItems = async (item) => {
@@ -141,7 +143,11 @@ const MyRestaurantItemView = ({ navigation }) => {
         getItemListFun(activeCategory.categoryId);
       } else {
       }
-    } catch (error) {}
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
   };
 
   const _handleDataTypeSelected = (index, item) => {

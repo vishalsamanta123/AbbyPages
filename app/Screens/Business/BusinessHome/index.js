@@ -42,6 +42,8 @@ const BusinessHomeView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -74,6 +76,8 @@ const BusinessHomeView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };

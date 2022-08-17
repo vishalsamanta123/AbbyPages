@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Alert } from "react-native";
+import { View } from "react-native";
 import auth from "@react-native-firebase/auth";
 import CommonStyles from "../../Utils/CommonStyles";
 import CountryData from "../../Components/CountryData/countryData";
@@ -10,6 +10,8 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import Error from "../../Components/Modal/error";
+import QuestionModal from "../../Components/Modal/questionModal";
+
 const NotificationSettingsView = ({ navigation }) => {
   const [filterCountry, SetfilterCountry] = useState(CountryData);
   const [ModalVisible, setModalVisible] = useState(false);
@@ -28,6 +30,8 @@ const NotificationSettingsView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [deleteEmail, setDeleteEmail] = useState(false);
+  const [deleteEmailData, setDeleteEmailData] = useState("");
 
   const [notificationSettings, setNotificationSettings] = useState("");
   const [pushNotificationSetting, setPushNotificationSetting] = useState("");
@@ -82,19 +86,29 @@ const NotificationSettingsView = ({ navigation }) => {
       });
   };
   const addPhoneInDatabse = async (mobile_number) => {
-    const params = {
-      mobile_number: mobile_number,
-    };
-    setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.ADD_PHONE_NUMBER, params);
-    if (data.status === 200) {
-      DashBoardDetails();
-      setConfirm("");
-      setSuccessMessage(data.message);
-      setVisibleSuccess(true);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      const params = {
+        mobile_number: mobile_number,
+      };
+      setVisible(true);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.ADD_PHONE_NUMBER,
+        params
+      );
+      if (data.status === 200) {
+        DashBoardDetails();
+        setConfirm("");
+        setSuccessMessage(data.message);
+        setVisibleSuccess(true);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -120,60 +134,75 @@ const NotificationSettingsView = ({ navigation }) => {
   const onPressSavePhone = async () => {
     const valid = validationFormPhone();
     if (valid) {
-      setVisible(true);
-      const params = {
-        mobile_number: dashBoardDetails.mobile,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.CHECK_NUMBER_FOR_NOTIFICATION,
-        params
-      );
-      if (data.status === 200) {
-        await auth()
-          .signInWithPhoneNumber(SelectedCode + params.mobile_number)
-          .then((abc) => {
-            setConfirm(abc);
-            setVisible(false);
-          })
-          .catch((error) => {
-            setVisible(false);
-            setVisibleErr(true);
-            setErrorMessage(error.message);
-          });
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
+      try {
+        setVisible(true);
+        const params = {
+          mobile_number: dashBoardDetails.mobile,
+        };
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.CHECK_NUMBER_FOR_NOTIFICATION,
+          params
+        );
+        if (data.status === 200) {
+          await auth()
+            .signInWithPhoneNumber(SelectedCode + params.mobile_number)
+            .then((abc) => {
+              setConfirm(abc);
+              setVisible(false);
+            })
+            .catch((error) => {
+              setVisible(false);
+              setVisibleErr(true);
+              setErrorMessage(error.message);
+            });
+          setVisible(false);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setVisible(false);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }
     }
   };
   const DashBoardDetails = async () => {
-    setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
-    if (data.status === 200) {
-      setDashBoardDetails(data.data);
-      setEmailList(data.data.user_email);
-      if (data.data.mobile) {
-        let code = data.data.mobile.substring(0, data.data.mobile.length - 10);
-        CountryData.map((item) => {
-          if (code === item.dial_code) {
-            SetSelectedCountry(item.name);
-            SetSelectedCode(item.dial_code);
-            SetSelectedCountryFlag(item.flag);
-          }
-        });
+    try {
+      setVisible(true);
+      const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
+      if (data.status === 200) {
+        setDashBoardDetails(data.data);
+        setEmailList(data.data.user_email);
+        if (data.data.mobile) {
+          let code = data.data.mobile.substring(
+            0,
+            data.data.mobile.length - 10
+          );
+          CountryData.map((item) => {
+            if (code === item.dial_code) {
+              SetSelectedCountry(item.name);
+              SetSelectedCode(item.dial_code);
+              SetSelectedCountryFlag(item.flag);
+            }
+          });
+        }
+        if (data.data.notification_setting) {
+          setNotificationSettings(data.data.notification_setting);
+        }
+        if (data.data.push_notification_setting) {
+          setPushNotificationSetting(data.data.push_notification_setting);
+        }
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
       }
-      if (data.data.notification_setting) {
-        setNotificationSettings(data.data.notification_setting);
-      }
-      if (data.data.push_notification_setting) {
-        setPushNotificationSetting(data.data.push_notification_setting);
-      }
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -182,22 +211,9 @@ const NotificationSettingsView = ({ navigation }) => {
     navigation.navigate("AddEmail");
   };
 
-  const onPressDeleteEmail = (item) =>
-    Alert.alert(
-      "",
-      "Are you sure you want delete Email",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => onPressDeleteEmail2(item) },
-      ],
-      { cancelable: false }
-    );
   const onPressDeleteEmail2 = async (item) => {
     setVisible(true);
+    setDeleteEmail(false);
     try {
       const params = {
         type: 2,
@@ -211,16 +227,19 @@ const NotificationSettingsView = ({ navigation }) => {
       if (data.status === 200) {
         DashBoardDetails();
         setVisibleSuccess(true);
+        setDeleteEmailData("");
         setSuccessMessage(data.message);
         setVisible(false);
       } else {
+        setDeleteEmailData("");
         setErrorMessage(data.message);
         setVisibleErr(true);
         setVisible(false);
       }
     } catch (error) {
+      setDeleteEmailData("");
       setVisibleErr(true);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
   const apiCallUpdateNotification = async (params) => {
@@ -243,7 +262,7 @@ const NotificationSettingsView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
-      setErrorMessage(error);
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -324,22 +343,28 @@ const NotificationSettingsView = ({ navigation }) => {
     navigation.navigate("ProfileSettings");
   };
   const onPressPrimaryEmail = async (email_id) => {
-    setVisible(true);
-    const params = {
-      email_id: email_id,
-    };
-    const { data } = await apiCall(
-      "POST",
-      ENDPOINTS.CHANGE_PRIMARY_EMAIL,
-      params
-    );
-    if (data.status === 200) {
-      DashBoardDetails();
-      setVisibleSuccess(true);
-      setSuccessMessage(data.message);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      setVisible(true);
+      const params = {
+        email_id: email_id,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.CHANGE_PRIMARY_EMAIL,
+        params
+      );
+      if (data.status === 200) {
+        DashBoardDetails();
+        setVisibleSuccess(true);
+        setSuccessMessage(data.message);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
@@ -609,7 +634,8 @@ const NotificationSettingsView = ({ navigation }) => {
         handlePushNotification={handlePushNotification}
         onPressPrimaryEmail={onPressPrimaryEmail}
         onPressSavePhone={onPressSavePhone}
-        onPressDeleteEmail={onPressDeleteEmail}
+        setDeleteEmail={setDeleteEmail}
+        setDeleteEmailData={setDeleteEmailData}
         onPressCancel={onPressCancel}
         emailList={emailList}
         onPressAddEmail={onPressAddEmail}
@@ -633,6 +659,15 @@ const NotificationSettingsView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        message={"Are you sure you want to delete Email"}
+        surringVisible={deleteEmail}
+        positiveResponse={() => onPressDeleteEmail2(deleteEmailData)}
+        negativeResponse={() => {
+          setDeleteEmail(false);
+          setDeleteEmailData("");
+        }}
       />
     </View>
   );

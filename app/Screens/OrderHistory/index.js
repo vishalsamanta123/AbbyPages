@@ -41,6 +41,8 @@ const OrderHistoryView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };

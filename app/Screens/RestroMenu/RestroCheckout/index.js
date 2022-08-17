@@ -20,11 +20,14 @@ import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import QuestionModal from "../../../Components/Modal/questionModal";
 const RestroCheckoutView = ({ navigation }) => {
   const [isDateTimePickerVisible, setDateTimePickerVisibility] =
     useState(false);
   const [dateTime, setDateTime] = useState("");
 
+  const [removeItem, setRemoveItem] = useState(false);
+  const [removeIndex, setRemoveIndex] = useState("");
   const [delivery_type, setDeliveryType] = useState(true);
   const [cartData, setCartData] = useContext(CartContext);
   const [cartLocalData, setCartLocalData] = useState("");
@@ -55,12 +58,12 @@ const RestroCheckoutView = ({ navigation }) => {
     handleFinalAmount();
     const DateTime = moment().format("h:mm:ss a,Do MMMM");
     setDateTime(DateTime);
-  }, []);
+  }, [removeIndex]);
   const _handleDetails = async () => {
     try {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
-      console.log('data: ', data);
+      console.log("data: ", data);
       if (data.status === 200) {
         setLocationList(data.data.user_location && data.data.user_location);
         if (data.data.user_location) {
@@ -76,7 +79,6 @@ const RestroCheckoutView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
-    console.log('error: ', error);
       setVisible(false);
       setVisibleErr(true);
       setErrorMessage(error.message);
@@ -104,30 +106,17 @@ const RestroCheckoutView = ({ navigation }) => {
     setLocation([item]);
     setAddressVisible(false);
   };
-  const onPressRemoveItem = (item, index) => {
-    Alert.alert(
-      "Delete Item From Cart",
-      "Are you sure want to delete this item from Your cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => deleteItem(item, index) },
-      ],
-      { cancelable: false }
-    );
-  };
-  const deleteItem = (item, index) => {
+  const DeleteItem = (index) => {
     try {
       setVisible(true);
+      setRemoveItem(false);
       const cartLocalFunctionData = [...cartLocalData];
       const newItems = cartLocalFunctionData?.filter(
         (ele, key) => key != index
       );
       setCartLocalData(newItems);
       setCartData(newItems);
+      setRemoveIndex("");
       const FinalAmount = cartLocalFunctionData.reduce(
         (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
         0
@@ -137,6 +126,7 @@ const RestroCheckoutView = ({ navigation }) => {
     } catch (error) {
       setErrorMessage(error.message);
       setVisibleErr(false);
+      setVisible(false);
     }
   };
   const handleFinalAmount = (item, index) => {
@@ -171,10 +161,16 @@ const RestroCheckoutView = ({ navigation }) => {
     );
   };
   const _handleDishItem = (item, index) => {
+  console.log('item: ', item);
     return (
       <View style={styles.DishMainView}>
         <View style={styles.DishTextCOntain}>
-          <TouchableOpacity onPress={() => onPressRemoveItem(item, index)}>
+          <TouchableOpacity
+            onPress={() => {
+              setRemoveItem(true);
+              setRemoveIndex(index);
+            }}
+          >
             <Image source={require("../../../Assets/minus_icon_cart.png")} />
           </TouchableOpacity>
           <Text style={styles.DishTextStyle}>{item.quantity}</Text>
@@ -268,6 +264,13 @@ const RestroCheckoutView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        surringVisible={removeItem}
+        topMessage={"Delete Item From Cart"}
+        message={"Are you sure want to delete this item from Your cart ?"}
+        positiveResponse={() => DeleteItem(removeIndex)}
+        negativeResponse={() => setRemoveItem(false)}
       />
     </View>
   );

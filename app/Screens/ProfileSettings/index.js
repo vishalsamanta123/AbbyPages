@@ -18,13 +18,19 @@ const ProfileSettingsView = ({ navigation }) => {
     getProfileData();
   }, []);
   const getProfileData = async () => {
-    setVisible(true);
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setUserProfileData(data.data);
-      setVisible(false);
-    } else {
-      setErrorMessage(data.message);
+    try {
+      setVisible(true);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setUserProfileData(data.data);
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }

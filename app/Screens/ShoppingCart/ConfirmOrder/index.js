@@ -41,14 +41,20 @@ const ConfirmOrderView = ({ navigation }) => {
       0
     );
     setTotalOrderAmount(total_order_amount);
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setLocalUserData({
-        first_name: data.data.first_name ? data.data.first_name : "",
-        last_name: data.data.last_name ? data.data.last_name : "",
-        email: data.data.email ? data.data.email : "",
-        mobile: data.data.modile ? data.data.modile : "",
-      });
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setLocalUserData({
+          first_name: data.data.first_name ? data.data.first_name : "",
+          last_name: data.data.last_name ? data.data.last_name : "",
+          email: data.data.email ? data.data.email : "",
+          mobile: data.data.modile ? data.data.modile : "",
+        });
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
 
@@ -129,7 +135,7 @@ const ConfirmOrderView = ({ navigation }) => {
           setVisible(false);
         }
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }

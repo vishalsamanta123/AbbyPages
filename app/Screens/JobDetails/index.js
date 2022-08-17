@@ -10,7 +10,7 @@ import Error from "../../Components/Modal/error";
 
 const JobDetails = ({ route, navigation }) => {
   const [details, setDetails] = useState([]);
-  console.log('details: ', details);
+  console.log("details: ", details);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -87,6 +87,8 @@ const JobDetails = ({ route, navigation }) => {
       }
     } catch (error) {
       setVisible(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const shareTo = async () => {

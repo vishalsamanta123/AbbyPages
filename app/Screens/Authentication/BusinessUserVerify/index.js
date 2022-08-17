@@ -41,7 +41,7 @@ const BusinessUserVerify = ({ route, navigation }) => {
           setVisibleErr(true);
         }
       } catch (err) {
-        setErrorMessage(err);
+        setErrorMessage(err.message);
         setVisibleErr(true);
         setVisible(false);
       }
@@ -67,9 +67,9 @@ const BusinessUserVerify = ({ route, navigation }) => {
         setErrorMessage(data.message);
         setVisibleErr(true);
       }
-    } catch (e) {
+    } catch (error) {
       setVisible(false);
-      setErrorMessage(e);
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };

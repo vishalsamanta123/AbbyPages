@@ -96,8 +96,8 @@ const JobList = ({ navigation }) => {
         setLoader(false);
       }
     } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
-      setErrorMessage(error.toString());
       setLoader(false);
     }
   };

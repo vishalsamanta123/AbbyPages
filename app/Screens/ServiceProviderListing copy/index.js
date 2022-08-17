@@ -45,26 +45,32 @@ const ServiceProviderListingView = ({ navigation }) => {
       }
     } catch (error) {
       setVisible(false);
-      //   setVisibleErr(true);
-      //   setErrorMessage(JSON.stringify(error));
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const onPressServices = (detail) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
   const onPressLike = async (detail) => {
-    setVisible(true);
-    const params = {
-      business_id: detail.business_id,
-      like_status: detail.user_like == 1 ? 0 : 1,
-    };
-    const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
-    if (data.status == 200) {
-      ToastAndroid.show(data.message, ToastAndroid.SHORT);
-      setVisible(false);
-      handleServiceList();
-    } else {
-      setErrorMessage(data.message);
+    try {
+      setVisible(true);
+      const params = {
+        business_id: detail.business_id,
+        like_status: detail.user_like == 1 ? 0 : 1,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      if (data.status == 200) {
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        setVisible(false);
+        handleServiceList();
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }

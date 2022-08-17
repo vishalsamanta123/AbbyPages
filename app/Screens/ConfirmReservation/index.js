@@ -61,7 +61,11 @@ const ConfirmReservationView = ({ navigation, route }) => {
         setRestroDetail(restroDetail);
         setVisible(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
   };
 
   const validationForm = () => {
@@ -90,33 +94,39 @@ const ConfirmReservationView = ({ navigation, route }) => {
   const onPressConfirm = async () => {
     const valid = validationForm();
     if (valid) {
-      setVisible(true);
-      var date = dateFormat(reservationData.date, "yyyy-mm-dd");
-      const params = {
-        business_id: restroDetail.business_id,
-        business_type: 1,
-        booking_date: date,
-        booking_time: reservationData.time,
-        people: reservationData.people,
-        first_name: localUserData.firstName,
-        last_name: localUserData.lastName,
-        phone: localUserData.mobile,
-        email: localUserData.email,
-        note: localUserData.note,
-        order_booking_type: reservationData.booking_type == 1 ? 3 : 4,
-        receive_special_offer: 1,
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.RESTAURANTS_TABLE_BOOKING,
-        params
-      );
-      if (data.status === 200) {
-        setSuccessMessage(data.message);
-        setVisibleSuccess(true);
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
+      try {
+        setVisible(true);
+        var date = dateFormat(reservationData.date, "yyyy-mm-dd");
+        const params = {
+          business_id: restroDetail.business_id,
+          business_type: 1,
+          booking_date: date,
+          booking_time: reservationData.time,
+          people: reservationData.people,
+          first_name: localUserData.firstName,
+          last_name: localUserData.lastName,
+          phone: localUserData.mobile,
+          email: localUserData.email,
+          note: localUserData.note,
+          order_booking_type: reservationData.booking_type == 1 ? 3 : 4,
+          receive_special_offer: 1,
+        };
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.RESTAURANTS_TABLE_BOOKING,
+          params
+        );
+        if (data.status === 200) {
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
+          setVisible(false);
+        } else {
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setVisible(false);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
       }

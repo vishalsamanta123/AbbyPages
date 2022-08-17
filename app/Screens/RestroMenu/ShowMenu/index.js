@@ -38,11 +38,11 @@ const ShowMenuView = ({ route, navigation }) => {
     React.useCallback(() => {
       if (route.params) {
         const { detail } = route.params;
-        setbusinessId(detail); //function
-        handleRestroItemCategoryList(detail); //function
-        handleRestroItemList(detail); //function
+        setbusinessId(detail);
+        handleRestroItemCategoryList(detail);
+        handleRestroItemList(detail);
       }
-      // return () => DashBoardDetails();
+      return () => handleRestroItemList(route?.params?.detail);
     }, [])
   );
   const handleRestroOrderDatas = async () => {
@@ -321,7 +321,7 @@ const ShowMenuView = ({ route, navigation }) => {
                 ) : (
                   <TouchableOpacity
                     onPress={() => {
-                      onPressAddItem(item, index);
+                      addToCart(item, 1);
                     }}
                     style={styles.AddBtnTouchable}
                   >

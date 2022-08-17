@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall } from "../Utils/httpClient";
@@ -31,8 +24,10 @@ import {
   OrderCategorySelect,
   AddItemCategory,
 } from "../Utils/UserContext";
+import QuestionModal from "../Components/Modal/questionModal";
 
 const DesignDrawer = () => {
+  const [logoutVw, setLogoutVw] = useState(false);
   const { signOut } = React.useContext(AuthContext);
   const [profileData, setProfileData] = useState("");
   const [userData, setUserData] = useState(UserContext);
@@ -48,7 +43,6 @@ const DesignDrawer = () => {
     useState(OrderCategorySelect);
   const [activeCategory, setactiveCategory] = useState(AddItemCategory);
   const [logoBaseImgUrl, setLogoBaseImgUrl] = useState("");
-  const [loginType, setLoginType] = useState("");
   useFocusEffect(
     React.useCallback(() => {
       getProfile();
@@ -56,28 +50,19 @@ const DesignDrawer = () => {
     }, [])
   );
   const getProfile = async () => {
-    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-    if (data.status === 200) {
-      setProfileData(data.data);
-      setLogoBaseImgUrl(data.business_logo);
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setProfileData(data.data);
+        setLogoBaseImgUrl(data.business_logo);
+      }
+    } catch (error) {
+      console.log("error: ", error);
     }
-  };
-  const onPressLogout = () => {
-    Alert.alert(
-      "",
-      "Are you sure you want Logout",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => signOutFun() },
-      ],
-      { cancelable: false }
-    );
   };
   const signOutFun = () => {
     signOut();
+    setLogoutVw(false);
     setAcctiveSelectedCatgory({
       activeIndex: 0,
       businsessType: 1,
@@ -135,10 +120,16 @@ const DesignDrawer = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => onPressLogout()}>
+        <TouchableOpacity onPress={() => setLogoutVw(true)}>
           <Image source={require("../Assets/menu-logout-icon.png")} />
         </TouchableOpacity>
       </View>
+      <QuestionModal
+        surringVisible={logoutVw}
+        message={"Are you sure you want to Logout"}
+        positiveResponse={() => signOutFun()}
+        negativeResponse={() => setLogoutVw(false)}
+      />
     </View>
   );
 };
@@ -555,5 +546,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: FONT_FAMILY_REGULAR,
     color: WHITE_COLOR_CODE,
+  },
+  logoutModal: {
+    backgroundColor: "transparent",
+    flex: 1,
   },
 });
