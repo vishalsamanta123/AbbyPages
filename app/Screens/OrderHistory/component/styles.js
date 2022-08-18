@@ -13,12 +13,19 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     marginHorizontal: 20,
     borderRadius: 10,
-    elevation: 1,
+    elevation: 1.5,
   },
   imgCon: {
     justifyContent: "center",
     alignItems: "center",
     bottom: 45,
+  },
+  emptyListTxt: {
+    bottom: 25,
+    fontSize: 18,
+    color: "#6c6c6c",
+    lineHeight: 25,
+    textAlign: "center",
   },
   lablestyle: {
     flexDirection: "row",
@@ -108,6 +115,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 35,
     borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyListVw: {
+    minHeight: 400,
     justifyContent: "center",
     alignItems: "center",
   },

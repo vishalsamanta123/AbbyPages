@@ -30,7 +30,6 @@ import FilterPopUp from "./components/FilterPopUp";
 const ProductListing = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
-  console.log("shoppingCartData: ", shoppingCartData);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -40,7 +39,6 @@ const ProductListing = ({ navigation, route }) => {
   const [reload, setReload] = useState(false);
   const [offSet, setOffSet] = useState();
   const [productList, setProductList] = useState([]);
-  console.log("productList: ", productList);
   const [filter, setFilter] = useState(false);
   const [filterData, setFilterData] = useState({
     color: [],
@@ -71,7 +69,8 @@ const ProductListing = ({ navigation, route }) => {
       };
       await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
     } catch (error) {
-      console.log("errorHuMe", error.message);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const handleFilterProduct = async () => {

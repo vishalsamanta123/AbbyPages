@@ -42,7 +42,6 @@ const SignUpView = ({ navigation }) => {
     latitude: "",
     longitude: "",
   });
-  console.log("registrationData: ", registrationData);
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
 import PlaceOrder from "./component/PlaceOrder";
 import styles from "./component/styles";
@@ -16,6 +16,9 @@ import { CartContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
+import QuestionModal from "../../../Components/Modal/questionModal";
+import { useFocusEffect } from "@react-navigation/native";
+
 const PlaceOrderView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -23,19 +26,27 @@ const PlaceOrderView = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const [removeItem, setRemoveItem] = useState(false);
+  const [removeIndex, setRemoveIndex] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [cartData, setCartData] = useContext(CartContext);
   const [cartLocalData, setCartLocalData] = useState("");
-  useEffect(() => {
-    setCartLocalData(cartData);
-    getOrderDetails();
-    handleFinalAmount();
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setCartLocalData(cartData);
+      getOrderDetails();
+      handleFinalAmount();
+      return () => {
+        setCartLocalData(cartData);
+        handleFinalAmount();
+      };
+    }, [removeIndex])
+  );
   const getOrderDetails = async () => {
     try {
       const orderData = await AsyncStorage.getItem("orderData");
-      console.log("orderData: ", orderData);
       if (orderData !== "") {
         setBusinessName(JSON.parse(orderData).business_name);
       }
@@ -51,7 +62,10 @@ const PlaceOrderView = ({ navigation }) => {
         <View style={styles.DishTextCOntain}>
           <TouchableOpacity
             style={{ marginLeft: 2, marginRight: 2 }}
-            onPress={() => onPressRemoveItem(item, index)}
+            onPress={() => {
+              setRemoveItem(true);
+              setRemoveIndex(index);
+            }}
           >
             <Image source={require("../../../Assets/minus_icon_cart.png")} />
           </TouchableOpacity>
@@ -66,33 +80,28 @@ const PlaceOrderView = ({ navigation }) => {
     );
   };
 
-  const onPressRemoveItem = (item, index) => {
-    Alert.alert(
-      "Delete Item From Cart",
-      "Are you sure want to delete this item from Your cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => deleteItem(item, index) },
-      ],
-      { cancelable: false }
-    );
-  };
-  const deleteItem = (item, index) => {
-    setVisible(true);
-    const cartLocalFunctionData = [...cartLocalData];
-    const newItems = cartLocalFunctionData?.filter((ele, key) => key != index);
-    setCartLocalData(newItems);
-    setCartData(newItems);
-    const FinalAmount = cartLocalFunctionData.reduce(
-      (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
-      0
-    );
-    setTotalAmount(FinalAmount);
-    setVisible(false);
+  const DeleteItem = (index) => {
+    try {
+      setVisible(true);
+      setRemoveItem(false);
+      const cartLocalFunctionData = [...cartLocalData];
+      const newItems = cartLocalFunctionData?.filter(
+        (ele, key) => key != index
+      );
+      setCartLocalData(newItems);
+      setCartData(newItems);
+      setRemoveIndex("");
+      const FinalAmount = cartLocalFunctionData.reduce(
+        (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
+        0
+      );
+      setTotalAmount(FinalAmount);
+      setVisible(false);
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(false);
+      setVisible(false);
+    }
   };
   const handleFinalAmount = (item, index) => {
     const FinalAmount = cartData.reduce(
@@ -115,9 +124,9 @@ const PlaceOrderView = ({ navigation }) => {
           last_name: JSON.parse(orderData).last_name,
           email: JSON.parse(orderData).email,
           mobile: JSON.parse(orderData).mobile,
-          address: JSON.parse(orderData).address.location,
-          latitude: JSON.parse(orderData).address.latitude,
-          longitude: JSON.parse(orderData).address.longitude,
+          address: JSON.parse(orderData)?.address?.location,
+          latitude: JSON.parse(orderData)?.address?.latitude,
+          longitude: JSON.parse(orderData)?.address?.longitude,
           order_description: JSON.parse(orderData).order_description,
           order_schedule_time: JSON.parse(orderData).order_schedule_time,
           // order_payment_type: 1,
@@ -136,8 +145,8 @@ const PlaceOrderView = ({ navigation }) => {
           setCartData([]);
           try {
             await AsyncStorage.removeItem("orderData");
-          } catch (exception) {
-            setErrorMessage(exception);
+          } catch (error) {
+            setErrorMessage(error.message);
             setVisibleErr(true);
             setVisible(false);
           }
@@ -178,6 +187,13 @@ const PlaceOrderView = ({ navigation }) => {
         closeModel={() =>
           navigation.navigate("OrderHistory", setVisibleSuccess(false))
         }
+      />
+      <QuestionModal
+        surringVisible={removeItem}
+        topMessage={"Delete Item From Cart"}
+        message={"Are you sure want to delete this item from Your cart ?"}
+        positiveResponse={() => DeleteItem(removeIndex)}
+        negativeResponse={() => setRemoveItem(false)}
       />
     </View>
   );

@@ -97,9 +97,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         offset: offSet,
         limit: 10,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setRestroList(data.data);
         setVisible(false);

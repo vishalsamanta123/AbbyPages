@@ -244,13 +244,11 @@ const NotificationSettingsView = ({ navigation }) => {
   };
   const apiCallUpdateNotification = async (params) => {
     try {
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.USER_NOTIFICATION_SETTING,
         params
       );
-      console.log("dataUPDATE: ", data);
       if (data.status === 200) {
         DashBoardDetails();
         setSuccessMessage(data.message);

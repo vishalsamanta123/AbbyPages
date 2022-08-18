@@ -128,13 +128,11 @@ const OrderDetail = ({ route, props, navigation }) => {
         product_id: id,
         status: status,
       };
-      console.log("params: ", params);
       const response = await apiCall(
         "POST",
         ENDPOINTS.PRODUCT_STATUS_UPDATE,
         params
       );
-      console.log("Job list", response.data);
       if (response.status === 200) {
         navigation.navigate("MyProductList");
         setVisible(false);

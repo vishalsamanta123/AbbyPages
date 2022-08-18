@@ -85,7 +85,6 @@ const JobManagementListView = ({ navigation }) => {
         ENDPOINTS.JOB_REMOVE_STATUS_UPDATE,
         params
       );
-      console.log("Job list", response.data);
       if (response.status === 200) {
         getBussinessJobList();
         setVisible(false);
@@ -101,7 +100,6 @@ const JobManagementListView = ({ navigation }) => {
 
   const _handleTableData = (item) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
-    // console.log('item: ', item);
     return (
       <View style={styles.MainContain}>
         <Text style={styles.DescrptnTextStyle}>

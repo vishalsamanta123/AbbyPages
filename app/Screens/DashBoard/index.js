@@ -52,10 +52,6 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
-    console.log(
-      "businessCategory.business_type: ",
-      businessCategory.business_type
-    );
     const params = {
       latitude: location.latitude,
       longitude: location.longitude,

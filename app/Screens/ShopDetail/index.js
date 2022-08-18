@@ -71,7 +71,6 @@ const ShopDetail = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
-      console.log("data DEATILS: ", data);
       if (data.status === 200) {
         setShopDetail(data.data);
         setVisible(false);
@@ -258,7 +257,7 @@ const ShopDetail = ({ navigation, route }) => {
                 ""
             );
           } else {
-            console.log("Don't know how to go");
+           alert("Don't know how to go");
           }
         })
         .catch((err) => console.error("An error occurred", err));

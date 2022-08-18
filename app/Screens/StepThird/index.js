@@ -27,7 +27,6 @@ const StepThird = ({ navigation }) => {
     booking_date: "",
     description: "",
   });
-  console.log('ZipCode: ', ZipCode);
   const validationFormForAddress = () => {
     if (ZipCode.address == "") {
       setErrorMessage("Please Select Location");

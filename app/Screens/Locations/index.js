@@ -71,44 +71,31 @@ const LocationsView = ({ navigation }) => {
   const _handleSavedLocation = (item, index) => {
     return (
       <>
-        <View style={[styles.EmailContainerBox, { flexDirection: "row" }]}>
+        <View style={styles.emailContainerBox}>
           <View style={{ flex: 5 }}>
             <Text style={styles.MainEmaliTXt}>{item.location} </Text>
             {item.primary_status === 1 && (
               <Text style={styles.PrimaryText}>Primary</Text>
             )}
           </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            position: "absolute",
-            right: 10,
-            bottom: 0,
-          }}
-        >
           {item.primary_status !== 1 && (
-            <TouchableOpacity
-              onPress={() => onPressPrimary(item.location_id)}
-              style={[styles.ImageDelete]}
-            >
-              <Image
-                style={{ height: 42, width: 42 }}
-                source={require("../../Assets/add_primary_icon_color.png")}
-              />
-            </TouchableOpacity>
-          )}
-          {/* <TouchableOpacity style={[styles.ImageDelete]}>
-                        <Image source={require('../../Assets/list_edit_icon.png')} />
-                    </TouchableOpacity> */}
-          {item.primary_status !== 1 && (
-            <TouchableOpacity
-              style={styles.ImageDelete}
-              onPress={() => OnDeleteLocation(item)}
-            >
-              <Image source={require("../../Assets/list_delete_icon.png")} />
-            </TouchableOpacity>
+            <View style={styles.addressOptionVw}>
+              <TouchableOpacity
+                onPress={() => onPressPrimary(item.location_id)}
+                style={[styles.ImageDelete]}
+              >
+                <Image
+                  style={{ height: 42, width: 42 }}
+                  source={require("../../Assets/add_primary_icon_color.png")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.ImageDelete}
+                onPress={() => OnDeleteLocation(item)}
+              >
+                <Image source={require("../../Assets/list_delete_icon.png")} />
+              </TouchableOpacity>
+            </View>
           )}
         </View>
       </>

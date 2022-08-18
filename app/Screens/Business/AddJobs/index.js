@@ -207,7 +207,8 @@ const AddJobs = ({ navigation, route }) => {
       if (response.status === 200) {
         setCountryList(response.data.data);
       } else {
-        console.log("else");
+        setErrorMessage(response.message);
+        setVisibleErr(true);
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -292,9 +293,7 @@ const AddJobs = ({ navigation, route }) => {
           skills: skills,
           status: 1,
         };
-        console.log(":params ", params);
         const { data } = await apiCall("POST", ENDPOINTS.CREATE_JOB, params);
-        console.log("data: ", data);
         if (data.status === 200) {
           setSuccessMessage(data.message);
           setVisibleSuccess(true);

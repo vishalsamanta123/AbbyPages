@@ -4,7 +4,7 @@ import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
 import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
-import { useFocusEffect, useLinkProps } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -23,11 +23,14 @@ const OrderHistoryView = ({ navigation }) => {
   const [orderItemParentList, setOrderItemParentList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
-  useEffect(() => {
-    handleItemCategoryList();
-    handleOrderedItemList(0, isSelectedCatgory);
-  }, [isSelectedCatgory]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      handleItemCategoryList();
+      handleOrderedItemList(0, isSelectedCatgory);
+      return () => handleItemCategoryList();
+    }, [isSelectedCatgory])
+  );
   const handleItemCategoryList = async () => {
     setVisible(true);
     try {
@@ -52,15 +55,16 @@ const OrderHistoryView = ({ navigation }) => {
     try {
       setVisible(true);
       const params = {
-        business_type: type == 0 ? 0 : type,
+        business_type: type === null ? 0 : type,
         offset: offset,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
-      console.log("dataLIST OF ORDERS: ", data.data);
+      console.log("data: ", data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);

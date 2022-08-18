@@ -10,7 +10,6 @@ import Error from "../../Components/Modal/error";
 
 const JobDetails = ({ route, navigation }) => {
   const [details, setDetails] = useState([]);
-  console.log("details: ", details);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -20,7 +19,6 @@ const JobDetails = ({ route, navigation }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      console.log("detail: ", detail);
       jobDetails(detail);
     }
   }, []);
@@ -31,7 +29,6 @@ const JobDetails = ({ route, navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setDetails(data.data);
         setVisible(false);
@@ -73,9 +70,7 @@ const JobDetails = ({ route, navigation }) => {
         // interest: restroDetail?.interest,
         // views: restroDetail.views,
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);

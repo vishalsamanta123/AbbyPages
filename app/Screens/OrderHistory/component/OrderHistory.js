@@ -15,11 +15,8 @@ const OrderHistory = (props) => {
       <TouchableOpacity
         style={styles.ConatinView}
         onPress={() =>
-          item.order_booking_type == 1
-            ? props.onpressOrder(item)
-            : console.log(item)
+          item.order_booking_type == 1 ? props.onpressOrder(item) : null
         }
-        // item.order_booking_type == 2 ? props.onpressOrder(item) : console.log(item)}
       >
         <Image
           style={styles.DishImgeStyle}
@@ -132,7 +129,7 @@ const OrderHistory = (props) => {
       />
       <View style={styles.topCont}>
         <TouchableOpacity
-          onPress={() => props.handleOrderedItemList(props.offSet, 0)}
+          onPress={() => props.handleOrderedItemList(0, 0)}
           style={styles.lablestyle}
         >
           <Text
@@ -158,55 +155,37 @@ const OrderHistory = (props) => {
           renderItem={({ item, index }) => props._renderCategory(item, index)}
         />
       </View>
-      {props.orderItemList ? (
-        <View style={[styles.FriendContainer]}>
-          <FlatList
-            data={props.orderItemList}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _handleOrders(item, index)}
-            // onEndReached={() => {
-            //   !props.stopOffset
-            //     ? props?.handleOrderedItemList(
-            //         props.orderItemList.length > 5 ? props.offSet + 1 : null,
-            //         props.isSelectedCatgory
-            //       )
-            //     : null;
-            // }}
-          />
-        </View>
-      ) : (
-        <View
-          style={[
-            styles.FriendContainer,
-            {
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          ]}
-        >
-          <View style={[styles.cardCon]}>
-            <View style={styles.imgCon}>
-              <Image
-                source={require("../../../Assets/order_icon_box_large.png")}
-              />
-            </View>
-            <Text
-              style={[
-                CommonStyles.text,
-                {
-                  bottom: 25,
-                  fontSize: 18,
-                  color: "#6c6c6c",
-                  lineHeight: 25,
-                  textAlign: "center",
-                },
-              ]}
-            >
-              Look like you don't have any orders yet.
-            </Text>
-          </View>
-        </View>
-      )}
+      <View style={[styles.FriendContainer]}>
+        <FlatList
+          data={props.orderItemList}
+          keyExtractor={(item, index) => index}
+          ListEmptyComponent={() => {
+            return (
+              <View style={styles.emptyListVw}>
+                <View style={[styles.cardCon]}>
+                  <View style={styles.imgCon}>
+                    <Image
+                      source={require("../../../Assets/order_icon_box_large.png")}
+                    />
+                  </View>
+                  <Text style={[CommonStyles.text, styles.emptyListTxt]}>
+                    Look like you don't have any orders yet.
+                  </Text>
+                </View>
+              </View>
+            );
+          }}
+          renderItem={({ item, index }) => _handleOrders(item, index)}
+          onEndReached={() => {
+            !props.stopOffset
+              ? props?.handleOrderedItemList(
+                  props.orderItemList.length > 5 ? props.offSet + 1 : null,
+                  props.isSelectedCatgory
+                )
+              : null;
+          }}
+        />
+      </View>
     </View>
   );
 };
