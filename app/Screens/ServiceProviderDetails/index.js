@@ -299,7 +299,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
                 ""
             );
           } else {
-            console.log("Don't know how to go");
+            alert("Don't know how to go");
           }
         })
         .catch((err) => console.error("An error occurred", err));

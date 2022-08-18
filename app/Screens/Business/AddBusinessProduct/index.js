@@ -202,7 +202,6 @@ const AddBusinessProduct = ({ route, navigation }) => {
         formdata.append("When_it_made", 2019 - 2019);
         formdata.append("product_type", 1);
 
-        console.log("formdata: ", formdata);
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.ADD_PRODUCT_FOR_STORE,
@@ -408,7 +407,6 @@ const AddBusinessProduct = ({ route, navigation }) => {
         ENDPOINTS.GET_BUSINESS_PRODUCT_CATEGORY,
         params
       );
-      console.log("data.status", data.status);
       if (data.status === 200) {
         setErrorMessage(data.message);
         // SetSubCategoryData(data.data.category_data)

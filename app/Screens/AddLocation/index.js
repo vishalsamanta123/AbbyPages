@@ -89,9 +89,15 @@ const AddLocationView = ({ navigation }) => {
       <Success
         message={successMessage}
         visible={visibleSuccess}
-        closeModel={() =>
-          navigation.navigate("Locations", setVisibleSuccess(false))
-        }
+        closeModel={() => {
+          navigation.navigate("Locations", setVisibleSuccess(false));
+          setAddress({
+            location: "",
+            latitude: "",
+            longitude: "",
+            pincode: "",
+          });
+        }}
       />
     </View>
   );

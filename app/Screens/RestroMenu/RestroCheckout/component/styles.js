@@ -5,6 +5,7 @@ import {
   LIGHT_GREY_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const styles = StyleSheet.create({
   MainContainer: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_GREY_COLOR_CODE,
   },
-  AddressTextStyle: {
+  commonTxtStyle: {
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_GREY_COLOR_CODE,
     fontSize: 17,
@@ -45,6 +46,15 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     color: YELLOW_COLOR_CODE,
     fontSize: 15,
+  },
+  addressTxtCon: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomWidth: 0.4,
+    width: "100%",
+    padding: 5,
+    borderColor: YELLOW_COLOR_CODE,
+    marginTop: 10,
   },
   AddressCOntain: {
     flexDirection: "row",
@@ -77,11 +87,14 @@ const styles = StyleSheet.create({
   SubTotalView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 15,
+    marginTop: 5,
+    paddingVertical: 10,
+    paddingLeft: 3,
   },
   SubTotalText: {
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 14,
+    fontSize: 15,
+    color: BLACK_COLOR_CODE,
   },
   CheckOutVw: {
     backgroundColor: WHITE_COLOR_CODE,
@@ -113,7 +126,12 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     textAlign: "center",
     fontSize: 19,
-    paddingTop: 15,
+    paddingTop: 8,
+  },
+  emptyAddressVw: {
+    minHeight: 60,
+    justifyContent: "center",
+    alignItems: "center",
   },
   txtInputStyle: {
     width: "100%",

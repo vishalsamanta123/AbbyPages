@@ -596,16 +596,6 @@ function Route() {
       const userToken = await AsyncStorage.getItem("userToken");
       setDefaultHeader("token", userToken);
     }
-    // if (userToken != null) {
-    //   setDefaultHeader("token", JSON.parse(userData).token);
-    //   setUserData(JSON.parse(userData));
-    // } else {
-    //   const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
-    //   console.log("data: ", data);
-    //   if (data.status === 200) {
-    //     await setDefaultHeader("token", data.token);
-    //   }
-    // }
   }
   return (
     <NavigationContainer>

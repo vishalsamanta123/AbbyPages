@@ -244,6 +244,13 @@ const RestauranrtBookingScreen = (props) => {
                 keyExtractor={(item, index) => index.toString()}
                 data={props.restaurantTimeData}
                 contentContainerStyle={styles.timeCon}
+                ListEmptyComponent={() => {
+                  return (
+                    <View style={{ alignItems: "center" }}>
+                      <Text>No slot available for this</Text>
+                    </View>
+                  );
+                }}
                 numColumns={5}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
@@ -271,7 +278,7 @@ const RestauranrtBookingScreen = (props) => {
               )}
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={props.reservationDateList}
+                data={props?.reservationDateList}
                 contentContainerStyle={styles.timeCon}
                 renderItem={({ item, index }) => {
                   return (
@@ -279,7 +286,15 @@ const RestauranrtBookingScreen = (props) => {
                       <TouchableOpacity
                         onPress={() => props.onSelectDate(item, index)}
                         key={index}
-                        style={styles.datePickerVw}
+                        style={[
+                          styles.datePickerVw,
+                          {
+                            backgroundColor:
+                              props?.showTimeBox == index
+                                ? YELLOW_COLOR_CODE
+                                : null,
+                          },
+                        ]}
                       >
                         <View style={{ flex: 5 }}>
                           <Text style={styles.timeTxt}>{item.date}</Text>
@@ -297,6 +312,13 @@ const RestauranrtBookingScreen = (props) => {
                           keyExtractor={(item, index) => index.toString()}
                           data={props.reservationDateTimeList}
                           numColumns={5}
+                          ListEmptyComponent={() => {
+                            return (
+                              <View style={{ alignItems: "center" }}>
+                                <Text>No time available</Text>
+                              </View>
+                            );
+                          }}
                           renderItem={({ item, index }) => (
                             <TouchableOpacity
                               onPress={() => props.onPressTime(item, index)}

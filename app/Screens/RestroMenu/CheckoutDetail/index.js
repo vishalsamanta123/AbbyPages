@@ -42,7 +42,9 @@ const CheckoutDetailView = ({ navigation }) => {
     const orderData = await AsyncStorage.getItem("orderData");
     if (orderData !== "") {
       setDateTime(JSON.parse(orderData).order_schedule_time);
-      setLocation(JSON.parse(orderData).address);
+      if (orderData?.address !== null) {
+        setLocation(JSON.parse(orderData)?.address);
+      }
       setDeliveryType(JSON.parse(orderData).delivery_type);
     }
     try {
@@ -64,15 +66,11 @@ const CheckoutDetailView = ({ navigation }) => {
     }
   };
   const onPressPaymentMethod = () => {
-    setPaymentMethod(!paymentMethod);
+    // setPaymentMethod(!paymentMethod);
     setLocalUserData({
       ...localUserData,
       order_payment_type: paymentMethod ? 1 : 2,
     });
-    console.log(
-      "localUserData.order_payment_type",
-      localUserData.order_payment_type
-    );
   };
   function validationFrom() {
     if (localUserData.first_name == "") {
@@ -104,6 +102,13 @@ const CheckoutDetailView = ({ navigation }) => {
       setErrorMessage("Please enter order description");
       setVisibleErr(true);
       return false;
+    }
+    if (delivery_type === 1) {
+      if (location?.location == "") {
+        setErrorMessage("Please enter address for delievery address");
+        setVisibleErr(true);
+        return false;
+      }
     }
     if (paymentMethod) {
       if (AddCard === "") {

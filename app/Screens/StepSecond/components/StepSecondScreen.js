@@ -55,7 +55,6 @@ const StepSecondScreen = (props) => {
                 renderItem={({ item, index }) => {
                   return (
                     <TouchableOpacity
-                      // onPress={() => { props.setServiceProviderQueAnsData(curr => [curr, item]), console.log('df',props.serviceProviderQueAnsData) }}
                       onPress={() => {
                         props.setSelectedAnswer(item);
                       }}

@@ -25,7 +25,7 @@ const CheckOut = ({ navigation }) => {
   const [locationList, setLocationList] = useState([]);
   const [location, setLocation] = useState([]);
   const [order_payment_type, setOrderPaymentType] = useState(true);
-  
+
   useEffect(() => {
     handleFinalAmount();
     _handleDetails();
@@ -54,7 +54,8 @@ const CheckOut = ({ navigation }) => {
           navigation.navigate("ConfirmOrder");
         }
       } catch (error) {
-        console.log("error", error);
+        setErrorMessage(error.message);
+        setVisibleErr(true);
       }
     }
   };

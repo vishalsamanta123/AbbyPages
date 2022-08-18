@@ -81,7 +81,6 @@ const ShoppingCartScreen = (props) => {
     );
   };
   const _renderCartItemList = (item) => {
-  console.log('item: ', item);
     return (
       <View style={styles.dataCon}>
         <View style={styles.itemsVw}>

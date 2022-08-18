@@ -33,7 +33,6 @@ const StepSecond = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { serviceDetail } = route.params;
-      console.log("serviceDetail: ", serviceDetail);
       setServiceDetail(serviceDetail);
     }
   }, []);

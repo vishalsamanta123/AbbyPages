@@ -44,7 +44,7 @@ const RestroCheckout = (props) => {
                     : require("../../../../Assets/uncheck_box.png")
                 }
               />
-              <Text style={styles.AddressTextStyle}>Delievery</Text>
+              <Text style={styles.commonTxtStyle}>Delievery</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.setDeliveryType(!props.delivery_type)}
@@ -58,7 +58,7 @@ const RestroCheckout = (props) => {
                     : require("../../../../Assets/uncheck_box.png")
                 }
               />
-              <Text style={styles.AddressTextStyle}>Takeout</Text>
+              <Text style={styles.commonTxtStyle}>Takeout</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.MainContainer}>
@@ -72,13 +72,13 @@ const RestroCheckout = (props) => {
                 <View style={styles.AddressTextView}>
                   {props.location.length > 0 ? (
                     <>
-                      <Text style={styles.AddressTextStyle}>
+                      <Text style={styles.commonTxtStyle}>
                         {props.location &&
                           props.location[0] &&
                           props.location[0].location &&
                           props.location[0].location}
                       </Text>
-                      <Text style={styles.AddressTextStyle}>
+                      <Text style={styles.commonTxtStyle}>
                         {props.location &&
                           props.location[0] &&
                           props.location[0].pincode &&
@@ -102,7 +102,7 @@ const RestroCheckout = (props) => {
                 source={require("../../../../Assets/clock_icon_text.png")}
               />
               <View style={styles.AddressTextView}>
-                <Text style={styles.AddressTextStyle}>
+                <Text style={styles.commonTxtStyle}>
                   {props?.dateTime
                     ? "scheduled for " + props.dateTime
                     : "Please Select Schedule"}
@@ -133,12 +133,7 @@ const RestroCheckout = (props) => {
                 props._handleDishItem(item, index)
               }
               ListFooterComponent={
-                <View
-                  style={[
-                    styles.SubTotalView,
-                    { marginTop: 10, paddingVertical: 10 },
-                  ]}
-                >
+                <View style={styles.SubTotalView}>
                   <Text style={styles.SubTotalText}>Subtotal</Text>
                   <Text style={styles.SubTotalText}>
                     {"$ " + props.totalAmount}
@@ -152,10 +147,10 @@ const RestroCheckout = (props) => {
           </View>
         </ScrollView>
       </View>
-
       <Dialog
         visible={props.AddressVisible}
         width={0.9}
+        height={0.42}
         useNativeDriver={true}
         dialogAnimation={new SlideAnimation({ slideFrom: "bottom" })}
         onTouchOutside={() => {
@@ -169,19 +164,25 @@ const RestroCheckout = (props) => {
               style={styles.ArrowTouchable}
             >
               <Image
+                resizeMode={"contain"}
                 source={require("../../../../Assets/cart_delete_icon.png")}
               />
             </TouchableOpacity>
             <Text style={styles.PleaseEnterTxt}>Change Address</Text>
             <FlatList
-              data={props.locationList && props.locationList}
+              data={props?.locationList}
               keyExtractor={(item, index) => index}
               renderItem={({ item, index }) =>
                 props._handleLocationList(item, index)
               }
+              ListEmptyComponent={
+                <View style={styles.emptyAddressVw}>
+                  <Text>No Address available</Text>
+                </View>
+              }
               ListFooterComponent={
                 <Button
-                  style={{ height: 50, marginTop: 15 }}
+                  style={{ padding: 15, marginTop: 15 }}
                   buttonText="Add New Address"
                   buttonLabelStyle={styles.ButtonLabel}
                   onPress={() => props.onPressAddNewAddress()}

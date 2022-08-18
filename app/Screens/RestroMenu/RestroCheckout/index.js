@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   BackHandler,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 import RestroCheckout from "./component/RestroCheckout";
 import styles from "./component/styles";
@@ -40,6 +41,7 @@ const RestroCheckoutView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [timeChange, setTimeChange] = useState("");
 
   const [AddressVisible, setAddressVisible] = useState(false);
   const [Address, setAddress] = useState("");
@@ -51,21 +53,30 @@ const RestroCheckoutView = ({ navigation }) => {
     const DateTime = moment(date).format("h:mm:ss a,Do MMMM");
     setDateTime(DateTime);
     hideDateTimePicker();
+    setTimeChange("change");
   };
-  useEffect(() => {
-    _handleDetails();
-    setCartLocalData(cartData);
-    handleFinalAmount();
-    const DateTime = moment().format("h:mm:ss a,Do MMMM");
-    setDateTime(DateTime);
-  }, [removeIndex]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      _handleDetails();
+      setCartLocalData(cartData);
+      handleFinalAmount();
+      if (timeChange === "") {
+        const DateTime = moment().format("h:mm:ss a,Do MMMM");
+        setDateTime(DateTime);
+      }
+      return () => {
+        _handleDetails();
+        setCartLocalData(cartData);
+      };
+    }, [removeIndex, timeChange, cartData])
+  );
   const _handleDetails = async () => {
     try {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
-      console.log("data: ", data);
       if (data.status === 200) {
-        setLocationList(data.data.user_location && data.data.user_location);
+        setLocationList(data.data.user_location);
         if (data.data.user_location) {
           var getLocation = _.filter(data.data.user_location, {
             primary_status: 1,
@@ -140,28 +151,18 @@ const RestroCheckoutView = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() => handleSetAddress(item)}
-        style={[
-          styles.DishTextCOntain,
-          {
-            borderWidth: 0.4,
-            width: "100%",
-            padding: 5,
-            borderColor: YELLOW_COLOR_CODE,
-            marginTop: 10,
-          },
-        ]}
+        style={styles.addressTxtCon}
       >
         <View style={{ padding: 5 }}>
           <Image source={require("../../../Assets/qty_plus_icon.png")} />
         </View>
-        <Text style={[styles.AddressTextStyle]}>
+        <Text style={[styles.commonTxtStyle]}>
           {item.location && item.location}
         </Text>
       </TouchableOpacity>
     );
   };
   const _handleDishItem = (item, index) => {
-  console.log('item: ', item);
     return (
       <View style={styles.DishMainView}>
         <View style={styles.DishTextCOntain}>
@@ -210,7 +211,7 @@ const RestroCheckoutView = ({ navigation }) => {
         const orderData = await AsyncStorage.getItem("orderData");
         if (orderData !== "") {
           const params = {
-            address: location ? location[0] : null,
+            address: location.length > 0 ? location[0] : null,
             order_schedule_time: dateTime,
             business_id: JSON.parse(orderData).business_id,
             business_name: JSON.parse(orderData).business_name,

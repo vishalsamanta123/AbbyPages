@@ -22,18 +22,15 @@ const PlaceOrder = (props) => {
       >
         <View style={[styles.MainContainer]}>
           <Text style={styles.OrderTextStyle}>Your order From</Text>
-          <Text style={styles.CheckOutText}>
-            {props.businessName && props.businessName}
-          </Text>
-          <View style={{ minHeight: 80 }}>
-            <FlatList
-              data={props.cartLocalData}
-              keyExtractor={(item, index) => index}
-              renderItem={({ item, index }) =>
-                props._handleDishItem(item, index)
-              }
-            />
-          </View>
+          <Text style={styles.CheckOutText}>{props?.businessName}</Text>
+          {/* <View style={{ minHeight: 50 }}> */}
+          <FlatList
+            data={props.cartLocalData}
+            style={{ minHeight: 30 }}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item, index }) => props._handleDishItem(item, index)}
+          />
+          {/* </View> */}
           <View style={styles.SubTotalView}>
             <Text style={styles.SubTotalText}>Subtotal</Text>
             <Text style={styles.SubTotalText}>{"$ " + props.totalAmount}</Text>

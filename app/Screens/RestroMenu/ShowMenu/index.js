@@ -56,8 +56,9 @@ const ShowMenuView = ({ route, navigation }) => {
         business_name: data.business_name,
       };
       await AsyncStorage.setItem("orderData", JSON.stringify(params));
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const handleRestroItemCategoryList = async (data) => {
@@ -157,8 +158,7 @@ const ShowMenuView = ({ route, navigation }) => {
   const getqty = (item) => {
     var getIndex = _.findIndex(cartData, { item_id: item.item_id });
     const FinalAmount = cartData.reduce(
-      (accumulatedTotal, curr) =>
-        accumulatedTotal + (curr.total_item_price - curr.item_discount),
+      (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
       0
     );
     setTotalAmount(FinalAmount);
@@ -209,7 +209,8 @@ const ShowMenuView = ({ route, navigation }) => {
         item_name: item.item_name,
         price: item.price,
         quantity: value,
-        total_item_price: item.price * value,
+        discounted_price: item.discounted_price,
+        total_item_price: item.discounted_price * value,
         item_discount: item.item_discount === null ? 0 : item.item_discount,
         // item_discount: 0
       };
@@ -218,7 +219,7 @@ const ShowMenuView = ({ route, navigation }) => {
         if (getIndex >= 0) {
           cartData[getIndex].quantity = cartData[getIndex].quantity + 1;
           cartData[getIndex].total_item_price =
-            cartData[getIndex].price * value;
+            cartData[getIndex].discounted_price * value;
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
               accumulatedTotal + (curr.total_item_price - curr.item_discount),

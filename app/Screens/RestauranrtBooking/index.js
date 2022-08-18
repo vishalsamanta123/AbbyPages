@@ -28,7 +28,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const [showTimeBox, setShowTimeBox] = useState(0);
+  const [showTimeBox, setShowTimeBox] = useState();
   const [reservationDateTimeList, setReservationDateTimeList] = useState([]);
   const [reservationDateList, setReservationDateList] = useState([]);
   const [restaurantTimeData, setRestaurantTimeData] = useState([]);
@@ -180,49 +180,42 @@ const RestauranrtBookingView = ({ route, navigation }) => {
           booking_date: date,
         };
         if (find == 0) {
+          console.log("params: ", params);
           const { data } = await apiCall(
             "POST",
             ENDPOINTS.RESTAURANT_TIME_SLOAT,
             params
           );
+          console.log("data: ", data);
           if (data.status === 200) {
-            setVisible(false);
-            if (data.data.length < 1) {
-              setVisible(false);
-              setSuccessMessage("No table available for this restaurant");
-              setVisibleSuccess(true);
-            } else {
-              var currentDate = moment().format("YYYY-MM-DD");
-              const searchArray = [...data.data];
-              const filterData = _.filter(searchArray, { date: currentDate });
-              if (filterData.length > 0) {
-                setRestaurantTimeData(filterData[0].timeslot);
+            if (find == 0) {
+              if (data.data.length < 1) {
                 setVisible(false);
+                setSuccessMessage("No table available for this restaurant");
+                setVisibleSuccess(true);
               } else {
-                const filterData = _.filter(searchArray, { date: date });
+                var currentDate = moment().format("YYYY-MM-DD");
+                setVisible(false);
+                const searchArray = [...data.data];
+                const filterData = _.filter(searchArray, { date: currentDate });
                 if (filterData.length > 0) {
                   setRestaurantTimeData(filterData[0].timeslot);
                   setVisible(false);
                 } else {
-                  setVisible(false);
+                  const filterData = _.filter(searchArray, { date: date });
+                  if (filterData.length > 0) {
+                    setRestaurantTimeData(filterData[0].timeslot);
+                    setVisible(false);
+                  } else {
+                    setVisible(false);
+                  }
                 }
               }
+            } else {
+              setVisible(false);
+              setRestaurantTimeData("");
+              setReservationDateList(data.data);
             }
-          } else {
-            setVisible(false);
-            setErrorMessage(data.message);
-            setVisibleErr(true);
-          }
-        } else {
-          const { data } = await apiCall(
-            "POST",
-            ENDPOINTS.RESTAURANT_TIME_SLOAT,
-            params
-          );
-          if (data.status == 200) {
-            setVisible(false);
-            setRestaurantTimeData("");
-            setReservationDateList(data.data);
           } else {
             setVisible(false);
             setErrorMessage(data.message);
