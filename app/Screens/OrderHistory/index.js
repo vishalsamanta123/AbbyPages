@@ -11,6 +11,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+
 const OrderHistoryView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -20,15 +21,14 @@ const OrderHistoryView = ({ navigation }) => {
   const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [itemCategoryList, setItemCategoryList] = useState("");
-  const [orderItemParentList, setOrderItemParentList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
 
   useFocusEffect(
     React.useCallback(() => {
       handleItemCategoryList();
-      handleOrderedItemList(0, isSelectedCatgory);
-      return () => handleItemCategoryList();
+      handleOrderedItemList(0);
+      return () => handleOrderedItemList(0);
     }, [isSelectedCatgory])
   );
   const handleItemCategoryList = async () => {
@@ -49,22 +49,19 @@ const OrderHistoryView = ({ navigation }) => {
       setVisible(false);
     }
   };
-  const handleOrderedItemList = async (offset, type) => {
+  const handleOrderedItemList = async (offset) => {
     setOffSet(offset);
-    setIsSelectedCatgory(type);
     try {
       setVisible(true);
       const params = {
-        business_type: type === null ? 0 : type,
         offset: offset,
+        business_type: isSelectedCatgory,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);
@@ -92,7 +89,10 @@ const OrderHistoryView = ({ navigation }) => {
   const _renderCategory = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => handleOrderedItemList(0, item.business_type_id)}
+        onPress={() => {
+          setIsSelectedCatgory(item.business_type_id);
+          setOffSet(0);
+        }}
         style={styles.lablestyle}
       >
         <Text
@@ -120,9 +120,11 @@ const OrderHistoryView = ({ navigation }) => {
         onpressOrder={onpressOrder}
         _renderCategory={_renderCategory}
         offSet={offSet}
+        setOffSet={setOffSet}
         stopOffset={stopOffset}
         isSelectedCatgory={isSelectedCatgory}
         handleOrderedItemList={handleOrderedItemList}
+        setIsSelectedCatgory={setIsSelectedCatgory}
       />
       <Error
         message={errorMessage}

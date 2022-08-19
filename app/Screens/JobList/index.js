@@ -40,7 +40,7 @@ const JobList = ({ navigation }) => {
   const onPressMap = () => {
     navigation.navigate("ListingMap", {
       businessList: jobList,
-      business_type: 2,
+      business_type: 5,
     });
   };
   const handleSearch = () => {

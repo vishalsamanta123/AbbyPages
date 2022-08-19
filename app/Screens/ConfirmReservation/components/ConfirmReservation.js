@@ -52,7 +52,6 @@ const ConfirmReservation = (props) => {
                     source={require("../../../Assets/list_guest_icon.png")}
                   />
                   <Text style={styles.DateMainTxt}>
-                    {" "}
                     {props?.reservationData?.people} guests
                   </Text>
                 </View>
@@ -63,9 +62,8 @@ const ConfirmReservation = (props) => {
                     source={require("../../../Assets/info_calendar_icon.png")}
                   />
                   <Text style={styles.DateMainTxt}>
-                    {" "}
-                    {props?.reservationData?.date} -
-                    {props?.reservationData?.time}{" "}
+                    {props?.reservationData?.date} , time{"- "}
+                    {props?.reservationData?.time}
                   </Text>
                 </View>
                 <TouchableOpacity
@@ -139,47 +137,26 @@ const ConfirmReservation = (props) => {
             <Text style={[styles.HaedingParatTXT, { lineHeight: 21 }]}>
               You'll receive texts about your restaurant visit. By continuing
               below, you agree to AbbyPage's Terms of
-              <Text
-                style={{
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  color: YELLOW_COLOR_CODE,
-                  fontSize: 14,
-                }}
-              >
-                Service
-              </Text>{" "}
-              and{" "}
-              <Text
-                style={{
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  color: YELLOW_COLOR_CODE,
-                  fontSize: 14,
-                }}
-              >
-                Privacy Policy
-              </Text>
+              <Text style={styles.notesTxt}>Service</Text> and{" "}
+              <Text style={styles.notesTxt}>Privacy Policy</Text>
               .We'll send your name, mobile number, and notes to the restaurant.
             </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                paddingTop: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
-              <TouchableOpacity onPress={() => props.onPressCheckBox()}>
-                {props.SaveCheckBox ? (
-                  <Image
-                    style={{ width: 25, height: 25, top: 5 }}
-                    source={require("../../../Assets/uncheck_box.png")}
-                  />
-                ) : (
-                  <Image
-                    style={{ width: 25, height: 25, top: 5 }}
-                    source={require("../../../Assets/checked_box.png")}
-                  />
-                )}
+            <View style={styles.specialOffrVw}>
+              <TouchableOpacity
+                onPress={() =>
+                  props.onPressCheckBox(
+                    props?.localUserData?.receive_special_offer
+                  )
+                }
+              >
+                <Image
+                  style={{ width: 25, height: 25, top: 5 }}
+                  source={
+                    props.localUserData.receive_special_offer == 1
+                      ? require("../../../Assets/checked_box.png")
+                      : require("../../../Assets/uncheck_box.png")
+                  }
+                />
               </TouchableOpacity>
               <Text style={[styles.HaedingParatTXT, { lineHeight: 19 }]}>
                 Receive special offers and updates from Osteria Toscana

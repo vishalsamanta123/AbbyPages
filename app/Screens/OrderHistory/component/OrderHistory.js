@@ -88,28 +88,13 @@ const OrderHistory = (props) => {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "flex-end",
-                flex: 1,
-              }}
-            >
+            <View style={styles.arrowCon}>
               <TouchableOpacity
                 onPress={() => props.onpressOrder(item)}
-                style={{
-                  backgroundColor: YELLOW_COLOR_CODE,
-                  padding: 8,
-                  borderRadius: 30,
-                }}
+                style={styles.arrowVw}
               >
                 <Image
-                  tintColor={WHITE_COLOR_CODE}
-                  style={{
-                    width: 8,
-                    height: 10,
-                    backgroundColor: YELLOW_COLOR_CODE,
-                  }}
+                  style={styles.arrowImg}
                   source={require("../../../Assets/arrow_right_icon.png")}
                 />
               </TouchableOpacity>
@@ -129,7 +114,10 @@ const OrderHistory = (props) => {
       />
       <View style={styles.topCont}>
         <TouchableOpacity
-          onPress={() => props.handleOrderedItemList(0, 0)}
+          onPress={() => {
+            props.setIsSelectedCatgory(0);
+            props.setOffSet(0);
+          }}
           style={styles.lablestyle}
         >
           <Text
@@ -155,7 +143,7 @@ const OrderHistory = (props) => {
           renderItem={({ item, index }) => props._renderCategory(item, index)}
         />
       </View>
-      <View style={[styles.FriendContainer]}>
+      <View style={styles.FriendContainer}>
         <FlatList
           data={props.orderItemList}
           keyExtractor={(item, index) => index}
@@ -179,8 +167,7 @@ const OrderHistory = (props) => {
           onEndReached={() => {
             !props.stopOffset
               ? props?.handleOrderedItemList(
-                  props.orderItemList.length > 5 ? props.offSet + 1 : null,
-                  props.isSelectedCatgory
+                  props?.orderItemList?.length > 5 ? props?.offSet + 1 : null
                 )
               : null;
           }}

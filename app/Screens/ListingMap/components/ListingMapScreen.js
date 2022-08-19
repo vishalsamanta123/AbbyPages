@@ -10,10 +10,7 @@ import {
 import CommonStyles from "../../../Utils/CommonStyles";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import Styles from "./styles";
-import {
-  WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, BLACK_COLOR_CODE } from "../../../Utils/Constant";
 
 const ListingMapScreen = (props) => {
   return (
@@ -22,7 +19,8 @@ const ListingMapScreen = (props) => {
         showsUserLocation
         style={StyleSheet.absoluteFillObject}
         provider={PROVIDER_GOOGLE}
-        initialRegion={props.initialRegion}>
+        // initialRegion={props.initialRegion}
+      >
         {props?.businessDataList?.map((item) => (
           <Marker
             // image={require('../../../Assets/abby_pages_map_icon.png')}
@@ -30,26 +28,28 @@ const ListingMapScreen = (props) => {
               props.business_type === 1
                 ? item.business_name
                 : props.business_type === 2
-                  ? item.companyname
-                  : props.business_type === 3
-                    ? item.business_name
-                    : null
+                ? item.business_name
+                : props.business_type === 3
+                ? item.business_name
+                : props.business_type === 5
+                ? item.company_name
+                : null
             }
             coordinate={{
               latitude: Number(item.latitude),
               longitude: Number(item.longitude),
-            }}>
+            }}
+          >
             <Image
               source={require("../../../Assets/abby_pages_map_icon.png")}
               style={{ height: 50, width: 50 }}
               resizeMode="contain"
               resizeMethod="auto"
             />
-            <MapView.Callout>
-              <TouchableOpacity style={Styles.openRestoVw}
-                onPress={() => props.onPressRestro(item)}>
-                <Text>Open</Text>
-              </TouchableOpacity>
+            <MapView.Callout onPress={() => props.onPressRestro(item)}>
+              <View style={Styles.openRestoVw}>
+                <Text style={Styles.openRestoTxt}>Open</Text>
+              </View>
             </MapView.Callout>
           </Marker>
         ))}

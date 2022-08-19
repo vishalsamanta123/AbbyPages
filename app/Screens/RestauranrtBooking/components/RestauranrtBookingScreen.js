@@ -18,6 +18,7 @@ import styles from "./styles";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import Input from "../../../Components/Input";
+import moment from "moment";
 import Button from "../../../Components/Button";
 import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
@@ -217,37 +218,22 @@ const RestauranrtBookingScreen = (props) => {
                   </TouchableOpacity>
                 );
               })}
-            {/* <View>
-              <Input
-                onChangeText={(SelectPeople) =>
-                  props.setSelectPeople(SelectPeople)
-                }
-                value={props.SelectPeople}
-                placeholder="People"
-                InputType="withScroll"
-                keyboardType="phone-pad"
-                containerStyle={{ height: 60 }}
-              />
-              <View style={styles.TextInputImg}>
-                <Image
-                  style={styles.TextInputImageStyle}
-                  source={require("../../../Assets/dropdown_icon.png")}
-                />
-              </View>
-            </View> */}
-            <View style={styles.FindTableContain}>
-              <Button
-                onPress={() => props.onPressTableFind(0)}
-                buttonText="Find a Table"
-              />
+            <Button
+              onPress={() => props.onPressTableFind(1)}
+              buttonText="Find a Table"
+              style={styles.FindTableContain}
+            />
+            {props?.restaurantTimeData.length > 0 && (
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={props.restaurantTimeData}
+                data={props?.restaurantTimeData}
                 contentContainerStyle={styles.timeCon}
                 ListEmptyComponent={() => {
                   return (
                     <View style={{ alignItems: "center" }}>
-                      <Text>No slot available for this</Text>
+                      <Text style={styles.availableTimeTxt}>
+                        No time slot available for this
+                      </Text>
                     </View>
                   );
                 }}
@@ -261,36 +247,50 @@ const RestauranrtBookingScreen = (props) => {
                     <Text style={styles.timeTxt}>{item.startTime}</Text>
                   </TouchableOpacity>
                 )}
+                ListFooterComponent={() => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => props.onPressTableFind(0)}
+                      style={styles.SeereservatnView}
+                    >
+                      <Image
+                        style={styles.ArrowImge}
+                        source={require("../../../Assets/link_dropdown_icon.png")}
+                      />
+                      <Text style={styles.SeereservatnTxt}>
+                        See reservations on other dates
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
               />
-              {props.restaurantTimeData.length > 0 && (
-                <TouchableOpacity
-                  onPress={() => props.onPressTableFind(1)}
-                  style={styles.SeereservatnView}
-                >
-                  <Image
-                    style={styles.ArrowImge}
-                    source={require("../../../Assets/link_dropdown_icon.png")}
-                  />
-                  <Text style={styles.SeereservatnTxt}>
-                    See reservations on other dates
-                  </Text>
-                </TouchableOpacity>
-              )}
+            )}
+            {props?.reservationDateList.length > 0 && (
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={props?.reservationDateList}
                 contentContainerStyle={styles.timeCon}
+                ListHeaderComponent={() => {
+                  return (
+                    <View style={{ alignItems: "center" }}>
+                      <Text style={styles.availableTimeTxt}>
+                        This time slot is upto 7 days from{" "}
+                        {moment(props.date).format("MMMM Do YYYY")}
+                      </Text>
+                    </View>
+                  );
+                }}
                 renderItem={({ item, index }) => {
                   return (
                     <View>
                       <TouchableOpacity
                         onPress={() => props.onSelectDate(item, index)}
-                        key={index}
+                        // key={index}
                         style={[
                           styles.datePickerVw,
                           {
                             backgroundColor:
-                              props?.showTimeBox == index
+                              props?.showTimeBox === index
                                 ? YELLOW_COLOR_CODE
                                 : null,
                           },
@@ -307,22 +307,29 @@ const RestauranrtBookingScreen = (props) => {
                           />
                         </View>
                       </TouchableOpacity>
-                      {props.showTimeBox == index ? (
+                      {props?.showTimeBox == index ? (
                         <FlatList
                           keyExtractor={(item, index) => index.toString()}
-                          data={props.reservationDateTimeList}
+                          data={props?.reservationDateTimeList}
                           numColumns={5}
                           ListEmptyComponent={() => {
                             return (
                               <View style={{ alignItems: "center" }}>
-                                <Text>No time available</Text>
+                                <Text
+                                  style={[
+                                    styles.availableTimeTxt,
+                                    { paddingVertical: 3 },
+                                  ]}
+                                >
+                                  No time slot available for this
+                                </Text>
                               </View>
                             );
                           }}
                           renderItem={({ item, index }) => (
                             <TouchableOpacity
                               onPress={() => props.onPressTime(item, index)}
-                              key={index}
+                              // key={index}
                               style={[
                                 styles.timePickVw,
                                 {
@@ -341,7 +348,7 @@ const RestauranrtBookingScreen = (props) => {
                   );
                 }}
               />
-            </View>
+            )}
           </View>
           <View style={styles.MainUpdateContainer}>
             <Text style={styles.CovidMainTxt}>Notes from the Business</Text>
