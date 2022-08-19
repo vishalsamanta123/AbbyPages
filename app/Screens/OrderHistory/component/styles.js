@@ -108,6 +108,22 @@ const styles = StyleSheet.create({
     height: 13,
     top: 2,
   },
+  arrowCon: {
+    justifyContent: "center",
+    alignItems: "flex-end",
+    flex: 1,
+  },
+  arrowVw: {
+    backgroundColor: YELLOW_COLOR_CODE,
+    padding: 8,
+    borderRadius: 30,
+  },
+  arrowImg: {
+    width: 8,
+    height: 10,
+    backgroundColor: YELLOW_COLOR_CODE,
+    tintColor: WHITE_COLOR_CODE,
+  },
   AddBtnTouchable: {
     backgroundColor: YELLOW_COLOR_CODE,
     width: 35,

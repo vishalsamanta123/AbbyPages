@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+navigator.geolocation = require('@react-native-community/geolocation');
 import "react-native-gesture-handler";
 import Navigation from "./app/Navigation";
-import { Alert, PermissionsAndroid } from "react-native";
+import { Alert, PermissionsAndroid, Platform } from "react-native";
 import {
   UserProvider,
   CartProvider,

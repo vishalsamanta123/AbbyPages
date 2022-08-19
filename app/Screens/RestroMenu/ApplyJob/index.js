@@ -34,11 +34,10 @@ const ApplyJobView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [requires, setRequires] = useState(false);
-  const [data, setData] = useState(false);
 
   useEffect(() => {
     getProfile();
-  }, [data]);
+  }, []);
 
   const getProfile = async () => {
     try {
@@ -48,12 +47,12 @@ const ApplyJobView = ({ navigation, route }) => {
           ...applyJob,
           fullName: data.data.first_name
             ? data.data.first_name + " " + data.data.last_name
-            : null,
-          email: data.data.email ? data.data.email : null,
-          phone: data.data.phone ? data.data.phone : null,
-          abby_profile_url: data.business_logo ? data.business_logo : null,
+            : "",
+          email: data.data.email ? data.data.email : "",
+          phone: data.data.phone ? data.data.phone : "",
+          abby_profile_url: data.business_logo ? data.business_logo : "",
+          other_website: data.data.blog_website ? data.data.blog_website : "",
         });
-        setData(!data);
       }
     } catch (error) {
       setErrorMessage(error.message);

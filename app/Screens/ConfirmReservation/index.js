@@ -10,7 +10,7 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import dateFormat from "dateformat";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 
 const ConfirmReservationView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -30,12 +30,15 @@ const ConfirmReservationView = ({ navigation, route }) => {
     emailAddress: "",
     mobile: "",
     note: "",
+    receive_special_offer: "",
   });
   const [reservationData, setReservationData] = useState(null);
   const [restroDetail, setRestroDetail] = useState(null);
-  const [SaveCheckBox, setSaveCheckBox] = useState(true);
-  const onPressCheckBox = () => {
-    setSaveCheckBox(!SaveCheckBox);
+  const onPressCheckBox = (res) => {
+    setLocalUserData({
+      ...localUserData,
+      receive_special_offer: res === 0 ? 1 : 0,
+    });
   };
 
   const onPressEditDetails = () => {
@@ -48,11 +51,12 @@ const ConfirmReservationView = ({ navigation, route }) => {
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
         setLocalUserData({
-          firstName: data.data.first_name ? data.data.first_name : null,
-          lastName: data.data.last_name ? data.data.last_name : null,
-          emailAddress: data.data.email ? data.data.email : null,
-          mobile: data.data.phone ? data.data.phone : null,
-          note: data.data.note ? data.data.note : null,
+          firstName: data.data.first_name ? data.data.first_name : "",
+          lastName: data.data.last_name ? data.data.last_name : "",
+          emailAddress: data.data.email ? data.data.email : "",
+          mobile: data.data.phone ? data.data.phone : "",
+          note: data.data.note ? data.data.note : "",
+          receive_special_offer: 0,
         });
       }
       if (route?.params) {
@@ -69,22 +73,28 @@ const ConfirmReservationView = ({ navigation, route }) => {
   };
 
   const validationForm = () => {
-    if (localUserData.firstName == null) {
+    if (localUserData.firstName == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter First Name");
       return false;
     }
-    if (localUserData.lastName == null) {
+    if (localUserData.lastName == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter Last Name");
       return false;
     }
-    if (localUserData.emailAddress == null) {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (localUserData.emailAddress == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter Email");
       return false;
     }
-    if (localUserData.mobile == null) {
+    if (reg.test(localUserData.emailAddress) === false) {
+      setVisibleErr(true);
+      setErrorMessage("Please Enter Correct Email Address");
+      return false;
+    }
+    if (localUserData.mobile == "") {
       setVisibleErr(true);
       setErrorMessage("Please Enter Phone No. Also");
       return false;
@@ -106,10 +116,10 @@ const ConfirmReservationView = ({ navigation, route }) => {
           first_name: localUserData.firstName,
           last_name: localUserData.lastName,
           phone: localUserData.mobile,
-          email: localUserData.email,
+          email: localUserData.emailAddress,
           note: localUserData.note,
           order_booking_type: reservationData.booking_type == 1 ? 3 : 4,
-          receive_special_offer: 1,
+          receive_special_offer: localUserData.receive_special_offer,
         };
         const { data } = await apiCall(
           "POST",
@@ -143,7 +153,6 @@ const ConfirmReservationView = ({ navigation, route }) => {
         onPressConfirm={onPressConfirm}
         onPressEditDetails={onPressEditDetails}
         onPressCheckBox={onPressCheckBox}
-        SaveCheckBox={SaveCheckBox}
       />
       <Error
         message={errorMessage}

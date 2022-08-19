@@ -3,6 +3,7 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   header: {
@@ -40,6 +41,11 @@ const Styles = StyleSheet.create({
     width: 100,
     justifyContent: "center",
     alignItems: "center",
+  },
+  openRestoTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
 });
 export default Styles;

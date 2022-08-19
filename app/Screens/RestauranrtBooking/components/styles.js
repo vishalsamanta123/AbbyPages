@@ -272,6 +272,13 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
   },
+  availableTimeTxt: {
+    fontSize: 16,
+    marginHorizontal: 10,
+    fontFamily: FONT_FAMILY_REGULAR,
+    textAlign: "center",
+    marginBottom: 2,
+  },
   datePickerVw: {
     paddingVertical: 5,
     paddingHorizontal: 5,
