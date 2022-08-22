@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
-import { WHITE_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../../Utils/Constant";
+import {
+  WHITE_COLOR_CODE,
+  FONT_FAMILY_REGULAR,
+  BLACK_COLOR_CODE,
+} from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   startedbtntxt: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -17,6 +21,41 @@ const Styles = StyleSheet.create({
   inputwvwe: {
     justifyContent: "center",
     paddingTop: 20,
+  },
+  locationVw: {
+    textInputContainer: {
+      backgroundColor: "rgba(0,0,0,0)",
+      height: 70,
+      margin: 10,
+      marginLeft: 17,
+      marginRight: 17,
+      borderColor: "#d8d8d8",
+      borderWidth: 1,
+      borderRadius: 8,
+      alignItems: "center",
+    },
+    textInput: {
+      fontSize: 16,
+      color: BLACK_COLOR_CODE,
+      fontFamily: FONT_FAMILY_REGULAR,
+    },
+    listView: {
+      backgroundColor: WHITE_COLOR_CODE,
+      marginHorizontal: 10,
+    },
+  },
+  dateVw: {
+    backgroundColor: "rgba(0,0,0,0)",
+    height: 70,
+    margin: 10,
+    marginLeft: 17,
+    marginRight: 17,
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 8,
+    // alignItems: "center"
+    justifyContent: "center",
+    padding: 15,
   },
   footervwe: {
     flexDirection: "row",

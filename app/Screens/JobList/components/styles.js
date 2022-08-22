@@ -221,6 +221,7 @@ const Styles = StyleSheet.create({
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
     left: 12,
+    top: 10,
   },
   filterInput: {
     marginTop: 0,

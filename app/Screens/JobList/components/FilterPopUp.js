@@ -27,6 +27,7 @@ import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
 
 export default function FilterPopUp(props) {
   const [category, setCategory] = useState([]);
@@ -34,7 +35,7 @@ export default function FilterPopUp(props) {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [hireType, setHireType] = useState([]);
-  const [selection, setSelection] = useState(null);
+  const [selection, setSelection] = useState(false);
   const [filterData, setFilterData] = useState({
     categoryName: "",
     country: "",
@@ -102,7 +103,7 @@ export default function FilterPopUp(props) {
       props.setLoader(false);
     }
   };
-  const handleJobType = (selection) => {
+  const handleJobType = () => {
     setSelection(true);
     setHireType([
       {
@@ -364,7 +365,6 @@ export default function FilterPopUp(props) {
           </View>
         </ScrollView>
       </Dialog>
-
       <Modal
         visible={selection}
         onRequestClose={() => {
@@ -377,6 +377,7 @@ export default function FilterPopUp(props) {
         }}
       >
         <View style={styles.selectionModalVw}>
+          {props.loader && <Loader />}
           <>
             <View style={styles.typeVw}>
               <View style={{ flex: 1, alignItems: "center" }}>

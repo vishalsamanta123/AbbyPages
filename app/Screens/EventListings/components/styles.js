@@ -69,6 +69,7 @@ const Styles = StyleSheet.create({
     fontSize: 12,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+    maxWidth: 230,
   },
   straightImg: {
     width: 16,

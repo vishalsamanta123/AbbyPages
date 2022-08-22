@@ -45,9 +45,11 @@ const EventListingScreen = (props) => {
   };
   const handleSeeAll = () => {
     props?.setEventType(0);
-    props.getEventList(0), props.setOpenAll(true);
+    props.getEventList(0);
+    props.setOpenAll(true);
     props.setLimit(12);
     props.setSearchDate("");
+    setAlsoSeeFor(false);
   };
   const handleCloseDate = () => {
     props.setOpenSearchDate(false);
@@ -56,7 +58,7 @@ const EventListingScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Events"
-        onPress={() => props.handleCraeteEvent()}
+        onPress={() => props.handleCreateEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
@@ -125,10 +127,10 @@ const EventListingScreen = (props) => {
             <TouchableOpacity
               onPress={() => {
                 setAlsoSeeFor(!alsoSeeFor);
-                if (alsoSeeFor) {
-                  props.setEventType(0);
-                  props.setIsSelectedDay(null);
-                }
+                props.setEventType(0);
+                props.setIsSelectedDay(null);
+                props.setSearchDate("");
+                props.setLimit(4);
               }}
               style={[styles.straightVw, styles.seeOnVw]}
             >
@@ -167,7 +169,6 @@ const EventListingScreen = (props) => {
               />
             </>
           )}
-
           <ScrollView>
             {props.eventsList.length > 0 ? (
               <>
@@ -372,52 +373,6 @@ const EventListingScreen = (props) => {
           />
         </View>
       </ScrollView>
-      {/* <View
-        style={{
-          borderTopWidth: 0.3,
-          borderColor: "#ffe98e",
-          borderBottomWidth: 0.3,
-        }}
-      >
-        <FlatList
-          data={props?.dataType}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          style={{ backgroundColor: YELLOW_COLOR_CODE }}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => _renderCategory(item, index)}
-        />
-        <View
-          style={{
-            borderWidth: 0.3,
-            borderColor: "#ffe98e",
-          }}
-        />
-        <FlatList
-          data={props.dayData}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          style={{
-            backgroundColor: YELLOW_COLOR_CODE,
-          }}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => _renderTime(item, index)}
-        />
-      </View>
-      <View style={{ paddingTop: 10 }}>
-        <FlatList
-          data={props.eventsList}
-          showsVerticalScrollIndicator={false}
-          style={{}}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => _renderEventList(item, index)}
-          onEndReached={() => {
-            !props.stopOffset ? props.getEventList(props.offset + 1) : null;
-          }}
-        />
-      </View> */}
     </View>
   );
 };

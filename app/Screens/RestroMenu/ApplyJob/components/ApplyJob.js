@@ -13,12 +13,6 @@ import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  FONT_FAMILY_BOLD,
-  LIGHT_GREY_COLOR_CODE,
-} from "../../../../Utils/Constant";
 import { Picker } from "@react-native-community/picker";
 
 const ApplyJob = (props) => {
@@ -326,8 +320,8 @@ const ApplyJob = (props) => {
                 }
               >
                 <Picker.Item label="Gender" />
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
+                <Picker.Item label="Male" value={1} />
+                <Picker.Item label="Female" value={2} />
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image

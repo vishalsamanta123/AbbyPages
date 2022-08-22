@@ -54,9 +54,6 @@ const EventListing = ({ navigation }) => {
       setErrorMessage(error.message);
     }
   };
-  const _handleDataTypeSelected = (index, item) => {
-    setIsSelectedCatgory(index);
-  };
   const [dayData, setDayData] = useState(
     [
       { id: 1, name: "Today" },
@@ -71,6 +68,8 @@ const EventListing = ({ navigation }) => {
   const _handleDaySelected = (item, index) => {
     setEventType(item);
     setIsSelectedDay(index);
+    setSearchDate("");
+    setLimit(4);
     if (item === 6) {
       setOpenSearchDate(true);
     }
@@ -113,6 +112,7 @@ const EventListing = ({ navigation }) => {
         setEventsList(data?.data);
         setLoader(false);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setEventsList([]);
           setLoader(false);
@@ -120,7 +120,6 @@ const EventListing = ({ navigation }) => {
           setLoader(false);
           setVisibleErr(true);
           setErrorMessage(data.message);
-          setstopOffset(true);
         }
       }
     } catch (error) {
@@ -134,7 +133,7 @@ const EventListing = ({ navigation }) => {
     setSearchDate(date);
     setOpenSearchDate(false);
   };
-  const handleCraeteEvent = () => {
+  const handleCreateEvent = () => {
     navigation.navigate("CreateEvent");
   };
   return (
@@ -143,20 +142,22 @@ const EventListing = ({ navigation }) => {
       {openAll ? (
         <AllEvents
           openAll={openAll}
+          limit={limit}
           setOpenAll={setOpenAll}
           eventsList={eventsList}
           navToEventDetail={navToEventDetail}
           getEventList={getEventList}
           setEventType={setEventType}
           setLimit={setLimit}
-          handleCraeteEvent={handleCraeteEvent}
+          handleCreateEvent={handleCreateEvent}
           offset={offset}
           stopOffset={stopOffset}
+          setSearchDate={setSearchDate}
+          setoffset={setoffset}
         />
       ) : (
         <EventListingScreen
           dataType={dataType}
-          _handleDataTypeSelected={_handleDataTypeSelected}
           isSelectedCatgory={isSelectedCatgory}
           handleEndTimeConfirm={handleEndTimeConfirm}
           dayData={dayData}
@@ -171,7 +172,7 @@ const EventListing = ({ navigation }) => {
           limit={limit}
           setEventType={setEventType}
           setLimit={setLimit}
-          handleCraeteEvent={handleCraeteEvent}
+          handleCreateEvent={handleCreateEvent}
           offset={offset}
           openAll={openAll}
           setOpenAll={setOpenAll}

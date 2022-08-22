@@ -23,10 +23,8 @@ const StepSecond = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
   const [serviceDetail, setServiceDetail] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-
   const [queAnsData, setQueAnsData] = useState("");
   const [selectedAnswer, setSelectedAnswer] = useState([]);
 
@@ -55,7 +53,6 @@ const StepSecond = ({ navigation, route }) => {
         const params = {
           business_type: 3,
           category_id: selectedCategory.category_id,
-          // category_id: 389,//selectedCategory.category_id
           parent_question_id: 0,
         };
         const { data } = await apiCall(
@@ -112,7 +109,6 @@ const StepSecond = ({ navigation, route }) => {
         const params = {
           business_type: 3,
           category_id: selectedCategory.category_id,
-          // category_id: 389,//selectedCategory.category_id
           parent_question_id: selectedAnswer.question_ans_id,
         };
         const { data } = await apiCall(
@@ -138,13 +134,6 @@ const StepSecond = ({ navigation, route }) => {
         setVisibleErr(true);
         setVisible(false);
       }
-      // const params = {
-      //     serviceDetail,
-      //     selectedCategory,
-      //     selectedSubCategory
-      // }
-      // setServiceProviderData(params)
-      //
     }
   };
   return (

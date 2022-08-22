@@ -24,20 +24,21 @@ const EventListingScreen = (props) => {
   }, []);
   const handleBack = () => {
     props.setOpenAll(false);
-    props.getEventList(0);
+    props.setoffset(0);
     props.setLimit(4);
     props.setEventType(0);
+    props.setSearchDate("");
   };
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="All Events"
         onPressBackFun={() => handleBack()}
-        onPress={() => props.handleCraeteEvent()}
+        onPress={() => props.handleCreateEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
       <FlatList
-        data={props.eventsList}
+        data={props?.eventsList}
         style={styles.allEventsVw}
         ListEmptyComponent={() => {
           return (
@@ -49,7 +50,7 @@ const EventListingScreen = (props) => {
         onEndReached={() => {
           !props.stopOffset
             ? props.getEventList(
-                props.eventsList.length > 5 ? props.offset + 1 : 0
+                props?.eventsList?.length > 5 ? props.offset + 1 : 0
               )
             : null;
         }}

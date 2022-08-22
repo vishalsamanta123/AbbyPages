@@ -53,8 +53,9 @@ const JobDetails = ({ route, navigation }) => {
     alert("Coming Soon");
   };
   const saveJob = async () => {
+    //all required keys are not available in getjob detail api
     try {
-      // setVisible(true);
+      setVisible(true);
       const params = {
         item_type: details.business_type,
         item_id: details?.business_id,
@@ -78,7 +79,8 @@ const JobDetails = ({ route, navigation }) => {
       } else {
         setVisible(false);
         // setErrorMessage(data.message);
-        // setVisibleErr(true);
+        setErrorMessage('Keys are not avialable');
+        setVisibleErr(true);
       }
     } catch (error) {
       setVisible(false);

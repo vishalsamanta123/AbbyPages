@@ -55,7 +55,7 @@ const JobList = ({ navigation }) => {
     try {
       const params = {
         business_id: item.business_id,
-        like_status: item?.user_like == 1 ? 0 : 1,
+        like_status: item?.user_like === 1 ? 0 : 1,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
       if (data.status == 200) {
@@ -171,6 +171,7 @@ const JobList = ({ navigation }) => {
         setErrorMessage={setErrorMessage}
         setVisibleErr={setVisibleErr}
         setLoader={setLoader}
+        loader={loader}
       />
       <Error
         message={errorMessage}
