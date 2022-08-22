@@ -107,4 +107,6 @@ export default {
   PRODUCT_STATUS_UPDATE: "/api/product/productStatusUpdate",
   // add and Edit product in bussines
   ADD_PRODUCT_FOR_STORE: "/api/store/addProductForStore",
+  // Get bussiness Evemt
+  GET_BUSINESS_EVENT_LIST: '/api/events/getBusinessEvents',
 };

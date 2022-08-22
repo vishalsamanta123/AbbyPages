@@ -468,6 +468,22 @@ export function BusinessDrawerContents(props) {
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
+              props.navigation.navigate("EventManagement");
+            }}
+          >
+            <View style={styles.ImgeView}>
+              <Image
+                style={{ width: 25, height: 25 }}
+                source={require("../Assets/diet.png")}
+              />
+            </View>
+            <View style={styles.TextContain}>
+              <Text style={styles.drawerText}>Event Management</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.contactUsContainer}
+            onPress={() => {
               props.navigation.navigate("BusinessChangePassword");
             }}
           >
