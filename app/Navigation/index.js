@@ -74,6 +74,7 @@ import TableBookingDetailsScreen from "../Screens/Business/OrderDetail/TableBook
 import ServiceOrderDetailsScreen from "../Screens/Business/OrderDetail/ServiceOrderDetails";
 import OutSideBookingOrderDetailsScreen from "../Screens/Business/OrderDetail/OutSideBookingOrderDetails";
 import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/ShoppingOrderDetails";
+import EventManagement from "../Screens/Business/EventManagement";
 
 import DashBoardScreen from "../Screens/DashBoard";
 import OrderDetailScreenBackEnd from "../Screens/OrderDetail";
@@ -185,6 +186,10 @@ function CustomBusinessNavigation() {
       <BusinessDrawer.Screen
         name="MyProductList"
         component={MyProductListScreen}
+      />
+      <BusinessDrawer.Screen
+        name="EventManagement"
+        component={EventManagement}
       />
     </BusinessDrawer.Navigator>
   );
@@ -348,6 +353,10 @@ function BusinessStack() {
       <Business.Screen
         name="AddEditBusinessCategory"
         component={AddEditBusinessCategoryScreen}
+      />
+      <Business.Screen
+        name="EventManagement"
+        component={EventManagement}
       />
     </Business.Navigator>
   );
