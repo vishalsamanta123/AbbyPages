@@ -21,6 +21,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const CreateEvent = (props) => {
+
+  console.log('props.createEvent.event_address: ', props.createEvent.event_address);
   const hideDatePicker = () => {
     props.setDatePickerVisibility(false);
   };
@@ -34,9 +36,12 @@ const CreateEvent = (props) => {
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
-        HeaderText={"Submit an Event"}
-        type="Drawer"
+        leftImg={
+          props.type === 'busniess' || props.type === 'Edit_event'  ? require( "../../../Assets/header_back_btn.png")
+          : require("../../../Assets/hamburger_icon.png")
+        }
+        HeaderText={props.type === 'busniess' ? "Create Event" : props.type === 'Edit_event' ? "Edit Event" : "Submit an Event" }
+        type=  "props.type !== 'busniess' && Drawer" 
       />
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.MainContainer}>
@@ -168,7 +173,7 @@ const CreateEvent = (props) => {
             InputType="withScroll"
           />
           <GooglePlacesAutocomplete
-            placeholder={"Address"}
+            placeholder={props.createEvent.event_address ? props.createEvent.event_address : "Address"}
             fetchDetails={true}
             onPress={(data, details = null) => {
               props.setCreateEvent({

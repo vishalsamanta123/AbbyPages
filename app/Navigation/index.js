@@ -75,6 +75,7 @@ import ServiceOrderDetailsScreen from "../Screens/Business/OrderDetail/ServiceOr
 import OutSideBookingOrderDetailsScreen from "../Screens/Business/OrderDetail/OutSideBookingOrderDetails";
 import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/ShoppingOrderDetails";
 import EventManagement from "../Screens/Business/EventManagement";
+import EventView from '../Screens/Business/EventView'
 
 import DashBoardScreen from "../Screens/DashBoard";
 import OrderDetailScreenBackEnd from "../Screens/OrderDetail";
@@ -358,6 +359,14 @@ function BusinessStack() {
         name="EventManagement"
         component={EventManagement}
       />
+      <Business.Screen
+        name="EventView"
+        component={EventView}
+      />
+      <Business.Screen
+        name="CreateEvent"
+        component={CreateEventScreen}
+      />
     </Business.Navigator>
   );
 }
@@ -535,7 +544,7 @@ function AuthLoading({ navigation }) {
         }
         dispatch({ type: "LOGOUT" });
       },
-      signUp: () => {},
+      signUp: () => { },
     }),
     []
   );
