@@ -3,6 +3,7 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   SMALL_TEXT_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   startedbtntxt: {
@@ -67,6 +68,11 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "space-around",
     marginVertical: 5,
+  },
+  choiceTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 20,
+    color: BLACK_COLOR_CODE,
   },
 });
 export default Styles;

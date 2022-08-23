@@ -58,7 +58,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params) {
       const { detail } = route.params;
-      setRestroDetail(detail); //state
       handleRestroDetails(detail); //function
       setCartData([]);
     }
@@ -67,7 +66,6 @@ const RestaurantDetailsView = ({ navigation, route }) => {
     React.useCallback(() => {
       if (route.params) {
         const { detail } = route.params;
-        setRestroDetail(detail); //state
         handleRestroDetails(detail); //function
         setCartData([]);
       }

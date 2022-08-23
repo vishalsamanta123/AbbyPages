@@ -321,6 +321,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   };
   const saveResto = async () => {
     try {
+      setVisible(true);
       const params = {
         item_type: 1, //serviceDetail.business_type,
         item_id: serviceDetail.business_id,
@@ -331,14 +332,17 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
+        setVisible(false);
         setVisibleSuccess(true);
         setSuccessMessage(data.message);
         handleServiceDetails(serviceDetail);
       } else {
+        setVisible(false);
         setErrorMessage(data.message);
         setVisibleErr(true);
       }
     } catch (error) {
+      setVisible(false);
       setErrorMessage(error.message);
       setVisibleErr(true);
     }

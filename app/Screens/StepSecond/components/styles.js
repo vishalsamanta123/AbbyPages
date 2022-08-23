@@ -79,5 +79,37 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 16,
   },
+  questCon: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  questVw: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  qusetTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 18,
+    textAlign: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  optionsCon: {
+    flex: 1,
+    alignItems: "center",
+  },
+  answerVw: {
+    padding: 5,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  answerTxt: {
+    textAlign: "left",
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 14,
+    flex: 5,
+  },
 });
 export default Styles;

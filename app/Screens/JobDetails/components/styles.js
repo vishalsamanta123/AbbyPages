@@ -101,7 +101,7 @@ const Styles = StyleSheet.create({
   mainImgeStyle: {
     width: 80,
     height: 100,
-    borderRadius: 15,
+    borderRadius: 4,
     borderWidth: 0.2,
     borderColor: "grey",
     marginBottom: 5,

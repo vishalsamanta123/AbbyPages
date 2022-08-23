@@ -69,28 +69,7 @@ const StepThirdScreen = (props) => {
                 key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
                 language: "en",
               }}
-              styles={{
-                textInputContainer: {
-                  backgroundColor: "rgba(0,0,0,0)",
-                  height: 70,
-                  margin: 10,
-                  marginLeft: 17,
-                  marginRight: 17,
-                  borderColor: "#d8d8d8",
-                  borderWidth: 1,
-                  borderRadius: 8,
-                  alignItems: "center",
-                },
-                textInput: {
-                  fontSize: 16,
-                  // color: 'red'
-                  color: BLACK_COLOR_CODE,
-                },
-                listView: {
-                  backgroundColor: WHITE_COLOR_CODE,
-                  marginHorizontal: 10,
-                },
-              }}
+              styles={styles.locationVw}
               minLength={2}
               autoFocus={false}
               returnKeyType={"default"}
@@ -99,28 +78,15 @@ const StepThirdScreen = (props) => {
               onPress={() =>
                 props.setIsDatePickerVisible(!props.isDatePickerVisible)
               }
-              style={{
-                backgroundColor: "rgba(0,0,0,0)",
-                height: 70,
-                margin: 10,
-                marginLeft: 17,
-                marginRight: 17,
-                borderColor: "#d8d8d8",
-                borderWidth: 1,
-                borderRadius: 8,
-                // alignItems: "center"
-                justifyContent: "center",
-                padding: 15,
-              }}
+              style={styles.dateVw}
             >
-              <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
-                {props.ZipCode &&
-                props?.ZipCode?.booking_date &&
-                props?.ZipCode?.booking_date
-                  ? props.ZipCode.booking_date
+              <Text style={styles.locationVw.textInput}>
+                {props?.ZipCode?.booking_date
+                  ? props?.ZipCode?.booking_date
                   : "Date"}
               </Text>
               <DateTimePickerModal
+                minimumDate={new Date()}
                 isVisible={props.isDatePickerVisible}
                 mode="date"
                 onConfirm={props.handleDateConfirm}
@@ -129,24 +95,11 @@ const StepThirdScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.setIsTimePickerVisible(true)}
-              style={{
-                backgroundColor: "rgba(0,0,0,0)",
-                height: 70,
-                margin: 10,
-                marginLeft: 17,
-                marginRight: 17,
-                borderColor: "#d8d8d8",
-                borderWidth: 1,
-                borderRadius: 8,
-                justifyContent: "center",
-                padding: 15,
-              }}
+              style={styles.dateVw}
             >
-              <Text style={{ fontFamily: FONT_FAMILY_REGULAR, fontSize: 16 }}>
-                {props.ZipCode &&
-                props.ZipCode.booking_time &&
-                props.ZipCode.booking_time
-                  ? props.ZipCode.booking_time
+              <Text style={styles.locationVw.textInput}>
+                {props?.ZipCode?.booking_time
+                  ? props?.ZipCode?.booking_time
                   : "Time"}
               </Text>
               <DateTimePickerModal
@@ -168,7 +121,6 @@ const StepThirdScreen = (props) => {
               multiline
               placeholder="Description"
               InputType="withScroll"
-              // containerStyle={{marginBottom:20}}
             />
           </View>
         </View>

@@ -61,11 +61,13 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         business_type: 3,
         search_key: inputSearch ? inputSearch : null,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
+      console.log("dataSEARCH: ", data);
       if (data.status == 200) {
         setVisible(false);
         setserviceData(data.data);
@@ -96,6 +98,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         limit: 10,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+      console.log("dataLISTED: ", data);
       if (data.status === 200) {
         setserviceData(data.data);
         setVisible(false);

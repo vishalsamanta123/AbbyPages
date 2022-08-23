@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
@@ -19,9 +14,7 @@ const LoginScreen = (props) => {
         HeaderText=""
         HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
       />
-      <ScrollView
-        keyboardShouldPersistTaps="always"
-        contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
             <Text style={styles.WelcomeTxt}>Welcome,</Text>
@@ -46,7 +39,8 @@ const LoginScreen = (props) => {
             />
             <TouchableOpacity
               onPress={() => props.handleForgotPassword()}
-              style={styles.ForgotPsswrdView}>
+              style={styles.ForgotPsswrdView}
+            >
               <Text style={styles.ForgotPsswrdTxt}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
@@ -71,7 +65,8 @@ const LoginScreen = (props) => {
           /> */}
           <TouchableOpacity
             onPress={() => props.onPressSignUp()}
-            style={{ paddingTop: 10 }}>
+            style={{ paddingTop: 10 }}
+          >
             <Text style={styles.CreateAccountTxt}>
               Not Registered yet? Create new account{" "}
               <Text style={styles.SignUpTtx}>SignUp</Text>

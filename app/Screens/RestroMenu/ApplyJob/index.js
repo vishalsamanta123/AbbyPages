@@ -52,6 +52,7 @@ const ApplyJobView = ({ navigation, route }) => {
           phone: data.data.phone ? data.data.phone : "",
           abby_profile_url: data.business_logo ? data.business_logo : "",
           other_website: data.data.blog_website ? data.data.blog_website : "",
+          gender: data.data.gender ? data.data.gender : "",
         });
       }
     } catch (error) {
