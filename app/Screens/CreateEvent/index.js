@@ -19,7 +19,10 @@ import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR } from "../../Utils/Constant";
 import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
 
-const CreateEventView = () => {
+const CreateEventView = ({ route, navigation }) => {
+  const { type, item } = route?.params || []
+  console.log('type: ', type);
+  console.log('item: ', item);
   const [eventCategoryModalVisible, setEventCategoryModalVisible] =
     useState(false);
   const [categoryListData, setCategoryListData] = useState("");
@@ -37,29 +40,56 @@ const CreateEventView = () => {
   const [visible, setVisible] = useState(false);
   const [eventModalVisible, setEventModalVisible] = useState("");
   const [createEvent, setCreateEvent] = useState({
-    event_photo: "",
-    eventName: "",
-    date: "",
-    start_time: "",
-    end_time: "",
-    find_me_in: "",
+    event_photo: '',
+    eventName: item?.event_name,
+    date: item?.event_date ? moment
+      .unix(item?.event_date)
+      .format("l") : '',
+    start_time: item?.event_start_time,
+    end_time: item?.event_end_time,
+    find_me_in: item?.near_by_address,
     find_me_lat: "",
     find_me_long: "",
-    businessName: "",
-    event_address: "",
-    event_Addr_lat: "",
-    event_Addr_long: "",
-    description: "",
-    official_Web: "",
-    ticketURL: "",
-    priceFrom: "",
-    priceTo: "",
-    category_name: "",
-    category_id: "",
+    businessName: item?.business_name,
+    event_address: item?.event_location,
+    event_Addr_lat: item?.latitude,
+    event_Addr_long: item?.longitude,
+    description: item?.event_description,
+    official_Web: item?.official_website_url,
+    ticketURL: item?.tickets_url,
+    priceFrom: item?.price_range_from,
+    priceTo: item?.price_range_to,
+    category_name: item?.category_name,
+    category_id: item?.event_category_id,
     checkbox_venue: "",
   });
+  console.log('createEvent: ', createEvent);
   useEffect(() => {
     getCategoryList();
+    setCreateEvent({
+      event_photo: '',
+      eventName: item?.event_name,
+      date: item?.event_date ? moment
+        .unix(item?.event_date)
+        .format("l") : '',
+      start_time: item?.event_start_time,
+      end_time: item?.event_end_time,
+      find_me_in: item?.near_by_address,
+      find_me_lat: "",
+      find_me_long: "",
+      businessName: item?.business_name,
+      event_address: item?.event_location,
+      event_Addr_lat: item?.latitude,
+      event_Addr_long: item?.longitude,
+      description: item?.event_description,
+      official_Web: item?.official_website_url,
+      ticketURL: item?.tickets_url,
+      priceFrom: item?.price_range_from,
+      priceTo: item?.price_range_to,
+      category_name: item?.category_name,
+      category_id: item?.event_category_id,
+      checkbox_venue: "",
+    })
   }, []);
 
   const getCategoryList = async () => {
@@ -265,8 +295,8 @@ const CreateEventView = () => {
       setVisible(true);
       try {
         let formData = new FormData();
-        formData.append("event_id", 1);
-        formData.append("business_id", 352);
+        formData.append("event_id", item?.event_id ? item?.event_id : '');
+        formData.append("business_id", item?.business_id ? item?.business_id : '');
         createEvent.event_photo?.map((img, index) => {
           return formData.append("events_image", {
             uri: img.path,
@@ -286,8 +316,8 @@ const CreateEventView = () => {
         formData.append("event_address_type", 2);
         formData.append("event_description", createEvent.description);
         formData.append("official_website_url", createEvent.official_Web);
-        formData.append("price_range_from", undefined);
-        formData.append("price_range_to", undefined);
+        formData.append("price_range_from", createEvent.priceFrom);
+        formData.append("price_range_to", createEvent.priceTo);
         formData.append("tickets_url", createEvent.ticketURL);
         formData.append("event_category_id", createEvent.category_id);
         formData.append("event_charge_type", 1);
@@ -298,15 +328,19 @@ const CreateEventView = () => {
           { "Content-Type": "multipart/form-data" }
         );
         if (data.status === 200) {
+          console.log('data ====: ', data);
           setVisible(false);
           setSuccessMessage("Event added successfully");
-          setVisibleSuccess(true);
+          type !== 'busniess' && setVisibleSuccess(true);
+          type === 'busniess' && navigation.goBack()
         } else {
+          console.log('data ====: ', data);
           setVisible(false);
           setErrorMessage(data.message);
           setVisibleErr(true);
         }
       } catch (error) {
+        console.log('error ===: ', error);
         setVisible(false);
         setErrorMessage(error.message);
         setVisibleErr(true);
@@ -340,6 +374,7 @@ const CreateEventView = () => {
         categoryListData={categoryListData}
         createEvent={createEvent}
         setCreateEvent={setCreateEvent}
+        type={type}
       />
       <Error
         message={errorMessage}

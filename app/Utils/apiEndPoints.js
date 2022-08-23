@@ -94,7 +94,7 @@ export default {
   GET_POPULAR_EVENTS: "/api/events/getPopularEvents",
   CHOOSE_INTEREST_EVENT: "/api/events/chooseIntrestedEvent",
   JOB_FILTER: "/api/jobs/JobSearchFilter",
-  
+
   ITEMS_REMOVE_SHOW_CATEGORY: "/api/restaurants/restoItemsRemoveShow",
   ITEM_CATEGORY_REMOVE_SHOW: "/api/restaurants/itemsCategoryRemoveShow",
   GET_JOB_CATEGORY: "/api/jobs/getJobCategory",
@@ -109,4 +109,8 @@ export default {
   ADD_PRODUCT_FOR_STORE: "/api/store/addProductForStore",
   // Get bussiness Evemt
   GET_BUSINESS_EVENT_LIST: '/api/events/getBusinessEvents',
+  // Event status
+  EVENT_STATUS_UPDATE: '/api/events/eventRemoveStatusUpdate',
+  // Get single Event details
+  GET_SINGLE_EVENT_DETAILS: '/api/events/getSingleEventDetails'
 };
