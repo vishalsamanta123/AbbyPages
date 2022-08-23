@@ -36,6 +36,7 @@ const MyProductListView = ({ navigation }) => {
                 limit: 10,
                 offset: 0
             });
+            console.log('data: ', data);
             if (data.status === 200) {
                 setVisible(false);
                 setProductListData(data.data)
