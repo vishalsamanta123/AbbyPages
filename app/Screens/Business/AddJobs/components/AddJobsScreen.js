@@ -34,7 +34,7 @@ const AddJobs = (props) => {
                         <TouchableOpacity onPress={() => props._handleOpenJobCategory()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <Text style={styles.AddPhotosTxt}>
-                                    {props.selectedJobCategory.category_name ? props.selectedJobCategory.category_name : 'Job category'}
+                                    {props?.selectedJobCategory?.category_name ? props.selectedJobCategory.category_name : 'Job category'}
                                 </Text>
                             </View>
                             <View style={styles.BckArrowBack}>
