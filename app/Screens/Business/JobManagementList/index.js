@@ -7,10 +7,18 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
+import Error from "../../../Components/Modal/error";
+import Success from "../../../Components/Modal/success";
 
 const JobManagementListView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [businessJobList, setJobBusinessList] = useState([]);
+  const [visibleSuccess, setVisibleSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [visibleErr, setVisibleErr] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [singleJob, setSingleJob] = useState()
+  console.log('singleJob: ', singleJob);
   const [tableData, setTableData] = useState([
     {
       id: "0",
@@ -98,6 +106,33 @@ const JobManagementListView = ({ navigation }) => {
     }
   };
 
+
+  const singleJobDetails = async (id) => {
+    try {
+      const params = {
+        job_id: id,
+      };
+      const response = await apiCall(
+        "POST",
+        ENDPOINTS.GET_SINGLE_JOB_DETAILS,
+        params
+      );
+      if (response.status === 200) {
+      console.log('response: ', response);
+      setSingleJob(response?.data?.data[0] ? response?.data?.data[0] : [] )
+      navigation.navigate("AddJobs", { item : singleJob })
+        setVisible(false);
+      } else {
+        setVisible(false);
+      }
+    } catch (error) {
+    console.log('error: ', error);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
+  }
+
   const _handleTableData = (item) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
     return (
@@ -152,7 +187,7 @@ const JobManagementListView = ({ navigation }) => {
 
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("AddJobs", { item })}
+              onPress={() => singleJobDetails(item?.job_id)}
             >
               <Image source={require("../../../Assets/list_edit_icon.png")} />
             </TouchableOpacity>
@@ -204,6 +239,16 @@ const JobManagementListView = ({ navigation }) => {
         tableData={tableData}
         onPressAdd={onPressAdd}
         businessJobList={businessJobList}
+      />
+      <Error
+        message={errorMessage}
+        visible={visibleErr}
+        closeModel={() => setVisibleErr(false)}
+      />
+      <Success
+        message={successMessage}
+        visible={visibleSuccess}
+        closeModel={() => navigateAndCloseSuccessModal()}
       />
     </View>
   );

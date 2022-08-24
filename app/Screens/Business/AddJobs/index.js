@@ -13,7 +13,7 @@ import {
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 const AddJobs = ({ navigation, route }) => {
-  const { item } = route?.params || [];
+  const { item } = route?.params || '';
   let today = moment(today).format("DD-MM-YYYY");
   let benefits_Date = moment(today);
   const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] =
@@ -179,6 +179,11 @@ const AddJobs = ({ navigation, route }) => {
     setStartTimeDay(item?.job_start_time_day);
     setEndTimeDay(item?.job_end_time_day);
     setSkills(item?.skills);
+    setSelectedJobCategory(item?.job_category_id)
+    setStartTime(item?.job_start_timing)
+    setEndTime(item?.job_end_timing)
+    // setSelectedBenefits(item?.job_benefits)
+    setSelectedCountry(item?.job_location_country)
   };
   const _handleFocus = () => {
     setbox(!box);
@@ -218,7 +223,7 @@ const AddJobs = ({ navigation, route }) => {
   const getStateList = async () => {
     try {
       const params = {
-        status: 1,
+        status: 0,
         country_id: selectedCountry.country_id,
       };
       const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
@@ -236,14 +241,14 @@ const AddJobs = ({ navigation, route }) => {
   const getCityList = async () => {
     try {
       const params = {
-        status: 2,
+        status: 0,
         state_id: selectedState.state_id,
       };
       const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
       if (response.status === 200) {
         setCityList(response.data.data);
       } else {
-        setErrorMessage(response.message);
+        setErrorMessage(response?.data?.message);
         setVisibleErr(true);
       }
     } catch (error) {
@@ -282,7 +287,7 @@ const AddJobs = ({ navigation, route }) => {
           job_start_time_day: startTimeDay,
           job_start_timing: startTime,
           job_status: null,
-          job_timing: null,
+          job_timing: JobTimeings,
           job_title: JobTitle,
           job_type: 1,
           language: language,
