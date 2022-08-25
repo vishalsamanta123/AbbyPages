@@ -56,7 +56,7 @@ const JobManagementListView = ({ navigation }) => {
     );
 
   const getBussinessJobList = async () => {
-    // setVisible(true);
+    setVisible(true);
     try {
       const params = {
         limit: 2,
@@ -75,13 +75,13 @@ const JobManagementListView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
-      //   setErrorMessage(error.message);
-      //   setVisibleErr(true);
+        setErrorMessage(error.message);
+        setVisibleErr(true);
       setVisible(false);
     }
   };
   const jobStatus = async ({ id, status, is_delete }) => {
-    // setVisible(true);
+    setVisible(true);
     try {
       const params = {
         is_delete: is_delete,
@@ -100,8 +100,8 @@ const JobManagementListView = ({ navigation }) => {
         setVisible(false);
       }
     } catch (error) {
-      // setErrorMessage(error.message);
-      // setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };

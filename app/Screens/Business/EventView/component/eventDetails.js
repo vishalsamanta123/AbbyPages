@@ -59,7 +59,7 @@ const eventDetails = (props) => {
                     <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10 }}>
                         <TouchableOpacity
                             style={styles.BtnStyle}
-                        onPress={() => navigation.navigate("CreateEvent", { type: 'Edit_event', item: props?.deatil })}
+                        onPress={() => navigation.navigate("CreateEvent", { type: 'Edit_event', item: props?.singleEvent, detail: props?.detail })}
                         >
                             <Text>Edit</Text>
                         </TouchableOpacity>

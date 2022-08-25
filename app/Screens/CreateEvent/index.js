@@ -20,9 +20,7 @@ import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
 
 const CreateEventView = ({ route, navigation }) => {
-  const { type, item } = route?.params || []
-  console.log('type: ', type);
-  console.log('item: ', item);
+  const { type, item, detail } = route?.params || []
   const [eventCategoryModalVisible, setEventCategoryModalVisible] =
     useState(false);
   const [categoryListData, setCategoryListData] = useState("");
@@ -86,7 +84,7 @@ const CreateEventView = ({ route, navigation }) => {
       ticketURL: item?.tickets_url,
       priceFrom: item?.price_range_from,
       priceTo: item?.price_range_to,
-      category_name: item?.category_name,
+      category_name: detail?.category_name,
       category_id: item?.event_category_id,
       checkbox_venue: "",
     })

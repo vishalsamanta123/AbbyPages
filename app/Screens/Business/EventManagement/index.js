@@ -27,8 +27,8 @@ const EventManagement = () => {
   }
 
   const getEventList = async () => {
-    setVisible(true)
     try {
+      setVisible(true)
       const { data } = await apiCall('POST', ENDPOINTS.GET_BUSINESS_EVENT_LIST);
       if (data.status === 200) {
         setVisible(false);

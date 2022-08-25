@@ -92,8 +92,8 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
   };
 
   const getOrderListFun = async (businessType) => {
-    setVisible(true);
     try {
+      setVisible(true);
       const params = {
         business_type: businessType,
         offset: 0,
