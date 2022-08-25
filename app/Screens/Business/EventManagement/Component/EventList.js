@@ -21,11 +21,13 @@ const EventList = (props) => {
             <Image style={{ width: 35, height: 35 }} source={require('../../../../Assets/qty_minus_icon3.png')} />
           </TouchableOpacity>
         </View>
-        <FlatList
-          data={props?.eventData}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item }) => props.handleEvents(item)}
-        />
+          <FlatList
+          // style={{marginBottom: 100}}
+            data={props?.eventData}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item }) => props.handleEvents(item)}
+            ListFooterComponent={() =><View style={{height: 200}} />}
+          />
       </View>
     </View>
   )

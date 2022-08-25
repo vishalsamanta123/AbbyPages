@@ -10,10 +10,8 @@ import Loader from '../../../Utils/Loader'
 
 const EventView = ({ route }) => {
   const deatil = route?.params?.deatil
-  console.log('deatil: ', deatil);
   const [visible, setVisible] = useState(false)
   const [singleEvent, setSingleEvent] = useState()
-  console.log('singleEvent: ', singleEvent);
   const navigation = useNavigation()
 
   useFocusEffect(
@@ -85,7 +83,6 @@ const EventView = ({ route }) => {
         params
       );
       if (response.status === 200) {
-      console.log('response: ', response);
         setSingleEvent(response?.data?.data[0])
         setVisible(false);
       } else {

@@ -183,7 +183,7 @@ const AddJobs = ({ navigation, route }) => {
     setStartTime(item?.job_start_timing)
     setEndTime(item?.job_end_timing)
     // setSelectedBenefits(item?.job_benefits)
-    setSelectedCountry(item?.job_location_country)
+    // setSelectedCountry(item?.job_location_country)
   };
   const _handleFocus = () => {
     setbox(!box);
