@@ -29,12 +29,17 @@ const CheckoutDetailView = ({ navigation }) => {
   const [location, setLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [delivery_type, setDeliveryType] = useState("");
+  const [onlineDetail, setOnlineDetail] = useState({
+    brand: "",
+    expiryMonth: "",
+    expiryYear: "",
+    last4: "",
+    postalCode: "",
+    validCVC: "",
+    validExpiryDate: "",
+    validNumber: "",
+  });
 
-  const [AddCard, setAddCard] = useState("");
-  const [CardNumber, setCardNumber] = useState("");
-  const [CardExpiry, setCardExpiry] = useState("");
-  const [CVVNumber, setCVVNumber] = useState("");
-  const [ZipCode, setZipCode] = useState("");
   useEffect(() => {
     AsyncStoragefunction();
   }, []);
@@ -66,7 +71,7 @@ const CheckoutDetailView = ({ navigation }) => {
     }
   };
   const onPressPaymentMethod = () => {
-    // setPaymentMethod(!paymentMethod);
+    setPaymentMethod(!paymentMethod);
     setLocalUserData({
       ...localUserData,
       order_payment_type: paymentMethod ? 1 : 2,
@@ -111,28 +116,19 @@ const CheckoutDetailView = ({ navigation }) => {
       }
     }
     if (paymentMethod) {
-      if (AddCard === "") {
-        setErrorMessage("Please enter online order phone number");
-        setVisibleErr(true);
-        return false;
-      }
-      if (CardNumber === "") {
-        setErrorMessage("Please enter online Card number");
-        setVisibleErr(true);
-        return false;
-      }
-      if (CardExpiry === "") {
-        setErrorMessage("Please enter online card expiry number");
-        setVisibleErr(true);
-        return false;
-      }
-      if (CVVNumber === "") {
-        setErrorMessage("Please enter online card cvv number");
-        setVisibleErr(true);
-        return false;
-      }
-      if (ZipCode === "") {
-        setErrorMessage("Please enter online zipCode");
+      if (
+        // onlineDetail.validNumber == "" ||
+        // onlineDetail.expiryMonth == "" ||
+        // onlineDetail.expiryYear == "" ||
+        onlineDetail.CVVNumber == ""
+        // ||
+        // onlineDetail.brand == "" ||
+        // onlineDetail.last4 == "" ||
+        // onlineDetail.postalCode == "" ||
+        // onlineDetail.validCVC == "" ||
+        // onlineDetail.validExpiryDate == ""
+      ) {
+        setErrorMessage("Please enter card details");
         setVisibleErr(true);
         return false;
       }
@@ -204,16 +200,8 @@ const CheckoutDetailView = ({ navigation }) => {
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
         onPressContinue={onPressContinue}
-        AddCard={AddCard}
-        CardNumber={CardNumber}
-        CardExpiry={CardExpiry}
-        CVVNumber={CVVNumber}
-        ZipCode={ZipCode}
-        setAddCard={setAddCard}
-        setCardNumber={setCardNumber}
-        setCardExpiry={setCardExpiry}
-        setCVVNumber={setCVVNumber}
-        setZipCode={setZipCode}
+        onlineDetail={onlineDetail}
+        setOnlineDetail={setOnlineDetail}
       />
       <Error
         message={errorMessage}

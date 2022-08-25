@@ -12,7 +12,6 @@ import {
   TextInput,
 } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
-import CheckBox from "@react-native-community/checkbox";
 import styles from "./styles";
 import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";

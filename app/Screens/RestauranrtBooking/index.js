@@ -169,72 +169,6 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     }
     return true;
   };
-  // const onPressTableFind = async (find) => {
-  //   const valid = validation();
-  //   if (valid) {
-  //     try {
-  //       setVisible(true);
-  //       const params = {
-  //         business_id: restroDetail.business_id,
-  //         booking_date: date,
-  //       };
-  //       if (find == 0) {
-  //         const { data } = await apiCall(
-  //           "POST",
-  //           ENDPOINTS.RESTAURANT_TIME_SLOAT,
-  //           params
-  //         );
-  //         if (data.status === 200) {
-  //           setVisible(false);
-  //           if (data.data.length < 1) {
-  //             setVisible(false);
-  //             setSuccessMessage("No table available for this restaurant");
-  //             setVisibleSuccess(true);
-  //           } else {
-  //             var currentDate = moment().format("YYYY-MM-DD");
-  //             const searchArray = [...data.data];
-  //             const filterData = _.filter(searchArray, { date: currentDate });
-  //             if (filterData.length > 0) {
-  //               setRestaurantTimeData(filterData[0].timeslot);
-  //               setVisible(false);
-  //             } else {
-  //               const filterData = _.filter(searchArray, { date: date });
-  //               if (filterData.length > 0) {
-  //                 setRestaurantTimeData(filterData[0].timeslot);
-  //                 setVisible(false);
-  //               } else {
-  //                 setVisible(false);
-  //               }
-  //             }
-  //           }
-  //         } else {
-  //           setVisible(false);
-  //           setErrorMessage(data.message);
-  //           setVisibleErr(true);
-  //         }
-  //       } else {
-  //         const { data } = await apiCall(
-  //           "POST",
-  //           ENDPOINTS.RESTAURANT_TIME_SLOAT,
-  //           params
-  //         );
-  //         if (data.status == 200) {
-  //           setVisible(false);
-  //           setRestaurantTimeData("");
-  //           setReservationDateList(data.data);
-  //         } else {
-  //           setVisible(false);
-  //           setErrorMessage(data.message);
-  //           setVisibleErr(true);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       setVisible(false);
-  //       setErrorMessage(error.message);
-  //       setVisibleErr(true);
-  //     }
-  //   }
-  // };
   const onPressTableFind = async (find) => {
     const valid = validation();
     if (valid) {
@@ -256,9 +190,17 @@ const RestauranrtBookingView = ({ route, navigation }) => {
             setVisibleSuccess(true);
           } else {
             if (find === 1) {
-              setVisible(false);
-              setRestaurantTimeData(data.data[0].timeslot);
-              setReservationDateList([]);
+              if (data.data[0].timeslot.length == 0) {
+                setVisible(false);
+                setSuccessMessage(
+                  "No table available on ask date for this restaurant"
+                );
+                setVisibleSuccess(true);
+              } else {
+                setVisible(false);
+                setRestaurantTimeData(data.data[0].timeslot);
+                setReservationDateList([]);
+              }
             } else {
               setRestaurantTimeData([]);
               setReservationDateList(data.data);

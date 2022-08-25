@@ -4,6 +4,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
+  TouchableOpacity,
   Image,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -12,8 +13,9 @@ import Input from "../../../../Components/Input";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import { WHITE_COLOR_CODE, BLACK_COLOR_CODE } from "../../../../Utils/Constant";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { BLACK_COLOR_CODE } from "../../../../Utils/Constant";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
+
 const CheckoutDetail = (props) => {
   const initialRegion = {
     latitude: props?.location?.latitude
@@ -105,10 +107,7 @@ const CheckoutDetail = (props) => {
               order_description: order_description,
             })
           }
-          value={
-            props?.localUserData?.order_description &&
-            props.localUserData.order_description
-          }
+          value={props?.localUserData?.order_description}
           secureTextEntry={false}
           placeholder="Description"
           InputType="withScroll"
@@ -125,11 +124,10 @@ const CheckoutDetail = (props) => {
             source={require("../../../../Assets/checkout_payment_icon.png")}
           />
           <Text style={styles.TakeOutText}>Payment-Method</Text>
-          {/* <Text style={styles.CheckoutText}>Payment-Method</Text> */}
         </View>
         <View style={styles.paymentMethodVw}>
           <TouchableOpacity
-            // onPress={() => props.onPressPaymentMethod()}
+            onPress={() => props.onPressPaymentMethod()}
             style={[styles.CheckOutView, { paddingTop: 5 }]}
           >
             <Image
@@ -157,52 +155,34 @@ const CheckoutDetail = (props) => {
             <Text>Cash On Delievery</Text>
           </TouchableOpacity>
         </View>
-        {props.paymentMethod && props.paymentMethod && (
+        {props?.paymentMethod && (
           <View>
-            <View>
-              <Input
-                onChangeText={(AddCard) => props.setAddCard(AddCard)}
-                value={props?.AddCard}
-                secureTextEntry={false}
-                placeholder="Phone Number"
-                InputType="withScroll"
-                maxLength={10}
-                keyboardType={"phone-pad"}
-              />
-              {/* <Image
-                  style={styles.ArrowDownImge}
-                  source={require("../../../../Assets/dropdown_icon.png")}
-                /> */}
-            </View>
-            <Input
-              onChangeText={(CardNumber) => props.setCardNumber(CardNumber)}
-              value={props?.CardNumber}
-              secureTextEntry={false}
-              placeholder="Card Number"
-              InputType="withScroll"
-              maxLength={16}
-            />
-            <Input
-              onChangeText={(CardExpiry) => props.setCardExpiry(CardExpiry)}
-              value={props?.CardExpiry}
-              secureTextEntry={false}
-              placeholder="Card Expiry"
-              InputType="withScroll"
-            />
-            <Input
-              onChangeText={(CVVNumber) => props.setCVVNumber(CVVNumber)}
-              value={props?.CVVNumber}
-              secureTextEntry={false}
-              placeholder="CVV"
-              InputType="withScroll"
-              maxLength={3}
-            />
-            <Input
-              onChangeText={(ZipCode) => props.setZipCode(ZipCode)}
-              value={props?.ZipCode}
-              secureTextEntry={false}
-              placeholder="Zip Code"
-              InputType="withScroll"
+            <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
+              Enter Card Details
+            </Text>
+            <CardField
+              postalCodeEnabled={true}
+              placeholders={{
+                number: "Number",
+                expiration: "Expiry",
+                cvc: "Cvv",
+                postalCode: "ZipCode",
+              }}
+              style={styles.cardStyleVw}
+              cardStyle={styles.cardStyle}
+              onCardChange={(cardDetails) => {
+                props.setOnlineDetail({
+                  ...props.onlineDetail,
+                  brand: cardDetails.brand,
+                  expiryMonth: cardDetails.expiryMonth,
+                  expiryYear: cardDetails.expiryYear,
+                  last4: cardDetails.last4,
+                  postalCode: cardDetails.postalCode,
+                  validCVC: cardDetails.validCVC,
+                  validExpiryDate: cardDetails.validExpiryDate,
+                  validNumber: cardDetails.validNumber,
+                });
+              }}
             />
           </View>
         )}

@@ -10,6 +10,7 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { ShoppingCartContext } from "../../../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
+import QuestionModal from "../../../Components/Modal/questionModal";
 const CheckOut = ({ navigation }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
@@ -25,11 +26,14 @@ const CheckOut = ({ navigation }) => {
   const [locationList, setLocationList] = useState([]);
   const [location, setLocation] = useState([]);
   const [order_payment_type, setOrderPaymentType] = useState(true);
+  const [removeItem, setRemoveItem] = useState(false);
+  const [allDelete, setAllDelete] = useState(false);
+  const [removeIndex, setRemoveIndex] = useState("");
 
   useEffect(() => {
     handleFinalAmount();
     _handleDetails();
-  }, [reload]);
+  }, [reload, removeIndex]);
 
   const validationForContinue = () => {
     if (location === []) {
@@ -90,58 +94,39 @@ const CheckOut = ({ navigation }) => {
     );
     setFinalAmount(FinalAmount);
   };
-  const onPressDeleteCart = () =>
-    Alert.alert(
-      "Delete Cart",
-      "Do you want to delete this cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Confirm", onPress: () => DeleteCart() },
-      ],
-      { cancelable: false }
-    );
   const DeleteCart = async () => {
     setShoppingCartData("");
+    setAllDelete(false);
     navigation.navigate("ShopList");
     await AsyncStorage.removeItem("productOrderData");
   };
-  const onPressDeleteItem = (item) =>
-    Alert.alert(
-      "Delete Product",
-      "Are you sure you want to delete product from cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => deleteItem(item) },
-      ],
-      { cancelable: false }
-    );
-
-  const deleteItem = (item) => {
-    if (shoppingCartData.length > 0) {
-      var getIndex = _.findIndex(shoppingCartData, {
-        product_id: item.product_id,
-      });
-      if (getIndex >= 0) {
-        const cartLocalFunctionData = [...shoppingCartData];
-        cartLocalFunctionData.splice(getIndex, 1);
-        setShoppingCartData(cartLocalFunctionData);
-        const FinalAmount = shoppingCartData.reduce(
-          (accumulatedTotal, curr) =>
-            accumulatedTotal + curr.total_product_price,
-          0
-        );
-        setFinalAmount(FinalAmount);
-        setReload(!reload);
-        handleFinalAmount();
+  const DeleteItem = (item) => {
+    try {
+      setVisible(true);
+      setRemoveItem(false);
+      if (shoppingCartData.length > 0) {
+        var getIndex = _.findIndex(shoppingCartData, {
+          product_id: item.product_id,
+        });
+        if (getIndex >= 0) {
+          const cartLocalFunctionData = [...shoppingCartData];
+          cartLocalFunctionData.splice(getIndex, 1);
+          setShoppingCartData(cartLocalFunctionData);
+          const FinalAmount = shoppingCartData.reduce(
+            (accumulatedTotal, curr) =>
+              accumulatedTotal + curr.total_product_price,
+            0
+          );
+          setRemoveIndex("");
+          setFinalAmount(FinalAmount);
+          setReload(!reload);
+          handleFinalAmount();
+        }
       }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   return (
@@ -160,9 +145,10 @@ const CheckOut = ({ navigation }) => {
         locationList={locationList}
         finalAmount={finalAmount}
         shoppingCartData={shoppingCartData} //context
-        onPressDeleteItem={onPressDeleteItem}
-        onPressDeleteCart={onPressDeleteCart}
         onPressContinue={onPressContinue}
+        setRemoveItem={setRemoveItem}
+        setRemoveIndex={setRemoveIndex}
+        setAllDelete={setAllDelete}
       />
       <Error
         message={errorMessage}
@@ -173,6 +159,20 @@ const CheckOut = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        surringVisible={removeItem}
+        topMessage={"Delete Product from Cart"}
+        message={"Are you sure you want to delete product from cart ?"}
+        positiveResponse={() => DeleteItem(removeIndex)}
+        negativeResponse={() => setRemoveItem(false)}
+      />
+      <QuestionModal
+        surringVisible={allDelete}
+        topMessage={"Delete Carts"}
+        message={"Do you want to delete this carts ?"}
+        positiveResponse={() => DeleteCart()}
+        negativeResponse={() => setAllDelete(false)}
       />
     </View>
   );

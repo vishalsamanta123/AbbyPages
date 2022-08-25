@@ -3,6 +3,7 @@ import {
   LIGHT_GREY_COLOR_CODE,
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   CheckOutView: {
@@ -46,6 +47,21 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
+  },
+  cardDetailsTxt: {
+    marginLeft: 10,
+    marginVertical: 8,
+    fontSize: 18,
+  },
+  cardStyleVw: {
+    paddingVertical: 30,
+    marginHorizontal: 14,
+  },
+  cardStyle: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    textColor: BLACK_COLOR_CODE,
   },
   AddressText: {
     fontFamily: FONT_FAMILY_REGULAR,
