@@ -57,7 +57,7 @@ const PlaceOrder = (props) => {
         </View>
       </View>
       <View style={styles.CheckBtnView}>
-        <Button onPress={props.OnPressCheckOut} buttonText="Checkout" />
+        <Button onPress={props.checkoutPress} buttonText="Checkout" />
       </View>
     </View>
   );
