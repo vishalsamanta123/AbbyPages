@@ -133,7 +133,7 @@ const CheckoutDetail = (props) => {
             <Image
               style={[{ marginRight: 5 }]}
               source={
-                props.paymentMethod
+                props?.localUserData?.order_payment_type === 2
                   ? require("../../../../Assets/checked_squared_icon_small.png")
                   : require("../../../../Assets/unchecked_squared_icon_small.png")
               }
@@ -141,13 +141,17 @@ const CheckoutDetail = (props) => {
             <Text>Online</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.onPressPaymentMethod()}
+            onPress={() =>
+              props.onPressPaymentMethod(
+                props?.localUserData?.order_payment_type
+              )
+            }
             style={[styles.CheckOutView, { paddingTop: 5 }]}
           >
             <Image
               style={[{ marginRight: 5 }]}
               source={
-                !props.paymentMethod
+                props?.localUserData?.order_payment_type === 1
                   ? require("../../../../Assets/checked_squared_icon_small.png")
                   : require("../../../../Assets/unchecked_squared_icon_small.png")
               }
@@ -155,7 +159,7 @@ const CheckoutDetail = (props) => {
             <Text>Cash On Delievery</Text>
           </TouchableOpacity>
         </View>
-        {props?.paymentMethod && (
+        {props?.localUserData?.order_payment_type === 2 && (
           <View>
             <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
               Enter Card Details

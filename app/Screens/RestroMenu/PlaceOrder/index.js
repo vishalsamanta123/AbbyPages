@@ -110,6 +110,44 @@ const PlaceOrderView = ({ navigation }) => {
     );
     setTotalAmount(FinalAmount);
   };
+  const checkoutPress = async () => {
+    const orderData = await AsyncStorage.getItem("orderData");
+    if (orderData !== "") {
+      try {
+        if (JSON.parse(orderData).order_payment_type == 2) {
+          setVisible(true);
+          const params = {
+            amount: totalAmount.toString(),
+            email: JSON.parse(orderData).email,
+            user_name: JSON.parse(orderData).first_name,
+            card_number: "424242424242" + JSON.parse(orderData).last4,
+            // cvc: JSON.parse(orderData).validCVC.toString(),
+            exp_month: JSON.parse(orderData).expiryMonth.toString(),
+            exp_year: JSON.parse(orderData).expiryYear.toString(),
+            zipcode: JSON.parse(orderData).postalCode,
+          };
+          const { data } = await apiCall(
+            "POST",
+            ENDPOINTS.ORDERPAYMENT,
+            params
+          );
+          if (data.status === 200) {
+            OnPressCheckOut();
+          } else {
+            setErrorMessage(data.message);
+            setVisibleErr(true);
+            setVisible(false);
+          }
+        } else {
+          OnPressCheckOut();
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    }
+  };
   const OnPressCheckOut = async () => {
     setVisible(true);
     try {
@@ -129,7 +167,6 @@ const PlaceOrderView = ({ navigation }) => {
           longitude: JSON.parse(orderData)?.address?.longitude,
           order_description: JSON.parse(orderData).order_description,
           order_schedule_time: JSON.parse(orderData).order_schedule_time,
-          // order_payment_type: 1,
           order_payment_type: JSON.parse(orderData).order_payment_type,
           total_order_amount: totalAmount,
           order_discount: 0,
@@ -174,7 +211,7 @@ const PlaceOrderView = ({ navigation }) => {
         cartLocalData={cartLocalData}
         businessName={businessName}
         _handleDishItem={_handleDishItem}
-        OnPressCheckOut={OnPressCheckOut}
+        checkoutPress={checkoutPress}
       />
       <Error
         message={errorMessage}

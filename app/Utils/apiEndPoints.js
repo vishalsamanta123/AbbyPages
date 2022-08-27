@@ -51,6 +51,7 @@ export default {
   PRODUCT_REVIEW: "/api/reviewRating/productReview",
   PRODUCT_BOOKING: "/api/orders/ordersShopingProduct",
   PRODUCT_ORDER_BOOKING: "/api/orders/ordersStoreShopingProduct",
+  ORDERPAYMENT: "/api/payment/orderPayment",
 
   GET_BUSINESS_CATEGORY_DETAILS: "/api/services/getcategory",
   GET_USER_BUSINESS_DETAILS: "/api/userAuth/getUserProfileDetails",

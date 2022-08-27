@@ -16,7 +16,6 @@ const CheckoutDetailView = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const [userData, setUserData] = useContext(UserContext);
   const [localUserData, setLocalUserData] = useState({
     first_name: "",
     last_name: "",
@@ -25,7 +24,6 @@ const CheckoutDetailView = ({ navigation }) => {
     order_payment_type: "",
     order_description: "",
   });
-  const [paymentMethod, setPaymentMethod] = useState(false);
   const [location, setLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [delivery_type, setDeliveryType] = useState("");
@@ -53,6 +51,7 @@ const CheckoutDetailView = ({ navigation }) => {
       setDeliveryType(JSON.parse(orderData).delivery_type);
     }
     try {
+      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
         setLocalUserData({
@@ -60,9 +59,10 @@ const CheckoutDetailView = ({ navigation }) => {
           first_name: data?.data?.first_name ? data?.data.first_name : "",
           last_name: data?.data?.last_name ? data?.data.last_name : "",
           email: data?.data?.email ? data?.data?.email : "",
-          mobile: data?.data?.phone ? data?.data?.phone : "",
-          order_payment_type: paymentMethod ? 1 : 2,
+          mobile: data?.data?.phone ? data?.data?.phone : "8456122312",
+          order_payment_type: 1,
         });
+        setVisible(false);
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -70,11 +70,10 @@ const CheckoutDetailView = ({ navigation }) => {
       setVisible(false);
     }
   };
-  const onPressPaymentMethod = () => {
-    setPaymentMethod(!paymentMethod);
+  const onPressPaymentMethod = (resp) => {
     setLocalUserData({
       ...localUserData,
-      order_payment_type: paymentMethod ? 1 : 2,
+      order_payment_type: resp == 2 ? 1 : 2,
     });
   };
   function validationFrom() {
@@ -115,20 +114,29 @@ const CheckoutDetailView = ({ navigation }) => {
         return false;
       }
     }
-    if (paymentMethod) {
-      if (
-        // onlineDetail.validNumber == "" ||
-        // onlineDetail.expiryMonth == "" ||
-        // onlineDetail.expiryYear == "" ||
-        onlineDetail.CVVNumber == ""
-        // ||
-        // onlineDetail.brand == "" ||
-        // onlineDetail.last4 == "" ||
-        // onlineDetail.postalCode == "" ||
-        // onlineDetail.validCVC == "" ||
-        // onlineDetail.validExpiryDate == ""
-      ) {
-        setErrorMessage("Please enter card details");
+    if (localUserData.order_payment_type === 2) {
+      if (onlineDetail.validNumber !== "Valid") {
+        setErrorMessage("Please enter card number correctly");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.brand !== "Visa") {
+        setErrorMessage("Please enter card number starts from 42");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.validExpiryDate !== "Valid") {
+        setErrorMessage("Please enter correct expiry date");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.validCVC !== "Valid") {
+        setErrorMessage("Please enter correct cvc number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.postalCode === "" || null) {
+        setErrorMessage("Please enter postal code card details");
         setVisibleErr(true);
         return false;
       }
@@ -141,6 +149,16 @@ const CheckoutDetailView = ({ navigation }) => {
       try {
         const orderData = await AsyncStorage.getItem("orderData");
         if (orderData !== "") {
+          const {
+            brand = "",
+            expiryMonth = "",
+            expiryYear = "",
+            last4 = "",
+            postalCode = "",
+            validCVC = "",
+            validExpiryDate = "",
+            validNumber = "",
+          } = onlineDetail || {};
           const {
             first_name = "",
             last_name = "",
@@ -170,12 +188,16 @@ const CheckoutDetailView = ({ navigation }) => {
             mobile,
             order_payment_type,
             order_description,
-            AddCard,
-            CardNumber,
-            CardExpiry,
-            CVVNumber,
-            ZipCode,
+            brand,
+            expiryMonth,
+            expiryYear,
+            last4,
+            postalCode,
+            validCVC,
+            validExpiryDate,
+            validNumber,
           };
+          console.log("params: ", params);
           await AsyncStorage.setItem("orderData", JSON.stringify(params));
           setVisible(false);
           navigation.navigate("PlaceOrder");
@@ -197,8 +219,6 @@ const CheckoutDetailView = ({ navigation }) => {
         localUserData={localUserData}
         setLocalUserData={setLocalUserData}
         onPressPaymentMethod={onPressPaymentMethod}
-        paymentMethod={paymentMethod}
-        setPaymentMethod={setPaymentMethod}
         onPressContinue={onPressContinue}
         onlineDetail={onlineDetail}
         setOnlineDetail={setOnlineDetail}
