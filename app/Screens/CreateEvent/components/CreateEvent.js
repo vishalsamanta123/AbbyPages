@@ -328,7 +328,7 @@ const CreateEvent = (props) => {
             </View>
           </TouchableOpacity>
           <Button
-            buttonText="Create Event"
+            buttonText= {props.type !== 'Edit_event' ? "Create Event" : "Edit Event" }
             style={{ marginTop: 10 }}
             onPress={props.onPressCreateEvent}
           />
