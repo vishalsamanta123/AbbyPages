@@ -24,7 +24,7 @@ const BusinessOrderHistory = (props) => {
                     borderColor: '#ffe98e',
                     borderBottomWidth: 0.3
                 }}>
-                    <FlatList
+                    {/* <FlatList
                         data={props.dataType}
                         horizontal
                         showsHorizontalScrollIndicator={false}
@@ -38,7 +38,7 @@ const BusinessOrderHistory = (props) => {
                     <View style={{
                         borderWidth: 0.3,
                         borderColor: '#ffe98e'
-                    }} />
+                    }} /> */}
                 </View>
                 {props.orderData.length > 0 ?
                     <FlatList

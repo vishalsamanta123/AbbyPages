@@ -329,8 +329,8 @@ const CreateEventView = ({ route, navigation }) => {
           console.log('data ====: ', data);
           setVisible(false);
           setSuccessMessage("Event added successfully");
-          type !== 'busniess' && setVisibleSuccess(true);
-          type === 'busniess' && navigation.goBack()
+          type !== 'busniess' || type !== 'Edit_event' && setVisibleSuccess(true);
+          type === 'busniess' || type === 'Edit_event'  && navigation.goBack()
         } else {
           console.log('data ====: ', data);
           setVisible(false);

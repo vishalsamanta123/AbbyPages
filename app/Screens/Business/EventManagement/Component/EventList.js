@@ -22,7 +22,7 @@ const EventList = (props) => {
           </TouchableOpacity>
         </View>
           <FlatList
-          // style={{marginBottom: 100}}
+          showsVerticalScrollIndicator={false}
             data={props?.eventData}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) => props.handleEvents(item)}

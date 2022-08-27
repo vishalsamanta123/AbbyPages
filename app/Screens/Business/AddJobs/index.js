@@ -154,7 +154,7 @@ const AddJobs = ({ navigation, route }) => {
     getStateList();
     getCityList();
     getJobCategoryList();
-    setData();
+    // setData();
   }, []);
 
   const setData = () => {
@@ -223,7 +223,7 @@ const AddJobs = ({ navigation, route }) => {
   const getStateList = async () => {
     try {
       const params = {
-        status: 0,
+        status: 1,
         country_id: selectedCountry.country_id,
       };
       const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
@@ -241,7 +241,7 @@ const AddJobs = ({ navigation, route }) => {
   const getCityList = async () => {
     try {
       const params = {
-        status: 0,
+        status: 2,
         state_id: selectedState.state_id,
       };
       const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
