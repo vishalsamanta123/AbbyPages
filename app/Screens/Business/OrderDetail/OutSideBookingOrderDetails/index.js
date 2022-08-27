@@ -7,7 +7,6 @@ import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import Error from "../../../../Components/Modal/error";
 import Success from "../../../../Components/Modal/success";
-import moment from "moment";
 const OutSideBookingOrderDetails = (route, props) => {
   const orderId = route.route.params.orderId;
   const BusinessType = route.route.params.BusinessType;

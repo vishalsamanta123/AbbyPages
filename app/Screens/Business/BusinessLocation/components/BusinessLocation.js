@@ -11,7 +11,6 @@ import Header from '../../../../Components/Header';
 import Button from '../../../../Components/Button';
 import CommonStyles from '../../../../Utils/CommonStyles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-// import Slider from '@react-native-community/slider';
 import RNSlider from 'react-native-slider';
 import RNSpeedometer from 'react-native-speedometer'
 import { YELLOW_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE, WHITE_COLOR_CODE, LINE_COMMON_COLOR_CODE } from '../../../../Utils/Constant';

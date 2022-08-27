@@ -10,6 +10,7 @@ import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { ShoppingCartContext } from "../../../Utils/UserContext";
+import QuestionModal from "../../../Components/Modal/questionModal";
 const ShoppingCart = ({ navigation }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
@@ -19,12 +20,15 @@ const ShoppingCart = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useState(false);
-
   const [finalAmount, setFinalAmount] = useState("");
+  const [removeItem, setRemoveItem] = useState(false);
+  const [allDelete, setAllDelete] = useState(false);
+  const [removeIndex, setRemoveIndex] = useState("");
 
   useEffect(() => {
     handleFinalAmount();
-  }, [reload]);
+  }, [reload, removeIndex]);
+
   const handleFinalAmount = () => {
     const FinalAmount = shoppingCartData.reduce(
       (accumulatedTotal, curr) => accumulatedTotal + curr.total_product_price,
@@ -73,8 +77,8 @@ const ShoppingCart = ({ navigation }) => {
         // await AsyncStorage.setItem('localCartData', JSON.stringify(shoppingCartData))
       }
       handleFinalAmount();
-    } catch (e) {
-      setErrorMessage(e);
+    } catch (error) {
+      setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
@@ -113,54 +117,37 @@ const ShoppingCart = ({ navigation }) => {
       return shoppingCartData[getIndex].quantity;
     }
   };
-  const onPressDeleteItem = (item) =>
-    Alert.alert(
-      "Delete Product",
-      "Are you sure you want to delete product from cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => productDelete(item) },
-      ],
-      { cancelable: false }
-    );
-
-  const productDelete = (item) => {
-    if (shoppingCartData.length > 0) {
-      var getIndex = _.findIndex(shoppingCartData, {
-        product_id: item.product_id,
-      });
-      if (getIndex >= 0) {
-        const cartLocalFunctionData = [...shoppingCartData];
-        cartLocalFunctionData.splice(getIndex, 1);
-        setShoppingCartData(cartLocalFunctionData);
-        setReload(!reload);
-        handleFinalAmount();
+  const DeleteItem = (item) => {
+    try {
+      setVisible(true);
+      setRemoveItem(false);
+      if (shoppingCartData.length > 0) {
+        var getIndex = _.findIndex(shoppingCartData, {
+          product_id: item.product_id,
+        });
+        if (getIndex >= 0) {
+          const cartLocalFunctionData = [...shoppingCartData];
+          cartLocalFunctionData.splice(getIndex, 1);
+          setShoppingCartData(cartLocalFunctionData);
+          setReload(!reload);
+          handleFinalAmount();
+          setRemoveIndex("");
+          setVisible(false);
+        }
       }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
     }
   };
   const DeleteCart = async () => {
-    setShoppingCartData("");
+    setShoppingCartData([]);
     await AsyncStorage.removeItem("productOrderData");
+    setAllDelete(false);
     navigation.navigate("ShopList");
   };
-  const onPressDeleteCart = () =>
-    Alert.alert(
-      "Delete Cart",
-      "Do you want to delete this cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Confirm", onPress: () => DeleteCart() },
-      ],
-      { cancelable: false }
-    );
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -169,10 +156,11 @@ const ShoppingCart = ({ navigation }) => {
         getqty={getqty}
         removeFromCart={removeFromCart}
         addProductOnCart={addProductOnCart}
-        onPressDeleteItem={onPressDeleteItem}
-        onPressDeleteCart={onPressDeleteCart}
         shoppingCartData={shoppingCartData}
         onPressContinue={onPressContinue}
+        setRemoveItem={setRemoveItem}
+        setRemoveIndex={setRemoveIndex}
+        setAllDelete={setAllDelete}
       />
       <Error
         message={errorMessage}
@@ -183,6 +171,20 @@ const ShoppingCart = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        surringVisible={removeItem}
+        topMessage={"Delete Product from Cart"}
+        message={"Are you sure you want to delete product from cart ?"}
+        positiveResponse={() => DeleteItem(removeIndex)}
+        negativeResponse={() => setRemoveItem(false)}
+      />
+      <QuestionModal
+        surringVisible={allDelete}
+        topMessage={"Delete Carts"}
+        message={"Do you want to delete this carts ?"}
+        positiveResponse={() => DeleteCart()}
+        negativeResponse={() => setAllDelete(false)}
       />
     </View>
   );

@@ -6,7 +6,6 @@ import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import { ServiceProviderContext } from "../../Utils/UserContext";
-import dateFormat from "dateformat";
 import moment from "moment";
 const StepThird = ({ navigation }) => {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);

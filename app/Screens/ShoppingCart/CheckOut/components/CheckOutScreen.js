@@ -55,7 +55,9 @@ const CheckOutScreen = (props) => {
           </Text>
           <View style={[styles.basiccon, styles.paymentCon]}>
             <TouchableOpacity
-              // onPress={() => props.setOrderPaymentType(!props.order_payment_type)}
+              onPress={() =>
+                props.setOrderPaymentType(!props.order_payment_type)
+              }
               style={styles.basiccon}
             >
               <Image
@@ -71,7 +73,9 @@ const CheckOutScreen = (props) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => props.setOrderPaymentType(!props.order_payment_type)}
+              onPress={() =>
+                props.setOrderPaymentType(!props.order_payment_type)
+              }
               style={[styles.basiccon, { marginLeft: 10 }]}
             >
               <Image
@@ -149,7 +153,12 @@ const CheckOutScreen = (props) => {
             <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
               {item.product_name}
             </Text>
-            <TouchableOpacity onPress={() => props.onPressDeleteItem(item)}>
+            <TouchableOpacity
+              onPress={() => {
+                props.setRemoveItem(true);
+                props.setRemoveIndex(item);
+              }}
+            >
               <Image
                 style={styles.icon}
                 source={require("../../../../Assets/cart_delete_icon.png")}
@@ -182,11 +191,11 @@ const CheckOutScreen = (props) => {
         logoImg={false}
         headerSecondText="confirm order with the following details"
         RightImg={require("../../../../Assets/trash_icon_header.png")}
-        onPress={() => props.onPressDeleteCart()}
+        onPress={() => props.setAllDelete(true)}
       />
       <View style={CommonStyles.body}>
         <FlatList
-          data={props.shoppingCartData}
+          data={props?.shoppingCartData}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => screenlowerdata()}
           keyExtractor={(item, index) => index}

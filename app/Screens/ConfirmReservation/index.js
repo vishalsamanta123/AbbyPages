@@ -9,7 +9,7 @@ import { UserContext } from "../../Utils/UserContext";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
-import dateFormat from "dateformat";
+import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 
 const ConfirmReservationView = ({ navigation, route }) => {
@@ -106,7 +106,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
     if (valid) {
       try {
         setVisible(true);
-        var date = dateFormat(reservationData.date, "yyyy-mm-dd");
+        var date = moment(reservationData.date).format("MM-DD-YYYY");
         const params = {
           business_id: restroDetail.business_id,
           business_type: 1,

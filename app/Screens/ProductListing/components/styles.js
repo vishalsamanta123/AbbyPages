@@ -123,16 +123,21 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  headerVw: {
+    paddingVertical: 16,
+    flexDirection: "row",
+    backgroundColor: YELLOW_COLOR_CODE,
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    alignItems: "center",
+  },
   headerArrow: {
-    paddingHorizontal: 20,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    paddingLeft: 10,
+    // justifyContent: "center",
+    // alignItems: "flex-start",
   },
   headerViewMidle: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
-    paddingRight: 20,
   },
   headerMiddleTxt: {
     color: WHITE_COLOR_CODE,

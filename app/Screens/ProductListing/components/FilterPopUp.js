@@ -114,7 +114,17 @@ export default function FilterPopUp(props) {
           });
         }
       } else {
-        // setProductCatg([]);
+        if (data.status === 201) {
+          props.setVisible(false);
+          props.setErrorMessage(data.message);
+          props.setVisibleErr(true);
+          // setProductCatg([]);
+          setProductSubCatg([]);
+        } else {
+          props.setErrorMessage(data.message);
+          props.setVisibleErr(true);
+          props.setVisible(false);
+        }
       }
     } catch (error) {
       props.setErrorMessage(error.message);
@@ -146,6 +156,7 @@ export default function FilterPopUp(props) {
     });
     setProductSubCatg([]);
     setSelected(null);
+    setMultiSliderValue([]);
   };
   const handleFilter = () => {
     props.closeModel();
@@ -161,6 +172,7 @@ export default function FilterPopUp(props) {
     <View>
       <Dialog
         visible={props.filter}
+        rounded={false}
         width={"100%"}
         height={"100%"}
         useNativeDriver={true}
@@ -178,33 +190,19 @@ export default function FilterPopUp(props) {
           backgroundColor={YELLOW_COLOR_CODE}
           translucent={false}
         />
-        <View style={CommonStyles.header}>
+        <View style={styles.headerVw}>
           <TouchableOpacity
             onPress={() => {
               props.closeModel();
               handleReset();
             }}
-            style={styles.headerArrow}
           >
             <Image source={require("../../../Assets/header_back_btn.png")} />
           </TouchableOpacity>
-          <View style={styles.headerViewMidle}>
-            <Text style={styles.headerMiddleTxt}>Filter Product</Text>
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => handleReset()}
-            style={styles.resetVw}
-          >
+          <Text style={styles.headerMiddleTxt}>Filter Product</Text>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => handleReset()}>
             <Text style={styles.resetTxt}>Reset</Text>
           </TouchableOpacity>
-          {/* <View style={styles.filterImgeView}>
-            <Image source={require("../../../Assets/filter_icon.png")} />
-            <Image
-              style={{ marginLeft: 5 }}
-              source={require("../../../Assets/search_icon_header.png")}
-            />
-          </View> */}
         </View>
         <ScrollView contentContainerStyle={styles.filterVw}>
           <Text style={styles.typesTxt}>Select Sort by</Text>
@@ -258,7 +256,7 @@ export default function FilterPopUp(props) {
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={styles.typesTxt}>Select Price Range</Text>
+          <Text style={styles.typesTxt}>Select Price Range (Maximum)</Text>
           <View style={styles.containerVws}>
             <View style={{ alignItems: "center", marginTop: 5 }}>
               <MultiSlider
@@ -271,11 +269,12 @@ export default function FilterPopUp(props) {
                     max_price: val[1],
                   });
                 }}
+                enabledOne={false}
                 min={100}
                 max={10000}
                 step={1}
-                allowOverlap
-                snapped
+                // allowOverlap
+                // snapped
                 sliderLength={width / 1.3}
                 containerStyle={{ height: 40 }}
                 selectedStyle={styles.selectedVw}
@@ -324,23 +323,28 @@ export default function FilterPopUp(props) {
                 Category
               </Text>
               <View style={styles.subCategoryVw}>
-                <Picker
-                  onValueChange={(itemValue, itemIndex) => {
-                    props.setFilterData({
-                      ...props.filterData,
-                      sub_category_id: itemValue,
-                    });
-                  }}
-                  selectedValue={props.filterData.sub_category_id}
-                  mode={"dialog"}
-                  style={styles.subCategoryTxt}
-                >
-                  {productSubCatg.map((item) => {
-                    return (
-                      <Picker.Item label={item.category_name} value={item.id} />
-                    );
-                  })}
-                </Picker>
+                {productSubCatg?.length > 0 && (
+                  <Picker
+                    onValueChange={(itemValue, itemIndex) => {
+                      props.setFilterData({
+                        ...props.filterData,
+                        sub_category_id: itemValue,
+                      });
+                    }}
+                    selectedValue={props.filterData.sub_category_id}
+                    mode={"dialog"}
+                    style={styles.subCategoryTxt}
+                  >
+                    {productSubCatg?.map((item) => {
+                      return (
+                        <Picker.Item
+                          label={item.category_name}
+                          value={item.id}
+                        />
+                      );
+                    })}
+                  </Picker>
+                )}
               </View>
             </View>
           ) : null}
@@ -373,12 +377,12 @@ export default function FilterPopUp(props) {
           <Text style={styles.typesTxt}>Select Size</Text>
           <View style={styles.container}>
             <Picker
-              selectedValue={props.filterData.size}
+              selectedValue={props.filterData.product_size}
               style={styles.pickerVw}
               onValueChange={(itemValue, itemIndex) =>
                 props.setFilterData({
                   ...props.filterData,
-                  size: itemValue,
+                  product_size: itemValue,
                 })
               }
               mode={"dropdown"}

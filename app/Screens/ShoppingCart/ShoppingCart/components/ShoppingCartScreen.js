@@ -32,7 +32,7 @@ const ShoppingCartScreen = (props) => {
                 placeholderTextColor={BLACK_COLOR_CODE}
               />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity activeOpacity={1}>
               <Text style={[styles.hdngtxt, styles.appliedbtncon]}>
                 Applied
               </Text>
@@ -80,7 +80,7 @@ const ShoppingCartScreen = (props) => {
       </View>
     );
   };
-  const _renderCartItemList = (item) => {
+  const _renderCartItemList = ({ item, index }) => {
     return (
       <View style={styles.dataCon}>
         <View style={styles.itemsVw}>
@@ -96,7 +96,12 @@ const ShoppingCartScreen = (props) => {
             <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
               {item.product_name}
             </Text>
-            <TouchableOpacity onPress={() => props.onPressDeleteItem(item)}>
+            <TouchableOpacity
+              onPress={() => {
+                props.setRemoveItem(true);
+                props.setRemoveIndex(item);
+              }}
+            >
               <Image
                 style={styles.icon}
                 source={require("../../../../Assets/cart_delete_icon.png")}
@@ -141,7 +146,7 @@ const ShoppingCartScreen = (props) => {
         HeaderText="Marketplace Cart"
         headerSecondText={props.shoppingCartData.length}
         RightImg={require("../../../../Assets/trash_icon_header.png")}
-        onPress={() => props.onPressDeleteCart()}
+        onPress={() => props.setAllDelete(true)}
       />
       <View style={CommonStyles.body}>
         <FlatList
@@ -149,7 +154,7 @@ const ShoppingCartScreen = (props) => {
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => screenlowerdata()}
           keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => _renderCartItemList(item, index)}
+          renderItem={({ item, index }) => _renderCartItemList({ item, index })}
         />
       </View>
     </View>
