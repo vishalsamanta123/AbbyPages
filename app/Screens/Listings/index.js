@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ToastAndroid,
+  Keyboard,
 } from "react-native";
 import _ from "lodash";
 import moment from "moment";
@@ -41,6 +42,7 @@ const ListingsScreenView = ({ navigation, route }) => {
       if (inputSearch) {
         handleSearchData(0);
       } else {
+        Keyboard.dismiss();
         handleRestroList(0);
       }
     }

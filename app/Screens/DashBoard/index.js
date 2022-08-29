@@ -21,7 +21,7 @@ const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [dashBoardDetail, setDashBoardDetail] = useState("");
   const [businessCategory, setBusinessCategory] = useState("");
-  // const [businessCategoryName, setBusinessCategoryName] = useState('');
+  console.log("businessCategory: ", businessCategory);
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
   const onPressJob = () => {
     navigation.navigate("JobList");
@@ -57,17 +57,56 @@ const DashBoardView = ({ navigation }) => {
       longitude: location.longitude,
       category_id: businessCategory.id,
     };
-    if (businessCategory.business_type == 1) {
-      navigation.navigate("Listings", { nearbySearch: params });
+    if (businessCategory?.business_type === 1 || 2 || 3) {
+      if (businessCategory.business_type == 1) {
+        navigation.navigate("Listings", { nearbySearch: params });
+      }
+      if (businessCategory.business_type == 2) {
+        navigation.navigate("ShopList", { nearbySearch: params });
+      }
+      if (businessCategory.business_type == 3) {
+        navigation.navigate("ServiceProviderListing", {
+          nearbySearch: params,
+        });
+      }
+    } else {
+      setErrorMessage(
+        "No list available for selected category,Please select any other category"
+      );
+      setVisibleErr(true);
     }
-    if (businessCategory.business_type == 2) {
-      navigation.navigate("ShopList", { nearbySearch: params });
-    }
-    if (businessCategory.business_type == 3) {
-      navigation.navigate("ServiceProviderListing", {
-        nearbySearch: params,
-      });
-    }
+    // const params = {
+    //   latitude: location.latitude,
+    //   longitude: location.longitude,
+    //   category_id: businessCategory.id,
+    // };
+    // if (
+    //   businessCategory.business_type === 1 ||
+    //   2 ||
+    //   3 ||
+    //   businessCategory.category_name !== ""
+    // ) {
+    //   setBusinessCategory({
+    //     ...businessCategory,
+    //     category_name: "",
+    //   });
+    //   if (businessCategory.business_type == 1) {
+    //     navigation.navigate("Listings", { nearbySearch: params });
+    //   }
+    //   if (businessCategory.business_type == 2) {
+    //     navigation.navigate("ShopList", { nearbySearch: params });
+    //   }
+    //   if (businessCategory.business_type == 3) {
+    //     navigation.navigate("ServiceProviderListing", {
+    //       nearbySearch: params,
+    //     });
+    //   }
+    // } else {
+    //   setErrorMessage(
+    //     "No list available for selected category,Please select any other category"
+    //   );
+    //   setVisibleErr(true);
+    // }
   };
   const onPressSearchBusinessCategory = async () => {
     setVisible(true);
