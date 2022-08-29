@@ -11,6 +11,7 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { ShoppingCartContext } from "../../../Utils/UserContext";
 import QuestionModal from "../../../Components/Modal/questionModal";
+
 const ShoppingCart = ({ navigation }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);

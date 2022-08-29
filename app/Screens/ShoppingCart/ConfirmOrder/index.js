@@ -11,6 +11,7 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { ShoppingCartContext, UserContext } from "../../../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
+import QuestionModal from "../../../Components/Modal/questionModal";
 const ConfirmOrderView = ({ navigation }) => {
   const [userData, setUserData] = useContext(UserContext);
   const [shoppingCartData, setShoppingCartData] =
@@ -29,6 +30,7 @@ const ConfirmOrderView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [allDelete, setAllDelete] = useState(false);
 
   useEffect(() => {
     handleFinalAmount();
@@ -96,43 +98,33 @@ const ConfirmOrderView = ({ navigation }) => {
     }
     return true;
   };
-  const onPressConfirm = async () => {
+  const confirmPress = async () => {
     const valid = validationForOrder();
     if (valid) {
-      setVisible(true);
       try {
-        const params = {
-          product_items: shoppingCartData,
-          first_name: localUserData.first_name,
-          last_name: localUserData.last_name,
-          email: localUserData.email,
-          mobile: localUserData.mobile,
-          business_type: orderData.businessDetail.business_type,
-          business_id: orderData.businessDetail.business_id,
-          address: orderData.location[0].location,
-          latitude: orderData.location[0].latitude,
-          longitude: orderData.location[0].longitude,
-          order_payment_type: orderData.order_payment_type, //online or COD
-          total_order_amount: JSON.stringify(total_order_amount),
-          total_amount: JSON.stringify(total_order_amount),
-          order_discount: 0,
-          delivery_type: 1, //takeaway or delievery
-          order_booking_type: 2, //table ,outside,foodand item
-        };
-        const { data } = await apiCall(
-          "POST",
-          ENDPOINTS.PRODUCT_ORDER_BOOKING,
-          params
-        );
-        if (data.status == 200) {
-          setSuccessMessage(data.message);
-          setVisibleSuccess(true);
-          setVisible(false);
-          setShoppingCartData("");
+        if (orderData.order_payment_type === 2) {
+          setVisible(true);
+          const onlineDetails = orderData.onlineDetail;
+          const params = {
+            amount: JSON.stringify(total_order_amount),
+            email: localUserData.email,
+            user_name: localUserData.first_name,
+            card_number: "424242424242" + onlineDetails.last4,
+            // cvc: onlineDetails.validCVC.toString(),
+            exp_month: onlineDetails.expiryMonth.toString(),
+            exp_year: onlineDetails.expiryYear.toString(),
+            zipcode: onlineDetails.postalCode,
+          };
+          const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+          if (data.status === 200) {
+            onPressConfirm();
+          } else {
+            setErrorMessage(data.message);
+            setVisibleErr(true);
+            setVisible(false);
+          }
         } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
-          setVisible(false);
+          onPressConfirm();
         }
       } catch (error) {
         setErrorMessage(error.message);
@@ -141,36 +133,65 @@ const ConfirmOrderView = ({ navigation }) => {
       }
     }
   };
-  const onPressDeleteCart = () =>
-    Alert.alert(
-      "Delete Cart",
-      "Do you want to delete this cart ?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Confirm", onPress: () => DeleteCart() },
-      ],
-      { cancelable: false }
-    );
+  const onPressConfirm = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        product_items: shoppingCartData,
+        first_name: localUserData.first_name,
+        last_name: localUserData.last_name,
+        email: localUserData.email,
+        mobile: localUserData.mobile,
+        business_type: orderData.businessDetail.business_type,
+        business_id: orderData.businessDetail.business_id,
+        address: orderData.location[0].location,
+        latitude: orderData.location[0].latitude,
+        longitude: orderData.location[0].longitude,
+        order_payment_type: orderData.order_payment_type, //online or COD
+        total_order_amount: JSON.stringify(total_order_amount),
+        total_amount: JSON.stringify(total_order_amount),
+        order_discount: 0,
+        delivery_type: 1, //takeaway or delievery
+        order_booking_type: 2, //table ,outside,foodand item
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.PRODUCT_ORDER_BOOKING,
+        params
+      );
+      if (data.status == 200) {
+        setSuccessMessage(data.message);
+        setVisibleSuccess(true);
+        setVisible(false);
+        setShoppingCartData("");
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+      setVisible(false);
+    }
+  };
   const DeleteCart = async () => {
     setShoppingCartData("");
     await AsyncStorage.removeItem("productOrderData");
+    setAllDelete(false)
     navigation.navigate("ShopList");
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ConfirmOrder
-        onPressDeleteCart={onPressDeleteCart}
         orderData={orderData}
-        onPressConfirm={onPressConfirm}
+        confirmPress={confirmPress}
         localUserData={localUserData}
         setLocalUserData={setLocalUserData}
         shoppingCartData={shoppingCartData}
         _handleConfirmOrder={_handleConfirmOrder}
+        setAllDelete={setAllDelete}
       />
       <Error
         message={errorMessage}
@@ -183,6 +204,13 @@ const ConfirmOrderView = ({ navigation }) => {
         closeModel={() => {
           navigation.navigate("OrderHistory"), setVisibleSuccess(false);
         }}
+      />
+       <QuestionModal
+        surringVisible={allDelete}
+        topMessage={"Delete Carts"}
+        message={"Do you want to delete this carts ?"}
+        positiveResponse={() => DeleteCart()}
+        negativeResponse={() => setAllDelete(false)}
       />
     </View>
   );

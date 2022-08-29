@@ -1,5 +1,13 @@
-import React from "react";
-import { View, FlatList, Image, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -12,116 +20,13 @@ import {
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
+import Input from "../../../../Components/Input";
+
 const CheckOutScreen = (props) => {
   const screenlowerdata = (item) => {
-    return (
-      <View style={styles.footerVw}>
-        <View>
-          <Text style={[styles.hdngtxt, styles.headingTxt]}>
-            Delievery Address
-          </Text>
-          {props.location.length > 0 ? (
-            <Text style={styles.locationTxt}>
-              {props?.location && props?.location[0]?.location}
-            </Text>
-          ) : null}
-          {props?.location.length > 0 ? (
-            <TouchableOpacity
-              onPress={() => props.setAddressListVisible(true)}
-              style={styles.addressEditVw}
-            >
-              <Text style={styles.addressEditTxt}>Change Address</Text>
-              <Image
-                style={styles.addressEditImg}
-                resizeMode="contain"
-                source={require("../../../../Assets/edit_pencil_icon.png")}
-              />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => props.onPressAddAddress(true)}
-              style={styles.addressEditVw}
-            >
-              <Text style={styles.addressEditTxt}>Add Address</Text>
-              <Image
-                style={styles.addressEditImg}
-                resizeMode="contain"
-                source={require("../../../../Assets/edit_pencil_icon.png")}
-              />
-            </TouchableOpacity>
-          )}
-          <Text style={[styles.hdngtxt, styles.headingTxt]}>
-            Payment Method
-          </Text>
-          <View style={[styles.basiccon, styles.paymentCon]}>
-            <TouchableOpacity
-              onPress={() =>
-                props.setOrderPaymentType(!props.order_payment_type)
-              }
-              style={styles.basiccon}
-            >
-              <Image
-                style={{ height: 20, width: 20 }}
-                source={
-                  props.order_payment_type
-                    ? require("../../../../Assets/radio_circled_checked.png")
-                    : require("../../../../Assets/radio_circled_unchecked.png")
-                }
-              />
-              <Text style={[styles.hdngtxt, styles.paymentTxt]}>
-                CashOnDelievery
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                props.setOrderPaymentType(!props.order_payment_type)
-              }
-              style={[styles.basiccon, { marginLeft: 10 }]}
-            >
-              <Image
-                style={{ height: 20, width: 20 }}
-                source={
-                  !props.order_payment_type
-                    ? require("../../../../Assets/radio_circled_checked.png")
-                    : require("../../../../Assets/radio_circled_unchecked.png")
-                }
-              />
-              <Text style={[styles.hdngtxt, styles.paymentTxt]}>
-                Pay Online
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>Original Price</Text>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>
-            $ {props.finalAmount}
-          </Text>
-        </View>
-        <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>Offer</Text>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
-        </View>
-        <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>Promocode</Text>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
-        </View>
-        <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>
-            Current Total Price
-          </Text>
-          <Text style={[styles.hdngtxt, styles.amountTxt]}>
-            $ {props.finalAmount}
-          </Text>
-        </View>
-        <Button
-          buttonLabelStyle
-          style={{ marginTop: 10, marginBottom: 10 }}
-          buttonText="Continue"
-          onPress={() => props.onPressContinue()}
-        />
-      </View>
-    );
+    // return (
+    // );
   };
   const _renderAddressList = (item) => {
     return (
@@ -185,7 +90,7 @@ const CheckOutScreen = (props) => {
     );
   };
   return (
-    <View style={CommonStyles.container}>
+    <KeyboardAvoidingView behavior={"padding"} style={CommonStyles.container}>
       <Header
         HeaderText={"Confirm Order"}
         logoImg={false}
@@ -193,15 +98,155 @@ const CheckOutScreen = (props) => {
         RightImg={require("../../../../Assets/trash_icon_header.png")}
         onPress={() => props.setAllDelete(true)}
       />
-      <View style={CommonStyles.body}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <FlatList
           data={props?.shoppingCartData}
+          style={{ flex: 1 }}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={() => screenlowerdata()}
           keyExtractor={(item, index) => index}
           renderItem={({ item, index }) => _renderCartItemList(item, index)}
         />
-      </View>
+        <View style={styles.footerVw}>
+          <View>
+            <Text style={[styles.hdngtxt, styles.headingTxt]}>
+              Delievery Address
+            </Text>
+            {props.location.length > 0 ? (
+              <Text style={styles.locationTxt}>
+                {props?.location && props?.location[0]?.location}
+              </Text>
+            ) : null}
+            {props?.location.length > 0 ? (
+              <TouchableOpacity
+                onPress={() => props.setAddressListVisible(true)}
+                style={styles.addressEditVw}
+              >
+                <Text style={styles.addressEditTxt}>Change Address</Text>
+                <Image
+                  style={styles.addressEditImg}
+                  resizeMode="contain"
+                  source={require("../../../../Assets/edit_pencil_icon.png")}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => props.onPressAddAddress(true)}
+                style={styles.addressEditVw}
+              >
+                <Text style={styles.addressEditTxt}>Add Address</Text>
+                <Image
+                  style={styles.addressEditImg}
+                  resizeMode="contain"
+                  source={require("../../../../Assets/edit_pencil_icon.png")}
+                />
+              </TouchableOpacity>
+            )}
+            <Text style={[styles.hdngtxt, styles.headingTxt]}>
+              Payment Method
+            </Text>
+            <View style={[styles.basiccon, styles.paymentCon]}>
+              <TouchableOpacity
+                onPress={() =>
+                  props.setOrderPaymentType(!props.order_payment_type)
+                }
+                style={styles.basiccon}
+              >
+                <Image
+                  style={{ height: 20, width: 20 }}
+                  source={
+                    props.order_payment_type
+                      ? require("../../../../Assets/radio_circled_checked.png")
+                      : require("../../../../Assets/radio_circled_unchecked.png")
+                  }
+                />
+                <Text style={[styles.hdngtxt, styles.paymentTxt]}>
+                  CashOnDelievery
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  props.setOrderPaymentType(!props.order_payment_type)
+                }
+                style={[styles.basiccon, { marginLeft: 10 }]}
+              >
+                <Image
+                  style={{ height: 20, width: 20 }}
+                  source={
+                    !props.order_payment_type
+                      ? require("../../../../Assets/radio_circled_checked.png")
+                      : require("../../../../Assets/radio_circled_unchecked.png")
+                  }
+                />
+                <Text style={[styles.hdngtxt, styles.paymentTxt]}>
+                  Pay Online
+                </Text>
+              </TouchableOpacity>
+            </View>
+            {!props.order_payment_type && (
+              <View>
+                <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
+                  Enter Card Details
+                </Text>
+                <CardField
+                  postalCodeEnabled={true}
+                  placeholders={{
+                    number: "Number",
+                    expiration: "Expiry",
+                    cvc: "Cvv",
+                    postalCode: "ZipCode",
+                  }}
+                  style={styles.cardStyleVw}
+                  cardStyle={styles.cardStyle}
+                  onCardChange={(cardDetails) => {
+                    console.log("cardDetails: ", cardDetails);
+                    props.setOnlineDetail({
+                      ...props.onlineDetail,
+                      brand: cardDetails.brand,
+                      expiryMonth: cardDetails.expiryMonth,
+                      expiryYear: cardDetails.expiryYear,
+                      last4: cardDetails.last4,
+                      postalCode: cardDetails.postalCode,
+                      validCVC: cardDetails.validCVC,
+                      validExpiryDate: cardDetails.validExpiryDate,
+                      validNumber: cardDetails.validNumber,
+                    });
+                  }}
+                />
+              </View>
+            )}
+          </View>
+          <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+              Original Price
+            </Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+              $ {props.finalAmount}
+            </Text>
+          </View>
+          <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>Offer</Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
+          </View>
+          <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>Promocode</Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
+          </View>
+          <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+              Current Total Price
+            </Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+              $ {props.finalAmount}
+            </Text>
+          </View>
+          <Button
+            buttonLabelStyle
+            style={{ marginTop: 10, marginBottom: 10 }}
+            buttonText="Continue"
+            onPress={() => props.onPressContinue()}
+          />
+        </View>
+      </ScrollView>
       <Dialog
         visible={props.addressListVisible}
         width={1}
@@ -231,7 +276,7 @@ const CheckOutScreen = (props) => {
           </View>
         </DialogContent>
       </Dialog>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 export default CheckOutScreen;
