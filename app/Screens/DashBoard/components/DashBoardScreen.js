@@ -36,7 +36,7 @@ const DashBoardScreen = (props) => {
             onPress={() => props.onPressSearchBusinessCategory()}
             style={styles.TextInputView}
           >
-            {props.businessCategory === "" ? (
+            {props?.businessCategory === "" ? (
               <Text
                 style={[
                   styles.TextInputStyle,

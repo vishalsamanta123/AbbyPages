@@ -17,7 +17,7 @@ const ListingsScreen = (props) => {
         type="Map"
         logoImg={false}
       />
-      <View style={[CommonStyles.container]}>
+      {/* <View style={[CommonStyles.container]}> */}
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={props.restroList}
@@ -35,19 +35,17 @@ const ListingsScreen = (props) => {
             props.search || props.inputSearch
               ? !props.stopOffset
                 ? props?.handleSearchData(
-                    props.restroList.length > 5
-                      ? props.offSet + 1
-                      : props.offSet
+                    props.restroList.length > 5 ? props.offSet + 1 : 0
                   )
                 : null
               : !props.stopOffset
               ? props?.handleRestroList(
-                  props.restroList.length > 5 ? props.offSet + 1 : props.offSet
+                  props.restroList.length > 5 ? props.offSet + 1 : 0
                 )
               : null;
           }}
         />
-      </View>
+      {/* </View> */}
     </KeyboardAvoidingView>
   );
 };
