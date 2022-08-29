@@ -56,6 +56,26 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     width: null,
   },
+  TakeOutText: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
+    paddingLeft: 10,
+  },
+  cardDetailsTxt: {
+    marginLeft: 10,
+    marginVertical: 8,
+    fontSize: 18,
+  },
+  cardStyleVw: {
+    paddingVertical: 30,
+    marginHorizontal: 14,
+  },
+  cardStyle: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    textColor: BLACK_COLOR_CODE,
+  },
   headingTxt: {
     fontSize: 18,
     opacity: 0.9,

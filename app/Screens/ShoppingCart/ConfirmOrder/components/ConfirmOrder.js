@@ -29,7 +29,7 @@ const ConfirmOrder = (props) => {
         RightImg={require("../../../../Assets/trash_icon_header.png")}
         HeaderText={" Confirm Order "}
         headerSecondText={false}
-        onPress={() => props.onPressDeleteCart()}
+        onPress={() => props.setAllDelete(true)}
         logoImg={false}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
@@ -123,10 +123,7 @@ const ConfirmOrder = (props) => {
             }
           />
           <View style={styles.COnfirmBtnView}>
-            <Button
-              onPress={() => props.onPressConfirm()}
-              buttonText="Confirm"
-            />
+            <Button onPress={() => props.confirmPress()} buttonText="Confirm" />
           </View>
         </ScrollView>
       </View>

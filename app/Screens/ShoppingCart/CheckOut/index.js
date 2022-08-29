@@ -20,7 +20,17 @@ const CheckOut = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useState(false);
-
+  const [onlineDetail, setOnlineDetail] = useState({
+    brand: "",
+    expiryMonth: "",
+    expiryYear: "",
+    last4: "",
+    postalCode: "",
+    validCVC: "",
+    validExpiryDate: "",
+    validNumber: "",
+  });
+  // console.log('onlineDetail: ', onlineDetail);
   const [addressListVisible, setAddressListVisible] = useState(false);
   const [finalAmount, setFinalAmount] = useState("");
   const [locationList, setLocationList] = useState([]);
@@ -41,6 +51,34 @@ const CheckOut = ({ navigation }) => {
       setVisibleErr(true);
       return false;
     }
+    if (order_payment_type === false) {
+      if (onlineDetail.validNumber !== "Valid") {
+        setErrorMessage("Please enter card number correctly");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.brand !== "Visa") {
+        setErrorMessage("Please enter card number starts from 42");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.validExpiryDate !== "Valid") {
+        setErrorMessage("Please enter correct expiry date");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.validCVC !== "Valid") {
+        setErrorMessage("Please enter correct cvc number");
+        setVisibleErr(true);
+        return false;
+      }
+      if (onlineDetail.postalCode === "" || null) {
+        setErrorMessage("Please enter postal code card details");
+        setVisibleErr(true);
+        return false;
+      }
+      return true;
+    }
     return true;
   };
   const onPressContinue = async () => {
@@ -53,6 +91,7 @@ const CheckOut = ({ navigation }) => {
             businessDetail: JSON.parse(value).businessDetail,
             location: location,
             order_payment_type: order_payment_type ? 1 : 2,
+            onlineDetail: onlineDetail,
           };
           await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
           navigation.navigate("ConfirmOrder");
@@ -96,9 +135,9 @@ const CheckOut = ({ navigation }) => {
   };
   const DeleteCart = async () => {
     setShoppingCartData("");
+    await AsyncStorage.removeItem("productOrderData");
     setAllDelete(false);
     navigation.navigate("ShopList");
-    await AsyncStorage.removeItem("productOrderData");
   };
   const DeleteItem = (item) => {
     try {
@@ -149,6 +188,8 @@ const CheckOut = ({ navigation }) => {
         setRemoveItem={setRemoveItem}
         setRemoveIndex={setRemoveIndex}
         setAllDelete={setAllDelete}
+        onlineDetail={onlineDetail}
+        setOnlineDetail={setOnlineDetail}
       />
       <Error
         message={errorMessage}

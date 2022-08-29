@@ -51,11 +51,11 @@ const StepFifth = ({ navigation, route }) => {
       setVisibleErr(true);
       return false;
     }
-    if (localUserData.mobile === "") {
-      setErrorMessage("Please Enter Phone");
-      setVisibleErr(true);
-      return false;
-    }
+    // if (localUserData.mobile === "") {
+    //   setErrorMessage("Please Enter Phone");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
     if (localUserData.user_name === "") {
       setErrorMessage("Please Enter UserName");
       setVisibleErr(true);

@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useContext } from "react";
 import {
   Dimensions,
   View,
@@ -16,6 +16,7 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../Utils/Constant";
+import { useFocusEffect } from "@react-navigation/native";
 import ImagePicker from "react-native-image-crop-picker";
 import _ from "lodash";
 import styles from "./components/styles";
@@ -27,8 +28,11 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import { ShoppingCartContext, UserContext } from "../../Utils/UserContext";
 
 const ShopDetail = ({ navigation, route }) => {
+  const [shoppingCartData, setShoppingCartData] =
+    useContext(ShoppingCartContext);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -53,12 +57,16 @@ const ShopDetail = ({ navigation, route }) => {
   const { width, height } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
-  useEffect(() => {
-    if (route.params) {
-      const { detail } = route.params;
-      handleShopDetail(detail); //function
-    }
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params) {
+        const { detail } = route.params;
+        handleShopDetail(detail); //function
+        setShoppingCartData([]);
+      }
+    }, [])
+  );
   const handleShopDetail = async (data) => {
     setVisible(true);
     const params = {
@@ -257,7 +265,7 @@ const ShopDetail = ({ navigation, route }) => {
                 ""
             );
           } else {
-           alert("Don't know how to go");
+            alert("Don't know how to go");
           }
         })
         .catch((err) => console.error("An error occurred", err));
