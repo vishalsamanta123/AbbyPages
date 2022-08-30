@@ -198,7 +198,6 @@ const CheckOutScreen = (props) => {
                   style={styles.cardStyleVw}
                   cardStyle={styles.cardStyle}
                   onCardChange={(cardDetails) => {
-                    console.log("cardDetails: ", cardDetails);
                     props.setOnlineDetail({
                       ...props.onlineDetail,
                       brand: cardDetails.brand,

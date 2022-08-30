@@ -20,8 +20,15 @@ const DashBoardView = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [dashBoardDetail, setDashBoardDetail] = useState("");
-  const [businessCategory, setBusinessCategory] = useState("");
-  console.log("businessCategory: ", businessCategory);
+  const [businessCategory, setBusinessCategory] = useState({
+    business_type: "",
+    category_name: "",
+    description: "",
+    id: "",
+    image: "",
+    parents_id: "",
+    status: "",
+  });
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
   const onPressJob = () => {
     navigation.navigate("JobList");
@@ -52,22 +59,36 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
-    const params = {
-      latitude: location.latitude,
-      longitude: location.longitude,
-      category_id: businessCategory.id,
-    };
     if (businessCategory?.business_type === 1 || 2 || 3) {
-      if (businessCategory.business_type == 1) {
-        navigation.navigate("Listings", { nearbySearch: params });
-      }
-      if (businessCategory.business_type == 2) {
-        navigation.navigate("ShopList", { nearbySearch: params });
-      }
-      if (businessCategory.business_type == 3) {
-        navigation.navigate("ServiceProviderListing", {
-          nearbySearch: params,
+      const params = {
+        latitude: location.latitude,
+        longitude: location.longitude,
+        category_id: businessCategory.id,
+      };
+      if (businessCategory.category_name !== "") {
+        setBusinessCategory({
+          ...businessCategory,
+          category_name: "",
         });
+        setLocation({
+          address: "",
+          latitude: "",
+          longitude: "",
+        });
+        if (businessCategory.business_type == 1) {
+          navigation.navigate("Listings", { nearbySearch: params });
+        }
+        if (businessCategory.business_type == 2) {
+          navigation.navigate("ShopList", { nearbySearch: params });
+        }
+        if (businessCategory.business_type == 3) {
+          navigation.navigate("ServiceProviderListing", {
+            nearbySearch: params,
+          });
+        }
+      } else {
+        setErrorMessage("Please select any category");
+        setVisibleErr(true);
       }
     } else {
       setErrorMessage(
@@ -75,38 +96,6 @@ const DashBoardView = ({ navigation }) => {
       );
       setVisibleErr(true);
     }
-    // const params = {
-    //   latitude: location.latitude,
-    //   longitude: location.longitude,
-    //   category_id: businessCategory.id,
-    // };
-    // if (
-    //   businessCategory.business_type === 1 ||
-    //   2 ||
-    //   3 ||
-    //   businessCategory.category_name !== ""
-    // ) {
-    //   setBusinessCategory({
-    //     ...businessCategory,
-    //     category_name: "",
-    //   });
-    //   if (businessCategory.business_type == 1) {
-    //     navigation.navigate("Listings", { nearbySearch: params });
-    //   }
-    //   if (businessCategory.business_type == 2) {
-    //     navigation.navigate("ShopList", { nearbySearch: params });
-    //   }
-    //   if (businessCategory.business_type == 3) {
-    //     navigation.navigate("ServiceProviderListing", {
-    //       nearbySearch: params,
-    //     });
-    //   }
-    // } else {
-    //   setErrorMessage(
-    //     "No list available for selected category,Please select any other category"
-    //   );
-    //   setVisibleErr(true);
-    // }
   };
   const onPressSearchBusinessCategory = async () => {
     setVisible(true);
