@@ -35,14 +35,11 @@ const ListingsScreenView = ({ navigation, route }) => {
     if (route?.params?.nearbySearch) {
       const { nearbySearch } = route?.params;
       setSearch(nearbySearch);
-      if (search) {
-        handleSearchData(0);
-      }
+      handleSearchData(0);
     } else {
       if (inputSearch) {
         handleSearchData(0);
       } else {
-        Keyboard.dismiss();
         handleRestroList(0);
       }
     }
@@ -74,13 +71,13 @@ const ListingsScreenView = ({ navigation, route }) => {
         setVisible(false);
         setRestroList(data.data);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setRestroList([]);
           setVisible(false);
         } else {
           setErrorMessage(data.message);
           setVisibleErr(true);
-          setstopOffset(true);
           setVisible(false);
         }
       }
@@ -104,11 +101,11 @@ const ListingsScreenView = ({ navigation, route }) => {
         setRestroList(data.data);
         setVisible(false);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setRestroList([]);
           setVisible(false);
         } else {
-          setstopOffset(true);
           setErrorMessage(data.message);
           setVisibleErr(true);
           setVisible(false);
@@ -167,8 +164,11 @@ const ListingsScreenView = ({ navigation, route }) => {
             <View style={styles.RatingStyles}>
               <Text style={styles.RatingStylesTxt}>5.0</Text>
             </View>
-            <Text numberOfLines={1} style={styles.RatingTextMain}>
-              {item.rating} ratings
+            <Text style={styles.RatingTextMain}>
+              {item.rating.length > 5
+                ? item.rating.toString().slice(0, -3)
+                : item.rating.length}{" "}
+              ratings
             </Text>
           </View>
         </View>

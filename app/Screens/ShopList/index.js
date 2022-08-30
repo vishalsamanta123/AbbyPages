@@ -59,11 +59,11 @@ const ShopList = ({ navigation, route }) => {
         setShopList(data.data);
         setVisible(false);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setShopList([]);
           setVisible(false);
         } else {
-          setstopOffset(true);
           setErrorMessage(data.message);
           setVisibleErr(true);
           setVisible(false);
@@ -101,13 +101,13 @@ const ShopList = ({ navigation, route }) => {
         setVisible(false);
         setShopList(data.data);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setShopList([]);
           setVisible(false);
         } else {
           setErrorMessage(data.message);
           setVisibleErr(true);
-          setstopOffset(true);
           setVisible(false);
         }
       }
@@ -169,7 +169,12 @@ const ShopList = ({ navigation, route }) => {
             <View style={styles.RatingStyles}>
               <Text style={styles.RatingStylesTxt}>5.0</Text>
             </View>
-            <Text style={styles.RatingTextMain}>{item.rating} ratings</Text>
+            <Text style={styles.RatingTextMain}>
+              {item.rating.length > 5
+                ? item.rating.toString().slice(0, -3)
+                : item.rating.length}{" "}
+              ratings
+            </Text>
           </View>
         </View>
         <View style={[{ flex: 1, paddingHorizontal: 10 }]}>

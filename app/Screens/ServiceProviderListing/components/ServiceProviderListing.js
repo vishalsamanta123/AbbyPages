@@ -33,7 +33,7 @@ const ServiceProviderListing = (props) => {
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onEndReached={() => {
+        onEndReached={(item) => {
           props.search || props.inputSearch
             ? !props.stopOffset
               ? props?.handleSearchData(

@@ -21,18 +21,22 @@ const ShopList = (props) => {
           keyExtractor={(item, index) => index.toString()}
           data={props.shopList}
           renderItem={({ item, index }) => props._handleShopList(item, index)}
-          onEndReached={() => {
-            props.search || props.inputSearch
-              ? !props.stopOffset
-                ? props?.handleSearchData(
+          onEndReached={(item) => {
+            if (item?.distanceFromEnd == 0) {
+              props.search || props.inputSearch
+                ? !props.stopOffset
+                  ? props?.handleSearchData(
+                      props.shopList.length > 5
+                        ? props.offSet + 1
+                        : props.offSet
+                    )
+                  : null
+                : !props.stopOffset
+                ? props?.handleShopList(
                     props.shopList.length > 5 ? props.offSet + 1 : props.offSet
                   )
-                : null
-              : !props.stopOffset
-              ? props?.handleShopList(
-                  props.shopList.length > 5 ? props.offSet + 1 : props.offSet
-                )
-              : null;
+                : null;
+            }
           }}
         />
       </View>

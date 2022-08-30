@@ -17,21 +17,19 @@ const ListingsScreen = (props) => {
         type="Map"
         logoImg={false}
       />
-      {/* <View style={[CommonStyles.container]}> */}
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={props.restroList}
-          ListEmptyComponent={() => {
-            return (
-              <View style={styles.emptyConVw}>
-                <Text style={styles.emptyConTxt}>
-                  No Restaurant is available
-                </Text>
-              </View>
-            );
-          }}
-          renderItem={({ item, index }) => props._handleSerivces(item, index)}
-          onEndReached={() => {
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={props.restroList}
+        ListEmptyComponent={() => {
+          return (
+            <View style={styles.emptyConVw}>
+              <Text style={styles.emptyConTxt}>No Restaurant is available</Text>
+            </View>
+          );
+        }}
+        renderItem={({ item, index }) => props._handleSerivces(item, index)}
+        onEndReached={(item) => {
+          if (item?.distanceFromEnd == 0) {
             props.search || props.inputSearch
               ? !props.stopOffset
                 ? props?.handleSearchData(
@@ -43,9 +41,9 @@ const ListingsScreen = (props) => {
                   props.restroList.length > 5 ? props.offSet + 1 : 0
                 )
               : null;
-          }}
-        />
-      {/* </View> */}
+          }
+        }}
+      />
     </KeyboardAvoidingView>
   );
 };

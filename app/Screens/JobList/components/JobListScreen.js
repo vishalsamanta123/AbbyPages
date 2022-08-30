@@ -151,12 +151,14 @@ const JobListScreen = (props) => {
                 </View>
               );
             }}
-            onEndReached={() => {
-              !props.stopOffset
-                ? props.handleJobFilter(
-                    props.jobList.length > 5 ? props.offset + 1 : 0
-                  )
-                : null;
+            onEndReached={(item) => {
+              if (item?.distanceFromEnd == 0) {
+                !props.stopOffset
+                  ? props.handleJobFilter(
+                      props.jobList.length > 5 ? props.offset + 1 : 0
+                    )
+                  : null;
+              }
             }}
           />
         </View>
