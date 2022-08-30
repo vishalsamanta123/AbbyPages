@@ -163,6 +163,7 @@ const OrderHistory = (props) => {
               </View>
             );
           }}
+          ListFooterComponent={<View style={{ marginBottom: 20 }} />}
           renderItem={({ item, index }) => _handleOrders(item, index)}
           onEndReached={() => {
             !props.stopOffset

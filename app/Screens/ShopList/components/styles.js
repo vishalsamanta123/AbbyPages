@@ -72,7 +72,7 @@ const Styles = StyleSheet.create({
     fontSize: 11,
   },
   RatingTextMain: {
-    paddingLeft: 10,
+    paddingLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     color: GREY_COLOR_CODE,
   },

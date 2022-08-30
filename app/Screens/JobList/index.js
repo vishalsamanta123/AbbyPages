@@ -124,9 +124,15 @@ const JobList = ({ navigation }) => {
         setVisible(false);
       } else {
         setstopOffset(true);
-        setLoader(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        if (data.status == 201) {
+          setJobList([]);
+          setLoader(false);
+          setVisible(false);
+        } else {
+          setLoader(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
       }
     } catch (error) {
       setLoader(false);

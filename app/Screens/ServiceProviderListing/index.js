@@ -70,13 +70,13 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         setVisible(false);
         setserviceData(data.data);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setVisible(false);
           setserviceData([]);
         } else {
           setErrorMessage(data.message);
           setVisibleErr(true);
-          setstopOffset(true);
           setVisible(false);
         }
       }
@@ -100,13 +100,13 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         setserviceData(data.data);
         setVisible(false);
       } else {
+        setstopOffset(true);
         if (data.status === 201) {
           setserviceData([]);
           setVisible(false);
         } else {
           setErrorMessage(data.message);
           setVisibleErr(true);
-          setstopOffset(true);
           setVisible(false);
         }
       }
@@ -165,8 +165,11 @@ const ServiceProviderListingView = ({ navigation, route }) => {
             <View style={styles.RatingStyles}>
               <Text style={styles.RatingStylesTxt}>5.0</Text>
             </View>
-            <Text numberOfLines={1} style={styles.RatingTextMain}>
-              {item.rating} ratings
+            <Text style={styles.RatingTextMain}>
+              {item.rating.length > 5
+                ? item.rating.toString().slice(0, -3)
+                : item.rating.length}{" "}
+              ratings
             </Text>
           </View>
         </View>

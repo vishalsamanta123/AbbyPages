@@ -58,7 +58,7 @@ const Styles = StyleSheet.create({
   },
   RatingContainer: {
     flexDirection: "row",
-    // bottom: 10
+    alignItems: "center",
   },
   RatingStyles: {
     backgroundColor: "#a3d74e",
@@ -74,7 +74,7 @@ const Styles = StyleSheet.create({
     fontSize: 11,
   },
   RatingTextMain: {
-    paddingLeft: 10,
+    paddingLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     color: GREY_COLOR_CODE,
   },
