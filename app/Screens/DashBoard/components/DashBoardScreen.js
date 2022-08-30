@@ -36,7 +36,7 @@ const DashBoardScreen = (props) => {
             onPress={() => props.onPressSearchBusinessCategory()}
             style={styles.TextInputView}
           >
-            {props?.businessCategory === "" ? (
+            {props?.businessCategory?.category_name === "" ? (
               <Text
                 style={[
                   styles.TextInputStyle,
@@ -47,7 +47,7 @@ const DashBoardScreen = (props) => {
               </Text>
             ) : (
               <Text style={[styles.TextInputStyle, { paddingVertical: 16 }]}>
-                {props.businessCategory.category_name}
+                {props?.businessCategory?.category_name}
               </Text>
             )}
             <Image

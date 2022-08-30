@@ -197,7 +197,6 @@ const CheckoutDetailView = ({ navigation }) => {
             validExpiryDate,
             validNumber,
           };
-          console.log("params: ", params);
           await AsyncStorage.setItem("orderData", JSON.stringify(params));
           setVisible(false);
           navigation.navigate("PlaceOrder");
