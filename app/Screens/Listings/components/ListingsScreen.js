@@ -43,6 +43,7 @@ const ListingsScreen = (props) => {
               : null;
           }
         }}
+        onEndReachedThreshold={0}
       />
     </KeyboardAvoidingView>
   );
