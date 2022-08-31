@@ -66,15 +66,15 @@ const DashBoardView = ({ navigation }) => {
         category_id: businessCategory.id,
       };
       if (businessCategory.category_name !== "") {
-        setBusinessCategory({
-          ...businessCategory,
-          category_name: "",
-        });
-        setLocation({
-          address: "",
-          latitude: "",
-          longitude: "",
-        });
+        // setBusinessCategory({
+        //   ...businessCategory,
+        //   category_name: "",
+        // });
+        // setLocation({
+        //   address: "",
+        //   latitude: "",
+        //   longitude: "",
+        // });
         if (businessCategory.business_type == 1) {
           navigation.navigate("Listings", { nearbySearch: params });
         }

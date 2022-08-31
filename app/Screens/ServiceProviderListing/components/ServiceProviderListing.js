@@ -33,7 +33,9 @@ const ServiceProviderListing = (props) => {
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onEndReached={(item) => {
+        onEndReached={({ distanceFromEnd }) => {
+          console.log("distanceFromEnd: ", distanceFromEnd);
+
           props.search || props.inputSearch
             ? !props.stopOffset
               ? props?.handleSearchData(
@@ -46,6 +48,7 @@ const ServiceProviderListing = (props) => {
               )
             : null;
         }}
+        // onEndReachedThreshold={0.1}
       />
     </KeyboardAvoidingView>
   );
