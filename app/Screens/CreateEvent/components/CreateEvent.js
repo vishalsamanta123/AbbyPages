@@ -16,7 +16,7 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { BLACK_COLOR_CODE } from "../../../Utils/Constant";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
@@ -36,6 +36,8 @@ const CreateEvent = (props) => {
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
         RightImg={null}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         leftImg={
           props.type === 'busniess' || props.type === 'Edit_event'  ? require( "../../../Assets/header_back_btn.png")
           : require("../../../Assets/hamburger_icon.png")
@@ -130,7 +132,7 @@ const CreateEvent = (props) => {
               onCancel={hideEndTimePicker}
             />
           </TouchableOpacity>
-          <GooglePlacesAutocomplete
+          {/* <GooglePlacesAutocomplete
             placeholder={"Near by location"}
             fetchDetails={true}
             onPress={(data, details = null) => {
@@ -159,8 +161,8 @@ const CreateEvent = (props) => {
             minLength={2}
             autoFocus={false}
             returnKeyType={"default"}
-          />
-          <Input
+          /> */}
+          {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
@@ -171,7 +173,7 @@ const CreateEvent = (props) => {
             secureTextEntry={false}
             placeholder="Business Name"
             InputType="withScroll"
-          />
+          /> */}
           <GooglePlacesAutocomplete
             placeholder={props.createEvent.event_address ? props.createEvent.event_address : "Address"}
             fetchDetails={true}
@@ -222,7 +224,7 @@ const CreateEvent = (props) => {
                                 InputType="withScroll"
                             />
                             */}
-          <Input
+          {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
@@ -233,8 +235,8 @@ const CreateEvent = (props) => {
             secureTextEntry={false}
             placeholder="Description"
             InputType="withScroll"
-          />
-          <Input
+          /> */}
+          {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
@@ -245,8 +247,8 @@ const CreateEvent = (props) => {
             secureTextEntry={false}
             placeholder="Official Website URL:"
             InputType="withScroll"
-          />
-          <Input
+          /> */}
+          {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
@@ -257,8 +259,8 @@ const CreateEvent = (props) => {
             secureTextEntry={false}
             placeholder="Ticket URL:"
             InputType="withScroll"
-          />
-          <Input
+          /> */}
+          {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
@@ -281,7 +283,7 @@ const CreateEvent = (props) => {
             secureTextEntry={false}
             placeholder="Price to"
             InputType="withScroll"
-          />
+          /> */}
           {/* <TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <TouchableOpacity >
@@ -310,7 +312,7 @@ const CreateEvent = (props) => {
               <Image source={require("../../../Assets/dropdown_icon.png")} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => props.onPressPublicVenue()}
             style={styles.container}
           >
@@ -326,7 +328,7 @@ const CreateEvent = (props) => {
               </View>
               <Text style={styles.AddPhotosTxt}>Public Venue</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Button
             buttonText= {props.type !== 'Edit_event' ? "Create Event" : "Edit Event" }
             style={{ marginTop: 10 }}

@@ -27,23 +27,24 @@ const ListingsScreen = (props) => {
             </View>
           );
         }}
+        ListFooterComponent={() => {
+          return <View style={{ height: 50 }} />;
+        }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onEndReached={(item) => {
-          if (item?.distanceFromEnd == 0) {
-            props.search || props.inputSearch
-              ? !props.stopOffset
-                ? props?.handleSearchData(
-                    props.restroList.length > 5 ? props.offSet + 1 : 0
-                  )
-                : null
-              : !props.stopOffset
-              ? props?.handleRestroList(
+        onEndThreshold={0}
+        onEndReached={() => {
+          props.search || props.inputSearch
+            ? !props.stopOffset
+              ? props?.handleSearchData(
                   props.restroList.length > 5 ? props.offSet + 1 : 0
                 )
-              : null;
-          }
+              : null
+            : !props.stopOffset
+            ? props?.handleRestroList(
+                props.restroList.length > 5 ? props.offSet + 1 : 0
+              )
+            : null;
         }}
-        onEndReachedThreshold={0}
       />
     </KeyboardAvoidingView>
   );

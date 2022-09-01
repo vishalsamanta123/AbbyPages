@@ -98,9 +98,8 @@ const Styles = StyleSheet.create({
   },
   TouchableFlse: {
     position: "absolute",
-    flex: 1,
     right: 0,
-    paddingRight: 15,
+    marginRight: 10,
     top: 10,
     zIndex: 1,
   },
