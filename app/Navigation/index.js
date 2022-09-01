@@ -131,6 +131,7 @@ import ReviewsScreen from "../Screens/Reviews";
 import UpdateProfileScreen from "../Screens/UpdateProfile";
 import UserProfileScreen from "../Screens/UserProfile";
 import { Image, StatusBar, View, StyleSheet } from "react-native";
+import EditJob from "../Screens/Business/EditJob";
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -285,6 +286,7 @@ function BusinessStack() {
       <Business.Screen name="AddCategory" component={AddCategoryScreen} />
       <Business.Screen name="AddItem" component={AddItemScreen} />
       <Business.Screen name="AddJobs" component={AddJobsScreen} />
+      <Business.Screen name="EditJobs" component={EditJob} />
       <Business.Screen name="AddTextPreview" component={AddTextPreviewScreen} />
       <Business.Screen
         name="BasicInformation"

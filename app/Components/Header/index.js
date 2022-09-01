@@ -92,9 +92,9 @@ const Header = (props) => {
           style={HeaderView}
         >
           {leftImg === "header-back-btn.png" ? (
-            <Image style={{ width: 35, height: 25 }} source={leftImg} />
+            <Image  style={{ width: 35, height: 25, tintColor: BLACK_COLOR_CODE }} source={leftImg} />
           ) : (
-            <Image source={leftImg} />
+            <Image style={{tintColor: BLACK_COLOR_CODE}} source={leftImg} />
           )}
         </TouchableOpacity>
         <View style={[HeaderMiddleView, HeaderMiddleTxt]}>
@@ -162,7 +162,7 @@ Header.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: WHITE_COLOR_CODE,
     alignItems: "center",
     paddingHorizontal: 8,
   },

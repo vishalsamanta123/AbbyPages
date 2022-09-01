@@ -120,7 +120,7 @@ const JobManagementListView = ({ navigation }) => {
       if (response.status === 200) {
       console.log('response: ', response);
       setSingleJob(response?.data?.data[0] ? response?.data?.data[0] : [] )
-      navigation.navigate("AddJobs", { item : singleJob })
+      navigation.navigate("EditJobs", { item : response?.data?.data[0] ? response?.data?.data[0] : [] })
         setVisible(false);
       } else {
         setVisible(false);
