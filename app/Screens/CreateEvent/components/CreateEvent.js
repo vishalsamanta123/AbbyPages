@@ -16,13 +16,15 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const CreateEvent = (props) => {
-
-  console.log('props.createEvent.event_address: ', props.createEvent.event_address);
   const hideDatePicker = () => {
     props.setDatePickerVisibility(false);
   };
@@ -38,12 +40,20 @@ const CreateEvent = (props) => {
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         leftImg={
-          props.type === 'busniess' || props.type === 'Edit_event'  ? require( "../../../Assets/header_back_btn.png")
-          : require("../../../Assets/hamburger_icon.png")
+          props.type === "busniess" || props.type === "Edit_event"
+            ? require("../../../Assets/header_back_btn.png")
+            : require("../../../Assets/hamburger_icon.png")
         }
-        HeaderText={props.type === 'busniess' ? "Create Event" : props.type === 'Edit_event' ? "Edit Event" : "Submit an Event" }
-        type=  "props.type !== 'busniess' && Drawer" 
+        HeaderText={
+          props.type === "busniess"
+            ? "Create Event"
+            : props.type === "Edit_event"
+            ? "Edit Event"
+            : "Submit an Event"
+        }
+        type="props.type !== 'busniess' && Drawer"
       />
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.MainContainer}>
@@ -175,7 +185,11 @@ const CreateEvent = (props) => {
             InputType="withScroll"
           /> */}
           <GooglePlacesAutocomplete
-            placeholder={props.createEvent.event_address ? props.createEvent.event_address : "Address"}
+            placeholder={
+              props.createEvent.event_address
+                ? props.createEvent.event_address
+                : "Address"
+            }
             fetchDetails={true}
             onPress={(data, details = null) => {
               props.setCreateEvent({
@@ -330,7 +344,9 @@ const CreateEvent = (props) => {
             </View>
           </TouchableOpacity> */}
           <Button
-            buttonText= {props.type !== 'Edit_event' ? "Create Event" : "Edit Event" }
+            buttonText={
+              props.type !== "Edit_event" ? "Create Event" : "Edit Event"
+            }
             style={{ marginTop: 10 }}
             onPress={props.onPressCreateEvent}
           />

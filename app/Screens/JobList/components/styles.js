@@ -41,17 +41,35 @@ const Styles = StyleSheet.create({
     height: 25,
     width: 25,
   },
-  resultTxt: {
+  topInfoVw: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 8,
     backgroundColor: "#f2f2f2",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   hdngtxt: {
     fontSize: 18,
     lineHeight: 20,
     fontFamily: FONT_FAMILY_REGULAR,
     color: "#3a3838",
-    marginTop: 10,
+    backgroundColor: WHITE_COLOR_CODE,
+    padding: 2,
+  },
+  postJobVW: {
+    backgroundColor: WHITE_COLOR_CODE,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderRadius: 10,
+  },
+  postJobImg: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+    marginRight: 8,
   },
   jobTitle: {
     fontSize: 15,
@@ -73,6 +91,11 @@ const Styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     marginVertical: 2,
+  },
+  editTxt: {
+    color: SMALL_TEXT_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 16,
   },
   posterimg: {
     width: 115,

@@ -17,19 +17,6 @@ const JobManagementListView = ({ navigation }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [singleJob, setSingleJob] = useState()
-  console.log('singleJob: ', singleJob);
-  const [tableData, setTableData] = useState([
-    {
-      id: "0",
-    },
-    {
-      id: "1",
-    },
-    {
-      id: "2",
-    },
-  ]);
   useEffect(() => {
     getBussinessJobList();
   }, []);
@@ -62,21 +49,20 @@ const JobManagementListView = ({ navigation }) => {
         limit: 2,
         offset: 0,
       };
-      const response = await apiCall(
+      const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_BUSINESS_JOB_LIST,
         params
       );
-      // console.log('Job list', response.data.data);
-      if (response.status === 200) {
-        setJobBusinessList(response.data.data);
+      if (data.status === 200) {
+        setJobBusinessList(data.data);
         setVisible(false);
       } else {
         setVisible(false);
       }
     } catch (error) {
-        setErrorMessage(error.message);
-        setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -106,37 +92,35 @@ const JobManagementListView = ({ navigation }) => {
     }
   };
 
-
   const singleJobDetails = async (id) => {
     try {
       const params = {
         job_id: id,
       };
-      const response = await apiCall(
+      const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_SINGLE_JOB_DETAILS,
         params
       );
-      if (response.status === 200) {
-      console.log('response: ', response);
-      setSingleJob(response?.data?.data[0] ? response?.data?.data[0] : [] )
-      navigation.navigate("EditJobs", { item : response?.data?.data[0] ? response?.data?.data[0] : [] })
+      if (data.status === 200) {
+        navigation.navigate("EditJobs", {
+          item: data?.data[0] ? data?.data[0] : [],
+        });
         setVisible(false);
       } else {
         setVisible(false);
       }
     } catch (error) {
-    console.log('error: ', error);
       setErrorMessage(error.message);
       setVisibleErr(true);
       setVisible(false);
     }
-  }
+  };
 
-  const _handleTableData = (item) => {
+  const _handleTableData = (item, index) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
     return (
-      <View style={styles.MainContain}>
+      <View style={[styles.MainContain, { marginTop: index === 0 ? 0 : 20 }]}>
         <Text style={styles.DescrptnTextStyle}>
           Company name : {item?.company_name}
         </Text>
@@ -147,28 +131,21 @@ const JobManagementListView = ({ navigation }) => {
             {item?.monthly_in_hand_salary_to}
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-        >
-          <Text style={styles.HeadingTxt}>Indore</Text>
-          <Text style={[styles.HeadingTxt]}>Full-Time</Text>
+        <View style={[styles.straightVw, { justifyContent: "flex-start" }]}>
+          <Text style={[styles.HeadingTxt, { marginRight: 5 }]}>
+            Number of Opening -
+          </Text>
+          <Text style={[styles.HeadingTxt]}>{item.no_of_openings}</Text>
         </View>
-        <Text style={[styles.DescrptnTextStyle, { marginBottom: 5 }]}>
-          Posted {date}
-        </Text>
+        <View style={[styles.straightVw, { justifyContent: "flex-start" }]}>
+          <Text style={[styles.HeadingTxt, { marginRight: 5 }]}>
+            Contact Person -
+          </Text>
+          <Text style={[styles.HeadingTxt]}>{item.contact_person_name}</Text>
+        </View>
+        <Text style={styles.HeadingTxt}>Posted {date}</Text>
         <Text style={styles.DescrptnTextStyle}>{item?.job_address}</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.straightVw}>
           <TouchableOpacity
             style={styles.switchstyle}
             onPress={() =>
@@ -178,17 +155,17 @@ const JobManagementListView = ({ navigation }) => {
               })
             }
           >
-            {item?.job_status === 1 ? (
-              <Image source={require("../../../Assets/active_switch.png")} />
-            ) : (
-              <Image source={require("../../../Assets/unactive_switch.png")} />
-            )}
+            <Image
+              source={
+                item?.job_status === 1
+                  ? require("../../../Assets/active_switch.png")
+                  : require("../../../Assets/unactive_switch.png")
+              }
+            />
           </TouchableOpacity>
 
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() => singleJobDetails(item?.job_id)}
-            >
+            <TouchableOpacity onPress={() => singleJobDetails(item?.job_id)}>
               <Image source={require("../../../Assets/list_edit_icon.png")} />
             </TouchableOpacity>
             <TouchableOpacity
@@ -236,7 +213,6 @@ const JobManagementListView = ({ navigation }) => {
       {visible && <Loader state={visible} />}
       <JobManagementList
         _handleTableData={_handleTableData}
-        tableData={tableData}
         onPressAdd={onPressAdd}
         businessJobList={businessJobList}
       />

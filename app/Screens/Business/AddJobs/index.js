@@ -12,8 +12,7 @@ import {
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
-const AddJobs = ({ navigation, route }) => {
-  const { item } = route?.params || '';
+const AddJobs = ({ navigation }) => {
   let today = moment(today).format("DD-MM-YYYY");
   let benefits_Date = moment(today);
   const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] =
@@ -149,42 +148,6 @@ const AddJobs = ({ navigation, route }) => {
     },
   ];
 
-  useEffect(() => {
-    getCountryList();
-    getStateList();
-    getCityList();
-    getJobCategoryList();
-    // setData();
-  }, []);
-
-  const setData = () => {
-    setJobTitle(item?.job_title);
-    setOpenings(item?.no_of_openings);
-    setSalaryFrom(item?.monthly_in_hand_salary_from);
-    setSalaryTo(item?.monthly_in_hand_salary_to);
-    setJobDescription(item?.job_description);
-    setJobTimeings(item?.job_timing);
-    setInterviewDetails(item?.interview_details);
-    setCompanyName(item?.company_name);
-    setCompanyPersonName(item?.contact_person_name);
-    setPhoneNumber(item?.phone_no);
-    setEmailID(item?.email);
-    setJobAddress(item?.job_address);
-    setAddressState(item?.job_location_state);
-    setcity(item?.job_location_city);
-    setJobBenefits(item?.job_benefits);
-    setJobReqiurements(item?.job_requirements);
-    setJobLevel(item?.job_level);
-    setLanguage(item?.language);
-    setStartTimeDay(item?.job_start_time_day);
-    setEndTimeDay(item?.job_end_time_day);
-    setSkills(item?.skills);
-    setSelectedJobCategory(item?.job_category_id)
-    setStartTime(item?.job_start_timing)
-    setEndTime(item?.job_end_timing)
-    // setSelectedBenefits(item?.job_benefits)
-    // setSelectedCountry(item?.job_location_country)
-  };
   const _handleFocus = () => {
     setbox(!box);
   };
@@ -205,53 +168,65 @@ const AddJobs = ({ navigation, route }) => {
   };
   const getCountryList = async () => {
     try {
+      setVisible(true);
       const params = {
         status: 0,
       };
-      const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
-      if (response.status === 200) {
-        setCountryList(response.data.data);
+      const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
+      if (data.status === 200) {
+        setVisible(false);
+        setCountryList(data.data);
       } else {
-        setErrorMessage(response.message);
+        setVisible(false);
+        setErrorMessage(data.message);
         setVisibleErr(true);
       }
     } catch (error) {
+      setVisible(false);
       setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
   const getStateList = async () => {
     try {
+      setVisible(true);
       const params = {
         status: 1,
         country_id: selectedCountry.country_id,
       };
-      const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
-      if (response.status === 200) {
-        setStateList(response.data.data);
+      const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
+      if (data.status === 200) {
+        setVisible(false);
+        setStateList(data.data);
       } else {
-        setErrorMessage(response.message);
+        setVisible(false);
+        setErrorMessage(data.message);
         setVisibleErr(true);
       }
     } catch (error) {
+      setVisible(false);
       setErrorMessage(error.message);
       setVisibleErr(true);
     }
   };
   const getCityList = async () => {
     try {
+      setVisible(true);
       const params = {
         status: 2,
         state_id: selectedState.state_id,
       };
-      const response = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
-      if (response.status === 200) {
-        setCityList(response.data.data);
+      const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
+      if (data.status === 200) {
+        setVisible(false);
+        setCityList(data.data);
       } else {
-        setErrorMessage(response?.data?.message);
+        setVisible(false);
+        setErrorMessage(data?.message);
         setVisibleErr(true);
       }
     } catch (error) {
+      setVisible(false);
       setErrorMessage(error.message);
       setVisibleErr(true);
     }
@@ -263,7 +238,7 @@ const AddJobs = ({ navigation, route }) => {
       // setVisible(true);
       try {
         const params = {
-          business_id: item?.business_id,
+          business_id: "",
           company_name: CompanyName,
           contact_person_name: CompanyPersonName,
           email: EmailID,
@@ -279,7 +254,7 @@ const AddJobs = ({ navigation, route }) => {
           job_location_country: selectedCountry.country_id,
           job_location_state: selectedState.state_id,
           job_location_city: selectedCity.city_id,
-          job_id: item?.job_id == null ? null : item?.job_id,
+          job_id: "",
           created_at: today,
           job_benefits_id: itemType.id,
 
@@ -597,24 +572,29 @@ const AddJobs = ({ navigation, route }) => {
   };
   const _handleOpenJobCategory = () => {
     setAddJobCategoryModalVisible(true);
+    getJobCategoryList();
   };
   const getJobCategoryList = async () => {
     try {
+      setVisible(true);
       const params = {
         parents_id: 0,
       };
-      const response = await apiCall(
+      const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_JOB_CATEGORY,
         params
       );
-      if (response.status === 200) {
-        setJobCategoryList(response.data.data);
+      if (data.status === 200) {
+        setVisible(false);
+        setJobCategoryList(data.data);
       } else {
-        setErrorMessage(response.message);
+        setVisible(false);
+        setErrorMessage(data.message);
         setVisibleErr(true);
       }
     } catch (error) {
+      setVisible(false);
       setErrorMessage(error.message);
       setVisibleErr(true);
     }

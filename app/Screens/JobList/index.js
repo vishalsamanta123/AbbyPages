@@ -144,6 +144,10 @@ const JobList = ({ navigation }) => {
   const onPressJob = (item) => {
     navigation.navigate("JobDetails", { detail: item });
   };
+  const onPressPostJob = () => {
+    navigation.navigate("AddJobs");
+  };
+
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -162,6 +166,7 @@ const JobList = ({ navigation }) => {
         handleSearch={handleSearch}
         stopOffset={stopOffset}
         offset={offset}
+        onPressPostJob={onPressPostJob}
         handleFilter={handleFilter}
       />
       <FilterPopUp

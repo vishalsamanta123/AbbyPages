@@ -83,6 +83,14 @@ const JobListScreen = (props) => {
               />
             </TouchableOpacity>
           </View>
+          {/* <TouchableOpacity style={[styles.basiccon, { marginTop: 5 }]}>
+            <Image
+              style={{ width: 25, height: 25, marginRight: 10 }}
+              resizeMode="contain"
+              source={require("../../../Assets/list_edit_icon.png")}
+            />
+            <Text style={styles.editTxt}>Edit Your Job</Text>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );
@@ -133,10 +141,20 @@ const JobListScreen = (props) => {
         </View>
       </View>
       <View style={[CommonStyles.body]}>
-        <View style={styles.resultTxt}>
+        <View style={styles.topInfoVw}>
           <Text style={styles.hdngtxt}>
             {props?.jobList?.length} Results found
           </Text>
+          <TouchableOpacity
+            style={styles.postJobVW}
+            onPress={() => props.onPressPostJob()}
+          >
+            <Image
+              style={styles.postJobImg}
+              source={require("../../../Assets/qty_minus_icon3.png")}
+            />
+            <Text style={[styles.hdngtxt, { fontSize: 16 }]}>Post Job</Text>
+          </TouchableOpacity>
         </View>
         <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
           <FlatList
