@@ -16,13 +16,13 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const CreateEvent = (props) => {
 
-  console.log('props.createEvent.event_address: ', props.createEvent.event_address);
+  console.log('props.createEvent.event_address: ', props.createEvent.eventType);
   const hideDatePicker = () => {
     props.setDatePickerVisibility(false);
   };
@@ -39,11 +39,11 @@ const CreateEvent = (props) => {
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         leftImg={
-          props.type === 'busniess' || props.type === 'Edit_event'  ? require( "../../../Assets/header_back_btn.png")
-          : require("../../../Assets/hamburger_icon.png")
+          props.type === 'busniess' || props.type === 'Edit_event' ? require("../../../Assets/header_back_btn.png")
+            : require("../../../Assets/hamburger_icon.png")
         }
-        HeaderText={props.type === 'busniess' ? "Create Event" : props.type === 'Edit_event' ? "Edit Event" : "Submit an Event" }
-        type=  "props.type !== 'busniess' && Drawer" 
+        HeaderText={props.type === 'busniess' ? "Create Event" : props.type === 'Edit_event' ? "Edit Event" : "Submit an Event"}
+        type="props.type !== 'busniess' && Drawer"
       />
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.MainContainer}>
@@ -70,13 +70,56 @@ const CreateEvent = (props) => {
             placeholder="Event Name"
             InputType="withScroll"
           />
-          <TouchableOpacity
+          <View style={{ marginHorizontal: 15, padding: 8 }}>
+            <Text style={{ fontSize: 18, fontFamily: FONT_FAMILY_REGULAR }}>Event Type</Text>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 5 }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  eventType: 1,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.eventType == 1
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Single</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  eventType: 2,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.eventType == 2
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Recurring</Text>
+              </View>
+            </View>
+          </View>
+          {props.createEvent.eventType !== 2 ?
+         ( <TouchableOpacity
             onPress={() => props.setDatePickerVisibility(true)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props?.createEvent?.date ? props?.createEvent?.date : "Date"}
+                {props?.createEvent?.date ?
+                  props?.createEvent?.date :
+                    "Date"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -89,7 +132,52 @@ const CreateEvent = (props) => {
               onConfirm={(date) => props.handleConfirm(date)}
               onCancel={hideDatePicker}
             />
-          </TouchableOpacity>
+          </TouchableOpacity>)
+          :
+         ( <TouchableOpacity
+            onPress={() => props.setDatePickerVisibility(true)}
+            style={styles.container}
+          >
+            <View style={styles.CameraImgView}>
+              <Text style={styles.AddPhotosTxt}>
+                {props?.createEvent?.startDate ?
+                  props?.createEvent?.startDate : "Start Date"}
+              </Text>
+            </View>
+            <View style={styles.BckArrowBack}>
+              <Image source={require("../../../Assets/calendar_icon.png")} />
+            </View>
+            <DateTimePickerModal
+              isVisible={props.isDatePickerVisible}
+              mode="date"
+              minimumDate={new Date()}
+              onConfirm={(date) => props.handleStartConfirm(date)}
+              onCancel={hideDatePicker}
+            />
+          </TouchableOpacity>)
+}
+          {props.createEvent.eventType == 2 &&
+            <TouchableOpacity
+              onPress={() => props.setDatePickerVisibility(true)}
+              style={styles.container}
+            >
+              <View style={styles.CameraImgView}>
+                <Text style={styles.AddPhotosTxt}>
+                  {props?.createEvent?.EndDate ? props?.createEvent?.EndDate : " End Date"}
+                </Text>
+              </View>
+              <View style={styles.BckArrowBack}>
+                <Image source={require("../../../Assets/calendar_icon.png")} />
+              </View>
+              <DateTimePickerModal
+                isVisible={props.isDatePickerVisible}
+                mode="date"
+                minimumDate={new Date()}
+                onConfirm={(date) => props.handleEndConfirm(date)}
+                onCancel={hideDatePicker}
+              />
+            </TouchableOpacity>
+          }
           <TouchableOpacity
             style={styles.container}
             onPress={() => props.setIsStartTimePickerVisible(true)}
@@ -312,6 +400,117 @@ const CreateEvent = (props) => {
               <Image source={require("../../../Assets/dropdown_icon.png")} />
             </View>
           </TouchableOpacity>
+
+          <View style={{ marginHorizontal: 15, padding: 8 }}>
+            <Text style={{ fontSize: 18, fontFamily: FONT_FAMILY_REGULAR }}>Ticket Type</Text>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 5 }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketType: 1,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.ticketType == 1
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Free</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketType: 2,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.ticketType == 2
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Paid</Text>
+              </View>
+            </View>
+          </View>
+          {props.createEvent.ticketType == 2 &&
+            (<Input
+              onChangeText={(text) =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketPrice: text,
+                })
+              }
+              value={props.createEvent?.eventName}
+              secureTextEntry={false}
+              placeholder="Ticket Price"
+              InputType="withScroll"
+            />)}
+
+{/* Ticket availability */}
+
+          <View style={{ marginHorizontal: 15, padding: 8 }}>
+            <Text style={{ fontSize: 18, fontFamily: FONT_FAMILY_REGULAR }}>Ticket Availability</Text>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 5 }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketAvailability: 1,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.ticketAvailability == 1
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Unlimited</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketAvailability: 2,
+                })}>
+                  <Image
+                    source={
+                      props.createEvent.ticketAvailability == 2
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    style={{ width: 18, height: 18, marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>Limited</Text>
+              </View>
+            </View>
+          </View>
+          {props.createEvent.ticketAvailability == 2 &&
+            (<Input
+              onChangeText={(text) =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  ticketLimit: text,
+                })
+              }
+              value={props.createEvent?.eventName}
+              secureTextEntry={false}
+              placeholder="Ticket Limit"
+              InputType="withScroll"
+              keyboardType="phone-pad"
+            />)}
           {/* <TouchableOpacity
             onPress={() => props.onPressPublicVenue()}
             style={styles.container}
@@ -330,7 +529,7 @@ const CreateEvent = (props) => {
             </View>
           </TouchableOpacity> */}
           <Button
-            buttonText= {props.type !== 'Edit_event' ? "Create Event" : "Edit Event" }
+            buttonText={props.type !== 'Edit_event' ? "Create Event" : "Edit Event"}
             style={{ marginTop: 10 }}
             onPress={props.onPressCreateEvent}
           />

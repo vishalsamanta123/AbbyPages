@@ -43,6 +43,7 @@ const CreateEventView = ({ route, navigation }) => {
     date: item?.event_date ? moment
       .unix(item?.event_date)
       .format("l") : '',
+    EndDate: "",
     start_time: item?.event_start_time,
     end_time: item?.event_end_time,
     find_me_in: item?.near_by_address,
@@ -60,8 +61,15 @@ const CreateEventView = ({ route, navigation }) => {
     category_name: item?.category_name,
     category_id: item?.event_category_id,
     checkbox_venue: "",
+    eventType: 1,
+    ticketType: 1,
+    ticketPrice: 0,
+    ticketAvailability: 1,
+    ticketLimit: 0,
+    EndDate: "",
+    startDate: "",
   });
-  console.log('createEvent: ', createEvent);
+  console.log('createEvent: ', createEvent.EndDate);
   useEffect(() => {
     getCategoryList();
     setCreateEvent({
@@ -87,6 +95,13 @@ const CreateEventView = ({ route, navigation }) => {
       category_name: detail?.category_name,
       category_id: item?.event_category_id,
       checkbox_venue: "",
+      eventType: 1,
+      ticketType: 1,
+      EndDate: "",
+      startDate: "",
+      ticketPrice: 0,
+      ticketAvailability: 1,
+      ticketLimit: 0
     })
   }, []);
 
@@ -125,6 +140,22 @@ const CreateEventView = ({ route, navigation }) => {
     setCreateEvent({
       ...createEvent,
       date: value,
+    });
+    setDatePickerVisibility(false);
+  };
+  const handleEndConfirm = (date) => {
+    const value = moment(date).format("YYYY-MM-DD");
+    setCreateEvent({
+      ...createEvent,
+      EndDate: value,
+    });
+    setDatePickerVisibility(false);
+  };
+  const handleStartConfirm = (date) => {
+    const value = moment(date).format("YYYY-MM-DD");
+    setCreateEvent({
+      ...createEvent,
+      startDate: value,
     });
     setDatePickerVisibility(false);
   };
@@ -319,6 +350,12 @@ const CreateEventView = ({ route, navigation }) => {
         formData.append("tickets_url", createEvent.ticketURL);
         formData.append("event_category_id", createEvent.category_id);
         formData.append("event_charge_type", 1);
+        formData.append("ticket_availability", createEvent.ticketAvailability);
+        formData.append("total_ticket", createEvent.ticketLimit)
+        formData.append("ticket_price", createEvent.ticketPrice)
+        formData.append("ticket_type", createEvent.ticketType)
+        formData.append("event_start_date", createEvent.startDate)
+        formData.append("event_end_date", createEvent.EndDate)
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.CREATE_EVENTS,
@@ -360,6 +397,8 @@ const CreateEventView = ({ route, navigation }) => {
         setIsEndTimePickerVisible={setIsEndTimePickerVisible}
         isDatePickerVisible={isDatePickerVisible}
         handleConfirm={handleConfirm}
+        handleEndConfirm={handleEndConfirm}
+        handleStartConfirm={handleStartConfirm}
         setDatePickerVisibility={setDatePickerVisibility}
         isStartTimePickerVisible={isStartTimePickerVisible}
         handleTimeConfirm={handleTimeConfirm}
