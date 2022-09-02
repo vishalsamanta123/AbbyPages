@@ -105,7 +105,7 @@ const DashBoardScreen = (props) => {
                         } /> */}
         </View>
         <View style={styles.OptionsConatin}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => props.onPressRestro()}
             style={styles.MainOptinsView}
           >
@@ -117,7 +117,7 @@ const DashBoardScreen = (props) => {
             <View style={{ flex: 5 }}>
               <Text style={styles.OptnsMainText}>Restaurant</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => props.onPressJob()}
             style={styles.MainOptinsView}
@@ -129,7 +129,7 @@ const DashBoardScreen = (props) => {
               <Text style={styles.OptnsMainText}>Job</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => props.onPressProvider()}
             style={styles.MainOptinsView}
           >
@@ -141,7 +141,7 @@ const DashBoardScreen = (props) => {
             <View style={{ flex: 5 }}>
               <Text style={styles.OptnsMainText}>Service Provider</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => props.onPressEvents()}
             style={styles.MainOptinsView}

@@ -43,12 +43,11 @@ const EventListingScreen = (props) => {
       </TouchableOpacity>
     );
   };
-  const handleSeeAll = () => {
+  const handleSeeAll = async () => {
+    props.getEventList(0, 12, 0, "");
     props?.setEventType(0);
-    props.getEventList(0);
-    props.setOpenAll(true);
     props.setLimit(12);
-    props.setSearchDate("");
+    await props.setOpenAll(true);
     setAlsoSeeFor(false);
   };
   const handleCloseDate = () => {
@@ -58,6 +57,8 @@ const EventListingScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Events"
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
         onPress={() => props.handleCreateEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
@@ -127,10 +128,11 @@ const EventListingScreen = (props) => {
             <TouchableOpacity
               onPress={() => {
                 setAlsoSeeFor(!alsoSeeFor);
-                props.setEventType(0);
+                if (props.eventType !== 0) {
+                  props.getEventList(0, props.limit, 0, "");
+                  props.setEventType(0);
+                }
                 props.setIsSelectedDay(null);
-                props.setSearchDate("");
-                props.setLimit(4);
               }}
               style={[styles.straightVw, styles.seeOnVw]}
             >

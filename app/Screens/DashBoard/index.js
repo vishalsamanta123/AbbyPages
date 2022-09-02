@@ -59,7 +59,7 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
-    if (businessCategory?.business_type === 1 || 2 || 3) {
+    if (businessCategory?.business_type === 2) {
       const params = {
         latitude: location.latitude,
         longitude: location.longitude,
@@ -81,14 +81,14 @@ const DashBoardView = ({ navigation }) => {
         if (businessCategory.business_type == 2) {
           navigation.navigate("ShopList", { nearbySearch: params });
         }
-        if (businessCategory.business_type == 3) {
-          navigation.navigate("ServiceProviderListing", {
-            nearbySearch: params,
-          });
-        }
+        // if (businessCategory.business_type == 3) {
+        //   navigation.navigate("ServiceProviderListing", {
+        //     nearbySearch: params,
+        //   });
+        // }
       } else {
-        setErrorMessage("Please select any category");
-        setVisibleErr(true);
+        // setErrorMessage("Please select any category");
+        // setVisibleErr(true);
       }
     } else {
       setErrorMessage(
@@ -103,7 +103,11 @@ const DashBoardView = ({ navigation }) => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_SERVICES_DETAIL);
       if (data.status === 200) {
-        setDashBoardDetail(data.data);
+        var getShopsOnly = _.filter(data.data, {
+          business_type: 2,
+        });
+        // setDashBoardDetail(data.data);
+        setDashBoardDetail(getShopsOnly);
         setVisible(false);
       } else {
         setErrorMessage(data.message);

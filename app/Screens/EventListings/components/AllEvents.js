@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,9 +12,14 @@ import moment from "moment";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
-import { SMALL_TEXT_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  SMALL_TEXT_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 
 const EventListingScreen = (props) => {
+  const [scrollBegin, setScrollBegin] = useState();
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -24,16 +29,18 @@ const EventListingScreen = (props) => {
   }, []);
   const handleBack = () => {
     props.setOpenAll(false);
-    props.setoffset(0);
     props.setLimit(4);
-    props.setEventType(0);
-    props.setSearchDate("");
+    props.setoffset(0);
+    props.getEventList(0, 4, 0, "");
+    setScrollBegin(false);
   };
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="All Events"
         onPressBackFun={() => handleBack()}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         onPress={() => props.handleCreateEvent()}
         RightImg={require("../../../Assets/plus_icon_header.png")}
       />
@@ -47,12 +54,15 @@ const EventListingScreen = (props) => {
             </View>
           );
         }}
-        onEndReached={() => {
-          !props.stopOffset
-            ? props.getEventList(
-                props?.eventsList?.length > 5 ? props.offset + 1 : 0
-              )
-            : null;
+        onMomentumScrollBegin={() => setScrollBegin(true)}
+        // onMomentumScrollEnd={() => setScrollBegin(false)}
+        onEndReached={(distanceFromEnd) => {
+          if (scrollBegin) {
+            if (!props.stopOffset) {
+              props?.getEventList(props.offset + 1, props.limit, 0, "");
+              props.setLimit(props.limit + 1);
+            }
+          }
         }}
         renderItem={({ item }) => {
           return (

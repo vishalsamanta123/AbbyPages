@@ -30,14 +30,14 @@ const EventListing = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       handleCategory();
-      getEventList(0);
+      getEventList(0, limit, eventType, searchDate);
       handlePopularEvents();
       return () => {
         handleCategory();
-        getEventList(0);
+        getEventList(0, limit, eventType, searchDate);
         handlePopularEvents();
       };
-    }, [limit, eventType, searchDate])
+    }, [])
   );
   const handleCategory = async () => {
     try {
@@ -66,12 +66,15 @@ const EventListing = ({ navigation }) => {
     []
   );
   const _handleDaySelected = (item, index) => {
-    setEventType(item);
     setIsSelectedDay(index);
-    setSearchDate("");
-    setLimit(4);
     if (item === 6) {
       setOpenSearchDate(true);
+    } else {
+      if (item !== eventType) {
+        setSearchDate("");
+        getEventList(0, limit, item, searchDate);
+        setEventType(item);
+      }
     }
   };
   const navToEventDetail = (item) => {
@@ -97,7 +100,7 @@ const EventListing = ({ navigation }) => {
     }
   };
 
-  const getEventList = async (offSet) => {
+  const getEventList = async (offSet, limit, eventType, searchDate) => {
     setoffset(offSet);
     setLoader(true);
     try {
@@ -107,7 +110,9 @@ const EventListing = ({ navigation }) => {
         event_type: eventType,
         search_date: searchDate ? searchDate : "",
       };
+      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
+      console.log("data OF LIST: ", data);
       if (data.status === 200) {
         setEventsList(data?.data);
         setLoader(false);
@@ -131,6 +136,7 @@ const EventListing = ({ navigation }) => {
   const handleEndTimeConfirm = (selectedDate) => {
     const date = moment(selectedDate).format();
     setSearchDate(date);
+    getEventList(0, limit, 6, date);
     setOpenSearchDate(false);
   };
   const handleCreateEvent = () => {
@@ -171,6 +177,7 @@ const EventListing = ({ navigation }) => {
           getEventList={getEventList}
           limit={limit}
           setEventType={setEventType}
+          eventType={eventType}
           setLimit={setLimit}
           handleCreateEvent={handleCreateEvent}
           offset={offset}

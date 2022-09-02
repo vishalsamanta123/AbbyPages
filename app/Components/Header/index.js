@@ -48,6 +48,7 @@ const Header = (props) => {
     editHdr,
     logoImg,
     onPressBackFun,
+    tintColor
   } = props;
   const OnpressBack = () => {
     navigation.goBack(null);
@@ -92,9 +93,15 @@ const Header = (props) => {
           style={HeaderView}
         >
           {leftImg === "header-back-btn.png" ? (
-            <Image  style={{ width: 35, height: 25, tintColor: BLACK_COLOR_CODE }} source={leftImg} />
+            <Image
+              style={{ width: 35, height: 25, tintColor: BLACK_COLOR_CODE }}
+              source={leftImg}
+            />
           ) : (
-            <Image style={{tintColor: BLACK_COLOR_CODE}} source={leftImg} />
+            <Image
+              style={{ tintColor: tintColor ? tintColor : BLACK_COLOR_CODE }}
+              source={leftImg}
+            />
           )}
         </TouchableOpacity>
         <View style={[HeaderMiddleView, HeaderMiddleTxt]}>

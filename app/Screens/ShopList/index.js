@@ -92,6 +92,7 @@ const ShopList = ({ navigation, route }) => {
         business_type: 2,
         search_key: inputSearch ? inputSearch : null,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,

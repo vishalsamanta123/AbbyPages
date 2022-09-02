@@ -156,9 +156,7 @@ const ListingsScreenView = ({ navigation, route }) => {
           <Image
             style={styles.MainImgeStyle}
             resizeMode="contain"
-            source={{
-              uri: item.logo,
-            }}
+            source={{ uri: item.logo }}
           />
           <View style={styles.RatingContainer}>
             <View style={styles.RatingStyles}>
