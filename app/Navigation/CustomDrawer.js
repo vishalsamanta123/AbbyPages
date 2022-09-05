@@ -200,7 +200,7 @@ export function customDrawerContents(props) {
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
-              props.navigation.navigate("CreateEvent");
+              props.navigation.navigate("EventManagement");
             }}
           >
             <View style={styles.ImgeView}>

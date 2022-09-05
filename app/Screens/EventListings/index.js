@@ -106,13 +106,11 @@ const EventListing = ({ navigation }) => {
     try {
       const params = {
         offset: offSet,
-        limit: limit + offSet,
+        limit: limit,
         event_type: eventType,
         search_date: searchDate ? searchDate : "",
       };
-      console.log("params: ", params);
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_LIST, params);
-      console.log("data OF LIST: ", data);
       if (data.status === 200) {
         setEventsList(data?.data);
         setLoader(false);

@@ -226,6 +226,7 @@ function CustomDrawerNavigation() {
         name="RecentActivity"
         component={RecentActivityScreen}
       />
+      <customDrawer.Screen name="EventManagement" component={EventManagement} />
       <customDrawer.Screen name="Friends" component={FriendsScreen} />
     </customDrawer.Navigator>
   );
@@ -391,6 +392,7 @@ function AppStack() {
       <Stack.Screen name="UserProfile" component={UserProfileScreen} />
       <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
       <Stack.Screen name="InviteFriends" component={InviteFriendsScreen} />
+      <Stack.Screen name="EventManagement" component={EventManagement} />
       <Stack.Screen
         name="ManageFriendInvite"
         component={ManageFriendInviteScreen}

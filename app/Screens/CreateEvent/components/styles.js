@@ -196,5 +196,33 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     color: BLACK_COLOR_CODE,
   },
+  radioBttnVw: {
+    marginHorizontal: 15,
+    padding: 8,
+  },
+  radioBttnTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  radioBttnCon: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  radioInnerCon: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 5,
+  },
+  radioImg: {
+    width: 18,
+    height: 18,
+    marginRight: 5,
+  },
+  radioInnerTxt: {
+    fontSize: 15,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
 });
 export default Styles;

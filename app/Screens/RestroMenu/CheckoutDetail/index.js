@@ -59,7 +59,7 @@ const CheckoutDetailView = ({ navigation }) => {
           first_name: data?.data?.first_name ? data?.data.first_name : "",
           last_name: data?.data?.last_name ? data?.data.last_name : "",
           email: data?.data?.email ? data?.data?.email : "",
-          mobile: data?.data?.phone ? data?.data?.phone : "8456122312",
+          mobile: data?.data?.phone ? data?.data?.phone : "",
           order_payment_type: 1,
         });
         setVisible(false);
