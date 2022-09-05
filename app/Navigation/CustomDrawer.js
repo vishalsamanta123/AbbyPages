@@ -423,7 +423,7 @@ export function BusinessDrawerContents(props) {
               props.navigation.navigate("RestaurantManagement");
             }}
           >
-            <View style={styles.ImgeView}>
+            {/* <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
                 source={require("../Assets/diet.png")}
@@ -438,7 +438,7 @@ export function BusinessDrawerContents(props) {
             onPress={() => {
               props.navigation.navigate("BusinessOrderHistory");
             }}
-          >
+          > */}
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
