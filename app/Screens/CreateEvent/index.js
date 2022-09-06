@@ -13,15 +13,18 @@ import {
 } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
 import ImagePicker from "react-native-image-crop-picker";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
 
 const CreateEventView = ({ route, navigation }) => {
-  const { type, item, detail, img_url } = route?.params || {
+  const isFocused = useIsFocused();
+  const { type, item, img_url, detail } = route?.params || {
     type: "",
     item: "",
+    img_url: "",
     detail: "",
   };
   console.log("item: ", item);
@@ -43,8 +46,9 @@ const CreateEventView = ({ route, navigation }) => {
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [visible, setVisible] = useState(false);
   const [eventModalVisible, setEventModalVisible] = useState("");
+  const [updatePic, setUpdatePic] = useState([]);
   const [createEvent, setCreateEvent] = useState({
-    event_photo: "",
+    event_photo: [],
     eventName: "",
     date: "",
     start_time: "",
@@ -72,15 +76,20 @@ const CreateEventView = ({ route, navigation }) => {
     endDate: "",
     startDate: "",
   });
-  useEffect(() => {
-    getFormDatas();
-  }, []);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      getFormDatas();
+      return () => {
+        getFormDatas();
+        setUpdatePic([]);
+      };
+    }, [isFocused])
+  );
   const getFormDatas = async () => {
     setVisible(true);
     setCreateEvent({
-      event_photo: item?.events_image,
-      eventName: item?.event_name,
+      event_photo: item?.events_image ? item?.events_image : [],
+      eventName: item?.event_name ? item?.event_name : "",
       date: item?.event_date ? moment.unix(item?.event_date).format("l") : "",
       start_time: item?.event_start_time ? item?.event_start_time : "",
       end_time: item?.event_end_time ? item?.event_end_time : "",
@@ -98,7 +107,7 @@ const CreateEventView = ({ route, navigation }) => {
       ticketURL: item?.tickets_url ? item?.tickets_url : "",
       priceFrom: item?.price_range_from ? item?.price_range_from : "",
       priceTo: item?.price_range_to ? item?.price_range_to : "",
-      category_name: item?.category_name ? item?.category_name : "",
+      category_name: detail?.category_name ? detail?.category_name : "",
       category_id: item?.event_category_id ? item?.event_category_id : "",
       checkbox_venue: "",
       eventType: item?.event_type ? item?.event_type : 1,
@@ -139,10 +148,17 @@ const CreateEventView = ({ route, navigation }) => {
       multiple: true,
       cropping: true,
     }).then((image) => {
-      setCreateEvent({
-        ...createEvent,
-        event_photo: image,
-      });
+      setUpdatePic(image);
+      if (createEvent?.event_photo?.length > 0) {
+        image?.map((img) => {
+          createEvent.event_photo.push(img);
+        });
+      } else {
+        setCreateEvent({
+          ...createEvent,
+          event_photo: image,
+        });
+      }
       setEventModalVisible(false);
     });
   };
@@ -194,7 +210,7 @@ const CreateEventView = ({ route, navigation }) => {
     return (
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={createEvent.event_photo}
+        data={createEvent?.event_photo}
         horizontal={true}
         renderItem={({ item, index }) => {
           return (
@@ -228,6 +244,7 @@ const CreateEventView = ({ route, navigation }) => {
   function deleteImage(index) {
     var imageArray = [...createEvent.event_photo];
     imageArray.splice(index, 1);
+    setUpdatePic(imageArray);
     setCreateEvent({
       ...createEvent,
       event_photo: imageArray,
@@ -259,7 +276,7 @@ const CreateEventView = ({ route, navigation }) => {
   };
 
   function validationFrom() {
-    if (createEvent.event_photo == "") {
+    if (createEvent?.event_photo?.length == 0) {
       setErrorMessage("Please select event image");
       setVisibleErr(true);
       return false;
@@ -375,13 +392,14 @@ const CreateEventView = ({ route, navigation }) => {
           "business_id",
           item?.business_id ? item?.business_id : ""
         );
-        createEvent.event_photo?.map((img, index) => {
-          return formData.append("events_image", {
-            uri: img.path,
-            type: img.mime,
-            name: img.path.substring(img.path.lastIndexOf("/") + 1),
+        updatePic?.length > 0 &&
+          createEvent?.event_photo?.map((img, index) => {
+            return formData.append("events_image", {
+              uri: img.path,
+              type: img.mime,
+              name: img.path.substring(img.path.lastIndexOf("/") + 1),
+            });
           });
-        });
         formData.append("event_name", createEvent.eventName);
         formData.append("event_type", createEvent.eventType);
         formData.append("event_date", createEvent.date);
@@ -412,54 +430,54 @@ const CreateEventView = ({ route, navigation }) => {
         formData.append("price_range_to", createEvent.priceTo); //omit
         formData.append("tickets_url", createEvent.ticketURL); //omit
         formData.append("event_charge_type", 1); //don't know
-        console.log("formData: ", formData);
         setVisible(false);
-        // const { data } = await apiCall(
-        //   "POST",
-        //   ENDPOINTS.CREATE_EVENTS,
-        //   formData,
-        //   { "Content-Type": "multipart/form-data" }
-        // );
-        // if (data.status === 200) {
-        //   setVisible(false);
-        //   setSuccessMessage("Event added successfully");
-        //   if (type !== "busniess" || type !== "Edit_event") {
-        //     setVisibleSuccess(true);
-        //   }
-        //   setCreateEvent({
-        //     event_photo: "",
-        //     eventName: "",
-        //     date: "",
-        //     endDate: "",
-        //     start_time: "",
-        //     end_time: "",
-        //     find_me_in: "",
-        //     find_me_lat: "",
-        //     find_me_long: "",
-        //     businessName: "",
-        //     event_address: "",
-        //     event_Addr_lat: "",
-        //     event_Addr_long: "",
-        //     description: "",
-        //     official_Web: "",
-        //     ticketURL: "",
-        //     priceFrom: "",
-        //     priceTo: "",
-        //     category_name: "",
-        //     category_id: "",
-        //     checkbox_venue: "",
-        //     eventType: "",
-        //     ticketType: "",
-        //     ticketPrice: "",
-        //     ticketAvailability: "",
-        //     ticketLimit: "",
-        //     startDate: "",
-        //   });
-        // } else {
-        //   setVisible(false);
-        //   setErrorMessage(data.message);
-        //   setVisibleErr(true);
-        // }
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.CREATE_EVENTS,
+          formData,
+          { "Content-Type": "multipart/form-data" }
+        );
+        if (data.status === 200) {
+          setVisible(false);
+          setSuccessMessage("Event added successfully");
+          if (type !== "busniess" || type !== "Edit_event") {
+            setVisibleSuccess(true);
+          }
+          setCreateEvent({
+            event_photo: "",
+            eventName: "",
+            date: "",
+            endDate: "",
+            start_time: "",
+            end_time: "",
+            find_me_in: "",
+            find_me_lat: "",
+            find_me_long: "",
+            businessName: "",
+            event_address: "",
+            event_Addr_lat: "",
+            event_Addr_long: "",
+            description: "",
+            official_Web: "",
+            ticketURL: "",
+            priceFrom: "",
+            priceTo: "",
+            category_name: "",
+            category_id: "",
+            checkbox_venue: "",
+            eventType: "",
+            ticketType: "",
+            ticketPrice: "",
+            ticketAvailability: "",
+            ticketLimit: "",
+            startDate: "",
+          });
+          setUpdatePic([]);
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
       } catch (error) {
         setVisible(false);
         setErrorMessage(error.message);
@@ -502,6 +520,8 @@ const CreateEventView = ({ route, navigation }) => {
         setCreateEvent={setCreateEvent}
         type={type}
         getCategoryList={getCategoryList}
+        updatePic={updatePic}
+        setUpdatePic={setUpdatePic}
       />
       <Error
         message={errorMessage}
@@ -513,7 +533,7 @@ const CreateEventView = ({ route, navigation }) => {
         visible={visibleSuccess}
         closeModel={() => {
           setVisibleSuccess(false);
-          navigation.goBack();
+          navigation.navigate("EventManagement");
         }}
       />
     </View>

@@ -5,6 +5,7 @@ import OrderDetailScreen from "./components/OrderDetailScreen";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import QuestionModal from "../../Components/Modal/questionModal";
@@ -17,6 +18,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [cancelOrder, setCancelOrder] = useState(false);
   const [orderDetail, setOrderDetail] = useState("");
   const [businessType, setBusinessType] = useState("");
+  const [filePath, setfilePath] = useState("");
   useEffect(() => {
     if (route.params) {
       const { OrderDetail } = route.params;
@@ -79,9 +81,20 @@ const OrderDetailIndex = ({ route, navigation }) => {
       setVisible(false);
     }
   };
-  const onPressInvoice = () => {
-    alert("Working");
+  const onPressInvoice = async () => {
+    let options = {
+      html: orderDetail,
+      fileName: "AbbyPages" + orderDetail.order_id,
+      directory: "Docs",
+    };
+    console.log('options: ', options);
+    let file = await RNHTMLtoPDF.convert(options);
+    console.log('file: ', file);
+    setfilePath(file.filePath);
+    setSuccessMessage("Invoice download successfully");
+    setVisibleSuccess(true);
   };
+  const onPressDownload = () => {};
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -98,7 +111,9 @@ const OrderDetailIndex = ({ route, navigation }) => {
       <Success
         message={successMessage}
         visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
+        closeModel={() => {
+          filePath == "" ? setVisibleSuccess(false) : onPressDownload();
+        }}
       />
       <QuestionModal
         message={"Are you sure you want cancel this order"}

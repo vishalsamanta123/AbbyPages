@@ -138,7 +138,12 @@ const EventListing = ({ navigation }) => {
     setOpenSearchDate(false);
   };
   const handleCreateEvent = () => {
-    navigation.navigate("CreateEvent");
+    navigation.navigate("CreateEvent", {
+      type: "",
+      item: "",
+      img_url: "",
+      detail: "",
+    });
   };
   return (
     <View style={CommonStyles.container}>

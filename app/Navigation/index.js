@@ -226,6 +226,7 @@ function CustomDrawerNavigation() {
         name="RecentActivity"
         component={RecentActivityScreen}
       />
+      <customDrawer.Screen name="EventView" component={EventView} />
       <customDrawer.Screen name="EventManagement" component={EventManagement} />
       <customDrawer.Screen name="Friends" component={FriendsScreen} />
     </customDrawer.Navigator>

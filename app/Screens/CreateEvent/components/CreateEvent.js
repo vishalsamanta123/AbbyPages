@@ -68,9 +68,13 @@ const CreateEvent = (props) => {
             onPress={() => props.setEventModalVisible(true)}
             style={styles.ktchimgvwe}
           >
-            <Text style={styles.ktchnlble}>Select event image</Text>
+            <Text style={styles.ktchnlble}>
+              {props?.createEvent?.event_photo?.length > 0
+                ? "Add more image"
+                : "Select event image"}
+            </Text>
           </TouchableOpacity>
-          {props?.createEvent?.event_photo.length > 0 ? (
+          {props?.createEvent?.event_photo?.length > 0 ? (
             <View style={{ padding: 10 }}>
               <View>{props.renderEventImage()}</View>
             </View>
@@ -449,12 +453,13 @@ const CreateEvent = (props) => {
             <View style={styles.radioBttnCon}>
               <View style={styles.radioInnerCon}>
                 <TouchableOpacity
-                  onPress={() =>
+                  onPress={() => {
                     props.setCreateEvent({
                       ...props.createEvent,
                       ticketType: 1,
-                    })
-                  }
+                      ticketPrice: "",
+                    });
+                  }}
                 >
                   <Image
                     source={
@@ -514,6 +519,7 @@ const CreateEvent = (props) => {
                     props.setCreateEvent({
                       ...props.createEvent,
                       ticketAvailability: 1,
+                      ticketLimit: "",
                     })
                   }
                 >

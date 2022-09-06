@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-// import { apiCall, setDefaultHeader } from "../utils/httpClient";
-// import EndPoints from "../utils/apiEndPoints";
-// import moment from "moment";
+import { useParams } from "@react-navigation/native";
 import { apiCall, setDefaultHeader } from "../Utils/httpClient";
 import EndPoints from "../Utils/apiEndPoints";
 import { jsPDF } from "jspdf";

@@ -53,17 +53,15 @@ const EventManagement = () => {
         setVisible(false);
       }
     } catch (error) {
-      // setErrorMessage(error);
-      // setVisibleErr(true);
       setVisible(false);
     }
   };
-  const getSingleEvent = async (item) => {
+  const getSingleEvent = async (itemData) => {
     try {
       setVisible(true);
       const params = {
         business_id: busniessData?.user_id,
-        event_id: item?.event_id,
+        event_id: itemData?.event_id,
       };
       const { data } = await apiCall(
         "POST",
@@ -76,6 +74,7 @@ const EventManagement = () => {
           type: "Edit_event",
           item: data.data[0],
           img_url: data.events_image_url,
+          detail: itemData,
         });
       } else {
         setVisible(false);
@@ -97,9 +96,9 @@ const EventManagement = () => {
         ENDPOINTS.EVENT_STATUS_UPDATE,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
+        setRemoveIndex("");
         setSuccessMessage(data.message);
         setVisibleSuccess(true);
       } else {
@@ -110,7 +109,12 @@ const EventManagement = () => {
     }
   };
   const onPressCreate = () => {
-    navigation.navigate("CreateEvent", { type: "busniess" });
+    navigation.navigate("CreateEvent", {
+      type: "busniess",
+      item: "",
+      img_url: "",
+      detail: "",
+    });
   };
 
   const handleEvents = (item, index) => {
@@ -189,10 +193,10 @@ const EventManagement = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.BtnStyle}
-              onPress={() => {
-                setDeleteEvent(true);
-                setRemoveIndex(item);
-              }}
+              // onPress={() => {
+              //   setDeleteEvent(true);
+              //   setRemoveIndex(item);
+              // }}
             >
               <Text style={styles.BtnTxt}>Delete</Text>
             </TouchableOpacity>
@@ -223,7 +227,10 @@ const EventManagement = () => {
         // topMessage={"Delete Event"}
         message={"Are you sure you want delete this Event?"}
         positiveResponse={() => DeleteEvent(removeIndex)}
-        negativeResponse={() => setDeleteEvent(false)}
+        negativeResponse={() => {
+          setDeleteEvent(false);
+          setRemoveIndex("");
+        }}
       />
     </>
   );

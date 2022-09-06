@@ -107,6 +107,11 @@ const EventListingScreen = (props) => {
             }
             onPress={() => props.setInterstedModal(true)}
           />
+          <Button
+            style={styles.btncon}
+            buttonText={"Buy Ticket"}
+            // onPress={() => props.setInterstedModal(true)}
+          />
         </View>
       </ScrollView>
       <Modal

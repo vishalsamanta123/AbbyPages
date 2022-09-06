@@ -113,7 +113,7 @@ export default {
   // Event status
   EVENT_STATUS_UPDATE: '/api/events/eventRemoveStatusUpdate',
   // Get single Event details
-  GET_SINGLE_EVENT_DETAILS: '/api/events/getSingleEventDetails',
+  GET_SINGLE_EVENT_DETAILS: '/api/events/getSingleEventDetails',//for business
   // Get single job details
   GET_SINGLE_JOB_DETAILS: '/api/jobs/getSingleJobList',
 };

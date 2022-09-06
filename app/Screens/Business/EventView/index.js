@@ -1,99 +1,97 @@
-import { View, Text, TouchableOpacity, FlatList, Image, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Header from '../../../Components/Header'
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from '../../../Utils/Constant'
-import EventDetails from './component/eventDetails'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { apiCall } from '../../../Utils/httpClient'
-import apiEndPoints from '../../../Utils/apiEndPoints'
-import Loader from '../../../Utils/Loader'
+import { View } from "react-native";
+import React, { useState } from "react";
+import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import EventDetails from "./component/eventDetails";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { apiCall } from "../../../Utils/httpClient";
+import apiEndPoints from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import QuestionModal from "../../../Components/Modal/questionModal";
+import Success from "../../../Components/Modal/success";
 
 const EventView = ({ route }) => {
-  const deatil = route?.params?.deatil
-  const [visible, setVisible] = useState(false)
-  const [singleEvent, setSingleEvent] = useState()
-  const navigation = useNavigation()
-
+  const navigation = useNavigation();
+  const deatil = route?.params?.deatil;
+  const [visible, setVisible] = useState(false);
+  const [busniessData, setBusniessData] = useState("");
+  const [deleteEvent, setDeleteEvent] = useState(false);
+  const [removeIndex, setRemoveIndex] = useState("");
+  const [visibleSuccess, setVisibleSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   useFocusEffect(
     React.useCallback(() => {
-      getSingleEvent()
-      return () => getSingleEvent();
+      getBusinessData();
+      return () => {
+        getBusinessData();
+      };
     }, [])
   );
-  
 
+  const getBusinessData = async () => {
+    try {
+      const { data } = await apiCall("POST", apiEndPoints.GET_USER_PROFILE);
+      if (data.status === 200) {
+        setBusniessData(data.data);
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
 
-  const DeleteMsg = (item) =>
-    Alert.alert(
-      "",
-      "Are you sure you want delete this Event?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "OK",
-          onPress: () =>
-            eventStatus({
-              id: item?.event_id,
-              status: item?.status,
-              is_delete: 1,
-            }),
-        },
-      ],
-      { cancelable: false }
-    );
-
-  const eventStatus = async ({ id, status, is_delete }) => {
+  const eventStatus = async (itemData) => {
     setVisible(true);
     try {
       const params = {
-        event_id: id,
-        status: status,
+        event_id: itemData.event_id,
+        status: itemData.status,
       };
-      const response = await apiCall(
+      setDeleteEvent(false);
+      const { data } = await apiCall(
         "POST",
         apiEndPoints.EVENT_STATUS_UPDATE,
         params
       );
-      if (response.status === 200) {
-        navigation.goBack()
+      if (data.status === 200) {
         setVisible(false);
+        setRemoveIndex("");
+        setSuccessMessage(data.message);
+        setVisibleSuccess(true);
       } else {
         setVisible(false);
       }
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
       setVisible(false);
     }
   };
-
+  const DeleteEvent = async (itemData) => {};
   const getSingleEvent = async () => {
-    setVisible(true);
     try {
+      setVisible(true);
       const params = {
-        business_id: 336,
+        business_id: busniessData?.user_id,
         event_id: deatil?.event_id,
-        offset: 0
       };
-      const response = await apiCall(
+      const { data } = await apiCall(
         "POST",
         apiEndPoints.GET_SINGLE_EVENT_DETAILS,
         params
       );
-      if (response.status === 200) {
-        setSingleEvent(response?.data?.data[0])
+      if (data.status === 200) {
+        navigation.navigate("CreateEvent", {
+          type: "Edit_event",
+          item: data.data[0],
+          img_url: data.events_image_url,
+          detail: deatil,
+        });
         setVisible(false);
       } else {
         setVisible(false);
       }
     } catch (error) {
-      console.log('error: ', error);
       setVisible(false);
     }
-  }
-
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
@@ -101,11 +99,30 @@ const EventView = ({ route }) => {
       <EventDetails
         deatil={deatil}
         eventStatus={eventStatus}
-        DeleteMsg={DeleteMsg}
-        singleEvent={singleEvent}
+        getSingleEvent={getSingleEvent}
+        setRemoveIndex={setRemoveIndex}
+        setDeleteEvent={setDeleteEvent}
+      />
+      <Success
+        message={successMessage}
+        visible={visibleSuccess}
+        closeModel={() => {
+          setVisibleSuccess(false);
+          navigation.goBack();
+        }}
+      />
+      <QuestionModal
+        surringVisible={deleteEvent}
+        // topMessage={"Delete Event"}
+        message={"Are you sure you want delete this Event?"}
+        positiveResponse={() => DeleteEvent(removeIndex)}
+        negativeResponse={() => {
+          setDeleteEvent(false);
+          setRemoveIndex("");
+        }}
       />
     </View>
-  )
-}
+  );
+};
 
-export default EventView
+export default EventView;
