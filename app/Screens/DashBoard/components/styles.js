@@ -9,7 +9,7 @@ import {
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   LocatnSrchCntain: {
-    flex: 2.4,
+    flex: 2,
     backgroundColor: YELLOW_COLOR_CODE,
     justifyContent: "center",
     paddingBottom: 15,
@@ -56,7 +56,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
   },
   SearchBtnStyle: {
-    backgroundColor: "rgba(50, 50, 50, 0.4)",
+    backgroundColor: "rgba(50, 50, 50, 0.8)",
     padding: 14,
     borderRadius: 4,
     marginTop: 10,

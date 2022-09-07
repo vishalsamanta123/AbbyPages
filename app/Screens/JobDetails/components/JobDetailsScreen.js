@@ -7,6 +7,7 @@ import Button from "../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
+  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import HTML from "react-native-render-html";
@@ -14,7 +15,12 @@ import HTML from "react-native-render-html";
 const JobDetailsScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Job Details" RightImg={null} />
+      <Header
+        HeaderText="Job Details"
+        RightImg={null}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+      />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <Image

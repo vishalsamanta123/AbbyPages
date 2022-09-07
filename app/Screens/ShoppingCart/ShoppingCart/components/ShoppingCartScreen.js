@@ -144,6 +144,8 @@ const ShoppingCartScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Marketplace Cart"
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
         headerSecondText={props.shoppingCartData.length}
         RightImg={require("../../../../Assets/trash_icon_header.png")}
         onPress={() => props.setAllDelete(true)}

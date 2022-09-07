@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  TextInput,
   TouchableOpacity,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -14,9 +15,23 @@ import styles from "./styles";
 import moment from "moment";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
-import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  LIGHT_GREEN_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import { SafeAreaView } from "react-native-safe-area-context";
 const EventListingScreen = (props) => {
+  const toNumbers = [];
+  useEffect(() => {
+    for (let i = 1; i <= parseInt(props?.eventDetails?.total_ticket); i++) {
+      toNumbers.push({ numbers: i });
+    }
+  }, []);
+  const [dropDown, setDropDown] = useState(false);
+
   const { width, height } = Dimensions.get("window");
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "MMMM Do YYYY, h:mm:ss a"
@@ -105,42 +120,120 @@ const EventListingScreen = (props) => {
                 ? "Are you interested?"
                 : "Interested"
             }
-            onPress={() => props.setInterstedModal(true)}
+            onPress={() => {
+              props.setInterstedModal(true);
+              props.setChangeInterest(props.eventDetails);
+            }}
           />
           <Button
             style={styles.btncon}
             buttonText={"Buy Ticket"}
-            // onPress={() => props.setInterstedModal(true)}
+            onPress={() => props.setBuyTicketModal(true)}
           />
         </View>
       </ScrollView>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={props.interestedModal}
+        visible={props.buyTicketModal}
         onRequestClose={() => {
-          props.setInterstedModal(false);
+          props.setBuyTicketModal(false);
         }}
       >
-        <View style={styles.interestedModal}>
-          <View style={{ flex: 0.65 }} />
-          <View style={styles.interestedModalVw}>
-            <Text style={styles.intrstConfrTxt}>
-              You want to show interest
-              {props.eventDetails?.user_interested === 1 ? " remove " : " "}in
-              this event?
+        <View style={styles.ticketModal}>
+          <View style={styles.ticketModalVw}>
+            <Text style={styles.eventNameTx}>
+              {props?.eventDetails?.event_name}
             </Text>
+            <Text style={styles.formsTxt}>
+              Per Ticket Price :
+              <Text style={{ color: LIGHT_GREEN_COLOR_CODE }}>
+                {" "}
+                ${props?.eventDetails?.ticket_price}
+              </Text>
+            </Text>
+            {props?.ticketBuyData?.response == "" ? (
+              <Text style={styles.ticketConfrTxt}>
+                Do you want to buy ticket of this event?
+              </Text>
+            ) : (
+              <View style={{ paddingVertical: 4 }}>
+                <View style={styles.straightCont}>
+                  <Text style={styles.formsTxt}>No. of Tickets :</Text>
+                  <View>
+                    <View style={[styles.straightCont, styles.ticketInputVw]}>
+                      <TextInput
+                        placeholder="Number"
+                        placeholderTextColor={WHITE_COLOR_CODE}
+                        style={styles.ticketInput}
+                        onChangeText={(text) => {
+                          props.setTicketBuyData({
+                            ...props.ticketBuyData,
+                            number_of_ticket: text,
+                          });
+                        }}
+                        onBlur={() => setDropDown(true)}
+                        maxLength={parseInt(
+                          props?.eventDetails?.total_ticket?.toString()?.length
+                        )}
+                        keyboardType={"phone-pad"}
+                        value={props.ticketBuyData.number_of_ticket}
+                      />
+                      <Image
+                        style={styles.ticketInputImg}
+                        source={require("../../../Assets/dropdown_icon1.png")}
+                      />
+                    </View>
+                    {dropDown ? (
+                      <View style={styles.numbersListVw}>
+                        {toNumbers?.map((item) => {
+                          return (
+                            <TouchableOpacity style={styles.numbersListCon}>
+                              <Text style={styles.numberTxt}>
+                                {item.numbers}
+                              </Text>
+                            </TouchableOpacity>
+                          );
+                        })}
+                      </View>
+                    ) : null}
+                  </View>
+                </View>
+                <Text style={styles.totalPriceTxt}>
+                  Total Price :
+                  {props?.eventDetails?.ticket_price *
+                    props.ticketBuyData.number_of_ticket}
+                </Text>
+              </View>
+            )}
             <View style={styles.modalBttnVw}>
               <Button
-                style={styles.modalBttn}
-                onPress={() => props.onInterestResp("Yes")}
+                style={[
+                  styles.modalBttn,
+                  { backgroundColor: YELLOW_COLOR_CODE },
+                ]}
+                buttonLabelStyle={[
+                  styles.modalBttnTxt,
+                  { color: LIGHT_BLACK_COLOR_CODE },
+                ]}
+                onPress={() => props.onPressTicketResp("Yes")}
                 buttonText={"Yes"}
               />
               <Button
                 style={styles.modalBttn}
-                onPress={() => props.onInterestResp("No")}
-                buttonText={"No"}
+                buttonLabelStyle={styles.modalBttnTxt}
+                onPress={() => props.onPressTicketResp()}
+                buttonText={"Cancel"}
               />
+              {toNumbers?.map((item) => {
+                return (
+                  <TouchableOpacity style={{ paddingVertical: 4 }}>
+                    <Text style={{ color: BLACK_COLOR_CODE }}>
+                      {item.numbers}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           </View>
         </View>

@@ -15,10 +15,7 @@ import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import styles from "./styles";
 import {
-  FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  LINE_COMMON_COLOR_CODE,
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
@@ -31,6 +28,8 @@ const ConfirmOrder = (props) => {
         headerSecondText={false}
         onPress={() => props.setAllDelete(true)}
         logoImg={false}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>

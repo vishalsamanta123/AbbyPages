@@ -18,6 +18,7 @@ import Dialog, {
 } from "react-native-popup-dialog";
 import {
   FONT_FAMILY_REGULAR,
+  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
@@ -94,6 +95,8 @@ const CheckOutScreen = (props) => {
       <Header
         HeaderText={"Confirm Order"}
         logoImg={false}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
         headerSecondText="confirm order with the following details"
         RightImg={require("../../../../Assets/trash_icon_header.png")}
         onPress={() => props.setAllDelete(true)}

@@ -11,7 +11,7 @@ import {
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
-import { FONT_FAMILY_REGULAR } from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
 const ProductListingScreen = (props) => {
   return (
@@ -21,6 +21,8 @@ const ProductListingScreen = (props) => {
         RightImg={require("../../../Assets/cart_icon_header.png")}
         onPress={() => props.onPressCart()}
         cartLength={props?.shoppingCartData?.length}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <View style={CommonStyles.body}>
         <View style={styles.inputconmn}>

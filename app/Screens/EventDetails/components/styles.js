@@ -4,8 +4,11 @@ import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   SMALL_TEXT_COLOR_CODE,
-  FONT_FAMILY_BOLD,
   LIGHT_BLACK_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  LIGHT_WHITE_COLOR,
+  LINE_COMMON_COLOR_CODE,
+  LIGHT_GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   imageStyle: {
@@ -66,33 +69,101 @@ const Styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 20,
   },
-  interestedModal: {
+  ticketModal: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
   },
-  interestedModalVw: {
+  ticketModalVw: {
     backgroundColor: WHITE_COLOR_CODE,
-    borderRadius: 20,
-    alignItems: "center",
-    marginHorizontal: 30,
+    borderRadius: 5,
+    marginHorizontal: 16,
     paddingVertical: 16,
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
   },
-  intrstConfrTxt: {
+  eventNameTx: {
+    fontSize: 24,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    textTransform: "capitalize",
+    lineHeight: 24,
+  },
+  formsTxt: {
     fontSize: 18,
-    textAlign: "center",
-    fontFamily: FONT_FAMILY_BOLD,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  ticketConfrTxt: {
+    fontSize: 14,
+    fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_BLACK_COLOR_CODE,
+  },
+  straightCont: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  ticketInputVw: {
+    backgroundColor: LINE_COMMON_COLOR_CODE,
+    marginHorizontal: 5,
+    borderRadius: 5,
+    justifyContent: "space-between",
+    paddingHorizontal: 8,
+    height: 30,
+  },
+  ticketInput: {
+    paddingVertical: 8,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    fontSize: 14,
+    top: 2,
+    marginRight: 6,
+    width: 65,
+  },
+  ticketInputImg: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+    tintColor: WHITE_COLOR_CODE,
+  },
+  totalPriceTxt: {
+    fontSize: 14,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_GREY_COLOR_CODE,
+    paddingVertical: 2,
   },
   modalBttnVw: {
     flexDirection: "row",
-    marginTop: 30,
-    alignItems: "center",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    height: 100,
+  },
+  numbersListVw: {
+    minHeight: 100,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    position: "absolute",
+    top: 24,
+    elevation: 1,
+  },
+  numbersListCon: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+  },
+  numberTxt: {
+    color: BLACK_COLOR_CODE,
+    fontSize: 12,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   modalBttn: {
     width: "45%",
     marginHorizontal: 5,
-    paddingVertical: 10,
+    paddingVertical: 8,
+    alignSelf: "flex-end",
+    backgroundColor: SMALL_TEXT_COLOR_CODE,
+  },
+  modalBttnTxt: {
+    color: WHITE_COLOR_CODE,
+    fontSize: 20,
   },
 });
 export default Styles;

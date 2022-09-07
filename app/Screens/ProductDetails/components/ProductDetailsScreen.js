@@ -24,6 +24,8 @@ const ProductDetailsScreen = (props) => {
         RightImg={require("../../../Assets/cart_icon_header.png")}
         onPress={() => props.onPressCart()}
         cartLength={props.shoppingCartData.length}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <ScrollView>
         {/* <View style={styles.maincontainers}> */}

@@ -26,6 +26,7 @@ import Dialog, {
 import {
   LIGHT_RED_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { Rating, AirbnbRating } from "react-native-ratings";
 const { width, height } = Dimensions.get("window");
@@ -50,12 +51,12 @@ const ShopDetail = (props) => {
   };
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Shop Detail"}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
-      <Header RightImg={null} HeaderText={"Shop Detail"} />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View>

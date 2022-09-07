@@ -10,6 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ImageBackground,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -31,7 +32,11 @@ const DashBoardScreen = (props) => {
         keyboardShouldPersistTaps={"always"}
         contentContainerStyle={{ flexGrow: 1 }}
       >
-        <View style={styles.LocatnSrchCntain}>
+        <ImageBackground
+          resizeMode={"stretch"}
+          source={require("../../../Assets/employeeonboard.png")}
+          style={styles.LocatnSrchCntain}
+        >
           <TouchableOpacity
             onPress={() => props.onPressSearchBusinessCategory()}
             style={styles.TextInputView}
@@ -103,7 +108,7 @@ const DashBoardScreen = (props) => {
                             { uri: 'abbypages.com/upload/profile_image/default.jpg' }
                             // require('../../../Assets/map_field_icon.png')
                         } /> */}
-        </View>
+        </ImageBackground>
         <View style={styles.OptionsConatin}>
           {/* <TouchableOpacity
             onPress={() => props.onPressRestro()}

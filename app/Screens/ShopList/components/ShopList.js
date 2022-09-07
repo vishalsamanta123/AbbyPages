@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, FlatList, KeyboardAvoidingView } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
+import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
 const ShopList = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   return (
@@ -14,6 +15,7 @@ const ShopList = (props) => {
         placeholder={"Search Shop"}
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
+        tintColor={WHITE_COLOR_CODE}
         logoImg={false}
       />
       <View style={[CommonStyles.body, { padding: 10 }]}>

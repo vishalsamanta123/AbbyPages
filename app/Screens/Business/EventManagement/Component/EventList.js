@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "../../../../Components/Header";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
 
 const EventList = (props) => {
   return (
@@ -18,6 +18,8 @@ const EventList = (props) => {
         RightImg={null}
         leftImg={require("../../../../Assets/hamburger_icon.png")}
         type="Drawer"
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <View style={{ marginHorizontal: 10 }}>
         <View
