@@ -5,7 +5,8 @@ import OrderDetailScreen from "./components/OrderDetailScreen";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNHTMLtoPDF from "react-native-html-to-pdf";
+import FileViewer from "react-native-file-viewer";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import QuestionModal from "../../Components/Modal/questionModal";
@@ -15,17 +16,42 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  
+  //for data
   const [cancelOrder, setCancelOrder] = useState(false);
   const [orderDetail, setOrderDetail] = useState("");
-  const [businessType, setBusinessType] = useState("");
+  const [showPdf, setShowPdf] = useState(false);
   const [filePath, setfilePath] = useState("");
+  const [dataForPdf, setDataForPdf] = useState("");
+
   useEffect(() => {
     if (route.params) {
       const { OrderDetail } = route.params;
-      setBusinessType(OrderDetail.business_type);
       getOrderDetail(OrderDetail);
+      jobDetails(OrderDetail);
     }
   }, []);
+  const jobDetails = async (orderDetail) => {
+    try {
+      setVisible(true);
+      const params = {
+        job_id: 40,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
+      if (data.status === 200) {
+        setDataForPdf(data.data.job_description);
+        setVisible(false);
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setVisible(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
   const getOrderDetail = async (orderDetail) => {
     setVisible(true);
     try {
@@ -83,18 +109,29 @@ const OrderDetailIndex = ({ route, navigation }) => {
   };
   const onPressInvoice = async () => {
     let options = {
-      html: orderDetail,
+      html: dataForPdf,
       fileName: "AbbyPages" + orderDetail.order_id,
       directory: "Docs",
     };
-    console.log('options: ', options);
     let file = await RNHTMLtoPDF.convert(options);
-    console.log('file: ', file);
     setfilePath(file.filePath);
-    setSuccessMessage("Invoice download successfully");
-    setVisibleSuccess(true);
+    if (filePath.filePath !== "") {
+      setShowPdf(true);
+    }
   };
-  const onPressDownload = () => {};
+  const onPressDownload = async (url) => {
+    try {
+      setShowPdf(false);
+      await FileViewer.open(url, {
+        showOpenWithDialog: true,
+        showAppsSuggestions: true,
+      });
+    } catch (error) {
+      setShowPdf(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -111,15 +148,21 @@ const OrderDetailIndex = ({ route, navigation }) => {
       <Success
         message={successMessage}
         visible={visibleSuccess}
-        closeModel={() => {
-          filePath == "" ? setVisibleSuccess(false) : onPressDownload();
-        }}
+        closeModel={() => setVisibleSuccess(false)}
       />
       <QuestionModal
         message={"Are you sure you want cancel this order"}
         surringVisible={cancelOrder}
         positiveResponse={() => CanceledOrder()}
         negativeResponse={() => setCancelOrder(false)}
+      />
+      <QuestionModal
+        message={
+          "Invoice Download Successfully,you want to see this order invoice"
+        }
+        surringVisible={showPdf}
+        positiveResponse={() => onPressDownload(filePath)}
+        negativeResponse={() => setShowPdf(false)}
       />
     </View>
   );
