@@ -9,6 +9,7 @@ import {
   LIGHT_WHITE_COLOR,
   LINE_COMMON_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   imageStyle: {
@@ -104,20 +105,19 @@ const Styles = StyleSheet.create({
   },
   ticketInputVw: {
     backgroundColor: LINE_COMMON_COLOR_CODE,
-    marginHorizontal: 5,
     borderRadius: 5,
     justifyContent: "space-between",
-    paddingHorizontal: 8,
     height: 30,
+    paddingHorizontal: 5,
   },
   ticketInput: {
     paddingVertical: 8,
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
-    fontSize: 14,
+    fontSize: 12.5,
     top: 2,
     marginRight: 6,
-    width: 65,
+    width: "70%",
   },
   ticketInputImg: {
     width: 18,
@@ -125,34 +125,56 @@ const Styles = StyleSheet.create({
     resizeMode: "contain",
     tintColor: WHITE_COLOR_CODE,
   },
-  totalPriceTxt: {
-    fontSize: 14,
+  enteredTxt: {
+    fontSize: 16,
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_GREY_COLOR_CODE,
     paddingVertical: 2,
   },
+  errorMssgTxt: {
+    color: LIGHT_RED_COLOR_CODE,
+    textAlign: "center",
+    paddingVertical: 10,
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
   modalBttnVw: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-end",
-    height: 100,
   },
   numbersListVw: {
-    minHeight: 100,
     paddingHorizontal: 8,
     paddingVertical: 10,
     position: "absolute",
-    top: 24,
     elevation: 1,
+    height: 130,
+    backgroundColor: LINE_COMMON_COLOR_CODE,
+    width: "100%",
+    marginTop: 32,
+    marginLeft: 5,
   },
   numbersListCon: {
-    paddingVertical: 4,
+    paddingVertical: 2,
     paddingHorizontal: 4,
   },
   numberTxt: {
     color: BLACK_COLOR_CODE,
     fontSize: 12,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  formsFillsVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+  },
+  pickerVw: {
+    width: "60%",
+    borderWidth: 1,
+    borderColor: LIGHT_BLACK_COLOR_CODE,
+    height: 40,
+    backgroundColor: LIGHT_BLACK_COLOR_CODE,
+    borderRadius: 10,
   },
   modalBttn: {
     width: "45%",

@@ -180,7 +180,7 @@ const ShopDetail = ({ navigation, route }) => {
                   }}
                 >
                   {" "}
-                  |{moment(item.create_date).endOf("day").fromNow()}
+                  |{moment(item.create_date).endOf("MM/DD/YYYY").fromNow()}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", paddingTop: 5 }}>

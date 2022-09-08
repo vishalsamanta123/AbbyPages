@@ -145,7 +145,7 @@ const ProfileSettings = (props) => {
             <View style={styles.LocationView}>
               <Text style={styles.LoctionTextStyle}>Member Since</Text>
               <Text style={styles.LocationNameTXt}>
-                {moment(props.userProfileData.create_date).format("MMM Do YY")}
+                {moment(props.userProfileData.create_date).format("MM/DD/YYYY")}
               </Text>
             </View>
             <View style={styles.LocationView}>

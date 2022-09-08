@@ -15,7 +15,7 @@ import EditJobScreen from "./component/EditJobScreen";
 
 const EditJob = ({ navigation, route }) => {
   const { item } = route?.params || { item: "" };
-  let today = moment(today).format("DD-MM-YYYY");
+  let today = moment(today).format("MM/DD/YYYY");
   let benefits_Date = moment(today);
   const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] =
     useState(false);

@@ -188,7 +188,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
               <Text style={styles.nameTxt}>
                 {item.first_name + item.last_name}
               </Text>{" "}
-              | {moment(item.create_date).endOf("day").fromNow()}{" "}
+              | {moment(item.create_date).endOf("MM/DD/YYYY").fromNow()}{" "}
             </Text>
 
             <View style={{ flexDirection: "row" }}>

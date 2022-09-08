@@ -87,7 +87,7 @@ const OrderDetailScreen = (props) => {
           )}
           <Text style={styles.detailTxt}>
             <Text style={styles.detailTitleTxt}>Order Date :</Text>
-            {moment(props?.orderDetail?.create_order).format(" Do MMM YYYY")}
+            {moment(props?.orderDetail?.create_order).format("MM/DD/YYYY")}
           </Text>
           <Text style={styles.detailTxt}>
             <Text style={styles.detailTitleTxt}>Order Status :</Text>

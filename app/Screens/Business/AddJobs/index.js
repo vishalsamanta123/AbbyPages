@@ -13,7 +13,7 @@ import {
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 const AddJobs = ({ navigation }) => {
-  let today = moment(today).format("DD-MM-YYYY");
+  let today = moment(today).format("MM/DD/YYYY");
   let benefits_Date = moment(today);
   const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] =
     useState(false);

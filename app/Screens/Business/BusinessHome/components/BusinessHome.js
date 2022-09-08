@@ -206,8 +206,8 @@ const BusinessHome = (props) => {
             <Text style={styles.CategoriesDcptnText}>
               {Moment()
                 .subtract(props.ActiveDuration, "days")
-                .format("MMMM D, YYYY")}{" "}
-              - {Moment(now).format("MMMM D, YYYY")}
+                .format("MM/DD/YYYY")}{" "}
+              - {Moment(now).format("MM/DD/YYYY")}
             </Text>
 
             <View style={styles.AboutOptnView}>

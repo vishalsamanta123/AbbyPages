@@ -92,7 +92,7 @@ const EventListingScreen = (props) => {
                   <Text style={styles.straightTxt}>
                     {moment
                       .unix(props?.events?.upcoming_events?.event_date)
-                      .format("dddd, MMMM Do, YYYY")}
+                      .format("MM/DD/YYYY")}
                   </Text>
                 </View>
                 <View style={styles.straightVw}>
@@ -195,9 +195,7 @@ const EventListingScreen = (props) => {
                             source={require("../../../Assets/calendar_icon.png")}
                           />
                           <Text style={styles.straightTxt}>
-                            {moment
-                              .unix(item?.event_date)
-                              .format("dddd, MMMM Do, YYYY")}
+                            {moment.unix(item?.event_date).format("MM/DD/YYYY")}
                           </Text>
                         </View>
                         <View style={styles.straightVw}>
@@ -264,9 +262,7 @@ const EventListingScreen = (props) => {
                         source={require("../../../Assets/calendar_icon.png")}
                       />
                       <Text style={styles.straightTxt}>
-                        {moment
-                          .unix(item?.event_date)
-                          .format("dddd, MMMM Do, YYYY")}
+                        {moment.unix(item?.event_date).format("MM/DD/YYYY")}
                       </Text>
                     </View>
                     <View style={styles.straightVw}>
@@ -329,9 +325,7 @@ const EventListingScreen = (props) => {
                         source={require("../../../Assets/calendar_icon.png")}
                       />
                       <Text style={styles.straightTxt}>
-                        {moment
-                          .unix(item?.event_date)
-                          .format("dddd, MMMM Do, YYYY")}
+                        {moment.unix(item?.event_date).format("MM/DD/YYYY")}
                       </Text>
                     </View>
                     <View style={styles.straightVw}>

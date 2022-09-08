@@ -106,7 +106,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
     if (valid) {
       try {
         setVisible(true);
-        var date = moment(reservationData.date).format("MM-DD-YYYY");
+        var date = moment(reservationData.date).format("MM/DD/YYYY");
         const params = {
           business_id: restroDetail.business_id,
           business_type: 1,

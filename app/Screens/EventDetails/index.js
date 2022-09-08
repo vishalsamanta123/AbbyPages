@@ -11,21 +11,24 @@ import QuestionModal from "../../Components/Modal/questionModal";
 
 const EventDetails = ({ route }) => {
   const params = route.params;
+  const [numbers, setNumbers] = useState([]);
+  const [counrtys, setCounrtys] = useState([]);
   const [eventDetails, setEventDetails] = useState("");
-  console.log("eventDetails: ", eventDetails);
   const { width, height } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
+  const [resposes, setResposes] = useState("");
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState(false);
   const [loader, setLoader] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [formErrorMssg, setFormErrorMssg] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [ticketBuyData, setTicketBuyData] = useState({
-    response: "",
     number_of_ticket: "",
   });
 
@@ -33,7 +36,7 @@ const EventDetails = ({ route }) => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
     }
-  }, []);
+  }, [params?.item?.event_id]);
 
   const getEventDetails = async (id) => {
     setLoader(true);
@@ -49,6 +52,11 @@ const EventDetails = ({ route }) => {
       if (data.status === 200) {
         setLoader(false);
         setEventDetails(data.data);
+        if (data.data.total_ticket !== null) {
+          setNumbers(Array.from(Array(parseInt(data.data.total_ticket))));
+        } else {
+          setNumbers(Array.from(Array(10)));
+        }
       } else {
         setLoader(false);
         setVisibleErr(true);
@@ -99,22 +107,50 @@ const EventDetails = ({ route }) => {
       setErrorMessage(error.message);
     }
   };
-  const onPressTicketResp = (resp) => {
-    if (resp) {
-      if (resp == "Yes") {
-        setTicketBuyData({
-          ...ticketBuyData,
-          response: resp,
-        });
-      } else {
+  const ticketFormValid = () => {
+    if (resposes == 1) {
+      if (ticketBuyData.number_of_ticket == "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter your number of ticket");
+        return false;
+      }
+      if (ticketBuyData.number_of_ticket > numbers.length) {
+        setFormError(true);
+        setFormErrorMssg(
+          `Enter number of tickets not more than ticket available i.e.${numbers.length}`
+        );
+        return false;
       }
     } else {
-      setTicketBuyData({
-        ...ticketBuyData,
-        response: "",
-        number_of_ticket: "",
-      });
-      setBuyTicketModal(false);
+    }
+    return true;
+  };
+  const onPressCancelTick = () => {
+    setTicketBuyData({
+      ...ticketBuyData,
+      response: "",
+      number_of_ticket: "",
+    });
+    setResposes("");
+    setFormError(false);
+    setBuyTicketModal(false);
+  };
+  const onPressTicketResp = (resp) => {
+    switch (resp) {
+      case 1:
+        setResposes(resp);
+        break;
+      case 2:
+        const valid = ticketFormValid();
+        console.log("valid: ", valid);
+        if (valid) {
+          setResposes(resp);
+          setFormError(false);
+          setFormErrorMssg("");
+        }
+        break;
+      default:
+        break;
     }
   };
   return (
@@ -124,14 +160,21 @@ const EventDetails = ({ route }) => {
         eventDetails={eventDetails}
         setSliderPage={setSliderPage}
         interestedModal={interestedModal}
+        onPressCancelTick={onPressCancelTick}
         onPressTicketResp={onPressTicketResp}
         setInterstedModal={setInterstedModal}
         pageIndex={pageIndex}
+        resposes={resposes}
         setChangeInterest={setChangeInterest}
         setBuyTicketModal={setBuyTicketModal}
         buyTicketModal={buyTicketModal}
         ticketBuyData={ticketBuyData}
         setTicketBuyData={setTicketBuyData}
+        numbers={numbers}
+        formError={formError}
+        formErrorMssg={formErrorMssg}
+        counrtys={counrtys}
+        setCounrtys={setCounrtys}
       />
       <Error
         message={errorMessage}

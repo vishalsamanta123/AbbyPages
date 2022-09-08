@@ -50,7 +50,7 @@ const RestroCheckoutView = ({ navigation }) => {
     setDateTimePickerVisibility(false);
   };
   const handleDateTimeConfirm = (date) => {
-    const DateTime = moment(date).format("h:mm:ss a,Do MMMM");
+    const DateTime = moment(date).format("MM/DD/YYYY");
     setDateTime(DateTime);
     hideDateTimePicker();
     setTimeChange("change");
@@ -62,7 +62,7 @@ const RestroCheckoutView = ({ navigation }) => {
       setCartLocalData(cartData);
       handleFinalAmount();
       if (timeChange === "") {
-        const DateTime = moment().format("h:mm:ss a,Do MMMM");
+        const DateTime = moment().format("MM/DD/YYYY");
         setDateTime(DateTime);
       }
       return () => {

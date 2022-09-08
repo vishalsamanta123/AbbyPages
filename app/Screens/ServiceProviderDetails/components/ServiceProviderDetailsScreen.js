@@ -252,7 +252,7 @@ const ServiceProviderDetailsScreen = (props) => {
                     props.serviceDetail.create_date &&
                       props.serviceDetail.create_date
                   )
-                    .startOf("hour")
+                    .startOf("MM/DD/YYYY")
                     .fromNow() + " "}
                   in business{" "}
                 </Text>

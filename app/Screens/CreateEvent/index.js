@@ -90,7 +90,9 @@ const CreateEventView = ({ route, navigation }) => {
     setCreateEvent({
       event_photo: item?.events_image ? item?.events_image : [],
       eventName: item?.event_name ? item?.event_name : "",
-      date: item?.event_date ? moment.unix(item?.event_date).format("l") : "",
+      date: item?.event_date
+        ? moment.unix(item?.event_date).format("MM/DD/YYYY")
+        : "",
       start_time: item?.event_start_time ? item?.event_start_time : "",
       end_time: item?.event_end_time ? item?.event_end_time : "",
       find_me_in: item?.near_by_address ? item?.near_by_address : "",
@@ -118,10 +120,10 @@ const CreateEventView = ({ route, navigation }) => {
         : 1,
       ticketLimit: item?.total_ticket ? item?.total_ticket : "",
       endDate: item?.event_end_date
-        ? moment.unix(item?.event_end_date).format("l")
+        ? moment.unix(item?.event_end_date).format("MM/DD/YYYY")
         : "",
       startDate: item?.event_start_date
-        ? moment.unix(item?.event_start_date).format("l")
+        ? moment.unix(item?.event_start_date).format("MM/DD/YYYY")
         : "",
     });
     setVisible(false);
@@ -164,7 +166,7 @@ const CreateEventView = ({ route, navigation }) => {
   };
 
   const handleConfirm = (date) => {
-    const value = moment(date).format("YYYY-MM-DD");
+    const value = moment(date).format("MM/DD/YYYY");
     setCreateEvent({
       ...createEvent,
       date: value,
@@ -172,7 +174,7 @@ const CreateEventView = ({ route, navigation }) => {
     setDatePickerVisibility(false);
   };
   const handleStartConfirm = (date) => {
-    const value = moment(date).format("YYYY-MM-DD");
+    const value = moment(date).format("MM/DD/YYYY");
     setCreateEvent({
       ...createEvent,
       startDate: value,
@@ -180,7 +182,7 @@ const CreateEventView = ({ route, navigation }) => {
     setIsStartDatePicker(false);
   };
   const handleEndConfirm = (date) => {
-    const value = moment(date).format("YYYY-MM-DD");
+    const value = moment(date).format("MM/DD/YYYY");
     setCreateEvent({
       ...createEvent,
       endDate: value,

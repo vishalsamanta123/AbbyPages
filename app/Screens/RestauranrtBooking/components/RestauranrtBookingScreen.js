@@ -275,7 +275,7 @@ const RestauranrtBookingScreen = (props) => {
                     <View style={{ alignItems: "center" }}>
                       <Text style={styles.availableTimeTxt}>
                         This time slot is upto 7 days from{" "}
-                        {moment(props.date).format("MMMM Do YYYY")}
+                        {moment(props.date).format("MM/DD/YYYY")}
                       </Text>
                     </View>
                   );

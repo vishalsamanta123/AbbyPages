@@ -11,7 +11,7 @@ import Success from "../../../Components/Modal/success";
 
 const EventView = ({ route }) => {
   const navigation = useNavigation();
-  const deatil = route?.params?.deatil;
+  const { img_url, detail, itemData } = route?.params || {};
   const [visible, setVisible] = useState(false);
   const [busniessData, setBusniessData] = useState("");
   const [deleteEvent, setDeleteEvent] = useState(false);
@@ -24,7 +24,7 @@ const EventView = ({ route }) => {
       return () => {
         getBusinessData();
       };
-    }, [])
+    }, [img_url, detail, itemData])
   );
 
   const getBusinessData = async () => {
@@ -54,6 +54,7 @@ const EventView = ({ route }) => {
       if (data.status === 200) {
         setVisible(false);
         setRemoveIndex("");
+        detail.status = detail?.status === 1 ? 0 : 1;
         setSuccessMessage(data.message);
         setVisibleSuccess(true);
       } else {
@@ -65,29 +66,16 @@ const EventView = ({ route }) => {
     }
   };
   const DeleteEvent = async (itemData) => {};
-  const getSingleEvent = async () => {
+  const getSingleEventEdit = async () => {
     try {
       setVisible(true);
-      const params = {
-        business_id: busniessData?.user_id,
-        event_id: deatil?.event_id,
-      };
-      const { data } = await apiCall(
-        "POST",
-        apiEndPoints.GET_SINGLE_EVENT_DETAILS,
-        params
-      );
-      if (data.status === 200) {
-        navigation.navigate("CreateEvent", {
-          type: "Edit_event",
-          item: data.data[0],
-          img_url: data.events_image_url,
-          detail: deatil,
-        });
-        setVisible(false);
-      } else {
-        setVisible(false);
-      }
+      navigation.navigate("CreateEvent", {
+        type: "Edit_event",
+        item: detail,
+        img_url: img_url,
+        detail: itemData,
+      });
+      setVisible(false);
     } catch (error) {
       setVisible(false);
     }
@@ -97,9 +85,10 @@ const EventView = ({ route }) => {
     <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
       {visible && <Loader state={visible} />}
       <EventDetails
-        deatil={deatil}
+        detail={detail}
+        img_url={img_url}
         eventStatus={eventStatus}
-        getSingleEvent={getSingleEvent}
+        getSingleEventEdit={getSingleEventEdit}
         setRemoveIndex={setRemoveIndex}
         setDeleteEvent={setDeleteEvent}
       />
@@ -113,7 +102,6 @@ const EventView = ({ route }) => {
       />
       <QuestionModal
         surringVisible={deleteEvent}
-        // topMessage={"Delete Event"}
         message={"Are you sure you want delete this Event?"}
         positiveResponse={() => DeleteEvent(removeIndex)}
         negativeResponse={() => {

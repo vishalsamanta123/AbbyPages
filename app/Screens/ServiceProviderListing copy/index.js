@@ -146,7 +146,7 @@ const ServiceProviderListingView = ({ navigation }) => {
                 source={require("../../Assets/fire_icon.png")}
               />
               <Text style={styles.AddressTextStyles}>
-                {moment(item.create_date).startOf("hour").fromNow()}
+                {moment(item.create_date).startOf("MM/DD/YYYY").fromNow()}
               </Text>
             </View>
           </View>

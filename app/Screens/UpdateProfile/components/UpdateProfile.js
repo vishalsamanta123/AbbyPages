@@ -38,7 +38,7 @@ const UpdateProfile = (props) => {
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
-    const value = moment(date).format("DD-MM-YYYY");
+    const value = moment(date).format("MM/DD/YYYY");
     props.setProfileData({
       ...props.profileData,
       birth_date: value,

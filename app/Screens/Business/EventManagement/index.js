@@ -28,10 +28,6 @@ const EventManagement = () => {
       return () => getEventList();
     }, [])
   );
-
-  const onPressEvent = (item) => {
-    navigation.navigate("EventView", { deatil: item });
-  };
   const getBusinessData = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
@@ -56,7 +52,7 @@ const EventManagement = () => {
       setVisible(false);
     }
   };
-  const getSingleEvent = async (itemData) => {
+  const getSingleEvent = async (itemData, type) => {
     try {
       setVisible(true);
       const params = {
@@ -70,12 +66,21 @@ const EventManagement = () => {
       );
       if (data.status === 200) {
         setVisible(false);
-        navigation.navigate("CreateEvent", {
-          type: "Edit_event",
-          item: data.data[0],
-          img_url: data.events_image_url,
-          detail: itemData,
-        });
+        if (type === "edit") {
+          navigation.navigate("CreateEvent", {
+            type: "Edit_event",
+            item: data.data[0],
+            img_url: data.events_image_url,
+            detail: itemData,
+            itemData: itemData,
+          });
+        } else {
+          navigation.navigate("EventView", {
+            img_url: data.events_image_url,
+            detail: data.data[0],
+            itemData: itemData,
+          });
+        }
       } else {
         setVisible(false);
       }
@@ -120,7 +125,7 @@ const EventManagement = () => {
   const handleEvents = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => onPressEvent(item)}
+        onPress={() => getSingleEvent(item, "nonEdit")}
         style={[styles.MainConatiner, { paddingHorizontal: 0 }]}
       >
         <View>
@@ -163,7 +168,7 @@ const EventManagement = () => {
               source={require("../../../Assets/fire_icon.png")}
             />
             <Text style={styles.AddressTextStyles}>
-              {moment.unix(item?.event_date).format("dddd, MMMM Do, YYYY")}
+              {moment.unix(item?.event_date).format("MM/DD/YYYY")}
             </Text>
           </View>
           <View style={styles.InformationView}>
@@ -187,7 +192,7 @@ const EventManagement = () => {
           <View style={styles.editDeleteVW}>
             <TouchableOpacity
               style={styles.BtnStyle}
-              onPress={() => getSingleEvent(item)}
+              onPress={() => getSingleEvent(item, "edit")}
             >
               <Text style={styles.BtnTxt}>Edit</Text>
             </TouchableOpacity>

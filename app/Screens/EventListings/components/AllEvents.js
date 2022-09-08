@@ -85,9 +85,7 @@ const EventListingScreen = (props) => {
                     source={require("../../../Assets/calendar_icon.png")}
                   />
                   <Text style={styles.straightTxt}>
-                    {moment
-                      .unix(item?.event_date)
-                      .format("dddd, MMMM Do, YYYY")}
+                    {moment.unix(item?.event_date).format("MM/DD/YYYY")}
                   </Text>
                 </View>
                 <View style={styles.straightVw}>

@@ -132,7 +132,7 @@ const EventListing = ({ navigation }) => {
     }
   };
   const handleEndTimeConfirm = (selectedDate) => {
-    const date = moment(selectedDate).format();
+    const date = moment(selectedDate).format("MM/DD/YYYY");
     setSearchDate(date);
     getEventList(0, limit, 6, date);
     setOpenSearchDate(false);

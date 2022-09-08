@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -29,34 +30,36 @@ const eventDetails = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
       />
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Image
-          source={{ uri: props?.deatil?.events_image }}
+          source={{
+            uri: props?.img_url + props?.detail?.events_image[0]?.events_image,
+          }}
           style={styles.image}
           resizeMode={"stretch"}
         />
         <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Name : </Text>
-            {props?.deatil?.event_name}
+            {props?.detail?.event_name}
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Location : </Text>
-            {props?.deatil?.event_location}
+            {props?.detail?.event_location}
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Date : </Text>
             {moment
-              .unix(props?.deatil?.event_date)
-              .format("dddd, MMMM Do, YYYY")}
+              .unix(props?.detail?.event_date)
+              .format("MM/DD/YYYY")}
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Interested : </Text>
-            {props?.deatil?.interested}
+            {props?.detail?.interested}
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>View : </Text>{" "}
-            {props?.deatil?.view}
+            {props?.detail?.view}
           </Text>
         </View>
         <View style={{ marginTop: 10 }}>
@@ -67,12 +70,12 @@ const eventDetails = (props) => {
             <TouchableOpacity
               style={styles.switchstyle}
               onPress={() => {
-                props.eventStatus(props.deatil);
+                props.eventStatus(props.detail);
               }}
             >
               <Image
                 source={
-                  props?.deatil?.status === 1
+                  props?.detail?.status === 1
                     ? require("../../../../Assets/active_switch.png")
                     : require("../../../../Assets/unactive_switch.png")
                 }
@@ -82,7 +85,7 @@ const eventDetails = (props) => {
           <View style={styles.editDeleteVW}>
             <TouchableOpacity
               style={styles.BtnStyle}
-              onPress={() => props.getSingleEvent()}
+              onPress={() => props.getSingleEventEdit()}
             >
               <Text style={styles.BtnTxt}>Edit</Text>
             </TouchableOpacity>
@@ -99,7 +102,7 @@ const eventDetails = (props) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.BtnStyle}
-                            onPress={() => props.DeleteMsg(props?.deatil)}
+                            onPress={() => props.DeleteMsg(props?.detail)}
                         >
                             <Text>Delete</Text>
                         </TouchableOpacity>

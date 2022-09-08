@@ -238,7 +238,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   };
   const handleDateConfirm = (selectedDate) => {
     setDatePickerVisibility(false);
-    const dateData = moment(selectedDate).format("YYYY-MM-DD");
+    const dateData = moment(selectedDate).format("MM/DD/YYYY");
     setDate(dateData);
   };
 

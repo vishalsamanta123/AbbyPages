@@ -9,6 +9,7 @@ import {
   Dimensions,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -16,26 +17,27 @@ import moment from "moment";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
-  BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Picker } from "@react-native-community/picker";
 import { SafeAreaView } from "react-native-safe-area-context";
 const EventListingScreen = (props) => {
-  const toNumbers = [];
-  useEffect(() => {
-    for (let i = 1; i <= parseInt(props?.eventDetails?.total_ticket); i++) {
-      toNumbers.push({ numbers: i });
-    }
-  }, []);
   const [dropDown, setDropDown] = useState(false);
-
   const { width, height } = Dimensions.get("window");
   const eventDate = moment(props?.eventDetails?.created_at).format(
-    "MMMM Do YYYY, h:mm:ss a"
+    "MM/DD/YYYY"
   );
+  const handleTicketVal = (text) => {
+    setDropDown(false);
+    props.setTicketBuyData({
+      ...props.ticketBuyData,
+      number_of_ticket: text,
+    });
+    Keyboard.dismiss();
+  };
   return (
     <View style={CommonStyles.container}>
       <Header HeaderText="Events Details" RightImg={null} />
@@ -145,95 +147,145 @@ const EventListingScreen = (props) => {
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
             </Text>
-            <Text style={styles.formsTxt}>
-              Per Ticket Price :
-              <Text style={{ color: LIGHT_GREEN_COLOR_CODE }}>
-                {" "}
-                ${props?.eventDetails?.ticket_price}
-              </Text>
-            </Text>
-            {props?.ticketBuyData?.response == "" ? (
-              <Text style={styles.ticketConfrTxt}>
-                Do you want to buy ticket of this event?
-              </Text>
-            ) : (
-              <View style={{ paddingVertical: 4 }}>
-                <View style={styles.straightCont}>
-                  <Text style={styles.formsTxt}>No. of Tickets :</Text>
-                  <View>
-                    <View style={[styles.straightCont, styles.ticketInputVw]}>
-                      <TextInput
-                        placeholder="Number"
-                        placeholderTextColor={WHITE_COLOR_CODE}
-                        style={styles.ticketInput}
-                        onChangeText={(text) => {
-                          props.setTicketBuyData({
-                            ...props.ticketBuyData,
-                            number_of_ticket: text,
-                          });
-                        }}
-                        onBlur={() => setDropDown(true)}
-                        maxLength={parseInt(
-                          props?.eventDetails?.total_ticket?.toString()?.length
-                        )}
-                        keyboardType={"phone-pad"}
-                        value={props.ticketBuyData.number_of_ticket}
-                      />
-                      <Image
-                        style={styles.ticketInputImg}
-                        source={require("../../../Assets/dropdown_icon1.png")}
-                      />
-                    </View>
-                    {dropDown ? (
-                      <View style={styles.numbersListVw}>
-                        {toNumbers?.map((item) => {
-                          return (
-                            <TouchableOpacity style={styles.numbersListCon}>
-                              <Text style={styles.numberTxt}>
-                                {item.numbers}
-                              </Text>
-                            </TouchableOpacity>
-                          );
-                        })}
-                      </View>
-                    ) : null}
-                  </View>
+            {props.resposes === 2 ? (
+              <View style={{ paddingTop: 6 }}>
+                <Text style={styles.formsTxt}>Booking Details</Text>
+                <View style={styles.formsFillsVw}>
+                  <Text style={styles.enteredTxt}>Country</Text>
+                  <Picker
+                    // onValueChange={(itemValue, itemIndex) => {
+                    //   props.setFilterData({
+                    //     ...props.filterData,
+                    //     sub_category_id: itemValue,
+                    //   });`
+                    // }}
+                    // selectedValue={props.filterData.sub_category_id}
+                    mode={"dialog"}
+                    style={styles.pickerVw}
+                  >
+                    {props?.counrtys?.map((item) => {
+                      return (
+                        <Picker.Item
+                          label={item.category_name}
+                          value={item.id}
+                        />
+                      );
+                    })}
+                  </Picker>
                 </View>
-                <Text style={styles.totalPriceTxt}>
-                  Total Price :
-                  {props?.eventDetails?.ticket_price *
-                    props.ticketBuyData.number_of_ticket}
-                </Text>
               </View>
-            )}
-            <View style={styles.modalBttnVw}>
-              <Button
-                style={[
-                  styles.modalBttn,
-                  { backgroundColor: YELLOW_COLOR_CODE },
-                ]}
-                buttonLabelStyle={[
-                  styles.modalBttnTxt,
-                  { color: LIGHT_BLACK_COLOR_CODE },
-                ]}
-                onPress={() => props.onPressTicketResp("Yes")}
-                buttonText={"Yes"}
-              />
-              <Button
-                style={styles.modalBttn}
-                buttonLabelStyle={styles.modalBttnTxt}
-                onPress={() => props.onPressTicketResp()}
-                buttonText={"Cancel"}
-              />
-              {toNumbers?.map((item) => {
-                return (
-                  <TouchableOpacity style={{ paddingVertical: 4 }}>
-                    <Text style={{ color: BLACK_COLOR_CODE }}>
-                      {item.numbers}
+            ) : (
+              <>
+                <Text style={styles.formsTxt}>
+                  Per Ticket Price :
+                  <Text style={{ color: LIGHT_GREEN_COLOR_CODE }}>
+                    {" "}
+                    ${props?.eventDetails?.ticket_price}
+                  </Text>
+                </Text>
+                {props?.resposes === "" ? (
+                  <Text style={styles.ticketConfrTxt}>
+                    Do you want to buy ticket of this event?
+                  </Text>
+                ) : (
+                  <View style={{ paddingVertical: 4 }}>
+                    <View style={styles.straightCont}>
+                      <Text style={styles.formsTxt}>No. of Tickets :</Text>
+                      <View style={{ width: "50%", paddingHorizontal: 5 }}>
+                        <View
+                          style={[styles.straightCont, styles.ticketInputVw]}
+                        >
+                          <TextInput
+                            placeholder="Number"
+                            placeholderTextColor={WHITE_COLOR_CODE}
+                            style={styles.ticketInput}
+                            onChangeText={(text) => {
+                              props.setTicketBuyData({
+                                ...props.ticketBuyData,
+                                number_of_ticket: text,
+                              });
+                            }}
+                            value={props?.ticketBuyData?.number_of_ticket.toString()}
+                            onFocus={() => setDropDown(true)}
+                            maxLength={parseInt(
+                              props?.eventDetails?.total_ticket
+                                ? props?.eventDetails?.total_ticket?.toString()
+                                    ?.length
+                                : 2
+                            )}
+                            onEndEditing={() => setDropDown(false)}
+                            keyboardType={"phone-pad"}
+                          />
+                          <Image
+                            style={styles.ticketInputImg}
+                            source={require("../../../Assets/dropdown_icon1.png")}
+                          />
+                        </View>
+                        {dropDown ? (
+                          <View style={styles.numbersListVw}>
+                            <ScrollView
+                              keyboardShouldPersistTaps={"always"}
+                              nestedScrollEnabled={true}
+                            >
+                              {props?.numbers?.map((item, index) => {
+                                return (
+                                  <TouchableOpacity
+                                    onPress={() => handleTicketVal(index + 1)}
+                                    style={styles.numbersListCon}
+                                  >
+                                    <Text style={styles.numberTxt}>
+                                      {index + 1}
+                                    </Text>
+                                  </TouchableOpacity>
+                                );
+                              })}
+                            </ScrollView>
+                          </View>
+                        ) : null}
+                      </View>
+                    </View>
+                    <Text style={[styles.enteredTxt, {}]}>
+                      Total Price :{" "}
+                      {props?.eventDetails?.ticket_price *
+                        props.ticketBuyData.number_of_ticket}
                     </Text>
-                  </TouchableOpacity>
-                );
-              })}
+                  </View>
+                )}
+              </>
+            )}
+            <View style={{ marginTop: dropDown ? "35%" : "16%" }}>
+              {props.formError && (
+                <Text style={styles.errorMssgTxt}>{props?.formErrorMssg}</Text>
+              )}
+              <View style={styles.modalBttnVw}>
+                <Button
+                  style={[
+                    styles.modalBttn,
+                    { backgroundColor: YELLOW_COLOR_CODE },
+                  ]}
+                  buttonLabelStyle={[
+                    styles.modalBttnTxt,
+                    { color: LIGHT_BLACK_COLOR_CODE },
+                  ]}
+                  onPress={() => {
+                    props.onPressTicketResp(
+                      props.resposes === ""
+                        ? 1
+                        : props.resposes === 1
+                        ? 2
+                        : props.resposes === 2 && 3
+                    );
+                    setDropDown(false);
+                  }}
+                  buttonText={props.resposes == "" ? "Yes" : "Buy"}
+                />
+                <Button
+                  style={styles.modalBttn}
+                  buttonLabelStyle={styles.modalBttnTxt}
+                  onPress={() => props.onPressCancelTick()}
+                  buttonText={"Cancel"}
+                />
+              </View>
             </View>
           </View>
         </View>

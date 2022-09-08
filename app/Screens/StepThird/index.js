@@ -84,7 +84,7 @@ const StepThird = ({ navigation }) => {
   };
   const handleDateConfirm = (selectedDate) => {
     setIsDatePickerVisible(false);
-    const dateData = moment(selectedDate).format("YYYY-MM-DD");
+    const dateData = moment(selectedDate).format("MM/DD/YYYY");
     setZipCode({
       ...ZipCode,
       booking_date: dateData,
