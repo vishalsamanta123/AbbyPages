@@ -132,7 +132,6 @@ const Styles = StyleSheet.create({
     paddingVertical: 2,
   },
   errorMssgTxt: {
-    color: LIGHT_RED_COLOR_CODE,
     textAlign: "center",
     paddingVertical: 10,
     fontSize: 16,
@@ -166,15 +165,30 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 12,
+    paddingVertical: 5,
   },
-  pickerVw: {
-    width: "60%",
+  formContainersVw: {
+    width: "62%",
     borderWidth: 1,
     borderColor: LIGHT_BLACK_COLOR_CODE,
     height: 40,
-    backgroundColor: LIGHT_BLACK_COLOR_CODE,
-    borderRadius: 10,
+    borderRadius: 3,
+    justifyContent: "center",
+  },
+  formsStyleVws: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: 16,
+    height: "100%",
+  },
+  cardStyleVw: {
+    marginVertical: 12,
+  },
+  cardStyle: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    textColor: BLACK_COLOR_CODE,
   },
   modalBttn: {
     width: "45%",

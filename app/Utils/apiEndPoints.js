@@ -101,19 +101,21 @@ export default {
   GET_JOB_CATEGORY: "/api/jobs/getJobCategory",
   GET_PLACES: "/api/masterTableData/getStateCountry",
   GET_NEW_BUSINESS: "api/business/businessListNew",
-  ORDER_CANCEL_BYUSER: 'api/orders/orderCancelByUser',
+  ORDER_CANCEL_BYUSER: "api/orders/orderCancelByUser",
   // Update job status
-  JOB_REMOVE_STATUS_UPDATE: '/api/jobs/jobRemoveStatusUpdate',
+  JOB_REMOVE_STATUS_UPDATE: "/api/jobs/jobRemoveStatusUpdate",
   // update product status
   PRODUCT_STATUS_UPDATE: "/api/product/productStatusUpdate",
   // add and Edit product in bussines
   ADD_PRODUCT_FOR_STORE: "/api/store/addProductForStore",
   // Get bussiness Evemt
-  GET_BUSINESS_EVENT_LIST: '/api/events/getBusinessEvents',
+  GET_BUSINESS_EVENT_LIST: "/api/events/getBusinessEvents",
   // Event status
-  EVENT_STATUS_UPDATE: '/api/events/eventRemoveStatusUpdate',
+  EVENT_STATUS_UPDATE: "/api/events/eventRemoveStatusUpdate",
   // Get single Event details
-  GET_SINGLE_EVENT_DETAILS: '/api/events/getSingleEventDetails',//for business
+  GET_SINGLE_EVENT_DETAILS: "/api/events/getSingleEventDetails", //for business
   // Get single job details
-  GET_SINGLE_JOB_DETAILS: '/api/jobs/getSingleJobList',
+  GET_SINGLE_JOB_DETAILS: "/api/jobs/getSingleJobList",
+  //buying ticket
+  BUY_EVENT_TICKET: "/api/events/eventTicketBook",
 };

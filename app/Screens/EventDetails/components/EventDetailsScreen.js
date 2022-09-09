@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -19,10 +20,12 @@ import Button from "../../../Components/Button";
 import {
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { Picker } from "@react-native-community/picker";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 const EventListingScreen = (props) => {
   const [dropDown, setDropDown] = useState(false);
@@ -31,11 +34,11 @@ const EventListingScreen = (props) => {
     "MM/DD/YYYY"
   );
   const handleTicketVal = (text) => {
-    setDropDown(false);
     props.setTicketBuyData({
       ...props.ticketBuyData,
       number_of_ticket: text,
     });
+    setDropDown(false);
     Keyboard.dismiss();
   };
   return (
@@ -142,39 +145,12 @@ const EventListingScreen = (props) => {
           props.setBuyTicketModal(false);
         }}
       >
-        <View style={styles.ticketModal}>
+        <KeyboardAvoidingView style={styles.ticketModal}>
           <View style={styles.ticketModalVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
             </Text>
-            {props.resposes === 2 ? (
-              <View style={{ paddingTop: 6 }}>
-                <Text style={styles.formsTxt}>Booking Details</Text>
-                <View style={styles.formsFillsVw}>
-                  <Text style={styles.enteredTxt}>Country</Text>
-                  <Picker
-                    // onValueChange={(itemValue, itemIndex) => {
-                    //   props.setFilterData({
-                    //     ...props.filterData,
-                    //     sub_category_id: itemValue,
-                    //   });`
-                    // }}
-                    // selectedValue={props.filterData.sub_category_id}
-                    mode={"dialog"}
-                    style={styles.pickerVw}
-                  >
-                    {props?.counrtys?.map((item) => {
-                      return (
-                        <Picker.Item
-                          label={item.category_name}
-                          value={item.id}
-                        />
-                      );
-                    })}
-                  </Picker>
-                </View>
-              </View>
-            ) : (
+            {props.resposes === "" || props.resposes === 1 ? (
               <>
                 <Text style={styles.formsTxt}>
                   Per Ticket Price :
@@ -183,79 +159,255 @@ const EventListingScreen = (props) => {
                     ${props?.eventDetails?.ticket_price}
                   </Text>
                 </Text>
-                {props?.resposes === "" ? (
+                {props.resposes === "" && (
                   <Text style={styles.ticketConfrTxt}>
                     Do you want to buy ticket of this event?
                   </Text>
-                ) : (
-                  <View style={{ paddingVertical: 4 }}>
-                    <View style={styles.straightCont}>
-                      <Text style={styles.formsTxt}>No. of Tickets :</Text>
-                      <View style={{ width: "50%", paddingHorizontal: 5 }}>
-                        <View
-                          style={[styles.straightCont, styles.ticketInputVw]}
-                        >
-                          <TextInput
-                            placeholder="Number"
-                            placeholderTextColor={WHITE_COLOR_CODE}
-                            style={styles.ticketInput}
-                            onChangeText={(text) => {
-                              props.setTicketBuyData({
-                                ...props.ticketBuyData,
-                                number_of_ticket: text,
-                              });
-                            }}
-                            value={props?.ticketBuyData?.number_of_ticket.toString()}
-                            onFocus={() => setDropDown(true)}
-                            maxLength={parseInt(
-                              props?.eventDetails?.total_ticket
-                                ? props?.eventDetails?.total_ticket?.toString()
-                                    ?.length
-                                : 2
-                            )}
-                            onEndEditing={() => setDropDown(false)}
-                            keyboardType={"phone-pad"}
-                          />
-                          <Image
-                            style={styles.ticketInputImg}
-                            source={require("../../../Assets/dropdown_icon1.png")}
-                          />
-                        </View>
-                        {dropDown ? (
-                          <View style={styles.numbersListVw}>
-                            <ScrollView
-                              keyboardShouldPersistTaps={"always"}
-                              nestedScrollEnabled={true}
-                            >
-                              {props?.numbers?.map((item, index) => {
-                                return (
-                                  <TouchableOpacity
-                                    onPress={() => handleTicketVal(index + 1)}
-                                    style={styles.numbersListCon}
-                                  >
-                                    <Text style={styles.numberTxt}>
-                                      {index + 1}
-                                    </Text>
-                                  </TouchableOpacity>
-                                );
-                              })}
-                            </ScrollView>
+                )}
+                {props.resposes === 1 && (
+                  <>
+                    <View style={{ paddingVertical: 4 }}>
+                      <View style={styles.straightCont}>
+                        <Text style={styles.formsTxt}>No. of Tickets :</Text>
+                        <View style={{ width: "50%", paddingHorizontal: 5 }}>
+                          <View
+                            style={[styles.straightCont, styles.ticketInputVw]}
+                          >
+                            <TextInput
+                              placeholder="Number"
+                              placeholderTextColor={WHITE_COLOR_CODE}
+                              style={styles.ticketInput}
+                              onChangeText={(text) => {
+                                props.setTicketBuyData({
+                                  ...props.ticketBuyData,
+                                  number_of_ticket: text,
+                                });
+                              }}
+                              value={props?.ticketBuyData?.number_of_ticket.toString()}
+                              onFocus={() => setDropDown(true)}
+                              maxLength={parseInt(
+                                props?.eventDetails?.total_ticket
+                                  ? props?.eventDetails?.total_ticket?.toString()
+                                      ?.length
+                                  : 2
+                              )}
+                              onEndEditing={() => setDropDown(false)}
+                              keyboardType={"phone-pad"}
+                            />
+                            <Image
+                              style={styles.ticketInputImg}
+                              source={require("../../../Assets/dropdown_icon1.png")}
+                            />
                           </View>
-                        ) : null}
+                          {dropDown ? (
+                            <View style={styles.numbersListVw}>
+                              <ScrollView
+                                keyboardShouldPersistTaps={"always"}
+                                nestedScrollEnabled={true}
+                              >
+                                {props?.numbers?.map((item, index) => {
+                                  return (
+                                    <TouchableOpacity
+                                      onPress={() => handleTicketVal(index + 1)}
+                                      style={styles.numbersListCon}
+                                    >
+                                      <Text style={styles.numberTxt}>
+                                        {index + 1}
+                                      </Text>
+                                    </TouchableOpacity>
+                                  );
+                                })}
+                              </ScrollView>
+                            </View>
+                          ) : null}
+                        </View>
+                      </View>
+                      <Text style={[styles.enteredTxt, {}]}>
+                        Total Price :{" "}
+                        {props?.eventDetails?.ticket_price *
+                          props.ticketBuyData.number_of_ticket}
+                      </Text>
+                    </View>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {props.resposes === 2 ? (
+                  <View style={{ paddingTop: 6 }}>
+                    <Text style={styles.formsTxt}>Booking Details</Text>
+                    <View style={[styles.formsFillsVw, { marginTop: 12 }]}>
+                      <Text style={styles.enteredTxt}>Country</Text>
+                      <View style={styles.formContainersVw}>
+                        <Picker
+                          onValueChange={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              country: itemValue,
+                            });
+                          }}
+                          selectedValue={props.ticketBuyData.country}
+                          mode={"dropdown"}
+                          style={styles.formsStyleVws}
+                        >
+                          {props?.counrtys?.map((item) => {
+                            return (
+                              <Picker.Item
+                                label={item.name}
+                                value={item.name}
+                              />
+                            );
+                          })}
+                        </Picker>
                       </View>
                     </View>
-                    <Text style={[styles.enteredTxt, {}]}>
-                      Total Price :{" "}
-                      {props?.eventDetails?.ticket_price *
-                        props.ticketBuyData.number_of_ticket}
-                    </Text>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>First Name</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              first_name: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.first_name}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>Last Name</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              last_name: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.last_name}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>Address</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              address: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.address}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>City</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              city: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.city}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>Email</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              email_id: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.email_id}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.formsFillsVw}>
+                      <Text style={styles.enteredTxt}>Phone no.</Text>
+                      <View style={styles.formContainersVw}>
+                        <TextInput
+                          style={styles.formsStyleVws}
+                          onChangeText={(itemValue) => {
+                            props.setTicketBuyData({
+                              ...props.ticketBuyData,
+                              phoneNo: itemValue,
+                            });
+                          }}
+                          value={props.ticketBuyData.phoneNo}
+                          keyboardType={"phone-pad"}
+                          maxLength={10}
+                        />
+                      </View>
+                    </View>
                   </View>
+                ) : (
+                  <>
+                    {props.resposes === 3 && (
+                      <View>
+                        <Text style={styles.formsTxt}>
+                          Enter Card Details for ticket payment
+                        </Text>
+                        <View style={styles.cardStyleVw}>
+                          <CardField
+                            postalCodeEnabled={true}
+                            placeholders={{
+                              number: "Number",
+                              expiration: "Expiry",
+                              cvc: "Cvv",
+                              postalCode: "ZipCode",
+                            }}
+                            cardStyle={styles.cardStyle}
+                            onCardChange={(cardDetails) => {
+                              props.setOnlineDetail({
+                                ...props.onlineDetail,
+                                brand: cardDetails.brand,
+                                expiryMonth: cardDetails.expiryMonth,
+                                expiryYear: cardDetails.expiryYear,
+                                last4: cardDetails.last4,
+                                postalCode: cardDetails.postalCode,
+                                validCVC: cardDetails.validCVC,
+                                validExpiryDate: cardDetails.validExpiryDate,
+                                validNumber: cardDetails.validNumber,
+                              });
+                            }}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  </>
                 )}
               </>
             )}
             <View style={{ marginTop: dropDown ? "35%" : "16%" }}>
-              {props.formError && (
-                <Text style={styles.errorMssgTxt}>{props?.formErrorMssg}</Text>
+              {props?.formError && (
+                <Text
+                  style={[
+                    styles.errorMssgTxt,
+                    {
+                      color:
+                        props.resposes == 3
+                          ? YELLOW_COLOR_CODE
+                          : LIGHT_RED_COLOR_CODE,
+                    },
+                  ]}
+                >
+                  {props?.formErrorMssg}
+                  {props.resposes == 3 ? "Payment now" : null}
+                </Text>
               )}
               <View style={styles.modalBttnVw}>
                 <Button
@@ -288,7 +440,7 @@ const EventListingScreen = (props) => {
               </View>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
   );

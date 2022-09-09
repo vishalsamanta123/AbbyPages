@@ -8,6 +8,7 @@ import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import Success from "../../Components/Modal/success";
 import QuestionModal from "../../Components/Modal/questionModal";
+import moment from "moment";
 
 const EventDetails = ({ route }) => {
   const params = route.params;
@@ -19,6 +20,7 @@ const EventDetails = ({ route }) => {
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
   const [resposes, setResposes] = useState("");
+  console.log("resposes: ", resposes);
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -30,11 +32,30 @@ const EventDetails = ({ route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [ticketBuyData, setTicketBuyData] = useState({
     number_of_ticket: "",
+    country: "",
+    first_name: "",
+    last_name: "",
+    address: "",
+    city: "",
+    email_id: "",
+    phoneNo: "",
   });
+  const [onlineDetail, setOnlineDetail] = useState({
+    brand: "",
+    expiryMonth: "",
+    expiryYear: "",
+    last4: "",
+    postalCode: "",
+    validCVC: "",
+    validExpiryDate: "",
+    validNumber: "",
+  });
+  console.log("ticketBuyData: ", ticketBuyData);
 
   useEffect(() => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
+      getPlaceData();
     }
   }, [params?.item?.event_id]);
 
@@ -57,6 +78,27 @@ const EventDetails = ({ route }) => {
         } else {
           setNumbers(Array.from(Array(10)));
         }
+      } else {
+        setLoader(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+  const getPlaceData = async (type) => {
+    setLoader(true);
+    try {
+      const params = {
+        status: 0,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.GET_PLACES, params);
+      if (data.status === 200) {
+        setLoader(false);
+        setCounrtys(data.data);
       } else {
         setLoader(false);
         setVisibleErr(true);
@@ -108,8 +150,8 @@ const EventDetails = ({ route }) => {
     }
   };
   const ticketFormValid = () => {
-    if (resposes == 1) {
-      if (ticketBuyData.number_of_ticket == "") {
+    if (resposes === 1) {
+      if (ticketBuyData.number_of_ticket === "") {
         setFormError(true);
         setFormErrorMssg("Please enter your number of ticket");
         return false;
@@ -121,36 +163,137 @@ const EventDetails = ({ route }) => {
         );
         return false;
       }
-    } else {
+    }
+    if (resposes === 2) {
+      if (ticketBuyData.country === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter country");
+        return false;
+      }
+      if (ticketBuyData.first_name === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter first name");
+        return false;
+      }
+      if (ticketBuyData.last_name === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter last name");
+        return false;
+      }
+      if (ticketBuyData.address === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter address");
+        return false;
+      }
+      if (ticketBuyData.address === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter address");
+        return false;
+      }
+      if (ticketBuyData.city === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter city");
+        return false;
+      }
+      if (ticketBuyData.email_id === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter email id");
+        return false;
+      }
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (reg.test(ticketBuyData.email_id) === false) {
+        setFormError(true);
+        setFormErrorMssg("Please enter correct email id");
+        return false;
+      }
+      if (ticketBuyData.phoneNo === "") {
+        setFormError(true);
+        setFormErrorMssg("Please enter phone number");
+        return false;
+      }
     }
     return true;
   };
   const onPressCancelTick = () => {
     setTicketBuyData({
       ...ticketBuyData,
-      response: "",
       number_of_ticket: "",
+      country: "",
+      first_name: "",
+      last_name: "",
+      address: "",
+      city: "",
+      email_id: "",
+      phoneNo: "",
     });
     setResposes("");
     setFormError(false);
     setBuyTicketModal(false);
   };
   const onPressTicketResp = (resp) => {
+    const valid = ticketFormValid();
     switch (resp) {
       case 1:
         setResposes(resp);
         break;
       case 2:
-        const valid = ticketFormValid();
-        console.log("valid: ", valid);
         if (valid) {
           setResposes(resp);
           setFormError(false);
           setFormErrorMssg("");
         }
         break;
-      default:
+      case 3:
+        if (valid) {
+          setResposes(resp);
+          setFormError(false);
+          setFormErrorMssg("");
+          submitBuyingForm();
+        }
         break;
+    }
+  };
+  const submitBuyingForm = async () => {
+    try {
+      setLoader(true);
+      const todaysDate = moment(new Date()).format("MM/DD/YYYY");
+      const params = {
+        event_id: eventDetails?.event_id,
+        no_of_ticket: ticketBuyData.number_of_ticket,
+        total_amount:
+          eventDetails?.ticket_price * ticketBuyData?.number_of_ticket,
+        address: ticketBuyData.address,
+        city: ticketBuyData.city,
+        country: ticketBuyData.country,
+        create_date: todaysDate,
+        latitude: "22.0012",
+        longitude: "22.123",
+        ticket_amount: eventDetails.total_ticket,
+        ticket_user_name:
+          ticketBuyData.first_name + " " + ticketBuyData.last_name,
+        user_email: ticketBuyData.email_id,
+        user_phone: ticketBuyData.phoneNo,
+      };
+      console.log("params: ", params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUY_EVENT_TICKET,
+        params
+      );
+      console.log("data: ", data);
+      if (data.status === 200) {
+        setLoader(false);
+        setFormErrorMssg(data.message);
+        setFormError(true);
+      } else {
+        setLoader(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
     }
   };
   return (
@@ -174,7 +317,8 @@ const EventDetails = ({ route }) => {
         formError={formError}
         formErrorMssg={formErrorMssg}
         counrtys={counrtys}
-        setCounrtys={setCounrtys}
+        onlineDetail={onlineDetail}
+        setOnlineDetail={setOnlineDetail}
       />
       <Error
         message={errorMessage}

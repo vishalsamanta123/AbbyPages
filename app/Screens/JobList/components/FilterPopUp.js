@@ -19,9 +19,6 @@ import {
   YELLOW_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  LIGHT_GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
