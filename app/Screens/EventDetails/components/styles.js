@@ -136,6 +136,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 16,
     fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_RED_COLOR_CODE,
   },
   modalBttnVw: {
     flexDirection: "row",
@@ -180,9 +181,21 @@ const Styles = StyleSheet.create({
     color: LIGHT_BLACK_COLOR_CODE,
     fontSize: 16,
     height: "100%",
+    paddingLeft: 8,
+  },
+  cardDetailTxt: {
+    marginTop: 2,
+    fontSize: 16,
+  },
+  successTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: YELLOW_COLOR_CODE,
+    marginTop: 10,
   },
   cardStyleVw: {
-    marginVertical: 12,
+    marginVertical: 20,
+    height: 50,
   },
   cardStyle: {
     borderColor: "#d8d8d8",

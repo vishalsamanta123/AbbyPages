@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, Keyboard, View } from "react-native";
 import EventDetailsScreen from "./components/EventDetailsScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -9,6 +9,7 @@ import Error from "../../Components/Modal/error";
 import Success from "../../Components/Modal/success";
 import QuestionModal from "../../Components/Modal/questionModal";
 import moment from "moment";
+import { lastIndexOf } from "lodash";
 
 const EventDetails = ({ route }) => {
   const params = route.params;
@@ -20,13 +21,13 @@ const EventDetails = ({ route }) => {
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
   const [resposes, setResposes] = useState("");
-  console.log("resposes: ", resposes);
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState(false);
   const [loader, setLoader] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [formError, setFormError] = useState(false);
   const [formErrorMssg, setFormErrorMssg] = useState("");
+  const [ticketData, setTicketData] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -50,7 +51,6 @@ const EventDetails = ({ route }) => {
     validExpiryDate: "",
     validNumber: "",
   });
-  console.log("ticketBuyData: ", ticketBuyData);
 
   useEffect(() => {
     if (params?.item?.event_id) {
@@ -73,7 +73,7 @@ const EventDetails = ({ route }) => {
       if (data.status === 200) {
         setLoader(false);
         setEventDetails(data.data);
-        if (data.data.total_ticket !== null) {
+        if (Number(data.data.total_ticket)) {
           setNumbers(Array.from(Array(parseInt(data.data.total_ticket))));
         } else {
           setNumbers(Array.from(Array(10)));
@@ -212,26 +212,69 @@ const EventDetails = ({ route }) => {
         return false;
       }
     }
+    if (resposes === 3) {
+      if (onlineDetail.validNumber !== "Valid") {
+        setErrorMessage("");
+        setFormErrorMssg("Please enter card number correctly");
+        setFormError(true);
+        return false;
+      }
+      if (onlineDetail.brand !== "Visa") {
+        setFormErrorMssg("Please enter card number starts from 42");
+        setFormError(true);
+        return false;
+      }
+      if (onlineDetail.validExpiryDate !== "Valid") {
+        setFormErrorMssg("Please enter correct expiry date");
+        setFormError(true);
+        return false;
+      }
+      if (onlineDetail.validCVC !== "Valid") {
+        setFormErrorMssg("Please enter correct cvc number");
+        setFormError(true);
+        return false;
+      }
+      if (onlineDetail.postalCode === "" || null) {
+        setFormErrorMssg("Please enter postal code card details");
+        setFormError(true);
+        return false;
+      }
+    }
     return true;
   };
   const onPressCancelTick = () => {
-    setTicketBuyData({
-      ...ticketBuyData,
-      number_of_ticket: "",
-      country: "",
-      first_name: "",
-      last_name: "",
-      address: "",
-      city: "",
-      email_id: "",
-      phoneNo: "",
-    });
-    setResposes("");
-    setFormError(false);
+    if (resposes < 3 || resposes === false) {
+      setTicketBuyData({
+        ...ticketBuyData,
+        number_of_ticket: "",
+        country: "",
+        first_name: "",
+        last_name: "",
+        address: "",
+        city: "",
+        email_id: "",
+        phoneNo: "",
+      });
+      setOnlineDetail({
+        ...onlineDetail,
+        brand: "",
+        expiryMonth: "",
+        expiryYear: "",
+        last4: "",
+        postalCode: "",
+        validCVC: "",
+        validExpiryDate: "",
+        validNumber: "",
+      });
+      setResposes("");
+      setFormError(false);
+    }
     setBuyTicketModal(false);
   };
   const onPressTicketResp = (resp) => {
+    console.log("resp: ", resp);
     const valid = ticketFormValid();
+    Keyboard.dismiss();
     switch (resp) {
       case 1:
         setResposes(resp);
@@ -245,15 +288,24 @@ const EventDetails = ({ route }) => {
         break;
       case 3:
         if (valid) {
-          setResposes(resp);
           setFormError(false);
           setFormErrorMssg("");
-          submitBuyingForm();
+          submitBuyingForm(resp);
         }
+        break;
+      case 4:
+        if (valid) {
+          setFormError(false);
+          setFormErrorMssg("");
+          paymentForTicket(resp);
+        }
+        break;
+      default:
+        setResposes(resp);
         break;
     }
   };
-  const submitBuyingForm = async () => {
+  const submitBuyingForm = async (resp) => {
     try {
       setLoader(true);
       const todaysDate = moment(new Date()).format("MM/DD/YYYY");
@@ -274,21 +326,128 @@ const EventDetails = ({ route }) => {
         user_email: ticketBuyData.email_id,
         user_phone: ticketBuyData.phoneNo,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUY_EVENT_TICKET,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setLoader(false);
-        setFormErrorMssg(data.message);
+        setResposes(resp);
+        setSuccessMessage(data.message + ",Now do payment process");
         setFormError(true);
+        setTicketData(data.data.slice(-1));
       } else {
+        setBuyTicketModal(false);
         setLoader(false);
         setVisibleErr(true);
         setErrorMessage(data.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+  const paymentForTicket = async (resp) => {
+    try {
+      setLoader(true);
+      const params = {
+        amount: eventDetails?.ticket_price * ticketBuyData?.number_of_ticket,
+        email: ticketBuyData.email_id,
+        user_name: ticketBuyData.first_name + " " + ticketBuyData.last_name,
+        card_number: "424242424242" + onlineDetail.last4,
+        exp_month: onlineDetail.expiryMonth.toString(),
+        exp_year: onlineDetail.expiryYear.toString(),
+        zipcode: onlineDetail.postalCode,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+      if (data.status === 200) {
+        setLoader(false);
+        setResposes(resp);
+        eventPaymentProcess(data.data);
+        setOnlineDetail({
+          brand: "",
+          expiryMonth: "",
+          expiryYear: "",
+          last4: "",
+          postalCode: "",
+          validCVC: "",
+          validExpiryDate: "",
+          validNumber: "",
+        });
+      } else {
+        setLoader(false);
+        setOnlineDetail({
+          brand: "",
+          expiryMonth: "",
+          expiryYear: "",
+          last4: "",
+          postalCode: "",
+          validCVC: "",
+          validExpiryDate: "",
+          validNumber: "",
+        });
+        setBuyTicketModal(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message.toString());
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message.toString());
+    }
+  };
+  const eventPaymentProcess = async (paymentData) => {
+    try {
+      setLoader(true);
+      const params = {
+        event_id: eventDetails.event_id.toString(),
+        payment_type: "stripe",
+        ticket_id: ticketData[0].ticket_id,
+        payment_amount:
+          eventDetails?.ticket_price * ticketBuyData?.number_of_ticket,
+        transaction_id: paymentData.id,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.EVENTPAYMENTPROCESS,
+        params
+      );
+      if (data.status === 200) {
+        setResposes("");
+        setOnlineDetail({
+          ...onlineDetail,
+          brand: "",
+          expiryMonth: "",
+          expiryYear: "",
+          last4: "",
+          postalCode: "",
+          validCVC: "",
+          validExpiryDate: "",
+          validNumber: "",
+        });
+        setTicketBuyData({
+          ...ticketBuyData,
+          number_of_ticket: "",
+          country: "",
+          first_name: "",
+          last_name: "",
+          address: "",
+          city: "",
+          email_id: "",
+          phoneNo: "",
+        });
+        setLoader(false);
+        setSuccessMessage(data.message);
+        setVisibleSuccess(true);
+        setBuyTicketModal(false);
+      } else {
+        setResposes(3);
+        setLoader(false);
+        setBuyTicketModal(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message.toString());
       }
     } catch (error) {
       setLoader(false);
@@ -301,6 +460,7 @@ const EventDetails = ({ route }) => {
       {loader && <Loader state={loader} />}
       <EventDetailsScreen
         eventDetails={eventDetails}
+        loader={loader}
         setSliderPage={setSliderPage}
         interestedModal={interestedModal}
         onPressCancelTick={onPressCancelTick}
@@ -312,13 +472,16 @@ const EventDetails = ({ route }) => {
         setBuyTicketModal={setBuyTicketModal}
         buyTicketModal={buyTicketModal}
         ticketBuyData={ticketBuyData}
+        ticketData={ticketData}
         setTicketBuyData={setTicketBuyData}
         numbers={numbers}
+        successMessage={successMessage}
         formError={formError}
         formErrorMssg={formErrorMssg}
         counrtys={counrtys}
         onlineDetail={onlineDetail}
         setOnlineDetail={setOnlineDetail}
+        errorMessage={errorMessage}
       />
       <Error
         message={errorMessage}

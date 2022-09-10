@@ -18,6 +18,7 @@ import moment from "moment";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
+  BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
@@ -27,6 +28,7 @@ import {
 import { Picker } from "@react-native-community/picker";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Loader from "../../../Utils/Loader";
 const EventListingScreen = (props) => {
   const [dropDown, setDropDown] = useState(false);
   const { width, height } = Dimensions.get("window");
@@ -43,7 +45,12 @@ const EventListingScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Events Details" RightImg={null} />
+      <Header
+        HeaderText="Events Details"
+        RightImg={null}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+      />
       <ScrollView>
         <SafeAreaView style={{ alignItems: "center" }}>
           <FlatList
@@ -146,6 +153,7 @@ const EventListingScreen = (props) => {
         }}
       >
         <KeyboardAvoidingView style={styles.ticketModal}>
+          {props.loader && <Loader state={props.loader} />}
           <View style={styles.ticketModalVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -159,10 +167,16 @@ const EventListingScreen = (props) => {
                     ${props?.eventDetails?.ticket_price}
                   </Text>
                 </Text>
-                {props.resposes === "" && (
-                  <Text style={styles.ticketConfrTxt}>
-                    Do you want to buy ticket of this event?
-                  </Text>
+                {props.eventDetails.ticket_price > 0 ? (
+                  <>
+                    {props.resposes === "" && (
+                      <Text style={styles.ticketConfrTxt}>
+                        Do you want to buy ticket of this event?
+                      </Text>
+                    )}
+                  </>
+                ) : (
+                  <Text style={styles.ticketConfrTxt}>No ticket available</Text>
                 )}
                 {props.resposes === 1 && (
                   <>
@@ -186,7 +200,7 @@ const EventListingScreen = (props) => {
                               value={props?.ticketBuyData?.number_of_ticket.toString()}
                               onFocus={() => setDropDown(true)}
                               maxLength={parseInt(
-                                props?.eventDetails?.total_ticket
+                                props?.eventDetails?.total_ticket?.toString()
                                   ? props?.eventDetails?.total_ticket?.toString()
                                       ?.length
                                   : 2
@@ -356,85 +370,88 @@ const EventListingScreen = (props) => {
                   </View>
                 ) : (
                   <>
-                    {props.resposes === 3 && (
-                      <View>
-                        <Text style={styles.formsTxt}>
+                    {props.resposes >= 3 && (
+                      <>
+                        <Text style={styles.successTxt}>
+                          {props?.successMessage}
+                        </Text>
+                        <Text style={[styles.formsTxt, styles.cardDetailTxt]}>
                           Enter Card Details for ticket payment
                         </Text>
-                        <View style={styles.cardStyleVw}>
-                          <CardField
-                            postalCodeEnabled={true}
-                            placeholders={{
-                              number: "Number",
-                              expiration: "Expiry",
-                              cvc: "Cvv",
-                              postalCode: "ZipCode",
-                            }}
-                            cardStyle={styles.cardStyle}
-                            onCardChange={(cardDetails) => {
-                              props.setOnlineDetail({
-                                ...props.onlineDetail,
-                                brand: cardDetails.brand,
-                                expiryMonth: cardDetails.expiryMonth,
-                                expiryYear: cardDetails.expiryYear,
-                                last4: cardDetails.last4,
-                                postalCode: cardDetails.postalCode,
-                                validCVC: cardDetails.validCVC,
-                                validExpiryDate: cardDetails.validExpiryDate,
-                                validNumber: cardDetails.validNumber,
-                              });
-                            }}
-                          />
-                        </View>
-                      </View>
+                        <CardField
+                          postalCodeEnabled={true}
+                          placeholders={{
+                            number: "Number",
+                            expiration: "Expiry",
+                            cvc: "Cvv",
+                            postalCode: "ZipCode",
+                          }}
+                          style={styles.cardStyleVw}
+                          cardStyle={styles.cardStyle}
+                          onCardChange={(cardDetails) => {
+                            props.setOnlineDetail({
+                              ...props.onlineDetail,
+                              brand: cardDetails.brand,
+                              expiryMonth: cardDetails.expiryMonth,
+                              expiryYear: cardDetails.expiryYear,
+                              last4: cardDetails.last4,
+                              postalCode: cardDetails.postalCode,
+                              validCVC: cardDetails.validCVC,
+                              validExpiryDate: cardDetails.validExpiryDate,
+                              validNumber: cardDetails.validNumber,
+                            });
+                          }}
+                        />
+                      </>
                     )}
                   </>
                 )}
               </>
             )}
+
             <View style={{ marginTop: dropDown ? "35%" : "16%" }}>
               {props?.formError && (
-                <Text
-                  style={[
-                    styles.errorMssgTxt,
-                    {
-                      color:
-                        props.resposes == 3
-                          ? YELLOW_COLOR_CODE
-                          : LIGHT_RED_COLOR_CODE,
-                    },
-                  ]}
-                >
-                  {props?.formErrorMssg}
-                  {props.resposes == 3 ? "Payment now" : null}
-                </Text>
+                <>
+                  <Text style={[styles.errorMssgTxt]}>
+                    {props?.formErrorMssg}
+                  </Text>
+                </>
               )}
               <View style={styles.modalBttnVw}>
-                <Button
-                  style={[
-                    styles.modalBttn,
-                    { backgroundColor: YELLOW_COLOR_CODE },
-                  ]}
-                  buttonLabelStyle={[
-                    styles.modalBttnTxt,
-                    { color: LIGHT_BLACK_COLOR_CODE },
-                  ]}
-                  onPress={() => {
-                    props.onPressTicketResp(
-                      props.resposes === ""
-                        ? 1
-                        : props.resposes === 1
-                        ? 2
-                        : props.resposes === 2 && 3
-                    );
-                    setDropDown(false);
-                  }}
-                  buttonText={props.resposes == "" ? "Yes" : "Buy"}
-                />
+                {props.eventDetails.ticket_price > 0 && (
+                  <Button
+                    style={[
+                      styles.modalBttn,
+                      { backgroundColor: YELLOW_COLOR_CODE },
+                    ]}
+                    buttonLabelStyle={[
+                      styles.modalBttnTxt,
+                      { color: LIGHT_BLACK_COLOR_CODE },
+                    ]}
+                    onPress={() => {
+                      if (props.eventDetails.ticket_price > 0) {
+                        props.onPressTicketResp(
+                          props.resposes === ""
+                            ? 1
+                            : props.resposes === 1
+                            ? 2
+                            : props.resposes === 2
+                            ? 3
+                            : props.resposes === 3 && 4
+                        );
+                      }
+                      setDropDown(false);
+                    }}
+                    buttonText={props.resposes == "" ? "Yes" : "Buy"}
+                  />
+                )}
                 <Button
                   style={styles.modalBttn}
                   buttonLabelStyle={styles.modalBttnTxt}
-                  onPress={() => props.onPressCancelTick()}
+                  onPress={() => {
+                    props.onPressCancelTick();
+                    setDropDown(false);
+                  }}
                   buttonText={"Cancel"}
                 />
               </View>

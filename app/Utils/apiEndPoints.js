@@ -118,4 +118,6 @@ export default {
   GET_SINGLE_JOB_DETAILS: "/api/jobs/getSingleJobList",
   //buying ticket
   BUY_EVENT_TICKET: "/api/events/eventTicketBook",
+  //payment of event ticket
+  EVENTPAYMENTPROCESS: "/api/events/eventPaymentProcess",
 };
