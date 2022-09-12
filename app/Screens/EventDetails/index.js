@@ -9,7 +9,8 @@ import Error from "../../Components/Modal/error";
 import Success from "../../Components/Modal/success";
 import QuestionModal from "../../Components/Modal/questionModal";
 import moment from "moment";
-import { lastIndexOf } from "lodash";
+import RNFS from "react-native-fs";
+import FileViewer from "react-native-file-viewer";
 
 const EventDetails = ({ route }) => {
   const params = route.params;
@@ -31,6 +32,7 @@ const EventDetails = ({ route }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
+  const [ticket, setTicket] = useState([]);
   const [ticketBuyData, setTicketBuyData] = useState({
     number_of_ticket: "",
     country: "",
@@ -272,7 +274,6 @@ const EventDetails = ({ route }) => {
     setBuyTicketModal(false);
   };
   const onPressTicketResp = (resp) => {
-    console.log("resp: ", resp);
     const valid = ticketFormValid();
     Keyboard.dismiss();
     switch (resp) {
@@ -300,8 +301,15 @@ const EventDetails = ({ route }) => {
           paymentForTicket(resp);
         }
         break;
-      default:
+      case 5:
         setResposes(resp);
+        onPressDownloadTckt();
+        break;
+      default:
+        setResposes("");
+        setVisibleErr(true);
+        setErrorMessage("Sorry ,something went wrong");
+        setBuyTicketModal(false);
         break;
     }
   };
@@ -364,8 +372,7 @@ const EventDetails = ({ route }) => {
       const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
       if (data.status === 200) {
         setLoader(false);
-        setResposes(resp);
-        eventPaymentProcess(data.data);
+        eventPaymentProcess(data.data, resp);
         setOnlineDetail({
           brand: "",
           expiryMonth: "",
@@ -398,7 +405,7 @@ const EventDetails = ({ route }) => {
       setErrorMessage(error.message.toString());
     }
   };
-  const eventPaymentProcess = async (paymentData) => {
+  const eventPaymentProcess = async (paymentData, resp) => {
     try {
       setLoader(true);
       const params = {
@@ -415,7 +422,7 @@ const EventDetails = ({ route }) => {
         params
       );
       if (data.status === 200) {
-        setResposes("");
+        setResposes(resp);
         setOnlineDetail({
           ...onlineDetail,
           brand: "",
@@ -438,12 +445,10 @@ const EventDetails = ({ route }) => {
           email_id: "",
           phoneNo: "",
         });
+        setTicket(data.data.slice(-1));
         setLoader(false);
         setSuccessMessage(data.message);
-        setVisibleSuccess(true);
-        setBuyTicketModal(false);
       } else {
-        setResposes(3);
         setLoader(false);
         setBuyTicketModal(false);
         setVisibleErr(true);
@@ -453,6 +458,50 @@ const EventDetails = ({ route }) => {
       setLoader(false);
       setVisibleErr(true);
       setErrorMessage(error.message);
+    }
+  };
+  const onPressDownloadTckt = async () => {
+    try {
+      setLoader(true);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.GET_USER_EVENT_TICKET,
+        params
+      );
+      if (data.status === 200) {
+        setLoader(false);
+        showPdfFile(data.base_url + "/" + ticket[0].ticket);
+      } else {
+        setLoader(false);
+        setBuyTicketModal(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message.toString());
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+  const showPdfFile = async (url) => {
+    const extension = ticket[0].ticket;
+    const localFile = `${RNFS.DocumentDirectoryPath}/${extension}`;
+    try {
+      const options = {
+        fromUrl: url,
+        toFile: localFile,
+      };
+      RNFS.downloadFile(options).promise.then(() =>
+        FileViewer.open(localFile, {
+          showOpenWithDialog: true,
+          showAppsSuggestions: true,
+        })
+      );
+      setBuyTicketModal(false);
+    } catch (error) {
+      setBuyTicketModal(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   return (

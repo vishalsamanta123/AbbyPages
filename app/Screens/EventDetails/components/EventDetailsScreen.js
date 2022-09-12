@@ -153,12 +153,12 @@ const EventListingScreen = (props) => {
         }}
       >
         <KeyboardAvoidingView style={styles.ticketModal}>
-          {props.loader && <Loader state={props.loader} />}
+          {props?.loader && <Loader state={props?.loader} />}
           <View style={styles.ticketModalVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
             </Text>
-            {props.resposes === "" || props.resposes === 1 ? (
+            {props?.resposes === "" || props?.resposes === 1 ? (
               <>
                 <Text style={styles.formsTxt}>
                   Per Ticket Price :
@@ -167,9 +167,9 @@ const EventListingScreen = (props) => {
                     ${props?.eventDetails?.ticket_price}
                   </Text>
                 </Text>
-                {props.eventDetails.ticket_price > 0 ? (
+                {props?.eventDetails?.ticket_price > 0 ? (
                   <>
-                    {props.resposes === "" && (
+                    {props?.resposes === "" && (
                       <Text style={styles.ticketConfrTxt}>
                         Do you want to buy ticket of this event?
                       </Text>
@@ -178,7 +178,7 @@ const EventListingScreen = (props) => {
                 ) : (
                   <Text style={styles.ticketConfrTxt}>No ticket available</Text>
                 )}
-                {props.resposes === 1 && (
+                {props?.resposes === 1 && (
                   <>
                     <View style={{ paddingVertical: 4 }}>
                       <View style={styles.straightCont}>
@@ -247,7 +247,7 @@ const EventListingScreen = (props) => {
               </>
             ) : (
               <>
-                {props.resposes === 2 ? (
+                {props?.resposes === 2 ? (
                   <View style={{ paddingTop: 6 }}>
                     <Text style={styles.formsTxt}>Booking Details</Text>
                     <View style={[styles.formsFillsVw, { marginTop: 12 }]}>
@@ -370,7 +370,7 @@ const EventListingScreen = (props) => {
                   </View>
                 ) : (
                   <>
-                    {props.resposes >= 3 && (
+                    {props?.resposes === 3 ? (
                       <>
                         <Text style={styles.successTxt}>
                           {props?.successMessage}
@@ -403,6 +403,19 @@ const EventListingScreen = (props) => {
                           }}
                         />
                       </>
+                    ) : (
+                      <>
+                        {props?.resposes >= 4 && (
+                          <View style={{ marginVertical: 5 }}>
+                            <Text style={styles.successTxt}>
+                              {props?.successMessage}
+                            </Text>
+                            <Text style={styles.ticketConfrTxt}>
+                              Do you want to download ticket of this event?
+                            </Text>
+                          </View>
+                        )}
+                      </>
                     )}
                   </>
                 )}
@@ -412,42 +425,68 @@ const EventListingScreen = (props) => {
             <View style={{ marginTop: dropDown ? "35%" : "16%" }}>
               {props?.formError && (
                 <>
-                  <Text style={[styles.errorMssgTxt]}>
+                  <Text style={styles.errorMssgTxt}>
                     {props?.formErrorMssg}
                   </Text>
                 </>
               )}
               <View style={styles.modalBttnVw}>
-                {props.eventDetails.ticket_price > 0 && (
+                {props?.eventDetails?.ticket_price > 0 && (
                   <Button
                     style={[
                       styles.modalBttn,
-                      { backgroundColor: YELLOW_COLOR_CODE },
+                      {
+                        backgroundColor: YELLOW_COLOR_CODE,
+                        paddingVertical: props?.resposes >= 4 ? 13 : 8,
+                      },
                     ]}
                     buttonLabelStyle={[
                       styles.modalBttnTxt,
-                      { color: LIGHT_BLACK_COLOR_CODE },
+                      {
+                        color: LIGHT_BLACK_COLOR_CODE,
+                        fontSize: props?.resposes >= 4 ? 13 : 20,
+                      },
                     ]}
                     onPress={() => {
-                      if (props.eventDetails.ticket_price > 0) {
+                      if (props?.eventDetails?.ticket_price > 0) {
                         props.onPressTicketResp(
-                          props.resposes === ""
+                          props?.resposes === ""
                             ? 1
-                            : props.resposes === 1
+                            : props?.resposes === 1
                             ? 2
-                            : props.resposes === 2
+                            : props?.resposes === 2
                             ? 3
-                            : props.resposes === 3 && 4
+                            : props?.resposes === 3
+                            ? 4
+                            : props?.resposes === 4 && 5
                         );
                       }
                       setDropDown(false);
                     }}
-                    buttonText={props.resposes == "" ? "Yes" : "Buy"}
+                    buttonText={
+                      props?.resposes == ""
+                        ? "Yes"
+                        : props?.resposes >= 4
+                        ? "Download Ticket"
+                        : props?.resposes === 3
+                        ? "Buy"
+                        : "Next"
+                    }
                   />
                 )}
                 <Button
-                  style={styles.modalBttn}
-                  buttonLabelStyle={styles.modalBttnTxt}
+                  style={[
+                    styles.modalBttn,
+                    {
+                      paddingVertical: props?.resposes >= 4 ? 13 : 8,
+                    },
+                  ]}
+                  buttonLabelStyle={[
+                    styles.modalBttnTxt,
+                    {
+                      fontSize: props?.resposes >= 4 ? 13 : 20,
+                    },
+                  ]}
                   onPress={() => {
                     props.onPressCancelTick();
                     setDropDown(false);

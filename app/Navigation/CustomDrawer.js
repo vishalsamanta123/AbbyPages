@@ -213,6 +213,19 @@ export function customDrawerContents(props) {
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
+              props.navigation.navigate("UserEventsList");
+            }}
+          >
+            <View style={styles.ImgeView}>
+              <Image source={require("../Assets/events_icon_menu.png")} />
+            </View>
+            <View style={styles.TextContain}>
+              <Text style={styles.drawerText}>Events Tickets</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.contactUsContainer}
+            onPress={() => {
               props.navigation.navigate("OrderHistory");
             }}
           >

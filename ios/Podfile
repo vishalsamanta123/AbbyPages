@@ -16,6 +16,10 @@ target 'AbbyPages' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'RNFileViewer', :path => '../node_modules/react-native-file-viewer'
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'AbbyPagesTests' do
     inherit! :complete
     # Pods for testing

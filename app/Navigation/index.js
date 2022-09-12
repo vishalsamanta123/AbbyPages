@@ -110,6 +110,7 @@ import AddcartcashbackScreen from "../Screens/Addcartcashback";
 import AddLocationScreen from "../Screens/AddLocation";
 import AddEmailScreen from "../Screens/AddEmail";
 import AddPhotosScreen from "../Screens/AddPhotos";
+import UserEventsListScreen from "../Screens/UserEventsList";
 //
 
 import BookmarkScreen from "../Screens/Bookmark";
@@ -218,6 +219,10 @@ function CustomDrawerNavigation() {
       <customDrawer.Screen name="Reviews" component={ReviewsScreen} />
       <customDrawer.Screen name="Bookmark" component={BookmarkScreen} />
       <customDrawer.Screen name="Collections" component={CollectionsScreen} />
+      <customDrawer.Screen
+        name="UserEventsList"
+        component={UserEventsListScreen}
+      />
       <customDrawer.Screen
         name="Notifications"
         component={NotificationsScreen}
@@ -394,6 +399,7 @@ function AppStack() {
       <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
       <Stack.Screen name="InviteFriends" component={InviteFriendsScreen} />
       <Stack.Screen name="EventManagement" component={EventManagement} />
+      <Stack.Screen name="UserEventsList" component={UserEventsListScreen} />
       <Stack.Screen
         name="ManageFriendInvite"
         component={ManageFriendInviteScreen}

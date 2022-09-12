@@ -120,4 +120,6 @@ export default {
   BUY_EVENT_TICKET: "/api/events/eventTicketBook",
   //payment of event ticket
   EVENTPAYMENTPROCESS: "/api/events/eventPaymentProcess",
+  //getUserEventTicket
+  GET_USER_EVENT_TICKET: "/api/events/getUserEventTicket",
 };

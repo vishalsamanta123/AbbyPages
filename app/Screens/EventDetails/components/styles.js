@@ -212,7 +212,6 @@ const Styles = StyleSheet.create({
   },
   modalBttnTxt: {
     color: WHITE_COLOR_CODE,
-    fontSize: 20,
   },
 });
 export default Styles;
