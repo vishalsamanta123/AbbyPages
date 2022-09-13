@@ -15,6 +15,7 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import {
   BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Moment from "moment";
@@ -22,16 +23,13 @@ var now = new Date();
 const BusinessHome = (props) => {
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
       <Header
         RightImg={null}
         HeaderText={"Home"}
         leftImg={require("../../../../Assets/hamburger_icon.png")}
         type="Drawer"
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={CommonStyles.body}>
         <ScrollView>

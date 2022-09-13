@@ -16,7 +16,6 @@ const UserEventsScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         HeaderText="User Events"
-        onPressBackFun={() => handleBack()}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         RightImg={require("../../../Assets/plus_icon_header.png")}
@@ -56,16 +55,17 @@ const UserEventsScreen = (props) => {
                   <Text style={styles.straightTxt}>{item?.address}</Text>
                 </View>
               </TouchableOpacity>
-              <View>
-                <TouchableOpacity style={{ alignItems: "center" }}>
-                  <Text style={styles.downloadTxt}>Download Ticket</Text>
-                  <Image
-                    style={styles.downloadImg}
-                    resizeMode={"contain"}
-                    source={require("../../../Assets/upload_icon_box.png")}
-                  />
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={() => props.onPressDownloadTckt(item)}
+                style={{ alignItems: "center" }}
+              >
+                <Text style={styles.downloadTxt}>Download Ticket</Text>
+                <Image
+                  style={styles.downloadImg}
+                  resizeMode={"contain"}
+                  source={require("../../../Assets/upload_icon_box.png")}
+                />
+              </TouchableOpacity>
             </View>
           );
         }}

@@ -27,7 +27,6 @@ const CreateEventView = ({ route, navigation }) => {
     img_url: "",
     detail: "",
   };
-  console.log("item: ", item);
   const [eventCategoryModalVisible, setEventCategoryModalVisible] =
     useState(false);
   const [categoryListData, setCategoryListData] = useState("");
@@ -45,6 +44,8 @@ const CreateEventView = ({ route, navigation }) => {
   const [checkbox, SetCheckBox] = useState(false);
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [formView, setFormView] = useState(1);
+  console.log('formView: ', formView);
   const [eventModalVisible, setEventModalVisible] = useState("");
   const [updatePic, setUpdatePic] = useState([]);
   const [createEvent, setCreateEvent] = useState({
@@ -488,6 +489,12 @@ const CreateEventView = ({ route, navigation }) => {
     }
   };
 
+  const onPressNextForm = () => {
+    const valid = validationFrom();
+    // if (valid) {
+      setFormView(formView + 1);
+    // }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -524,6 +531,8 @@ const CreateEventView = ({ route, navigation }) => {
         getCategoryList={getCategoryList}
         updatePic={updatePic}
         setUpdatePic={setUpdatePic}
+        formView={formView}
+        onPressNextForm={onPressNextForm}
       />
       <Error
         message={errorMessage}

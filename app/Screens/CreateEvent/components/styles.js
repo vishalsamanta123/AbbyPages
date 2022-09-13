@@ -4,6 +4,7 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   container: {
@@ -15,6 +16,16 @@ const Styles = StyleSheet.create({
     margin: 10,
     marginLeft: 15,
     marginRight: 15,
+  },
+  privacyCon: {
+    height: 50,
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 12,
+    flexDirection: "row",
+    marginHorizontal: 15,
+    marginVertical: 8,
+    alignItems: "center",
   },
   textInput: {
     fontSize: 18,
@@ -223,6 +234,106 @@ const Styles = StyleSheet.create({
   radioInnerTxt: {
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  headingTxt: {
+    fontSize: 15,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  titlesTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginHorizontal: 20,
+    marginTop: 5,
+  },
+  formsInputCon: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    margin: 8,
+    marginLeft: 15,
+    marginRight: 15,
+    paddingVertical: 4,
+  },
+  formsInputVw: {
+    height: 30,
+    paddingTop: 0,
+    marginBottom: 8,
+    marginLeft: 4,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  straightVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    marginLeft: 5,
+    paddingBottom: 8,
+    bottom: 5,
+  },
+  moreOptionTxt: {
+    fontSize: 14,
+    color: BLACK_COLOR_CODE,
+    marginLeft: 5,
+  },
+  datesColumn: {
+    flex: 1,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+  },
+  datesCon: {
+    marginVertical: 10,
+    paddingVertical: 15,
+    alignItems: "center",
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    borderWidth: 0.6,
+    marginHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "45%",
+  },
+  nonEditInputVw: {
+    height: 35,
+    width: "70%",
+    borderWidth: 0.6,
+    marginVertical: 12,
+    borderRadius: 6,
+  },
+  descriptionVw: {
+    height: 58,
+    width: "90%",
+    borderWidth: 0.5,
+    marginVertical: 8,
+    borderRadius: 6,
+  },
+  optionChooseVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 9,
+    marginVertical: 5,
+  },
+  checkImg: {
+    marginRight: 8,
+    width: 24,
+    height: 24,
+  },
+  minMaxVw: {
+    height: 45,
+    width: "50%",
+    borderWidth: 1,
+  },
+  nonEditTitlesTxt: {
+    fontSize: 11,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginTop: 5,
+  },
+  addMoreTckVw: {
+    marginTop: 12,
+    justifyContent: "center",
   },
 });
 export default Styles;

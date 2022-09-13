@@ -137,11 +137,11 @@ const EventListingScreen = (props) => {
               props.setChangeInterest(props.eventDetails);
             }}
           />
-          <Button
+          {/* <Button
             style={styles.btncon}
             buttonText={"Buy Ticket"}
             onPress={() => props.setBuyTicketModal(true)}
-          />
+          /> */}
         </View>
       </ScrollView>
       <Modal

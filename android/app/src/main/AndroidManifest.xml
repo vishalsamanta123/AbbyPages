@@ -42,11 +42,4 @@
               <!-- android:value="AIzaSyAvtWufwnjN7MwtOfwtQrzmv2Rp_wUxBbw" -->
           <uses-library android:name="org.apache.http.legacy" android:required="false"/>
       </application>
-    <queries>
-+      <intent>
-+       <action android:name="android.intent.action.VIEW" />
-+       <!-- If you don't know the MIME type in advance, set "mimeType" to "*/*". -->
-+          <data android:mimeType="application/pdf" />
-+      </intent>
-+   </queries>
 </manifest>
