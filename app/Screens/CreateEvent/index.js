@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CreateEvent from "./components/CreateEvent";
+import GenerateTicket from "./components/GenerateTicket";
+import StripeConnect from "./components/StripeConnect";
+import EventPublish from "./components/EventPublish";
 import moment from "moment";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -20,6 +23,32 @@ import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
 
 const CreateEventView = ({ route, navigation }) => {
+  const [createEventData, setCreateEventData] = useState([
+    {
+      ticket_title: "",
+      ticket_qty: "",
+      ticket_price: "",
+      tckt_start_date: "",
+      tckt_end_date: "",
+      tckt_start_time: "",
+      tckt_end_time: "",
+      tckt_description: "",
+      hide_description: "",
+      display_inventry: "",
+      trasferable: "",
+      private_ticket: "",
+      password_req: "",
+      ticket_limit: "",
+      payOtp: 1,
+      showMore: false,
+      cardAmt: "",
+      abbyPagesAmt: "",
+      totalPrice: "",
+      youGetAmt: "",
+    },
+  ]);
+  // console.log("createEventDatacreateEventData: ", createEventData);
+  const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   const isFocused = useIsFocused();
   const { type, item, img_url, detail } = route?.params || {
     type: "",
@@ -45,9 +74,13 @@ const CreateEventView = ({ route, navigation }) => {
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [visible, setVisible] = useState(false);
   const [formView, setFormView] = useState(1);
-  console.log('formView: ', formView);
   const [eventModalVisible, setEventModalVisible] = useState("");
   const [updatePic, setUpdatePic] = useState([]);
+  const [startDateModal, setStartDateModal] = useState(false);
+
+  const [endDateModal, setEndDateModal] = useState(false);
+  const [startTimeModal, setStartTimeModal] = useState(false);
+  const [endTimeModal, setEndTimeModal] = useState(false);
   const [createEvent, setCreateEvent] = useState({
     event_photo: [],
     eventName: "",
@@ -490,50 +523,200 @@ const CreateEventView = ({ route, navigation }) => {
   };
 
   const onPressNextForm = () => {
-    const valid = validationFrom();
+    // const valid = validationFrom();
     // if (valid) {
+    if (formView < 4) {
       setFormView(formView + 1);
+    }
     // }
+  };
+  const handleAddMoreTickets = () => {
+    const arr = {
+      ticket_title: "",
+      ticket_qty: "",
+      ticket_price: "",
+      tckt_start_date: "",
+      tckt_end_date: "",
+      tckt_start_time: "",
+      tckt_end_time: "",
+      tckt_description: "",
+      hide_description: "",
+      display_inventry: "",
+      trasferable: "",
+      private_ticket: "",
+      password_req: "",
+      ticket_limit: "",
+      payOtp: 1,
+      showMore: false,
+      cardAmt: "",
+      abbyPagesAmt: "",
+      totalPrice: "",
+      youGetAmt: "",
+    };
+    setCreateEventData([...createEventData, arr]);
+  };
+  const handleRemoveTicket = (index) => {
+    const ticketsList = [...createEventData];
+    ticketsList.splice(index, 1);
+    setCreateEventData(ticketsList);
+  };
+  const handleTicketInput = (key, value, index) => {
+    let NewEventTicket = [...createEventData];
+    const ticket = NewEventTicket[index];
+    if (key == "ticket_title") {
+      const tic = { ...ticket, ticket_title: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "ticket_qty") {
+      const tic = { ...ticket, ticket_qty: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key === "ticket_price") {
+      const totalExtraAmt = (value * 11.66) / 100 + (value * 1.66) / 100;
+      const tic = {
+        ...ticket,
+        ticket_price: value,
+        abbyPagesAmt: (value * 11.66) / 100,
+        cardAmt: (value * 1.66) / 100,
+        totalPrice: ticket.payOtp == 1 ? Number(value) + totalExtraAmt : value,
+        youGetAmt:
+          ticket.payOtp == 1 ? Number(value) : Number(value) - totalExtraAmt,
+      };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "payOtp") {
+      const totalExtraAmt =
+        (ticket.ticket_price * 11.66) / 100 +
+        (ticket.ticket_price * 1.66) / 100;
+      const ff = {
+        ...ticket,
+        cardAmt: (ticket.ticket_price * 1.66) / 100,
+        abbyPagesAmt: (ticket.ticket_price * 11.66) / 100,
+        totalPrice:
+          ticket.payOtp == 1
+            ? Number(ticket.ticket_price) + totalExtraAmt
+            : ticket.ticket_price,
+        youGetAmt:
+          ticket.payOtp == 1
+            ? Number(ticket.ticket_price)
+            : Number(ticket.ticket_price) - totalExtraAmt,
+      };
+      NewEventTicket[index] = ff;
+    }
+    if (key == "tckt_description") {
+      const tic = { ...ticket, tckt_description: value };
+      NewEventTicket[index] = tic;
+    }
+    setCreateEventData(NewEventTicket);
+  };
+  const handleStartDate = () => {
+    setStartDateModal(false);
+  };
+  const handleEndDate = () => {
+    setEndDateModal(false);
+  };
+  const handleStartTime = () => {
+    setStartTimeModal(false);
+  };
+  const handleEndTime = () => {
+    setEndTimeModal(false);
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <CreateEvent
-        onPressOpenEventImage={onPressOpenEventImage}
-        renderEventImage={renderEventImage}
-        setEventModalVisible={setEventModalVisible}
-        eventModalVisible={eventModalVisible}
-        onPressCreateEvent={onPressCreateEvent}
-        isEndTimePickerVisible={isEndTimePickerVisible}
-        handleEndTimeConfirm={handleEndTimeConfirm}
-        setIsEndTimePickerVisible={setIsEndTimePickerVisible}
-        setDatePickerVisibility={setDatePickerVisibility}
-        isDatePickerVisible={isDatePickerVisible}
-        isStartDatePicker={isStartDatePicker}
-        setIsStartDatePicker={setIsStartDatePicker}
-        isEndDatePicker={isEndDatePicker}
-        setIsEndDatePicker={setIsEndDatePicker}
-        handleConfirm={handleConfirm}
-        handleStartConfirm={handleStartConfirm}
-        handleEndConfirm={handleEndConfirm}
-        isStartTimePickerVisible={isStartTimePickerVisible}
-        handleTimeConfirm={handleTimeConfirm}
-        setIsStartTimePickerVisible={setIsStartTimePickerVisible}
-        onPressPublicVenue={onPressPublicVenue}
-        checkbox={checkbox}
-        eventCategoryModalVisible={eventCategoryModalVisible}
-        setEventCategoryModalVisible={setEventCategoryModalVisible}
-        renderCategoryListItem={renderCategoryListItem}
-        categoryListData={categoryListData}
-        createEvent={createEvent}
-        setCreateEvent={setCreateEvent}
-        type={type}
-        getCategoryList={getCategoryList}
-        updatePic={updatePic}
-        setUpdatePic={setUpdatePic}
-        formView={formView}
-        onPressNextForm={onPressNextForm}
-      />
+      {formView === 1 ? (
+        <CreateEvent
+          onPressOpenEventImage={onPressOpenEventImage}
+          renderEventImage={renderEventImage}
+          setEventModalVisible={setEventModalVisible}
+          eventModalVisible={eventModalVisible}
+          onPressCreateEvent={onPressCreateEvent}
+          isEndTimePickerVisible={isEndTimePickerVisible}
+          handleEndTimeConfirm={handleEndTimeConfirm}
+          setIsEndTimePickerVisible={setIsEndTimePickerVisible}
+          setDatePickerVisibility={setDatePickerVisibility}
+          isDatePickerVisible={isDatePickerVisible}
+          isStartDatePicker={isStartDatePicker}
+          setIsStartDatePicker={setIsStartDatePicker}
+          isEndDatePicker={isEndDatePicker}
+          setIsEndDatePicker={setIsEndDatePicker}
+          handleConfirm={handleConfirm}
+          handleStartConfirm={handleStartConfirm}
+          handleEndConfirm={handleEndConfirm}
+          isStartTimePickerVisible={isStartTimePickerVisible}
+          handleTimeConfirm={handleTimeConfirm}
+          setIsStartTimePickerVisible={setIsStartTimePickerVisible}
+          onPressPublicVenue={onPressPublicVenue}
+          checkbox={checkbox}
+          eventCategoryModalVisible={eventCategoryModalVisible}
+          setEventCategoryModalVisible={setEventCategoryModalVisible}
+          renderCategoryListItem={renderCategoryListItem}
+          categoryListData={categoryListData}
+          createEvent={createEvent}
+          setCreateEvent={setCreateEvent}
+          type={type}
+          getCategoryList={getCategoryList}
+          updatePic={updatePic}
+          setUpdatePic={setUpdatePic}
+          formView={formView}
+          onPressNextForm={onPressNextForm}
+          numbers={numbers}
+        />
+      ) : (
+        <>
+          {formView === 2 ? (
+            <GenerateTicket
+              type={type}
+              onPressNextForm={onPressNextForm}
+              numbers={numbers}
+              setFormView={setFormView}
+              handleRemoveTicket={handleRemoveTicket}
+              createEventData={createEventData}
+              setCreateEventData={setCreateEventData}
+              formView={formView}
+              handleAddMoreTickets={handleAddMoreTickets}
+              handleTicketInput={handleTicketInput}
+              handleStartDate={handleStartDate}
+              handleEndDate={handleEndDate}
+              handleStartTime={handleStartTime}
+              handleEndTime={handleEndTime}
+              startDateModal={startDateModal}
+              setStartDateModal={setStartDateModal}
+              endDateModal={endDateModal}
+              setEndDateModal={setEndDateModal}
+              startTimeModal={startTimeModal}
+              setStartTimeModal={setStartTimeModal}
+              endTimeModal={endTimeModal}
+              setEndTimeModal={setEndTimeModal}
+            />
+          ) : (
+            <>
+              {formView === 3 ? (
+                <StripeConnect
+                  type={type}
+                  onPressNextForm={onPressNextForm}
+                  numbers={numbers}
+                  setFormView={setFormView}
+                  formView={formView}
+                />
+              ) : (
+                <>
+                  {formView === 4 && (
+                    <EventPublish
+                      type={type}
+                      onPressNextForm={onPressNextForm}
+                      numbers={numbers}
+                      setFormView={setFormView}
+                      formView={formView}
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </>
+      )}
+
       <Error
         message={errorMessage}
         visible={visibleErr}

@@ -5,6 +5,7 @@ import {
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   container: {
@@ -242,6 +243,23 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
+  mainGenerateVw: {
+    elevation: 2,
+    borderRadius: 5,
+    paddingVertical: 10,
+    marginVertical: 5,
+  },
+  noOfTicketTxt: {
+    fontSize: 16,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    paddingHorizontal: 12,
+  },
+  removeTicketVw: {
+    alignItems: "flex-end",
+    marginRight: 16,
+    marginVertical: 5,
+  },
   titlesTxt: {
     fontSize: 18,
     color: BLACK_COLOR_CODE,
@@ -283,6 +301,10 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "center",
   },
+  straightFlex: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   datesCon: {
     marginVertical: 10,
     paddingVertical: 15,
@@ -296,11 +318,12 @@ const Styles = StyleSheet.create({
     width: "45%",
   },
   nonEditInputVw: {
-    height: 35,
-    width: "70%",
-    borderWidth: 0.6,
+    height: 40,
+    width: "72%",
+    borderWidth: 1,
     marginVertical: 12,
     borderRadius: 6,
+    paddingLeft: 8,
   },
   descriptionVw: {
     height: 58,
@@ -308,22 +331,33 @@ const Styles = StyleSheet.create({
     borderWidth: 0.5,
     marginVertical: 8,
     borderRadius: 6,
+    paddingHorizontal: 12,
+    marginTop: 10,
   },
   optionChooseVw: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 9,
-    marginVertical: 5,
+    marginVertical: 2,
   },
   checkImg: {
     marginRight: 8,
     width: 24,
     height: 24,
   },
+  minMaxTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    textAlign: "center",
+    marginRight: 16,
+    top: 5,
+  },
   minMaxVw: {
     height: 45,
-    width: "50%",
+    width: "90%",
     borderWidth: 1,
+    marginTop: 5,
   },
   nonEditTitlesTxt: {
     fontSize: 11,
@@ -332,8 +366,29 @@ const Styles = StyleSheet.create({
     marginTop: 5,
   },
   addMoreTckVw: {
-    marginTop: 12,
+    marginTop: 8,
+    marginHorizontal: 20,
+    backgroundColor: YELLOW_COLOR_CODE,
+    width: "40%",
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  twoBttnsVw: {
+    flexDirection: "row",
     justifyContent: "center",
+    paddingHorizontal: 12,
+  },
+  bttnBackVw: {
+    marginTop: 10,
+    marginBottom: 12,
+    width: "30%",
+  },
+  bttnNotwoVw: {
+    marginTop: 10,
+    marginBottom: 12,
+    width: "65%",
+    marginLeft: 10,
   },
 });
 export default Styles;
