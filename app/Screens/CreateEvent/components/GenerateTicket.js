@@ -22,10 +22,6 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 
 const GenerateTicket = (props) => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const handleMoreOptions = (index) => {
-    setSelectedOption(index);
-  };
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
@@ -105,7 +101,13 @@ const GenerateTicket = (props) => {
                             keyboardType={"number-pad"}
                           />
                           <TouchableOpacity
-                            onPress={() => handleMoreOptions(index)}
+                            onPress={() =>
+                              props.handleMoreOptions(
+                                "showMore",
+                                !props.createEventData[index].showMore,
+                                index
+                              )
+                            }
                             style={styles.straightVw}
                           >
                             <Image
@@ -133,7 +135,7 @@ const GenerateTicket = (props) => {
                           />
                         </View>
                       </View>
-                      {index === selectedOption ? (
+                      {props.createEventData[index].showMore ? (
                         <>
                           <View style={styles.datesColumn}>
                             <View style={styles.straightFlex}>
@@ -226,7 +228,7 @@ const GenerateTicket = (props) => {
                               >
                                 Ticket Description
                               </Text>
-                              <View style={{}}>
+                              <View>
                                 <Input
                                   multiline={true}
                                   onChangeText={(value) =>
@@ -245,110 +247,230 @@ const GenerateTicket = (props) => {
                                 />
                               </View>
                               <TouchableOpacity
-                                // onPress={() =>
-                                //   props.handleCheckBoxes(
-                                //     "",
-                                //     !props.createEventData[index]
-                                //       .hide_description,
-                                //     index
-                                //   )
-                                // }
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "hide_description",
+                                    props.createEventData[index]
+                                      .hide_description === 0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
                                 style={styles.optionChooseVw}
                               >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index]
+                                      .hide_description === 0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Hide description from buyer</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Hide description from buyer
+                                </Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.optionChooseVw}>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "display_inventry",
+                                    props.createEventData[index]
+                                      .display_inventry === 0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
+                                style={styles.optionChooseVw}
+                              >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index]
+                                      .display_inventry === 0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Display remaining inventory</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Display remaining inventory
+                                </Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.optionChooseVw}>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "trasferable",
+                                    props.createEventData[index].trasferable ===
+                                      0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
+                                style={styles.optionChooseVw}
+                              >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index].trasferable ===
+                                    0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Make transferable</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Make transferable
+                                </Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.optionChooseVw}>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "private_ticket",
+                                    props.createEventData[index]
+                                      .private_ticket === 0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
+                                style={styles.optionChooseVw}
+                              >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index]
+                                      .private_ticket === 0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Make ticket private</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Make ticket private
+                                </Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.optionChooseVw}>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "password_req",
+                                    props.createEventData[index]
+                                      .password_req === 0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
+                                style={styles.optionChooseVw}
+                              >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index]
+                                      .password_req === 0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Password required</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Password required
+                                </Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.optionChooseVw}>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.handleCheckBoxes(
+                                    "ticket_limit",
+                                    props.createEventData[index]
+                                      .ticket_limit === 0
+                                      ? 1
+                                      : 0,
+                                    index
+                                  )
+                                }
+                                style={styles.optionChooseVw}
+                              >
                                 <Image
                                   style={styles.checkImg}
-                                  source={require("../../../Assets/unchecked_squared_icon_small.png")}
-                                  // source={require('../../../Assets/checked_squared_icon_small.png')}
+                                  source={
+                                    props.createEventData[index]
+                                      .ticket_limit === 0
+                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
+                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                  }
                                 />
-                                <Text>Limit tickets per order</Text>
+                                <Text style={styles.optionChooseTxt}>
+                                  Limit tickets per order
+                                </Text>
                               </TouchableOpacity>
-                              <View style={styles.optionChooseVw}>
-                                <View style={{ flex: 1 }}>
-                                  <Text style={styles.minMaxTxt}>Min</Text>
-                                  <View style={styles.minMaxVw}>
-                                    <Picker
-                                      mode={"dropdown"}
-                                      // onValueChange={(itemValue) => {
-                                      //   props.setTicketBuyData({
-                                      //     ...props.ticketBuyData,
-                                      //     country: itemValue,
-                                      //   });
-                                      // }}
-                                      // selectedValue={props.ticketBuyData.country}
-                                    >
-                                      {props?.numbers.map((item) => {
-                                        return <Picker.Item label={item} />;
-                                      })}
-                                    </Picker>
+                              {props.createEventData[index].ticket_limit ===
+                                1 && (
+                                <View style={styles.optionChooseVw}>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={styles.minMaxTxt}>Min</Text>
+                                    <View style={styles.minMaxVw}>
+                                      <Picker
+                                        mode={"dropdown"}
+                                        onValueChange={(itemValue) =>
+                                          props.handleTicketPicker(
+                                            "min_ticket",
+                                            itemValue,
+                                            index
+                                          )
+                                        }
+                                        selectedValue={
+                                          props.createEventData[index]
+                                            .min_ticket
+                                        }
+                                      >
+                                        {props?.numbers.map((item, index) => {
+                                          return (
+                                            index < 3 && (
+                                              <Picker.Item
+                                                label={item}
+                                                value={item}
+                                              />
+                                            )
+                                          );
+                                        })}
+                                      </Picker>
+                                    </View>
+                                  </View>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={styles.minMaxTxt}>Max</Text>
+                                    <View style={styles.minMaxVw}>
+                                      <Picker
+                                        onValueChange={(itemValue) =>
+                                          props.handleTicketPicker(
+                                            "max_ticket",
+                                            itemValue,
+                                            index
+                                          )
+                                        }
+                                        selectedValue={
+                                          props.createEventData[index]
+                                            .max_ticket
+                                        }
+                                        mode={"dropdown"}
+                                        label={"Max"}
+                                      >
+                                        {props?.numbers.map((item) => {
+                                          return (
+                                            <Picker.Item
+                                              label={item}
+                                              value={item}
+                                            />
+                                          );
+                                        })}
+                                      </Picker>
+                                    </View>
                                   </View>
                                 </View>
-                                <View style={{ flex: 1 }}>
-                                  <Text style={styles.minMaxTxt}>Max</Text>
-                                  <View style={styles.minMaxVw}>
-                                    <Picker
-                                      // onValueChange={(itemValue) => {
-                                      //   props.setTicketBuyData({
-                                      //     ...props.ticketBuyData,
-                                      //     country: itemValue,
-                                      //   });
-                                      // }}
-                                      // selectedValue={props.ticketBuyData.country}
-                                      mode={"dropdown"}
-                                      label={"Max"}
-                                    >
-                                      {props?.numbers.map((item) => {
-                                        return <Picker.Item label={item} />;
-                                      })}
-                                    </Picker>
-                                  </View>
-                                </View>
-                              </View>
+                              )}
                             </View>
                           </View>
                         </>
                       ) : null}
-
-                      <View style={{ flexDirection: "row" }}>
+                      <View style={styles.straightFlex}>
                         <View style={{ flex: 1, alignItems: "center" }}>
                           <Text style={styles.nonEditTitlesTxt}>
                             Abby Charges
@@ -405,12 +527,9 @@ const GenerateTicket = (props) => {
                       <Text style={styles.titlesTxt}>Payment Option</Text>
                       <View style={styles.formsInputCon}>
                         <Picker
-                          onValueChange={(itemValue) => {
-                            let NewEventTicket = [...props.createEventData];
-                            const ticket = NewEventTicket[index];
-                            const tic = { ...ticket, payOtp: itemValue };
-                            NewEventTicket[index] = tic;
-                          }}
+                          onValueChange={(itemValue) =>
+                            props.handleTicketPicker("payOtp", itemValue, index)
+                          }
                           selectedValue={props?.createEventData[index]?.payOtp}
                           mode={"dropdown"}
                           style={[styles.formsInputVw, { height: 35 }]}

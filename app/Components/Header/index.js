@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
   TextInput,
+  Platform,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -48,7 +49,8 @@ const Header = (props) => {
     editHdr,
     logoImg,
     onPressBackFun,
-    tintColor
+    tintColor,
+    bckgColor,
   } = props;
   const OnpressBack = () => {
     navigation.goBack(null);
@@ -57,15 +59,16 @@ const Header = (props) => {
   const handleDrawer = () => {
     navigation.dispatch(DrawerActions.toggleDrawer());
   };
-
+  const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 40 : 0;
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        hidden={false}
-        backgroundColor={YELLOW_COLOR_CODE}
-        translucent={false}
-      />
+      <View style={{ height: STATUS_BAR_HEIGHT, backgroundColor: bckgColor }}>
+        <StatusBar
+          backgroundColor={bckgColor}
+          barStyle="dark-content"
+          animated={true}
+        />
+      </View>
       <View
         style={[
           textInput === true ? iptcontainer : container,
@@ -165,6 +168,7 @@ Header.defaultProps = {
   RightImg: require("../../Assets/plus_icon_header.png"),
   leftImg: require("../../Assets/header_back_btn.png"),
   logoImg: true,
+  bckgColor: YELLOW_COLOR_CODE,
 };
 const styles = StyleSheet.create({
   container: {

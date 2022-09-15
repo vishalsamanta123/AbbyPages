@@ -107,7 +107,8 @@ const Styles = StyleSheet.create({
   },
   ktchnlble: {
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 15,
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
   },
   alertBox: {
     width: 200,
@@ -195,6 +196,11 @@ const Styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
   },
+  videoStyle: {
+    width: "95%",
+    height: 130,
+    alignSelf: "center",
+  },
   categoryItemVw: {
     flex: 1,
     borderBottomWidth: 0.3,
@@ -264,7 +270,14 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
-    marginHorizontal: 20,
+    marginHorizontal: 22,
+    marginTop: 5,
+  },
+  subtitlesTxt: {
+    fontSize: 15,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginHorizontal: 22,
     marginTop: 5,
   },
   formsInputCon: {
@@ -304,6 +317,7 @@ const Styles = StyleSheet.create({
   straightFlex: {
     flexDirection: "row",
     alignItems: "center",
+    marginVertical: 4,
   },
   datesCon: {
     marginVertical: 10,
@@ -340,6 +354,11 @@ const Styles = StyleSheet.create({
     marginHorizontal: 9,
     marginVertical: 2,
   },
+  optionChooseTxt: {
+    fontSize: 15,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
   checkImg: {
     marginRight: 8,
     width: 24,
@@ -373,6 +392,26 @@ const Styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 8,
     borderRadius: 8,
+  },
+  stripeInputVws: {
+    marginTop: 16,
+  },
+  stripeConnCon: {
+    width: "70%",
+    marginLeft: 20,
+    height: 50,
+    backgroundColor: "#0E86D4",
+    borderRadius: 6,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+    flexDirection: "row",
+  },
+  stripeConnTxt: {
+    fontSize: 16,
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    paddingTop: 5,
   },
   twoBttnsVw: {
     flexDirection: "row",

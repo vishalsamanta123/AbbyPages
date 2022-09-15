@@ -28,7 +28,6 @@ import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const CreateEvent = (props) => {
-  const [moreOptions, setMoreOptions] = useState(false);
   const hideDatePicker = () => {
     props.setDatePickerVisibility(false);
   };
@@ -68,13 +67,16 @@ const CreateEvent = (props) => {
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.MainContainer}>
           <TouchableOpacity
-            onPress={() => props.setEventModalVisible(true)}
+            onPress={() => {
+              props.setEventModalVisible(true);
+              props.setContentType("img");
+            }}
             style={styles.ktchimgvwe}
           >
             <Text style={styles.ktchnlble}>
               {props?.createEvent?.event_photo?.length > 0
-                ? "Add more image"
-                : "Select event image"}
+                ? "Add more image -"
+                : "Select event image -"}
             </Text>
           </TouchableOpacity>
           {props?.createEvent?.event_photo?.length > 0 ? (
@@ -82,6 +84,46 @@ const CreateEvent = (props) => {
               <View>{props.renderEventImage()}</View>
             </View>
           ) : null}
+          <TouchableOpacity
+            onPress={() => {
+              props.setEventModalVisible(true);
+              props.setContentType("vid");
+            }}
+            style={styles.ktchimgvwe}
+          >
+            <Text style={styles.ktchnlble}>{"Select event video -"}</Text>
+          </TouchableOpacity>
+          {props?.createEvent?.event_video !== "" ? (
+            <View style={{ margin: 16 }}>
+              <TouchableOpacity
+                style={[
+                  styles.deleteImageVw,
+                  {
+                    right: 16,
+                  },
+                ]}
+                onPress={() =>
+                  props.setCreateEvent({
+                    ...props.createEvent,
+                    event_video: "",
+                  })
+                }
+              >
+                <Image
+                  source={require("../../../Assets/cancelModalBtn.png")}
+                  style={styles.deleteImage}
+                />
+              </TouchableOpacity>
+              <Image
+                source={{
+                  uri: props?.createEvent?.event_video?.path,
+                }}
+                resizeMode={"stretch"}
+                style={styles.videoStyle}
+              />
+            </View>
+          ) : null}
+          <Text style={styles.titlesTxt}>Event Name -</Text>
           <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -90,12 +132,13 @@ const CreateEvent = (props) => {
               })
             }
             value={props.createEvent?.eventName}
+            textInputStyle={{ bottom: 5 }}
             secureTextEntry={false}
-            placeholder="Event Name"
-            InputType="withScroll"
+            placeholder=""
+            InputType={null}
           />
           <View style={styles.radioBttnVw}>
-            <Text style={styles.radioBttnTxt}>Event Type</Text>
+            <Text style={styles.radioBttnTxt}>Event Type -</Text>
             <View style={styles.radioBttnCon}>
               <View style={styles.radioInnerCon}>
                 <TouchableOpacity
@@ -112,7 +155,6 @@ const CreateEvent = (props) => {
                         ? require("../../../Assets/radio_circled_checked.png")
                         : require("../../../Assets/radio_circled_unchecked.png")
                     }
-                    // source={require("../../../Assets/radio_circled_checked.png")}
                     style={styles.radioImg}
                   />
                 </TouchableOpacity>
@@ -133,7 +175,6 @@ const CreateEvent = (props) => {
                         ? require("../../../Assets/radio_circled_checked.png")
                         : require("../../../Assets/radio_circled_unchecked.png")
                     }
-                    // source={require("../../../Assets/radio_circled_checked.png")}
                     style={styles.radioImg}
                   />
                 </TouchableOpacity>
@@ -142,85 +183,99 @@ const CreateEvent = (props) => {
             </View>
           </View>
           {props.createEvent.eventType !== 2 ? (
-            <TouchableOpacity
-              onPress={() => props.setDatePickerVisibility(true)}
-              style={styles.container}
-            >
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>
-                  {props?.createEvent?.date
-                    ? props?.createEvent?.date
-                    : "Event Date"}
-                </Text>
-              </View>
-              <View style={styles.BckArrowBack}>
-                <Image source={require("../../../Assets/calendar_icon.png")} />
-              </View>
-              <DateTimePickerModal
-                isVisible={props.isDatePickerVisible}
-                mode="date"
-                minimumDate={new Date()}
-                onConfirm={(date) => props.handleConfirm(date)}
-                onCancel={hideDatePicker}
-              />
-            </TouchableOpacity>
+            <>
+              <Text style={styles.titlesTxt}>Event Date -</Text>
+              <TouchableOpacity
+                onPress={() => props.setDatePickerVisibility(true)}
+                style={styles.container}
+              >
+                <View style={styles.CameraImgView}>
+                  <Text style={styles.AddPhotosTxt}>
+                    {props?.createEvent?.date ? props?.createEvent?.date : ""}
+                  </Text>
+                </View>
+                <View style={styles.BckArrowBack}>
+                  <Image
+                    source={require("../../../Assets/calendar_icon.png")}
+                  />
+                </View>
+                <DateTimePickerModal
+                  isVisible={props.isDatePickerVisible}
+                  mode="date"
+                  minimumDate={new Date()}
+                  onConfirm={(date) => props.handleConfirm(date)}
+                  onCancel={hideDatePicker}
+                />
+              </TouchableOpacity>
+            </>
           ) : (
-            <TouchableOpacity
-              onPress={() => props.setIsStartDatePicker(true)}
-              style={styles.container}
-            >
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>
-                  {props?.createEvent?.startDate
-                    ? props?.createEvent?.startDate
-                    : "Start Date"}
-                </Text>
-              </View>
-              <View style={styles.BckArrowBack}>
-                <Image source={require("../../../Assets/calendar_icon.png")} />
-              </View>
-              <DateTimePickerModal
-                isVisible={props.isStartDatePicker}
-                mode="date"
-                minimumDate={new Date()}
-                maximumDate={
-                  props?.createEvent?.endDate
-                    ? new Date(props?.createEvent?.endDate)
-                    : null
-                }
-                onConfirm={(date) => props.handleStartConfirm(date)}
-                onCancel={hideStartDatePicker}
-              />
-            </TouchableOpacity>
+            <>
+              <Text style={styles.titlesTxt}>Start Date -</Text>
+              <TouchableOpacity
+                onPress={() => props.setIsStartDatePicker(true)}
+                style={styles.container}
+              >
+                <View style={styles.CameraImgView}>
+                  <Text style={styles.AddPhotosTxt}>
+                    {props?.createEvent?.startDate
+                      ? props?.createEvent?.startDate
+                      : ""}
+                  </Text>
+                </View>
+                <View style={styles.BckArrowBack}>
+                  <Image
+                    source={require("../../../Assets/calendar_icon.png")}
+                  />
+                </View>
+                <DateTimePickerModal
+                  isVisible={props.isStartDatePicker}
+                  mode="date"
+                  minimumDate={new Date()}
+                  maximumDate={
+                    props?.createEvent?.endDate
+                      ? new Date(props?.createEvent?.endDate)
+                      : null
+                  }
+                  onConfirm={(date) => props.handleStartConfirm(date)}
+                  onCancel={hideStartDatePicker}
+                />
+              </TouchableOpacity>
+            </>
           )}
           {props.createEvent.eventType == 2 && (
-            <TouchableOpacity
-              onPress={() => props.setIsEndDatePicker(true)}
-              style={styles.container}
-            >
-              <View style={styles.CameraImgView}>
-                <Text style={styles.AddPhotosTxt}>
-                  {props?.createEvent?.endDate
-                    ? props?.createEvent?.endDate
-                    : " End Date"}
-                </Text>
-              </View>
-              <View style={styles.BckArrowBack}>
-                <Image source={require("../../../Assets/calendar_icon.png")} />
-              </View>
-              <DateTimePickerModal
-                isVisible={props.isEndDatePicker}
-                mode="date"
-                minimumDate={
-                  props?.createEvent?.startDate
-                    ? new Date(props?.createEvent?.startDate)
-                    : new Date()
-                }
-                onConfirm={(date) => props.handleEndConfirm(date)}
-                onCancel={hideEndDatePicker}
-              />
-            </TouchableOpacity>
+            <>
+              <Text style={styles.titlesTxt}>End Date -</Text>
+              <TouchableOpacity
+                onPress={() => props.setIsEndDatePicker(true)}
+                style={styles.container}
+              >
+                <View style={styles.CameraImgView}>
+                  <Text style={styles.AddPhotosTxt}>
+                    {props?.createEvent?.endDate
+                      ? props?.createEvent?.endDate
+                      : ""}
+                  </Text>
+                </View>
+                <View style={styles.BckArrowBack}>
+                  <Image
+                    source={require("../../../Assets/calendar_icon.png")}
+                  />
+                </View>
+                <DateTimePickerModal
+                  isVisible={props.isEndDatePicker}
+                  mode="date"
+                  minimumDate={
+                    props?.createEvent?.startDate
+                      ? new Date(props?.createEvent?.startDate)
+                      : new Date()
+                  }
+                  onConfirm={(date) => props.handleEndConfirm(date)}
+                  onCancel={hideEndDatePicker}
+                />
+              </TouchableOpacity>
+            </>
           )}
+          <Text style={styles.titlesTxt}>Start Time -</Text>
           <TouchableOpacity
             style={styles.container}
             onPress={() => props.setIsStartTimePickerVisible(true)}
@@ -229,7 +284,7 @@ const CreateEvent = (props) => {
               <Text style={styles.AddPhotosTxt}>
                 {props?.createEvent?.start_time
                   ? props?.createEvent?.start_time
-                  : "Start Time"}
+                  : ""}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -242,6 +297,7 @@ const CreateEvent = (props) => {
               onCancel={hideTimePicker}
             />
           </TouchableOpacity>
+          <Text style={styles.titlesTxt}>End Time -</Text>
           <TouchableOpacity
             style={styles.container}
             onPress={() => props.setIsEndTimePickerVisible(true)}
@@ -250,7 +306,7 @@ const CreateEvent = (props) => {
               <Text style={styles.AddPhotosTxt}>
                 {props?.createEvent?.end_time
                   ? props?.createEvent?.end_time
-                  : "End Time"}
+                  : ""}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -263,6 +319,7 @@ const CreateEvent = (props) => {
               onCancel={hideEndTimePicker}
             />
           </TouchableOpacity>
+          {/* <Text style={styles.titlesTxt}>Near by location</Text> */}
           {/* <GooglePlacesAutocomplete
             placeholder={"Near by location"}
             fetchDetails={true}
@@ -293,6 +350,7 @@ const CreateEvent = (props) => {
             autoFocus={false}
             returnKeyType={"default"}
           /> */}
+          {/* <Text style={styles.titlesTxt}>Business Name -</Text> */}
           {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -305,11 +363,12 @@ const CreateEvent = (props) => {
             placeholder="Business Name"
             InputType="withScroll"
           /> */}
+          <Text style={styles.titlesTxt}>Address -</Text>
           <GooglePlacesAutocomplete
             placeholder={
               props.createEvent.event_address
                 ? props.createEvent.event_address
-                : "Address"
+                : ""
             }
             fetchDetails={true}
             onPress={(data, details = null) => {
@@ -339,6 +398,7 @@ const CreateEvent = (props) => {
             autoFocus={false}
             returnKeyType={"default"}
           />
+          {/* <Text style={styles.titlesTxt}>Near -</Text> */}
           {/* <Input
                             onChangeText={(NearBy) => props.setNearBy(NearBy)}
                             value={props.NearBy}
@@ -350,6 +410,7 @@ const CreateEvent = (props) => {
             buttonText="Search"
             style={{ marginTop: 5, marginBottom: 5 }}
           /> */}
+          {/* <Text style={styles.titlesTxt}>What and Why? -</Text> */}
           {/*
                             <Input
                                 onChangeText={(WhatWhy) => props.setWhatWhy(WhatWhy)}
@@ -359,18 +420,50 @@ const CreateEvent = (props) => {
                                 InputType="withScroll"
                             />
                             */}
-          {/* <Input
+          <Text style={styles.titlesTxt}>Event Description -</Text>
+          <Input
             onChangeText={(text) =>
               props.setCreateEvent({
                 ...props.createEvent,
                 description: text,
               })
             }
+            multiline={true}
             value={props.createEvent.description}
+            textInputStyle={{ bottom: 5 }}
             secureTextEntry={false}
-            placeholder="Description"
-            InputType="withScroll"
-          /> */}
+            placeholder=""
+            InputType={null}
+          />
+          <Text style={styles.titlesTxt}>Add Additional Organiser -</Text>
+          <Input
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                add_organiser: text,
+              })
+            }
+            value={props.createEvent.add_organiser}
+            textInputStyle={{ bottom: 5 }}
+            secureTextEntry={false}
+            placeholder=""
+            InputType={null}
+          />
+          <Text style={styles.titlesTxt}>Tag Permormers -</Text>
+          <Input
+            onChangeText={(text) =>
+              props.setCreateEvent({
+                ...props.createEvent,
+                top_performer: text,
+              })
+            }
+            value={props.createEvent.top_performer}
+            textInputStyle={{ bottom: 5 }}
+            secureTextEntry={false}
+            placeholder=""
+            InputType={null}
+          />
+          {/* <Text style={styles.titlesTxt}>Official Website URL:</Text> */}
           {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -383,6 +476,7 @@ const CreateEvent = (props) => {
             placeholder="Official Website URL:"
             InputType="withScroll"
           /> */}
+          {/* <Text style={styles.titlesTxt}>Ticket URL:</Text>  */}
           {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -395,6 +489,7 @@ const CreateEvent = (props) => {
             placeholder="Ticket URL:"
             InputType="withScroll"
           /> */}
+          {/* <Text style={styles.titlesTxt}>Price from</Text>  */}
           {/* <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -407,6 +502,7 @@ const CreateEvent = (props) => {
             placeholder="Price from"
             InputType="withScroll"
           />
+          <Text style={styles.titlesTxt}>Price to</Text>
           <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -419,6 +515,7 @@ const CreateEvent = (props) => {
             placeholder="Price to"
             InputType="withScroll"
           /> */}
+          {/* <Text style={styles.titlesTxt}>Free Event</Text> */}
           {/* <TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
                             <View style={styles.CameraImgView}>
                                 <TouchableOpacity >
@@ -432,6 +529,7 @@ const CreateEvent = (props) => {
                             </View>
                         </TouchableOpacity>
                                 */}
+          <Text style={styles.titlesTxt}>Category -</Text>
           <TouchableOpacity
             onPress={() => {
               props.setEventCategoryModalVisible(true);
@@ -443,15 +541,42 @@ const CreateEvent = (props) => {
               <Text style={styles.AddPhotosTxt}>
                 {props?.createEvent?.category_name
                   ? props?.createEvent?.category_name
-                  : "Category"}
+                  : ""}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
               <Image source={require("../../../Assets/dropdown_icon.png")} />
             </View>
           </TouchableOpacity>
-
-          <View style={styles.radioBttnVw}>
+          <Text style={styles.titlesTxt}>Keywords search terms -</Text>
+          <TouchableOpacity style={styles.container}>
+            <View style={styles.CameraImgView}>
+              <Text style={styles.AddPhotosTxt}>
+                {props?.createEvent?.category_name
+                  ? props?.createEvent?.category_name
+                  : ""}
+              </Text>
+            </View>
+            <View style={styles.BckArrowBack}>
+              <Image source={require("../../../Assets/dropdown_icon.png")} />
+            </View>
+          </TouchableOpacity>
+          <Text style={styles.titlesTxt}>Type -</Text>
+          <View style={[styles.container, { flexDirection: "column" }]}>
+            <Picker
+              mode={"dropdown"}
+              onValueChange={(itemValue) =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  type: itemValue,
+                })
+              }
+              selectedValue={props.createEvent.type}
+            >
+              <Picker.Item label={"In Person"} value={""} />
+            </Picker>
+          </View>
+          {/* <View style={styles.radioBttnVw}>
             <Text style={styles.radioBttnTxt}>Ticket Type</Text>
             <View style={styles.radioBttnCon}>
               <View style={styles.radioInnerCon}>
@@ -497,8 +622,8 @@ const CreateEvent = (props) => {
                 <Text style={styles.radioInnerTxt}>Paid</Text>
               </View>
             </View>
-          </View>
-          {props.createEvent.ticketType == 2 && (
+          </View> */}
+          {/* {props.createEvent.ticketType == 2 && (
             <Input
               onChangeText={(text) =>
                 props.setCreateEvent({
@@ -512,8 +637,8 @@ const CreateEvent = (props) => {
               keyboardType="phone-pad"
               InputType="withScroll"
             />
-          )}
-          <View style={styles.radioBttnVw}>
+          )} */}
+          {/* <View style={styles.radioBttnVw}>
             <Text style={styles.radioBttnTxt}>Ticket Availability</Text>
             <View style={styles.radioBttnCon}>
               <View style={styles.radioInnerCon}>
@@ -558,8 +683,8 @@ const CreateEvent = (props) => {
                 <Text style={styles.radioInnerTxt}>Limited</Text>
               </View>
             </View>
-          </View>
-          {props.createEvent.ticketAvailability == 2 && (
+          </View> */}
+          {/* {props.createEvent.ticketAvailability == 2 && (
             <Input
               onChangeText={(text) =>
                 props.setCreateEvent({
@@ -573,7 +698,8 @@ const CreateEvent = (props) => {
               InputType="withScroll"
               keyboardType="phone-pad"
             />
-          )}
+          )} */}
+          <Text style={styles.titlesTxt}>Event Privacy -</Text>
           <View style={styles.privacyCon}>
             <TouchableOpacity
               style={[styles.CameraImgView, { flex: 0 }]}
@@ -679,27 +805,51 @@ const CreateEvent = (props) => {
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           props.setEventModalVisible(!props.eventModalVisible);
+          props.setContentType("");
         }}
       >
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() => props.setEventModalVisible(false)}
+          onPress={() => {
+            props.setEventModalVisible(false);
+            props.setContentType("");
+          }}
           style={styles.centeredView}
         >
           <View style={styles.alertBackground}>
-            <View style={styles.alertBox}>
-              <TouchableOpacity
-                style={styles.profileModal}
-                onPress={() => props.onPressOpenEventImage()}
-                underlayColor={"#F5F5F5"}
-              >
-                <Image
-                  style={{ height: 40, width: 40, zIndex: 1 }}
-                  source={require("../../../Assets/image-gallery.png")}
-                />
-                <Text style={styles.modalItem}>Open Album</Text>
-              </TouchableOpacity>
-            </View>
+            {props.contentType === "vid" ? (
+              <View style={styles.alertBox}>
+                <TouchableOpacity
+                  style={styles.profileModal}
+                  onPress={() => {
+                    props.contentType === "vid"
+                      ? props.onPressOpenEventVideo()
+                      : props.onPressOpenEventImage();
+                  }}
+                  underlayColor={"#F5F5F5"}
+                >
+                  <Image
+                    style={{ height: 40, width: 40, zIndex: 1 }}
+                    source={require("../../../Assets/image-gallery.png")}
+                  />
+                  <Text style={styles.modalItem}>Open Album</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={styles.alertBox}>
+                <TouchableOpacity
+                  style={styles.profileModal}
+                  onPress={() => props.onPressOpenEventImage()}
+                  underlayColor={"#F5F5F5"}
+                >
+                  <Image
+                    style={{ height: 40, width: 40, zIndex: 1 }}
+                    source={require("../../../Assets/image-gallery.png")}
+                  />
+                  <Text style={styles.modalItem}>Open Album</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </TouchableOpacity>
       </Modal>

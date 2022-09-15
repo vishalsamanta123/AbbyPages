@@ -33,12 +33,14 @@ const CreateEventView = ({ route, navigation }) => {
       tckt_start_time: "",
       tckt_end_time: "",
       tckt_description: "",
-      hide_description: "",
-      display_inventry: "",
-      trasferable: "",
-      private_ticket: "",
-      password_req: "",
-      ticket_limit: "",
+      hide_description: 0,
+      display_inventry: 0,
+      trasferable: 0,
+      private_ticket: 0,
+      password_req: 0,
+      ticket_limit: 0,
+      min_ticket: "",
+      max_ticket: "",
       payOtp: 1,
       showMore: false,
       cardAmt: "",
@@ -73,11 +75,11 @@ const CreateEventView = ({ route, navigation }) => {
   const [checkbox, SetCheckBox] = useState(false);
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [formView, setFormView] = useState(1);
+  const [formView, setFormView] = useState(4);
   const [eventModalVisible, setEventModalVisible] = useState("");
+  const [contentType, setContentType] = useState("");
   const [updatePic, setUpdatePic] = useState([]);
   const [startDateModal, setStartDateModal] = useState(false);
-
   const [endDateModal, setEndDateModal] = useState(false);
   const [startTimeModal, setStartTimeModal] = useState(false);
   const [endTimeModal, setEndTimeModal] = useState(false);
@@ -109,7 +111,30 @@ const CreateEventView = ({ route, navigation }) => {
     ticketLimit: "",
     endDate: "",
     startDate: "",
+
+    //new
+    event_video: "",
+    top_performer: "",
+    add_organiser: "",
+    acceptRefundReq: 0,
+    refund_policy: "",
+    terms_cond: "",
+    include_tax: "",
+    support_email: "",
+    tax_amount: "",
+    time_limit: 0,
+    hide_endTime: 0,
+    ticketAvailability_msg: 0,
+    enable_best_feature: 0,
+    embed_checkout_website: "",
+    slug_url: "",
+    fb_adds_pixelID: "",
+    google_analysticId: "",
+    google_adwordId: "",
+    adRoll_pixelID: "",
+    adRoll_advID: "",
   });
+
   useFocusEffect(
     React.useCallback(() => {
       getFormDatas();
@@ -159,6 +184,27 @@ const CreateEventView = ({ route, navigation }) => {
       startDate: item?.event_start_date
         ? moment.unix(item?.event_start_date).format("MM/DD/YYYY")
         : "",
+      //new
+      event_video: "",
+      add_organiser: "",
+      top_performer: "",
+      acceptRefundReq: 0,
+      refund_policy: "",
+      terms_cond: "",
+      include_tax: "",
+      support_email: "",
+      tax_amount: "",
+      time_limit: 0,
+      hide_endTime: 0,
+      ticketAvailability_msg: 0,
+      enable_best_feature: 0,
+      embed_checkout_website: "",
+      slug_url: "",
+      fb_adds_pixelID: "",
+      google_analysticId: "",
+      google_adwordId: "",
+      adRoll_pixelID: "",
+      adRoll_advID: "",
     });
     setVisible(false);
   };
@@ -176,7 +222,21 @@ const CreateEventView = ({ route, navigation }) => {
       setVisibleErr(true);
     }
   };
-
+  const onPressOpenEventVideo = () => {
+    ImagePicker.openPicker({
+      width: windowWidth,
+      height: windowHeight / 2,
+      mediaType: "video",
+    }).then((video) => {
+      // setUpdatePic(image);
+      setCreateEvent({
+        ...createEvent,
+        event_video: video,
+      });
+      setEventModalVisible(false);
+      setContentType("");
+    });
+  };
   const onPressOpenEventImage = () => {
     ImagePicker.openPicker({
       width: windowWidth,
@@ -196,9 +256,9 @@ const CreateEventView = ({ route, navigation }) => {
         });
       }
       setEventModalVisible(false);
+      setContentType("");
     });
   };
-
   const handleConfirm = (date) => {
     const value = moment(date).format("MM/DD/YYYY");
     setCreateEvent({
@@ -223,7 +283,6 @@ const CreateEventView = ({ route, navigation }) => {
     });
     setIsEndDatePicker(false);
   };
-
   const handleTimeConfirm = (date) => {
     const value = moment(date).format(" h:mm a");
     setCreateEvent({
@@ -232,7 +291,6 @@ const CreateEventView = ({ route, navigation }) => {
     });
     setIsStartTimePickerVisible(false);
   };
-
   const handleEndTimeConfirm = (date) => {
     const value = moment(date).format(" h:mm a");
     setCreateEvent({
@@ -241,7 +299,6 @@ const CreateEventView = ({ route, navigation }) => {
     });
     setIsEndTimePickerVisible(false);
   };
-
   const renderEventImage = () => {
     return (
       <FlatList
@@ -276,7 +333,6 @@ const CreateEventView = ({ route, navigation }) => {
       />
     );
   };
-
   function deleteImage(index) {
     var imageArray = [...createEvent.event_photo];
     imageArray.splice(index, 1);
@@ -286,7 +342,6 @@ const CreateEventView = ({ route, navigation }) => {
       event_photo: imageArray,
     });
   }
-
   const _handleSelectedCategory = (item) => {
     setCreateEvent({
       ...createEvent,
@@ -295,7 +350,6 @@ const CreateEventView = ({ route, navigation }) => {
     });
     setEventCategoryModalVisible(false);
   };
-
   const renderCategoryListItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -306,11 +360,9 @@ const CreateEventView = ({ route, navigation }) => {
       </TouchableOpacity>
     );
   };
-
   const onPressPublicVenue = () => {
     SetCheckBox(!checkbox);
   };
-
   function validationFrom() {
     if (createEvent?.event_photo?.length == 0) {
       setErrorMessage("Please select event image");
@@ -416,7 +468,6 @@ const CreateEventView = ({ route, navigation }) => {
     // }
     return true;
   }
-
   const onPressCreateEvent = async () => {
     const valid = validationFrom();
     if (valid) {
@@ -507,6 +558,27 @@ const CreateEventView = ({ route, navigation }) => {
             ticketAvailability: "",
             ticketLimit: "",
             startDate: "",
+            //new
+            event_video: "",
+            add_organiser: "",
+            top_performer: "",
+            acceptRefundReq: 0,
+            refund_policy: "",
+            terms_cond: "",
+            include_tax: "",
+            support_email: "",
+            tax_amount: "",
+            time_limit: 0,
+            hide_endTime: 0,
+            ticketAvailability_msg: 0,
+            enable_best_feature: 0,
+            embed_checkout_website: "",
+            slug_url: "",
+            fb_adds_pixelID: "",
+            google_analysticId: "",
+            google_adwordId: "",
+            adRoll_pixelID: "",
+            adRoll_advID: "",
           });
           setUpdatePic([]);
         } else {
@@ -521,7 +593,6 @@ const CreateEventView = ({ route, navigation }) => {
       }
     }
   };
-
   const onPressNextForm = () => {
     // const valid = validationFrom();
     // if (valid) {
@@ -529,6 +600,15 @@ const CreateEventView = ({ route, navigation }) => {
       setFormView(formView + 1);
     }
     // }
+  };
+  const handleMoreOptions = (key, value, index) => {
+    let NewEventTicket = [...createEventData];
+    const ticket = NewEventTicket[index];
+    if (key === "showMore") {
+      const tic = { ...ticket, showMore: value };
+      NewEventTicket[index] = tic;
+    }
+    setCreateEventData(NewEventTicket);
   };
   const handleAddMoreTickets = () => {
     const arr = {
@@ -540,12 +620,14 @@ const CreateEventView = ({ route, navigation }) => {
       tckt_start_time: "",
       tckt_end_time: "",
       tckt_description: "",
-      hide_description: "",
-      display_inventry: "",
-      trasferable: "",
-      private_ticket: "",
-      password_req: "",
-      ticket_limit: "",
+      hide_description: 0,
+      display_inventry: 0,
+      trasferable: 0,
+      private_ticket: 0,
+      password_req: 0,
+      ticket_limit: 0,
+      min_ticket: "",
+      max_ticket: "",
       payOtp: 1,
       showMore: false,
       cardAmt: "",
@@ -609,6 +691,60 @@ const CreateEventView = ({ route, navigation }) => {
     }
     setCreateEventData(NewEventTicket);
   };
+  const handleCheckBoxes = (key, value, index) => {
+    let NewEventTicket = [...createEventData];
+    const ticket = NewEventTicket[index];
+    if (key == "hide_description") {
+      const tic = { ...ticket, hide_description: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "display_inventry") {
+      const tic = { ...ticket, display_inventry: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "trasferable") {
+      const tic = { ...ticket, trasferable: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "private_ticket") {
+      const tic = { ...ticket, private_ticket: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "password_req") {
+      const tic = { ...ticket, password_req: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "ticket_limit") {
+      const tic = { ...ticket, ticket_limit: value };
+      NewEventTicket[index] = tic;
+    }
+    setCreateEventData(NewEventTicket);
+  };
+  const handleTicketPicker = (key, value, index) => {
+    let NewEventTicket = [...createEventData];
+    const ticket = NewEventTicket[index];
+    if (key == "payOtp") {
+      const tic = {
+        ...ticket,
+        ticket_price: "",
+        abbyPagesAmt: "",
+        cardAmt: "",
+        totalPrice: "",
+        youGetAmt: "",
+        payOtp: value,
+      };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "min_ticket") {
+      const tic = { ...ticket, min_ticket: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "max_ticket") {
+      const tic = { ...ticket, max_ticket: value };
+      NewEventTicket[index] = tic;
+    }
+    setCreateEventData(NewEventTicket);
+  };
   const handleStartDate = () => {
     setStartDateModal(false);
   };
@@ -621,12 +757,27 @@ const CreateEventView = ({ route, navigation }) => {
   const handleEndTime = () => {
     setEndTimeModal(false);
   };
+  const handleCheckBoxesOfStripe = (key, value) => {
+    if (key === "acceptRefundReq") {
+      setCreateEvent({
+        ...createEvent,
+        acceptRefundReq: value,
+      });
+    }
+    if (key === "include_tax") {
+      setCreateEvent({
+        ...createEvent,
+        include_tax: value,
+      });
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       {formView === 1 ? (
         <CreateEvent
           onPressOpenEventImage={onPressOpenEventImage}
+          onPressOpenEventVideo={onPressOpenEventVideo}
           renderEventImage={renderEventImage}
           setEventModalVisible={setEventModalVisible}
           eventModalVisible={eventModalVisible}
@@ -661,6 +812,8 @@ const CreateEventView = ({ route, navigation }) => {
           formView={formView}
           onPressNextForm={onPressNextForm}
           numbers={numbers}
+          contentType={contentType}
+          setContentType={setContentType}
         />
       ) : (
         <>
@@ -674,8 +827,11 @@ const CreateEventView = ({ route, navigation }) => {
               createEventData={createEventData}
               setCreateEventData={setCreateEventData}
               formView={formView}
+              handleMoreOptions={handleMoreOptions}
               handleAddMoreTickets={handleAddMoreTickets}
               handleTicketInput={handleTicketInput}
+              handleCheckBoxes={handleCheckBoxes}
+              handleTicketPicker={handleTicketPicker}
               handleStartDate={handleStartDate}
               handleEndDate={handleEndDate}
               handleStartTime={handleStartTime}
@@ -698,6 +854,9 @@ const CreateEventView = ({ route, navigation }) => {
                   numbers={numbers}
                   setFormView={setFormView}
                   formView={formView}
+                  createEvent={createEvent}
+                  setCreateEvent={setCreateEvent}
+                  handleCheckBoxesOfStripe={handleCheckBoxesOfStripe}
                 />
               ) : (
                 <>
@@ -708,6 +867,8 @@ const CreateEventView = ({ route, navigation }) => {
                       numbers={numbers}
                       setFormView={setFormView}
                       formView={formView}
+                      createEvent={createEvent}
+                      setCreateEvent={setCreateEvent}
                     />
                   )}
                 </>
