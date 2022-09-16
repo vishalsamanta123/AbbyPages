@@ -75,7 +75,7 @@ const CreateEventView = ({ route, navigation }) => {
   const [checkbox, SetCheckBox] = useState(false);
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [formView, setFormView] = useState(4);
+  const [formView, setFormView] = useState(1);
   const [eventModalVisible, setEventModalVisible] = useState("");
   const [contentType, setContentType] = useState("");
   const [updatePic, setUpdatePic] = useState([]);
@@ -119,7 +119,7 @@ const CreateEventView = ({ route, navigation }) => {
     acceptRefundReq: 0,
     refund_policy: "",
     terms_cond: "",
-    include_tax: "",
+    include_tax: 0,
     support_email: "",
     tax_amount: "",
     time_limit: 0,
@@ -133,6 +133,8 @@ const CreateEventView = ({ route, navigation }) => {
     google_adwordId: "",
     adRoll_pixelID: "",
     adRoll_advID: "",
+    email_Mysend: 0,
+    callmail_Mysend: 0,
   });
 
   useFocusEffect(
@@ -191,7 +193,7 @@ const CreateEventView = ({ route, navigation }) => {
       acceptRefundReq: 0,
       refund_policy: "",
       terms_cond: "",
-      include_tax: "",
+      include_tax: 0,
       support_email: "",
       tax_amount: "",
       time_limit: 0,
@@ -205,6 +207,8 @@ const CreateEventView = ({ route, navigation }) => {
       google_adwordId: "",
       adRoll_pixelID: "",
       adRoll_advID: "",
+      email_Mysend: 0,
+      callmail_Mysend: 0,
     });
     setVisible(false);
   };
@@ -565,7 +569,7 @@ const CreateEventView = ({ route, navigation }) => {
             acceptRefundReq: 0,
             refund_policy: "",
             terms_cond: "",
-            include_tax: "",
+            include_tax: 0,
             support_email: "",
             tax_amount: "",
             time_limit: 0,
@@ -579,6 +583,8 @@ const CreateEventView = ({ route, navigation }) => {
             google_adwordId: "",
             adRoll_pixelID: "",
             adRoll_advID: "",
+            email_Mysend: 0,
+            callmail_Mysend: 0,
           });
           setUpdatePic([]);
         } else {

@@ -744,14 +744,18 @@ const CreateEvent = (props) => {
             style={{ marginTop: 10, backgroundColor: GREY_COLOR_CODE }}
           /> */}
         </View>
-        {props.formView === 4 ? (
-          <Button
-            buttonText={
-              props.type !== "Edit_event" ? "Create Event" : "Edit Event"
-            }
-            style={{ marginTop: 10, marginBottom: 10 }}
-            onPress={props.onPressCreateEvent}
-          />
+        {props.formView === 1 ? (
+          <>
+            {props?.type === "" ? (
+              <Button
+                buttonText={
+                  props.type !== "Edit_event" ? "Create Event" : "Edit Event"
+                }
+                style={{ marginTop: 10, marginBottom: 10 }}
+                onPress={props.onPressCreateEvent}
+              />
+            ) : null}
+          </>
         ) : (
           <>
             {props.type === "busniess" ? (

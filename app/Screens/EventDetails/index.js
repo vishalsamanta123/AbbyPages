@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Keyboard, View } from "react-native";
 import EventDetailsScreen from "./components/EventDetailsScreen";
+import BuyTicket from "./components/BuyTicket";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -21,7 +22,7 @@ const EventDetails = ({ route }) => {
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
-  const [resposes, setResposes] = useState("");
+  const [resposes, setResposes] = useState(1);
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -42,6 +43,9 @@ const EventDetails = ({ route }) => {
     city: "",
     email_id: "",
     phoneNo: "",
+
+    //new
+    ticktCategory: [],
   });
   const [onlineDetail, setOnlineDetail] = useState({
     brand: "",
@@ -54,6 +58,24 @@ const EventDetails = ({ route }) => {
     validNumber: "",
   });
 
+  const [ticketsData, setTicketsData] = useState([]);
+  const [ticketCategory, setTicketCategory] = useState([
+    {
+      category_id: 1,
+      name: "General Ticket",
+      amount: "30",
+    },
+    {
+      category_id: 2,
+      name: "VIP Ticket",
+      amount: "50",
+    },
+    {
+      category_id: 3,
+      name: "Time limit",
+      amount: "20",
+    },
+  ]);
   useEffect(() => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
@@ -274,43 +296,8 @@ const EventDetails = ({ route }) => {
     setBuyTicketModal(false);
   };
   const onPressTicketResp = (resp) => {
-    const valid = ticketFormValid();
-    Keyboard.dismiss();
-    switch (resp) {
-      case 1:
-        setResposes(resp);
-        break;
-      case 2:
-        if (valid) {
-          setResposes(resp);
-          setFormError(false);
-          setFormErrorMssg("");
-        }
-        break;
-      case 3:
-        if (valid) {
-          setFormError(false);
-          setFormErrorMssg("");
-          submitBuyingForm(resp);
-        }
-        break;
-      case 4:
-        if (valid) {
-          setFormError(false);
-          setFormErrorMssg("");
-          paymentForTicket(resp);
-        }
-        break;
-      case 5:
-        setResposes(resp);
-        onPressDownloadTckt();
-        break;
-      default:
-        setResposes("");
-        setVisibleErr(true);
-        setErrorMessage("Sorry ,something went wrong");
-        setBuyTicketModal(false);
-        break;
+    if (resp < 4) {
+      // setResposes(resp);
     }
   };
   const submitBuyingForm = async (resp) => {
@@ -512,26 +499,36 @@ const EventDetails = ({ route }) => {
         loader={loader}
         setSliderPage={setSliderPage}
         interestedModal={interestedModal}
-        onPressCancelTick={onPressCancelTick}
-        onPressTicketResp={onPressTicketResp}
         setInterstedModal={setInterstedModal}
         pageIndex={pageIndex}
-        resposes={resposes}
         setChangeInterest={setChangeInterest}
         setBuyTicketModal={setBuyTicketModal}
-        buyTicketModal={buyTicketModal}
-        ticketBuyData={ticketBuyData}
-        ticketData={ticketData}
-        setTicketBuyData={setTicketBuyData}
-        numbers={numbers}
-        successMessage={successMessage}
-        formError={formError}
-        formErrorMssg={formErrorMssg}
-        counrtys={counrtys}
-        onlineDetail={onlineDetail}
-        setOnlineDetail={setOnlineDetail}
-        errorMessage={errorMessage}
       />
+      {buyTicketModal ? (
+        <BuyTicket
+          eventDetails={eventDetails}
+          resposes={resposes}
+          onPressCancelTick={onPressCancelTick}
+          onPressTicketResp={onPressTicketResp}
+          buyTicketModal={buyTicketModal}
+          setBuyTicketModal={setBuyTicketModal}
+          ticketCategory={ticketCategory}
+          ticketsData={ticketsData}
+          setTicketsData={setTicketsData}
+
+          // ticketBuyData={ticketBuyData}
+          // ticketData={ticketData}
+          // setTicketBuyData={setTicketBuyData}
+          // numbers={numbers}
+          // successMessage={successMessage}
+          // formError={formError}
+          // formErrorMssg={formErrorMssg}
+          // counrtys={counrtys}
+          // onlineDetail={onlineDetail}
+          // setOnlineDetail={setOnlineDetail}
+          // errorMessage={errorMessage}
+        />
+      ) : null}
       <Error
         message={errorMessage}
         visible={visibleErr}

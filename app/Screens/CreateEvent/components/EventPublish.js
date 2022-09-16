@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,11 @@ import styles from "./styles";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import Input from "../../../Components/Input";
 import {
   actions,
@@ -20,7 +24,7 @@ import {
 } from "react-native-pell-rich-editor";
 
 const StripeConnect = (props) => {
-  const richText = React.useRef();
+  const richText = React.createRef() || useRef();
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
@@ -336,12 +340,160 @@ const StripeConnect = (props) => {
               placeholder=""
               InputType={null}
             />
-            <RichEditor
-              ref={richText}
-              onChange={(descriptionText) => {
-                console.log("descriptionText:", descriptionText);
-              }}
-            />
+            <Text style={[styles.titlesTxt, { marginHorizontal: 16 }]}>
+              Email -
+            </Text>
+            <Text style={[styles.subtitlesTxt, { marginHorizontal: 16 }]}>
+              Your confirmation email for ticket buyers
+            </Text>
+            <View style={styles.paragraphVw}>
+              <RichToolbar
+                editor={richText}
+                actions={[
+                  actions.setBold,
+                  actions.setItalic,
+                  actions.setUnderline,
+                  actions.heading1,
+                ]}
+                iconMap={{
+                  [actions.heading1]: ({ tintColor }) => (
+                    <Text style={[{ color: tintColor }]}>H1</Text>
+                  ),
+                }}
+              />
+              <View style={{ minHeight: 120 }}>
+                <RichEditor
+                  ref={richText}
+                  onChange={(descriptionText) => {
+                    console.log("descriptionText:", descriptionText);
+                  }}
+                />
+              </View>
+            </View>
+            <View style={styles.emailSendCon}>
+              <View style={styles.radioInnerCon}>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      email_Mysend: 0,
+                    })
+                  }
+                >
+                  <Image
+                    source={
+                      props?.createEvent?.email_Mysend === 0
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    style={styles.radioImg}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.radioInnerTxt}>Send to my email</Text>
+              </View>
+              <View style={styles.radioInnerCon}>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      email_Mysend: 1,
+                    })
+                  }
+                >
+                  <Image
+                    source={
+                      props?.createEvent?.email_Mysend === 1
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    style={styles.radioImg}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.radioInnerTxt}>Other email</Text>
+              </View>
+            </View>
+            <View style={{ alignItems: "flex-end" }}>
+              <TouchableOpacity style={styles.sendMeTextCon}>
+                <Text style={styles.sendMeTextTxt}>Send me a text email</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={[styles.titlesTxt, { marginHorizontal: 16 }]}>
+              Event page analystics
+            </Text>
+            <Text style={[styles.subtitlesTxt, { marginHorizontal: 16 }]}>
+              Your confirmation email for ticket buyers (will call)
+            </Text>
+            <View style={styles.paragraphVw}>
+              <RichToolbar
+                editor={richText}
+                actions={[
+                  actions.setBold,
+                  actions.setItalic,
+                  actions.setUnderline,
+                  actions.heading1,
+                ]}
+                iconMap={{
+                  [actions.heading1]: ({ tintColor }) => (
+                    <Text style={[{ color: tintColor }]}>H1</Text>
+                  ),
+                }}
+              />
+              <View style={{ minHeight: 120 }}>
+                <RichEditor
+                  ref={richText}
+                  onChange={(descriptionText) => {
+                    console.log("descriptionText:", descriptionText);
+                  }}
+                />
+              </View>
+            </View>
+            <View style={styles.emailSendCon}>
+              <View style={styles.radioInnerCon}>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      callmail_Mysend: 0,
+                    })
+                  }
+                >
+                  <Image
+                    source={
+                      props?.createEvent?.callmail_Mysend === 0
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    style={styles.radioImg}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.radioInnerTxt}>Send to my email</Text>
+              </View>
+              <View style={styles.radioInnerCon}>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      callmail_Mysend: 1,
+                    })
+                  }
+                >
+                  <Image
+                    source={
+                      props?.createEvent?.callmail_Mysend === 1
+                        ? require("../../../Assets/radio_circled_checked.png")
+                        : require("../../../Assets/radio_circled_unchecked.png")
+                    }
+                    style={styles.radioImg}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.radioInnerTxt}>Other email</Text>
+              </View>
+            </View>
+            <View style={{ alignItems: "flex-end" }}>
+              <TouchableOpacity style={styles.sendMeTextCon}>
+                <Text style={styles.sendMeTextTxt}>Send me a text email</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         ) : null}
         <View style={styles.twoBttnsVw}>
