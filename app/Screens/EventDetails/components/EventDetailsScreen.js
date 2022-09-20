@@ -19,9 +19,11 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
+  BLUE_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
@@ -35,6 +37,7 @@ const EventListingScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "MM/DD/YYYY"
   );
+
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -124,10 +127,7 @@ const EventListingScreen = (props) => {
                 ? "Are you interested?"
                 : "Interested"
             }
-            onPress={() => {
-              props.setInterstedModal(true);
-              props.setChangeInterest(props.eventDetails);
-            }}
+            onPress={() => props.setInterstedModal(true)}
           />
           <Button
             style={styles.btncon}
@@ -136,6 +136,134 @@ const EventListingScreen = (props) => {
           />
         </View>
       </ScrollView>
+      <Modal
+        visible={props.interestedModal}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => {
+          props.setInterstedModal(false);
+        }}
+      >
+        <View
+          style={[
+            styles.modalCon,
+            { justifyContent: "center", backgroundColor: "rgba(0,0,0,0.3)" },
+          ]}
+        >
+          <View style={styles.interestedModalVw}>
+            <View style={styles.respnsesTxtVw}>
+              <Text style={styles.responseTxt}>Your Response</Text>
+              <TouchableOpacity onPress={() => props.setInterstedModal(false)}>
+                <Image
+                  style={{ width: 32, height: 32, marginRight: 5 }}
+                  source={require("../../../Assets/cart_delete_icon.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              onPress={() => props.setChangeInterest(1)}
+              style={styles.respnsesVw}
+            >
+              <View style={styles.straightVw}>
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                    tintColor:
+                      props?.changeInterest === 1
+                        ? YELLOW_COLOR_CODE
+                        : BLACK_COLOR_CODE,
+                  }}
+                  source={require("../../../Assets/star_icon_filled.png")}
+                />
+                <Text style={styles.respnsesTxt}>Interested</Text>
+              </View>
+              <Image
+                source={
+                  props?.changeInterest === 1
+                    ? require("../../../Assets/radio_circled_checked.png")
+                    : require("../../../Assets/radio_circled_unchecked.png")
+                }
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.setChangeInterest("")}
+              style={styles.respnsesVw}
+            >
+              <View style={styles.straightVw}>
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                    tintColor:
+                      props?.changeInterest === ""
+                        ? YELLOW_COLOR_CODE
+                        : BLACK_COLOR_CODE,
+                  }}
+                  source={require("../../../Assets/verified_icon.png")}
+                />
+                <Text style={styles.respnsesTxt}>Going</Text>
+              </View>
+              <Image
+                source={
+                  props?.changeInterest === ""
+                    ? require("../../../Assets/radio_circled_checked.png")
+                    : require("../../../Assets/radio_circled_unchecked.png")
+                }
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.setChangeInterest(0)}
+              style={styles.respnsesVw}
+            >
+              <View style={styles.straightVw}>
+                <View
+                  style={[
+                    styles.notIntrstVw,
+                    {
+                      backgroundColor:
+                        props?.changeInterest === 0
+                          ? YELLOW_COLOR_CODE
+                          : BLACK_COLOR_CODE,
+                    },
+                  ]}
+                >
+                  <Image
+                    style={{ tintColor: WHITE_COLOR_CODE }}
+                    source={require("../../../Assets/cart_delete_icon.png")}
+                  />
+                </View>
+                <Text style={styles.respnsesTxt}>Not Interested</Text>
+              </View>
+              <Image
+                source={
+                  props?.changeInterest === 0
+                    ? require("../../../Assets/radio_circled_checked.png")
+                    : require("../../../Assets/radio_circled_unchecked.png")
+                }
+              />
+            </TouchableOpacity>
+            <View style={styles.respnsesBttnVw}>
+              <Button
+                buttonText={"Save"}
+                onPress={() => props.onInterestResp()}
+                style={[styles.respnsesBttn, { marginRight: 10 }]}
+              />
+              <Button
+                buttonText={"Cancel"}
+                onPress={() => {
+                  props.setInterstedModal(false);
+                  props.setChangeInterest("");
+                }}
+                style={[
+                  styles.respnsesBttn,
+                  { backgroundColor: SMALL_TEXT_COLOR_CODE },
+                ]}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

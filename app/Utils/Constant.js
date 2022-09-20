@@ -16,6 +16,7 @@ export const LIGHT_WHITE_COLOR = "#ffe98e";
 export const SMALL_TEXT_COLOR_CODE = "#868282";
 export const LIGHT_GREEN_COLOR_CODE = "#a3d74e";
 export const LIGHT_RED_COLOR_CODE = "#f32c2c";
+export const BLUE_COLOR_CODE = "#0E86D4";
 export const LIGHT_GREY_COLOR_CODE = "#858484";
 export const LIGHT_BLACK_COLOR_CODE = "#262626";
 // export const LINE_COMMON_COLOR_CODE = "#262626";

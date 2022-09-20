@@ -70,13 +70,64 @@ const Styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 20,
   },
-  ticketModal: {
+  modalCon: {
     flex: 1,
     backgroundColor: WHITE_COLOR_CODE,
   },
-  ticketModalVw: {
+  modalsVw: {
     paddingVertical: 8,
     paddingHorizontal: 18,
+  },
+  interestedModalVw: {
+    backgroundColor: WHITE_COLOR_CODE,
+    marginHorizontal: 24,
+    borderRadius: 10,
+    paddingVertical: 8,
+  },
+  respnsesTxtVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomWidth: 0.5,
+    justifyContent: "space-between",
+  },
+  responseTxt: {
+    fontSize: 24,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    textTransform: "capitalize",
+    paddingLeft: 20,
+  },
+  respnsesVw: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderBottomWidth: 0.4,
+  },
+  notIntrstVw: {
+    borderRadius: 12,
+    width: 20,
+    height: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  respnsesTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    marginLeft: 8,
+  },
+  respnsesBttnVw: {
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+    marginRight: 10,
+  },
+  respnsesBttn: {
+    width: "40%",
+    padding: 8,
   },
   eventNameTx: {
     fontSize: 24,
@@ -171,16 +222,21 @@ const Styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   smallTxt: {
-    fontSize: 12.5,
+    fontSize: 12,
     marginVertical: 2,
     fontFamily: FONT_FAMILY_REGULAR,
-    marginRight: 8,
+    color: LIGHT_GREY_COLOR_CODE,
   },
   straightVw: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginVertical: 2,
+  },
+  ticketsNameTxt: {
+    fontSize: 15,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
   // formsTxt: {
   //   fontSize: 18,

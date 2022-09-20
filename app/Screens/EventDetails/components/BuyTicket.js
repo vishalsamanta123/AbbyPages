@@ -20,8 +20,6 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
-import { Picker } from "@react-native-community/picker";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
 import Loader from "../../../Utils/Loader";
 import Input from "../../../Components/Input";
 import InputSpinner from "react-native-input-spinner";
@@ -46,9 +44,12 @@ const EventListingScreen = (props) => {
     if (getIndex >= 0) {
       return props?.ticketsData[getIndex]?.quantity;
     }
-    console.log("props?.ticketsData: ", props?.ticketsData);
+    const FinalAmount = props?.ticketsData?.reduce((accumulatedTotal, curr) => {
+      accumulatedTotal + curr?.total_amount;
+    }, 0);
+    props.setTotalAmount(FinalAmount);
   };
-  const addProductOnCart = async (item, value, index) => {
+  const addProductOnCart = async (item, value) => {
     try {
       const selectedCategory = {
         category_id: item.category_id,
@@ -57,24 +58,69 @@ const EventListingScreen = (props) => {
         total_amount: item.amount * value,
         quantity: value,
       };
-      const newTicketData = [...props.ticketsData];
-      console.log('newTicketData: ', newTicketData);
-      props?.setTicketsData([...props?.ticketsData, selectedCategory]);
-      console.log('newTicketData: ', newTicketData);
+      if (props?.ticketsData?.length > 0) {
+        var getIndex = _.findIndex(props?.ticketsData, {
+          category_id: item.category_id,
+        });
+        if (getIndex >= 0) {
+          const newItems = props?.ticketsData[getIndex];
+          newItems.quantity = newItems?.quantity + 1;
+          newItems.total_amount = newItems.amount * value;
+          const FinalAmount = props?.ticketsData?.reduce(
+            (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
+            0
+          );
+          props.setTotalAmount(FinalAmount);
+          props.setTicketsData(props?.ticketsData);
+        } else {
+          props.setTicketsData((curr) => [...curr, selectedCategory]);
+          const FinalAmount = props?.ticketsData?.reduce(
+            (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
+            0
+          );
+          props.setTotalAmount(FinalAmount);
+        }
+      } else {
+        props.setTicketsData([...props?.ticketsData, selectedCategory]);
+        const FinalAmount = props?.ticketsData?.reduce(
+          (accumulatedTotal, curr) => accumulatedTotal + curr?.total_amount,
+          0
+        );
+        props.setTotalAmount(FinalAmount);
+      }
     } catch (error) {
       console.log("error: ", error);
     }
   };
-  const removeFromCart = (item, value) => {
+  const removeFromCart = (item) => {
     try {
-      const selectedCategory = {
-        category_id: item.category_id,
-        amount: item.amount,
-        name: item.name,
-        total_amount: item.amount * value,
-        quantity: value,
-      };
-      props?.setTicketsData([...props?.ticketsData, selectedCategory]);
+      if (props.ticketsData.length > 0) {
+        var getIndex = _.findIndex(props.ticketsData, {
+          category_id: item.category_id,
+        });
+        if (getIndex >= 0) {
+          const newItems = props.ticketsData[getIndex];
+          if (props.ticketsData[getIndex].quantity > 0) {
+            newItems.quantity = newItems.quantity - 1;
+            newItems.total_amount = newItems.total_amount - newItems.amount;
+            const FinalAmount = props?.ticketsData?.reduce(
+              (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
+              0
+            );
+            props.setTotalAmount(FinalAmount);
+            props.setTicketsData(props?.ticketsData);
+          }
+          if (props?.ticketsData[getIndex].quantity === 0) {
+            props?.ticketsData.splice(getIndex, 1);
+            const FinalAmount = props?.ticketsData.reduce(
+              (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
+              0
+            );
+            props.setTotalAmount(FinalAmount);
+            props.setTicketsData(props?.ticketsData);
+          }
+        }
+      }
     } catch (error) {
       console.log("error: ", error);
     }
@@ -88,7 +134,7 @@ const EventListingScreen = (props) => {
         props.setBuyTicketModal(false);
       }}
     >
-      <KeyboardAvoidingView style={styles.ticketModal}>
+      <KeyboardAvoidingView style={styles.modalCon}>
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
@@ -98,7 +144,7 @@ const EventListingScreen = (props) => {
         />
         <ScrollView>
           {props?.loader && <Loader state={props?.loader} />}
-          <View style={styles.ticketModalVw}>
+          <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
             </Text>
@@ -172,7 +218,10 @@ const EventListingScreen = (props) => {
                               style={styles.spinnerVw}
                             />
                             <Text style={styles.smallTxt}>
-                              Amount: {item.amount}
+                              Total Amount:{" "}
+                              {props?.ticketsData[index]?.total_amount
+                                ? props?.ticketsData[index]?.total_amount
+                                : "0"}
                             </Text>
                           </View>
                         </View>
@@ -183,33 +232,57 @@ const EventListingScreen = (props) => {
                 <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
                   Ticket Total
                 </Text>
+                {props?.ticketsData?.map((item) => {
+                  return (
+                    <View style={styles.straightVw}>
+                      <Text style={styles.ticketsNameTxt}>
+                        ({item.quantity}) {item.name}
+                      </Text>
+                      <Text style={styles.smallTxt}>${item.total_amount}</Text>
+                    </View>
+                  );
+                })}
                 <View style={styles.straightVw}>
                   <Text style={styles.subTitleTxt}>Service fee</Text>
                   <Text style={styles.subTitleTxt}>
-                    {props?.ticketBuyData?.total_Tcktamount
-                      ? props?.ticketBuyData?.total_Tcktamount
+                    {props?.eventDetails?.serviceAmount
+                      ? props?.eventDetails?.serviceAmount
                       : "0.0"}
                   </Text>
                 </View>
                 <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
                   <Text style={styles.subTitleTxt}>Taxes</Text>
                   <Text style={[styles.subTitleTxt]}>
-                    {props?.ticketBuyData?.taxesAmount
-                      ? props?.ticketBuyData?.taxesAmount
+                    {props?.eventDetails?.taxesAmount
+                      ? props?.eventDetails?.taxesAmount
                       : "0.0"}
                   </Text>
                 </View>
                 <View style={styles.straightVw}>
-                  <Text style={styles.subTitleTxt}>Total </Text>
+                  <Text style={styles.subTitleTxt}>Total</Text>
                   <Text style={styles.subTitleTxt}>
-                    {props?.ticketBuyData?.taxesAmount
-                      ? props?.ticketBuyData?.taxesAmount
-                      : "0.0"}
+                    {props?.totalAmount ? props?.totalAmount : "0.0"}
                   </Text>
                 </View>
               </>
             ) : (
-              <></>
+              <>
+                {props.resposes === 2 ? (
+                  <>
+                    {props?.ticketsDetails?.map((item, index) => {
+                      return (
+                        <>
+                          <View style={styles.modalsVw}>
+                            <Text>
+                              Ticket Number : {index + 1}[{item.ticket_Name}]
+                            </Text>
+                          </View>
+                        </>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </>
             )}
             <View style={styles.modalBttnVw}>
               <Button
@@ -226,28 +299,25 @@ const EventListingScreen = (props) => {
                 onPress={() => props.onPressCancelTick()}
                 buttonText={"Cancel"}
               />
-              {props?.eventDetails?.ticket_price > 0 && (
-                <Button
-                  style={styles.modalBttn}
-                  buttonLabelStyle={styles.modalBttnTxt}
-                  onPress={() => {
-                    if (props?.eventDetails?.ticket_price > 0) {
-                      props.onPressTicketResp(
-                        props?.resposes === ""
-                          ? 1
-                          : props?.resposes === 1
-                          ? 2
-                          : props?.resposes === 2
-                          ? 3
-                          : props?.resposes === 3
-                          ? 4
-                          : props?.resposes === 4 && 5
-                      );
-                    }
-                  }}
-                  buttonText={"Next"}
-                />
-              )}
+              {/* {props?.eventDetails?.ticket_price > 0 && ( */}
+              <Button
+                style={styles.modalBttn}
+                buttonLabelStyle={styles.modalBttnTxt}
+                onPress={() => {
+                  props.onPressTicketResp(
+                    props?.resposes === ""
+                      ? 1
+                      : props?.resposes === 1
+                      ? 2
+                      : props?.resposes === 2
+                      ? 3
+                      : props?.resposes === 3
+                      ? 4
+                      : props?.resposes === 4 && 5
+                  );
+                }}
+                buttonText={"Next"}
+              />
             </View>
           </View>
         </ScrollView>
