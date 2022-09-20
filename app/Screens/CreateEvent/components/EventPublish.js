@@ -22,8 +22,14 @@ import {
   RichEditor,
   RichToolbar,
 } from "react-native-pell-rich-editor";
+import Clipboard from "@react-native-clipboard/clipboard";
 
 const StripeConnect = (props) => {
+  const handleCopyPress = async () => {
+    const cpoy = await Clipboard.getStrings(
+      props?.createEvent?.embed_checkout_website.toString()
+    );
+  };
   const richText = React.createRef() || useRef();
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
@@ -49,11 +55,7 @@ const StripeConnect = (props) => {
       <ScrollView keyboardShouldPersistTaps="handled">
         {props.type === "busniess" ? (
           <View style={{ marginHorizontal: 5, marginTop: 5 }}>
-            <Text
-              style={[styles.titlesTxt, { fontSize: 24, marginVertical: 6 }]}
-            >
-              Checkout -:
-            </Text>
+            <Text style={[styles.mainTitlesTxt]}>Checkout -:</Text>
             <View style={[styles.radioBttnVw, { paddingTop: 2 }]}>
               <Text style={styles.radioBttnTxt}>Time limit to purchase</Text>
               <View style={styles.radioBttnCon}>
@@ -253,6 +255,8 @@ const StripeConnect = (props) => {
               secureTextEntry={false}
               placeholder=""
               InputType={null}
+              // copyText={true}
+              // onPressCoptTxt={() => handleCopyPress()}
             />
             <Text style={styles.titlesTxt}>Slug Url -</Text>
             <Input

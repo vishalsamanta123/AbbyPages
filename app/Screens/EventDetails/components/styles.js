@@ -6,10 +6,8 @@ import {
   SMALL_TEXT_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  LINE_COMMON_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
-  LIGHT_RED_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   imageStyle: {
@@ -77,6 +75,33 @@ const Styles = StyleSheet.create({
   modalsVw: {
     paddingVertical: 8,
     paddingHorizontal: 18,
+  },
+  ticketDetailVw: {
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    borderWidth: 0.5,
+    marginVertical: 4,
+    borderRadius: 6,
+    borderColor: YELLOW_COLOR_CODE,
+    marginTop: 12,
+  },
+  ticketTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    marginTop: 10,
+  },
+  ticketsInputVw: {
+    height: 52,
+    width: "95%",
+    marginLeft: 0,
+    margin: 0,
+    marginTop: 8,
+  },
+  secInputVw: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
   },
   interestedModalVw: {
     backgroundColor: WHITE_COLOR_CODE,
@@ -161,6 +186,7 @@ const Styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 2,
     fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
   smallInputVw: {
     height: 48,
@@ -237,6 +263,23 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
+  },
+  timeTxt: {
+    fontSize: 15,
+    fontFamily: FONT_FAMILY_REGULAR,
+    textAlign: "center",
+    color: LIGHT_BLACK_COLOR_CODE,
+    marginVertical: 2,
+  },
+  timeCon: {
+    backgroundColor: LINE_COMMON_COLOR_CODE,
+    borderRadius: 10,
+    height: 13,
+  },
+  timeConVw: {
+    backgroundColor: YELLOW_COLOR_CODE,
+    borderTopStartRadius: 8,
+    borderBottomStartRadius: 8,
   },
   // formsTxt: {
   //   fontSize: 18,

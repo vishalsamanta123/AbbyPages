@@ -246,8 +246,15 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     color: LIGHT_BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    textAlign: "center",
+  },
+  mainTitlesTxt: {
+    fontSize: 23,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    marginLeft: 8,
+    // marginTop: 9,
+    marginBottom: 2,
   },
   mainGenerateVw: {
     elevation: 2,

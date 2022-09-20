@@ -49,6 +49,16 @@ const StripeConnect = (props) => {
             <Text style={styles.headingTxt}>
               Let's figure out what we are selling here.
             </Text>
+            <Text
+              style={[
+                styles.mainTitlesTxt,
+                {
+                  marginLeft: 14,
+                },
+              ]}
+            >
+              Payment -:
+            </Text>
             <TouchableOpacity
               onPress={() =>
                 props.handleCheckBoxesOfStripe(

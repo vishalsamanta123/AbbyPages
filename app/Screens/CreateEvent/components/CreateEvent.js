@@ -421,6 +421,7 @@ const CreateEvent = (props) => {
                             />
                             */}
           <Text style={styles.titlesTxt}>Event Description -</Text>
+          <Text style={styles.subtitlesTxt}>What and Why? (200 character remains)</Text>
           <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -754,19 +755,19 @@ const CreateEvent = (props) => {
                 style={{ marginTop: 10, marginBottom: 10 }}
                 onPress={props.onPressCreateEvent}
               />
-            ) : null}
+            ) : (
+              <>
+                {props.type === "busniess" ? (
+                  <Button
+                    buttonText={"Next"}
+                    style={{ marginTop: 10, marginBottom: 12 }}
+                    onPress={() => props.onPressNextForm()}
+                  />
+                ) : null}
+              </>
+            )}
           </>
-        ) : (
-          <>
-            {props.type === "busniess" ? (
-              <Button
-                buttonText={"Next"}
-                style={{ marginTop: 10, marginBottom: 12 }}
-                onPress={() => props.onPressNextForm()}
-              />
-            ) : null}
-          </>
-        )}
+        ) : null}
       </ScrollView>
       <Modal
         animationType="slide"

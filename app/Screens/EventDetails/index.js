@@ -9,8 +9,9 @@ import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import Success from "../../Components/Modal/success";
 import moment from "moment";
-import RNFS from "react-native-fs";
-import FileViewer from "react-native-file-viewer";
+import TicketDetails from "./components/TicketsDetail";
+import BuyerInfo from "./components/BuyerInfo";
+import TicketPayment from "./components/TicketPayment";
 
 const EventDetails = ({ route }) => {
   const params = route.params;
@@ -19,9 +20,8 @@ const EventDetails = ({ route }) => {
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
-  const [resposes, setResposes] = useState(1);
   const [interestedModal, setInterstedModal] = useState(false);
-  const [buyTicketModal, setBuyTicketModal] = useState(false);
+  const [buyTicketModal, setBuyTicketModal] = useState("");
   const [loader, setLoader] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -139,7 +139,7 @@ const EventDetails = ({ route }) => {
       } else {
         if (changeInterest === "") {
           setInterstedModal(false);
-          setBuyTicketModal(true);
+          setBuyTicketModal(1);
         }
       }
     } catch (error) {
@@ -148,21 +148,12 @@ const EventDetails = ({ route }) => {
       setErrorMessage(error.message);
     }
   };
-  const onPressCancelTick = () => {
-    setBuyTicketModal(false);
+  const onPressCancelTick = (resp) => {
+    setBuyTicketModal("");
   };
   const onPressTicketResp = (resp) => {
     if (resp < 4) {
-      if (resp === 2) {
-        const totalQuantities = ticketsData?.reduce((accumulator, curr) => {
-          return accumulator + curr.quantity;
-        }, 0);
-        if (totalQuantities > 0) {
-          const accuratePush = totalQuantities > 1 ? totalQuantities : 1;
-        }
-      } else {
-        setResposes(resp);
-      }
+      setBuyTicketModal(resp);
     }
   };
   const submitBuyingForm = async (resp) => {
@@ -193,10 +184,9 @@ const EventDetails = ({ route }) => {
       );
       if (data.status === 200) {
         setLoader(false);
-        setResposes(resp);
         setSuccessMessage(data.message + ",Now do payment process");
       } else {
-        setBuyTicketModal(false);
+        setBuyTicketModal("");
         setLoader(false);
         setVisibleErr(true);
         setErrorMessage(data.message);
@@ -223,10 +213,9 @@ const EventDetails = ({ route }) => {
         setBuyTicketModal={setBuyTicketModal}
         onInterestResp={onInterestResp}
       />
-      {buyTicketModal ? (
+      {buyTicketModal === 1 ? (
         <BuyTicket
           eventDetails={eventDetails}
-          resposes={resposes}
           onPressCancelTick={onPressCancelTick}
           onPressTicketResp={onPressTicketResp}
           buyTicketModal={buyTicketModal}
@@ -239,7 +228,55 @@ const EventDetails = ({ route }) => {
           ticketsDetails={ticketsDetails}
           setTicketsDetails={setTicketsDetails}
         />
-      ) : null}
+      ) : (
+        <>
+          {buyTicketModal === 2 ? (
+            <TicketDetails
+              eventDetails={eventDetails}
+              totalAmount={totalAmount}
+              ticketsData={ticketsData}
+              buyTicketModal={buyTicketModal}
+              onPressCancelTick={onPressCancelTick}
+              onPressTicketResp={onPressTicketResp}
+              ticketsDetails={ticketsDetails}
+              setTicketsDetails={setTicketsDetails}
+              setBuyTicketModal={setBuyTicketModal}
+            />
+          ) : (
+            <>
+              {buyTicketModal === 3 ? (
+                <BuyerInfo
+                  eventDetails={eventDetails}
+                  totalAmount={totalAmount}
+                  ticketsData={ticketsData}
+                  buyTicketModal={buyTicketModal}
+                  onPressCancelTick={onPressCancelTick}
+                  onPressTicketResp={onPressTicketResp}
+                  ticketsDetails={ticketsDetails}
+                  setTicketsDetails={setTicketsDetails}
+                  setBuyTicketModal={setBuyTicketModal}
+                />
+              ) : (
+                <>
+                  {buyTicketModal === 4 ? (
+                    <TicketPayment
+                      eventDetails={eventDetails}
+                      totalAmount={totalAmount}
+                      ticketsData={ticketsData}
+                      buyTicketModal={buyTicketModal}
+                      onPressCancelTick={onPressCancelTick}
+                      onPressTicketResp={onPressTicketResp}
+                      ticketsDetails={ticketsDetails}
+                      setTicketsDetails={setTicketsDetails}
+                      setBuyTicketModal={setBuyTicketModal}
+                    />
+                  ) : null}
+                </>
+              )}
+            </>
+          )}
+        </>
+      )}
       <Error
         message={errorMessage}
         visible={visibleErr}

@@ -1,5 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { View, TextInput, Text, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -26,8 +32,10 @@ const Input = (props) => {
     labelStyleMain,
     secureTextEntry,
     selectionColor,
+    copyText,
+    onPressCoptTxt
   } = props;
-  const { container, textInput, labelStyle } = style;
+  const { container, textInput, labelStyle, copyTextTxt } = style;
   const _handleFocus = () => {
     setIsfocused(false);
   };
@@ -84,12 +92,21 @@ const Input = (props) => {
             {
               fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
               marginTop: InputType == null ? 9 : 19,
+              width: copyText ? "85%" : "100%",
             },
             textInputStyle,
           ]}
           onFocus={_handleFocus}
           onBlur={_handleBlur}
         />
+        {copyText && (
+          <TouchableOpacity
+            style={{ marginHorizontal: 6 }}
+            onPress={onPressCoptTxt}
+          >
+            <Text style={copyTextTxt}>Copy</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </Fragment>
   );
@@ -111,6 +128,8 @@ const style = StyleSheet.create({
     margin: 8,
     marginLeft: 15,
     marginRight: 15,
+    flexDirection: "row",
+    alignItems: "center",
   },
   labelStyle: {
     position: "absolute",
@@ -119,9 +138,14 @@ const style = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
   },
   textInput: {
+    width: "100%",
     // fontSize: 18,
     paddingLeft: 20,
     marginLeft: 4,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  copyTextTxt: {
+    fontSize: 13,
     fontFamily: FONT_FAMILY_REGULAR,
   },
 });

@@ -51,6 +51,7 @@ const GenerateTicket = (props) => {
                 <Text style={styles.headingTxt}>
                   Let's figure out what we are selling here.
                 </Text>
+                <Text style={styles.mainTitlesTxt}>Generate Ticket -:</Text>
                 {props?.createEventData?.map((item, index) => {
                   return (
                     <View style={styles.mainGenerateVw}>
@@ -479,9 +480,9 @@ const GenerateTicket = (props) => {
                             style={styles.nonEditInputVw}
                             editable={false}
                             numberOfLines={1}
-                            placeholder={props?.createEventData[
-                              index
-                            ]?.abbyPagesAmt.toString()}
+                            placeholder={Number(
+                              props?.createEventData[index]?.abbyPagesAmt
+                            ).toFixed(2)}
                             placeholderTextColor={BLACK_COLOR_CODE}
                           />
                         </View>
@@ -493,9 +494,9 @@ const GenerateTicket = (props) => {
                             style={styles.nonEditInputVw}
                             editable={false}
                             numberOfLines={1}
-                            placeholder={props?.createEventData[
-                              index
-                            ]?.cardAmt.toString()}
+                            placeholder={Number(
+                              props?.createEventData[index]?.cardAmt
+                            ).toFixed(2)}
                             placeholderTextColor={BLACK_COLOR_CODE}
                           />
                         </View>
@@ -505,9 +506,9 @@ const GenerateTicket = (props) => {
                             style={styles.nonEditInputVw}
                             editable={false}
                             numberOfLines={1}
-                            placeholder={props?.createEventData[
-                              index
-                            ]?.totalPrice.toString()}
+                            placeholder={Number(
+                              props?.createEventData[index]?.totalPrice
+                            ).toFixed(2)}
                             placeholderTextColor={BLACK_COLOR_CODE}
                           />
                         </View>
@@ -517,9 +518,9 @@ const GenerateTicket = (props) => {
                             style={styles.nonEditInputVw}
                             editable={false}
                             numberOfLines={1}
-                            placeholder={props?.createEventData[
-                              index
-                            ]?.youGetAmt.toString()}
+                            placeholder={Number(
+                              props?.createEventData[index]?.youGetAmt
+                            ).toFixed(2)}
                             placeholderTextColor={BLACK_COLOR_CODE}
                           />
                         </View>
