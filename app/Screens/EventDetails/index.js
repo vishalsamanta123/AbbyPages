@@ -47,6 +47,24 @@ const EventDetails = ({ route }) => {
       amount: "20",
     },
   ]);
+  const [buyerInfo, setBuyerInfo] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    address: "",
+    phoneNo: "",
+    brand: "",
+    expiryMonth: "",
+    expiryYear: "",
+    last4: "",
+    postalCode: "",
+    validCVC: "",
+    validExpiryDate: "",
+    validNumber: "",
+    dis_code: "",
+  });
+  const [percentage, setPercentage] = useState();
+  const couts = percentage * 0.15;
   useEffect(() => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
@@ -152,7 +170,7 @@ const EventDetails = ({ route }) => {
     setBuyTicketModal("");
   };
   const onPressTicketResp = (resp) => {
-    if (resp < 4) {
+    if (resp <= 4) {
       setBuyTicketModal(resp);
     }
   };
@@ -255,6 +273,10 @@ const EventDetails = ({ route }) => {
                   ticketsDetails={ticketsDetails}
                   setTicketsDetails={setTicketsDetails}
                   setBuyTicketModal={setBuyTicketModal}
+                  buyerInfo={buyerInfo}
+                  setBuyerInfo={setBuyerInfo}
+                  setPercentage={setPercentage}
+                  couts={couts}
                 />
               ) : (
                 <>
@@ -269,6 +291,11 @@ const EventDetails = ({ route }) => {
                       ticketsDetails={ticketsDetails}
                       setTicketsDetails={setTicketsDetails}
                       setBuyTicketModal={setBuyTicketModal}
+                      buyerInfo={buyerInfo}
+                      setBuyerInfo={setBuyerInfo}
+                      percentage={percentage}
+                      setPercentage={setPercentage}
+                      couts={couts}
                     />
                   ) : null}
                 </>

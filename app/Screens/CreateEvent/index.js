@@ -72,8 +72,8 @@ const CreateEventView = ({ route, navigation }) => {
   const [isEndDatePicker, setIsEndDatePicker] = useState(false);
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState(false);
-  const [checkbox, SetCheckBox] = useState(false);
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
+  const [checkbox, SetCheckBox] = useState(false);
   const [visible, setVisible] = useState(false);
   const [formView, setFormView] = useState(1);
   const [eventModalVisible, setEventModalVisible] = useState("");
@@ -136,7 +136,6 @@ const CreateEventView = ({ route, navigation }) => {
     email_Mysend: 0,
     callmail_Mysend: 0,
   });
-
   useFocusEffect(
     React.useCallback(() => {
       getFormDatas();
@@ -232,6 +231,7 @@ const CreateEventView = ({ route, navigation }) => {
       height: windowHeight / 2,
       mediaType: "video",
     }).then((video) => {
+      console.log("video: ", video);
       // setUpdatePic(image);
       setCreateEvent({
         ...createEvent,
@@ -288,7 +288,7 @@ const CreateEventView = ({ route, navigation }) => {
     setIsEndDatePicker(false);
   };
   const handleTimeConfirm = (date) => {
-    const value = moment(date).format(" h:mm a");
+    const value = moment(date).format("h:mm a");
     setCreateEvent({
       ...createEvent,
       start_time: value,
@@ -296,7 +296,7 @@ const CreateEventView = ({ route, navigation }) => {
     setIsStartTimePickerVisible(false);
   };
   const handleEndTimeConfirm = (date) => {
-    const value = moment(date).format(" h:mm a");
+    const value = moment(date).format("h:mm a");
     setCreateEvent({
       ...createEvent,
       end_time: value,
@@ -366,238 +366,6 @@ const CreateEventView = ({ route, navigation }) => {
   };
   const onPressPublicVenue = () => {
     SetCheckBox(!checkbox);
-  };
-  function validationFrom() {
-    if (createEvent?.event_photo?.length == 0) {
-      setErrorMessage("Please select event image");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.eventName == "") {
-      setErrorMessage("Please enter event name");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.eventType === 2) {
-      if (createEvent.startDate == "") {
-        setErrorMessage("Please enter event start date");
-        setVisibleErr(true);
-        return false;
-      }
-      if (createEvent.endDate == "") {
-        setErrorMessage("Please enter event end date");
-        setVisibleErr(true);
-        return false;
-      }
-    } else {
-      if (createEvent.date == "") {
-        setErrorMessage("Please select event date");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    if (createEvent.start_time == "") {
-      setErrorMessage("Please select start time");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.end_time == "") {
-      setErrorMessage("Please select end time");
-      setVisibleErr(true);
-      return false;
-    }
-    // if (createEvent.find_me_in == "") {
-    //   setErrorMessage("Please enter nearby location");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    // if (createEvent.businessName == "") {
-    //   setErrorMessage("Please enter business name");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    if (createEvent.event_address == "") {
-      setErrorMessage("Please enter event address");
-      setVisibleErr(true);
-      return false;
-    }
-    // if (createEvent.description == "") {
-    //   setErrorMessage("Please enter description");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    // if (createEvent.official_Web == "") {
-    //   setErrorMessage("Please enter official website URL");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    // if (createEvent.ticketURL == "") {
-    //   setErrorMessage("Please enter ticket URL");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    // if (createEvent.priceFrom == "") {
-    //   setErrorMessage("Enter price from");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    // if (createEvent.priceTo == "") {
-    //   setErrorMessage("Enter price upto");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    if (createEvent.category_name == "" || createEvent.category_id == "") {
-      setErrorMessage("Please select event category");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.ticketType === 2) {
-      if (createEvent.ticketPrice === "") {
-        setErrorMessage("Please enter ticket price");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    if (createEvent.ticketAvailability === 2) {
-      if (createEvent.ticketLimit === "") {
-        setErrorMessage("Please enter ticket availability limit");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    // if (checkbox == false) {
-    //   setErrorMessage("Please accept your public venue");
-    //   setVisibleErr(true);
-    //   return false;
-    // }
-    return true;
-  }
-  const onPressCreateEvent = async () => {
-    const valid = validationFrom();
-    if (valid) {
-      setVisible(true);
-      try {
-        let formData = new FormData();
-        formData.append("event_id", item?.event_id ? item?.event_id : "");
-        formData.append(
-          "business_id",
-          item?.business_id ? item?.business_id : ""
-        );
-        updatePic?.length > 0 &&
-          createEvent?.event_photo?.map((img, index) => {
-            return formData.append("events_image", {
-              uri: img.path,
-              type: img.mime,
-              name: img.path.substring(img.path.lastIndexOf("/") + 1),
-            });
-          });
-        formData.append("event_name", createEvent.eventName);
-        formData.append("event_type", createEvent.eventType);
-        formData.append("event_date", createEvent.date);
-        formData.append("event_start_date", createEvent.startDate);
-        formData.append("event_end_date", createEvent.endDate);
-        formData.append("event_start_time", createEvent.start_time);
-        formData.append("event_end_time", createEvent.end_time);
-        formData.append("event_location", createEvent.event_address);
-        formData.append("latitude", createEvent.event_Addr_lat);
-        formData.append("longitude", createEvent.event_Addr_long);
-        formData.append("event_category_id", createEvent.category_id);
-        formData.append("ticket_type", createEvent.ticketType);
-        formData.append(
-          "ticket_price",
-          createEvent.ticketPrice ? createEvent.ticketPrice : 0
-        );
-        formData.append("ticket_availability", createEvent.ticketAvailability);
-        formData.append(
-          "total_ticket",
-          createEvent.ticketLimit ? createEvent.ticketLimit : 0
-        );
-        formData.append("near_by_address", createEvent.find_me_in); //omit
-        formData.append("business_name", createEvent.businessName); //omit
-        formData.append("event_address_type", 2); //don't know
-        formData.append("event_description", createEvent.description); //omit
-        formData.append("official_website_url", createEvent.official_Web); //omit
-        formData.append("price_range_from", createEvent.priceFrom); //omit
-        formData.append("price_range_to", createEvent.priceTo); //omit
-        formData.append("tickets_url", createEvent.ticketURL); //omit
-        formData.append("event_charge_type", 1); //don't know
-        setVisible(false);
-        const { data } = await apiCall(
-          "POST",
-          ENDPOINTS.CREATE_EVENTS,
-          formData,
-          { "Content-Type": "multipart/form-data" }
-        );
-        if (data.status === 200) {
-          setVisible(false);
-          setSuccessMessage("Event added successfully");
-          if (type !== "busniess" || type !== "Edit_event") {
-            setVisibleSuccess(true);
-          }
-          setCreateEvent({
-            event_photo: "",
-            eventName: "",
-            date: "",
-            endDate: "",
-            start_time: "",
-            end_time: "",
-            find_me_in: "",
-            find_me_lat: "",
-            find_me_long: "",
-            businessName: "",
-            event_address: "",
-            event_Addr_lat: "",
-            event_Addr_long: "",
-            description: "",
-            official_Web: "",
-            ticketURL: "",
-            priceFrom: "",
-            priceTo: "",
-            category_name: "",
-            category_id: "",
-            checkbox_venue: "",
-            eventType: "",
-            ticketType: "",
-            ticketPrice: "",
-            ticketAvailability: "",
-            ticketLimit: "",
-            startDate: "",
-            //new
-            event_video: "",
-            add_organiser: "",
-            top_performer: "",
-            acceptRefundReq: 0,
-            refund_policy: "",
-            terms_cond: "",
-            include_tax: 0,
-            support_email: "",
-            tax_amount: "",
-            time_limit: 0,
-            hide_endTime: 0,
-            ticketAvailability_msg: 0,
-            enable_best_feature: 0,
-            embed_checkout_website: "",
-            slug_url: "",
-            fb_adds_pixelID: "",
-            google_analysticId: "",
-            google_adwordId: "",
-            adRoll_pixelID: "",
-            adRoll_advID: "",
-            email_Mysend: 0,
-            callmail_Mysend: 0,
-          });
-          setUpdatePic([]);
-        } else {
-          setVisible(false);
-          setErrorMessage(data.message);
-          setVisibleErr(true);
-        }
-      } catch (error) {
-        setVisible(false);
-        setErrorMessage(error.message);
-        setVisibleErr(true);
-      }
-    }
   };
   const onPressNextForm = () => {
     // const valid = validationFrom();
@@ -777,11 +545,248 @@ const CreateEventView = ({ route, navigation }) => {
       });
     }
   };
+  const handleBackFun = () => {
+    navigation.goBack(null);
+    setFormView(1);
+  };
+  function validationFrom() {
+    if (createEvent?.event_photo?.length == 0) {
+      setErrorMessage("Please select event image");
+      setVisibleErr(true);
+      return false;
+    }
+    if (createEvent.eventName == "") {
+      setErrorMessage("Please enter event name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (createEvent.eventType === 2) {
+      if (createEvent.startDate == "") {
+        setErrorMessage("Please enter event start date");
+        setVisibleErr(true);
+        return false;
+      }
+      if (createEvent.endDate == "") {
+        setErrorMessage("Please enter event end date");
+        setVisibleErr(true);
+        return false;
+      }
+    } else {
+      if (createEvent.date == "") {
+        setErrorMessage("Please select event date");
+        setVisibleErr(true);
+        return false;
+      }
+    }
+    if (createEvent.start_time == "") {
+      setErrorMessage("Please select start time");
+      setVisibleErr(true);
+      return false;
+    }
+    if (createEvent.end_time == "") {
+      setErrorMessage("Please select end time");
+      setVisibleErr(true);
+      return false;
+    }
+    // if (createEvent.find_me_in == "") {
+    //   setErrorMessage("Please enter nearby location");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.businessName == "") {
+    //   setErrorMessage("Please enter business name");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    if (createEvent.event_address == "") {
+      setErrorMessage("Please enter event address");
+      setVisibleErr(true);
+      return false;
+    }
+    // if (createEvent.description == "") {
+    //   setErrorMessage("Please enter description");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.official_Web == "") {
+    //   setErrorMessage("Please enter official website URL");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.ticketURL == "") {
+    //   setErrorMessage("Please enter ticket URL");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.priceFrom == "") {
+    //   setErrorMessage("Enter price from");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.priceTo == "") {
+    //   setErrorMessage("Enter price upto");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    if (createEvent.category_name == "" || createEvent.category_id == "") {
+      setErrorMessage("Please select event category");
+      setVisibleErr(true);
+      return false;
+    }
+    if (createEvent.ticketType === 2) {
+      if (createEvent.ticketPrice === "") {
+        setErrorMessage("Please enter ticket price");
+        setVisibleErr(true);
+        return false;
+      }
+    }
+    if (createEvent.ticketAvailability === 2) {
+      if (createEvent.ticketLimit === "") {
+        setErrorMessage("Please enter ticket availability limit");
+        setVisibleErr(true);
+        return false;
+      }
+    }
+    // if (checkbox == false) {
+    //   setErrorMessage("Please accept your public venue");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    return true;
+  }
+  const onPressCreateEvent = async () => {
+    const valid = validationFrom();
+    if (valid) {
+      setVisible(true);
+      try {
+        let formData = new FormData();
+        formData.append("event_id", item?.event_id ? item?.event_id : "");
+        formData.append("event_name", createEvent?.eventName);
+        formData.append("event_type", createEvent.eventType);
+        formData.append("event_date", createEvent.date);
+        formData.append("event_start_date", createEvent.startDate);
+        formData.append("event_end_date", createEvent.endDate);
+        formData.append("event_start_time", createEvent.start_time);
+        formData.append("event_end_time", createEvent.end_time);
+        formData.append("event_location", createEvent.event_address);
+        formData.append("latitude", createEvent.event_Addr_lat);
+        formData.append("longitude", createEvent.event_Addr_long);
+        formData.append("event_address_type", 1);
+        formData.append("event_description", createEvent.description);
+        formData.append("adittional_organizers", createEvent.add_organiser);
+        formData.append("performers", createEvent.top_performer);
+        formData.append("event_category_id", createEvent.category_id);
+        formData.append("search_keyword", createEvent.category_name);
+        formData.append("event_show_type", 1); //for type inperson
+        formData.append("accept_refund_requests", createEvent.acceptRefundReq);
+        formData.append("refund_policy", createEvent.refund_policy);
+        formData.append("term_conditions", createEvent.terms_cond);
+        formData.append("include_tax", createEvent.include_tax);
+        formData.append("include_tax_amount", createEvent.tax_amount);
+        formData.append("support_email", createEvent.support_email);
+        formData.append("time_limit_purchase", createEvent.time_limit);
+        formData.append("hide_event_end_time", createEvent.hide_endTime);
+        formData.append(
+          "customize_ticket_availability_message",
+          createEvent.ticketAvailability_msg
+        );
+        formData.append(
+          "enable_best_available_feature",
+          createEvent.enable_best_feature
+        );
+        formData.append(
+          "official_website_url",
+          createEvent.embed_checkout_website
+        );
+        formData.append("slug_url", createEvent.slug_url);
+        formData.append("facebook_ads_pixel_id", createEvent.fb_adds_pixelID);
+        formData.append("google_analytics_id", createEvent.google_analysticId);
+        formData.append("google_adwords_uid", createEvent.google_adwordId);
+        formData.append("adroll_pixel_id", createEvent.adRoll_pixelID);
+        formData.append("adroll_adv_id", createEvent.adRoll_advID);
+        formData.append(
+          "confirmation_email_ticket",
+          createEvent.cnfrm_email_ticket
+        );
+        formData.append(
+          "confirmation_email_ticket_will_call",
+          createEvent.cnfrm_email_ticket_call
+        );
+        updatePic?.length > 0 &&
+          createEvent?.event_photo?.map((img, index) => {
+            return formData.append("events_image", {
+              uri: img.path,
+              type: img.mime,
+              name: img.path.substring(img.path.lastIndexOf("/") + 1),
+            });
+          });
+        createEvent?.event_video != "" &&
+          formData.append("events_video", {
+            uri: createEvent?.event_video?.path,
+            type: createEvent?.event_video?.mime,
+            name: createEvent?.event_video?.path.substring(
+              createEvent?.event_video?.path.lastIndexOf("/") + 1
+            ),
+          });
+        createEventData?.length > 0 &&
+          createEventData?.map((items) => {
+            return formData.append("event_ticket_types", {
+              event_type_name: items.ticket_title,
+              quantity: items.ticket_qty,
+              ticket_price: items.ticket_price,
+              ticket_sale_start_date: items.tckt_start_date,
+              ticket_sale_end_date: items.tckt_end_date,
+              ticket_start_sale_time: items.tckt_start_time,
+              ticket_end_sale_time: items.tckt_end_time,
+              ticket_description: items.tckt_description,
+              description_hide_buyer: items.hide_description,
+              abbypages_charge: items.abbyPagesAmt,
+              card_charge: items.cardAmt,
+              payment_options: items.payOtp,
+              total_price_for_buyer: items.totalPrice,
+              total_price_for_seller: items.youGetAmt,
+              display_remaining_inventory: items.display_inventry,
+              make_transferable: items.trasferable,
+              make_ticket_private: items.private_ticket,
+              password_required: items.password_req,
+              limit_tickets_per_order: items.ticket_limit,
+              buy_min_ticket: items.min_ticket,
+              buy_max_ticket: items.max_ticket,
+            }); ///
+          });
+        console.log("formData FormData", formData);
+        setVisible(false);
+        const { data } = await apiCall(
+          "POST",
+          ENDPOINTS.CREATE_EVENTS,
+          formData,
+          { "Content-Type": "multipart/form-data" }
+        );
+        if (data.status === 200) {
+          setVisible(false);
+          setSuccessMessage("Event added successfully");
+          if (type !== "busniess" || type !== "Edit_event") {
+            setVisibleSuccess(true);
+          }
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
+      } catch (error) {
+        setVisible(false);
+        setErrorMessage(error.message);
+        setVisibleErr(true);
+      }
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       {formView === 1 ? (
         <CreateEvent
+          setFormView={setFormView}
+          handleBackFun={handleBackFun}
           onPressOpenEventImage={onPressOpenEventImage}
           onPressOpenEventVideo={onPressOpenEventVideo}
           renderEventImage={renderEventImage}
@@ -825,6 +830,7 @@ const CreateEventView = ({ route, navigation }) => {
         <>
           {formView === 2 ? (
             <GenerateTicket
+              handleBackFun={handleBackFun}
               type={type}
               onPressNextForm={onPressNextForm}
               numbers={numbers}
@@ -855,6 +861,7 @@ const CreateEventView = ({ route, navigation }) => {
             <>
               {formView === 3 ? (
                 <StripeConnect
+                  handleBackFun={handleBackFun}
                   type={type}
                   onPressNextForm={onPressNextForm}
                   numbers={numbers}
@@ -868,6 +875,7 @@ const CreateEventView = ({ route, navigation }) => {
                 <>
                   {formView === 4 && (
                     <EventPublish
+                      handleBackFun={handleBackFun}
                       type={type}
                       onPressNextForm={onPressNextForm}
                       numbers={numbers}
@@ -875,6 +883,7 @@ const CreateEventView = ({ route, navigation }) => {
                       formView={formView}
                       createEvent={createEvent}
                       setCreateEvent={setCreateEvent}
+                      onPressCreateEvent={onPressCreateEvent}
                     />
                   )}
                 </>
@@ -883,7 +892,6 @@ const CreateEventView = ({ route, navigation }) => {
           )}
         </>
       )}
-
       <Error
         message={errorMessage}
         visible={visibleErr}
@@ -894,7 +902,7 @@ const CreateEventView = ({ route, navigation }) => {
         visible={visibleSuccess}
         closeModel={() => {
           setVisibleSuccess(false);
-          navigation.navigate("EventManagement");
+          // navigation.navigate("EventManagement");
         }}
       />
     </View>

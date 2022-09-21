@@ -62,6 +62,7 @@ const CreateEvent = (props) => {
             ? "Edit Event"
             : "Submit an Event"
         }
+        onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
       />
       <ScrollView keyboardShouldPersistTaps="always">
@@ -231,18 +232,18 @@ const CreateEvent = (props) => {
                   isVisible={props.isStartDatePicker}
                   mode="date"
                   minimumDate={new Date()}
-                  maximumDate={
-                    props?.createEvent?.endDate
-                      ? new Date(props?.createEvent?.endDate)
-                      : null
-                  }
+                  // maximumDate={
+                  //   props?.createEvent?.endDate
+                  //     ? new Date(props?.createEvent?.endDate)
+                  //     : new Date()
+                  // }
                   onConfirm={(date) => props.handleStartConfirm(date)}
                   onCancel={hideStartDatePicker}
                 />
               </TouchableOpacity>
             </>
           )}
-          {props.createEvent.eventType == 2 && (
+          {props.createEvent.eventType === 2 && (
             <>
               <Text style={styles.titlesTxt}>End Date -</Text>
               <TouchableOpacity
@@ -265,9 +266,10 @@ const CreateEvent = (props) => {
                   isVisible={props.isEndDatePicker}
                   mode="date"
                   minimumDate={
-                    props?.createEvent?.startDate
-                      ? new Date(props?.createEvent?.startDate)
-                      : new Date()
+                    // props?.createEvent?.startDate
+                    //   ? new Date(props?.createEvent?.startDate)
+                    // :
+                    new Date()
                   }
                   onConfirm={(date) => props.handleEndConfirm(date)}
                   onCancel={hideEndDatePicker}
@@ -421,7 +423,9 @@ const CreateEvent = (props) => {
                             />
                             */}
           <Text style={styles.titlesTxt}>Event Description -</Text>
-          <Text style={styles.subtitlesTxt}>What and Why? (200 character remains)</Text>
+          <Text style={styles.subtitlesTxt}>
+            What and Why? (200 character remains)
+          </Text>
           <Input
             onChangeText={(text) =>
               props.setCreateEvent({
@@ -822,39 +826,23 @@ const CreateEvent = (props) => {
           style={styles.centeredView}
         >
           <View style={styles.alertBackground}>
-            {props.contentType === "vid" ? (
-              <View style={styles.alertBox}>
-                <TouchableOpacity
-                  style={styles.profileModal}
-                  onPress={() => {
-                    props.contentType === "vid"
-                      ? props.onPressOpenEventVideo()
-                      : props.onPressOpenEventImage();
-                  }}
-                  underlayColor={"#F5F5F5"}
-                >
-                  <Image
-                    style={{ height: 40, width: 40, zIndex: 1 }}
-                    source={require("../../../Assets/image-gallery.png")}
-                  />
-                  <Text style={styles.modalItem}>Open Album</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.alertBox}>
-                <TouchableOpacity
-                  style={styles.profileModal}
-                  onPress={() => props.onPressOpenEventImage()}
-                  underlayColor={"#F5F5F5"}
-                >
-                  <Image
-                    style={{ height: 40, width: 40, zIndex: 1 }}
-                    source={require("../../../Assets/image-gallery.png")}
-                  />
-                  <Text style={styles.modalItem}>Open Album</Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            <View style={styles.alertBox}>
+              <TouchableOpacity
+                style={styles.profileModal}
+                onPress={() => {
+                  props.contentType === "vid"
+                    ? props.onPressOpenEventVideo()
+                    : props.onPressOpenEventImage();
+                }}
+                underlayColor={"#F5F5F5"}
+              >
+                <Image
+                  style={{ height: 40, width: 40, zIndex: 1 }}
+                  source={require("../../../Assets/image-gallery.png")}
+                />
+                <Text style={styles.modalItem}>Open Album</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </TouchableOpacity>
       </Modal>

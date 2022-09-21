@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TextInput,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -18,8 +17,6 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Picker } from "@react-native-community/picker";
 
 const StripeConnect = (props) => {
   return (
@@ -41,6 +38,7 @@ const StripeConnect = (props) => {
             ? "Edit Event"
             : "Submit an Event"
         }
+        onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
       />
       <ScrollView keyboardShouldPersistTaps="always">

@@ -11,11 +11,7 @@ import styles from "./styles";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import Input from "../../../Components/Input";
 import {
   actions,
@@ -50,6 +46,7 @@ const StripeConnect = (props) => {
             ? "Edit Event"
             : "Submit an Event"
         }
+        onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
       />
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -369,7 +366,10 @@ const StripeConnect = (props) => {
                 <RichEditor
                   ref={richText}
                   onChange={(descriptionText) => {
-                    console.log("descriptionText:", descriptionText);
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      cnfrm_email_ticket: descriptionText,
+                    });
                   }}
                 />
               </View>
@@ -446,7 +446,11 @@ const StripeConnect = (props) => {
                 <RichEditor
                   ref={richText}
                   onChange={(descriptionText) => {
-                    console.log("descriptionText:", descriptionText);
+                    console.log("descriptionText: ", descriptionText);
+                    props.setCreateEvent({
+                      ...props.createEvent,
+                      cnfrm_email_ticket_call: descriptionText,
+                    });
                   }}
                 />
               </View>
@@ -509,7 +513,7 @@ const StripeConnect = (props) => {
           <Button
             buttonText={"Next is what?"}
             style={styles.bttnNotwoVw}
-            onPress={() => props.onPressNextForm()}
+            onPress={() => props.onPressCreateEvent()}
           />
         </View>
       </ScrollView>

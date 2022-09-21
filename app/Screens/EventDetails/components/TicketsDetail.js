@@ -85,14 +85,6 @@ const TicketDetailsScreen = (props) => {
             {typeof selectedIndex === "number" &&
             selectedIndex < props?.ticketsDetails?.length ? (
               <View style={styles.ticketDetailVw}>
-                {/* <Text
-                  style={[
-                    styles.selectTxt,
-                    { marginTop: 0, textAlign: "left" },
-                  ]}
-                >
-                  Buyer Details
-                </Text> */}
                 <Text style={styles.ticketTxt}>
                   Ticket Number : {selectedIndex + 1} [
                   {props?.ticketsDetails[selectedIndex].ticket_Name}]
@@ -403,7 +395,7 @@ const TicketDetailsScreen = (props) => {
                   },
                 ]}
                 onPress={() =>
-                  props.onPressCancelTick(props.buyTicketModal - 1)
+                  props.onPressTicketResp(props.buyTicketModal - 1)
                 }
                 buttonText={"Back"}
               />

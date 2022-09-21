@@ -264,6 +264,18 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
   },
+  timeShownVw: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 25,
+  },
+  digitStyle: {
+    backgroundColor: "transparent",
+    width: 25,
+    height: 25,
+  },
   timeTxt: {
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
@@ -271,15 +283,21 @@ const Styles = StyleSheet.create({
     color: LIGHT_BLACK_COLOR_CODE,
     marginVertical: 2,
   },
+  percentTxt: {
+    fontSize: 12,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
+    marginTop: 6,
+    marginRight: 5,
+  },
   timeCon: {
     backgroundColor: LINE_COMMON_COLOR_CODE,
     borderRadius: 10,
-    height: 13,
+    height: 12,
   },
   timeConVw: {
     backgroundColor: YELLOW_COLOR_CODE,
-    borderTopStartRadius: 8,
-    borderBottomStartRadius: 8,
+    borderRadius: 10,
   },
   // formsTxt: {
   //   fontSize: 18,
@@ -381,16 +399,16 @@ const Styles = StyleSheet.create({
   //   color: YELLOW_COLOR_CODE,
   //   marginTop: 10,
   // },
-  // cardStyleVw: {
-  //   marginVertical: 20,
-  //   height: 50,
-  // },
-  // cardStyle: {
-  //   borderColor: "#d8d8d8",
-  //   borderWidth: 1,
-  //   borderRadius: 9,
-  //   textColor: BLACK_COLOR_CODE,
-  // },
+  cardStyleVw: {
+    marginVertical: 6,
+    height: 50,
+  },
+  cardStyle: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    textColor: BLACK_COLOR_CODE,
+  },
   modalBttnVw: {
     flexDirection: "row",
     justifyContent: "center",

@@ -41,6 +41,7 @@ const GenerateTicket = (props) => {
             ? "Edit Event"
             : "Submit an Event"
         }
+        onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
       />
       <ScrollView keyboardShouldPersistTaps="handled">

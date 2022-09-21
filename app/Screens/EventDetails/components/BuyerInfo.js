@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   Modal,
-  FlatList,
-  TouchableOpacity,
-  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
@@ -25,38 +22,12 @@ import Loader from "../../../Utils/Loader";
 import _ from "lodash";
 import Input from "../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import CountDown from "react-native-countdown-component";
 
 const BuyerInfoScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
-  const [selectedIndex, setselectedIndex] = useState(0);
-  const handleTicketInput = (key, value, index) => {
-    let NewEventTicket = [...props.ticketsDetails];
-    const ticket = NewEventTicket[index];
-    if (key == "cand_firstName") {
-      const tic = { ...ticket, cand_firstName: value };
-      NewEventTicket[index] = tic;
-    }
-    if (key == "cand_lastName") {
-      const tic = { ...ticket, cand_lastName: value };
-      NewEventTicket[index] = tic;
-    }
-    if (key == "cand_email") {
-      const tic = { ...ticket, cand_email: value };
-      NewEventTicket[index] = tic;
-    }
-    if (key === "cand_address") {
-      const tic = { ...ticket, cand_address: value };
-      NewEventTicket[index] = tic;
-    }
-    if (key == "cand_phoneNo") {
-      const tic = { ...ticket, cand_phoneNo: value };
-      NewEventTicket[index] = tic;
-    }
-    props.setTicketsDetails(NewEventTicket);
-  };
-  const timeCount = "60%";
   return (
     <Modal
       animationType="slide"
@@ -82,17 +53,42 @@ const BuyerInfoScreen = (props) => {
             </Text>
             <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
             <Text style={styles.selectTxt}>Buyers Information</Text>
-            <View>
-              <Text style={styles.timeTxt}>
-                <Text style={styles.subTitleTxt}>09:20</Text> time remains
-              </Text>
-              <View style={styles.timeCon}>
-                <View style={[styles.timeConVw, { width: timeCount }]}>
-                  <Text />
-                </View>
+            <View style={styles.straightVw}>
+              <View style={styles.timeShownVw}>
+                <CountDown
+                  until={600}
+                  size={16}
+                  onFinish={() => alert("Finished")}
+                  onChange={(timing) => {
+                    props.setPercentage(timing);
+                  }}
+                  digitStyle={styles.digitStyle}
+                  digitTxtStyle={styles.subTitleTxt}
+                  separatorStyle={{ color: BLACK_COLOR_CODE }}
+                  timeToShow={["M", "S"]}
+                  timeLabels={{}}
+                  showSeparator
+                />
+                <Text style={styles.timeTxt}>time remains</Text>
               </View>
-              <Text style={styles.timeTxt}>to complete the purchase</Text>
+              <Text style={styles.percentTxt}>
+                {Number(props?.couts).toFixed(0)}%
+              </Text>
             </View>
+            <View style={styles.timeCon}>
+              <View
+                style={[
+                  styles.timeConVw,
+                  {
+                    marginRight:
+                      props?.couts === "0.15" ? "0%" : `${props?.couts}%`,
+                  },
+                ]}
+              >
+                <Text />
+              </View>
+            </View>
+            <Text style={styles.timeTxt}>to complete the purchase</Text>
             <View style={styles.ticketDetailVw}>
               <Text
                 style={[styles.selectTxt, { marginTop: 0, textAlign: "left" }]}
@@ -106,10 +102,13 @@ const BuyerInfoScreen = (props) => {
                   InputType={null}
                   containerStyle={styles.ticketsInputVw}
                   textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                  // onChangeText={(text) => {
-                  //   handleTicketInput("cand_firstName", text, selectedIndex);
-                  // }}
-                  // value={props?.ticketsDetails[selectedIndex]?.cand_firstName}
+                  onChangeText={(text) => {
+                    props.setBuyerInfo({
+                      ...props.buyerInfo,
+                      first_name: text,
+                    });
+                  }}
+                  value={props?.buyerInfo?.first_name}
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
@@ -119,10 +118,13 @@ const BuyerInfoScreen = (props) => {
                   InputType={null}
                   containerStyle={styles.ticketsInputVw}
                   textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                  // onChangeText={(text) => {
-                  //   handleTicketInput("cand_lastName", text, selectedIndex);
-                  // }}
-                  // value={props?.ticketsDetails[selectedIndex]?.cand_lastName}
+                  onChangeText={(text) => {
+                    props.setBuyerInfo({
+                      ...props.buyerInfo,
+                      last_name: text,
+                    });
+                  }}
+                  value={props?.buyerInfo?.last_name}
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
@@ -132,10 +134,13 @@ const BuyerInfoScreen = (props) => {
                   InputType={null}
                   containerStyle={styles.ticketsInputVw}
                   textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                  // onChangeText={(text) => {
-                  //   handleTicketInput("cand_email", text, selectedIndex);
-                  // }}
-                  // value={props?.ticketsDetails[selectedIndex]?.cand_email}
+                  onChangeText={(text) => {
+                    props.setBuyerInfo({
+                      ...props.buyerInfo,
+                      email: text,
+                    });
+                  }}
+                  value={props?.buyerInfo?.email}
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
@@ -147,24 +152,26 @@ const BuyerInfoScreen = (props) => {
                     onPress={(data, details = null) => {
                       // latitude: details.geometry.location.lat,
                       // longitude: details.geometry.location.lng,
-                      // handleTicketInput(
-                      //   "cand_address",
-                      //   details.formatted_address,
-                      //   selectedIndex
-                      // );
+                      props.setBuyerInfo({
+                        ...props.buyerInfo,
+                        address: details.formatted_address,
+                      });
                     }}
-                    // value={props?.ticketsDetails[selectedIndex]?.cand_address}
+                    value={props?.buyerInfo?.address}
                     query={{
                       key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
                       language: "en",
                     }}
-                    // textInputProps={{
-                    //   placeholderTextColor: BLACK_COLOR_CODE,
-                    //   onChangeText: (text) => {
-                    //     handleTicketInput("cand_address", text, selectedIndex);
-                    //   },
-                    //   value: props?.ticketsDetails[selectedIndex]?.cand_address,
-                    // }}
+                    textInputProps={{
+                      placeholderTextColor: BLACK_COLOR_CODE,
+                      onChangeText: (text) => {
+                        props.setBuyerInfo({
+                          ...props.buyerInfo,
+                          address: text,
+                        });
+                      },
+                      value: props?.buyerInfo?.address,
+                    }}
                     styles={{
                       textInputContainer: {
                         fontFamily: FONT_FAMILY_REGULAR,
@@ -195,10 +202,13 @@ const BuyerInfoScreen = (props) => {
                   keyboardType={"number-pad"}
                   containerStyle={styles.ticketsInputVw}
                   textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                  // onChangeText={(text) => {
-                  //   handleTicketInput("cand_phoneNo", text, selectedIndex);
-                  // }}
-                  // value={props?.ticketsDetails[selectedIndex]?.cand_phoneNo}
+                  onChangeText={(text) => {
+                    props.setBuyerInfo({
+                      ...props.buyerInfo,
+                      phoneNo: text,
+                    });
+                  }}
+                  value={props?.buyerInfo?.phoneNo}
                 />
               </View>
             </View>
@@ -250,7 +260,7 @@ const BuyerInfoScreen = (props) => {
                   },
                 ]}
                 onPress={() =>
-                  props.onPressCancelTick(props.buyTicketModal - 1)
+                  props.onPressTicketResp(props.buyTicketModal - 1)
                 }
                 buttonText={"Back"}
               />

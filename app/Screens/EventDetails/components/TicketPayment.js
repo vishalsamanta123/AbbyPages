@@ -14,6 +14,7 @@ import moment from "moment";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
+  BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
@@ -21,19 +22,23 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Loader from "../../../Utils/Loader";
-import Input from "../../../Components/Input";
-import InputSpinner from "react-native-input-spinner";
+import { CardField } from "@stripe/stripe-react-native";
+import CountDown from "react-native-countdown-component";
+
 import _ from "lodash";
-const BuyTicketScreen = (props) => {
+import Input from "../../../Components/Input";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+const TicketPaymentScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
-
+  const [newPercentage, setNewPercentage] = useState();
+  const couts = newPercentage * 0.15;
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={props.buyTicketModal === 3}
+      visible={props.buyTicketModal === 4}
       onRequestClose={() => {
         props.setBuyTicketModal("");
       }}
@@ -55,6 +60,105 @@ const BuyTicketScreen = (props) => {
             <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
             <Text style={styles.selectTxt}>Ticket Payment</Text>
             <>
+              <View style={styles.straightVw}>
+                <View style={styles.timeShownVw}>
+                  <CountDown
+                    until={props?.percentage}
+                    size={16}
+                    onFinish={() => alert("Finished")}
+                    onChange={(timing) => {
+                      setNewPercentage(timing);
+                    }}
+                    digitStyle={styles.digitStyle}
+                    digitTxtStyle={styles.subTitleTxt}
+                    separatorStyle={{ color: BLACK_COLOR_CODE }}
+                    timeToShow={["M", "S"]}
+                    timeLabels={{}}
+                    showSeparator
+                  />
+                  <Text style={styles.timeTxt}>time remains</Text>
+                </View>
+                <Text style={styles.percentTxt}>
+                  {Number(couts).toFixed(0)}%
+                </Text>
+              </View>
+              <View style={styles.timeCon}>
+                <View
+                  style={[
+                    styles.timeConVw,
+                    {
+                      marginRight: couts === "0.15" ? "0%" : `${couts}%`,
+                    },
+                  ]}
+                >
+                  <Text />
+                </View>
+              </View>
+              <Text style={styles.timeTxt}>to complete the purchase</Text>
+              <View style={styles.ticketDetailVw}>
+                <Text
+                  style={[
+                    styles.selectTxt,
+                    { marginTop: 0, textAlign: "left" },
+                  ]}
+                >
+                  Card Details
+                </Text>
+                <CardField
+                  postalCodeEnabled={true}
+                  placeholders={{
+                    number: "Number",
+                    expiration: "Expiry",
+                    cvc: "Cvv",
+                    postalCode: "ZipCode",
+                  }}
+                  style={styles.cardStyleVw}
+                  cardStyle={styles.cardStyle}
+                  onCardChange={(cardDetails) => {
+                    props.setBuyerInfo({
+                      ...props.buyerInfo,
+                      brand: cardDetails.brand,
+                      expiryMonth: cardDetails.expiryMonth,
+                      expiryYear: cardDetails.expiryYear,
+                      last4: cardDetails.last4,
+                      postalCode: cardDetails.postalCode,
+                      validCVC: cardDetails.validCVC,
+                      validExpiryDate: cardDetails.validExpiryDate,
+                      validNumber: cardDetails.validNumber,
+                    });
+                  }}
+                />
+                <Text style={[styles.subTitleTxt, { marginTop: 12 }]}>
+                  Have a discount code?
+                </Text>
+                <View style={styles.straightVw}>
+                  <Input
+                    placeholder=""
+                    keyboardType={"number-pad"}
+                    InputType={null}
+                    containerStyle={[
+                      styles.smallInputVw,
+                      { width: "56%", height: 42 },
+                    ]}
+                    textInputStyle={{
+                      marginTop: 0,
+                      paddingLeft: 8,
+                      paddingRight: 12,
+                    }}
+                    onChangeText={(text) => {
+                      props.setBuyerInfo({
+                        ...props.buyerInfo,
+                        dis_code: text,
+                      });
+                    }}
+                    value={props?.buyerInfo?.dis_code}
+                  />
+                  <Button
+                    buttonText={"Apply"}
+                    style={[styles.modalBttn, { width: "39%" }]}
+                  />
+                </View>
+              </View>
               <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
                 Ticket Total
               </Text>
@@ -104,18 +208,17 @@ const BuyTicketScreen = (props) => {
                   },
                 ]}
                 onPress={() =>
-                  props.onPressCancelTick(props.buyTicketModal - 1)
+                  props.onPressTicketResp(props.buyTicketModal - 1)
                 }
                 buttonText={"Back"}
               />
-              {/* {props?.eventDetails?.ticket_price > 0 && ( */}
               <Button
                 style={styles.modalBttn}
                 buttonLabelStyle={styles.modalBttnTxt}
                 onPress={() => {
-                  props.onPressTicketResp(2);
+                  // props.onPressTicketResp(2);
                 }}
-                buttonText={"Next"}
+                buttonText={"Pay"}
               />
             </View>
           </View>
@@ -124,7 +227,7 @@ const BuyTicketScreen = (props) => {
     </Modal>
   );
 };
-export default BuyTicketScreen;
+export default TicketPaymentScreen;
 {
   /* {props?.resposes === "" || props?.resposes === 1 ? (
             <>
