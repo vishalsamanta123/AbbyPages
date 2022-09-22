@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,11 +6,9 @@ import {
   Modal,
   Alert,
   FlatList,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TextInput,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -21,11 +19,11 @@ import {
   BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
 } from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import moment from "moment";
 
 const CreateEvent = (props) => {
   const hideDatePicker = () => {
@@ -147,12 +145,14 @@ const CreateEvent = (props) => {
                     props.setCreateEvent({
                       ...props.createEvent,
                       eventType: 1,
+                      startDate: "",
+                      endDate: "",
                     })
                   }
                 >
                   <Image
                     source={
-                      props.createEvent.eventType == 1
+                      props?.createEvent?.eventType == 1
                         ? require("../../../Assets/radio_circled_checked.png")
                         : require("../../../Assets/radio_circled_unchecked.png")
                     }
@@ -172,7 +172,7 @@ const CreateEvent = (props) => {
                 >
                   <Image
                     source={
-                      props.createEvent.eventType == 2
+                      props?.createEvent?.eventType == 2
                         ? require("../../../Assets/radio_circled_checked.png")
                         : require("../../../Assets/radio_circled_unchecked.png")
                     }
@@ -183,7 +183,7 @@ const CreateEvent = (props) => {
               </View>
             </View>
           </View>
-          {props.createEvent.eventType !== 2 ? (
+          {props?.createEvent?.eventType !== 2 ? (
             <>
               <Text style={styles.titlesTxt}>Event Date -</Text>
               <TouchableOpacity
@@ -232,11 +232,6 @@ const CreateEvent = (props) => {
                   isVisible={props.isStartDatePicker}
                   mode="date"
                   minimumDate={new Date()}
-                  // maximumDate={
-                  //   props?.createEvent?.endDate
-                  //     ? new Date(props?.createEvent?.endDate)
-                  //     : new Date()
-                  // }
                   onConfirm={(date) => props.handleStartConfirm(date)}
                   onCancel={hideStartDatePicker}
                 />
@@ -265,12 +260,7 @@ const CreateEvent = (props) => {
                 <DateTimePickerModal
                   isVisible={props.isEndDatePicker}
                   mode="date"
-                  minimumDate={
-                    // props?.createEvent?.startDate
-                    //   ? new Date(props?.createEvent?.startDate)
-                    // :
-                    new Date()
-                  }
+                  minimumDate={new Date()}
                   onConfirm={(date) => props.handleEndConfirm(date)}
                   onCancel={hideEndDatePicker}
                 />
@@ -389,7 +379,7 @@ const CreateEvent = (props) => {
                   event_address: text,
                 });
               },
-              value: props.createEvent.event_address,
+              value: props?.createEvent?.event_address,
             }}
             query={{
               key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
@@ -708,13 +698,18 @@ const CreateEvent = (props) => {
           <View style={styles.privacyCon}>
             <TouchableOpacity
               style={[styles.CameraImgView, { flex: 0 }]}
-              onPress={() => props.onPressPublicVenue()}
+              onPress={() =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  event_address_type: 1,
+                })
+              }
             >
               <View>
                 <Image
                   style={{ width: 24, height: 24 }}
                   source={
-                    !props.checkbox
+                    props?.createEvent?.event_address_type === 1
                       ? require("../../../Assets/checked_circled_icon_box.png")
                       : require("../../../Assets/unchecked_circled_icon_box.png")
                   }
@@ -726,13 +721,18 @@ const CreateEvent = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.CameraImgView}
-              onPress={() => props.onPressPublicVenue()}
+              onPress={() =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  event_address_type: 2,
+                })
+              }
             >
               <View>
                 <Image
                   style={{ width: 24, height: 24 }}
                   source={
-                    props.checkbox
+                    props?.createEvent?.event_address_type === 2
                       ? require("../../../Assets/checked_circled_icon_box.png")
                       : require("../../../Assets/unchecked_circled_icon_box.png")
                   }

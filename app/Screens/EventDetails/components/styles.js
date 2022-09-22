@@ -64,9 +64,11 @@ const Styles = StyleSheet.create({
   btncon: {
     paddingVertical: 15,
     backgroundColor: YELLOW_COLOR_CODE,
-    borderRadius: 8,
+    borderRadius: 12,
     marginTop: 10,
     marginHorizontal: 20,
+    borderWidth: 0.8,
+    borderColor: LIGHT_GREY_COLOR_CODE,
   },
   modalCon: {
     flex: 1,
@@ -142,6 +144,22 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
     marginLeft: 8,
+  },
+  addToCalImg: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
+  },
+  addToCalTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  addToCalVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
   },
   respnsesBttnVw: {
     justifyContent: "flex-end",

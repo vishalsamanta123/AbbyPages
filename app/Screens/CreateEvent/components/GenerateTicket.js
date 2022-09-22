@@ -22,6 +22,16 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 
 const GenerateTicket = (props) => {
+  const [selectedIndex, setSelectedIndex] = useState({
+    indexNo: "",
+    keyPress: "",
+  });
+  const closeDate = () => {
+    setSelectedIndex({
+      indexNo: "",
+      keyPress: "",
+    });
+  };
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
       <Header
@@ -142,10 +152,22 @@ const GenerateTicket = (props) => {
                           <View style={styles.datesColumn}>
                             <View style={styles.straightFlex}>
                               <TouchableOpacity
-                                onPress={() => props.setStartDateModal(true)}
+                                onPress={() =>
+                                  setSelectedIndex({
+                                    ...selectedIndex,
+                                    indexNo: index,
+                                    keyPress: "tckt_start_date",
+                                  })
+                                }
                                 style={styles.datesCon}
                               >
-                                <Text>Start Sale Date</Text>
+                                <Text>
+                                  {props?.createEventData[index]
+                                    ?.tckt_start_date != ""
+                                    ? props?.createEventData[index]
+                                        ?.tckt_start_date
+                                    : "Start Sale Date"}
+                                </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
@@ -153,74 +175,142 @@ const GenerateTicket = (props) => {
                                 />
                               </TouchableOpacity>
                               <DateTimePickerModal
-                                isVisible={props.startDateModal}
+                                isVisible={
+                                  index === selectedIndex.indexNo &&
+                                  selectedIndex.keyPress === "tckt_start_date"
+                                }
                                 mode="date"
                                 minimumDate={new Date()}
-                                onConfirm={(date) =>
-                                  props.handleStartDate(date)
-                                }
-                                onCancel={props.handleStartDate()}
+                                onConfirm={(datetime) => {
+                                  closeDate();
+                                  props.handleTicketDateTime(
+                                    "tckt_start_date",
+                                    datetime,
+                                    index
+                                  );
+                                }}
+                                onCancel={() => closeDate()}
                               />
                               <TouchableOpacity
-                                onPress={() => props.setEndDateModal(true)}
+                                onPress={() =>
+                                  setSelectedIndex({
+                                    ...selectedIndex,
+                                    indexNo: index,
+                                    keyPress: "tckt_end_date",
+                                  })
+                                }
                                 style={styles.datesCon}
                               >
-                                <Text>End Sale Date</Text>
+                                <Text>
+                                  {props?.createEventData[index]
+                                    ?.tckt_end_date != ""
+                                    ? props?.createEventData[index]
+                                        ?.tckt_end_date
+                                    : "End Sale Date"}
+                                </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
                                   source={require("../../../Assets/calendar_icon.png")}
                                 />
                                 <DateTimePickerModal
-                                  isVisible={props.endDateModal}
+                                  isVisible={
+                                    index === selectedIndex.indexNo &&
+                                    selectedIndex.keyPress === "tckt_end_date"
+                                  }
                                   mode="date"
                                   minimumDate={new Date()}
-                                  onConfirm={(date) =>
-                                    props.handleEndDate(date)
-                                  }
-                                  onCancel={props.handleEndDate()}
+                                  onConfirm={(datetime) => {
+                                    closeDate();
+                                    props.handleTicketDateTime(
+                                      "tckt_end_date",
+                                      datetime,
+                                      index
+                                    );
+                                  }}
+                                  onCancel={() => closeDate()}
                                 />
                               </TouchableOpacity>
                             </View>
                             <View style={styles.straightFlex}>
                               <TouchableOpacity
-                                onPress={() => props.setStartTimeModal(true)}
+                                onPress={() =>
+                                  setSelectedIndex({
+                                    ...selectedIndex,
+                                    indexNo: index,
+                                    keyPress: "tckt_start_time",
+                                  })
+                                }
                                 style={styles.datesCon}
                               >
-                                <Text>Start Sale Time</Text>
+                                <Text>
+                                  {props?.createEventData[index]
+                                    ?.tckt_start_time != ""
+                                    ? props?.createEventData[index]
+                                        ?.tckt_start_time
+                                    : "Start Sale Time"}
+                                </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
                                   source={require("../../../Assets/calendar_icon.png")}
                                 />
                                 <DateTimePickerModal
-                                  isVisible={props.startTimeModal}
-                                  mode="date"
-                                  minimumDate={new Date()}
-                                  onConfirm={(date) =>
-                                    props.handleStartTime(date)
+                                  isVisible={
+                                    index === selectedIndex.indexNo &&
+                                    selectedIndex.keyPress === "tckt_start_time"
                                   }
-                                  onCancel={props.handleStartTime()}
+                                  mode="time"
+                                  minimumDate={new Date()}
+                                  onConfirm={(datetime) => {
+                                    closeDate();
+                                    props.handleTicketDateTime(
+                                      "tckt_start_time",
+                                      datetime,
+                                      index
+                                    );
+                                  }}
+                                  onCancel={() => closeDate()}
                                 />
                               </TouchableOpacity>
                               <TouchableOpacity
-                                onPress={() => props.setEndTimeModal(true)}
+                                onPress={() =>
+                                  setSelectedIndex({
+                                    ...selectedIndex,
+                                    indexNo: index,
+                                    keyPress: "tckt_end_time",
+                                  })
+                                }
                                 style={styles.datesCon}
                               >
-                                <Text>End Sale Time</Text>
+                                <Text>
+                                  {props?.createEventData[index]
+                                    ?.tckt_end_time != ""
+                                    ? props?.createEventData[index]
+                                        ?.tckt_end_time
+                                    : "End Sale Time"}
+                                </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
                                   source={require("../../../Assets/calendar_icon.png")}
                                 />
                                 <DateTimePickerModal
-                                  isVisible={props.endTimeModal}
-                                  mode="date"
-                                  minimumDate={new Date()}
-                                  onConfirm={(date) =>
-                                    props.handleEndTime(date)
+                                  isVisible={
+                                    index === selectedIndex.indexNo &&
+                                    selectedIndex.keyPress === "tckt_end_time"
                                   }
-                                  onCancel={props.handleEndTime()}
+                                  mode="time"
+                                  minimumDate={new Date()}
+                                  onConfirm={(datetime) => {
+                                    closeDate();
+                                    props.handleTicketDateTime(
+                                      "tckt_end_time",
+                                      datetime,
+                                      index
+                                    );
+                                  }}
+                                  onCancel={() => closeDate()}
                                 />
                               </TouchableOpacity>
                             </View>

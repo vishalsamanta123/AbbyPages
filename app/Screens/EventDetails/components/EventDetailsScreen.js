@@ -16,6 +16,10 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
+  GREY_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  LIGHT_GREY_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -110,13 +114,35 @@ const EventListingScreen = (props) => {
             </Text>
           </View>
           <Button
-            style={styles.btncon}
-            buttonText={
+            style={[
+              styles.btncon,
+              {
+                backgroundColor:
+                  props.eventDetails?.user_interested === 0
+                    ? LINE_COMMON_COLOR_CODE
+                    : YELLOW_COLOR_CODE,
+                borderColor:
+                  props.eventDetails?.user_interested === 0
+                    ? GREY_COLOR_CODE
+                    : LIGHT_GREY_COLOR_CODE,
+              },
+            ]}
+            buttonText={"Interested"}
+            showIcon={true}
+            iconName={
               props.eventDetails?.user_interested === 0
-                ? "Are you interested?"
-                : "Interested"
+                ? require("../../../Assets/star_icon_filled.png")
+                : require("../../../Assets/dropdown_icon1.png")
             }
-            onPress={() => props.setInterstedModal(true)}
+            tintColor={LIGHT_BLACK_COLOR_CODE}
+            onPress={() => {
+              if (props.eventDetails?.user_interested === 0) {
+                props.setChangeInterest(1);
+                props.onInterestResp(1);
+              } else {
+                props.setInterstedModal(true);
+              }
+            }}
           />
           <Button
             style={styles.btncon}
@@ -231,6 +257,20 @@ const EventListingScreen = (props) => {
                     : require("../../../Assets/radio_circled_unchecked.png")
                 }
               />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.setAddtoCaldr(!props.addtoCaldr)}
+              style={styles.addToCalVw}
+            >
+              <Image
+                style={styles.addToCalImg}
+                source={
+                  props.addtoCaldr
+                    ? require("../../../Assets/checked_circled_icon_box.png")
+                    : require("../../../Assets/unchecked_circled_icon_box.png")
+                }
+              />
+              <Text style={styles.addToCalTxt}>Add to calender</Text>
             </TouchableOpacity>
             <View style={styles.respnsesBttnVw}>
               <Button

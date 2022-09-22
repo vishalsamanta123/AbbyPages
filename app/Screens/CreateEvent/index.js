@@ -23,6 +23,12 @@ import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
 
 const CreateEventView = ({ route, navigation }) => {
+  const { type, item, img_url, detail } = route?.params || {
+    type: "",
+    item: "",
+    img_url: "",
+    detail: "",
+  };
   const [createEventData, setCreateEventData] = useState([
     {
       ticket_title: "",
@@ -49,15 +55,8 @@ const CreateEventView = ({ route, navigation }) => {
       youGetAmt: "",
     },
   ]);
-  // console.log("createEventDatacreateEventData: ", createEventData);
   const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   const isFocused = useIsFocused();
-  const { type, item, img_url, detail } = route?.params || {
-    type: "",
-    item: "",
-    img_url: "",
-    detail: "",
-  };
   const [eventCategoryModalVisible, setEventCategoryModalVisible] =
     useState(false);
   const [categoryListData, setCategoryListData] = useState("");
@@ -83,58 +82,60 @@ const CreateEventView = ({ route, navigation }) => {
   const [endDateModal, setEndDateModal] = useState(false);
   const [startTimeModal, setStartTimeModal] = useState(false);
   const [endTimeModal, setEndTimeModal] = useState(false);
+
   const [createEvent, setCreateEvent] = useState({
     event_photo: [],
+    event_video: "", //new
     eventName: "",
+    eventType: 1,
     date: "",
+    startDate: "",
+    endDate: "",
     start_time: "",
     end_time: "",
-    find_me_in: "",
-    find_me_lat: "",
-    find_me_long: "",
-    businessName: "",
     event_address: "",
     event_Addr_lat: "",
     event_Addr_long: "",
     description: "",
+    add_organiser: "", //new
+    top_performer: "", //new
+    category_id: "",
+    category_name: "",
+    event_address_type: 1,
+    acceptRefundReq: 0, //new
+    refund_policy: "", //new
+    terms_cond: "", //new
+    include_tax: 0, //new
+    tax_amount: "", //new
+    support_email: "", //new
+    time_limit: 0, //new
+    hide_endTime: 0, //new
+    ticketAvailability_msg: 0, //new
+    enable_best_feature: 0, //new
+    embed_checkout_website: "", //new
+    slug_url: "", //new
+    fb_adds_pixelID: "", //new
+    google_analysticId: "", //new
+    google_adwordId: "", //new
+    adRoll_pixelID: "", //new
+    adRoll_advID: "", //new
+
+    //not using
+    find_me_in: "",
+    find_me_lat: "",
+    find_me_long: "",
+    businessName: "",
     official_Web: "",
     ticketURL: "",
     priceFrom: "",
     priceTo: "",
-    category_name: "",
-    category_id: "",
     checkbox_venue: "",
-    eventType: "",
     ticketType: "",
     ticketPrice: "",
     ticketAvailability: "",
     ticketLimit: "",
-    endDate: "",
-    startDate: "",
-
-    //new
-    event_video: "",
-    top_performer: "",
-    add_organiser: "",
-    acceptRefundReq: 0,
-    refund_policy: "",
-    terms_cond: "",
-    include_tax: 0,
-    support_email: "",
-    tax_amount: "",
-    time_limit: 0,
-    hide_endTime: 0,
-    ticketAvailability_msg: 0,
-    enable_best_feature: 0,
-    embed_checkout_website: "",
-    slug_url: "",
-    fb_adds_pixelID: "",
-    google_analysticId: "",
-    google_adwordId: "",
-    adRoll_pixelID: "",
-    adRoll_advID: "",
-    email_Mysend: 0,
-    callmail_Mysend: 0,
+    email_Mysend: 0, //new
+    callmail_Mysend: 0, //new
   });
   useFocusEffect(
     React.useCallback(() => {
@@ -147,68 +148,68 @@ const CreateEventView = ({ route, navigation }) => {
   );
   const getFormDatas = async () => {
     setVisible(true);
-    setCreateEvent({
-      event_photo: item?.events_image ? item?.events_image : [],
-      eventName: item?.event_name ? item?.event_name : "",
-      date: item?.event_date
-        ? moment.unix(item?.event_date).format("MM/DD/YYYY")
-        : "",
-      start_time: item?.event_start_time ? item?.event_start_time : "",
-      end_time: item?.event_end_time ? item?.event_end_time : "",
-      find_me_in: item?.near_by_address ? item?.near_by_address : "",
-      find_me_lat: "",
-      find_me_long: "",
-      businessName: item?.business_name ? item?.business_name : "",
-      event_address: item?.event_location ? item?.event_location : "",
-      event_Addr_lat: item?.latitude ? item?.latitude : "",
-      event_Addr_long: item?.longitude ? item?.longitude : "",
-      description: item?.event_description ? item?.event_description : "",
-      official_Web: item?.official_website_url
-        ? item?.official_website_url
-        : "",
-      ticketURL: item?.tickets_url ? item?.tickets_url : "",
-      priceFrom: item?.price_range_from ? item?.price_range_from : "",
-      priceTo: item?.price_range_to ? item?.price_range_to : "",
-      category_name: detail?.category_name ? detail?.category_name : "",
-      category_id: item?.event_category_id ? item?.event_category_id : "",
-      checkbox_venue: "",
-      eventType: item?.event_type ? item?.event_type : 1,
-      ticketType: item?.ticket_type ? item?.ticket_type : 1,
-      ticketPrice: item?.ticket_price ? item?.ticket_price : "",
-      ticketAvailability: item?.ticket_availability
-        ? item?.ticket_availability
-        : 1,
-      ticketLimit: item?.total_ticket ? item?.total_ticket : "",
-      endDate: item?.event_end_date
-        ? moment.unix(item?.event_end_date).format("MM/DD/YYYY")
-        : "",
-      startDate: item?.event_start_date
-        ? moment.unix(item?.event_start_date).format("MM/DD/YYYY")
-        : "",
-      //new
-      event_video: "",
-      add_organiser: "",
-      top_performer: "",
-      acceptRefundReq: 0,
-      refund_policy: "",
-      terms_cond: "",
-      include_tax: 0,
-      support_email: "",
-      tax_amount: "",
-      time_limit: 0,
-      hide_endTime: 0,
-      ticketAvailability_msg: 0,
-      enable_best_feature: 0,
-      embed_checkout_website: "",
-      slug_url: "",
-      fb_adds_pixelID: "",
-      google_analysticId: "",
-      google_adwordId: "",
-      adRoll_pixelID: "",
-      adRoll_advID: "",
-      email_Mysend: 0,
-      callmail_Mysend: 0,
-    });
+    // setCreateEvent({
+    //   event_photo: item?.events_image ? item?.events_image : [],
+    //   eventName: item?.event_name ? item?.event_name : "",
+    //   date: item?.event_date
+    //     ? moment.unix(item?.event_date).format("MM/DD/YYYY")
+    //     : "",
+    //   start_time: item?.event_start_time ? item?.event_start_time : "",
+    //   end_time: item?.event_end_time ? item?.event_end_time : "",
+    //   find_me_in: item?.near_by_address ? item?.near_by_address : "",
+    //   find_me_lat: "",
+    //   find_me_long: "",
+    //   businessName: item?.business_name ? item?.business_name : "",
+    //   event_address: item?.event_location ? item?.event_location : "",
+    //   event_Addr_lat: item?.latitude ? item?.latitude : "",
+    //   event_Addr_long: item?.longitude ? item?.longitude : "",
+    //   description: item?.event_description ? item?.event_description : "",
+    //   official_Web: item?.official_website_url
+    //     ? item?.official_website_url
+    //     : "",
+    //   ticketURL: item?.tickets_url ? item?.tickets_url : "",
+    //   priceFrom: item?.price_range_from ? item?.price_range_from : "",
+    //   priceTo: item?.price_range_to ? item?.price_range_to : "",
+    //   category_name: detail?.category_name ? detail?.category_name : "",
+    //   category_id: item?.event_category_id ? item?.event_category_id : "",
+    //   checkbox_venue: "",
+    //   eventType: item?.event_type ? item?.event_type : 1,
+    //   ticketType: item?.ticket_type ? item?.ticket_type : 1,
+    //   ticketPrice: item?.ticket_price ? item?.ticket_price : "",
+    //   ticketAvailability: item?.ticket_availability
+    //     ? item?.ticket_availability
+    //     : 1,
+    //   ticketLimit: item?.total_ticket ? item?.total_ticket : "",
+    //   endDate: item?.event_end_date
+    //     ? moment.unix(item?.event_end_date).format("MM/DD/YYYY")
+    //     : "",
+    //   startDate: item?.event_start_date
+    //     ? moment.unix(item?.event_start_date).format("MM/DD/YYYY")
+    //     : "",
+    //   //new
+    //   event_video: "",
+    //   add_organiser: "",
+    //   top_performer: "",
+    //   acceptRefundReq: 0,
+    //   refund_policy: "",
+    //   terms_cond: "",
+    //   include_tax: 0,
+    //   support_email: "",
+    //   tax_amount: "",
+    //   time_limit: 0,
+    //   hide_endTime: 0,
+    //   ticketAvailability_msg: 0,
+    //   enable_best_feature: 0,
+    //   embed_checkout_website: "",
+    //   slug_url: "",
+    //   fb_adds_pixelID: "",
+    //   google_analysticId: "",
+    //   google_adwordId: "",
+    //   adRoll_pixelID: "",
+    //   adRoll_advID: "",
+    //   email_Mysend: 0,
+    //   callmail_Mysend: 0,
+    // });
     setVisible(false);
   };
   const getCategoryList = async () => {
@@ -231,8 +232,6 @@ const CreateEventView = ({ route, navigation }) => {
       height: windowHeight / 2,
       mediaType: "video",
     }).then((video) => {
-      console.log("video: ", video);
-      // setUpdatePic(image);
       setCreateEvent({
         ...createEvent,
         event_video: video,
@@ -247,6 +246,7 @@ const CreateEventView = ({ route, navigation }) => {
       height: windowHeight / 2,
       multiple: true,
       cropping: true,
+      mediaType: "photo",
     }).then((image) => {
       setUpdatePic(image);
       if (createEvent?.event_photo?.length > 0) {
@@ -259,6 +259,7 @@ const CreateEventView = ({ route, navigation }) => {
           event_photo: image,
         });
       }
+
       setEventModalVisible(false);
       setContentType("");
     });
@@ -276,6 +277,7 @@ const CreateEventView = ({ route, navigation }) => {
     setCreateEvent({
       ...createEvent,
       startDate: value,
+      date: value,
     });
     setIsStartDatePicker(false);
   };
@@ -363,9 +365,6 @@ const CreateEventView = ({ route, navigation }) => {
         <Text style={styles.categoryItemTxt}>{item.name}</Text>
       </TouchableOpacity>
     );
-  };
-  const onPressPublicVenue = () => {
-    SetCheckBox(!checkbox);
   };
   const onPressNextForm = () => {
     // const valid = validationFrom();
@@ -519,18 +518,32 @@ const CreateEventView = ({ route, navigation }) => {
     }
     setCreateEventData(NewEventTicket);
   };
-  const handleStartDate = () => {
-    setStartDateModal(false);
+  const handleTicketDateTime = (key, datetime, index) => {
+    let NewEventTicket = [...createEventData];
+    const ticket = NewEventTicket[index];
+    if (key == "tckt_start_date") {
+      const startDate = moment(datetime).format("MM/DD/YYYY");
+      const tic = { ...ticket, tckt_start_date: startDate };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "tckt_end_date") {
+      const endDate = moment(datetime).format("MM/DD/YYYY");
+      const tic = { ...ticket, tckt_end_date: endDate };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "tckt_start_time") {
+      const startTime = moment(datetime).format("h:mm a");
+      const tic = { ...ticket, tckt_start_time: startTime };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "tckt_end_time") {
+      const endTime = moment(datetime).format("h:mm a");
+      const tic = { ...ticket, tckt_end_time: endTime };
+      NewEventTicket[index] = tic;
+    }
+    setCreateEventData(NewEventTicket);
   };
-  const handleEndDate = () => {
-    setEndDateModal(false);
-  };
-  const handleStartTime = () => {
-    setStartTimeModal(false);
-  };
-  const handleEndTime = () => {
-    setEndTimeModal(false);
-  };
+
   const handleCheckBoxesOfStripe = (key, value) => {
     if (key === "acceptRefundReq") {
       setCreateEvent({
@@ -550,44 +563,49 @@ const CreateEventView = ({ route, navigation }) => {
     setFormView(1);
   };
   function validationFrom() {
-    if (createEvent?.event_photo?.length == 0) {
+    if (createEvent?.event_photo?.length === 0) {
       setErrorMessage("Please select event image");
       setVisibleErr(true);
       return false;
     }
-    if (createEvent.eventName == "") {
-      setErrorMessage("Please enter event name");
+    if (createEvent?.event_video === "") {
+      setErrorMessage("Please select event video");
       setVisibleErr(true);
       return false;
     }
-    if (createEvent.eventType === 2) {
-      if (createEvent.startDate == "") {
-        setErrorMessage("Please enter event start date");
-        setVisibleErr(true);
-        return false;
-      }
-      if (createEvent.endDate == "") {
-        setErrorMessage("Please enter event end date");
-        setVisibleErr(true);
-        return false;
-      }
-    } else {
-      if (createEvent.date == "") {
-        setErrorMessage("Please select event date");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    if (createEvent.start_time == "") {
-      setErrorMessage("Please select start time");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.end_time == "") {
-      setErrorMessage("Please select end time");
-      setVisibleErr(true);
-      return false;
-    }
+    // if (createEvent.eventName == "") {
+    //   setErrorMessage("Please enter event name");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.eventType === 2) {
+    //   if (createEvent.startDate == "") {
+    //     setErrorMessage("Please enter event start date");
+    //     setVisibleErr(true);
+    //     return false;
+    //   }
+    //   if (createEvent.endDate == "") {
+    //     setErrorMessage("Please enter event end date");
+    //     setVisibleErr(true);
+    //     return false;
+    //   }
+    // } else {
+    //   if (createEvent.date == "") {
+    //     setErrorMessage("Please select event date");
+    //     setVisibleErr(true);
+    //     return false;
+    //   }
+    // }
+    // if (createEvent.start_time == "") {
+    //   setErrorMessage("Please select start time");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    // if (createEvent.end_time == "") {
+    //   setErrorMessage("Please select end time");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
     // if (createEvent.find_me_in == "") {
     //   setErrorMessage("Please enter nearby location");
     //   setVisibleErr(true);
@@ -598,11 +616,11 @@ const CreateEventView = ({ route, navigation }) => {
     //   setVisibleErr(true);
     //   return false;
     // }
-    if (createEvent.event_address == "") {
-      setErrorMessage("Please enter event address");
-      setVisibleErr(true);
-      return false;
-    }
+    // if (createEvent.event_address == "") {
+    //   setErrorMessage("Please enter event address");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
     // if (createEvent.description == "") {
     //   setErrorMessage("Please enter description");
     //   setVisibleErr(true);
@@ -628,29 +646,24 @@ const CreateEventView = ({ route, navigation }) => {
     //   setVisibleErr(true);
     //   return false;
     // }
-    if (createEvent.category_name == "" || createEvent.category_id == "") {
-      setErrorMessage("Please select event category");
-      setVisibleErr(true);
-      return false;
-    }
-    if (createEvent.ticketType === 2) {
-      if (createEvent.ticketPrice === "") {
-        setErrorMessage("Please enter ticket price");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    if (createEvent.ticketAvailability === 2) {
-      if (createEvent.ticketLimit === "") {
-        setErrorMessage("Please enter ticket availability limit");
-        setVisibleErr(true);
-        return false;
-      }
-    }
-    // if (checkbox == false) {
-    //   setErrorMessage("Please accept your public venue");
+    // if (createEvent.category_name == "" || createEvent.category_id == "") {
+    //   setErrorMessage("Please select event category");
     //   setVisibleErr(true);
     //   return false;
+    // }
+    // if (createEvent.ticketType === 2) {
+    //   if (createEvent.ticketPrice === "") {
+    //     setErrorMessage("Please enter ticket price");
+    //     setVisibleErr(true);
+    //     return false;
+    //   }
+    // }
+    // if (createEvent.ticketAvailability === 2) {
+    //   if (createEvent.ticketLimit === "") {
+    //     setErrorMessage("Please enter ticket availability limit");
+    //     setVisibleErr(true);
+    //     return false;
+    //   }
     // }
     return true;
   }
@@ -660,7 +673,7 @@ const CreateEventView = ({ route, navigation }) => {
       setVisible(true);
       try {
         let formData = new FormData();
-        formData.append("event_id", item?.event_id ? item?.event_id : "");
+        formData.append("event_id", item?.event_id ? item?.event_id : "0");
         formData.append("event_name", createEvent?.eventName);
         formData.append("event_type", createEvent.eventType);
         formData.append("event_date", createEvent.date);
@@ -671,7 +684,7 @@ const CreateEventView = ({ route, navigation }) => {
         formData.append("event_location", createEvent.event_address);
         formData.append("latitude", createEvent.event_Addr_lat);
         formData.append("longitude", createEvent.event_Addr_long);
-        formData.append("event_address_type", 1);
+        formData.append("event_address_type", createEvent.event_address_type);
         formData.append("event_description", createEvent.description);
         formData.append("adittional_organizers", createEvent.add_organiser);
         formData.append("performers", createEvent.top_performer);
@@ -684,7 +697,10 @@ const CreateEventView = ({ route, navigation }) => {
         formData.append("include_tax", createEvent.include_tax);
         formData.append("include_tax_amount", createEvent.tax_amount);
         formData.append("support_email", createEvent.support_email);
-        formData.append("time_limit_purchase", createEvent.time_limit);
+        formData.append(
+          "time_limit_purchase",
+          createEvent.time_limit === 1 ? "15" : "10"
+        );
         formData.append("hide_event_end_time", createEvent.hide_endTime);
         formData.append(
           "customize_ticket_availability_message",
@@ -712,7 +728,7 @@ const CreateEventView = ({ route, navigation }) => {
           "confirmation_email_ticket_will_call",
           createEvent.cnfrm_email_ticket_call
         );
-        updatePic?.length > 0 &&
+        createEvent?.event_photo.length > 0 &&
           createEvent?.event_photo?.map((img, index) => {
             return formData.append("events_image", {
               uri: img.path,
@@ -722,7 +738,7 @@ const CreateEventView = ({ route, navigation }) => {
           });
         createEvent?.event_video != "" &&
           formData.append("events_video", {
-            uri: createEvent?.event_video?.path,
+            uri: createEvent?.event_video?.path.toString(),
             type: createEvent?.event_video?.mime,
             name: createEvent?.event_video?.path.substring(
               createEvent?.event_video?.path.lastIndexOf("/") + 1
@@ -730,7 +746,7 @@ const CreateEventView = ({ route, navigation }) => {
           });
         createEventData?.length > 0 &&
           createEventData?.map((items) => {
-            return formData.append("event_ticket_types", {
+            const event_ticket_types = {
               event_type_name: items.ticket_title,
               quantity: items.ticket_qty,
               ticket_price: items.ticket_price,
@@ -752,22 +768,24 @@ const CreateEventView = ({ route, navigation }) => {
               limit_tickets_per_order: items.ticket_limit,
               buy_min_ticket: items.min_ticket,
               buy_max_ticket: items.max_ticket,
-            }); ///
+            };
+            return formData.append(
+              "event_ticket_types",
+              JSON.stringify(event_ticket_types)
+            );
           });
-        console.log("formData FormData", formData);
-        setVisible(false);
+        console.log("formData", formData);
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.CREATE_EVENTS,
           formData,
           { "Content-Type": "multipart/form-data" }
         );
+        console.log(":datadata ", data);
         if (data.status === 200) {
           setVisible(false);
           setSuccessMessage("Event added successfully");
-          if (type !== "busniess" || type !== "Edit_event") {
-            setVisibleSuccess(true);
-          }
+          setVisibleSuccess(true);
         } else {
           setVisible(false);
           setErrorMessage(data.message);
@@ -808,8 +826,6 @@ const CreateEventView = ({ route, navigation }) => {
           isStartTimePickerVisible={isStartTimePickerVisible}
           handleTimeConfirm={handleTimeConfirm}
           setIsStartTimePickerVisible={setIsStartTimePickerVisible}
-          onPressPublicVenue={onPressPublicVenue}
-          checkbox={checkbox}
           eventCategoryModalVisible={eventCategoryModalVisible}
           setEventCategoryModalVisible={setEventCategoryModalVisible}
           renderCategoryListItem={renderCategoryListItem}
@@ -844,10 +860,7 @@ const CreateEventView = ({ route, navigation }) => {
               handleTicketInput={handleTicketInput}
               handleCheckBoxes={handleCheckBoxes}
               handleTicketPicker={handleTicketPicker}
-              handleStartDate={handleStartDate}
-              handleEndDate={handleEndDate}
-              handleStartTime={handleStartTime}
-              handleEndTime={handleEndTime}
+              handleTicketDateTime={handleTicketDateTime}
               startDateModal={startDateModal}
               setStartDateModal={setStartDateModal}
               endDateModal={endDateModal}

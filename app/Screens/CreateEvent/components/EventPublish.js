@@ -119,7 +119,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>Yes</Text>
+                  <Text style={styles.radioInnerTxt}>No</Text>
                 </View>
                 <View style={styles.radioInnerCon}>
                   <TouchableOpacity
@@ -139,7 +139,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>No</Text>
+                  <Text style={styles.radioInnerTxt}>Yes</Text>
                 </View>
               </View>
             </View>
@@ -166,7 +166,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>Yes</Text>
+                  <Text style={styles.radioInnerTxt}>No</Text>
                 </View>
                 <View style={styles.radioInnerCon}>
                   <TouchableOpacity
@@ -186,7 +186,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>No</Text>
+                  <Text style={styles.radioInnerTxt}>Yes</Text>
                 </View>
               </View>
             </View>
@@ -213,7 +213,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>Yes</Text>
+                  <Text style={styles.radioInnerTxt}>No</Text>
                 </View>
                 <View style={styles.radioInnerCon}>
                   <TouchableOpacity
@@ -233,7 +233,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>No</Text>
+                  <Text style={styles.radioInnerTxt}>Yes</Text>
                 </View>
               </View>
             </View>

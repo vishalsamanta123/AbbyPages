@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, ToastAndroid, View } from "react-native";
 import EventDetailsScreen from "./components/EventDetailsScreen";
 import BuyTicket from "./components/BuyTicket";
 import CommonStyles from "../../Utils/CommonStyles";
@@ -20,6 +20,7 @@ const EventDetails = ({ route }) => {
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const [changeInterest, setChangeInterest] = useState("");
+  const [addtoCaldr, setAddtoCaldr] = useState(false);
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState("");
   const [loader, setLoader] = useState(false);
@@ -135,7 +136,7 @@ const EventDetails = ({ route }) => {
     try {
       const params = {
         event_id: eventDetails?.event_id,
-        interest_status: changeInterest,
+        interest_status: resp ? resp : changeInterest,
       };
       setInterstedModal(false);
       if (typeof changeInterest == "number") {
@@ -147,8 +148,7 @@ const EventDetails = ({ route }) => {
         if (data.status === 200) {
           setLoader(false);
           getEventDetails(eventDetails?.event_id);
-          setSuccessMessage("Interest Updated");
-          setVisibleSuccess(true);
+          ToastAndroid.show(data.message, ToastAndroid.SHORT);
         } else {
           setLoader(false);
           setVisibleErr(true);
@@ -174,35 +174,40 @@ const EventDetails = ({ route }) => {
       setBuyTicketModal(resp);
     }
   };
-  const submitBuyingForm = async (resp) => {
+  const handleBuyTicket = async (resp) => {
     try {
       setLoader(true);
       const todaysDate = moment(new Date()).format("MM/DD/YYYY");
+      ticketsData.map((item) => {
+        const tickets_details = {
+          ticket_type_id: item.category_id,
+          ticket_amount: item.ticket_amount,
+          ticket_user_name: "viren patidar",
+          user_email: "viren@gmail.com",
+          user_phone: "898989899889",
+          country_code: "India",
+          address: "Indore",
+          latitude: "78.000",
+          longitude: "8888",
+        };
+      });
       const params = {
-        // event_id: eventDetails?.event_id,
-        // no_of_ticket: ticketBuyData.number_of_ticket,
-        // total_amount:
-        //   eventDetails?.ticket_price * ticketBuyData?.number_of_ticket,
-        // address: ticketBuyData.address,
-        // city: ticketBuyData.city,
-        // country: ticketBuyData.country,
-        // create_date: todaysDate,
-        // latitude: "22.0012",
-        // longitude: "22.123",
-        // ticket_amount: eventDetails.total_ticket,
-        // ticket_user_name:
-        //   ticketBuyData.first_name + " " + ticketBuyData.last_name,
-        // user_email: ticketBuyData.email_id,
-        // user_phone: ticketBuyData.phoneNo,
+        event_id: eventDetails?.event_id,
+        total_ticket_book: Number(ticketsData?.length),
+        total_ticket_amount: totalAmount,
+        // tickets_details: tickets_details,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUY_EVENT_TICKET,
         params
       );
+      console.log("data: ", data);
       if (data.status === 200) {
         setLoader(false);
-        setSuccessMessage(data.message + ",Now do payment process");
+        setSuccessMessage(data.message);
+        onPressTicketResp(3);
       } else {
         setBuyTicketModal("");
         setLoader(false);
@@ -230,6 +235,8 @@ const EventDetails = ({ route }) => {
         setChangeInterest={setChangeInterest}
         setBuyTicketModal={setBuyTicketModal}
         onInterestResp={onInterestResp}
+        addtoCaldr={addtoCaldr}
+        setAddtoCaldr={setAddtoCaldr}
       />
       {buyTicketModal === 1 ? (
         <BuyTicket
@@ -259,6 +266,7 @@ const EventDetails = ({ route }) => {
               ticketsDetails={ticketsDetails}
               setTicketsDetails={setTicketsDetails}
               setBuyTicketModal={setBuyTicketModal}
+              handleBuyTicket={handleBuyTicket}
             />
           ) : (
             <>

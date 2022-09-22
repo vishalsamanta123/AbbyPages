@@ -35,10 +35,6 @@ const BuyTicketScreen = (props) => {
     if (getIndex >= 0) {
       return props?.ticketsData[getIndex]?.quantity;
     }
-    const FinalAmount = props?.ticketsData?.reduce((accumulatedTotal, curr) => {
-      accumulatedTotal + curr?.total_amount;
-    }, 0);
-    props.setTotalAmount(FinalAmount);
   };
   const addProductOnCart = async (item, value, index) => {
     try {
@@ -73,6 +69,7 @@ const BuyTicketScreen = (props) => {
             (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
             0
           );
+          console.log("FinalAmount on add: ", FinalAmount);
           props.setTotalAmount(FinalAmount);
           props.setTicketsData(props?.ticketsData);
         } else {
@@ -81,6 +78,7 @@ const BuyTicketScreen = (props) => {
             (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
             0
           );
+          console.log("FinalAmount on addfirst: ", FinalAmount);
           props.setTotalAmount(FinalAmount);
         }
         props.ticketsDetails.push(arr);
@@ -91,6 +89,7 @@ const BuyTicketScreen = (props) => {
           0
         );
         props.ticketsDetails.push(arr);
+        console.log("FinalAmount on add very first: ", FinalAmount);
         props.setTotalAmount(FinalAmount);
       }
     } catch (error) {
@@ -112,6 +111,7 @@ const BuyTicketScreen = (props) => {
               (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
               0
             );
+            console.log("FinalAmount on remove: ", FinalAmount);
             props.setTotalAmount(FinalAmount);
             props.setTicketsData(props?.ticketsData);
           }
@@ -121,6 +121,7 @@ const BuyTicketScreen = (props) => {
               (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
               0
             );
+            console.log("FinalAmount on remove first: ", FinalAmount);
             props.setTotalAmount(FinalAmount);
             props.setTicketsData(props?.ticketsData);
           }

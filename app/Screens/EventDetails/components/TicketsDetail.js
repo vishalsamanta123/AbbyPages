@@ -404,7 +404,7 @@ const TicketDetailsScreen = (props) => {
                 style={styles.modalBttn}
                 buttonLabelStyle={styles.modalBttnTxt}
                 onPress={() => {
-                  // setselectedIndex();
+                  // props.handleBuyTicket();
                   props.onPressTicketResp(3);
                 }}
                 buttonText={"Next"}

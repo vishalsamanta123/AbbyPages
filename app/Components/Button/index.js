@@ -13,8 +13,11 @@ const Button = (props) => {
     LeftBtnImage,
     RightBtnImage,
     buttonLabelStyle,
+    showIcon,
+    tintColor,
+    iconName,
   } = props;
-  const { button, buttonLabel } = styles;
+  const { button, buttonLabel, iconsVw } = styles;
   return (
     <Fragment>
       <TouchableOpacity
@@ -32,6 +35,12 @@ const Button = (props) => {
           <Image
             style={{ width: 30, height: 31, right: 8 }}
             source={require("../../Assets/google_icon.png")}
+          />
+        ) : null}
+        {showIcon ? (
+          <Image
+            style={[iconsVw, { tintColor: tintColor }]}
+            source={iconName}
           />
         ) : null}
         <Image source={LeftBtnImage} />
@@ -58,6 +67,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  iconsVw: {
+    width: 18,
+    height: 18,
+    right: 8,
   },
 });
 export default Button;
