@@ -165,12 +165,6 @@ const ShowMenuView = ({ route, navigation }) => {
     if (getIndex >= 0) {
       return cartData[getIndex].quantity;
     }
-    // var getIndex = cartData.findIndex(function (datas) {
-    //     return datas.item_id === item.id;
-    // })
-    // if (getIndex >= 0) {
-    //     return cartData[getIndex].quantity;
-    // }
   };
   const removeFromCart = (item, value) => {
     if (cartData.length > 0) {

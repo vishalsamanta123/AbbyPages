@@ -8,12 +8,12 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import Success from "../../Components/Modal/success";
-import moment from "moment";
 import TicketDetails from "./components/TicketsDetail";
 import BuyerInfo from "./components/BuyerInfo";
 import TicketPayment from "./components/TicketPayment";
 
 const EventDetails = ({ route }) => {
+  const { width } = Dimensions.get("window");
   const params = route.params;
   const [counrtys, setCounrtys] = useState([]);
   const [eventDetails, setEventDetails] = useState("");
@@ -31,23 +31,8 @@ const EventDetails = ({ route }) => {
   const [totalAmount, setTotalAmount] = useState("");
   const [ticketsDetails, setTicketsDetails] = useState([]);
   const [ticketsData, setTicketsData] = useState([]);
-  const [ticketCategory, setTicketCategory] = useState([
-    {
-      category_id: 1,
-      name: "General Ticket",
-      amount: "30",
-    },
-    {
-      category_id: 2,
-      name: "VIP Ticket",
-      amount: "50",
-    },
-    {
-      category_id: 3,
-      name: "Time limit",
-      amount: "20",
-    },
-  ]);
+  const [ticketList, setTicketList] = useState([]);
+  const [ticketCategory, setTicketCategory] = useState([]);
   const [buyerInfo, setBuyerInfo] = useState({
     first_name: "",
     last_name: "",
@@ -64,8 +49,10 @@ const EventDetails = ({ route }) => {
     validNumber: "",
     dis_code: "",
   });
-  const [percentage, setPercentage] = useState();
-  const couts = percentage * 0.15;
+  const [percentage, setPercentage] = useState(0);
+  const couts = percentage * 0.16;
+  const IncreasePercentage =
+    100 * Math.abs((60 * 10 - percentage) / ((60 * 10 + percentage) / 2));
   useEffect(() => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
@@ -77,7 +64,8 @@ const EventDetails = ({ route }) => {
     setLoader(true);
     try {
       const params = {
-        event_id: id,
+        event_id: 125,
+        // event_id: id,
       };
       const { data } = await apiCall(
         "POST",
@@ -88,7 +76,7 @@ const EventDetails = ({ route }) => {
         setLoader(false);
         setEventDetails(data.data);
         setChangeInterest(data.data.user_interested);
-        // setNumbers(Array.from(Array(10)));
+        setTicketCategory(data.data.event_ticket_type);
       } else {
         setLoader(false);
         setVisibleErr(true);
@@ -177,25 +165,24 @@ const EventDetails = ({ route }) => {
   const handleBuyTicket = async (resp) => {
     try {
       setLoader(true);
-      const todaysDate = moment(new Date()).format("MM/DD/YYYY");
-      ticketsData.map((item) => {
-        const tickets_details = {
-          ticket_type_id: item.category_id,
+      const tickets_details = ticketsDetails.map((item) => {
+        return {
+          ticket_type_id: item.ticket_id,
           ticket_amount: item.ticket_amount,
-          ticket_user_name: "viren patidar",
-          user_email: "viren@gmail.com",
-          user_phone: "898989899889",
-          country_code: "India",
-          address: "Indore",
-          latitude: "78.000",
-          longitude: "8888",
+          ticket_user_name: item.cand_firstName + "" + item.cand_lastName,
+          user_email: item.cand_email,
+          user_phone: item.cand_phoneNo,
+          country_code: item.can_countrycode,
+          address: item.cand_address,
+          latitude: item.cand_lat,
+          longitude: item.cand_long,
         };
       });
       const params = {
         event_id: eventDetails?.event_id,
-        total_ticket_book: Number(ticketsData?.length),
-        total_ticket_amount: totalAmount,
-        // tickets_details: tickets_details,
+        total_ticket_book: Number(ticketsDetails?.length),
+        total_ticket_amount: Number(totalAmount),
+        tickets_details: JSON.stringify(tickets_details),
       };
       console.log("params: ", params);
       const { data } = await apiCall(
@@ -203,14 +190,14 @@ const EventDetails = ({ route }) => {
         ENDPOINTS.BUY_EVENT_TICKET,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setLoader(false);
-        setSuccessMessage(data.message);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
         onPressTicketResp(3);
+        setTicketList(data.data.slice(-1));
       } else {
-        setBuyTicketModal("");
         setLoader(false);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
         setVisibleErr(true);
         setErrorMessage(data.message);
       }
@@ -220,7 +207,66 @@ const EventDetails = ({ route }) => {
       setErrorMessage(error.message);
     }
   };
-
+  const paymentForTicket = async () => {
+    try {
+      setLoader(true);
+      const params = {
+        amount: totalAmount,
+        email: buyerInfo.email,
+        user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
+        card_number: "424242424242" + buyerInfo.last4,
+        exp_month: buyerInfo.expiryMonth.toString(),
+        exp_year: buyerInfo.expiryYear.toString(),
+        zipcode: buyerInfo.postalCode,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+      if (data.status === 200) {
+        setLoader(false);
+        eventPaymentProcess(data.data);
+      } else {
+        setLoader(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message.toString());
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message.toString());
+    }
+  };
+  const eventPaymentProcess = async (paymentData) => {
+    try {
+      setLoader(true);
+      const params = {
+        event_id: eventDetails.event_id.toString(),
+        payment_type: "stripe",
+        ticket_id: ticketList[0].ticket_id,
+        payment_amount: totalAmount,
+        transaction_id: paymentData.id,
+      };
+      console.log("params: ", params);
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.EVENTPAYMENTPROCESS,
+        params
+      );
+      console.log("data:eventPaymentProcess ", data);
+      if (data.status === 200) {
+        setLoader(false);
+        setSuccessMessage(data.message);
+        setVisibleSuccess(true);
+        setBuyTicketModal("");
+      } else {
+        setLoader(false);
+        setVisibleErr(true);
+        setErrorMessage(data.message.toString());
+      }
+    } catch (error) {
+      setLoader(false);
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -252,6 +298,7 @@ const EventDetails = ({ route }) => {
           setTotalAmount={setTotalAmount}
           ticketsDetails={ticketsDetails}
           setTicketsDetails={setTicketsDetails}
+          loader={loader}
         />
       ) : (
         <>
@@ -267,6 +314,10 @@ const EventDetails = ({ route }) => {
               setTicketsDetails={setTicketsDetails}
               setBuyTicketModal={setBuyTicketModal}
               handleBuyTicket={handleBuyTicket}
+              loader={loader}
+              errorMessage={errorMessage}
+              visibleErr={visibleErr}
+              setVisibleErr={setVisibleErr}
             />
           ) : (
             <>
@@ -285,6 +336,8 @@ const EventDetails = ({ route }) => {
                   setBuyerInfo={setBuyerInfo}
                   setPercentage={setPercentage}
                   couts={couts}
+                  loader={loader}
+                  IncreasePercentage={IncreasePercentage}
                 />
               ) : (
                 <>
@@ -304,6 +357,12 @@ const EventDetails = ({ route }) => {
                       percentage={percentage}
                       setPercentage={setPercentage}
                       couts={couts}
+                      paymentForTicket={paymentForTicket}
+                      loader={loader}
+                      IncreasePercentage={IncreasePercentage}
+                      errorMessage={errorMessage}
+                      visibleErr={visibleErr}
+                      setVisibleErr={setVisibleErr}
                     />
                   ) : null}
                 </>

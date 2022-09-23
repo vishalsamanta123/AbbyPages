@@ -38,6 +38,7 @@ const BuyerInfoScreen = (props) => {
       }}
     >
       <KeyboardAvoidingView style={styles.modalCon}>
+        {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
@@ -46,7 +47,6 @@ const BuyerInfoScreen = (props) => {
           RightImg={null}
         />
         <ScrollView>
-          {props?.loader && <Loader state={props?.loader} />}
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -56,9 +56,9 @@ const BuyerInfoScreen = (props) => {
             <View style={styles.straightVw}>
               <View style={styles.timeShownVw}>
                 <CountDown
-                  until={600}
+                  until={60 * 10}
                   size={16}
-                  onFinish={() => alert("Finished")}
+                  onFinish={() => alert("Your time has been finished")}
                   onChange={(timing) => {
                     props.setPercentage(timing);
                   }}

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   Modal,
-  FlatList,
-  TouchableOpacity,
-  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
@@ -15,19 +12,16 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Loader from "../../../Utils/Loader";
+import Error from "../../../Components/Modal/error";
 import { CardField } from "@stripe/stripe-react-native";
 import CountDown from "react-native-countdown-component";
-
-import _ from "lodash";
 import Input from "../../../Components/Input";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 const TicketPaymentScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
@@ -43,7 +37,13 @@ const TicketPaymentScreen = (props) => {
         props.setBuyTicketModal("");
       }}
     >
+      <Error
+        message={props.errorMessage}
+        visible={props.visibleErr}
+        closeModel={() => props.setVisibleErr(false)}
+      />
       <KeyboardAvoidingView style={styles.modalCon}>
+        {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
@@ -52,7 +52,6 @@ const TicketPaymentScreen = (props) => {
           RightImg={null}
         />
         <ScrollView>
-          {props?.loader && <Loader state={props?.loader} />}
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -65,7 +64,7 @@ const TicketPaymentScreen = (props) => {
                   <CountDown
                     until={props?.percentage}
                     size={16}
-                    onFinish={() => alert("Finished")}
+                    onFinish={() => alert("Your time has been finished")}
                     onChange={(timing) => {
                       setNewPercentage(timing);
                     }}
@@ -216,6 +215,7 @@ const TicketPaymentScreen = (props) => {
                 style={styles.modalBttn}
                 buttonLabelStyle={styles.modalBttnTxt}
                 onPress={() => {
+                  props.paymentForTicket();
                   // props.onPressTicketResp(2);
                 }}
                 buttonText={"Pay"}

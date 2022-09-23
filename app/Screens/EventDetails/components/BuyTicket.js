@@ -25,12 +25,13 @@ import Input from "../../../Components/Input";
 import InputSpinner from "react-native-input-spinner";
 import _ from "lodash";
 const BuyTicketScreen = (props) => {
+  const [bestQuality, setBestQuality] = useState("");
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
   const getqty = (item) => {
     var getIndex = _.findIndex(props?.ticketsData, {
-      category_id: item.category_id,
+      category_id: item.event_type_id,
     });
     if (getIndex >= 0) {
       return props?.ticketsData[getIndex]?.quantity;
@@ -39,27 +40,30 @@ const BuyTicketScreen = (props) => {
   const addProductOnCart = async (item, value, index) => {
     try {
       const selectedCategory = {
-        category_id: item.category_id,
-        amount: item.amount,
-        name: item.name,
-        total_amount: item.amount * value,
+        category_id: item.event_type_id,
+        name: item.event_type_name,
+        amount: item.ticket_price,
+        total_amount: item.ticket_price * value,
         quantity: value,
       };
       const arr = {
-        ticket_Name: item.name,
-        ticket_id: item.category_id,
-        ticket_amount: item.amount,
-        ticket_totalAmt: item.amount * value,
+        ticket_id: item.event_type_id,
+        ticket_Name: item.event_type_name,
+        ticket_amount: item.ticket_price,
+        ticket_totalAmt: item.ticket_price * value,
         ticket_qty: 1,
         cand_firstName: "",
         cand_lastName: "",
         cand_email: "",
         cand_phoneNo: "",
         cand_address: "",
+        cand_lat: "",
+        cand_long: "",
+        can_countrycode: "",
       };
       if (props?.ticketsData?.length > 0) {
         var getIndex = _.findIndex(props?.ticketsData, {
-          category_id: item.category_id,
+          category_id: item.event_type_id,
         });
         if (getIndex >= 0) {
           const newItems = props?.ticketsData[getIndex];
@@ -69,7 +73,6 @@ const BuyTicketScreen = (props) => {
             (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
             0
           );
-          console.log("FinalAmount on add: ", FinalAmount);
           props.setTotalAmount(FinalAmount);
           props.setTicketsData(props?.ticketsData);
         } else {
@@ -78,18 +81,16 @@ const BuyTicketScreen = (props) => {
             (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
             0
           );
-          console.log("FinalAmount on addfirst: ", FinalAmount);
           props.setTotalAmount(FinalAmount);
         }
         props.ticketsDetails.push(arr);
       } else {
-        props.setTicketsData([...props?.ticketsData, selectedCategory]);
+        props.setTicketsData((curr) => [...curr, selectedCategory]);
         const FinalAmount = props?.ticketsData?.reduce(
           (accumulatedTotal, curr) => accumulatedTotal + curr?.total_amount,
           0
         );
         props.ticketsDetails.push(arr);
-        console.log("FinalAmount on add very first: ", FinalAmount);
         props.setTotalAmount(FinalAmount);
       }
     } catch (error) {
@@ -100,7 +101,7 @@ const BuyTicketScreen = (props) => {
     try {
       if (props.ticketsData.length > 0) {
         var getIndex = _.findIndex(props.ticketsData, {
-          category_id: item.category_id,
+          category_id: item.event_type_id,
         });
         if (getIndex >= 0) {
           const newItems = props.ticketsData[getIndex];
@@ -111,7 +112,6 @@ const BuyTicketScreen = (props) => {
               (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
               0
             );
-            console.log("FinalAmount on remove: ", FinalAmount);
             props.setTotalAmount(FinalAmount);
             props.setTicketsData(props?.ticketsData);
           }
@@ -121,7 +121,6 @@ const BuyTicketScreen = (props) => {
               (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
               0
             );
-            console.log("FinalAmount on remove first: ", FinalAmount);
             props.setTotalAmount(FinalAmount);
             props.setTicketsData(props?.ticketsData);
           }
@@ -171,12 +170,9 @@ const BuyTicketScreen = (props) => {
                 containerStyle={styles.smallInputVw}
                 textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
                 onChangeText={(text) => {
-                  props.setTicketBuyData({
-                    ...props.ticketBuyData,
-                    qty: text,
-                  });
+                  setBestQuality(text);
                 }}
-                value={props?.ticketBuyData?.qty}
+                value={bestQuality}
               />
               <Button style={styles.bttnSubmitVw} buttonText={"Submit"} />
               <View style={{ marginVertical: 12 }}>
@@ -188,10 +184,10 @@ const BuyTicketScreen = (props) => {
                       <View style={styles.ticketCategoryVw}>
                         <View>
                           <Text style={styles.ticketCtgryTxt}>
-                            {item?.name}
+                            {item?.event_type_name}
                           </Text>
                           <Text style={styles.ticketAmtTxt}>
-                            $ {item?.amount}
+                            $ {item?.ticket_price}
                           </Text>
                         </View>
                         <View style={{ alignItems: "flex-end" }}>

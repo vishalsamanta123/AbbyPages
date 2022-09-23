@@ -3,9 +3,6 @@ import {
   View,
   Text,
   Modal,
-  FlatList,
-  TouchableOpacity,
-  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
@@ -25,13 +22,14 @@ import Loader from "../../../Utils/Loader";
 import _ from "lodash";
 import Input from "../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Error from "../../../Components/Modal/error";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const TicketDetailsScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
   const [selectedIndex, setselectedIndex] = useState(0);
-  console.log("selectedIndex: ", selectedIndex);
   const handleTicketInput = (key, value, index) => {
     let NewEventTicket = [...props.ticketsDetails];
     const ticket = NewEventTicket[index];
@@ -47,12 +45,23 @@ const TicketDetailsScreen = (props) => {
       const tic = { ...ticket, cand_email: value };
       NewEventTicket[index] = tic;
     }
-    if (key === "cand_address") {
-      const tic = { ...ticket, cand_address: value };
+    if (key == "cand_phoneNo") {
+      const tic = { ...ticket, cand_phoneNo: value, can_countrycode: "91" };
       NewEventTicket[index] = tic;
     }
-    if (key == "cand_phoneNo") {
-      const tic = { ...ticket, cand_phoneNo: value };
+    props.setTicketsDetails(NewEventTicket);
+  };
+  const handleTicketAddressInput = (key, address, lat, long, index) => {
+    let NewEventTicket = [...props.ticketsDetails];
+    const ticket = NewEventTicket[index];
+    if (key === "cand_address") {
+      const tic = {
+        ...ticket,
+        cand_address: address.toString(),
+        cand_lat: lat,
+        cand_long: long,
+        can_countrycode: "91",
+      };
       NewEventTicket[index] = tic;
     }
     props.setTicketsDetails(NewEventTicket);
@@ -66,7 +75,13 @@ const TicketDetailsScreen = (props) => {
         props.setBuyTicketModal("");
       }}
     >
-      <KeyboardAvoidingView style={styles.modalCon}>
+      <View style={styles.modalCon}>
+        <Error
+          message={props.errorMessage}
+          visible={props.visibleErr}
+          closeModel={() => props.setVisibleErr(false)}
+        />
+        {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
@@ -74,16 +89,14 @@ const TicketDetailsScreen = (props) => {
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView>
-          {props?.loader && <Loader state={props?.loader} />}
+        <ScrollView keyboardShouldPersistTaps={"always"}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
             </Text>
             <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
             <Text style={styles.selectTxt}>Create Ticket</Text>
-            {typeof selectedIndex === "number" &&
-            selectedIndex < props?.ticketsDetails?.length ? (
+            {selectedIndex < props?.ticketsDetails?.length ? (
               <View style={styles.ticketDetailVw}>
                 <Text style={styles.ticketTxt}>
                   Ticket Number : {selectedIndex + 1} [
@@ -133,13 +146,13 @@ const TicketDetailsScreen = (props) => {
                   <View style={[styles.ticketsInputVw, styles.secInputVw]}>
                     <GooglePlacesAutocomplete
                       placeholder=""
-                      fetchDetails={true}
+                      fetchDetails
                       onPress={(data, details = null) => {
-                        // latitude: details.geometry.location.lat,
-                        // longitude: details.geometry.location.lng,
-                        handleTicketInput(
+                        handleTicketAddressInput(
                           "cand_address",
-                          details.formatted_address,
+                          data.description,
+                          details.geometry.location.lat,
+                          details.geometry.location.lng,
                           selectedIndex
                         );
                       }}
@@ -151,9 +164,11 @@ const TicketDetailsScreen = (props) => {
                       textInputProps={{
                         placeholderTextColor: BLACK_COLOR_CODE,
                         onChangeText: (text) => {
-                          handleTicketInput(
+                          handleTicketAddressInput(
                             "cand_address",
                             text,
+                            props?.ticketsDetails[selectedIndex]?.cand_lat,
+                            props?.ticketsDetails[selectedIndex]?.cand_long,
                             selectedIndex
                           );
                         },
@@ -176,25 +191,29 @@ const TicketDetailsScreen = (props) => {
                         },
                       }}
                       minLength={2}
-                      autoFocus={false}
-                      returnKeyType={"default"}
                     />
                   </View>
                 </View>
+
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
                   <Text style={styles.subTitleTxt}>User's Phone number</Text>
-                  <Input
-                    placeholder=""
-                    InputType={null}
-                    maxLength={10}
-                    keyboardType={"number-pad"}
-                    containerStyle={styles.ticketsInputVw}
-                    textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                    onChangeText={(text) => {
-                      handleTicketInput("cand_phoneNo", text, selectedIndex);
-                    }}
-                    value={props?.ticketsDetails[selectedIndex]?.cand_phoneNo}
-                  />
+                  <View style={styles.straightVw}>
+                    <TouchableOpacity style={styles.codesVw}>
+                      <Text style={styles.codesTxt}>{"+91"}</Text>
+                    </TouchableOpacity>
+                    <Input
+                      placeholder=""
+                      InputType={null}
+                      maxLength={10}
+                      keyboardType={"number-pad"}
+                      containerStyle={[styles.ticketsInputVw, { width: "72%" }]}
+                      textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+                      onChangeText={(text) => {
+                        handleTicketInput("cand_phoneNo", text, selectedIndex);
+                      }}
+                      value={props?.ticketsDetails[selectedIndex]?.cand_phoneNo}
+                    />
+                  </View>
                 </View>
                 <View style={[styles.modalBttnVw, { left: 25 }]}>
                   {selectedIndex > 0 ? (
@@ -286,9 +305,11 @@ const TicketDetailsScreen = (props) => {
                             placeholder=""
                             fetchDetails={true}
                             onPress={(data, details = null) => {
-                              handleTicketInput(
+                              handleTicketAddressInput(
                                 "cand_address",
-                                details.formatted_address,
+                                data.description,
+                                details.geometry.location.lat,
+                                details.geometry.location.lng,
                                 index
                               );
                             }}
@@ -300,7 +321,13 @@ const TicketDetailsScreen = (props) => {
                             textInputProps={{
                               placeholderTextColor: BLACK_COLOR_CODE,
                               onChangeText: (text) => {
-                                handleTicketInput("cand_address", text, index);
+                                handleTicketAddressInput(
+                                  "cand_address",
+                                  text,
+                                  item.cand_lat,
+                                  item.cand_long,
+                                  index
+                                );
                               },
                               value: item.cand_address,
                             }}
@@ -329,18 +356,26 @@ const TicketDetailsScreen = (props) => {
                         <Text style={styles.subTitleTxt}>
                           User's Phone number
                         </Text>
-                        <Input
-                          placeholder=""
-                          InputType={null}
-                          maxLength={10}
-                          keyboardType={"number-pad"}
-                          containerStyle={styles.ticketsInputVw}
-                          textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                          onChangeText={(text) => {
-                            handleTicketInput("cand_phoneNo", text, index);
-                          }}
-                          value={item.cand_phoneNo}
-                        />
+                        <View style={styles.straightVw}>
+                          <TouchableOpacity style={styles.codesVw}>
+                            <Text style={styles.codesTxt}>{"+91"}</Text>
+                          </TouchableOpacity>
+                          <Input
+                            placeholder=""
+                            InputType={null}
+                            maxLength={10}
+                            keyboardType={"number-pad"}
+                            containerStyle={[
+                              styles.ticketsInputVw,
+                              { width: "72%" },
+                            ]}
+                            textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+                            onChangeText={(text) => {
+                              handleTicketInput("cand_phoneNo", text, index);
+                            }}
+                            value={item.cand_phoneNo}
+                          />
+                        </View>
                       </View>
                     </View>
                   );
@@ -404,15 +439,14 @@ const TicketDetailsScreen = (props) => {
                 style={styles.modalBttn}
                 buttonLabelStyle={styles.modalBttnTxt}
                 onPress={() => {
-                  // props.handleBuyTicket();
-                  props.onPressTicketResp(3);
+                  props.handleBuyTicket();
                 }}
                 buttonText={"Next"}
               />
             </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 };

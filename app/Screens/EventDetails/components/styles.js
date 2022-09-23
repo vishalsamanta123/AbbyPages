@@ -94,7 +94,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   ticketsInputVw: {
-    height: 52,
+    paddingVertical: 2,
     width: "95%",
     marginLeft: 0,
     margin: 0,
@@ -104,6 +104,22 @@ const Styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
+  },
+  codesVw: {
+    borderWidth: 1,
+    borderColor: "#d8d8d8",
+    top: 4,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    minWidth: 55,
+    paddingHorizontal: 5,
+    paddingVertical: 14,
+  },
+  codesTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
   interestedModalVw: {
     backgroundColor: WHITE_COLOR_CODE,
