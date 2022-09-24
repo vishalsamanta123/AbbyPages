@@ -16,7 +16,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  
+
   //for data
   const [cancelOrder, setCancelOrder] = useState(false);
   const [orderDetail, setOrderDetail] = useState("");

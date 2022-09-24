@@ -179,6 +179,15 @@ const BuyTicketScreen = (props) => {
                 <Text style={styles.titleTxt}>Ticket Category</Text>
                 <FlatList
                   data={props.ticketCategory}
+                  ListEmptyComponent={() => {
+                    return (
+                      <View>
+                        <Text style={styles.emptyTxt}>
+                          No Tickets Available
+                        </Text>
+                      </View>
+                    );
+                  }}
                   renderItem={({ item, index }) => {
                     return (
                       <View style={styles.ticketCategoryVw}>

@@ -31,7 +31,7 @@ const BusinessHomeView = ({ navigation }) => {
   );
   const getProfile = async () => {
     try {
-      // setVisible(true);
+      setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
         setProfileData(data.data);

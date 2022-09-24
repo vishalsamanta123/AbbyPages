@@ -4,7 +4,7 @@ import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
 import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -23,14 +23,13 @@ const OrderHistoryView = ({ navigation }) => {
   const [itemCategoryList, setItemCategoryList] = useState("");
   const [orderItemList, setOrderItemList] = useState("");
   const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
+  const isFocus = useIsFocused();
 
-  useFocusEffect(
-    React.useCallback(() => {
-      handleItemCategoryList();
-      handleOrderedItemList(0);
-      return () => handleOrderedItemList(0);
-    }, [isSelectedCatgory])
-  );
+  useEffect(() => {
+    handleItemCategoryList();
+    handleOrderedItemList(0, isSelectedCatgory);
+  }, [isFocus]);
+
   const handleItemCategoryList = async () => {
     setVisible(true);
     try {
@@ -49,19 +48,22 @@ const OrderHistoryView = ({ navigation }) => {
       setVisible(false);
     }
   };
-  const handleOrderedItemList = async (offset) => {
+  const handleOrderedItemList = async (offset, category_id) => {
     setOffSet(offset);
+    setIsSelectedCatgory(category_id);
     try {
       setVisible(true);
       const params = {
         offset: offset,
-        business_type: isSelectedCatgory,
+        business_type: category_id,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
+      console.log("data: ", data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);
@@ -88,27 +90,34 @@ const OrderHistoryView = ({ navigation }) => {
   };
   const _renderCategory = (item, index) => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          setIsSelectedCatgory(item.business_type_id);
-          setOffSet(0);
-        }}
-        style={styles.lablestyle}
-      >
-        <Text
-          style={[
-            styles.txtCat,
-            {
-              color:
-                item.business_type_id === isSelectedCatgory
-                  ? WHITE_COLOR_CODE
-                  : LIGHT_WHITE_COLOR,
-            },
-          ]}
-        >
-          {item.business_type_name}
-        </Text>
-      </TouchableOpacity>
+      <>
+        {item.business_type_name === "Job" ||
+        item.business_type_name === "Shoping" ||
+        item.business_type_name === "Event " ? (
+          <TouchableOpacity
+            onPress={() => {
+              if (item.business_type_id != isSelectedCatgory) {
+                handleOrderedItemList(offSet, item.business_type_id);
+              }
+            }}
+            style={styles.lablestyle}
+          >
+            <Text
+              style={[
+                styles.txtCat,
+                {
+                  color:
+                    item.business_type_id === isSelectedCatgory
+                      ? WHITE_COLOR_CODE
+                      : LIGHT_WHITE_COLOR,
+                },
+              ]}
+            >
+              {item.business_type_name}
+            </Text>
+          </TouchableOpacity>
+        ) : null}
+      </>
     );
   };
   return (

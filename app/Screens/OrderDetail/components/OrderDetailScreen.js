@@ -60,7 +60,12 @@ const OrderDetailScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Order Detail" RightImg={null} />
+      <Header
+        HeaderText="Order Detail"
+        RightImg={null}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+      />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
           <Image

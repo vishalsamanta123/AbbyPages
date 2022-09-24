@@ -18,7 +18,7 @@ const UserEventsScreen = (props) => {
         HeaderText="User Events"
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        RightImg={require("../../../Assets/plus_icon_header.png")}
+        RightImg={null}
       />
       <FlatList
         data={props?.eventsList}

@@ -334,6 +334,7 @@ const GenerateTicket = (props) => {
                                     props?.createEventData[index]
                                       ?.tckt_description
                                   }
+                                  textInputStyle={styles.formsInputVw}
                                   containerStyle={styles.descriptionVw}
                                   placeholder={"Write down"}
                                 />

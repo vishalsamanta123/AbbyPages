@@ -52,7 +52,7 @@ const EventListing = ({ navigation }) => {
   };
   const onPressDownloadTckt = async (item) => {
     const localFile = `${RNFS.DocumentDirectoryPath}/${item.ticket}`;
-    const url = baseUrl + item.ticket;
+    const url = baseUrl + "/" + item.ticket;
     try {
       const options = {
         fromUrl: url,

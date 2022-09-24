@@ -135,7 +135,7 @@ const DesignDrawer = () => {
 };
 export function customDrawerContents(props) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{}}>
       <View style={{ height: "100%" }}>
         <DesignDrawer />
         <DrawerContentScrollView {...props}>

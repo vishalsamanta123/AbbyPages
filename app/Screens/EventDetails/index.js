@@ -29,6 +29,7 @@ const EventDetails = ({ route }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [totalAmount, setTotalAmount] = useState("");
+  const [ticketIds, setTicketIds] = useState([]);
   const [ticketsDetails, setTicketsDetails] = useState([]);
   const [ticketsData, setTicketsData] = useState([]);
   const [ticketList, setTicketList] = useState([]);
@@ -64,8 +65,7 @@ const EventDetails = ({ route }) => {
     setLoader(true);
     try {
       const params = {
-        event_id: 125,
-        // event_id: id,
+        event_id: id,
       };
       const { data } = await apiCall(
         "POST",
@@ -156,6 +156,27 @@ const EventDetails = ({ route }) => {
   };
   const onPressCancelTick = (resp) => {
     setBuyTicketModal("");
+    setTicketsDetails([]);
+    setBuyerInfo({
+      first_name: "",
+      last_name: "",
+      email: "",
+      address: "",
+      phoneNo: "",
+      brand: "",
+      expiryMonth: "",
+      expiryYear: "",
+      last4: "",
+      postalCode: "",
+      validCVC: "",
+      validExpiryDate: "",
+      validNumber: "",
+      dis_code: "",
+    });
+    setTotalAmount("");
+    setTicketsDetails([]);
+    setTicketsData([]);
+    setTicketList([]);
   };
   const onPressTicketResp = (resp) => {
     if (resp <= 4) {
@@ -181,10 +202,11 @@ const EventDetails = ({ route }) => {
       const params = {
         event_id: eventDetails?.event_id,
         total_ticket_book: Number(ticketsDetails?.length),
-        total_ticket_amount: Number(totalAmount),
+        total_ticket_amount: totalAmount
+          ? Number(totalAmount)
+          : Number(ticketsData[0].total_amount),
         tickets_details: JSON.stringify(tickets_details),
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUY_EVENT_TICKET,
@@ -194,24 +216,25 @@ const EventDetails = ({ route }) => {
         setLoader(false);
         ToastAndroid.show(data.message, ToastAndroid.LONG);
         onPressTicketResp(3);
-        setTicketList(data.data.slice(-1));
+        setTicketList(data.data);
+        const result = data.data.map(({ ticket_id }) => ticket_id);
+        setTicketIds(result);
       } else {
         setLoader(false);
         ToastAndroid.show(data.message, ToastAndroid.LONG);
-        setVisibleErr(true);
-        setErrorMessage(data.message);
       }
     } catch (error) {
+      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
       setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
     }
   };
   const paymentForTicket = async () => {
     try {
       setLoader(true);
       const params = {
-        amount: totalAmount,
+        amount: totalAmount
+          ? Number(totalAmount)
+          : Number(ticketsData[0].total_amount),
         email: buyerInfo.email,
         user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
         card_number: "424242424242" + buyerInfo.last4,
@@ -224,47 +247,45 @@ const EventDetails = ({ route }) => {
         setLoader(false);
         eventPaymentProcess(data.data);
       } else {
+        ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
         setLoader(false);
-        setVisibleErr(true);
-        setErrorMessage(data.message.toString());
       }
     } catch (error) {
+      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
       setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message.toString());
     }
   };
   const eventPaymentProcess = async (paymentData) => {
     try {
       setLoader(true);
       const params = {
-        event_id: eventDetails.event_id.toString(),
+        event_id: eventDetails.event_id,
         payment_type: "stripe",
-        ticket_id: ticketList[0].ticket_id,
-        payment_amount: totalAmount,
+        ticket_id: ticketIds.toString(),
+        event_book_id: ticketList[0].event_booking_id,
+        payment_amount: totalAmount
+          ? Number(totalAmount)
+          : Number(ticketsData[0].total_amount),
         transaction_id: paymentData.id,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.EVENTPAYMENTPROCESS,
         params
       );
-      console.log("data:eventPaymentProcess ", data);
       if (data.status === 200) {
         setLoader(false);
         setSuccessMessage(data.message);
         setVisibleSuccess(true);
         setBuyTicketModal("");
+        onPressCancelTick();
       } else {
         setLoader(false);
-        setVisibleErr(true);
-        setErrorMessage(data.message.toString());
+        ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
       }
     } catch (error) {
+      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
       setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
     }
   };
   return (

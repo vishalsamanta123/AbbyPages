@@ -187,5 +187,15 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_BLACK_COLOR_CODE,
   },
+  footerVw: {
+    paddingHorizontal: 10,
+  },
+  footerTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    alignSelf: "flex-start",
+    paddingVertical: 10,
+  },
 });
 export default Styles;

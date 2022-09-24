@@ -20,6 +20,7 @@ import {
   FONT_FAMILY_REGULAR,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const AddJobs = (props) => {
   return (
@@ -28,7 +29,9 @@ const AddJobs = (props) => {
         leftImg={require("../../../../Assets/header_back_btn.png")}
         HeaderText="Add Jobs"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>

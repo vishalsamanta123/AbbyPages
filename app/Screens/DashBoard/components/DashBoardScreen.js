@@ -6,10 +6,8 @@ import {
   Image,
   FlatList,
   TextInput,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
-  KeyboardAvoidingView,
   ImageBackground,
 } from "react-native";
 import styles from "./styles";
@@ -17,16 +15,20 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
 
 const DashBoardScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <View style={CommonStyles.container}>
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}
         HeaderText={""}
         HeaderMiddleImg={require("../../../Assets/login_logo.png")}
         type="Drawer"
+        logoImg={true}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView
         keyboardShouldPersistTaps={"always"}
@@ -104,10 +106,6 @@ const DashBoardScreen = (props) => {
             style={styles.SearchBtnStyle}
             onPress={() => props.onPressSearch()}
           />
-          {/* <Image style={{height:120,width:120}} source={
-                            { uri: 'abbypages.com/upload/profile_image/default.jpg' }
-                            // require('../../../Assets/map_field_icon.png')
-                        } /> */}
         </ImageBackground>
         <View style={styles.OptionsConatin}>
           {/* <TouchableOpacity
@@ -219,7 +217,7 @@ const DashBoardScreen = (props) => {
           </View>
         </View>
       </Modal>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 export default DashBoardScreen;

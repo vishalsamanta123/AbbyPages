@@ -5,6 +5,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   ScrollView,
+  ToastAndroid,
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -96,7 +97,7 @@ const TicketDetailsScreen = (props) => {
             </Text>
             <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
             <Text style={styles.selectTxt}>Create Ticket</Text>
-            {selectedIndex < props?.ticketsDetails?.length ? (
+            {selectedIndex < props?.ticketsDetails?.length && (
               <View style={styles.ticketDetailVw}>
                 <Text style={styles.ticketTxt}>
                   Ticket Number : {selectedIndex + 1} [
@@ -146,7 +147,7 @@ const TicketDetailsScreen = (props) => {
                   <View style={[styles.ticketsInputVw, styles.secInputVw]}>
                     <GooglePlacesAutocomplete
                       placeholder=""
-                      fetchDetails
+                      fetchDetails={true}
                       onPress={(data, details = null) => {
                         handleTicketAddressInput(
                           "cand_address",
@@ -231,156 +232,157 @@ const TicketDetailsScreen = (props) => {
                       buttonText={"Previous"}
                     />
                   ) : null}
-
-                  <Button
-                    style={[styles.modalBttn, { width: "36%" }]}
-                    buttonLabelStyle={[
-                      styles.modalBttnTxt,
-                      {
-                        color: WHITE_COLOR_CODE,
-                      },
-                    ]}
-                    onPress={() => {
-                      setselectedIndex(selectedIndex + 1);
-                    }}
-                    buttonText={"Next"}
-                  />
+                  {selectedIndex < props?.ticketsDetails?.length - 1 ? (
+                    <Button
+                      style={[styles.modalBttn, { width: "36%" }]}
+                      buttonLabelStyle={[
+                        styles.modalBttnTxt,
+                        {
+                          color: WHITE_COLOR_CODE,
+                        },
+                      ]}
+                      onPress={() => {
+                        setselectedIndex(selectedIndex + 1);
+                      }}
+                      buttonText={"Next"}
+                    />
+                  ) : null}
                 </View>
               </View>
-            ) : (
-              <>
-                {props?.ticketsDetails?.map((item, index) => {
-                  return (
-                    <View style={styles.ticketDetailVw}>
-                      <Text style={styles.ticketTxt}>
-                        Ticket Number : {index + 1} [{item.ticket_Name}]
-                      </Text>
-                      <View style={{ marginLeft: 5, marginTop: 8 }}>
-                        <Text style={styles.subTitleTxt}>
-                          User's first name
-                        </Text>
-                        <Input
-                          placeholder=""
-                          InputType={null}
-                          containerStyle={styles.ticketsInputVw}
-                          textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                          onChangeText={(text) => {
-                            handleTicketInput("cand_firstName", text, index);
-                          }}
-                          value={item.cand_firstName}
-                        />
-                      </View>
-                      <View style={{ marginLeft: 5, marginTop: 8 }}>
-                        <Text style={styles.subTitleTxt}>User's last name</Text>
-                        <Input
-                          placeholder=""
-                          InputType={null}
-                          containerStyle={styles.ticketsInputVw}
-                          textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                          onChangeText={(text) => {
-                            handleTicketInput("cand_lastName", text, index);
-                          }}
-                          value={item.cand_lastName}
-                        />
-                      </View>
-                      <View style={{ marginLeft: 5, marginTop: 8 }}>
-                        <Text style={styles.subTitleTxt}>User's email</Text>
-                        <Input
-                          placeholder=""
-                          InputType={null}
-                          containerStyle={styles.ticketsInputVw}
-                          textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                          onChangeText={(text) => {
-                            handleTicketInput("cand_email", text, index);
-                          }}
-                          value={item.cand_email}
-                        />
-                      </View>
-                      <View style={{ marginLeft: 5, marginTop: 8 }}>
-                        <Text style={styles.subTitleTxt}>User's Address</Text>
-                        <View
-                          style={[styles.ticketsInputVw, styles.secInputVw]}
-                        >
-                          <GooglePlacesAutocomplete
-                            placeholder=""
-                            fetchDetails={true}
-                            onPress={(data, details = null) => {
-                              handleTicketAddressInput(
-                                "cand_address",
-                                data.description,
-                                details.geometry.location.lat,
-                                details.geometry.location.lng,
-                                index
-                              );
-                            }}
-                            value={item.cand_address}
-                            query={{
-                              key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
-                              language: "en",
-                            }}
-                            textInputProps={{
-                              placeholderTextColor: BLACK_COLOR_CODE,
-                              onChangeText: (text) => {
-                                handleTicketAddressInput(
-                                  "cand_address",
-                                  text,
-                                  item.cand_lat,
-                                  item.cand_long,
-                                  index
-                                );
-                              },
-                              value: item.cand_address,
-                            }}
-                            styles={{
-                              textInputContainer: {
-                                fontFamily: FONT_FAMILY_REGULAR,
-                                color: BLACK_COLOR_CODE,
-                              },
-                              textInput: {
-                                fontSize: 20,
-                                color: LIGHT_BLACK_COLOR_CODE,
-                                fontFamily: FONT_FAMILY_REGULAR,
-                              },
-                              listView: {
-                                backgroundColor: WHITE_COLOR_CODE,
-                                width: "90%",
-                              },
-                            }}
-                            minLength={2}
-                            autoFocus={false}
-                            returnKeyType={"default"}
-                          />
-                        </View>
-                      </View>
-                      <View style={{ marginLeft: 5, marginTop: 8 }}>
-                        <Text style={styles.subTitleTxt}>
-                          User's Phone number
-                        </Text>
-                        <View style={styles.straightVw}>
-                          <TouchableOpacity style={styles.codesVw}>
-                            <Text style={styles.codesTxt}>{"+91"}</Text>
-                          </TouchableOpacity>
-                          <Input
-                            placeholder=""
-                            InputType={null}
-                            maxLength={10}
-                            keyboardType={"number-pad"}
-                            containerStyle={[
-                              styles.ticketsInputVw,
-                              { width: "72%" },
-                            ]}
-                            textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
-                            onChangeText={(text) => {
-                              handleTicketInput("cand_phoneNo", text, index);
-                            }}
-                            value={item.cand_phoneNo}
-                          />
-                        </View>
-                      </View>
-                    </View>
-                  );
-                })}
-              </>
+              // ) : (
+              //   <>
+              //     {props?.ticketsDetails?.map((item, index) => {
+              //       console.log("item: ", item);
+              //       return (
+              //         <View style={styles.ticketDetailVw}>
+              //           <Text style={styles.ticketTxt}>
+              //             Ticket Number : {index + 1} [{item.ticket_Name}]
+              //           </Text>
+              //           <View style={{ marginLeft: 5, marginTop: 8 }}>
+              //             <Text style={styles.subTitleTxt}>
+              //               User's first name
+              //             </Text>
+              //             <Input
+              //               placeholder=""
+              //               InputType={null}
+              //               containerStyle={styles.ticketsInputVw}
+              //               textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+              //               onChangeText={(text) => {
+              //                 handleTicketInput("cand_firstName", text, index);
+              //               }}
+              //               value={item.cand_firstName}
+              //             />
+              //           </View>
+              //           <View style={{ marginLeft: 5, marginTop: 8 }}>
+              //             <Text style={styles.subTitleTxt}>User's last name</Text>
+              //             <Input
+              //               placeholder=""
+              //               InputType={null}
+              //               containerStyle={styles.ticketsInputVw}
+              //               textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+              //               onChangeText={(text) => {
+              //                 handleTicketInput("cand_lastName", text, index);
+              //               }}
+              //               value={item.cand_lastName}
+              //             />
+              //           </View>
+              //           <View style={{ marginLeft: 5, marginTop: 8 }}>
+              //             <Text style={styles.subTitleTxt}>User's email</Text>
+              //             <Input
+              //               placeholder=""
+              //               InputType={null}
+              //               containerStyle={styles.ticketsInputVw}
+              //               textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+              //               onChangeText={(text) => {
+              //                 handleTicketInput("cand_email", text, index);
+              //               }}
+              //               value={item.cand_email}
+              //             />
+              //           </View>
+              //           <View style={{ marginLeft: 5, marginTop: 8 }}>
+              //             <Text style={styles.subTitleTxt}>User's Address</Text>
+              //             <View
+              //               style={[styles.ticketsInputVw, styles.secInputVw]}
+              //             >
+              //               <GooglePlacesAutocomplete
+              //                 placeholder=""
+              //                 fetchDetails={true}
+              //                 onPress={(data, details = null) => {
+              //                   handleTicketAddressInput(
+              //                     "cand_address",
+              //                     data.description,
+              //                     details.geometry.location.lat,
+              //                     details.geometry.location.lng,
+              //                     index
+              //                   );
+              //                 }}
+              //                 value={item.cand_address}
+              //                 query={{
+              //                   key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
+              //                   language: "en",
+              //                 }}
+              //                 textInputProps={{
+              //                   placeholderTextColor: BLACK_COLOR_CODE,
+              //                   onChangeText: (text) => {
+              //                     handleTicketAddressInput(
+              //                       "cand_address",
+              //                       text,
+              //                       item.cand_lat,
+              //                       item.cand_long,
+              //                       index
+              //                     );
+              //                   },
+              //                   value: item.cand_address,
+              //                 }}
+              //                 styles={{
+              //                   textInputContainer: {
+              //                     fontFamily: FONT_FAMILY_REGULAR,
+              //                     color: BLACK_COLOR_CODE,
+              //                   },
+              //                   textInput: {
+              //                     fontSize: 20,
+              //                     color: LIGHT_BLACK_COLOR_CODE,
+              //                     fontFamily: FONT_FAMILY_REGULAR,
+              //                   },
+              //                   listView: {
+              //                     backgroundColor: WHITE_COLOR_CODE,
+              //                     width: "90%",
+              //                   },
+              //                 }}
+              //                 minLength={2}
+              //                 returnKeyType={"default"}
+              //               />
+              //             </View>
+              //           </View>
+              //           <View style={{ marginLeft: 5, marginTop: 8 }}>
+              //             <Text style={styles.subTitleTxt}>
+              //               User's Phone number
+              //             </Text>
+              //             <View style={styles.straightVw}>
+              //               <TouchableOpacity style={styles.codesVw}>
+              //                 <Text style={styles.codesTxt}>{"+91"}</Text>
+              //               </TouchableOpacity>
+              //               <Input
+              //                 placeholder=""
+              //                 InputType={null}
+              //                 maxLength={10}
+              //                 keyboardType={"number-pad"}
+              //                 containerStyle={[
+              //                   styles.ticketsInputVw,
+              //                   { width: "72%" },
+              //                 ]}
+              //                 textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
+              //                 onChangeText={(text) => {
+              //                   handleTicketInput("cand_phoneNo", text, index);
+              //                 }}
+              //                 value={item.cand_phoneNo}
+              //               />
+              //             </View>
+              //           </View>
+              //         </View>
+              //       );
+              //     })}
+              //   </>
             )}
             <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
               Ticket Total

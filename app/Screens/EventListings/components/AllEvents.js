@@ -41,8 +41,8 @@ const EventListingScreen = (props) => {
         onPressBackFun={() => handleBack()}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        onPress={() => props.handleCreateEvent()}
-        RightImg={require("../../../Assets/plus_icon_header.png")}
+        // onPress={() => props.handleCreateEvent()}
+        RightImg={null}
       />
       <FlatList
         data={props?.eventsList}
@@ -55,12 +55,13 @@ const EventListingScreen = (props) => {
           );
         }}
         onMomentumScrollBegin={() => setScrollBegin(true)}
-        // onMomentumScrollEnd={() => setScrollBegin(false)}
-        onEndReached={(distanceFromEnd) => {
+        onEndReached={() => {
           if (scrollBegin) {
             if (!props.stopOffset) {
-              props?.getEventList(props.offset + 1, props.limit, 0, "");
-              props.setLimit(props.limit + 1);
+              props?.getEventList(props?.offset + 1, props?.limit + 1, 0, "");
+              setScrollBegin(false);
+            } else {
+              setScrollBegin(false);
             }
           }
         }}

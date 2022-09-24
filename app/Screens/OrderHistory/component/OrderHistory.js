@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, View, Text, FlatList, TouchableOpacity } from "react-native";
 import Header from "../../../Components/Header";
 import moment from "moment";
@@ -10,6 +10,7 @@ import {
   LIGHT_WHITE_COLOR,
 } from "../../../Utils/Constant";
 const OrderHistory = (props) => {
+  const [scrollBegin, setScrollBegin] = useState();
   const _handleOrders = (item, index) => {
     return (
       <TouchableOpacity
@@ -111,12 +112,15 @@ const OrderHistory = (props) => {
         leftImg={require("../../../Assets/hamburger_icon.png")}
         HeaderText="Order History"
         type="Drawer"
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
       />
       <View style={styles.topCont}>
         <TouchableOpacity
           onPress={() => {
-            props.setIsSelectedCatgory(0);
-            props.setOffSet(0);
+            if (props.isSelectedCatgory != 0) {
+              props.handleOrderedItemList(props.offSet, 0);
+            }
           }}
           style={styles.lablestyle}
         >
@@ -125,7 +129,7 @@ const OrderHistory = (props) => {
               styles.txtCat,
               {
                 color:
-                  props.isSelectedCatgory == 0
+                  props.isSelectedCatgory === 0
                     ? WHITE_COLOR_CODE
                     : LIGHT_WHITE_COLOR,
               },
@@ -164,13 +168,20 @@ const OrderHistory = (props) => {
             );
           }}
           ListFooterComponent={<View style={{ marginBottom: 20 }} />}
+          onMomentumScrollBegin={() => setScrollBegin(true)}
           renderItem={({ item, index }) => _handleOrders(item, index)}
           onEndReached={() => {
-            !props.stopOffset
-              ? props?.handleOrderedItemList(
-                  props?.orderItemList?.length > 5 ? props?.offSet + 1 : null
-                )
-              : null;
+            if (scrollBegin) {
+              if (!props.stopOffset) {
+                props?.handleOrderedItemList(
+                  props?.orderItemList?.length > 5 ? props?.offSet + 1 : null,
+                  props.isSelectedCatgory
+                );
+                setScrollBegin(false);
+              } else {
+                setScrollBegin(false);
+              }
+            }
           }}
         />
       </View>

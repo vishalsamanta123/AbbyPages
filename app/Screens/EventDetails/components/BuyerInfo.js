@@ -46,7 +46,7 @@ const BuyerInfoScreen = (props) => {
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={"always"}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -150,11 +150,11 @@ const BuyerInfoScreen = (props) => {
                     placeholder=""
                     fetchDetails={true}
                     onPress={(data, details = null) => {
-                      // latitude: details.geometry.location.lat,
-                      // longitude: details.geometry.location.lng,
                       props.setBuyerInfo({
                         ...props.buyerInfo,
                         address: details.formatted_address,
+                        latitude: details.geometry.location.lat,
+                        longitude: details.geometry.location.lng,
                       });
                     }}
                     value={props?.buyerInfo?.address}

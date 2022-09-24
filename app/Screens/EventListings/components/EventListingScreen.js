@@ -59,8 +59,8 @@ const EventListingScreen = (props) => {
         HeaderText="Events"
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
-        onPress={() => props.handleCreateEvent()}
-        RightImg={require("../../../Assets/plus_icon_header.png")}
+        // onPress={() => props.handleCreateEvent()}
+        RightImg={null}
       />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
         {props?.events?.upcoming_events && (

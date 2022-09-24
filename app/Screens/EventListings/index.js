@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import EventListingScreen from "./components/EventListingScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -26,19 +26,15 @@ const EventListing = ({ navigation }) => {
   const [eventType, setEventType] = useState(0);
   const [searchDate, setSearchDate] = useState("");
   const [dataType, setDataType] = useState([]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      handleCategory();
+  const isFocus = useIsFocused();
+  useEffect(() => {
+    handleCategory();
+    if (offset === 0) {
       getEventList(0, limit, eventType, searchDate);
-      handlePopularEvents();
-      return () => {
-        handleCategory();
-        getEventList(0, limit, eventType, searchDate);
-        handlePopularEvents();
-      };
-    }, [])
-  );
+    }
+    handlePopularEvents();
+  }, [isFocus]);
+
   const handleCategory = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
@@ -103,6 +99,7 @@ const EventListing = ({ navigation }) => {
   const getEventList = async (offSet, limit, eventType, searchDate) => {
     setoffset(offSet);
     setLoader(true);
+    setLimit(limit);
     try {
       const params = {
         offset: offSet,
@@ -118,6 +115,7 @@ const EventListing = ({ navigation }) => {
         setstopOffset(true);
         if (data.status === 201) {
           setEventsList([]);
+          setstopOffset(true);
           setLoader(false);
         } else {
           setLoader(false);
