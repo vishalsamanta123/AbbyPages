@@ -68,7 +68,7 @@ const JobDetailsScreen = (props) => {
                 {props?.details?.address}
               </Text>
             </View>
-            <Button
+            {/* <Button
               style={{
                 marginBottom: 6,
                 width: "100%",
@@ -76,7 +76,7 @@ const JobDetailsScreen = (props) => {
               }}
               onPress={() => props.compareFun()}
               buttonText="Compare"
-            />
+            /> */}
             <Button
               style={{
                 marginBottom: 8,

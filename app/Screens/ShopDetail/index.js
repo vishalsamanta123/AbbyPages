@@ -200,7 +200,7 @@ const ShopDetail = ({ navigation, route }) => {
               </View>
             </View>
           </View>
-          <View style={{ paddingTop: 10 }}>
+          <View style={{ paddingTop: 0 }}>
             <Text
               style={{
                 color: GREY_COLOR_CODE,
@@ -208,7 +208,7 @@ const ShopDetail = ({ navigation, route }) => {
                 fontSize: 14,
               }}
             >
-              {item.description}
+              Note- {item.description}
             </Text>
           </View>
         </View>

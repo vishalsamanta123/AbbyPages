@@ -12,6 +12,11 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import Input from "../../../Components/Input";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+} from "../../../Utils/Constant";
 
 const StepFifthScreen = (props) => {
   return (
@@ -21,6 +26,9 @@ const StepFifthScreen = (props) => {
           leftImg={require("../../../Assets/close_window_icon.png")}
           HeaderText="4 of 8"
           RightImg={null}
+          MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+          tintColor={BLACK_COLOR_CODE}
+          mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
         />
         <View style={styles.maintxtVwe}>
           <Text style={styles.maintxt}>Enter Details</Text>

@@ -12,7 +12,11 @@ import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Input from "../../../../Components/Input";
-import { BLACK_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+} from "../../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const GetStartedScreen = (props) => {
@@ -46,6 +50,9 @@ const GetStartedScreen = (props) => {
       <Header
         HeaderText="Get Started"
         RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView keyboardShouldPersistTaps={"always"}>
         <View style={styles.startxt}>
@@ -57,13 +64,10 @@ const GetStartedScreen = (props) => {
             account. we're adding "ITI" in oriandi, Fl ew877, USA to AbbyPages
           </Text>
         </View>
-        <View
-          style={styles.buscatevwe}>
-          <View
-            style={styles.buscatesecvwe}>
+        <View style={styles.buscatevwe}>
+          <View style={styles.buscatesecvwe}>
             <View style={{ width: "90%" }}>
-              <Text
-                style={styles.bussinecatetxt}>Business Categories</Text>
+              <Text style={styles.bussinecatetxt}>Business Categories</Text>
               <View style={styles.bcvwe}>
                 {props.ShowSelectCategory &&
                   props.ShowSelectCategory.map((item, index) => {
@@ -73,8 +77,10 @@ const GetStartedScreen = (props) => {
                           <View style={{ padding: 5 }}>
                             <Text>{item.category_name}</Text>
                           </View>
-                          <TouchableOpacity style={styles.onpresscrossvwe}
-                            onPress={() => props.onRemoveService(index)}>
+                          <TouchableOpacity
+                            style={styles.onpresscrossvwe}
+                            onPress={() => props.onRemoveService(index)}
+                          >
                             <Text>X</Text>
                           </TouchableOpacity>
                         </View>
@@ -83,8 +89,10 @@ const GetStartedScreen = (props) => {
                   })}
               </View>
             </View>
-            <TouchableOpacity onPress={() => props.onPressBusinessCategories()}
-              style={{ paddingRight: 10 }}>
+            <TouchableOpacity
+              onPress={() => props.onPressBusinessCategories()}
+              style={{ paddingRight: 10 }}
+            >
               {props.businessCategory ? (
                 <Image
                   style={{ width: 25, height: 25 }}
@@ -109,7 +117,8 @@ const GetStartedScreen = (props) => {
               borderBottomRightRadius: 8,
               width: "90%",
               borderColor: "#d8d8d8",
-            }}>
+            }}
+          >
             <View style={styles.searchvwe}>
               <TextInput
                 onChangeText={(search) => props.CategorySearch(search)}

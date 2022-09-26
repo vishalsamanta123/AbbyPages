@@ -1,24 +1,29 @@
 import React, { useState } from "react";
-import {
-  View,
-  Image,
-  StatusBar,
-  Text,
-  KeyboardAvoidingView,
-  FlatList,
-  ImageBackground,
-} from "react-native";
+import { View, Image, Text, KeyboardAvoidingView } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
+
 const Goals = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <Header RightImg={null} HeaderText={"Goal"} editHdr={22} />
-      <View style={{ position: "relative", bottom: 28 }}>
+      <Header
+        RightImg={null}
+        HeaderText={"Goal"}
+        editHdr={22}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      />
+      <View style={{ position: "relative", bottom: 25 }}>
         <Image
           style={styles.TimeLineImge}
           resizeMode={"stretch"}
@@ -33,7 +38,8 @@ const Goals = (props) => {
         </View>
         <TouchableOpacity
           onPress={() => props.onPressTextOptn()}
-          style={props.textOptn ? styles.selectOptionContain : styles.OptionContain
+          style={
+            props.textOptn ? styles.selectOptionContain : styles.OptionContain
           }
         >
           <View style={styles.ImgeConatiner}>
@@ -106,7 +112,8 @@ const Goals = (props) => {
             props.callingOptn
               ? styles.selectOptionContain
               : styles.OptionContain
-          }>
+          }
+        >
           <View style={styles.ImgeConatiner}>
             <Image source={require("../../../../Assets/st_icon_3.png")} />
             {props.callingOptn ? (

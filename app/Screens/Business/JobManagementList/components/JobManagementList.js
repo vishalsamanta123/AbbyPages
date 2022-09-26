@@ -12,8 +12,8 @@ import styles from "./styles";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import {
-  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const JobManagementList = (props) => {
   return (
@@ -23,25 +23,43 @@ const JobManagementList = (props) => {
         HeaderText={"My Jobs"}
         leftImg={require("../../../../Assets/hamburger_icon.png")}
         type="Drawer"
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
-      <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
-        <TouchableOpacity
-          style={styles.PlusView}
-          onPress={() => props.onPressAdd()}
-        >
-          <Text style={styles.JobDscrptn}>Create Job</Text>
-          <Image
-            style={styles.PlusImge}
-            source={require("../../../../Assets/qty_minus_icon3.png")}
-          />
-        </TouchableOpacity>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={props?.businessJobList}
-          renderItem={({ item, index }) => props._handleTableData(item, index)}
-        />
-      </View>
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={props?.businessJobList}
+        ListHeaderComponent={() => {
+          return (
+            <>
+              <TouchableOpacity
+                style={styles.PlusView}
+                onPress={() => props.onPressAdd()}
+              >
+                <Text style={styles.JobDscrptn}>Create Job</Text>
+                <Image
+                  style={styles.PlusImge}
+                  resizeMode={"contain"}
+                  source={require("../../../../Assets/add_location_icon.png")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.PlusView}
+                // onPress={() => props.onPressAdd()}
+              >
+                <Text style={styles.JobDscrptn}>Applied Jobs</Text>
+                <Image
+                  style={styles.listImg}
+                  resizeMode={"contain"}
+                  source={require("../../../../Assets/listmenucopy.png")}
+                />
+              </TouchableOpacity>
+            </>
+          );
+        }}
+        renderItem={({ item, index }) => props._handleTableData(item, index)}
+      />
     </KeyboardAvoidingView>
   );
 };

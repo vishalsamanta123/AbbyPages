@@ -20,7 +20,12 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import Input from "../../../Components/Input";
 import moment from "moment";
 import Button from "../../../Components/Button";
-import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 
 const RestauranrtBookingScreen = (props) => {
   const initialRegion = {
@@ -43,12 +48,13 @@ const RestauranrtBookingScreen = (props) => {
   };
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Restaurant Booking"}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Restaurant Booking"} />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <SafeAreaView style={{ alignItems: "center" }}>

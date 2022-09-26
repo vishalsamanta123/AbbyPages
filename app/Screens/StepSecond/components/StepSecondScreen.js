@@ -7,8 +7,9 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import {
   YELLOW_COLOR_CODE,
   GREY_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 const StepSecondScreen = (props) => {
   return (
@@ -17,6 +18,9 @@ const StepSecondScreen = (props) => {
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText={"2 of 8"}
         RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       {props.queAnsData ? (
         <View style={styles.questCon}>

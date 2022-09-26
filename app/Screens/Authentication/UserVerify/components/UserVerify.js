@@ -25,7 +25,12 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 const UserVerifyScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Verify Account" RightImg={null} />
+      <Header
+        HeaderText="Verify Account"
+        RightImg={null}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.maintxt}>
           <Text style={styles.mobtxt}>We have sent OTP on your registered</Text>

@@ -27,12 +27,13 @@ import {
 const NotificationSettings = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Email / Notification Settings"}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Email / Notification Settings"} />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View style={[styles.EmailContainer, { paddingBottom: 10 }]}>
@@ -48,6 +49,7 @@ const NotificationSettings = (props) => {
                 style={styles.AddLocationView}
               >
                 <Image
+                  style={{ width: 36, height: 36 }}
                   source={require("../../../Assets/add_location_icon.png")}
                 />
               </TouchableOpacity>

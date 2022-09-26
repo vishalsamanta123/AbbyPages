@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 // import moment from "moment";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Header from "../../../../Components/Header";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 const BusinessSignUp = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -33,6 +29,8 @@ const BusinessSignUp = (props) => {
         RightImg={null}
         HeaderText=""
         HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}

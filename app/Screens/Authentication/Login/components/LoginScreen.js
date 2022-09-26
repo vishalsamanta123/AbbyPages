@@ -6,6 +6,7 @@ import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Header from "../../../../Components/Header";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 const LoginScreen = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
@@ -13,6 +14,8 @@ const LoginScreen = (props) => {
         RightImg={null}
         HeaderText=""
         HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.WelcomeCntainer}>

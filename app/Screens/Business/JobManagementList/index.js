@@ -120,7 +120,7 @@ const JobManagementListView = ({ navigation }) => {
   const _handleTableData = (item, index) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
     return (
-      <View style={[styles.MainContain, { marginTop: index === 0 ? 0 : 20 }]}>
+      <View style={styles.MainContain}>
         <Text style={styles.DescrptnTextStyle}>
           Company name : {item?.company_name}
         </Text>

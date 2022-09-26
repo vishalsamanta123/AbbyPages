@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   View,
   Image,
-  StatusBar,
   SafeAreaView,
   ScrollView,
   FlatList,
@@ -24,6 +23,8 @@ import Dialog, {
   SlideAnimation,
 } from "react-native-popup-dialog";
 import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -59,12 +60,13 @@ const RestaurantDetailsScreen = (props) => {
   };
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Restaurant Detail"}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Restaurant Detail"} />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View>

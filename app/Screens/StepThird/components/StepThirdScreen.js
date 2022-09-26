@@ -16,6 +16,7 @@ import {
   WHITE_COLOR_CODE,
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -29,6 +30,9 @@ const StepThirdScreen = (props) => {
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText="3 of 8"
         RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView
         keyboardDismissMode="on-drag"

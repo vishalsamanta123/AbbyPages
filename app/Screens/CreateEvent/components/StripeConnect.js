@@ -130,7 +130,8 @@ const StripeConnect = (props) => {
                   Include Taxes
                   <Text style={{ fontSize: 16, color: LIGHT_BLACK_COLOR_CODE }}>
                     {" "}
-                    {props?.createEvent?.include_tax === 1 && "(enter Amount)"}
+                    {props?.createEvent?.include_tax === 1 &&
+                      "(Enter Percentage)"}
                   </Text>
                 </Text>
               </TouchableOpacity>
@@ -147,7 +148,7 @@ const StripeConnect = (props) => {
                     value={props.createEvent.tax_amount}
                     textInputStyle={{ bottom: 5 }}
                     secureTextEntry={false}
-                    placeholder=""
+                    placeholder="%"
                     keyboardType={"number-pad"}
                     InputType={null}
                   />

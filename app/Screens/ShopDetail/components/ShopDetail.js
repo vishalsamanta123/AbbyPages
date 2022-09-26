@@ -203,7 +203,9 @@ const ShopDetail = (props) => {
               </View>
               <Text style={styles.RatingTextMain}>
                 {" "}
-                {props.shopDetail && props.shopDetail.rating} ratings |{" "}
+                {props.shopDetail &&
+                  Number(props?.shopDetail.rating).toFixed(1)}{" "}
+                ratings |{" "}
               </Text>
               <Text style={styles.MainClosedTime}>
                 {props.shopDetail && props?.shopDetail?.login_status === 1

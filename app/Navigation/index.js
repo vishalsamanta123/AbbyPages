@@ -405,6 +405,10 @@ function AppStack() {
         component={ManageFriendInviteScreen}
       />
       <Stack.Screen
+        name="BusinessUserVerify"
+        component={BusinessUserVerifyScreen}
+      />
+      <Stack.Screen
         name="NotificationSettings"
         component={NotificationSettingsScreen}
       />

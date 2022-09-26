@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import {
   Text,
   View,
   Image,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -12,21 +11,19 @@ import styles from "./styles";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { UserContext } from "../../../Utils/UserContext";
 import moment from "moment";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 const ProfileSettings = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}
         HeaderText={"Profile Settings"}
         type="Drawer"
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>

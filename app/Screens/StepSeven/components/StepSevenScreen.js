@@ -11,12 +11,11 @@ import styles from "./styles";
 import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import Input from "../../../Components/Input";
 import {
-  SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
+  LIGHT_BLACK_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 
 const StepSevenScreen = (props) => {
@@ -26,6 +25,9 @@ const StepSevenScreen = (props) => {
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText="5 of 8"
         RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.maintxtVwe}>

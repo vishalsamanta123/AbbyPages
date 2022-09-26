@@ -18,7 +18,10 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
+  WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Dialog, {
@@ -46,7 +49,13 @@ const ServiceProviderDetailsScreen = (props) => {
   };
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <Header HeaderText="Service Provider Details " RightImg={null} />
+      <Header
+        HeaderText="Service Provider Details "
+        RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View style={styles.mainfrsrvwe}>

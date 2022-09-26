@@ -462,6 +462,14 @@ const CreateEventView = ({ route, navigation }) => {
       const tic = { ...ticket, tckt_description: value };
       NewEventTicket[index] = tic;
     }
+    if (key == "min_ticket") {
+      const tic = { ...ticket, min_ticket: value };
+      NewEventTicket[index] = tic;
+    }
+    if (key == "max_ticket") {
+      const tic = { ...ticket, max_ticket: value };
+      NewEventTicket[index] = tic;
+    }
     setCreateEventData(NewEventTicket);
   };
   const handleCheckBoxes = (key, value, index) => {
@@ -506,14 +514,6 @@ const CreateEventView = ({ route, navigation }) => {
         youGetAmt: "",
         payOtp: value,
       };
-      NewEventTicket[index] = tic;
-    }
-    if (key == "min_ticket") {
-      const tic = { ...ticket, min_ticket: value };
-      NewEventTicket[index] = tic;
-    }
-    if (key == "max_ticket") {
-      const tic = { ...ticket, max_ticket: value };
       NewEventTicket[index] = tic;
     }
     setCreateEventData(NewEventTicket);

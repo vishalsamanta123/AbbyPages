@@ -54,6 +54,9 @@ const EventDetails = ({ route }) => {
   const couts = percentage * 0.16;
   const IncreasePercentage =
     100 * Math.abs((60 * 10 - percentage) / ((60 * 10 + percentage) / 2));
+  const videoUrl = `${eventDetails?.events_video?.substring(
+    eventDetails?.events_video?.lastIndexOf("/") + 1
+  )}`;
   useEffect(() => {
     if (params?.item?.event_id) {
       getEventDetails(params?.item?.event_id);
@@ -304,6 +307,8 @@ const EventDetails = ({ route }) => {
         onInterestResp={onInterestResp}
         addtoCaldr={addtoCaldr}
         setAddtoCaldr={setAddtoCaldr}
+        videoUrl={videoUrl}
+        getEventDetails={getEventDetails}
       />
       {buyTicketModal === 1 ? (
         <BuyTicket

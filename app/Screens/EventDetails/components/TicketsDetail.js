@@ -402,7 +402,7 @@ const TicketDetailsScreen = (props) => {
               <Text style={styles.subTitleTxt}>
                 {props?.eventDetails?.serviceAmount
                   ? props?.eventDetails?.serviceAmount
-                  : "0.0"}
+                  : "0.00"}
               </Text>
             </View>
             <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
@@ -410,13 +410,13 @@ const TicketDetailsScreen = (props) => {
               <Text style={[styles.subTitleTxt]}>
                 {props?.eventDetails?.taxesAmount
                   ? props?.eventDetails?.taxesAmount
-                  : "0.0"}
+                  : "0.00"}
               </Text>
             </View>
             <View style={styles.straightVw}>
               <Text style={styles.subTitleTxt}>Total</Text>
               <Text style={styles.subTitleTxt}>
-                {props?.totalAmount ? props?.totalAmount : "0.0"}
+                {props?.totalAmount ? props?.totalAmount : "0.00"}
               </Text>
             </View>
             <View style={styles.modalBttnVw}>

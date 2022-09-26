@@ -1,29 +1,30 @@
-import React from 'react';
+import React from "react";
 import {
-    View,
-    StatusBar,
-    KeyboardAvoidingView,
-    ImageBackground
-} from 'react-native';
-import Header from '../../../Components/Header';
-import CommonStyles from '../../../Utils/CommonStyles';
+  View,
+  StatusBar,
+  KeyboardAvoidingView,
+  ImageBackground,
+} from "react-native";
+import Header from "../../../Components/Header";
+import CommonStyles from "../../../Utils/CommonStyles";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
 const BookmarkMapScreen = (props) => {
-    return (
-        <KeyboardAvoidingView style={[CommonStyles.container]}>
-            <StatusBar
-                translucent={true}
-                backgroundColor='transparent'
-                barStyle='dark-content'
-            />
-            <Header
-                RightImg={require('../../../Assets/map_list_icon.png')}
-                HeaderText={"Bookmark"}
-                onPress={() => props.onPressBack()}
-            />
-            <View style={[CommonStyles.body]}>
-                <ImageBackground style={{ flex: 1 }} source={require('../../../Assets/extraImages/google2x.png')} />
-            </View>
-        </KeyboardAvoidingView>
-    )
-}
-export default BookmarkMapScreen
+  return (
+    <KeyboardAvoidingView style={[CommonStyles.container]}>
+      <Header
+        RightImg={require("../../../Assets/map_list_icon.png")}
+        HeaderText={"Bookmark"}
+        onPress={() => props.onPressBack()}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
+      <View style={[CommonStyles.body]}>
+        <ImageBackground
+          style={{ flex: 1 }}
+          source={require("../../../Assets/extraImages/google2x.png")}
+        />
+      </View>
+    </KeyboardAvoidingView>
+  );
+};
+export default BookmarkMapScreen;

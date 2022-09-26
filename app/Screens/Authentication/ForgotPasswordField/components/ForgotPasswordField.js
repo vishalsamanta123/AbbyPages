@@ -1,18 +1,19 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 const ForgotPasswordFields = (props) => {
   return (
     <View style={styles.container}>
-      <Header HeaderText="Forgot Password" RightImg={null} />
+      <Header
+        HeaderText="Forgot Password"
+        RightImg={null}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <View style={styles.body}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <Input

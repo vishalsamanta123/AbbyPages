@@ -497,65 +497,44 @@ const GenerateTicket = (props) => {
                               </TouchableOpacity>
                               {props.createEventData[index].ticket_limit ===
                                 1 && (
-                                <View style={styles.optionChooseVw}>
+                                <View style={{ flexDirection: "row" }}>
                                   <View style={{ flex: 1 }}>
-                                    <Text style={styles.minMaxTxt}>Min</Text>
-                                    <View style={styles.minMaxVw}>
-                                      <Picker
-                                        mode={"dropdown"}
-                                        onValueChange={(itemValue) =>
-                                          props.handleTicketPicker(
-                                            "min_ticket",
-                                            itemValue,
-                                            index
-                                          )
-                                        }
-                                        selectedValue={
-                                          props.createEventData[index]
-                                            .min_ticket
-                                        }
-                                      >
-                                        {props?.numbers.map((item, index) => {
-                                          return (
-                                            index < 3 && (
-                                              <Picker.Item
-                                                label={item}
-                                                value={item}
-                                              />
-                                            )
-                                          );
-                                        })}
-                                      </Picker>
-                                    </View>
+                                    <Text style={styles.titlesTxt}>Min</Text>
+                                    <Input
+                                      InputType={""}
+                                      onChangeText={(value) =>
+                                        props.handleTicketInput(
+                                          "min_ticket",
+                                          value,
+                                          index
+                                        )
+                                      }
+                                      value={
+                                        props?.createEventData[index]
+                                          ?.min_ticket
+                                      }
+                                      textInputStyle={styles.formsInputVw}
+                                      keyboardType={"number-pad"}
+                                    />
                                   </View>
                                   <View style={{ flex: 1 }}>
-                                    <Text style={styles.minMaxTxt}>Max</Text>
-                                    <View style={styles.minMaxVw}>
-                                      <Picker
-                                        onValueChange={(itemValue) =>
-                                          props.handleTicketPicker(
-                                            "max_ticket",
-                                            itemValue,
-                                            index
-                                          )
-                                        }
-                                        selectedValue={
-                                          props.createEventData[index]
-                                            .max_ticket
-                                        }
-                                        mode={"dropdown"}
-                                        label={"Max"}
-                                      >
-                                        {props?.numbers.map((item) => {
-                                          return (
-                                            <Picker.Item
-                                              label={item}
-                                              value={item}
-                                            />
-                                          );
-                                        })}
-                                      </Picker>
-                                    </View>
+                                    <Text style={styles.titlesTxt}>Max</Text>
+                                    <Input
+                                      InputType={""}
+                                      onChangeText={(value) =>
+                                        props.handleTicketInput(
+                                          "max_ticket",
+                                          value,
+                                          index
+                                        )
+                                      }
+                                      value={
+                                        props?.createEventData[index]
+                                          ?.max_ticket
+                                      }
+                                      keyboardType={"number-pad"}
+                                      textInputStyle={styles.formsInputVw}
+                                    />
                                   </View>
                                 </View>
                               )}
@@ -627,14 +606,8 @@ const GenerateTicket = (props) => {
                           mode={"dropdown"}
                           style={[styles.formsInputVw, { height: 35 }]}
                         >
-                          <Picker.Item
-                            label={"Extra amount paid by buyer"}
-                            value={1}
-                          />
-                          <Picker.Item
-                            label={"Extra amount paid by seller"}
-                            value={2}
-                          />
+                          <Picker.Item label={"Paid by buyer"} value={1} />
+                          <Picker.Item label={"Paid by seller"} value={2} />
                         </Picker>
                       </View>
                     </View>

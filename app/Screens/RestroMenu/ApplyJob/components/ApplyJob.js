@@ -14,11 +14,23 @@ import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { Picker } from "@react-native-community/picker";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
 
 const ApplyJob = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <Header RightImg={null} HeaderText={"Apply Job"} />
+      <Header
+        RightImg={null}
+        HeaderText={"Apply Job"}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      />
       <View style={[CommonStyles.body]}>
         <ScrollView style={{ flexGrow: 1 }}>
           <View style={styles.ContainerStyle}>

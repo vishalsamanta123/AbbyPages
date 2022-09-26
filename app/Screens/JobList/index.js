@@ -8,8 +8,10 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Error from "../../Components/Modal/error";
 import Loader from "../../Utils/Loader";
 import _ from "lodash";
+import { AuthContext } from "../../Utils/UserContext";
 
 const JobList = ({ navigation }) => {
+  const { signOut } = React.useContext(AuthContext);
   useEffect(() => {
     if (!search) {
       handleJobFilter(0);
@@ -145,7 +147,7 @@ const JobList = ({ navigation }) => {
     navigation.navigate("JobDetails", { detail: item });
   };
   const onPressPostJob = () => {
-    navigation.navigate("AddJobs");
+    signOut();
   };
 
   return (

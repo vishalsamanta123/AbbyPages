@@ -14,19 +14,20 @@ import Input from "../../../Components/Input";
 import Button from "../../../Components/Button";
 import styles from "./styles";
 import {
-  FONT_FAMILY_REGULAR,
-  YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const ConfirmReservation = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Confirm Reservation"}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Confirm Reservation"} />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>
           <View style={styles.ConfirmationContain}>

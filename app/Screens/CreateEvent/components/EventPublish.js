@@ -74,7 +74,7 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>10 Minutes</Text>
+                  <Text style={styles.radioInnerTxt}>10 Min</Text>
                 </View>
                 <View style={styles.radioInnerCon}>
                   <TouchableOpacity
@@ -94,7 +94,27 @@ const StripeConnect = (props) => {
                       style={styles.radioImg}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.radioInnerTxt}>10 Minutes above</Text>
+                  <Text style={styles.radioInnerTxt}>10 Min above</Text>
+                </View>
+                <View style={styles.radioInnerCon}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      props.setCreateEvent({
+                        ...props.createEvent,
+                        time_limit: 2,
+                      })
+                    }
+                  >
+                    <Image
+                      source={
+                        props?.createEvent?.time_limit === 2
+                          ? require("../../../Assets/radio_circled_checked.png")
+                          : require("../../../Assets/radio_circled_unchecked.png")
+                      }
+                      style={styles.radioImg}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.radioInnerTxt}>No Limit</Text>
                 </View>
               </View>
             </View>
@@ -238,7 +258,7 @@ const StripeConnect = (props) => {
               </View>
             </View>
             <Text style={[styles.titlesTxt, { fontSize: 16 }]}>
-              Embed checkout on your website -
+              Event website -
             </Text>
             <Input
               onChangeText={(text) =>

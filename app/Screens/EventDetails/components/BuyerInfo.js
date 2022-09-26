@@ -81,7 +81,7 @@ const BuyerInfoScreen = (props) => {
                   styles.timeConVw,
                   {
                     marginRight:
-                      props?.couts === "0.15" ? "0%" : `${props?.couts}%`,
+                      props?.couts === "0.16" ? "0%" : `${props?.couts}%`,
                   },
                 ]}
               >
@@ -93,10 +93,10 @@ const BuyerInfoScreen = (props) => {
               <Text
                 style={[styles.selectTxt, { marginTop: 0, textAlign: "left" }]}
               >
-                Buyer Details
+                Event Ticket Details
               </Text>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Buyer's first name</Text>
+                <Text style={styles.subTitleTxt}>First name</Text>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -112,7 +112,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Buyer's last name</Text>
+                <Text style={styles.subTitleTxt}>Last name</Text>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -128,7 +128,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Buyer's email</Text>
+                <Text style={styles.subTitleTxt}>Email</Text>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -144,7 +144,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Buyer's Address</Text>
+                <Text style={styles.subTitleTxt}>Address</Text>
                 <View style={[styles.ticketsInputVw, styles.secInputVw]}>
                   <GooglePlacesAutocomplete
                     placeholder=""
@@ -194,7 +194,7 @@ const BuyerInfoScreen = (props) => {
                 </View>
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Buyer's Phone number</Text>
+                <Text style={styles.subTitleTxt}>Phone number</Text>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -230,7 +230,7 @@ const BuyerInfoScreen = (props) => {
               <Text style={styles.subTitleTxt}>
                 {props?.eventDetails?.serviceAmount
                   ? props?.eventDetails?.serviceAmount
-                  : "0.0"}
+                  : "0.00"}
               </Text>
             </View>
             <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
@@ -238,13 +238,13 @@ const BuyerInfoScreen = (props) => {
               <Text style={[styles.subTitleTxt]}>
                 {props?.eventDetails?.taxesAmount
                   ? props?.eventDetails?.taxesAmount
-                  : "0.0"}
+                  : "0.00"}
               </Text>
             </View>
             <View style={styles.straightVw}>
               <Text style={styles.subTitleTxt}>Total</Text>
               <Text style={styles.subTitleTxt}>
-                {props?.totalAmount ? props?.totalAmount : "0.0"}
+                {props?.totalAmount ? props?.totalAmount : "0.00"}
               </Text>
             </View>
             <View style={styles.modalBttnVw}>

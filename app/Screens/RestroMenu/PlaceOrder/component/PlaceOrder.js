@@ -1,19 +1,25 @@
 import React from "react";
-import { View, Text, Image, FlatList, ScrollView } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const PlaceOrder = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Place Order" RightImg={null} />
+      <Header
+        HeaderText="Place Order"
+        RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <View
         style={[
           CommonStyles.body,

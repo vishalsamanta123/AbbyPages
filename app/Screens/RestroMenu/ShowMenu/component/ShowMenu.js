@@ -13,11 +13,10 @@ import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
-  YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
   LIGHT_WHITE_COLOR,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const ShowMenu = (props) => {
   return (
@@ -25,6 +24,9 @@ const ShowMenu = (props) => {
       <Header
         HeaderText="Menu"
         RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
         // RightImg={require('../../../../Assets/search_icon_header.png')}
         // onPress={() => ('ram')}
       />

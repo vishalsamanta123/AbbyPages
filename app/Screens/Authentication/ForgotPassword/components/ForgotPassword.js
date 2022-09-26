@@ -5,13 +5,20 @@ import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 
 const ForgotPassword = (props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : null}
-      style={CommonStyles.container}>
-      <Header HeaderText="Forgot Password" RightImg={null} />
+      style={CommonStyles.container}
+    >
+      <Header
+        HeaderText="Forgot Password"
+        RightImg={null}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <ScrollView contentContainerStyle={styles.body}>
         <View style={{ flex: 1, paddingTop: 40 }}>
           <Text style={styles.registxt}>Please enter you registered</Text>

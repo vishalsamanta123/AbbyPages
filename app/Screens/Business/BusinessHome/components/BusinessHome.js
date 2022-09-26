@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import {
   View,
   Image,
-  StatusBar,
   Text,
   KeyboardAvoidingView,
-  FlatList,
   ImageBackground,
 } from "react-native";
 import styles from "./styles";

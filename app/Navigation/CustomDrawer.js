@@ -171,7 +171,7 @@ export function customDrawerContents(props) {
               <Text style={styles.drawerText}>Profile Settings</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("FollowingList");
@@ -183,8 +183,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Following</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("FollowerList");
@@ -196,7 +196,7 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Followers</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -236,7 +236,7 @@ export function customDrawerContents(props) {
               <Text style={styles.drawerText}>Order History</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Reviews");
@@ -248,8 +248,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Reviews</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Bookmark");
@@ -261,8 +261,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Bookmarks</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Collections");
@@ -274,8 +274,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Collections</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Notifications");
@@ -290,8 +290,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Notifications</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("RecentActivity");
@@ -306,8 +306,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Recent Activity</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("Friends");
@@ -319,8 +319,8 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Friends</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.contactUsContainer}>
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity style={styles.contactUsContainer}>
             <View style={styles.ImgeView}>
               <Image source={require("../Assets/bulb_icon_menu.png")} />
             </View>
@@ -335,7 +335,7 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Check-Ins</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </DrawerContentScrollView>
       </View>
     </View>
@@ -398,7 +398,7 @@ export function BusinessDrawerContents(props) {
               <Text style={styles.drawerText}>Business Info</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("OpeningHours");
@@ -413,7 +413,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Add Opening Hours</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {

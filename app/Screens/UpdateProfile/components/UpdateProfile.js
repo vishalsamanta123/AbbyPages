@@ -28,6 +28,8 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const UpdateProfile = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -47,12 +49,13 @@ const UpdateProfile = (props) => {
   };
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Update Profile"}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Update Profile"} />
       <View>
         {/* // style={styles.HeaderContain}> */}
         {/* <TouchableOpacity style={[styles.ImageView, {}]}>

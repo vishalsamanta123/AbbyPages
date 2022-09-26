@@ -29,6 +29,8 @@ const EditJobScreen = (props) => {
         HeaderText="Edit Jobs"
         RightImg={null}
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.BasicVwe}>

@@ -8,6 +8,11 @@ import {
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+} from "../../../Utils/Constant";
 import styles from "./styles";
 const ServiceProviderListing = (props) => {
   return (
@@ -21,6 +26,9 @@ const ServiceProviderListing = (props) => {
         type="Map"
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         logoImg={false}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <FlatList
         keyExtractor={(item, index) => index.toString()}

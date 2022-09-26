@@ -19,16 +19,20 @@ import Dialog, {
 } from "react-native-popup-dialog";
 import styles from "./styles";
 import {
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
   WHITE_COLOR_CODE,
-  GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const RestroCheckout = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header HeaderText="Checkout" RightImg={null} />
+      <Header
+        HeaderText="Checkout"
+        RightImg={null}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+      />
       <View style={[CommonStyles.body, { flex: 4.5 }]}>
         <ScrollView>
           <View style={styles.typesVw}>

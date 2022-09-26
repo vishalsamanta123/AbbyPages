@@ -4,17 +4,12 @@ import {
   Text,
   Image,
   FlatList,
-  TextInput,
   StatusBar,
   TouchableOpacity,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  SMALL_TEXT_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import moment from "moment";
 
 const JobListScreen = (props) => {
@@ -109,7 +104,8 @@ const JobListScreen = (props) => {
           style={styles.HeaderView}
         >
           <Image
-            style={{ width: 35, height: 25 }}
+            style={{ width: 30, height: 30 }}
+            resizeMode={'contain'}
             source={require("../../../Assets/header_back_btn.png")}
           />
         </TouchableOpacity>
@@ -140,46 +136,46 @@ const JobListScreen = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={[CommonStyles.body]}>
-        <View style={styles.topInfoVw}>
-          <Text style={styles.hdngtxt}>
-            {props?.jobList?.length} Results found
-          </Text>
-          <TouchableOpacity
-            style={styles.postJobVW}
-            onPress={() => props.onPressPostJob()}
-          >
-            <Image
-              style={styles.postJobImg}
-              source={require("../../../Assets/qty_minus_icon3.png")}
-            />
-            <Text style={[styles.hdngtxt, { fontSize: 16 }]}>Post Job</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
-          <FlatList
-            data={props.jobList}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => _renderJobList(item, index)}
-            ListEmptyComponent={() => {
-              return (
-                <View style={styles.emptyVw}>
-                  <Text style={styles.emptyTxt}>Jobs not available</Text>
-                </View>
-              );
-            }}
-            onEndReached={(item) => {
-              if (item?.distanceFromEnd == 0) {
-                !props.stopOffset
-                  ? props.handleJobFilter(
-                      props.jobList.length > 5 ? props.offset + 1 : 0
-                    )
-                  : null;
-              }
-            }}
-          />
-        </View>
+      <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
+        <FlatList
+          data={props.jobList}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index}
+          ListHeaderComponent={() => {
+            return (
+              <View style={styles.topInfoVw}>
+                <Text style={styles.hdngtxt}>
+                  {props?.jobList?.length} Results found
+                </Text>
+                <TouchableOpacity
+                  style={styles.postJobVW}
+                  onPress={() => props.onPressPostJob()}
+                >
+                  <Text style={[styles.hdngtxt, { fontSize: 16 }]}>
+                    Post Job
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+          renderItem={({ item, index }) => _renderJobList(item, index)}
+          ListEmptyComponent={() => {
+            return (
+              <View style={styles.emptyVw}>
+                <Text style={styles.emptyTxt}>Jobs not available</Text>
+              </View>
+            );
+          }}
+          onEndReached={(item) => {
+            if (item?.distanceFromEnd == 0) {
+              !props.stopOffset
+                ? props.handleJobFilter(
+                    props.jobList.length > 5 ? props.offset + 1 : 0
+                  )
+                : null;
+            }
+          }}
+        />
       </View>
     </View>
   );

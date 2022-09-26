@@ -4,6 +4,7 @@ import {
     Text,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 import styles from './styles';
 import {
@@ -24,6 +25,8 @@ const BusinessUserVerifyScreen = (props) => {
             <Header
                 HeaderText='Verify Account'
                 RightImg={null}
+                tintColor={BLACK_COLOR_CODE}
+                mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
             />
             <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
                 <View style={styles.maintxt}>

@@ -6,6 +6,7 @@ import {
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainContain: {
@@ -15,6 +16,7 @@ const Styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: LINE_COMMON_COLOR_CODE,
     borderRadius: 4,
+    marginTop: 12
   },
   ViewContainer: {
     padding: 15,
@@ -38,14 +40,28 @@ const Styles = StyleSheet.create({
     color: LIGHT_GREY_COLOR_CODE,
   },
   PlusView: {
-    padding: 10,
+    paddingBottom: 6,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: YELLOW_COLOR_CODE,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginHorizontal: 12,
+    marginVertical: 4,
+    borderRadius: 5,
   },
   PlusImge: {
-    width: 28,
-    height: 28,
+    width: 30,
+    height: 30,
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 13,
+    marginTop: 3,
+  },
+  listImg: {
+    width: 27,
+    height: 27,
+    marginTop: 5,
   },
   AddBtnTouchable: {
     backgroundColor: YELLOW_COLOR_CODE,
@@ -88,6 +104,7 @@ const Styles = StyleSheet.create({
   JobDscrptn: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 20,
+    color: WHITE_COLOR_CODE,
   },
 });
 export default Styles;

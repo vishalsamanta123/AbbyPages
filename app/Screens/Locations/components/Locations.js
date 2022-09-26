@@ -11,11 +11,22 @@ import {
 import styles from "./styles";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 const Locations = (props) => {
   return (
     <KeyboardAvoidingView style={CommonStyles.container}>
-      <Header RightImg={null} HeaderText={"Locations"} />
+      <Header
+        RightImg={null}
+        HeaderText={"Locations"}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      />
       <View style={styles.EmailContainer}>
         <View style={styles.FlexViewContain}>
           <View style={{ flex: 5 }}>

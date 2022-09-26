@@ -45,6 +45,8 @@ const SignUpScreen = (props) => {
         RightImg={null}
         HeaderText=""
         HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView
         keyboardShouldPersistTaps={"always"}
@@ -175,7 +177,6 @@ const SignUpScreen = (props) => {
                     longitude: details.geometry.location.lng,
                   });
                 }}
-                
                 value={props.registrationData.address}
                 query={{
                   key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",

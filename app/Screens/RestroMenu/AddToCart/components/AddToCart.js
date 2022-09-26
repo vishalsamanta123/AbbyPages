@@ -19,16 +19,18 @@ import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const AddToCartScreen = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Item Detail"}
+        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
+        tintColor={BLACK_COLOR_CODE}
+        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Item Detail"} />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView style={{ flexGrow: 1, marginTop: 20 }}>
           <View>

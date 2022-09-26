@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -25,12 +25,12 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Video from "react-native-video";
 
 const EventListingScreen = (props) => {
+  const [videoShow, setVideoShow] = useState(false);
   const { width, height } = Dimensions.get("window");
-  const eventDate = moment(props?.eventDetails?.created_at).format(
-    "MM/DD/YYYY"
-  );
+
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -91,7 +91,35 @@ const EventListingScreen = (props) => {
               style={styles.icon}
               source={require("../../../Assets/info_calendar_icon.png")}
             />
-            <Text style={styles.detailTxt}>{eventDate}</Text>
+            {props?.eventDetails?.event_start_date ? (
+              <Text style={styles.detailTxt}>
+                {moment
+                  .unix(props?.eventDetails?.event_start_date)
+                  .format("ddd, MMM Do, YYYY")}{" "}
+                <Text style={styles.detailTxt}>
+                  <Text style={{ color: BLACK_COLOR_CODE }}>To </Text>
+                  {moment
+                    .unix(props?.eventDetails?.event_end_date)
+                    .format("ddd, MMM Do, YYYY")}
+                </Text>
+              </Text>
+            ) : (
+              <Text style={styles.detailTxt}>
+                {moment(props?.eventDetails?.event_date).format("MM/DD/YYYY")}
+              </Text>
+            )}
+          </View>
+          <View style={styles.basiccon}>
+            <Image
+              resizeMode="contain"
+              style={styles.icon}
+              source={require("../../../Assets/checkout_scheduled_icon.png")}
+            />
+            <Text style={styles.detailTxt}>
+              {props?.eventDetails?.event_start_time}{" "}
+              <Text style={{ color: BLACK_COLOR_CODE }}>To</Text>
+              {props?.eventDetails?.event_end_time}
+            </Text>
           </View>
           <View style={styles.basiccon}>
             <Image
@@ -101,16 +129,6 @@ const EventListingScreen = (props) => {
             />
             <Text style={styles.detailTxt}>
               {props?.eventDetails?.event_location}
-            </Text>
-          </View>
-          <View style={styles.basiccon}>
-            <Image
-              resizeMode="contain"
-              style={styles.icon}
-              source={require("../../../Assets/info_tag_icon.png")}
-            />
-            <Text style={styles.detailTxt}>
-              {props?.eventDetails?.near_by_address}
             </Text>
           </View>
           <Button
@@ -141,6 +159,7 @@ const EventListingScreen = (props) => {
                 props.onInterestResp(1);
               } else {
                 props.setInterstedModal(true);
+                props.getEventDetails(props.eventDetails?.event_id);
               }
             }}
           />
@@ -149,6 +168,40 @@ const EventListingScreen = (props) => {
             buttonText={"Buy Ticket"}
             onPress={() => props.setBuyTicketModal(1)}
           />
+          {props.videoUrl != "null" ? (
+            <>
+              <Text style={styles.titleTxt}>Event Video</Text>
+              <View style={styles.videoVw}>
+                <Video
+                  source={{ uri: props.eventDetails?.events_video }} // Can be a URL or a local file.
+                  style={styles.backgroundVideo}
+                  resizeMode={"stretch"}
+                  paused={videoShow}
+                  repeat={true}
+                />
+                <View style={styles.videoContVw}>
+                  <TouchableOpacity
+                    onPress={() => setVideoShow(!videoShow)}
+                    style={styles.startPauseVw}
+                  >
+                    <Text style={{ color: WHITE_COLOR_CODE }}>
+                      {!videoShow ? "Pause" : "Start"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+          ) : null}
+          {props.eventDetails?.event_description ? (
+            <>
+              <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+                Discription
+              </Text>
+              <Text style={[styles.subTitleTxt, { padding: 6 }]}>
+                {props.eventDetails?.event_description}
+              </Text>
+            </>
+          ) : null}
         </View>
       </ScrollView>
       <Modal

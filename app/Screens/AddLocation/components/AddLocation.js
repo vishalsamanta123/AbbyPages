@@ -15,16 +15,18 @@ import {
   WHITE_COLOR_CODE,
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const AddLocationScreen = (props) => {
   return (
     <KeyboardAvoidingView style={[CommonStyles.container]}>
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
+      <Header
+        RightImg={null}
+        HeaderText={"Add a new location"}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
       />
-      <Header RightImg={null} HeaderText={"Add a new location"} />
       <View
         style={[
           CommonStyles.body,

@@ -30,17 +30,15 @@ const Styles = StyleSheet.create({
   nameTxt: {
     fontSize: 18,
     lineHeight: 22,
-    width: "90%",
     fontFamily: FONT_FAMILY_REGULAR,
-    color: "#3a3838",
+    color: BLACK_COLOR_CODE,
     paddingBottom: 10,
     textTransform: "capitalize",
   },
   detailTxt: {
-    color: SMALL_TEXT_COLOR_CODE,
+    color: LIGHT_BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 14,
-    lineHeight: 18,
   },
   paginationDots: {
     height: 10,
@@ -55,11 +53,12 @@ const Styles = StyleSheet.create({
     marginVertical: 5,
   },
   icon: {
-    height: 17,
+    height: 18,
+    width: 18,
     margin: 2,
     marginLeft: 0,
     marginRight: 5,
-    width: 17,
+    tintColor: LIGHT_BLACK_COLOR_CODE,
   },
   btncon: {
     paddingVertical: 15,
@@ -69,6 +68,33 @@ const Styles = StyleSheet.create({
     marginHorizontal: 20,
     borderWidth: 0.8,
     borderColor: LIGHT_GREY_COLOR_CODE,
+  },
+  videoVw: {
+    height: 230,
+    justifyContent: "flex-end",
+    borderRadius: 16,
+    marginTop: 6,
+  },
+  backgroundVideo: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    borderRadius: 12,
+  },
+  videoContVw: {
+    justifyContent: "center",
+    flexDirection: "row",
+    marginBottom: 5,
+  },
+  startPauseVw: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 0.6,
+    borderColor: WHITE_COLOR_CODE,
+    marginHorizontal: 10,
+    borderRadius: 5,
   },
   modalCon: {
     flex: 1,

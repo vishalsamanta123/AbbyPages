@@ -331,6 +331,7 @@ const Styles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
+    right: 10,
   },
   straightVw: {
     flexDirection: "row",
@@ -399,6 +400,7 @@ const Styles = StyleSheet.create({
     marginRight: 8,
     width: 24,
     height: 24,
+    marginVertical: 2,
   },
   minMaxTxt: {
     fontSize: 16,

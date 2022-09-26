@@ -30,6 +30,8 @@ const AddEmailScreen = (props) => {
             <Header
                 RightImg={null}
                 HeaderText={'Add a new Email'}
+                tintColor={BLACK_COLOR_CODE}
+                mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
             />
             <View style={[CommonStyles.body, { paddingTop: '20%', backgroundColor: WHITE_COLOR_CODE, justifyContent: 'center' }]}>
                 <ScrollView keyboardShouldPersistTaps={"always"}>
