@@ -430,13 +430,13 @@ export function BusinessDrawerContents(props) {
               <Text style={styles.drawerText}>Job Management</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("RestaurantManagement");
             }}
           >
-            {/* <View style={styles.ImgeView}>
+            <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
                 source={require("../Assets/diet.png")}
@@ -445,13 +445,13 @@ export function BusinessDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Restuarant Management</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessOrderHistory");
             }}
-          > */}
+          >
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
@@ -461,7 +461,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>My Orders</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -475,7 +475,7 @@ export function BusinessDrawerContents(props) {
               />
             </View>
             <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>My product</Text>
+              <Text style={styles.drawerText}>Product Management</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

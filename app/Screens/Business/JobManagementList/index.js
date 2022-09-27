@@ -179,34 +179,12 @@ const JobManagementListView = ({ navigation }) => {
       </View>
     );
   };
-  // const _handleTableData = (item) => {
-  // console.log('item: ', item);
-  //     return (
-  //         <View style={styles.MainContain}>
-  //             <View style={styles.JobContainer}>
-  //                 <Text style={styles.TableNottEXT}>{item?.job_title}</Text>
-  //                 <Text style={styles.DescrptionText}>$29.99</Text>
-  //             </View>
-  //             <Text style={styles.DescrptnTextStyle}>
-  //                 {item?.job_description}
-  //             </Text>
-  //             <Text style={styles.HeadingTxt} >Responsibilty</Text>
-  //             <Text style={styles.DescrptnTextStyle}>
-  //                 Loren upsum dolor sit amet, consector adipicing elit, sed
-  //             </Text>
-  //             <Text style={styles.HeadingTxt}>Expereince</Text>
-  //             <Text style={styles.DescrptnTextStyle}>
-  //                 Loren upsum dolor sit amet, consector adipicing elit, sed
-  //             </Text>
-  //             <TouchableOpacity
-  //                 style={styles.AddBtnTouchable}>
-  //                 <Image source={require('../../../Assets/arrow_right_icon.png')} />
-  //             </TouchableOpacity>
-  //         </View>
-  //     )
-  // }
-  const onPressAdd = () => {
-    navigation.navigate("AddJobs");
+  const onPressAdd = (val) => {
+    if (val === 2) {
+      navigation.navigate("AppliedJob");
+    } else {
+      navigation.navigate("AddJobs");
+    }
   };
   return (
     <View style={CommonStyles.container}>

@@ -23,7 +23,6 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import moment from "moment";
 
 const CreateEvent = (props) => {
   const hideDatePicker = () => {

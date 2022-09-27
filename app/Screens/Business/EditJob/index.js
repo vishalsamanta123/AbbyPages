@@ -185,6 +185,9 @@ const EditJob = ({ navigation, route }) => {
     setOpenings(item?.no_of_openings ? item?.no_of_openings : "");
     setPhoneNumber(item?.phone_no ? item?.phone_no : "");
     setSkills(item?.skills ? item?.skills : "");
+    setSelectedBenefits(
+      item?.job_benefits ? JSON.parse(item?.job_benefits) : []
+    );
   }, [item]);
 
   const _handleFocus = () => {

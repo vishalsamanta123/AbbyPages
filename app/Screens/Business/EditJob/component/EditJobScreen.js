@@ -20,6 +20,7 @@ import {
   FONT_FAMILY_REGULAR,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const EditJobScreen = (props) => {
   return (
@@ -28,9 +29,9 @@ const EditJobScreen = (props) => {
         leftImg={require("../../../../Assets/header_back_btn.png")}
         HeaderText="Edit Jobs"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.BasicVwe}>
@@ -326,15 +327,19 @@ const EditJobScreen = (props) => {
                 {/* {props?.selectedBenefits.length > 0 ? null : "Select job benefits"} */}
                 Select job benefits
               </Text>
-              {/* {props?.selectedBenefits?.map((data) => {
-                return (
-                  <View style={{}}>
-                    <Text style={styles.slctdtxt}>
-                      •{data.job_benefits_name}
-                    </Text>
-                  </View>
-                );
-              })} */}
+              {props?.selectedBenefits?.length > 0 ? (
+                <>
+                  {props?.selectedBenefits?.map((item) => {
+                    return (
+                      <View style={{}}>
+                        <Text style={styles.slctdtxt}>
+                          •{item.job_benefits_name}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </>
+              ) : null}
             </TouchableOpacity>
           </View>
         </View>

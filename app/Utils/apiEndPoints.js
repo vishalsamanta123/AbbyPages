@@ -122,4 +122,7 @@ export default {
   EVENTPAYMENTPROCESS: "/api/events/eventPaymentProcess",
   //getUserEventTicket
   GET_USER_EVENT_TICKET: "/api/events/getUserEventTicket",
+
+  //job accepted
+  JOBAPPROVEDBUSINESS: "/api/jobs/jobApprovedForBusiness",
 };

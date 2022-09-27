@@ -7,6 +7,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
+  GREY_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainContain: {
@@ -16,7 +17,7 @@ const Styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: LINE_COMMON_COLOR_CODE,
     borderRadius: 4,
-    marginTop: 12
+    marginTop: 12,
   },
   ViewContainer: {
     padding: 15,
@@ -39,29 +40,40 @@ const Styles = StyleSheet.create({
     fontSize: 12,
     color: LIGHT_GREY_COLOR_CODE,
   },
-  PlusView: {
-    paddingBottom: 6,
+  moreOptionVw: {
+    borderColor: GREY_COLOR_CODE,
+    borderWidth: 1,
+    borderRadius: 12,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: YELLOW_COLOR_CODE,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginHorizontal: 12,
-    marginVertical: 4,
-    borderRadius: 5,
+    justifyContent: "space-between",
+    marginVertical: 5,
+    marginHorizontal: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+  },
+  moreOptionInnrVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 15,
   },
   PlusImge: {
     width: 30,
     height: 30,
-    backgroundColor: WHITE_COLOR_CODE,
-    borderRadius: 13,
     marginTop: 3,
+    borderWidth: 0.8,
+    borderColor: BLACK_COLOR_CODE,
+    borderRadius: 16,
   },
   listImg: {
-    width: 27,
-    height: 27,
+    width: 25,
+    height: 25,
     marginTop: 5,
+    tintColor: BLACK_COLOR_CODE,
+  },
+  manageVw: {
+    paddingLeft: 12,
+    paddingVertical: 10,
   },
   AddBtnTouchable: {
     backgroundColor: YELLOW_COLOR_CODE,
@@ -104,7 +116,8 @@ const Styles = StyleSheet.create({
   JobDscrptn: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 20,
-    color: WHITE_COLOR_CODE,
+    color: BLACK_COLOR_CODE,
+    paddingLeft: 8,
   },
 });
 export default Styles;

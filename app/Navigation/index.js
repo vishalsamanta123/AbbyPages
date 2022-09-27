@@ -111,6 +111,8 @@ import AddLocationScreen from "../Screens/AddLocation";
 import AddEmailScreen from "../Screens/AddEmail";
 import AddPhotosScreen from "../Screens/AddPhotos";
 import UserEventsListScreen from "../Screens/UserEventsList";
+import AppliedJobScreen from "../Screens/Business/AppliedJob";
+import AppliedJobDetailsScreen from '../Screens/Business/OrderDetail/AppliedJobDetails'
 //
 
 import BookmarkScreen from "../Screens/Bookmark";
@@ -295,6 +297,8 @@ function BusinessStack() {
       <Business.Screen name="AddJobs" component={AddJobsScreen} />
       <Business.Screen name="EditJobs" component={EditJob} />
       <Business.Screen name="AddTextPreview" component={AddTextPreviewScreen} />
+      <Business.Screen name="AppliedJob" component={AppliedJobScreen} />
+      <Business.Screen name="AppliedJobDetails" component={AppliedJobDetailsScreen} />
       <Business.Screen
         name="BasicInformation"
         component={BasicInformationScreen}

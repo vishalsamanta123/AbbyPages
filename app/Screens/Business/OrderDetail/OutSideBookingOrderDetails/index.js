@@ -7,9 +7,7 @@ import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import Error from "../../../../Components/Modal/error";
 import Success from "../../../../Components/Modal/success";
-const OutSideBookingOrderDetails = (route, props) => {
-  const orderId = route.route.params.orderId;
-  const BusinessType = route.route.params.BusinessType;
+const OutSideBookingOrderDetails = ({ route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -18,11 +16,14 @@ const OutSideBookingOrderDetails = (route, props) => {
   const [orderData, setorderData] = useState();
 
   useEffect(() => {
-    // alert('4')
-    getOrderDetailsFun();
-  }, []);
+    const { BusinessType, orderId } = route.params || {
+      BusinessType: 5,
+      orderId: null,
+    };
+    getOrderDetailsFun(orderId, BusinessType);
+  }, [route.params]);
 
-  const getOrderDetailsFun = async () => {
+  const getOrderDetailsFun = async (orderId, BusinessType) => {
     setVisible(true);
     try {
       const params = {

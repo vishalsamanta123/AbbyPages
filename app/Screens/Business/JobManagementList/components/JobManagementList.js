@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -27,37 +27,48 @@ const JobManagementList = (props) => {
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
+      <TouchableOpacity
+        style={styles.moreOptionVw}
+        onPress={() => props.onPressAdd(1)}
+      >
+        <View style={styles.moreOptionInnrVw}>
+          <Image
+            resizeMode={"contain"}
+            style={{ width: 28, height: 28 }}
+            source={require("../../../../Assets/job_list_icon.png")}
+          />
+          <Text style={styles.JobDscrptn}>Create Job</Text>
+        </View>
+        <Image
+          style={styles.PlusImge}
+          resizeMode={"contain"}
+          source={require("../../../../Assets/qty_plus_icon.png")}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.moreOptionVw}
+        onPress={() => props.onPressAdd(2)}
+      >
+        <View style={styles.moreOptionInnrVw}>
+          <Image
+            resizeMode={"contain"}
+            style={{ width: 28, height: 28 }}
+            source={require("../../../../Assets/job_list_icon.png")}
+          />
+          <Text style={styles.JobDscrptn}>Applied Jobs</Text>
+        </View>
+        <Image
+          style={styles.listImg}
+          resizeMode={"contain"}
+          source={require("../../../../Assets/listmenucopy.png")}
+        />
+      </TouchableOpacity>
+      <View style={styles.manageVw}>
+        <Text style={styles.JobDscrptn}>Manage Jobs -</Text>
+      </View>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={props?.businessJobList}
-        ListHeaderComponent={() => {
-          return (
-            <>
-              <TouchableOpacity
-                style={styles.PlusView}
-                onPress={() => props.onPressAdd()}
-              >
-                <Text style={styles.JobDscrptn}>Create Job</Text>
-                <Image
-                  style={styles.PlusImge}
-                  resizeMode={"contain"}
-                  source={require("../../../../Assets/add_location_icon.png")}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.PlusView}
-                // onPress={() => props.onPressAdd()}
-              >
-                <Text style={styles.JobDscrptn}>Applied Jobs</Text>
-                <Image
-                  style={styles.listImg}
-                  resizeMode={"contain"}
-                  source={require("../../../../Assets/listmenucopy.png")}
-                />
-              </TouchableOpacity>
-            </>
-          );
-        }}
         renderItem={({ item, index }) => props._handleTableData(item, index)}
       />
     </KeyboardAvoidingView>
