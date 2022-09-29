@@ -533,7 +533,7 @@ const StripeConnect = (props) => {
           <Button
             buttonText={"Next is what?"}
             style={styles.bttnNotwoVw}
-            onPress={() => props.onPressCreateEvent()}
+            // onPress={() => props.onPressCreateEvent()}
           />
         </View>
       </ScrollView>

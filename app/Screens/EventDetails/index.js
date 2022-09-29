@@ -33,7 +33,13 @@ const EventDetails = ({ route }) => {
   const [ticketsDetails, setTicketsDetails] = useState([]);
   const [ticketsData, setTicketsData] = useState([]);
   const [ticketList, setTicketList] = useState([]);
-  const [ticketCategory, setTicketCategory] = useState([]);
+  const [ticketCategory, setTicketCategory] = useState([
+    {
+      event_type_id: 1,
+      event_type_name: "General Ticket",
+      ticket_price: "100",
+    },
+  ]);
   const [buyerInfo, setBuyerInfo] = useState({
     first_name: "",
     last_name: "",
@@ -79,7 +85,7 @@ const EventDetails = ({ route }) => {
         setLoader(false);
         setEventDetails(data.data);
         setChangeInterest(data.data.user_interested);
-        setTicketCategory(data.data.event_ticket_type);
+        // setTicketCategory(data.data.event_ticket_type);
       } else {
         setLoader(false);
         setVisibleErr(true);
@@ -187,76 +193,77 @@ const EventDetails = ({ route }) => {
     }
   };
   const handleBuyTicket = async (resp) => {
-    try {
-      setLoader(true);
-      const tickets_details = ticketsDetails.map((item) => {
-        return {
-          ticket_type_id: item.ticket_id,
-          ticket_amount: item.ticket_amount,
-          ticket_user_name: item.cand_firstName + "" + item.cand_lastName,
-          user_email: item.cand_email,
-          user_phone: item.cand_phoneNo,
-          country_code: item.can_countrycode,
-          address: item.cand_address,
-          latitude: item.cand_lat,
-          longitude: item.cand_long,
-        };
-      });
-      const params = {
-        event_id: eventDetails?.event_id,
-        total_ticket_book: Number(ticketsDetails?.length),
-        total_ticket_amount: totalAmount
-          ? Number(totalAmount)
-          : Number(ticketsData[0].total_amount),
-        tickets_details: JSON.stringify(tickets_details),
-      };
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.BUY_EVENT_TICKET,
-        params
-      );
-      if (data.status === 200) {
-        setLoader(false);
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
-        onPressTicketResp(3);
-        setTicketList(data.data);
-        const result = data.data.map(({ ticket_id }) => ticket_id);
-        setTicketIds(result);
-      } else {
-        setLoader(false);
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
-      }
-    } catch (error) {
-      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
-      setLoader(false);
-    }
+    onPressTicketResp(3);
+    // try {
+    //   setLoader(true);
+    //   const tickets_details = ticketsDetails.map((item) => {
+    //     return {
+    //       ticket_type_id: item.ticket_id,
+    //       ticket_amount: item.ticket_amount,
+    //       ticket_user_name: item.cand_firstName + "" + item.cand_lastName,
+    //       user_email: item.cand_email,
+    //       user_phone: item.cand_phoneNo,
+    //       country_code: item.can_countrycode,
+    //       address: item.cand_address,
+    //       latitude: item.cand_lat,
+    //       longitude: item.cand_long,
+    //     };
+    //   });
+    //   const params = {
+    //     event_id: eventDetails?.event_id,
+    //     total_ticket_book: Number(ticketsDetails?.length),
+    //     total_ticket_amount: totalAmount
+    //       ? Number(totalAmount)
+    //       : Number(ticketsData[0].total_amount),
+    //     tickets_details: JSON.stringify(tickets_details),
+    //   };
+    //   const { data } = await apiCall(
+    //     "POST",
+    //     ENDPOINTS.BUY_EVENT_TICKET,
+    //     params
+    //   );
+    //   if (data.status === 200) {
+    //     setLoader(false);
+    //     ToastAndroid.show(data.message, ToastAndroid.LONG);
+    //     onPressTicketResp(3);
+    //     setTicketList(data.data);
+    //     const result = data.data.map(({ ticket_id }) => ticket_id);
+    //     setTicketIds(result);
+    //   } else {
+    //     setLoader(false);
+    //     ToastAndroid.show(data.message, ToastAndroid.LONG);
+    //   }
+    // } catch (error) {
+    //   ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
+    //   setLoader(false);
+    // }
   };
   const paymentForTicket = async () => {
-    try {
-      setLoader(true);
-      const params = {
-        amount: totalAmount
-          ? Number(totalAmount)
-          : Number(ticketsData[0].total_amount),
-        email: buyerInfo.email,
-        user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
-        card_number: "424242424242" + buyerInfo.last4,
-        exp_month: buyerInfo.expiryMonth.toString(),
-        exp_year: buyerInfo.expiryYear.toString(),
-        zipcode: buyerInfo.postalCode,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
-      if (data.status === 200) {
-        setLoader(false);
-        eventPaymentProcess(data.data);
-      } else {
-        ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
-        setLoader(false);
-      }
-    } catch (error) {
-      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
-      setLoader(false);
-    }
+    // try {
+    //   setLoader(true);
+    //   const params = {
+    //     amount: totalAmount
+    //       ? Number(totalAmount)
+    //       : Number(ticketsData[0].total_amount),
+    //     email: buyerInfo.email,
+    //     user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
+    //     card_number: "424242424242" + buyerInfo.last4,
+    //     exp_month: buyerInfo.expiryMonth.toString(),
+    //     exp_year: buyerInfo.expiryYear.toString(),
+    //     zipcode: buyerInfo.postalCode,
+    //   };
+    //   const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+    //   if (data.status === 200) {
+    //     setLoader(false);
+    //     eventPaymentProcess(data.data);
+    //   } else {
+    //     ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
+    //     setLoader(false);
+    //   }
+    // } catch (error) {
+    //   ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
+    //   setLoader(false);
+    // }
   };
   const eventPaymentProcess = async (paymentData) => {
     try {

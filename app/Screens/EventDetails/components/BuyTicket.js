@@ -292,7 +292,7 @@ const BuyTicketScreen = (props) => {
                 style={styles.modalBttn}
                 buttonLabelStyle={styles.modalBttnTxt}
                 onPress={() => {
-                  props.onPressTicketResp(2);
+                  props.onPressTicketResp(3);
                 }}
                 buttonText={"Next"}
               />

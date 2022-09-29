@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -9,7 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import styles from "./../../AddJobs/components/styles";
+import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
@@ -18,11 +18,13 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 const EditJobScreen = (props) => {
+  const [isFocused, setIsfocused] = useState(false);
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -39,73 +41,102 @@ const EditJobScreen = (props) => {
         </View>
         <View style={styles.inputwvwe}>
           <TouchableOpacity
-            onPress={() => props._handleOpenJobCategory()}
+            onPress={() => props.handleOpenModal(1)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props?.selectedJobCategory?.category_name
-                  ? props.selectedJobCategory.category_name
-                  : "Job category"}
+                {props?.jobForm?.job_category_name
+                  ? props?.jobForm?.job_category_name
+                  : "Job Category"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
               <Image source={require("../../../../Assets/dropdown_icon.png")} />
             </View>
           </TouchableOpacity>
-
           <Input
-            onChangeText={(JobTitle) => props.setJobTitle(JobTitle)}
-            value={props.JobTitle}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                job_title: text,
+              })
+            }
+            value={props.jobForm.job_title}
             secureTextEntry={false}
             placeholder="Job Title *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(Openings) => props.setOpenings(Openings)}
-            value={props.Openings}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                no_of_openings: text,
+              })
+            }
+            value={props?.jobForm?.no_of_openings}
             secureTextEntry={false}
             placeholder="No Of Openings *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(startTimeDay) => props.setStartTimeDay(startTimeDay)}
-            value={props.startTimeDay}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                startTimeDay: text,
+              })
+            }
+            value={props?.jobForm?.startTimeDay}
             secureTextEntry={false}
             placeholder="Start working days*"
             InputType="withScroll"
             keyboardType={"numeric"}
           />
           <Input
-            onChangeText={(endTimeDay) => props.setEndTimeDay(endTimeDay)}
-            value={props.endTimeDay}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                endTimeDay: text,
+              })
+            }
+            value={props?.jobForm?.endTimeDay}
             secureTextEntry={false}
             placeholder="End working days*"
             InputType="withScroll"
             keyboardType={"numeric"}
           />
           <Input
-            onChangeText={(SalaryFrom) => props.setSalaryFrom(SalaryFrom)}
-            value={props.SalaryFrom}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                monthly_in_hand_salary_from: text,
+              })
+            }
+            value={props?.jobForm?.monthly_in_hand_salary_from}
             secureTextEntry={false}
             placeholder="Monthly In-hand Salary From *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(SalaryTo) => props.setSalaryTo(SalaryTo)}
-            value={props.SalaryTo}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                monthly_in_hand_salary_to: text,
+              })
+            }
+            value={props?.jobForm?.monthly_in_hand_salary_to}
             secureTextEntry={false}
             placeholder="Monthly In-hand Salary To *"
             InputType="withScroll"
           />
           <TouchableOpacity
-            onPress={() => props._handleModalOpen()}
+            onPress={() => props.handleOpenModal(2)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props?.selectedCountry?.name
-                  ? props?.selectedCountry?.name
+                {props?.jobForm?.country_name
+                  ? props?.jobForm?.country_name
                   : "Select country"}
               </Text>
             </View>
@@ -114,13 +145,13 @@ const EditJobScreen = (props) => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props._handleStateModalOpen()}
+            onPress={() => props.handleOpenModal(3)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props?.selectedState?.name
-                  ? props?.selectedState?.name
+                {props?.jobForm?.state_name
+                  ? props?.jobForm?.state_name
                   : "Select state"}
               </Text>
             </View>
@@ -129,13 +160,13 @@ const EditJobScreen = (props) => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props._handleCityModalOpen()}
+            onPress={() => props.handleOpenModal(4)}
             style={styles.container}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props?.selectedCity?.name
-                  ? props?.selectedCity?.name
+                {props?.jobForm?.city_name
+                  ? props?.jobForm?.city_name
                   : "Select city"}
               </Text>
             </View>
@@ -165,23 +196,33 @@ const EditJobScreen = (props) => {
         </View>
         <View style={styles.jobdesvwe}>
           <Input
-            multiline
+            multiline={true}
             numberOfLines={2}
-            style={styles.jobinputvwe}
-            onChangeText={(JobDescription) =>
-              props.setJobDescription(JobDescription)
+            textInputStyle={styles.jobinputvwe}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                job_description: text,
+              })
             }
-            value={props?.JobDescription?.replace(/<\/?[^>]+>/gi, " ")}
+            value={props?.jobForm?.job_description?.replace(
+              /<\/?[^>]+>/gi,
+              " "
+            )}
             secureTextEntry={false}
             placeholder="Job Info / Job Description *"
             InputType="withScroll"
           />
         </View>
         <Input
-          onChangeText={(jobRequirements) =>
-            props.setJobReqiurements(jobRequirements)
+          textInputStyle={styles.jobinputvwe}
+          onChangeText={(text) =>
+            props.setJobForm({
+              ...props.jobForm,
+              job_requirements: text,
+            })
           }
-          value={props?.jobRequirements?.replace(/<\/?[^>]+>/gi, " ")}
+          value={props?.jobForm?.job_requirements?.replace(/<\/?[^>]+>/gi, " ")}
           secureTextEntry={false}
           placeholder="Job Requirements*"
           InputType="withScroll"
@@ -189,11 +230,13 @@ const EditJobScreen = (props) => {
         <View style={styles.inputwvwe}>
           <TouchableOpacity
             style={styles.secContainer}
-            onPress={() => props.showTimePicker()}
+            onPress={() => props.setIsStartTimePickerVisible(true)}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.startTime ? props.startTime : "Start Time"}
+                {props?.jobForm?.startTime
+                  ? props?.jobForm?.startTime
+                  : "Start Time"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -206,14 +249,13 @@ const EditJobScreen = (props) => {
               onCancel={props.hideTimePicker}
             />
           </TouchableOpacity>
-          {/* End time */}
           <TouchableOpacity
             style={styles.secContainer}
-            onPress={() => props.showEndTimePicker()}
+            onPress={() => props.setIsEndTimePickerVisible(true)}
           >
             <View style={styles.CameraImgView}>
               <Text style={styles.AddPhotosTxt}>
-                {props.endTime ? props.endTime : "End Time"}
+                {props?.jobForm?.endTime ? props?.jobForm?.endTime : "End Time"}
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
@@ -227,17 +269,29 @@ const EditJobScreen = (props) => {
             />
           </TouchableOpacity>
           <Input
-            onChangeText={(InterviewDetails) =>
-              props.setInterviewDetails(InterviewDetails)
+            textInputStyle={styles.jobinputvwe}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                interview_details: text,
+              })
             }
-            value={props.InterviewDetails?.replace(/<\/?[^>]+>/gi, " ")}
+            value={props?.jobForm?.interview_details?.replace(
+              /<\/?[^>]+>/gi,
+              " "
+            )}
             secureTextEntry={false}
             placeholder="Interview Details *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(jobLevel) => props.setJobLevel(jobLevel)}
-            value={props.jobLevel}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                job_level: text,
+              })
+            }
+            value={props?.jobForm?.job_level}
             secureTextEntry={false}
             placeholder="Job level*"
             InputType="withScroll"
@@ -248,108 +302,179 @@ const EditJobScreen = (props) => {
         </View>
         <View style={styles.inputwvwe}>
           <Input
-            onChangeText={(CompanyName) => props.setCompanyName(CompanyName)}
-            value={props.CompanyName}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                company_name: text,
+              })
+            }
+            value={props?.jobForm?.company_name}
             secureTextEntry={false}
             placeholder="Company Name *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(CompanyPersonName) =>
-              props.setCompanyPersonName(CompanyPersonName)
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                company_personName: text,
+              })
             }
-            value={props.CompanyPersonName}
+            value={props?.jobForm?.company_personName}
             secureTextEntry={false}
             placeholder="Company Person Name *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(language) => props.setLanguage(language)}
-            value={props.language}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                language: text,
+              })
+            }
+            value={props?.jobForm?.language}
             secureTextEntry={false}
             placeholder="Language"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(PhoneNumber) => props.setPhoneNumber(PhoneNumber)}
-            value={props.PhoneNumber}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                phone_no: text,
+              })
+            }
+            value={props?.jobForm?.phone_no}
             secureTextEntry={false}
             keyboardType={"numeric"}
             placeholder="Phone Number *"
             InputType="withScroll"
           />
           <Input
-            onChangeText={(EmailID) => props.setEmailID(EmailID)}
-            value={props.EmailID}
+            onChangeText={(text) =>
+              props.setJobForm({
+                ...props.jobForm,
+                email_id: text,
+              })
+            }
+            value={props?.jobForm?.email_id}
             secureTextEntry={false}
             keyboardType={"email-address"}
             placeholder="Email ID *"
             InputType="withScroll"
           />
           <View style={styles.jobdesvwe}>
+            <View style={styles.inputsVw}>
+              {props.jobForm.job_address != "" && (
+                <Text
+                  style={[
+                    styles.inputTitleTxt,
+                    {
+                      top: isFocused ? 0 : -10,
+                      color: isFocused ? "" : BLACK_COLOR_CODE,
+                      backgroundColor: isFocused ? "" : WHITE_COLOR_CODE,
+                      fontSize: isFocused ? 1 : 16,
+                    },
+                  ]}
+                >
+                  {"Job Address *"}
+                </Text>
+              )}
+              <GooglePlacesAutocomplete
+                placeholder="Job Address *"
+                fetchDetails={true}
+                onPress={(data, details = null) => {
+                  props.setJobForm({
+                    ...props.jobForm,
+                    job_address: details.formatted_address,
+                  });
+                }}
+                value={props.jobForm.job_address}
+                query={{
+                  key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
+                  language: "en",
+                }}
+                textInputProps={{
+                  placeholderTextColor: BLACK_COLOR_CODE,
+                  onChangeText: (e) => {
+                    props.setJobForm({
+                      ...props.jobForm,
+                      job_address: e,
+                    });
+                  },
+                  value: props.jobForm.job_address,
+                }}
+                styles={{
+                  textInputContainer: {
+                    fontSize: 15,
+                    fontFamily: FONT_FAMILY_REGULAR,
+                    color: BLACK_COLOR_CODE,
+                    paddingLeft: 14,
+                  },
+                  textInput: {
+                    fontSize: 15,
+                    color: BLACK_COLOR_CODE,
+                    fontFamily: FONT_FAMILY_REGULAR,
+                  },
+                  listView: {
+                    backgroundColor: WHITE_COLOR_CODE,
+                  },
+                }}
+                minLength={2}
+                autoFocus={false}
+                returnKeyType={"default"}
+              />
+            </View>
             <Input
-              multiline
-              numberOfLines={2}
-              style={styles.jobinputvwe}
-              onChangeText={(JobAddress) => props.setJobAddress(JobAddress)}
-              value={props.JobTitle}
-              secureTextEntry={false}
-              placeholder="Job Address *"
-              InputType="withScroll"
-            />
-            <Input
-              onChangeText={(skills) => props.setSkills(skills)}
-              value={props.skills}
+              onChangeText={(text) =>
+                props.setJobForm({
+                  ...props.jobForm,
+                  skills: text,
+                })
+              }
+              value={props?.jobForm?.skills}
               secureTextEntry={false}
               placeholder="Skills"
               InputType="withScroll"
             />
           </View>
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: 10,
-              marginTop: 10,
-            }}
-          >
+          <View style={styles.arraySelectVw}>
             <TouchableOpacity
               onPress={() => props.setMenuTypeVisible()}
               style={styles.tchvwe}
             >
-              <Text
-                style={{
-                  fontSize: 17,
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  color: BLACK_COLOR_CODE,
-                }}
-              >
-                {/* {props?.selectedBenefits.length > 0 ? null : "Select job benefits"} */}
-                Select job benefits
-              </Text>
-              {props?.selectedBenefits?.length > 0 ? (
-                <>
-                  {props?.selectedBenefits?.map((item) => {
+              <Text style={styles.titlesTxt}>Select job benefits</Text>
+              {props?.jobForm?.job_benefits?.length > 0 ? (
+                <View style={styles.arrayVw}>
+                  {props?.jobForm?.job_benefits?.map((item) => {
                     return (
-                      <View style={{}}>
+                      <View style={styles.arrayItmVw}>
                         <Text style={styles.slctdtxt}>
-                          •{item.job_benefits_name}
+                          • {item.job_benefits_name}
                         </Text>
                       </View>
                     );
                   })}
-                </>
+                </View>
               ) : null}
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.footermainvwe}>
           <View style={styles.conditionvwe}>
-            <TouchableOpacity onPress={() => props._handleFocus()}>
+            <TouchableOpacity
+              onPress={() =>
+                props.setJobForm({
+                  ...props.jobForm,
+                  accpt_trms_cond:
+                    props?.jobForm?.accpt_trms_cond === 1 ? "" : 1,
+                })
+              }
+            >
               <Image
                 style={styles.alluncheck}
                 source={
-                  props.box
+                  props?.jobForm?.accpt_trms_cond === ""
                     ? require("../../../../Assets/unchecked_circled_icon_box.png")
                     : require("../../../../Assets/checked_circled_icon_box.png")
                 }
@@ -371,12 +496,11 @@ const EditJobScreen = (props) => {
           />
         </View>
       </ScrollView>
-      {/* Country Modal */}
       <Modal
         animationType="slide"
-        visible={props.countryVisible}
+        visible={props.modalVisible}
         onRequestClose={() => {
-          props.setCountryVisible(false);
+          props.handleCloseModal();
         }}
       >
         <View style={{ alignItems: "center" }}>
@@ -384,10 +508,20 @@ const EditJobScreen = (props) => {
             <View style={styles.headervwe}>
               <View style={{ flex: 1 }} />
               <View style={styles.arealstvwe}>
-                <Text style={styles.arealsttxt}>Country List</Text>
+                <Text style={styles.arealsttxt}>
+                  {props?.modalResp === 1
+                    ? "Job Category List"
+                    : props?.modalResp === 2
+                    ? "Country List"
+                    : props?.modalResp === 3
+                    ? "State List"
+                    : props?.modalResp === 4
+                    ? "City List"
+                    : "List"}
+                </Text>
               </View>
               <TouchableOpacity
-                onPress={() => props.setCountryVisible(false)}
+                onPress={() => props.handleCloseModal()}
                 style={styles.cancelbtnimgvwe}
               >
                 <Image
@@ -397,178 +531,36 @@ const EditJobScreen = (props) => {
               </TouchableOpacity>
             </View>
             <View style={{ marginBottom: "15%" }}>
-              <View style={{ width: "100%" }}>
-                <TextInput
-                  placeholder={"Search country"}
-                  onChangeText={(text) => props.SearchCountry(text)}
-                  style={styles.TxtInptStyle}
-                />
-              </View>
+              {props?.modalResp != 1 && (
+                <View style={{ width: "100%" }}>
+                  <TextInput
+                    placeholder={
+                      props?.modalResp === 2
+                        ? "Search Country"
+                        : props?.modalResp === 3
+                        ? "Search State"
+                        : props?.modalResp === 4
+                        ? "Search City"
+                        : "Search"
+                    }
+                    onChangeText={(text) => props.SearchPlace(text)}
+                    style={styles.TxtInptStyle}
+                  />
+                </View>
+              )}
               <FlatList
-                data={props.countryList}
-                renderItem={(item) => props.renderCountryListItem(item)}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/*  */}
-      {/* State Modal */}
-      <Modal
-        animationType="slide"
-        visible={props.stateVisible}
-        onRequestClose={() => {
-          props.setStateVisible(false);
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.moadlvwe}>
-            <View style={styles.headervwe}>
-              <View style={{ flex: 1 }} />
-              <View style={styles.arealstvwe}>
-                <Text style={styles.arealsttxt}>State List</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => props.setStateVisible(false)}
-                style={styles.cancelbtnimgvwe}
-              >
-                <Image
-                  style={styles.cancelimg}
-                  source={require("../../../../Assets/cancelModalBtn.png")}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={{ marginBottom: "15%" }}>
-              <View style={{ width: "100%" }}>
-                <TextInput
-                  placeholder={"Search state"}
-                  onChangeText={(text) => props.SearchState(text)}
-                  style={styles.TxtInptStyle}
-                />
-              </View>
-              <FlatList
-                data={props.stateList}
-                renderItem={(item) => props.renderStateListItem(item)}
-                keyExtractor={(item, index) => index.toString()}
-                ListEmptyComponent={() => {
-                  return (
-                    <View
-                      style={{
-                        flex: 1,
-                        alignSelf: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: FONT_FAMILY_REGULAR,
-                          fontSize: 15,
-                        }}
-                      >
-                        First select Country.
-                      </Text>
-                    </View>
-                  );
-                }}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/*  */}
-
-      {/* City Modal */}
-      <Modal
-        animationType="slide"
-        visible={props.cityVisible}
-        onRequestClose={() => {
-          props.setCityVisible(false);
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.moadlvwe}>
-            <View style={styles.headervwe}>
-              <View style={{ flex: 1 }} />
-              <View style={styles.arealstvwe}>
-                <Text style={styles.arealsttxt}>City List</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => props.setCityVisible(false)}
-                style={styles.cancelbtnimgvwe}
-              >
-                <Image
-                  style={styles.cancelimg}
-                  source={require("../../../../Assets/cancelModalBtn.png")}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={{ marginBottom: "15%" }}>
-              <View style={{ width: "100%" }}>
-                <TextInput
-                  placeholder={"Search city"}
-                  onChangeText={(text) => props.SearchCity(text)}
-                  style={styles.TxtInptStyle}
-                />
-              </View>
-              <FlatList
-                data={props.cityList}
-                renderItem={(item) => props.renderCityListItem(item)}
-                keyExtractor={(item, index) => index.toString()}
-                ListEmptyComponent={() => {
-                  return (
-                    <View
-                      style={{
-                        flex: 1,
-                        alignSelf: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: FONT_FAMILY_REGULAR,
-                          fontSize: 15,
-                        }}
-                      >
-                        First select State.
-                      </Text>
-                    </View>
-                  );
-                }}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/*  */}
-      <Modal
-        animationType="slide"
-        visible={props.addJobCategoryModalVisible}
-        onRequestClose={() => {
-          props.setAddJobCategoryModalVisible(false);
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.moadlvwe}>
-            <View style={styles.headervwe}>
-              <View style={{ flex: 1 }} />
-              <View style={styles.arealstvwe}>
-                <Text style={styles.arealsttxt}>Job category list</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => props.setAddJobCategoryModalVisible(false)}
-                style={styles.cancelbtnimgvwe}
-              >
-                <Image
-                  style={styles.cancelimg}
-                  source={require("../../../../Assets/cancelModalBtn.png")}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={{ marginBottom: "15%" }}>
-              <FlatList
-                data={props.jobCategoryList}
-                renderItem={(item) => props.renderJobCategoryListItem(item)}
+                data={
+                  props?.modalResp === 1
+                    ? props?.jobCategoryList
+                    : props?.modalResp === 2
+                    ? props?.countryList
+                    : props?.modalResp === 3
+                    ? props?.stateList
+                    : props?.modalResp === 4
+                    ? props?.cityList
+                    : []
+                }
+                renderItem={(item) => props.renderModalList(item)}
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
