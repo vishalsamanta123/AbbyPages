@@ -4,6 +4,10 @@
 
 # Xcode
 #
+ios/Pods
+ios/Podfile.lock
+ios/build
+README.md
 build/
 *.pbxuser
 !default.pbxuser
