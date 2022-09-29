@@ -5,7 +5,7 @@ import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
 
 const ForgotPassword = (props) => {
   return (
@@ -16,8 +16,8 @@ const ForgotPassword = (props) => {
       <Header
         HeaderText="Forgot Password"
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <ScrollView contentContainerStyle={styles.body}>
         <View style={{ flex: 1, paddingTop: 40 }}>

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall } from "../Utils/httpClient";
@@ -88,7 +95,7 @@ const DesignDrawer = () => {
     <View style={styles.MainContainer}>
       <View style={styles.ContainerView}>
         <View style={styles.NameContainer}>
-          {profileData.login_type == 2 ? (
+          {profileData.login_type === 2 ? (
             <Image
               style={styles.UserImge}
               source={{ uri: logoBaseImgUrl + profileData.logo }}
@@ -135,10 +142,15 @@ const DesignDrawer = () => {
 };
 export function customDrawerContents(props) {
   return (
-    <View style={{}}>
+    <View>
       <View style={{ height: "100%" }}>
         <DesignDrawer />
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView
+           contentContainerStyle={{
+            paddingTop: Platform.OS === "ios" ? 0 : 0,
+          }}
+          {...props}
+        >
           <View style={styles.NavigationContain}>
             <Text style={styles.NavigationText}>NAVIGATIONS</Text>
           </View>
@@ -343,10 +355,15 @@ export function customDrawerContents(props) {
 }
 export function BusinessDrawerContents(props) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{}}>
       <View style={{ height: "100%" }}>
         <DesignDrawer />
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView
+          contentContainerStyle={{
+            paddingTop: Platform.OS === "ios" ? 0 : 0,
+          }}
+          {...props}
+        >
           <View style={styles.NavigationContain}>
             <Text style={styles.NavigationText}>NAVIGATIONS</Text>
           </View>
@@ -553,6 +570,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: Platform.OS === "ios" ? 24 : 0,
   },
   NameContainer: {
     flexDirection: "row",

@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '10.0'
+platform :ios, '12.0'
 
 target 'AbbyPages' do
   config = use_native_modules!
@@ -10,7 +10,6 @@ target 'AbbyPages' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
-  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
@@ -18,6 +17,8 @@ target 'AbbyPages' do
 
   pod 'RNFileViewer', :path => '../node_modules/react-native-file-viewer'
 
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
+  
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   target 'AbbyPagesTests' do

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -297,7 +297,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 20,
-    top: 8,
+    top:Platform.OS==='ios'?2: 8,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -372,12 +372,12 @@ const Styles = StyleSheet.create({
   modalBttnVw: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 12,
+    marginVertical: 12,
   },
   modalBttn: {
     width: "45%",
     marginHorizontal: 5,
-    paddingVertical: 8,
+    paddingVertical:Platform.OS==='ios'?12: 8,
     alignSelf: "flex-end",
     backgroundColor: YELLOW_COLOR_CODE,
   },

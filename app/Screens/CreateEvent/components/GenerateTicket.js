@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -605,6 +606,9 @@ const GenerateTicket = (props) => {
                           selectedValue={props?.createEventData[index]?.payOtp}
                           mode={"dropdown"}
                           style={[styles.formsInputVw, { height: 35 }]}
+                          itemStyle={{
+                            height: Platform.OS === "ios" ? 50 : null,
+                          }}
                         >
                           <Picker.Item label={"Paid by buyer"} value={1} />
                           <Picker.Item label={"Paid by seller"} value={2} />

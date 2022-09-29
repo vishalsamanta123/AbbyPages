@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  Platform
 } from "react-native";
 import Dialog, {
   DialogContent,
@@ -379,6 +380,7 @@ export default function FilterPopUp(props) {
             <Picker
               selectedValue={props.filterData.product_size}
               style={styles.pickerVw}
+              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
               onValueChange={(itemValue, itemIndex) =>
                 props.setFilterData({
                   ...props.filterData,
@@ -406,6 +408,7 @@ export default function FilterPopUp(props) {
                   company_brand: itemValue,
                 })
               }
+              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
               mode={"dropdown"}
             >
               <Picker.Item label="Company Brand" />
@@ -427,6 +430,7 @@ export default function FilterPopUp(props) {
                 })
               }
               mode={"dropdown"}
+              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
             >
               <Picker.Item label="Product Tags" />
               <Picker.Item label="T-shirt" value="T-shirt" />

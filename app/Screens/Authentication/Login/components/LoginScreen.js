@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
@@ -9,7 +15,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 const LoginScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? null : "height"}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText=""

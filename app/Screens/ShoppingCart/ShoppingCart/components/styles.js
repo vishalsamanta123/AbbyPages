@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   SMALL_TEXT_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderColor: "#d8d8d8",
     width: "70%",
+    paddingVertical:Platform.OS==='ios'? 15:0
   },
   appliedbtncon: {
     width: null,

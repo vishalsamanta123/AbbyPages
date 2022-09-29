@@ -5,6 +5,7 @@ import {
   BLACK_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
@@ -18,8 +19,8 @@ const ForgotPassword = (props) => {
       <Header
         HeaderText="Change Password"
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View
         style={{ height: "0.2%", backgroundColor: LINE_COMMON_COLOR_CODE }}

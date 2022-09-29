@@ -125,7 +125,8 @@ const EventManagement = () => {
   const handleEvents = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => getSingleEvent(item, "nonEdit")}
+        // onPress={() => getSingleEvent(item, "nonEdit")}
+        onPress={() => alert("Coming Soon")}
         style={[styles.MainConatiner, { paddingHorizontal: 0 }]}
       >
         <View>
@@ -192,7 +193,8 @@ const EventManagement = () => {
           <View style={styles.editDeleteVW}>
             <TouchableOpacity
               style={styles.BtnStyle}
-              onPress={() => getSingleEvent(item, "edit")}
+              // onPress={() => getSingleEvent(item, "edit")}
+              onPress={() => alert("Coming Soon")}
             >
               <Text style={styles.BtnTxt}>Edit</Text>
             </TouchableOpacity>
@@ -202,6 +204,7 @@ const EventManagement = () => {
               //   setDeleteEvent(true);
               //   setRemoveIndex(item);
               // }}
+              onPress={() => alert("Coming Soon")}
             >
               <Text style={styles.BtnTxt}>Delete</Text>
             </TouchableOpacity>

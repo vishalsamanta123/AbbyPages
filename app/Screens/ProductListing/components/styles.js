@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 import {
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
@@ -73,7 +73,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 24,
-    top: 10,
+    top:Platform.OS==='ios'?3: 10,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -130,6 +130,7 @@ const Styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     alignItems: "center",
+    paddingTop:Platform.OS==='ios'?45:0
   },
   headerArrow: {
     // justifyContent: "center",

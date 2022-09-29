@@ -6,6 +6,7 @@ import {
   FlatList,
   StatusBar,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -98,7 +99,7 @@ const JobListScreen = (props) => {
         backgroundColor={YELLOW_COLOR_CODE}
         translucent={false}
       />
-      <View style={[CommonStyles.header]}>
+      <View style={[CommonStyles.header,{paddingTop:Platform.OS==='ios'?45:0}]}>
         <TouchableOpacity
           onPress={() => props.goBack()}
           style={styles.HeaderView}

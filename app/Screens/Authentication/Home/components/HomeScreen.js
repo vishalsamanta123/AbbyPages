@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StatusBar, ScrollView } from "react-native";
+import { View, Image, StatusBar, ScrollView, Platform } from "react-native";
 import styles from "./styles";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -13,7 +13,12 @@ const HomeScreen = (props) => {
         barStyle="dark-content"
       />
       <View style={CommonStyles.container}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingVertical: Platform.OS === "ios" ? 30 : 0,
+          }}
+        >
           <View style={styles.imagesVw}>
             <Image
               resizeMode="contain"
@@ -33,7 +38,7 @@ const HomeScreen = (props) => {
               onPress={props.onPressCreateBusiness}
             />
             <Button
-              buttonText="Log in"
+              buttonText="Log In"
               buttonLabelStyle={styles.LoginBtnTxt}
               style={{ marginVertical: 5 }}
               onPress={props.onPressLogin}

@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import {
   BLACK_COLOR_CODE,
@@ -33,7 +34,7 @@ const Input = (props) => {
     secureTextEntry,
     selectionColor,
     copyText,
-    onPressCoptTxt
+    onPressCoptTxt,
   } = props;
   const { container, textInput, labelStyle, copyTextTxt } = style;
   const _handleFocus = () => {
@@ -91,8 +92,9 @@ const Input = (props) => {
             textInput,
             {
               fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
-              marginTop: InputType == null ? 9 : 19,
+              marginTop: InputType == null ? 9 : 14,
               width: copyText ? "85%" : "100%",
+              bottom: Platform.OS === "ios" ? 5 : 0,
             },
             textInputStyle,
           ]}
@@ -121,6 +123,7 @@ Input.defaultProps = {
 };
 const style = StyleSheet.create({
   container: {
+    paddingVertical: Platform.OS === "ios" ? 15 : 0,
     borderColor: "#d8d8d8",
     borderWidth: 1,
     // height:60,
@@ -143,6 +146,7 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
+    paddingVertical:Platform.OS==='ios'? 12:0
   },
   copyTextTxt: {
     fontSize: 13,

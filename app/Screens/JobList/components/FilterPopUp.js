@@ -226,7 +226,7 @@ export default function FilterPopUp(props) {
           backgroundColor={YELLOW_COLOR_CODE}
           translucent={false}
         />
-        <View style={CommonStyles.header}>
+        <View style={[CommonStyles.header,{ paddingTop:Platform.OS==='ios'?props.search ?10:45:0}]}>
           <TouchableOpacity
             onPress={() => props.closeModel()}
             style={styles.HeaderArrow}

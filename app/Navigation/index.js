@@ -271,6 +271,7 @@ function AuthStack() {
     </Auth.Navigator>
   );
 }
+
 function BusinessStack() {
   return (
     <Business.Navigator screenOptions={{ headerShown: false }}>
@@ -374,6 +375,7 @@ function BusinessStack() {
     </Business.Navigator>
   );
 }
+
 function AppStack() {
   return (
     <Stack.Navigator

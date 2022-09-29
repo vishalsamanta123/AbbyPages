@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 5,
+    paddingVertical: 5
   },
   MainLogoImge: {
     width: "65%",

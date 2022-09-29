@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -152,6 +152,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     flexDirection: "row",
+    marginTop:Platform.OS==='ios'? 30:0
   },
   arealstvwe: {
     flex: 4,

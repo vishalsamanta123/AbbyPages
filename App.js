@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 navigator.geolocation = require('@react-native-community/geolocation');
 import "react-native-gesture-handler";
 import Navigation from "./app/Navigation";
-import { Alert, PermissionsAndroid, Platform } from "react-native";
+import {  PermissionsAndroid, Platform } from "react-native";
 import {
   UserProvider,
   CartProvider,
@@ -13,9 +13,10 @@ import {
   OrderCategorySelectProvider,
 } from "./app/Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
-import messaging from "@react-native-firebase/messaging";
+// import messaging from "@react-native-firebase/messaging";
 // import firebase from './app/Utils/firebase'
 console.disableYellowBox = true;
+
 const App = () => {
   useEffect(() => {
     if (Platform.OS === "android") {
@@ -41,22 +42,32 @@ const App = () => {
       });
     }
   }, []);
+
   useEffect(() => {
+    const reactNativeFirebaseConfig = {
+      // apiKey,
+      // authDomain,
+      // databaseURL,
+      // projectId,
+      // storageBucket,
+      // messagingSenderId,
+      // appId,
+  };
     // if (!firebase.apps.length) {
     // ab.initializeApp(firebaseConfig);
     // };
-    requestUserPermission();
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+    // requestUserPermission();
+    // const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       // Alert.alert('New message arrived', remoteMessage.notification);
-      Alert.alert(
-        remoteMessage.notification.title,
-        remoteMessage.notification.body
-      );
+      // Alert.alert(
+      //   remoteMessage.notification.title,
+      //   remoteMessage.notification.body
+      // );
       // console.log('remoteMessage.notification.body', remoteMessage.notification)
-    });
-    return () => {
-      unsubscribe;
-    };
+    // });
+    // return () => {
+    //   unsubscribe;
+    // };
   }, []);
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
@@ -64,21 +75,21 @@ const App = () => {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
-      getFcmToken();
+      // getFcmToken();
     }
   }
-  const getFcmToken = async () => {
-    const fcmToken = await messaging().getToken();
-    if (fcmToken) {
-      // console.log(fcmToken);
-      await AsyncStorage.setItem("fcmToken", fcmToken);
-    } else {
-      console.log("Failed", "No token received");
-    }
-  };
-  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    Alert.alert("Message handled in the background!", remoteMessage);
-  });
+  // const getFcmToken = async () => {
+  //   const fcmToken = await messaging().getToken();
+  //   if (fcmToken) {
+  //     // console.log(fcmToken);
+  //     await AsyncStorage.setItem("fcmToken", fcmToken);
+  //   } else {
+  //     console.log("Failed", "No token received");
+  //   }
+  // };
+  // messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  //   Alert.alert("Message handled in the background!", remoteMessage);
+  // });
   return (
     // <View style={{ flex: 1 }}>
     <UserProvider>

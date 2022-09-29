@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -457,26 +458,29 @@ const ShopDetail = (props) => {
                 <Text style={styles.ViewFullmenu}>Get Directions</Text>
               </TouchableOpacity>
             </View>
-            <MapView
-              showsUserLocation
-              style={{ width: "100%", height: 190 }}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={initialRegion}
-            >
-              <Marker
-                coordinate={coordinate}
-                // image={require('../../../Assets/login_logo.png')}
-                title={props.shopDetail && props.shopDetail.business_name}
-                // description={marker.description}
+            {Platform.OS === "ios" ? null : (
+              <MapView
+                showsUserLocation
+                style={{ width: "100%", height: 190 }}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={initialRegion}
               >
-                <Image
-                  source={require("../../../Assets/abby_pages_map_icon.png")}
-                  style={{ height: 50, width: 50 }}
-                  resizeMode="contain"
-                  resizeMethod="auto"
-                />
-              </Marker>
-            </MapView>
+                <Marker
+                  coordinate={coordinate}
+                  // image={require('../../../Assets/login_logo.png')}
+                  title={props.shopDetail && props.shopDetail.business_name}
+                  // description={marker.description}
+                >
+                  <Image
+                    source={require("../../../Assets/abby_pages_map_icon.png")}
+                    style={{ height: 50, width: 50 }}
+                    resizeMode="contain"
+                    resizeMethod="auto"
+                  />
+                </Marker>
+              </MapView>
+            )}
+
             <Text style={styles.ChoosedLocationTxt}>
               {props?.shopDetail?.address}
             </Text>

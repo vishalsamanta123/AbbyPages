@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -556,19 +557,25 @@ const CreateEvent = (props) => {
             </View>
           </TouchableOpacity>
           <Text style={styles.titlesTxt}>Type -</Text>
-          <View style={[styles.container, { flexDirection: "column" }]}>
-            <Picker
-              mode={"dropdown"}
-              onValueChange={(itemValue) =>
-                props.setCreateEvent({
-                  ...props.createEvent,
-                  type: itemValue,
-                })
-              }
-              selectedValue={props.createEvent.type}
-            >
-              <Picker.Item label={"In Person"} value={""} />
-            </Picker>
+          <View
+            style={[
+              styles.container,
+              { flexDirection: Platform.OS === "ios" ? null : "column" },
+            ]}
+          >
+              <Picker
+                mode={"dropdown"}
+                onValueChange={(itemValue) =>
+                  props.setCreateEvent({
+                    ...props.createEvent,
+                    type: itemValue,
+                  })
+                }
+                itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
+                selectedValue={props.createEvent.type}
+              >
+                <Picker.Item label={"In Person"} value={""} />
+              </Picker>
           </View>
           {/* <View style={styles.radioBttnVw}>
             <Text style={styles.radioBttnTxt}>Ticket Type</Text>

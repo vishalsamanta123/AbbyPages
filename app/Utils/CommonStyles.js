@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -15,6 +15,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 16,
     flexDirection: "row",
     backgroundColor: YELLOW_COLOR_CODE,
+   
   },
   body: {
     flex: 5.5,
