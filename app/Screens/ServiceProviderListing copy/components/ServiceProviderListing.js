@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, StatusBar, KeyboardAvoidingView } from "react-native";
+import { View, FlatList, StatusBar, KeyboardAvoidingView,Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
@@ -9,7 +9,9 @@ import {
 } from "../../../Utils/Constant";
 const ServiceProviderListing = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}

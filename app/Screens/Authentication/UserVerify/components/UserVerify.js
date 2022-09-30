@@ -2,10 +2,7 @@ import React, { useState, useRef } from "react";
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
 import styles from "./styles";

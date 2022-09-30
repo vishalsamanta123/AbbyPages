@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, Text, KeyboardAvoidingView, ScrollView ,Platform} from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";

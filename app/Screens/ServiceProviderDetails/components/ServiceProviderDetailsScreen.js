@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import moment from "moment";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -48,7 +49,9 @@ const ServiceProviderDetailsScreen = (props) => {
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         HeaderText="Service Provider Details "
         RightImg={null}

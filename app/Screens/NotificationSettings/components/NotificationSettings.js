@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Platform
 } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
 import styles from "./styles";
@@ -26,7 +27,9 @@ import {
 } from "../../../Utils/Constant";
 const NotificationSettings = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Email / Notification Settings"}

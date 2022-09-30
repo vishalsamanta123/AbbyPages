@@ -5,6 +5,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Image,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
@@ -17,7 +18,10 @@ import {
 } from "../../../Utils/Constant";
 const FriendsScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -95,12 +95,13 @@ const Styles = StyleSheet.create({
     borderWidth: 0.5,
     width: "100%",
     height: "100%",
+    paddingTop: Platform.OS === "ios" ? 30 : 0,
   },
   TouchableFlse: {
     position: "absolute",
     right: 0,
     marginRight: 10,
-    top: 10,
+    top: Platform.OS === "ios" ? 45 : 10,
     zIndex: 1,
   },
   TxtInptStyle: {
@@ -109,6 +110,7 @@ const Styles = StyleSheet.create({
     fontSize: 17,
     paddingLeft: 15,
     color: GREY_COLOR_CODE,
+    paddingVertical: Platform.OS === "ios" ? 16 : 0,
   },
   MainCntrySlctTouchble: {
     flex: 5,

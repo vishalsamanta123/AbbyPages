@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, KeyboardAvoidingView, Text } from "react-native";
+import { View, FlatList, KeyboardAvoidingView, Text,Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
@@ -11,7 +11,9 @@ import styles from "./styles";
 
 const ListingsScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}

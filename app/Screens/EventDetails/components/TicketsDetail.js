@@ -5,7 +5,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   ScrollView,
-  ToastAndroid,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -69,7 +69,7 @@ const TicketDetailsScreen = (props) => {
   };
   return (
     <Modal
-      animationType="slide"
+      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal === 2}
       onRequestClose={() => {

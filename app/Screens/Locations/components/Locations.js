@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -19,7 +20,9 @@ import {
 } from "../../../Utils/Constant";
 const Locations = (props) => {
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Locations"}

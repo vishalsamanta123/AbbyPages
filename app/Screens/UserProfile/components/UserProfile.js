@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
@@ -19,7 +20,9 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 const UserProfile = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Profile"}

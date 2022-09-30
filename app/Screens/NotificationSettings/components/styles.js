@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { WHITE_COLOR_CODE, GREY_COLOR_CODE, BLACK_COLOR_CODE, FONT_FAMILY_REGULAR, LIGHT_GREY_COLOR_CODE } from '../../../Utils/Constant';
 const Styles = StyleSheet.create({
     GetEmailText: {
@@ -113,13 +113,14 @@ const Styles = StyleSheet.create({
         borderWidth: 0.5,
         width: '100%',
         height: '100%',
+        paddingTop:20
     },
     TouchableFlse: {
         position: 'absolute',
         flex: 1,
         right: 0,
         paddingRight: 15,
-        top: 10,
+        top:Platform.OS==='ios'?40: 10,
         zIndex: 1
     },
     TxtInptStyle: {
@@ -127,7 +128,8 @@ const Styles = StyleSheet.create({
         borderColor: GREY_COLOR_CODE,
         fontSize: 17,
         paddingLeft: 15,
-        color: GREY_COLOR_CODE
+        color: GREY_COLOR_CODE,
+        paddingVertical:Platform.OS==='ios'?20:0
     },
     MainCntrySlctTouchble: {
         flex: 5,

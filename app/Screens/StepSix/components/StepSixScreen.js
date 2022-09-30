@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, KeyboardAvoidingView } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView,Platform } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
@@ -14,7 +14,9 @@ import {
 
 const StepSixScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText="6 of 8"

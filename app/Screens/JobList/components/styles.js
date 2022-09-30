@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
@@ -303,7 +303,7 @@ const Styles = StyleSheet.create({
   },
   selectionModalVw: {
     flex: 1,
-    marginTop: 5,
+    marginTop: Platform.OS === "ios" ? 40 : 5,
     paddingHorizontal: 10,
   },
   filterDatasVw: {
@@ -313,7 +313,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: LIGHT_GREY_COLOR_CODE,
-    marginTop: 5,
+    marginTop: Platform.OS === "ios" ? 12 : 5,
     paddingLeft: 10,
     marginHorizontal: 4,
     color: LIGHT_BLACK_COLOR_CODE,

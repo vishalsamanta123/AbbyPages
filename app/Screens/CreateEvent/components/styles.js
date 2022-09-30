@@ -327,7 +327,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 4,
   },
   formsInputVw: {
-    height: 30,
+    height:Platform.OS==='ios'?0: 30,
     paddingTop: 0,
     marginBottom: 8,
     marginLeft: 4,

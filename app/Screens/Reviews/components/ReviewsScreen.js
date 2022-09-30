@@ -5,6 +5,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Image,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -16,7 +17,9 @@ import {
 } from "../../../Utils/Constant";
 const ReviewsScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}

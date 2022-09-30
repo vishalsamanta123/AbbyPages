@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, KeyboardAvoidingView } from "react-native";
+import { View, StatusBar, KeyboardAvoidingView,Platform } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Input from "../../../../Components/Input";
@@ -11,7 +11,7 @@ import {
 const ChangePassword = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      behavior={Platform.OS == "ios" ? "padding" : null}
       style={styles.container}
     >
       <Header

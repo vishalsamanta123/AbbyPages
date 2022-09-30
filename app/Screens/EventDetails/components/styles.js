@@ -120,7 +120,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   ticketsInputVw: {
-    paddingVertical: 2,
+    paddingVertical:Platform.OS==='ios'?14: 2,
     width: "95%",
     marginLeft: 0,
     margin: 0,
@@ -130,6 +130,7 @@ const Styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
+    paddingVertical:Platform.OS==='ios'? 4:0
   },
   codesVw: {
     borderWidth: 1,
@@ -297,7 +298,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 20,
-    top:Platform.OS==='ios'?2: 8,
+    top: Platform.OS === "ios" ? 1 : 8,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -377,7 +378,7 @@ const Styles = StyleSheet.create({
   modalBttn: {
     width: "45%",
     marginHorizontal: 5,
-    paddingVertical:Platform.OS==='ios'?12: 8,
+    paddingVertical: Platform.OS === "ios" ? 12 : 8,
     alignSelf: "flex-end",
     backgroundColor: YELLOW_COLOR_CODE,
   },

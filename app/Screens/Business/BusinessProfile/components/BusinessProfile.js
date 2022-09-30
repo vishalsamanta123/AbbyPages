@@ -8,6 +8,7 @@ import {
   ScrollView,
   Animated,
   useWindowDimensions,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -41,7 +42,9 @@ const BusinessInformation = (props) => {
     stars.push(path);
   }
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Business Info"}

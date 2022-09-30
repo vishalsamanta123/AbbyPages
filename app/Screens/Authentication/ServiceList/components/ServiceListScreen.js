@@ -4,10 +4,8 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  ImageBackground,
   KeyboardAvoidingView,
-  StatusBar,
-  ScrollView,
+  Platform,
   FlatList,
 } from "react-native";
 import styles from "./styles";
@@ -41,7 +39,7 @@ function ServiceListScreen(props) {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      behavior={Platform.OS == "ios" ? "padding" : null}
       style={styles.container}
     >
       <Header

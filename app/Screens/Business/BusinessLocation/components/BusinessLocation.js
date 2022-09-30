@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, KeyboardAvoidingView } from "react-native";
+import { View, Image, Text, KeyboardAvoidingView,Platform } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
@@ -15,7 +15,9 @@ const BusinessLocation = (props) => {
   const locaton = parseInt(props.miles);
   const [value] = useState(70);
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Location"}

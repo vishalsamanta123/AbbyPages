@@ -92,9 +92,10 @@ const Input = (props) => {
             textInput,
             {
               fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
-              marginTop: InputType == null ? 9 : 14,
+              marginTop:
+                InputType == null ? 9 : Platform.OS === "ios" ? 20 : 14,
               width: copyText ? "85%" : "100%",
-              bottom: Platform.OS === "ios" ? 5 : 0,
+              bottom: Platform.OS === "ios" ? 2 : 0,
             },
             textInputStyle,
           ]}
@@ -146,7 +147,7 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingVertical:Platform.OS==='ios'? 12:0
+    paddingVertical: Platform.OS === "ios" ? 0 : 0,
   },
   copyTextTxt: {
     fontSize: 13,

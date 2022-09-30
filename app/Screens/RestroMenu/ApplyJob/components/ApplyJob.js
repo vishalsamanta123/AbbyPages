@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
@@ -15,15 +16,15 @@ import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { Picker } from "@react-native-community/picker";
 import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 
 const ApplyJob = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Apply Job"}
@@ -324,6 +325,9 @@ const ApplyJob = (props) => {
               <Picker
                 selectedValue={props.applyJob.gender}
                 style={styles.pickerVw}
+                itemStyle={{
+                  height: Platform.OS === "ios" ? '100%' : null,
+                }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({
                     ...props.applyJob,
@@ -345,6 +349,9 @@ const ApplyJob = (props) => {
               <Picker
                 selectedValue={props.applyJob.race}
                 style={styles.pickerVw}
+                itemStyle={{
+                  height: Platform.OS === "ios" ? '100%' : null,
+                }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({
                     ...props.applyJob,
@@ -368,6 +375,9 @@ const ApplyJob = (props) => {
               <Picker
                 selectedValue={props.applyJob.veteran_status}
                 style={styles.pickerVw}
+                itemStyle={{
+                  height: Platform.OS === "ios" ? '100%' : null,
+                }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({
                     ...props.applyJob,

@@ -6,6 +6,8 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -141,7 +143,9 @@ const ShoppingCartScreen = (props) => {
     );
   };
   return (
-    <View style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         HeaderText="Marketplace Cart"
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -159,7 +163,7 @@ const ShoppingCartScreen = (props) => {
           renderItem={({ item, index }) => _renderCartItemList({ item, index })}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 export default ShoppingCartScreen;

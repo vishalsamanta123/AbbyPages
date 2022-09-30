@@ -8,6 +8,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -40,7 +41,7 @@ const EventListingScreen = (props) => {
         tintColor={WHITE_COLOR_CODE}
       />
       <ScrollView>
-        <SafeAreaView style={{ alignItems: "center" }}>
+        {/* <SafeAreaView style={{ alignItems: "center", }}> */}
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={props?.eventDetails?.events_image}
@@ -54,7 +55,7 @@ const EventListingScreen = (props) => {
             renderItem={({ item, index }) => {
               return (
                 index <= 4 && (
-                  <View key={index} style={{ width, alignItems: "center" }}>
+                  <View key={index} style={{ width, alignItems: "center", }}>
                     <Image
                       resizeMode="stretch"
                       source={{ uri: item.events_image }}
@@ -82,7 +83,7 @@ const EventListingScreen = (props) => {
               />
             ))}
           </View>
-        </SafeAreaView>
+        {/* </SafeAreaView> */}
         <View style={styles.infocon}>
           <Text style={styles.nameTxt}>{props?.eventDetails?.event_name}</Text>
           <View style={styles.basiccon}>

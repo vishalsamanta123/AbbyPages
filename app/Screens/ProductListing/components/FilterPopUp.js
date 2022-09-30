@@ -332,6 +332,7 @@ export default function FilterPopUp(props) {
                         sub_category_id: itemValue,
                       });
                     }}
+                    itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
                     selectedValue={props.filterData.sub_category_id}
                     mode={"dialog"}
                     style={styles.subCategoryTxt}

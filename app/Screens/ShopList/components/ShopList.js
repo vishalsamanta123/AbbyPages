@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { View, FlatList, KeyboardAvoidingView } from "react-native";
+import { View, FlatList, KeyboardAvoidingView,Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
 const ShopList = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}

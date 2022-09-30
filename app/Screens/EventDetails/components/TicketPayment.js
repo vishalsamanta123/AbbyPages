@@ -5,6 +5,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   ScrollView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -30,7 +31,7 @@ const TicketPaymentScreen = (props) => {
   const couts = newPercentage * 0.16;
   return (
     <Modal
-      animationType="slide"
+      animationType={Platform.OS==='ios'?'none':"slide"}
       transparent={true}
       visible={props.buyTicketModal === 4}
       onRequestClose={() => {
@@ -42,7 +43,9 @@ const TicketPaymentScreen = (props) => {
         visible={props.visibleErr}
         closeModel={() => props.setVisibleErr(false)}
       />
-      <KeyboardAvoidingView style={styles.modalCon}>
+      <KeyboardAvoidingView
+       behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={styles.modalCon}>
         {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -137,7 +140,7 @@ const TicketPaymentScreen = (props) => {
                     InputType={null}
                     containerStyle={[
                       styles.smallInputVw,
-                      { width: "56%", height: 42 },
+                      { width: "56%", height: 42,paddingVertical:Platform.OS==='ios'?10:0 },
                     ]}
                     textInputStyle={{
                       marginTop: 0,

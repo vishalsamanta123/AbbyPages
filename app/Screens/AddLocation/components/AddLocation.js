@@ -4,6 +4,7 @@ import {
   StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import styles from "./styles";
@@ -19,7 +20,9 @@ import {
 } from "../../../Utils/Constant";
 const AddLocationScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Add a new location"}
