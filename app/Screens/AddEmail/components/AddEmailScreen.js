@@ -5,6 +5,7 @@ import {
     StatusBar,
     ScrollView,
     KeyboardAvoidingView,
+    Platform
 } from 'react-native';
 import OTPTextView from 'react-native-otp-textinput';
 import styles from './styles';
@@ -21,7 +22,9 @@ import {
 
 const AddEmailScreen = (props) => {
     return (
-        <KeyboardAvoidingView style={[CommonStyles.container]}>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? 'padding' : null}
+        style={[CommonStyles.container]}>
             <StatusBar
                 translucent={true}
                 backgroundColor='transparent'

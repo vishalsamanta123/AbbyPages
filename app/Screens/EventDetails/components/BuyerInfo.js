@@ -5,6 +5,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   ScrollView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -30,14 +31,16 @@ const BuyerInfoScreen = (props) => {
   );
   return (
     <Modal
-      animationType="slide"
+    animationType={Platform.OS==='ios'?'none':"slide"}
       transparent={true}
       visible={props.buyTicketModal === 3}
       onRequestClose={() => {
         props.setBuyTicketModal("");
       }}
     >
-      <KeyboardAvoidingView style={styles.modalCon}>
+      <KeyboardAvoidingView 
+       behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={styles.modalCon}>
         {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}

@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import InputSpinner from "react-native-input-spinner";
 import styles from "./styles";
@@ -23,7 +24,9 @@ import {
 } from "../../../../Utils/Constant";
 const AddToCartScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Item Detail"}

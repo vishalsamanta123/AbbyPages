@@ -73,7 +73,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 24,
-    top:Platform.OS==='ios'?3: 10,
+    top: Platform.OS === "ios" ? 3 : 10,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -130,7 +130,7 @@ const Styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     alignItems: "center",
-    paddingTop:Platform.OS==='ios'?45:0
+    paddingTop: Platform.OS === "ios" ? 45 : 0,
   },
   headerArrow: {
     // justifyContent: "center",
@@ -192,6 +192,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
     paddingLeft: 8,
+    height: Platform.OS === "ios" ? 50 : 0,
   },
   colorVw: {
     paddingVertical: 5,
@@ -248,6 +249,7 @@ const Styles = StyleSheet.create({
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
+    height: Platform.OS === "ios" ? 60 : 0,
   },
   selecteTxt: {
     marginVertical: 8,

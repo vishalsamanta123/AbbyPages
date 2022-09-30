@@ -5,8 +5,7 @@ import {
   StatusBar,
   Text,
   KeyboardAvoidingView,
-  FlatList,
-  ImageBackground,
+  Platform,
   ScrollView,
   TextInput,
 } from "react-native";
@@ -20,7 +19,10 @@ import {
 } from "../../../../Utils/Constant";
 const AddKeybord = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Add Keyword"}

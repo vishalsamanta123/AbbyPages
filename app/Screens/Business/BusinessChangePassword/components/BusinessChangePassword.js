@@ -1,5 +1,5 @@
 import React from "react";
-import { View, KeyboardAvoidingView } from "react-native";
+import { View, KeyboardAvoidingView ,Platform} from "react-native";
 import styles from "./styles";
 import {
   BLACK_COLOR_CODE,
@@ -13,7 +13,7 @@ import Header from "../../../../Components/Header";
 const ForgotPassword = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      behavior={Platform.OS == "ios" ? "padding" : null}
       style={styles.container}
     >
       <Header

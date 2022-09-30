@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ImageBackground,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -20,7 +21,9 @@ import Moment from "moment";
 var now = new Date();
 const BusinessHome = (props) => {
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Home"}

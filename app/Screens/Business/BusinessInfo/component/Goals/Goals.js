@@ -5,8 +5,7 @@ import {
   StatusBar,
   Text,
   KeyboardAvoidingView,
-  FlatList,
-  ImageBackground,
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../../Components/Header";
@@ -19,7 +18,10 @@ import {
 } from "../../../../../Utils/Constant";
 const Goals = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <StatusBar
         translucent={true}
         backgroundColor="transparent"

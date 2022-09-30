@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Image,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -20,7 +21,9 @@ import moment from "moment";
 
 const AppliedJob = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Applied Jobs"}

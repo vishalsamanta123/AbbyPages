@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   ScrollView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
@@ -20,7 +21,9 @@ import {
 
 const StepFifthScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <ScrollView>
         <Header
           leftImg={require("../../../Assets/close_window_icon.png")}

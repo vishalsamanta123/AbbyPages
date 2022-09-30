@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView ,Platform} from "react-native";
 // import moment from "moment";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
@@ -24,7 +24,9 @@ const BusinessSignUp = (props) => {
   //   hideDatePicker();
   // };
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? "padding" : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText=""

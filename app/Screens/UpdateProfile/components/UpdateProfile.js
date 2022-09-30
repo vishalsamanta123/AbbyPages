@@ -8,6 +8,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ImageBackground,
+  Platform
 } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -47,7 +48,9 @@ const UpdateProfile = (props) => {
     hideDatePicker();
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Update Profile"}
@@ -535,7 +538,7 @@ const UpdateProfile = (props) => {
             <View
               style={[
                 styles.container,
-                { paddingHorizontal: 8, flexDirection: "column" },
+                { paddingHorizontal: 8, flexDirection: "column", },
               ]}
             >
               {props?.profileData?.primary_language != "" ? (
@@ -552,6 +555,9 @@ const UpdateProfile = (props) => {
                     primary_language: itemValue,
                   })
                 }
+                itemStyle={{
+                  height: Platform.OS === "ios" ? 50 : null,
+                }}
               >
                 <Picker.Item label="Please Select Primary Language" value="0" />
                 <Picker.Item label="English" value="1" />

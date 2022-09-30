@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
@@ -18,7 +19,9 @@ import {
 
 const StepSevenScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText="8 of 8"

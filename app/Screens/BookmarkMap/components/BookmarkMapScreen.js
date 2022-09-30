@@ -1,16 +1,18 @@
 import React from "react";
 import {
   View,
-  StatusBar,
   KeyboardAvoidingView,
   ImageBackground,
+  Platform
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
 const BookmarkMapScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={"Bookmark"}

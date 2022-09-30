@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
@@ -40,7 +41,9 @@ const SignUpScreen = (props) => {
     hideDatePicker();
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? "padding" : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText=""
@@ -55,7 +58,7 @@ const SignUpScreen = (props) => {
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
             <Text style={styles.WelcomeTxt}>Create Account,</Text>
-            <Text style={styles.SignInContinue}>Sign up to get started! </Text>
+            <Text style={styles.SignInContinue}>Sign up to get started!</Text>
           </View>
           <View style={styles.InputContainer}>
             <Input

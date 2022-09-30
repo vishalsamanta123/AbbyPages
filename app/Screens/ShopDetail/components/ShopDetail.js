@@ -51,7 +51,9 @@ const ShopDetail = (props) => {
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Shop Detail"}

@@ -1,9 +1,7 @@
 import React from "react";
 import {
   View,
-  Image,
-  StatusBar,
-  SafeAreaView,
+ Platform,
   ScrollView,
   FlatList,
   Text,
@@ -21,7 +19,9 @@ import {
 const { width, height } = Dimensions.get("window");
 const RestaurantMenuScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Restaurant Menu"}

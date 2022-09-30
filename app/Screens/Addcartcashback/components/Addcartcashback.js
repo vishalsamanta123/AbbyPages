@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Input from "../../../Components/Input";
@@ -20,7 +21,9 @@ import {
 } from "../../../Utils/Constant";
 const Addcartcashback = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <StatusBar
         translucent={true}
         backgroundColor="transparent"

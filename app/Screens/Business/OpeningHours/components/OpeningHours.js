@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import styles from "./styles";
@@ -25,7 +26,9 @@ import {
 const OpeningHours = (props) => {
   const [handleActiveStatus, setHandleActiveStatus] = useState(false);
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Opening Hours"}

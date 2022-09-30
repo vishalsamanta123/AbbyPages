@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -28,7 +29,9 @@ const StripeConnect = (props) => {
   };
   const richText = React.createRef() || useRef();
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}

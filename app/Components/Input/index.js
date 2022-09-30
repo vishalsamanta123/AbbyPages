@@ -98,9 +98,10 @@ const Input = (props) => {
             textInput,
             {
               fontSize: isFocused ? (value !== "" ? 18 : 18) : 19,
-              marginTop: InputType == null ? 9 : 14,
+              marginTop:
+                InputType == null ? 9 : Platform.OS === "ios" ? 20 : 14,
               width: copyText ? "85%" : "100%",
-              bottom: Platform.OS === "ios" ? 5 : 0,
+              bottom: Platform.OS === "ios" ? 2 : 0,
             },
             textInputStyle,
           ]}

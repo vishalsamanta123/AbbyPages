@@ -5,6 +5,7 @@ import {
   Image,
   StatusBar,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -12,7 +13,9 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
 const BookmarkScreen = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         leftImg={require("../../../Assets/hamburger_icon.png")}

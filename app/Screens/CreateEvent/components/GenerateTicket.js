@@ -34,7 +34,9 @@ const GenerateTicket = (props) => {
     });
   };
   return (
-    <KeyboardAvoidingView style={CommonStyles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}

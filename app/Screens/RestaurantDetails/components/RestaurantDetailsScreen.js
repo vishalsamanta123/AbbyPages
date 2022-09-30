@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -59,7 +60,9 @@ const RestaurantDetailsScreen = (props) => {
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Restaurant Detail"}

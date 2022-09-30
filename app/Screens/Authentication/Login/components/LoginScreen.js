@@ -16,7 +16,7 @@ import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
 const LoginScreen = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? null : "height"}
+    behavior={Platform.OS === "ios" ? 'padding' : null}
       style={[CommonStyles.container]}
     >
       <Header

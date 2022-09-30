@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Platform
 } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -91,7 +92,7 @@ const CheckOutScreen = (props) => {
     );
   };
   return (
-    <KeyboardAvoidingView behavior={"padding"} style={CommonStyles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? 'padding' : null} style={CommonStyles.container}>
       <Header
         HeaderText={"Confirm Order"}
         logoImg={false}

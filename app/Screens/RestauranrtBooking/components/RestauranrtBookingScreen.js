@@ -10,6 +10,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import _ from "lodash";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -47,7 +48,9 @@ const RestauranrtBookingScreen = (props) => {
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Restaurant Booking"}

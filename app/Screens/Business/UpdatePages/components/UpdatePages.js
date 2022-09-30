@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
+  Platform
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -17,7 +18,9 @@ import {
 } from "../../../../Utils/Constant";
 const UpdatePages = (props) => {
   return (
-    <KeyboardAvoidingView style={[CommonStyles.container]}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? 'padding' : null}
+    style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Update Pages"}

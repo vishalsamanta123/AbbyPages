@@ -4,8 +4,7 @@ import {
   Text,
   Modal,
   FlatList,
-  TouchableOpacity,
-  Keyboard,
+  Platform,
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
@@ -135,14 +134,17 @@ const BuyTicketScreen = (props) => {
   };
   return (
     <Modal
-      animationType="slide"
+    animationType={Platform.OS==='ios'?'none':"slide"}
       transparent={true}
       visible={props.buyTicketModal == 1}
       onRequestClose={() => {
         props.setBuyTicketModal(false);
       }}
     >
-      <KeyboardAvoidingView style={styles.modalCon}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={styles.modalCon}
+      >
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
