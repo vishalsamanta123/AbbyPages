@@ -92,7 +92,6 @@ const ShopList = ({ navigation, route }) => {
         business_type: 2,
         search_key: inputSearch ? inputSearch : null,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
@@ -122,12 +121,19 @@ const ShopList = ({ navigation, route }) => {
   const onPressShop = (item) => {
     navigation.navigate("ShopDetail", { detail: item });
   };
-  const onPressLike = async (detail) => {
+  const onPressLike = async (item) => {
     try {
       setVisible(true);
       const params = {
-        business_id: detail.business_id,
-        like_status: detail.user_like == 1 ? 0 : 1,
+        business_id: item.business_id,
+        like_status: item.user_like === 1 ? 0 : 1,
+
+        // item_type: Number(item.search_business_type),
+        // item_id: 54,
+        // like: item?.user_like === 1 ? 0 : 1,
+        // favorite: item?.favorite ? item?.user_favorite : 0,
+        // interest: item?.interest ? item?.interest : 0,
+        // views: item?.views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
       if (data.status == 200) {

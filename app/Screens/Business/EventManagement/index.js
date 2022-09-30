@@ -52,7 +52,7 @@ const EventManagement = () => {
       setVisible(false);
     }
   };
-  const getSingleEvent = async (itemData, type) => {
+  const getSingleEvent = async (itemData) => {
     try {
       setVisible(true);
       const params = {
@@ -66,21 +66,11 @@ const EventManagement = () => {
       );
       if (data.status === 200) {
         setVisible(false);
-        if (type === "edit") {
-          navigation.navigate("CreateEvent", {
-            type: "Edit_event",
-            item: data.data[0],
-            img_url: data.events_image_url,
-            detail: itemData,
-            itemData: itemData,
-          });
-        } else {
-          navigation.navigate("EventView", {
-            img_url: data.events_image_url,
-            detail: data.data[0],
-            itemData: itemData,
-          });
-        }
+        navigation.navigate("EventView", {
+          img_url: data.events_image_url,
+          detail: data.data[0],
+          itemData: itemData,
+        });
       } else {
         setVisible(false);
       }
@@ -125,8 +115,7 @@ const EventManagement = () => {
   const handleEvents = (item, index) => {
     return (
       <TouchableOpacity
-        // onPress={() => getSingleEvent(item, "nonEdit")}
-        onPress={() => alert("Coming Soon")}
+        onPress={() => getSingleEvent(item)}
         style={[styles.MainConatiner, { paddingHorizontal: 0 }]}
       >
         <View>
@@ -189,25 +178,6 @@ const EventManagement = () => {
             >
               View {item?.view}
             </Text>
-          </View>
-          <View style={styles.editDeleteVW}>
-            <TouchableOpacity
-              style={styles.BtnStyle}
-              // onPress={() => getSingleEvent(item, "edit")}
-              onPress={() => alert("Coming Soon")}
-            >
-              <Text style={styles.BtnTxt}>Edit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.BtnStyle}
-              // onPress={() => {
-              //   setDeleteEvent(true);
-              //   setRemoveIndex(item);
-              // }}
-              onPress={() => alert("Coming Soon")}
-            >
-              <Text style={styles.BtnTxt}>Delete</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </TouchableOpacity>

@@ -49,9 +49,7 @@ const eventDetails = (props) => {
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Date : </Text>
-            {moment
-              .unix(props?.detail?.event_date)
-              .format("MM/DD/YYYY")}
+            {moment.unix(props?.detail?.event_date).format("MM/DD/YYYY")}
           </Text>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Interested : </Text>
@@ -63,7 +61,7 @@ const eventDetails = (props) => {
           </Text>
         </View>
         <View style={{ marginTop: 10 }}>
-          <View style={styles.statusContainer}>
+          {/* <View style={styles.statusContainer}>
             <Text style={[styles.headingTxt, { color: BLACK_COLOR_CODE }]}>
               Status
             </Text>
@@ -81,8 +79,8 @@ const eventDetails = (props) => {
                 }
               />
             </TouchableOpacity>
-          </View>
-          <View style={styles.editDeleteVW}>
+          </View> */}
+          {/* <View style={styles.editDeleteVW}>
             <TouchableOpacity
               style={styles.BtnStyle}
               onPress={() => props.getSingleEventEdit()}
@@ -92,7 +90,7 @@ const eventDetails = (props) => {
             <TouchableOpacity style={styles.BtnStyle}>
               <Text style={styles.BtnTxt}>Delete</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           {/* <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10 }}>
                         <TouchableOpacity
                             style={styles.BtnStyle}

@@ -152,7 +152,7 @@ const ShoppingCartScreen = (props) => {
       />
       <View style={CommonStyles.body}>
         <FlatList
-          data={props.shoppingCartData && props.shoppingCartData}
+          data={props?.shoppingCartData && props.shoppingCartData}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => screenlowerdata()}
           keyExtractor={(item, index) => index}

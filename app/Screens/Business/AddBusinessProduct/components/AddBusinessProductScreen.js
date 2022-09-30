@@ -15,15 +15,19 @@ import styles from "./styles";
 import Button from "../../../../Components/Button";
 import Input from "../../../../Components/Input";
 import Header from "../../../../Components/Header";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
 const AddBusinessProductScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText={props.HedarType == "Edit" ? "Edit Product" : "Add Product"}
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>

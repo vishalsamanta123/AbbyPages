@@ -444,7 +444,8 @@ const EditJobScreen = (props) => {
               style={styles.tchvwe}
             >
               <Text style={styles.titlesTxt}>Select job benefits</Text>
-              {props?.jobForm?.job_benefits?.length > 0 ? (
+              {typeof props?.jobForm?.job_benefits[0] === "object" &&
+              props?.jobForm?.job_benefits?.length > 0 ? (
                 <View style={styles.arrayVw}>
                   {props?.jobForm?.job_benefits?.map((item) => {
                     return (

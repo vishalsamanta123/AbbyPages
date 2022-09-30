@@ -56,10 +56,14 @@ const JobList = ({ navigation }) => {
   const _hanldeSetLike = async (item) => {
     try {
       const params = {
-        business_id: item.business_id,
-        like_status: item?.user_like === 1 ? 0 : 1,
+        item_type: Number(item.job_type),
+        item_id: item?.job_id,
+        like: item?.user_like === 1 ? 0 : 1,
+        favorite: item?.favorite ? item?.favorite : 0,
+        interest: item?.interest ? item?.interest : 0,
+        views: item?.user_view,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
         handleJobFilter(offset);
@@ -74,34 +78,34 @@ const JobList = ({ navigation }) => {
       setLoader(false);
     }
   };
-  const handlejobsList = async (offSet) => {
-    setoffset(offSet);
-    const params = {
-      offset: offSet,
-    };
-    try {
-      setLoader(true);
-      const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_LIST, params);
-      if (data.status === 200) {
-        data.data.forEach(function (item, i) {
-          item["latitude"] = i + 22.7196;
-          item["longitude"] = i + 75.8577;
-        });
-        setJobList(data.data);
-        setLoader(false);
-      } else {
-        setErrorMessage(data.message);
-        setstopOffset(true);
-        setVisibleErr(true);
-        setJobList([]);
-        setLoader(false);
-      }
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-      setLoader(false);
-    }
-  };
+  // const handlejobsList = async (offSet) => {
+  //   setoffset(offSet);
+  //   const params = {
+  //     offset: offSet,
+  //   };
+  //   try {
+  //     setLoader(true);
+  //     const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_LIST, params);
+  //     if (data.status === 200) {
+  //       data.data.forEach(function (item, i) {
+  //         item["latitude"] = i + 22.7196;
+  //         item["longitude"] = i + 75.8577;
+  //       });
+  //       setJobList(data.data);
+  //       setLoader(false);
+  //     } else {
+  //       setErrorMessage(data.message);
+  //       setstopOffset(true);
+  //       setVisibleErr(true);
+  //       setJobList([]);
+  //       setLoader(false);
+  //     }
+  //   } catch (error) {
+  //     setErrorMessage(error.message);
+  //     setVisibleErr(true);
+  //     setLoader(false);
+  //   }
+  // };
   const handleJobFilter = async (offSet) => {
     setoffset(offSet);
     try {
@@ -120,6 +124,7 @@ const JobList = ({ navigation }) => {
         limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
+      console.log("data: ", data);
       if (data.status == 200) {
         setJobList(data.data);
         setLoader(false);
@@ -163,7 +168,7 @@ const JobList = ({ navigation }) => {
         onPressMap={onPressMap}
         search={search}
         setSearch={setSearch}
-        handlejobsList={handlejobsList}
+        // handlejobsList={handlejobsList}
         handleJobFilter={handleJobFilter}
         handleSearch={handleSearch}
         stopOffset={stopOffset}

@@ -24,19 +24,24 @@ const ShopList = (props) => {
           keyExtractor={(item, index) => index.toString()}
           data={props.shopList}
           onMomentumScrollBegin={() => setScrollBegin(true)}
-          onMomentumScrollEnd={() => setScrollBegin(false)}
           renderItem={({ item, index }) => props._handleShopList(item, index)}
-          onEndReached={({ distanceFromEnd }) => {
-            if (distanceFromEnd <= 0.5) {
-              (scrollBegin && props.search) || props.inputSearch
-                ? !props.stopOffset
+          onEndReached={() => {
+            if (scrollBegin) {
+              if (props.search && props.inputSearch) {
+                !props.stopOffset
                   ? props?.handleSearchData(props.offSet + 1)
-                  : null
-                : !props.stopOffset
-                ? props?.handleShopList(
-                    props.shopList.length > 5 ? props.offSet + 1 : props.offSet
-                  )
-                : null;
+                  : null;
+                setScrollBegin(false);
+              } else {
+                !props.stopOffset
+                  ? props?.handleShopList(
+                      props.shopList.length > 5
+                        ? props.offSet + 1
+                        : props.offSet
+                    )
+                  : null;
+                setScrollBegin(false);
+              }
             }
           }}
         />

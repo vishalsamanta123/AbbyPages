@@ -139,11 +139,7 @@ const TicketPaymentScreen = (props) => {
                       styles.smallInputVw,
                       { width: "56%", height: 42 },
                     ]}
-                    textInputStyle={{
-                      marginTop: 0,
-                      paddingLeft: 8,
-                      paddingRight: 12,
-                    }}
+                    textInputStyle={styles.smallInnrInpVw}
                     onChangeText={(text) => {
                       props.setBuyerInfo({
                         ...props.buyerInfo,

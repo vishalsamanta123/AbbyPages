@@ -8,11 +8,16 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "../../../../Components/Header";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
+import CommonStyles from "../../../../Utils/CommonStyles";
 
 const EventList = (props) => {
   return (
-    <View style={{ flex: 1, backgroundColor: WHITE_COLOR_CODE }}>
+    <View style={CommonStyles.container}>
       <Header
         HeaderText="Events"
         RightImg={null}
@@ -21,8 +26,7 @@ const EventList = (props) => {
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
       />
-      <View style={{ marginHorizontal: 10 }}>
-        <View
+      {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
@@ -44,15 +48,15 @@ const EventList = (props) => {
               source={require("../../../../Assets/qty_minus_icon3.png")}
             />
           </TouchableOpacity>
-        </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={props?.eventData}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item }) => props.handleEvents(item)}
-          ListFooterComponent={() => <View style={{ height: 200 }} />}
-        />
-      </View>
+        </View> */}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={props?.eventData}
+        style={{ marginHorizontal: 10 }}
+        keyExtractor={(item, index) => index}
+        renderItem={({ item }) => props.handleEvents(item)}
+        ListFooterComponent={() => <View style={{ height: 50 }} />}
+      />
     </View>
   );
 };

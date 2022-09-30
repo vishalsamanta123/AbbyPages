@@ -126,9 +126,14 @@ const JobDetailsScreen = (props) => {
                 onPress={() => props.saveJob()}
                 style={styles.btnmncon}
               >
-                <Image source={require("../../../Assets/save_icon.png")} />
+                <Image
+                  tintColor={
+                    props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null
+                  }
+                  source={require("../../../Assets/save_icon.png")}
+                />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
-                  Save
+                  {props?.details?.user_like === 1 ? "Saved" : "Save"}
                 </Text>
               </TouchableOpacity>
             </View>

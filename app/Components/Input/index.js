@@ -54,7 +54,13 @@ const Input = (props) => {
             style={[
               labelStyle,
               {
-                top: isFocused ? (value === "" ? 20 : 11) : -13,
+                top: isFocused
+                  ? value === ""
+                    ? 20
+                    : Platform.OS === "ios"
+                    ? 11
+                    : 5
+                  : -13,
                 color: isFocused
                   ? value === ""
                     ? BLACK_COLOR_CODE
@@ -146,7 +152,7 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingVertical:Platform.OS==='ios'? 12:0
+    paddingVertical: Platform.OS === "ios" ? 12 : 12,
   },
   copyTextTxt: {
     fontSize: 13,

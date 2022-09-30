@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import ConfirmOrder from "./components/ConfirmOrder";
 import styles from "./components/styles";
-import { View, Text, Image, Alert } from "react-native";
+import { View, Text, Image, Alert, ToastAndroid } from "react-native";
 import _ from "lodash";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { apiCall } from "../../../Utils/httpClient";
@@ -47,10 +47,11 @@ const ConfirmOrderView = ({ navigation }) => {
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
         setLocalUserData({
-          first_name: data.data.first_name ? data.data.first_name : "",
-          last_name: data.data.last_name ? data.data.last_name : "",
-          email: data.data.email ? data.data.email : "",
-          mobile: data.data.modile ? data.data.modile : "",
+          ...localUserData,
+          first_name: data?.data?.first_name ? data.data.first_name : "",
+          last_name: data?.data?.last_name ? data.data.last_name : "",
+          email: data?.data?.email ? data.data.email : "",
+          mobile: data?.data?.modile ? data?.data?.modile : "",
         });
       }
     } catch (error) {
@@ -106,7 +107,7 @@ const ConfirmOrderView = ({ navigation }) => {
           setVisible(true);
           const onlineDetails = orderData.onlineDetail;
           const params = {
-            amount: JSON.stringify(total_order_amount),
+            amount: Number(total_order_amount),
             email: localUserData.email,
             user_name: localUserData.first_name,
             card_number: "424242424242" + onlineDetails.last4,
@@ -115,9 +116,14 @@ const ConfirmOrderView = ({ navigation }) => {
             exp_year: onlineDetails.expiryYear.toString(),
             zipcode: onlineDetails.postalCode,
           };
-          const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+          const { data } = await apiCall(
+            "POST",
+            ENDPOINTS.ORDERPAYMENT,
+            params
+          );
           if (data.status === 200) {
             onPressConfirm();
+            ToastAndroid.show(data.message, ToastAndroid.SHORT);
           } else {
             setErrorMessage(data.message);
             setVisibleErr(true);
@@ -137,7 +143,7 @@ const ConfirmOrderView = ({ navigation }) => {
     try {
       setVisible(true);
       const params = {
-        product_items: shoppingCartData,
+        product_items: JSON.stringify(shoppingCartData),
         first_name: localUserData.first_name,
         last_name: localUserData.last_name,
         email: localUserData.email,
@@ -145,11 +151,11 @@ const ConfirmOrderView = ({ navigation }) => {
         business_type: orderData.businessDetail.business_type,
         business_id: orderData.businessDetail.business_id,
         address: orderData.location[0].location,
-        latitude: orderData.location[0].latitude,
-        longitude: orderData.location[0].longitude,
+        latitude: Number(orderData.location[0].latitude),
+        longitude: Number(orderData.location[0].longitude),
         order_payment_type: orderData.order_payment_type, //online or COD
-        total_order_amount: JSON.stringify(total_order_amount),
-        total_amount: JSON.stringify(total_order_amount),
+        total_order_amount: total_order_amount,
+        total_amount: total_order_amount,
         order_discount: 0,
         delivery_type: 1, //takeaway or delievery
         order_booking_type: 2, //table ,outside,foodand item
@@ -178,7 +184,7 @@ const ConfirmOrderView = ({ navigation }) => {
   const DeleteCart = async () => {
     setShoppingCartData("");
     await AsyncStorage.removeItem("productOrderData");
-    setAllDelete(false)
+    setAllDelete(false);
     navigation.navigate("ShopList");
   };
   return (
@@ -205,7 +211,7 @@ const ConfirmOrderView = ({ navigation }) => {
           navigation.navigate("OrderHistory"), setVisibleSuccess(false);
         }}
       />
-       <QuestionModal
+      <QuestionModal
         surringVisible={allDelete}
         topMessage={"Delete Carts"}
         message={"Do you want to delete this carts ?"}

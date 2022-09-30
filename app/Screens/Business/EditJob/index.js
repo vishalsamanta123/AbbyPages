@@ -8,6 +8,7 @@ import Success from "../../../Components/Modal/success";
 import { View, Text, TouchableOpacity } from "react-native";
 import EditJobScreen from "./component/EditJobScreen";
 import styles from "./component/styles";
+import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
 const EditJob = ({ navigation, route }) => {
   const { item } = route?.params || { item: "" };
@@ -121,10 +122,11 @@ const EditJob = ({ navigation, route }) => {
     email_id: "",
     job_address: "",
     skills: "",
+    job_timing: "",
     job_benefits: [],
     accpt_trms_cond: "",
   });
-  console.log(":jobForm ", jobForm);
+
   useEffect(() => {
     setJobForm({
       ...jobForm,
@@ -161,6 +163,7 @@ const EditJob = ({ navigation, route }) => {
       email_id: item?.email ? item?.email : "",
       job_address: item?.job_address ? item?.job_address : "",
       skills: item?.skills ? item?.skills : "",
+      job_timing: item?.job_timing ? item?.job_timing : "",
       job_benefits: item?.job_benefits ? JSON.parse(item?.job_benefits) : [],
       accpt_trms_cond: "",
     });
@@ -235,72 +238,72 @@ const EditJob = ({ navigation, route }) => {
     setModalResp("");
   };
   function validationFrom() {
-    if (jobForm.category_name == "" || jobForm.category_name === undefined) {
+    if (jobForm.category_name === "" && jobForm.category_name === undefined) {
       setErrorMessage("Please select job category");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.job_title == "") {
+    if (jobForm.job_title === "") {
       setErrorMessage("Please enter job title");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.no_of_openings == "") {
+    if (jobForm.no_of_openings === "") {
       setErrorMessage("Please enter no of openings");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.startTimeDay == "") {
+    if (jobForm.startTimeDay === "") {
       setErrorMessage("Please enter your start time day");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.endTimeDay == "") {
+    if (jobForm.endTimeDay === "") {
       setErrorMessage("Please enter your end time day");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.monthly_in_hand_salary_from == "") {
+    if (jobForm.monthly_in_hand_salary_from === "") {
       setErrorMessage("Please enter monthly in hand salary from");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.monthly_in_hand_salary_to == "") {
+    if (jobForm.monthly_in_hand_salary_to === "") {
       setErrorMessage("Please enter monthly in hand salary to");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.country_name == "" || jobForm.country_name === undefined) {
+    if (jobForm.country_name === "" || jobForm.country_name === undefined) {
       setErrorMessage("Please enter job country");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.state_name == "" || jobForm.state_name === undefined) {
+    if (jobForm.state_name === "" || jobForm.state_name === undefined) {
       setErrorMessage("Please enter job state");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.city_name == "" || jobForm.city_name === undefined) {
+    if (jobForm.city_name === "" || jobForm.city_name === undefined) {
       setErrorMessage("Please enter job city");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.job_description == "") {
+    if (jobForm.job_description === "") {
       setErrorMessage("Please enter job description");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.job_requirements == "") {
+    if (jobForm.job_requirements === "") {
       setErrorMessage("Please enter job requirements");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.startTime == "") {
+    if (jobForm.startTime === "") {
       setErrorMessage("Please select your start time");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.endTime == "") {
+    if (jobForm.endTime === "") {
       setErrorMessage("Please select your end time");
       setVisibleErr(true);
       return false;
@@ -310,42 +313,42 @@ const EditJob = ({ navigation, route }) => {
     //   setVisibleErr(true);
     //   return false;
     // }
-    if (jobForm.interview_details == "") {
+    if (jobForm.interview_details === "") {
       setErrorMessage("Please enter your interview details");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.job_level == "") {
+    if (jobForm.job_level === "") {
       setErrorMessage("Please enter your job level");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.company_name == "") {
+    if (jobForm.company_name === "") {
       setErrorMessage("Please enter company name");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.company_personName == "") {
+    if (jobForm.company_personName === "") {
       setErrorMessage("Please enter company person name");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.language == "") {
+    if (jobForm.language === "") {
       setErrorMessage("Please enter which language you speak");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.phone_no == "") {
+    if (jobForm.phone_no === "") {
       setErrorMessage("Please enter phone number");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.email_id == "") {
+    if (jobForm.email_id === "") {
       setErrorMessage("Please enter email");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.job_address == "") {
+    if (jobForm.job_address === "") {
       setErrorMessage("Please enter job address");
       setVisibleErr(true);
       return false;
@@ -355,12 +358,12 @@ const EditJob = ({ navigation, route }) => {
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.skills == "") {
+    if (jobForm.skills === "") {
       setErrorMessage("Please enter your skills");
       setVisibleErr(true);
       return false;
     }
-    if (jobForm.accpt_trms_cond == true) {
+    if (jobForm.accpt_trms_cond === "") {
       setErrorMessage("Please select terms and condition");
       setVisibleErr(true);
       return false;
@@ -368,59 +371,58 @@ const EditJob = ({ navigation, route }) => {
     return true;
   }
   const onPressSubmit = async () => {
-    // const valid = validationFrom();
-    // if (valid) {
-    //   setVisible(true);
-    //   try {
-    //     const params = {
-    //       business_id: item?.business_id,
-    //       company_name: jobForm.company_name,
-    //       contact_person_name: jobForm.company_personName,
-    //       email: jobForm.email_id,
-    //       interview_details: jobForm.interview_details,
-    //       job_address: jobForm.job_address,
-    //       job_benefits: jobForm.job_benefits,
-    //       job_category_id: jobForm.id,
-    //       job_description: jobForm.job_description,
-    //       job_end_time_day: jobForm.endTimeDay,
-    //       job_end_timing: jobForm.endTime,
-    //       job_level: jobForm.job_level,
-    //       job_location_country: jobForm?.country_id,
-    //       job_location_state: jobForm.state_id,
-    //       job_location_city: jobForm.city_id,
-    //       job_id: item?.job_id == null ? null : item?.job_id,
-    //       created_at: today,
-    //       job_benefits_id: itemType?.id ? itemType?.id : "",
-    //       job_requirements: jobForm.job_requirements,
-    //       job_start_time_day: jobForm.startTimeDay,
-    //       job_start_timing: jobForm.startTime,
-    //       job_status: null,
-    //       job_timing: jobForm.job_benefits,
-    //       job_title: jobForm.job_title,
-    //       job_type: 1,
-    //       language: jobForm.language,
-    //       monthly_in_hand_salary_from: jobForm.monthly_in_hand_salary_from, //2000
-    //       monthly_in_hand_salary_to: jobForm.monthly_in_hand_salary_to, //"20000",
-    //       no_of_openings: jobForm.no_of_openings,
-    //       phone_no: jobForm.phone_no,
-    //       skills: jobForm.skills,
-    //     };
-    //     const { data } = await apiCall("POST", ENDPOINTS.CREATE_JOB, params);
-    //     if (data.status === 200) {
-    //       setSuccessMessage(data.message);
-    //       setVisibleSuccess(true);
-    //       setVisible(false);
-    //     } else {
-    //       setVisible(false);
-    //       setErrorMessage(data.message);
-    //       setVisibleErr(true);
-    //     }
-    //   } catch (error) {
-    //     setErrorMessage(error.message);
-    //     setVisibleErr(true);
-    //     setVisible(false);
-    //   }
-    // }
+    const valid = validationFrom();
+    if (valid) {
+      setVisible(true);
+      try {
+        const params = {
+          business_id: item?.business_id,
+          company_name: jobForm.company_name,
+          contact_person_name: jobForm.company_personName,
+          email: jobForm.email_id,
+          interview_details: jobForm.interview_details,
+          job_address: jobForm.job_address,
+          job_benefits: JSON.stringify(jobForm.job_benefits),
+          job_category_id: jobForm.id,
+          job_description: jobForm.job_description,
+          job_end_time_day: jobForm.endTimeDay,
+          job_end_timing: jobForm.endTime,
+          job_level: jobForm.job_level,
+          job_location_country: jobForm?.country_id,
+          job_location_state: jobForm.state_id,
+          job_location_city: jobForm.city_id,
+          job_id: item?.job_id == null ? null : item?.job_id,
+          created_at: today,
+          job_requirements: jobForm.job_requirements,
+          job_start_time_day: jobForm.startTimeDay,
+          job_start_timing: jobForm.startTime,
+          job_status: null,
+          job_timing: jobForm.job_timing,
+          job_title: jobForm.job_title,
+          job_type: 1,
+          language: jobForm.language,
+          monthly_in_hand_salary_from: jobForm.monthly_in_hand_salary_from, //2000
+          monthly_in_hand_salary_to: jobForm.monthly_in_hand_salary_to, //"20000",
+          no_of_openings: jobForm.no_of_openings,
+          phone_no: jobForm.phone_no,
+          skills: jobForm.skills,
+        };
+        const { data } = await apiCall("POST", ENDPOINTS.CREATE_JOB, params);
+        if (data.status === 200) {
+          setSuccessMessage(data.message);
+          setVisibleSuccess(true);
+          setVisible(false);
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    }
   };
 
   const SearchPlace = (searchKey) => {
@@ -567,7 +569,10 @@ const EditJob = ({ navigation, route }) => {
     return (
       <TouchableOpacity
         onPress={() => handleSelectedName(item, index)}
-        style={{ flex: 1, padding: 10 }}
+        style={{
+          flex: 1,
+          padding: 10,
+        }}
       >
         <Text style={styles.modalTwoTxt}>{item?.job_benefits_name}</Text>
       </TouchableOpacity>

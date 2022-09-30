@@ -13,6 +13,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
+    marginTop: 10,
   },
   MainImgeStyle: {
     width: 110,

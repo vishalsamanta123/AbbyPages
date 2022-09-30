@@ -8,6 +8,7 @@ import {
   Linking,
   Share,
   Platform,
+  ToastAndroid,
 } from "react-native";
 import {
   GREY_COLOR_CODE,
@@ -42,6 +43,7 @@ const ShopDetail = ({ navigation, route }) => {
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
   const [shopDetail, setShopDetail] = useState("");
+  console.log("shopDetail: ", shopDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({
@@ -283,18 +285,17 @@ const ShopDetail = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        item_type: 1,
+        item_type: shopDetail.business_type === 2 ? 1 : 1,
         item_id: shopDetail.business_id,
-        like: shopDetail.likes,
-        favorite: shopDetail?.favorite,
-        interest: shopDetail?.interest,
+        like: shopDetail.user_like === 1 ? 0 : 1,
+        favorite: shopDetail?.favorite ? shopDetail?.favorite : 0,
+        interest: shopDetail?.interest ? shopDetail?.interest : 0,
         views: shopDetail.views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
         setVisible(false);
-        setVisibleSuccess(true);
-        setSuccessMessage(data.message);
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
         handleShopDetail(shopDetail);
       } else {
         setVisible(false);

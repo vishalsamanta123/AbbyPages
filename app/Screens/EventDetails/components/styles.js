@@ -255,6 +255,12 @@ const Styles = StyleSheet.create({
     margin: 0,
     marginTop: 5,
   },
+  smallInnrInpVw: {
+    marginTop: 0,
+    paddingLeft: 8,
+    paddingRight: 12,
+    paddingVertical: Platform.OS === "ios" ? 0 : 10,
+  },
   bttnSubmitVw: {
     marginTop: 10,
     width: "70%",
@@ -297,7 +303,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 20,
-    top:Platform.OS==='ios'?2: 8,
+    top: Platform.OS === "ios" ? 2 : 8,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -377,7 +383,7 @@ const Styles = StyleSheet.create({
   modalBttn: {
     width: "45%",
     marginHorizontal: 5,
-    paddingVertical:Platform.OS==='ios'?12: 8,
+    paddingVertical: Platform.OS === "ios" ? 12 : 8,
     alignSelf: "flex-end",
     backgroundColor: YELLOW_COLOR_CODE,
   },

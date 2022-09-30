@@ -83,6 +83,7 @@ const ConfirmOrder = (props) => {
             }
             placeholderTextColor={GREY_COLOR_CODE}
             placeholder={"Phone"}
+            keyboardType={"number-pad"}
             maxLength={10}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />

@@ -245,15 +245,16 @@ const ShopDetail = (props) => {
                 style={styles.SaveContainer}
               >
                 <Image
-                  style={{
-                    tintColor:
-                      props?.shopDetail?.user_like > 0
-                        ? YELLOW_COLOR_CODE
-                        : null,
-                  }}
+                  tintColor={
+                    props?.shopDetail?.user_like === 1
+                      ? YELLOW_COLOR_CODE
+                      : null
+                  }
                   source={require("../../../Assets/save_icon.png")}
                 />
-                <Text style={styles.AddOptnsTextMain}>Save</Text>
+                <Text style={styles.AddOptnsTextMain}>
+                  {props?.shopDetail?.user_like === 1 ? "Saved" : "Save"}
+                </Text>
               </TouchableOpacity>
             </View>
             {

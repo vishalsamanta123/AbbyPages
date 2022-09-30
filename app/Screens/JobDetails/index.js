@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Share, View } from "react-native";
+import { Share, ToastAndroid, View } from "react-native";
 import JobDetailsScreen from "./components/JobDetailsScreen";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -10,6 +10,7 @@ import Error from "../../Components/Modal/error";
 
 const JobDetails = ({ route, navigation }) => {
   const [details, setDetails] = useState([]);
+  console.log("details: ", details);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -53,33 +54,23 @@ const JobDetails = ({ route, navigation }) => {
     alert("Coming Soon");
   };
   const saveJob = async () => {
-    //all required keys are not available in getjob detail api
     try {
       setVisible(true);
       const params = {
-        item_type: details.business_type,
-        item_id: details?.business_id,
-        like: details?.likes,
+        item_type: details.job_type,
+        item_id: details?.job_id,
+        like: details?.user_like ? (details?.user_like === 1 ? 0 : 1) : 1,
         favorite: details?.favorite,
         interest: details?.interest,
-        views: details?.views,
-
-        // item_type: restroDetail.business_type,
-        // item_id: restroDetail.business_id,
-        // like: restroDetail.likes,
-        // favorite: restroDetail?.favorite,
-        // interest: restroDetail?.interest,
-        // views: restroDetail.views,
+        views: details?.job_views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
         setVisible(false);
-        setVisibleSuccess(true);
-        setSuccessMessage(data.message);
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
       } else {
         setVisible(false);
-        // setErrorMessage(data.message);
-        setErrorMessage('Keys are not avialable');
+        setErrorMessage(data.message);
         setVisibleErr(true);
       }
     } catch (error) {

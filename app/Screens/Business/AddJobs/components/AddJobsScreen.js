@@ -310,12 +310,12 @@ const AddJobs = (props) => {
             <View style={styles.jobdesvwe}>
               <Input
                 multiline
-                numberOfLines={3}
+                numberOfLines={2}
                 style={styles.jobinputvwe}
                 onChangeText={(JobAddress) => props.setJobAddress(JobAddress)}
                 value={props.JobAddress}
                 secureTextEntry={false}
-                placeholder="Job Adress *"
+                placeholder="Job Address *"
                 InputType="withScroll"
               />
               <Input

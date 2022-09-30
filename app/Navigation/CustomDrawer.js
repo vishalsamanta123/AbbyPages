@@ -209,7 +209,7 @@ export function customDrawerContents(props) {
               <Text style={styles.drawerText}>Followers</Text>
             </View>
           </TouchableOpacity> */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("EventManagement");
@@ -221,7 +221,7 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Events</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {

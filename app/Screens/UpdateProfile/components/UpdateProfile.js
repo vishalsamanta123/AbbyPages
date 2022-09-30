@@ -28,7 +28,6 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const UpdateProfile = (props) => {
@@ -152,7 +151,7 @@ const UpdateProfile = (props) => {
           </Dialog>
         </View>
         <ScrollView keyboardShouldPersistTaps={"always"}>
-          <View style={[styles.MainContainer, { paddingTop: "15%" }]}>
+          <View style={[styles.MainContainer, { paddingTop: "10%" }]}>
             <Input
               onChangeText={(first_name) =>
                 props.setProfileData({
@@ -246,6 +245,7 @@ const UpdateProfile = (props) => {
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
+              maximumDate={new Date()}
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
@@ -538,13 +538,13 @@ const UpdateProfile = (props) => {
                 { paddingHorizontal: 8, flexDirection: "column" },
               ]}
             >
-              {props.profileData.primary_language !== null && (
+              {props?.profileData?.primary_language != "" ? (
                 <Text style={[styles.AddPhotosTxt, { fontSize: 17 }]}>
                   Primary Language
                 </Text>
-              )}
+              ) : null}
               <Picker
-                selectedValue={props.profileData.primary_language}
+                selectedValue={`${props.profileData.primary_language}`}
                 style={styles.CameraImgView}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setProfileData({

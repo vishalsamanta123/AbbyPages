@@ -13,7 +13,11 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
-import { WHITE_COLOR_CODE, BLACK_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  WHITE_COLOR_CODE,
+  BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
 
 const BusinessProductDetails = (props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -23,8 +27,8 @@ const BusinessProductDetails = (props) => {
       <Header
         HeaderText="Product Details"
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         // RightImg={require('../../../../Assets/cart_icon_header.png')}
       />
       <View style={[CommonStyles.body]}>
@@ -48,7 +52,7 @@ const BusinessProductDetails = (props) => {
                 scrollEventThrottle={1}
               >
                 {props.ProductData ? (
-                  props.ProductData.product_image.map((item, imageIndex) => {
+                  props?.ProductData?.product_image?.map((item, imageIndex) => {
                     return (
                       <View
                         style={{ width: windowWidth, height: "100%" }}
@@ -79,7 +83,7 @@ const BusinessProductDetails = (props) => {
                 position: "absolute",
                 justifyContent: "center",
                 width: "100%",
-                top: 150,
+                bottom: 10,
               }}
             >
               {props.ProductData

@@ -103,7 +103,7 @@ const UpdateProfileView = ({ navigation }) => {
     }
   };
   const renderFileUri = () => {
-    if (CameraImage?.length > 0) {
+    if (CameraImage != "") {
       return (
         <TouchableOpacity onPress={() => setProfileModal(true)}>
           <Image
@@ -132,7 +132,52 @@ const UpdateProfileView = ({ navigation }) => {
       setVisible(true);
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
-        setProfileData(data.data);
+        setProfileData({
+          first_name: data.data.first_name ? data.data.first_name : "",
+          last_name: data.data.last_name ? data.data.last_name : "",
+          headline: data.data.headline ? data.data.headline : "",
+          i_love: data.data.i_love ? data.data.i_love : "",
+          find_me_in: data.data.find_me_in ? data.data.find_me_in : "",
+          hometown: data.data.hometown ? data.data.hometown : "",
+          blog_website: data.data.blog_website ? data.data.blog_website : "",
+          when_not_on_abbypages: data.data.when_not_on_abbypages
+            ? data.data.when_not_on_abbypages
+            : "",
+          why_should_read_my_reviews: data.data.why_should_read_my_reviews
+            ? data.data.why_should_read_my_reviews
+            : "",
+          second_website: data.data.second_website
+            ? data.data.second_website
+            : "",
+          great_book_read: data.data.great_book_read
+            ? data.data.great_book_read
+            : "",
+          favorite_movie: data.data.favorite_movie
+            ? data.data.favorite_movie
+            : "",
+          last_meal_on_earth: data.data.last_meal_on_earth
+            ? data.data.last_meal_on_earth
+            : "",
+          anyone_else_but: data.data.anyone_else_but
+            ? data.data.anyone_else_but
+            : "",
+          most_recent_discovery: data.data.most_recent_discovery
+            ? data.data.most_recent_discovery
+            : "",
+          current_crush: data.data.current_crush ? data.data.current_crush : "",
+          concert: data.data.concert ? data.data.concert : "",
+          nick_name: data.data.nick_name ? data.data.nick_name : "",
+          zip_code: data.data.zip_code ? data.data.zip_code : "",
+          birth_date: data.data.birth_date ? data.data.birth_date : "",
+          gender: data.data.gender ? data.data.gender : "",
+          primary_language: data.data.primary_language
+            ? data.data.primary_language
+            : "",
+          hometown_lat: data.data.hometown_lat ? data.data.hometown_lat : "",
+          hometown_long: data.data.hometown_long ? data.data.hometown_long : "",
+          find_me_lat: data.data.find_me_lat ? data.data.find_me_lat : "",
+          find_me_long: data.data.find_me_long ? data.data.find_me_long : "",
+        });
         setCameraImage(data.data.profile_image);
         setVisible(false);
       } else {
