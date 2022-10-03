@@ -568,7 +568,6 @@ const EditJobScreen = (props) => {
           </View>
         </View>
       </Modal>
-      {/*  */}
 
       <Modal
         animationType="slide"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import styles from "./components/styles";
 import Loader from "../../../Utils/Loader";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
@@ -15,76 +16,24 @@ import {
 const AddJobs = ({ navigation }) => {
   let today = moment(today).format("MM/DD/YYYY");
   let benefits_Date = moment(today);
-  const [addJobCategoryModalVisible, setAddJobCategoryModalVisible] =
-    useState(false);
-  const [jobCategoryList, setJobCategoryList] = useState("");
-  const [selectedJobCategory, setSelectedJobCategory] = useState("");
-
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  {
-    /* Countries States */
-  }
-  const [countryVisible, setCountryVisible] = useState(false);
+  const [jobCategoryList, setJobCategoryList] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalResp, setModalResp] = useState("");
   const [countryList, setCountryList] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  {
-    /**/
-  }
-  {
-    /* State States */
-  }
-  const [stateVisible, setStateVisible] = useState(false);
   const [stateList, setStateList] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  {
-    /**/
-  }
-  {
-    /* City States */
-  }
-  const [cityVisible, setCityVisible] = useState(false);
   const [cityList, setCityList] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
-  const [JobTitle, setJobTitle] = useState("");
-  const [Openings, setOpenings] = useState("");
-  const [SalaryFrom, setSalaryFrom] = useState("");
-  const [SalaryTo, setSalaryTo] = useState("");
-  const [JobDescription, setJobDescription] = useState("");
-  const [JobTimeings, setJobTimeings] = useState("");
-  const [InterviewDetails, setInterviewDetails] = useState("");
-  const [CompanyName, setCompanyName] = useState("");
-  const [CompanyPersonName, setCompanyPersonName] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [EmailID, setEmailID] = useState("");
-  const [JobAddress, setJobAddress] = useState("");
-  const [addressState, setAddressState] = useState("");
-  const [city, setcity] = useState("");
   const [jobBenefits, setJobBenefits] = useState("");
-  const [box, setbox] = useState(true);
-  const [jobRequirements, setJobReqiurements] = useState("");
-  const [jobLevel, setJobLevel] = useState("");
-  const [language, setLanguage] = useState("");
-  const [startTimeDay, setStartTimeDay] = useState("");
-  const [endTimeDay, setEndTimeDay] = useState("");
-  const [skills, setSkills] = useState("");
-  /* Start time */
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState(false);
-  const [startTime, setStartTime] = useState("");
-  /* End time */
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
-  const [endTime, setEndTime] = useState("");
-  /*  */
-  const [itemType, setItemType] = useState("");
+  const [itemType, setItemType] = useState({});
   const [menuTypeVisible, setMenuTypeVisible] = useState(false);
-
   const [selectedBenefits, setSelectedBenefits] = useState([]);
-
   const benifitsStaticContent = [
     {
       job_benefits_id: 1,
@@ -147,82 +96,69 @@ const AddJobs = ({ navigation }) => {
       created_at: benefits_Date,
     },
   ];
+  const [jobForm, setJobForm] = useState({
+    job_category_id: "",
+    job_category_name: "",
+    job_title: "",
+    no_of_openings: "",
+    startTimeDay: "",
+    endTimeDay: "",
+    monthly_in_hand_salary_from: "",
+    monthly_in_hand_salary_to: "",
+    country_id: "",
+    country_name: "",
+    state_id: "",
+    state_name: "",
+    city_id: "",
+    city_name: "",
+    job_description: "",
+    job_requirements: "",
+    startTime: "",
+    endTime: "",
+    interview_details: "",
+    job_level: "",
+    company_name: "",
+    company_personName: "",
+    language: "",
+    phone_no: "",
+    email_id: "",
+    job_address: "",
+    skills: "",
+    job_timing: "",
+    job_benefits: [],
+    accpt_trms_cond: "",
+  });
 
-  const _handleFocus = () => {
-    setbox(!box);
-  };
+  console.log("jobFormjobForm: ", jobForm);
   const onPressToPreview = () => {
     navigation.navigate("AddTextPreview");
   };
-  const _handleModalOpen = () => {
-    setCountryVisible(true);
-    getCountryList();
-  };
-  const _handleStateModalOpen = () => {
-    setStateVisible(true);
-    getStateList();
-  };
-  const _handleCityModalOpen = () => {
-    setCityVisible(true);
-    getCityList();
-  };
-  const getCountryList = async () => {
+
+  const getPlaceList = async (status) => {
     try {
       setVisible(true);
       const params = {
-        status: 0,
+        status: status,
+        country_id: status === 1 ? jobForm.country_id : "",
+        state_id: status === 2 ? jobForm.state_id : "",
       };
       const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
       if (data.status === 200) {
         setVisible(false);
-        setCountryList(data.data);
+        if (status === 0) {
+          setCountryList(data.data);
+        } else {
+          if (status === 1) {
+            setStateList(data.data);
+          } else {
+            if (status === 2) {
+              setCityList(data.data);
+            }
+          }
+        }
       } else {
         setVisible(false);
         setErrorMessage(data.message);
-        setVisibleErr(true);
-      }
-    } catch (error) {
-      setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
-  const getStateList = async () => {
-    try {
-      setVisible(true);
-      const params = {
-        status: 1,
-        country_id: selectedCountry.country_id,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
-      if (data.status === 200) {
-        setVisible(false);
-        setStateList(data.data);
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-      }
-    } catch (error) {
-      setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
-  const getCityList = async () => {
-    try {
-      setVisible(true);
-      const params = {
-        status: 2,
-        state_id: selectedState.state_id,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.COUNTRY_LIST, params);
-      if (data.status === 200) {
-        setVisible(false);
-        setCityList(data.data);
-      } else {
-        setVisible(false);
-        setErrorMessage(data?.message);
         setVisibleErr(true);
       }
     } catch (error) {
@@ -232,52 +168,216 @@ const AddJobs = ({ navigation }) => {
     }
   };
 
+  const handleOpenModal = (open) => {
+    setModalResp(open);
+    if (open === 1) {
+      getJobCategoryList();
+      setModalVisible(true);
+    } else {
+      if (open === 2) {
+        getPlaceList(0);
+        setModalVisible(true);
+      } else {
+        if (open === 3) {
+          getPlaceList(1);
+          setModalVisible(true);
+        } else {
+          if (open === 4) {
+            getPlaceList(2);
+            setModalVisible(true);
+          }
+        }
+      }
+    }
+  };
+  const handleCloseModal = () => {
+    setJobCategoryList([]);
+    setCountryList([]);
+    setStateList([]);
+    setCityList([]);
+    setModalVisible(false);
+    setModalResp("");
+  };
+  function validationFrom() {
+    if (jobForm.job_category_name === "") {
+      setErrorMessage("Please select job category");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_title === "") {
+      setErrorMessage("Please enter job title");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.no_of_openings === "") {
+      setErrorMessage("Please enter no of openings");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.startTimeDay === "") {
+      setErrorMessage("Please enter your start time day");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.endTimeDay === "") {
+      setErrorMessage("Please enter your end time day");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.monthly_in_hand_salary_from === "") {
+      setErrorMessage("Please enter monthly in hand salary from");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.monthly_in_hand_salary_to === "") {
+      setErrorMessage("Please enter monthly in hand salary to");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.country_name === "" || jobForm.country_name === undefined) {
+      setErrorMessage("Please enter job country");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.state_name === "" || jobForm.state_name === undefined) {
+      setErrorMessage("Please enter job state");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.city_name === "" || jobForm.city_name === undefined) {
+      setErrorMessage("Please enter job city");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_description === "") {
+      setErrorMessage("Please enter job description");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_requirements === "") {
+      setErrorMessage("Please enter job requirements");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.startTime === "") {
+      setErrorMessage("Please select your start time");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.endTime === "") {
+      setErrorMessage("Please select your end time");
+      setVisibleErr(true);
+      return false;
+    }
+    // if (JobTimeings == "") {
+    //   setErrorMessage("Please enter job time");
+    //   setVisibleErr(true);
+    //   return false;
+    // }
+    if (jobForm.interview_details === "") {
+      setErrorMessage("Please enter your interview details");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_level === "") {
+      setErrorMessage("Please enter your job level");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.company_name === "") {
+      setErrorMessage("Please enter company name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.company_personName === "") {
+      setErrorMessage("Please enter company person name");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.language === "") {
+      setErrorMessage("Please enter which language you speak");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.phone_no === "") {
+      setErrorMessage("Please enter phone number");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.email_id === "") {
+      setErrorMessage("Please enter email");
+      setVisibleErr(true);
+      return false;
+    }
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(jobForm.email_id) === false) {
+      setErrorMessage("Please enter correct email");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_address === "") {
+      setErrorMessage("Please enter job address");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.skills === "") {
+      setErrorMessage("Please enter your skills");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.job_benefits.length === 0) {
+      setErrorMessage("Please select job benefits");
+      setVisibleErr(true);
+      return false;
+    }
+    if (jobForm.accpt_trms_cond === "") {
+      setErrorMessage("Please select terms and condition");
+      setVisibleErr(true);
+      return false;
+    }
+    return true;
+  }
   const onPressSubmit = async () => {
     const valid = validationFrom();
     if (valid) {
-      // setVisible(true);
+      setVisible(true);
       try {
         const params = {
-          business_id: "",
-          company_name: CompanyName,
-          contact_person_name: CompanyPersonName,
-          email: EmailID,
-          interview_details: InterviewDetails,
-          job_address: JobAddress,
-          job_benefits: selectedBenefits,
-          job_category_id: selectedJobCategory.id,
-          job_description: JobDescription,
-          job_end_time_day: endTimeDay,
-          job_end_timing: endTime,
-          job_level: jobLevel,
-
-          job_location_country: selectedCountry.country_id,
-          job_location_state: selectedState.state_id,
-          job_location_city: selectedCity.city_id,
-          job_id: "",
+          business_id: '',
+          company_name: jobForm.company_name,
+          contact_person_name: jobForm.company_personName,
+          email: jobForm.email_id,
+          interview_details: jobForm.interview_details,
+          job_address: jobForm.job_address,
+          job_benefits: JSON.stringify(jobForm.job_benefits),
+          job_category_id: jobForm.id,
+          job_description: jobForm.job_description,
+          job_end_time_day: jobForm.endTimeDay,
+          job_end_timing: jobForm.endTime,
+          job_level: jobForm.job_level,
+          job_location_country: jobForm?.country_id,
+          job_location_state: jobForm.state_id,
+          job_location_city: jobForm.city_id,
+          job_id: '',
           created_at: today,
-          job_benefits_id: itemType.id,
-
-          job_requirements: jobRequirements,
-          job_start_time_day: startTimeDay,
-          job_start_timing: startTime,
+          job_requirements: jobForm.job_requirements,
+          job_start_time_day: jobForm.startTimeDay,
+          job_start_timing: jobForm.startTime,
           job_status: null,
-          job_timing: JobTimeings,
-          job_title: JobTitle,
+          job_timing: jobForm.job_timing,
+          job_title: jobForm.job_title,
           job_type: 1,
-          language: language,
-          monthly_in_hand_salary_from: SalaryFrom, //2000
-          monthly_in_hand_salary_to: SalaryTo, //"20000",
-          no_of_openings: Openings, //10
-          phone_no: PhoneNumber,
-          skills: skills,
-          status: 1,
+          language: jobForm.language,
+          monthly_in_hand_salary_from: jobForm.monthly_in_hand_salary_from, //2000
+          monthly_in_hand_salary_to: jobForm.monthly_in_hand_salary_to, //"20000",
+          no_of_openings: jobForm.no_of_openings,
+          phone_no: jobForm.phone_no,
+          skills: jobForm.skills,
         };
         const { data } = await apiCall("POST", ENDPOINTS.CREATE_JOB, params);
         if (data.status === 200) {
           setSuccessMessage(data.message);
           setVisibleSuccess(true);
-          // navigation.navigate('JobManagementList');
           setVisible(false);
         } else {
           setVisible(false);
@@ -291,294 +391,64 @@ const AddJobs = ({ navigation }) => {
       }
     }
   };
-  function validationFrom() {
-    if (
-      selectedJobCategory.category_name == "" ||
-      selectedJobCategory.category_name === undefined
-    ) {
-      setErrorMessage("Please select job category");
-      setVisibleErr(true);
-      return false;
-    }
-    if (JobTitle == "") {
-      setErrorMessage("Please enter job title");
-      setVisibleErr(true);
-      return false;
-    }
-    if (Openings == "") {
-      setErrorMessage("Please enter no of openings");
-      setVisibleErr(true);
-      return false;
-    }
-    if (startTimeDay == "") {
-      setErrorMessage("Please enter your start time day");
-      setVisibleErr(true);
-      return false;
-    }
-    if (endTimeDay == "") {
-      setErrorMessage("Please enter your end time day");
-      setVisibleErr(true);
-      return false;
-    }
-    if (SalaryFrom == "") {
-      setErrorMessage("Please enter monthly in hand salary from");
-      setVisibleErr(true);
-      return false;
-    }
-    if (SalaryTo == "") {
-      setErrorMessage("Please enter monthly in hand salary to");
-      setVisibleErr(true);
-      return false;
-    }
-    if (selectedCountry.name == "" || selectedCountry.name === undefined) {
-      setErrorMessage("Please enter job country");
-      setVisibleErr(true);
-      return false;
-    }
-    if (selectedState.name == "" || selectedState.name === undefined) {
-      setErrorMessage("Please enter job state");
-      setVisibleErr(true);
-      return false;
-    }
-    if (selectedCity.name == "" || selectedCity.name === undefined) {
-      setErrorMessage("Please enter job city");
-      setVisibleErr(true);
-      return false;
-    }
-    if (JobDescription == "") {
-      setErrorMessage("Please enter job description");
-      setVisibleErr(true);
-      return false;
-    }
-    if (jobRequirements == "") {
-      setErrorMessage("Please enter job requirements");
-      setVisibleErr(true);
-      return false;
-    }
-    if (startTime == "") {
-      setErrorMessage("Please select your start time");
-      setVisibleErr(true);
-      return false;
-    }
-    if (endTime == "") {
-      setErrorMessage("Please select your end time");
-      setVisibleErr(true);
-      return false;
-    }
-    if (JobTimeings == "") {
-      setErrorMessage("Please enter job time");
-      setVisibleErr(true);
-      return false;
-    }
-    if (InterviewDetails == "") {
-      setErrorMessage("Please enter your interview details");
-      setVisibleErr(true);
-      return false;
-    }
-    if (jobLevel == "") {
-      setErrorMessage("Please enter your job level");
-      setVisibleErr(true);
-      return false;
-    }
-    if (CompanyName == "") {
-      setErrorMessage("Please enter company name");
-      setVisibleErr(true);
-      return false;
-    }
-    if (CompanyPersonName == "") {
-      setErrorMessage("Please enter company person name");
-      setVisibleErr(true);
-      return false;
-    }
-    if (language == "") {
-      setErrorMessage("Please enter which language you speak");
-      setVisibleErr(true);
-      return false;
-    }
-    if (PhoneNumber == "") {
-      setErrorMessage("Please enter phone number");
-      setVisibleErr(true);
-      return false;
-    }
-    if (EmailID == "") {
-      setErrorMessage("Please enter email");
-      setVisibleErr(true);
-      return false;
-    }
-    if (JobAddress == "") {
-      setErrorMessage("Please enter job address");
-      setVisibleErr(true);
-      return false;
-    }
-    if (selectedBenefits == "") {
-      setErrorMessage("Please select benefits");
-      setVisibleErr(true);
-      return false;
-    }
-    if (skills == "") {
-      setErrorMessage("Please enter your skills");
-      setVisibleErr(true);
-      return false;
-    }
-    if (box == true) {
-      setErrorMessage("Please select terms and condition");
-      setVisibleErr(true);
-      return false;
-    }
-    return true;
-  }
-  const _handleSelectedCountry = (item) => {
-    setSelectedCountry(item);
-    setCountryVisible(false);
-  };
-  const renderCountryListItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => _handleSelectedCountry(item)}
-        style={{
-          flex: 1,
-          borderBottomWidth: 0.3,
-          borderBottomColor: "#f2f2f2",
-          padding: 10,
-          paddingVertical: 15,
-          marginHorizontal: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: BLACK_COLOR_CODE,
-          }}
-        >
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-  const _handleSelectedState = (item) => {
-    setSelectedState(item);
-    setStateVisible(false);
-  };
-  const renderStateListItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => _handleSelectedState(item)}
-        style={{
-          flex: 1,
-          borderBottomWidth: 0.3,
-          borderBottomColor: "#f2f2f2",
-          padding: 10,
-          paddingVertical: 15,
-          marginHorizontal: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: BLACK_COLOR_CODE,
-          }}
-        >
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-  const _handleSelectedCity = (item) => {
-    setSelectedCity(item);
-    setCityVisible(false);
-  };
-  const renderCityListItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => _handleSelectedCity(item)}
-        style={{
-          flex: 1,
-          borderBottomWidth: 0.3,
-          borderBottomColor: "#f2f2f2",
-          padding: 10,
-          paddingVertical: 15,
-          marginHorizontal: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: BLACK_COLOR_CODE,
-          }}
-        >
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-  const SearchCountry = (searchKey) => {
+
+  const SearchPlace = (searchKey) => {
     if (searchKey) {
       const lowerCased = searchKey.toLowerCase();
-      let list = countryList.filter((data) =>
-        data.name.toLowerCase().includes(lowerCased)
-      );
-      setCountryList(list.length > 0 ? list : countryList);
+      switch (modalResp) {
+        case 2:
+          let country = countryList.filter((data) =>
+            data.name.toLowerCase().includes(lowerCased)
+          );
+          setCountryList(country.length > 0 ? country : countryList);
+          break;
+        case 3:
+          let state = stateList.filter((data) =>
+            data.name.toLowerCase().includes(lowerCased)
+          );
+          setStateList(state.length > 0 ? state : stateList);
+          break;
+        case 4:
+          let city = cityList.filter((data) =>
+            data.name.toLowerCase().includes(lowerCased)
+          );
+          setCityList(city.length > 0 ? city : cityList);
+          break;
+      }
     } else {
-      getCountryList();
-    }
-  };
-  const SearchState = (searchKey) => {
-    if (searchKey) {
-      const lowerCased = searchKey.toLowerCase();
-      let list = stateList.filter((data) =>
-        data.name.toLowerCase().includes(lowerCased)
+      getPlaceList(
+        modalResp === 2 ? 0 : modalResp === 3 ? 1 : modalResp === 4 ? 2 : 0
       );
-      setStateList(list.length > 0 ? list : stateList);
-    } else {
-      getStateList();
     }
-  };
-  const SearchCity = (searchKey) => {
-    if (searchKey) {
-      const lowerCased = searchKey.toLowerCase();
-      let list = cityList.filter((data) =>
-        data.name.toLowerCase().includes(lowerCased)
-      );
-      setCityList(list.length > 0 ? list : cityList);
-    } else {
-      getCityList();
-    }
-  };
-  const showTimePicker = () => {
-    setIsStartTimePickerVisible(true);
   };
   const hideTimePicker = () => {
     setIsStartTimePickerVisible(false);
   };
   const handleTimeConfirm = (date) => {
     const value = moment(date).format(" h:mm a");
-    setStartTime(value);
+    setJobForm({
+      ...jobForm,
+      startTime: value,
+    });
     hideTimePicker();
   };
-  // End time
-  const showEndTimePicker = () => {
-    setIsEndTimePickerVisible(true);
-  };
+
   const hideEndTimePicker = () => {
     setIsEndTimePickerVisible(false);
   };
   const handleEndTimeConfirm = (date) => {
     const value = moment(date).format(" h:mm a");
-    setEndTime(value);
+    setJobForm({
+      ...jobForm,
+      endTime: value,
+    });
     hideEndTimePicker();
-  };
-  const _handleOpenJobCategory = () => {
-    setAddJobCategoryModalVisible(true);
-    getJobCategoryList();
   };
   const getJobCategoryList = async () => {
     try {
       setVisible(true);
       const params = {
-        parents_id: 0,
+        parents_id: 2,
       };
       const { data } = await apiCall(
         "POST",
@@ -599,56 +469,79 @@ const AddJobs = ({ navigation }) => {
       setVisibleErr(true);
     }
   };
-  const _handleSelectedJobCategory = (item) => {
-    setSelectedJobCategory(item);
-    setAddJobCategoryModalVisible(false);
+  const _handleSelectedItem = (item) => {
+    switch (modalResp) {
+      case 1:
+        setJobForm({
+          ...jobForm,
+          job_category_id: item?.id,
+          job_category_name: item?.category_name,
+        });
+        break;
+      case 2:
+        setJobForm({
+          ...jobForm,
+          country_id: item.country_id,
+          country_name: item.name,
+        });
+        break;
+      case 3:
+        setJobForm({
+          ...jobForm,
+          state_id: item.state_id,
+          state_name: item.name,
+        });
+        break;
+      case 4:
+        setJobForm({
+          ...jobForm,
+          city_id: item.city_id,
+          city_name: item.name,
+        });
+        break;
+    }
+    setModalVisible(false);
+    handleCloseModal();
   };
-  const renderJobCategoryListItem = ({ item }) => {
+  const renderModalList = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => _handleSelectedJobCategory(item)}
-        style={{
-          flex: 1,
-          borderBottomWidth: 0.3,
-          borderBottomColor: "#f2f2f2",
-          padding: 10,
-          paddingVertical: 15,
-          marginHorizontal: 15,
-        }}
+        onPress={() => _handleSelectedItem(item)}
+        style={styles.modalVw}
       >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: BLACK_COLOR_CODE,
-          }}
-        >
-          {item.category_name}
+        <Text style={styles.modalTxt}>
+          {modalResp === 1
+            ? item.category_name
+            : modalResp === 2
+            ? item.name
+            : modalResp === 3
+            ? item.name
+            : modalResp === 4
+            ? item.name
+            : "Not Found"}
         </Text>
       </TouchableOpacity>
     );
   };
-  const handleSelectedName = (item, index) => {
-    const data = [...selectedBenefits];
+  const handleSelectedName = (item) => {
+    const data = [...jobForm.job_benefits];
     data.push(item);
-    setSelectedBenefits(data);
+    setJobForm({
+      ...jobForm,
+      job_benefits: data,
+    });
     setItemType(item);
   };
   const renderStaticContentData = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => handleSelectedName(item, index)}
-        style={{ flex: 1, padding: 10 }}
+        style={{
+          flex: 1,
+          padding: 10,
+        }}
       >
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY_REGULAR,
-            fontSize: 15,
-            color: WHITE_COLOR_CODE,
-          }}
-        >
-          {item?.job_benefits_name}
-        </Text>
+        <Text style={styles.modalTwoTxt}>{item?.job_benefits_name}</Text>
       </TouchableOpacity>
     );
   };
@@ -660,96 +553,39 @@ const AddJobs = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       {visible && <Loader state={visible} />}
       <AddJobsScreen
+        jobForm={jobForm}
+        setJobForm={setJobForm}
+        modalVisible={modalVisible}
+        modalResp={modalResp}
+        setModalVisible={setModalVisible}
+        getPlaceList={getPlaceList}
+        getJobCategoryList={getJobCategoryList}
+        handleOpenModal={handleOpenModal}
+        handleCloseModal={handleCloseModal}
+        SearchPlace={SearchPlace}
+        ////
         selectedBenefits={selectedBenefits}
         benifitsStaticContent={benifitsStaticContent}
-        itemType={itemType}
         menuTypeVisible={menuTypeVisible}
         setMenuTypeVisible={setMenuTypeVisible}
         renderStaticContentData={renderStaticContentData}
-        _handleOpenJobCategory={_handleOpenJobCategory}
-        addJobCategoryModalVisible={addJobCategoryModalVisible}
-        setAddJobCategoryModalVisible={setAddJobCategoryModalVisible}
-        renderJobCategoryListItem={renderJobCategoryListItem}
+        renderModalList={renderModalList}
         jobCategoryList={jobCategoryList}
-        selectedJobCategory={selectedJobCategory}
-        startTimeDay={startTimeDay}
-        setStartTimeDay={setStartTimeDay}
-        endTimeDay={endTimeDay}
-        setEndTimeDay={setEndTimeDay}
-        language={language}
-        setLanguage={setLanguage}
-        skills={skills}
-        setSkills={setSkills}
-        showEndTimePicker={showEndTimePicker}
+        setIsEndTimePickerVisible={setIsEndTimePickerVisible}
         hideEndTimePicker={hideEndTimePicker}
         handleEndTimeConfirm={handleEndTimeConfirm}
-        endTime={endTime}
         isEndTimePickerVisible={isEndTimePickerVisible}
-        startTime={startTime}
-        showTimePicker={showTimePicker}
+        setIsStartTimePickerVisible={setIsStartTimePickerVisible}
         hideTimePicker={hideTimePicker}
         isStartTimePickerVisible={isStartTimePickerVisible}
         handleTimeConfirm={handleTimeConfirm}
         onPressToPreview={onPressToPreview}
-        JobTitle={JobTitle}
-        setJobTitle={setJobTitle}
-        Openings={Openings}
-        setOpenings={setOpenings}
-        SalaryFrom={SalaryFrom}
-        setSalaryFrom={setSalaryFrom}
-        SalaryTo={SalaryTo}
-        setSalaryTo={setSalaryTo}
-        JobDescription={JobDescription}
-        setJobDescription={setJobDescription}
-        JobTimeings={JobTimeings}
-        setJobTimeings={setJobTimeings}
-        InterviewDetails={InterviewDetails}
-        setInterviewDetails={setInterviewDetails}
-        CompanyName={CompanyName}
-        setCompanyName={setCompanyName}
-        CompanyPersonName={CompanyPersonName}
-        setCompanyPersonName={setCompanyPersonName}
-        PhoneNumber={PhoneNumber}
-        setPhoneNumber={setPhoneNumber}
-        EmailID={EmailID}
-        setEmailID={setEmailID}
-        JobAddress={JobAddress}
-        setJobAddress={setJobAddress}
-        _handleFocus={_handleFocus}
-        setbox={setbox}
-        box={box}
         onPressSubmit={onPressSubmit}
-        setAddressState={setAddressState}
-        addressState={addressState}
-        setcity={setcity}
-        city={city}
         jobBenefits={jobBenefits}
         setJobBenefits={setJobBenefits}
-        jobLevel={jobLevel}
-        setJobLevel={setJobLevel}
-        renderCountryListItem={renderCountryListItem}
-        countryVisible={countryVisible}
-        setCountryVisible={setCountryVisible}
-        _handleModalOpen={_handleModalOpen}
         countryList={countryList}
-        selectedCountry={selectedCountry}
-        stateVisible={stateVisible}
-        setStateVisible={setStateVisible}
         stateList={stateList}
-        renderStateListItem={renderStateListItem}
-        selectedState={selectedState}
-        _handleStateModalOpen={_handleStateModalOpen}
-        _handleCityModalOpen={_handleCityModalOpen}
         cityList={cityList}
-        renderCityListItem={renderCityListItem}
-        cityVisible={cityVisible}
-        setCityVisible={setCityVisible}
-        selectedCity={selectedCity}
-        jobRequirements={jobRequirements}
-        setJobReqiurements={setJobReqiurements}
-        SearchCountry={SearchCountry}
-        SearchState={SearchState}
-        SearchCity={SearchCity}
       />
       <Error
         message={errorMessage}

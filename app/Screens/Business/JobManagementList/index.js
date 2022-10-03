@@ -120,10 +120,7 @@ const JobManagementListView = ({ navigation }) => {
   const _handleTableData = (item, index) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
     return (
-      <View style={styles.MainContain}>
-        <Text style={styles.DescrptnTextStyle}>
-          Company name : {item?.company_name}
-        </Text>
+      <View style={[styles.MainContain, { marginTop: index === 0 ? 2 : 12 }]}>
         <View style={[styles.JobContainer, { marginBottom: 5 }]}>
           <Text style={styles.TableNottEXT}>{item?.job_title}</Text>
           <Text style={styles.DescrptionText}>
@@ -131,6 +128,9 @@ const JobManagementListView = ({ navigation }) => {
             {item?.monthly_in_hand_salary_to}
           </Text>
         </View>
+        <Text style={styles.DescrptnTextStyle}>
+          Company name : {item?.company_name}
+        </Text>
         <View style={[styles.straightVw, { justifyContent: "flex-start" }]}>
           <Text style={[styles.HeadingTxt, { marginRight: 5 }]}>
             Number of Opening -
@@ -144,8 +144,10 @@ const JobManagementListView = ({ navigation }) => {
           <Text style={[styles.HeadingTxt]}>{item.contact_person_name}</Text>
         </View>
         <Text style={styles.HeadingTxt}>Posted {date}</Text>
-        <Text style={styles.DescrptnTextStyle}>{item?.job_address}</Text>
-        <View style={styles.straightVw}>
+        <Text style={styles.DescrptnTextStyle}>
+          Address :- {item?.job_address}
+        </Text>
+        <View style={[styles.straightVw, { marginTop: 5 }]}>
           <TouchableOpacity
             style={styles.switchstyle}
             onPress={() =>
@@ -156,6 +158,8 @@ const JobManagementListView = ({ navigation }) => {
             }
           >
             <Image
+              resizeMode={"contain"}
+              style={{ width: 40, height: 32 }}
               source={
                 item?.job_status === 1
                   ? require("../../../Assets/active_switch.png")

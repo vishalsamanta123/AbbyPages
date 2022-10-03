@@ -100,20 +100,40 @@ const Styles = StyleSheet.create({
     marginLeft: "5%",
     marginTop: "5%",
   },
+
   basictxt: {
     fontSize: 20,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+
   addtionalvwe: {
     marginLeft: "6%",
     marginTop: "2%",
   },
+
   addtionaltxt: {
     fontSize: 20,
     fontFamily: FONT_FAMILY_REGULAR,
   },
   jobdesvwe: {
     justifyContent: "center",
+  },
+  inputsVw: {
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 9,
+    margin: 8,
+    marginLeft: 15,
+    marginRight: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  inputTitleTxt: {
+    position: "absolute",
+    left: 25,
+    justifyContent: "center",
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   jobinputvwe: {
     borderColor: "#d8d8d8",
@@ -126,35 +146,43 @@ const Styles = StyleSheet.create({
     marginLeft: "6%",
     marginTop: "2%",
   },
+
   addjobdtxt: {
     fontSize: 20,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+
   footermainvwe: {
     flex: 1,
     flexDirection: "row",
   },
+
   conditionvwe: {
     flex: 1,
     marginLeft: "5%",
   },
+
   acceptvwe: {
     justifyContent: "center",
     marginRight: "5%",
     flex: 5,
   },
+
   accepttxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
   },
+
   btnvwe: {
     padding: 15,
     marginBottom: 5,
   },
+
   btntxt: {
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+
   btnstyle: {
     marginTop: 10,
     backgroundColor: YELLOW_COLOR_CODE,
@@ -169,6 +197,7 @@ const Styles = StyleSheet.create({
   tchvwe: {
     paddingLeft: 25,
     paddingVertical: 12,
+    // height: 65,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#d8d8d8",
@@ -226,5 +255,46 @@ const Styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+  arraySelectVw: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  arrayVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  titlesTxt: {
+    fontSize: 17,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+  },
+  arrayItmVw: {
+    paddingRight: 8,
+    minWidth: 70,
+    marginHorizontal: 4,
+    paddingVertical: 3,
+  },
+  modalVw: {
+    flex: 1,
+    borderBottomWidth: 0.3,
+    borderBottomColor: "#f2f2f2",
+    padding: 10,
+    paddingVertical: 15,
+    marginHorizontal: 15,
+  },
+  modalTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 15,
+    color: BLACK_COLOR_CODE,
+  },
+  modalTwoTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 15,
+    color: WHITE_COLOR_CODE,
+  },
 });
 export default Styles;
+

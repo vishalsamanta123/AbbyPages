@@ -3,21 +3,20 @@ import {
   LIGHT_GREY_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   FONT_FAMILY_REGULAR,
-  FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
   GREY_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainContain: {
-    marginHorizontal: 20,
+    paddingHorizontal: 10,
     marginBottom: 5,
-    padding: 15,
     borderWidth: 1,
-    borderColor: LINE_COMMON_COLOR_CODE,
+    borderColor: YELLOW_COLOR_CODE,
     borderRadius: 4,
-    marginTop: 12,
+    paddingVertical: 5,
+    marginHorizontal: 8,
   },
   ViewContainer: {
     padding: 15,
@@ -25,6 +24,7 @@ const Styles = StyleSheet.create({
   TableNottEXT: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
+    color: BLACK_COLOR_CODE,
   },
   settingPersonView: {
     flexDirection: "row",
@@ -94,14 +94,13 @@ const Styles = StyleSheet.create({
   },
   DescrptionText: {
     fontFamily: FONT_FAMILY_REGULAR,
-    color: YELLOW_COLOR_CODE,
-    fontSize: 15,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: 14,
   },
   DescrptnTextStyle: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 14,
-    color: LIGHT_GREY_COLOR_CODE,
-    lineHeight: 20,
+    color: LIGHT_BLACK_COLOR_CODE,
   },
   straightVw: {
     flexDirection: "row",
@@ -111,7 +110,13 @@ const Styles = StyleSheet.create({
   HeadingTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 12,
-    color: BLACK_COLOR_CODE,
+    color: LIGHT_BLACK_COLOR_CODE,
+    marginRight: 5,
+  },
+  detailTxt: {
+    fontSize: 12,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   JobDscrptn: {
     fontFamily: FONT_FAMILY_REGULAR,
