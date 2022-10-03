@@ -120,7 +120,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   ticketsInputVw: {
-    paddingVertical:Platform.OS==='ios'?14: 2,
+    paddingVertical: Platform.OS === "ios" ? 5 : 2,
     width: "95%",
     marginLeft: 0,
     margin: 0,
@@ -130,7 +130,7 @@ const Styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
-    paddingVertical:Platform.OS==='ios'? 4:0
+    paddingVertical: Platform.OS === "ios" ? 4 : 0,
   },
   codesVw: {
     borderWidth: 1,

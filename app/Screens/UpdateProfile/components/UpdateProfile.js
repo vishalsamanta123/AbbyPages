@@ -8,7 +8,7 @@ import {
   Text,
   KeyboardAvoidingView,
   ImageBackground,
-  Platform
+  Platform,
 } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -48,9 +48,10 @@ const UpdateProfile = (props) => {
     hideDatePicker();
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Update Profile"}
@@ -195,7 +196,10 @@ const UpdateProfile = (props) => {
             <View
               style={[
                 styles.container,
-                { paddingHorizontal: 10, flexDirection: "column" },
+                {
+                  paddingHorizontal: 10,
+                  flexDirection: Platform.OS === "ios" ? null : "column",
+                },
               ]}
             >
               {props.profileData.gender !== 0 && (
@@ -204,8 +208,10 @@ const UpdateProfile = (props) => {
                 </Text>
               )}
               <Picker
+                mode={"dropdown"}
                 selectedValue={`${props.profileData.gender}`}
                 style={styles.CameraImgView}
+                itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setProfileData({
                     ...props.profileData,
@@ -538,7 +544,7 @@ const UpdateProfile = (props) => {
             <View
               style={[
                 styles.container,
-                { paddingHorizontal: 8, flexDirection: "column", },
+                { paddingHorizontal: 8, flexDirection: "column" },
               ]}
             >
               {props?.profileData?.primary_language != "" ? (

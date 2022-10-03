@@ -65,7 +65,7 @@ const JobList = ({ navigation }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
-        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
         handleJobFilter(offset);
       } else {
         setErrorMessage(data.message);
@@ -124,7 +124,6 @@ const JobList = ({ navigation }) => {
         limit: 10 + offSet,
       };
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
-      console.log("data: ", data);
       if (data.status == 200) {
         setJobList(data.data);
         setLoader(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   FlatList,
   StatusBar,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -14,6 +14,7 @@ import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import moment from "moment";
 
 const JobListScreen = (props) => {
+  const [scrollBegin, setScrollBegin] = useState();
   const _renderJobList = (item, index) => {
     return (
       <TouchableOpacity
@@ -99,14 +100,19 @@ const JobListScreen = (props) => {
         backgroundColor={YELLOW_COLOR_CODE}
         translucent={false}
       />
-      <View style={[CommonStyles.header,{paddingTop:Platform.OS==='ios'?45:0}]}>
+      <View
+        style={[
+          CommonStyles.header,
+          { paddingTop: Platform.OS === "ios" ? 45 : 0 },
+        ]}
+      >
         <TouchableOpacity
           onPress={() => props.goBack()}
           style={styles.HeaderView}
         >
           <Image
             style={{ width: 30, height: 30 }}
-            resizeMode={'contain'}
+            resizeMode={"contain"}
             source={require("../../../Assets/header_back_btn.png")}
           />
         </TouchableOpacity>
@@ -167,13 +173,17 @@ const JobListScreen = (props) => {
               </View>
             );
           }}
+          onMomentumScrollBegin={() => setScrollBegin(true)}
           onEndReached={(item) => {
-            if (item?.distanceFromEnd == 0) {
-              !props.stopOffset
-                ? props.handleJobFilter(
-                    props.jobList.length > 5 ? props.offset + 1 : 0
-                  )
-                : null;
+            if (scrollBegin) {
+              if (!props.stopOffset) {
+                props?.handleJobFilter(
+                  props.jobList.length > 5 ? props.offset + 1 : 0
+                );
+                setScrollBegin(false);
+              } else {
+                setScrollBegin(false);
+              }
             }
           }}
         />

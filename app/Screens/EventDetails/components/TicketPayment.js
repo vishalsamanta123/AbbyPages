@@ -54,7 +54,7 @@ const TicketPaymentScreen = (props) => {
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'handled'}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}

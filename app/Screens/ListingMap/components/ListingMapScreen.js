@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -19,7 +20,8 @@ const ListingMapScreen = (props) => {
         showsUserLocation
         style={StyleSheet.absoluteFillObject}
         provider={PROVIDER_GOOGLE}
-        // initialRegion={props.initialRegion}
+        mapType={Platform.OS == "android" ? "none" : "standard"}
+        initialRegion={props.initialRegion}
       >
         {props?.businessDataList?.map((item) => (
           <Marker

@@ -461,7 +461,6 @@ const ShopDetail = (props) => {
                 <Text style={styles.ViewFullmenu}>Get Directions</Text>
               </TouchableOpacity>
             </View>
-            {Platform.OS === "ios" ? null : (
               <MapView
                 showsUserLocation
                 style={{ width: "100%", height: 190 }}
@@ -482,8 +481,7 @@ const ShopDetail = (props) => {
                   />
                 </Marker>
               </MapView>
-            )}
-
+            
             <Text style={styles.ChoosedLocationTxt}>
               {props?.shopDetail?.address}
             </Text>

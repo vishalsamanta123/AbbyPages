@@ -65,6 +65,7 @@ const JobDetails = ({ route, navigation }) => {
         views: details?.job_views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+     console.log("data",data)
       if (data.status === 200) {
         setVisible(false);
         ToastAndroid.show(data.message, ToastAndroid.SHORT);

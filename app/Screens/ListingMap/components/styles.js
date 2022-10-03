@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
@@ -8,9 +8,11 @@ import {
 const Styles = StyleSheet.create({
   header: {
     // flex: 1,
-    paddingVertical: 16,
+    paddingVertical: Platform.OS === "ios" ? 24 : 16,
     flexDirection: "row",
     backgroundColor: YELLOW_COLOR_CODE,
+    alignItems: "center",
+    marginTop: Platform.OS === "ios" ? 12 : 0,
   },
   headerBackBtnCon: {
     flex: 0.5,
@@ -26,6 +28,7 @@ const Styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     backgroundColor: WHITE_COLOR_CODE,
+    paddingVertical: 12,
   },
   searchIconCon: {
     justifyContent: "center",

@@ -22,6 +22,27 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	  <key>NSCameraUsageDescription</key>
+      <string>Enable your camera usage</string>
+      <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+      <string>NSLocationAlwaysAndWhenInUseUsageDescription</string>
+      <key>NSLocationAlwaysUsageDescription</key>
+      <string>NSLocationAlwaysUsageDescription</string>
+      <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+      <dict>
+        <key>YOUR-PURPOSE-KEY</key>
+        <string>YOUR TEXT</string>
+      </dict>
+      <key>NSLocationWhenInUseUsageDescription</key>
+      <string>YOUR TEXT</string>
+      <key>NSMicrophoneUsageDescription</key>
+      <string>YOUR NSMicrophoneUsageDescription</string>
+      <key>NSMotionUsageDescription</key>
+      <string>YOUR TEXT</string>
+      <key>NSPhotoLibraryUsageDescription</key>
+      <string>YOUR TEXT</string>
+      <key>NSPhotoLibraryAddUsageDescription</key>
+      <string>YOUR TEXT</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

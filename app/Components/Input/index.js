@@ -130,7 +130,7 @@ Input.defaultProps = {
 };
 const style = StyleSheet.create({
   container: {
-    paddingVertical: Platform.OS === "ios" ? 15 : 0,
+    paddingVertical: Platform.OS === "ios" ? 0 : 0,
     borderColor: "#d8d8d8",
     borderWidth: 1,
     // height:60,
@@ -153,7 +153,7 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingVertical: Platform.OS === "ios" ? 12 : 12,
+    paddingVertical:  12,
   },
   copyTextTxt: {
     fontSize: 13,

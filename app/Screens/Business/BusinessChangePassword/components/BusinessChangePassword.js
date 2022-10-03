@@ -31,7 +31,7 @@ const ForgotPassword = (props) => {
           secureTextEntry={true}
           value={props.oldPassword}
           autoCapitalize="none"
-          placeholder="Old Passwprd"
+          placeholder="Old Password"
           InputType="withScroll"
         />
         <Input

@@ -11,11 +11,15 @@ import moment from "moment";
 import AsyncStorage from "@react-native-community/async-storage";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import Success from "../../../Components/Modal/success";
+import Error from "../../../Components/Modal/error";
+
 const EventManagement = () => {
   const [visible, setVisible] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [busniessData, setBusniessData] = useState("");
   const [deleteEvent, setDeleteEvent] = useState(false);
+  const [visibleErr, setVisibleErr] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [removeIndex, setRemoveIndex] = useState("");
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -64,6 +68,7 @@ const EventManagement = () => {
         ENDPOINTS.GET_SINGLE_EVENT_DETAILS,
         params
       );
+      console.log("data", data);
       if (data.status === 200) {
         setVisible(false);
         navigation.navigate("EventView", {
@@ -72,6 +77,8 @@ const EventManagement = () => {
           itemData: itemData,
         });
       } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
         setVisible(false);
       }
     } catch (error) {
@@ -191,6 +198,11 @@ const EventManagement = () => {
         eventData={eventData}
         handleEvents={handleEvents}
         onPressCreate={onPressCreate}
+      />
+      <Error
+        message={errorMessage}
+        visible={visibleErr}
+        closeModel={() => setVisibleErr(false)}
       />
       <Success
         message={successMessage}

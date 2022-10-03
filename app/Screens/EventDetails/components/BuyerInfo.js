@@ -49,7 +49,7 @@ const BuyerInfoScreen = (props) => {
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView keyboardShouldPersistTaps={"always"}>
+        <ScrollView keyboardShouldPersistTaps={'handled'}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}

@@ -46,6 +46,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     flexDirection: "row",
+    paddingTop: Platform.OS === "ios" ? 10 : 0,
   },
   arealstvwe: {
     flex: 4,
@@ -297,4 +298,3 @@ const Styles = StyleSheet.create({
   },
 });
 export default Styles;
-
