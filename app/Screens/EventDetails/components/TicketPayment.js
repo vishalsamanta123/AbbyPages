@@ -50,7 +50,7 @@ const TicketPaymentScreen = (props) => {
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
-          HeaderText="Buy Ticket"
+          HeaderText="Buy Payment"
           leftImg={""}
           RightImg={null}
         />

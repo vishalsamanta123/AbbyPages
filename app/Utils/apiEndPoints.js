@@ -8,7 +8,7 @@ export default {
   SOCIAL_LOGIN: "/api/userAuth/socialSiteLogin",
   FORGOT_PASSWORD: "/api/userAuth/forgotPassword",
   PASSWORD_UPDATE: "/api/userAuth/passwordUpdate",
-  BUSINESS_SIGN_UP: "/api/userAuth/businessRegistration",
+  BUSINESS_REGISTER: "/api/userAuth/businessRegistration",//for get started
   SERVICE_LIST: "/api/services/getservicesDetail",
   GET_USER_PROFILE: "/api/userAuth/getUserProfileDetails",
   EDIT_USER_PROFILE: "/api/userAuth/editUserProfile",

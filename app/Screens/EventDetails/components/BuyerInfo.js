@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   Modal,
   KeyboardAvoidingView,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -24,32 +24,57 @@ import _ from "lodash";
 import Input from "../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import CountDown from "react-native-countdown-component";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
 
 const BuyerInfoScreen = (props) => {
+  useEffect(() => {
+    getProfile();
+  }, []);
+  const getProfile = async () => {
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
+      if (data.status === 200) {
+        props.setBuyerInfo({
+          ...props.buyerInfo,
+          first_name: data?.data?.first_name ? data.data.first_name : "",
+          last_name: data?.data?.last_name ? data.data.last_name : "",
+          email: data?.data?.email ? data.data.email : "",
+          address: data?.data?.find_me_in ? data?.data?.find_me_in : "",
+          // latitude:  data?.data?.find_me_in ? data?.data?.find_me_in : "",
+          // longitude: data?.data?.find_me_in ? data?.data?.find_me_in : "",
+          phoneNo: data?.data?.modile ? data?.data?.modile : "",
+        });
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
   return (
     <Modal
-    animationType={Platform.OS==='ios'?'none':"slide"}
+      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal === 3}
       onRequestClose={() => {
         props.setBuyTicketModal("");
       }}
     >
-      <KeyboardAvoidingView 
-       behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={styles.modalCon}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={styles.modalCon}
+      >
         {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}
-          HeaderText="Buy Ticket"
+          HeaderText="Buy Info"
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView keyboardShouldPersistTaps={'handled'}>
+        <ScrollView keyboardShouldPersistTaps={"handled"}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -263,7 +288,7 @@ const BuyerInfoScreen = (props) => {
                   },
                 ]}
                 onPress={() =>
-                  props.onPressTicketResp(props.buyTicketModal - 1)
+                  props.onPressTicketResp(props.buyTicketModal - 2)
                 }
                 buttonText={"Back"}
               />

@@ -76,7 +76,7 @@ const GetStarted = ({ navigation, route }) => {
         const params = businessRegistartionData;
         const { data } = await apiCall(
           "POST",
-          ENDPOINTS.BUSINESS_SIGN_UP,
+          ENDPOINTS.BUSINESS_REGISTER,
           params
         );
         if (data.status === 200) {

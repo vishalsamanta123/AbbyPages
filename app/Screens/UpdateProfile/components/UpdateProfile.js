@@ -198,6 +198,7 @@ const UpdateProfile = (props) => {
                 styles.container,
                 {
                   paddingHorizontal: 10,
+                  height: Platform.OS === "ios" ? 75 : 60,
                   flexDirection: Platform.OS === "ios" ? null : "column",
                 },
               ]}
@@ -210,8 +211,8 @@ const UpdateProfile = (props) => {
               <Picker
                 mode={"dropdown"}
                 selectedValue={`${props.profileData.gender}`}
-                style={styles.CameraImgView}
-                itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
+                style={styles.pickerVw}
+                itemStyle={styles.pickerItemVw}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setProfileData({
                     ...props.profileData,
@@ -544,7 +545,11 @@ const UpdateProfile = (props) => {
             <View
               style={[
                 styles.container,
-                { paddingHorizontal: 8, flexDirection: "column" },
+                {
+                  paddingHorizontal: 10,
+                  height: Platform.OS === "ios" ? 75 : 60,
+                  flexDirection: Platform.OS === "ios" ? null : "column",
+                },
               ]}
             >
               {props?.profileData?.primary_language != "" ? (
@@ -553,17 +558,16 @@ const UpdateProfile = (props) => {
                 </Text>
               ) : null}
               <Picker
+                mode={"dropdown"}
+                style={styles.pickerVw}
+                itemStyle={styles.pickerItemVw}
                 selectedValue={`${props.profileData.primary_language}`}
-                style={styles.CameraImgView}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setProfileData({
                     ...props.profileData,
                     primary_language: itemValue,
                   })
                 }
-                itemStyle={{
-                  height: Platform.OS === "ios" ? 50 : null,
-                }}
               >
                 <Picker.Item label="Please Select Primary Language" value="0" />
                 <Picker.Item label="English" value="1" />

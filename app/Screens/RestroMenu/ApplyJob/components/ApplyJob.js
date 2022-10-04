@@ -327,6 +327,7 @@ const ApplyJob = (props) => {
                 style={styles.pickerVw}
                 itemStyle={{
                   height: Platform.OS === "ios" ? '100%' : null,
+                  textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({
@@ -351,6 +352,7 @@ const ApplyJob = (props) => {
                 style={styles.pickerVw}
                 itemStyle={{
                   height: Platform.OS === "ios" ? '100%' : null,
+                  textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({
@@ -377,6 +379,7 @@ const ApplyJob = (props) => {
                 style={styles.pickerVw}
                 itemStyle={{
                   height: Platform.OS === "ios" ? '100%' : null,
+                  textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>
                   props.setApplyJob({

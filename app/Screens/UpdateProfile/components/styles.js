@@ -36,6 +36,17 @@ const Styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
+  pickerVw: {
+    width: "100%",
+    backgroundColor: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 17,
+  },
+  pickerItemVw: {
+    height: Platform.OS === "ios" ? "90%" : null,
+    textAlign: "left",
+    bottom: Platform.OS === "ios" ? 12 : 0,
+  },
   CameraImgView: {
     flex: 5,
     flexDirection: "row",
@@ -46,7 +57,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
     paddingLeft: 10,
-    paddingVertical: Platform.OS === "ios" ? 16 : 0,
+    paddingTop: Platform.OS === "ios" ? 12 : 0,
   },
   BckArrowBack: {
     flex: 1,

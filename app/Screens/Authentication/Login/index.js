@@ -146,8 +146,15 @@ const SignInView = ({ navigation, route }) => {
                 setVisible(false);
                 signIn(data);
               } else {
-                setVisible(false);
-                navigation.navigate("UserVerify", { email: data.data.email });
+                if (data.data.login_type === 1) {
+                  setVisible(false);
+                  navigation.navigate("UserVerify", { email: data.data.email });
+                } else {
+                  setVisible(false);
+                  navigation.navigate("BusinessUserVerify", {
+                    email: data.data.email,
+                  });
+                }
               }
             }
             setVisible(false);

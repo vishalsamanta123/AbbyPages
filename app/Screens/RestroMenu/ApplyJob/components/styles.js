@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
@@ -75,7 +75,7 @@ const Styles = StyleSheet.create({
     marginTop: 5,
   },
   pickerVw: {
-    width: "80%",
+    width: Platform.OS == "ios" ? "85%" : "80%",
     backgroundColor: WHITE_COLOR_CODE,
     marginLeft: 8,
     fontFamily: FONT_FAMILY_REGULAR,

@@ -8,6 +8,7 @@ import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 
 const GoalPreviewScreen = (props) => {
@@ -17,9 +18,9 @@ const GoalPreviewScreen = (props) => {
         leftImg={require("../../../../Assets/header_back_btn.png")}
         HeaderText="Preview"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <View style={{ flex: 1 }}>
