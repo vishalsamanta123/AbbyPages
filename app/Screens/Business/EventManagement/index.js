@@ -60,7 +60,6 @@ const EventManagement = () => {
     try {
       setVisible(true);
       const params = {
-        business_id: busniessData?.user_id,
         event_id: itemData?.event_id,
       };
       const { data } = await apiCall(
@@ -68,7 +67,6 @@ const EventManagement = () => {
         ENDPOINTS.GET_SINGLE_EVENT_DETAILS,
         params
       );
-      console.log("data", data);
       if (data.status === 200) {
         setVisible(false);
         navigation.navigate("EventView", {

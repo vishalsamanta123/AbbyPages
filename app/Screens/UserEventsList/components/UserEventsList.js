@@ -33,10 +33,7 @@ const UserEventsScreen = (props) => {
         renderItem={({ item }) => {
           return (
             <View style={styles.containerVw}>
-              <TouchableOpacity
-                onPress={() => props.navToEventDetail(item)}
-                style={styles.allTxtVw}
-              >
+              <View style={styles.allTxtVw}>
                 <Text style={styles.nameTxt}>{item?.event_name}</Text>
                 <View style={styles.straightVw}>
                   <Image
@@ -54,7 +51,7 @@ const UserEventsScreen = (props) => {
                   />
                   <Text style={styles.straightTxt}>{item?.address}</Text>
                 </View>
-              </TouchableOpacity>
+              </View>
               <TouchableOpacity
                 onPress={() => props.onPressDownloadTckt(item)}
                 style={{ alignItems: "center" }}

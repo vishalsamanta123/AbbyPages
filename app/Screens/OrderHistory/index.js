@@ -57,13 +57,11 @@ const OrderHistoryView = ({ navigation }) => {
         offset: offset,
         business_type: category_id,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_LIST,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setOrderItemList(data.data);
         setVisible(false);
