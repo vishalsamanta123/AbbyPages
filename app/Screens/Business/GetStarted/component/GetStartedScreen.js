@@ -14,6 +14,7 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import Input from "../../../../Components/Input";
 import {
   BLACK_COLOR_CODE,
+  FONT_FAMILY_REGULAR,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
@@ -166,6 +167,7 @@ const GetStartedScreen = (props) => {
           placeholder="Business Phone Number"
           InputType="withScroll"
           keyboardType={"phone-pad"}
+          maxLength={10}
         />
         <Input
           onChangeText={(website) =>
@@ -184,6 +186,16 @@ const GetStartedScreen = (props) => {
         <GooglePlacesAutocomplete
           placeholder="Street Address"
           fetchDetails={true}
+          textInputProps={{
+            placeholderTextColor: BLACK_COLOR_CODE,
+            onChangeText: (e) => {
+              props.setBusinessRegistartionData({
+                ...props.businessRegistartionData,
+                address: e,
+              });
+            },
+            value: props.businessRegistartionData.address,
+          }}
           onPress={(data, details = null) => {
             props.setBusinessRegistartionData({
               ...props.businessRegistartionData,
@@ -192,12 +204,6 @@ const GetStartedScreen = (props) => {
               longitude: details.geometry.location.lng,
             });
           }}
-          onChangeText={(address) =>
-            props.setBusinessRegistartionData({
-              ...props.businessRegistartionData,
-              address: address,
-            })
-          }
           value={props.businessRegistartionData.address}
           query={{
             key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
@@ -218,8 +224,9 @@ const GetStartedScreen = (props) => {
             },
             textInput: {
               fontSize: 16,
-              // color: 'red'
               color: BLACK_COLOR_CODE,
+              fontFamily: FONT_FAMILY_REGULAR,
+              paddingLeft: 24,
             },
             listView: {
               backgroundColor: "red",

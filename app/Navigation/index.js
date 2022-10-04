@@ -479,6 +479,23 @@ function AppStack() {
       <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
       <Stack.Screen name="RestaurantMenu" component={RestaurantMenuScreen} />
       <Stack.Screen name="ListingMap" component={ListingMapScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen
+        name="ForgotPasswordField"
+        component={ForgotPasswordFieldScreen}
+      />
+      <Stack.Screen name="GetStarted" component={GetStartedScreen} />
+      <Stack.Screen name="Goals" component={GoalsScreen} />
+      <Stack.Screen name="AddText" component={AddTextScreen} />
+      <Stack.Screen name="AddKeybord" component={AddKeybordScreen} />
+      <Stack.Screen name="AddTextPreview" component={AddTextPreviewScreen} />
+      <Stack.Screen
+        name="BusinessLocation"
+        component={BusinessLocationScreen}
+      />
+      <Stack.Screen name="Budgets" component={BudgetsScreen} />
     </Stack.Navigator>
   );
 }

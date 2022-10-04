@@ -1,10 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./styles";
 import {
   FONT_FAMILY_REGULAR,
@@ -25,8 +20,8 @@ const UserVerifyScreen = (props) => {
       <Header
         HeaderText="Verify Account"
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.maintxt}>

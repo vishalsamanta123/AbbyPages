@@ -25,7 +25,8 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 Geocoder.init("AIzaSyAvtWufwnjN7MwtOfwtQrzmv2Rp_wUxBbw");
-const SignInView = ({ navigation }) => {
+const SignInView = ({ navigation, route }) => {
+  const { loginType } = route.params || {};
   let watchID;
   const { signIn } = React.useContext(AuthContext);
   const [visibleErr, setVisibleErr] = useState(false);
@@ -121,26 +122,55 @@ const SignInView = ({ navigation }) => {
           device_token: fcmToken,
         };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
+        console.log("data: ", data);
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
-          if (data.data.verified === 1) {
-            setUserData(data.data);
-            try {
-              await AsyncStorage.setItem(
-                "localuserdata",
-                JSON.stringify(data.data)
-              );
-              await AsyncStorage.setItem("userToken", data.token);
-            } catch (e) {
-              setVisible(false);
-              setErrorMessage(JSON.stringify(e));
+          if (loginType === "new") {
+            if (data.data.login_type === 1) {
+              setErrorMessage("It is not your business account ,please check");
               setVisibleErr(true);
+            } else {
+              if (data.data.verified === 1) {
+                setUserData(data.data);
+                try {
+                  await AsyncStorage.setItem(
+                    "localuserdata",
+                    JSON.stringify(data.data)
+                  );
+                  await AsyncStorage.setItem("userToken", data.token);
+                } catch (e) {
+                  setVisible(false);
+                  setErrorMessage(JSON.stringify(e));
+                  setVisibleErr(true);
+                }
+                setVisible(false);
+                signIn(data);
+              } else {
+                setVisible(false);
+                navigation.navigate("UserVerify", { email: data.data.email });
+              }
             }
             setVisible(false);
-            signIn(data);
           } else {
-            setVisible(false);
-            navigation.navigate("UserVerify", { email: data.data.email });
+            if (data.data.verified === 1) {
+              setUserData(data.data);
+              try {
+                await AsyncStorage.setItem(
+                  "localuserdata",
+                  JSON.stringify(data.data)
+                );
+                await AsyncStorage.setItem("userToken", data.token);
+              } catch (e) {
+                setVisible(false);
+                setErrorMessage(JSON.stringify(e));
+                setVisibleErr(true);
+              }
+              setVisible(false);
+              signIn(data);
+            } else {
+              setVisible(false);
+              navigation.navigate("UserVerify", { email: data.data.email });
+            }
           }
         } else {
           setVisible(false);

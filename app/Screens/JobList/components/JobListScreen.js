@@ -7,11 +7,17 @@ import {
   StatusBar,
   TouchableOpacity,
   Platform,
+  Modal,
 } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  GREY_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import moment from "moment";
+import Button from "../../../Components/Button";
 
 const JobListScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -156,7 +162,7 @@ const JobListScreen = (props) => {
                 </Text>
                 <TouchableOpacity
                   style={styles.postJobVW}
-                  onPress={() => props.onPressPostJob()}
+                  onPress={() => props.setPostjob(true)}
                 >
                   <Text style={[styles.hdngtxt, { fontSize: 16 }]}>
                     Post Job
@@ -188,6 +194,37 @@ const JobListScreen = (props) => {
           }}
         />
       </View>
+      <Modal animationType="slide" transparent={true} visible={props.postjob}>
+        <View style={styles.modal}>
+          <View style={styles.modalVw}>
+            <View style={styles.closeModalVw}>
+              <TouchableOpacity onPress={() => props.setPostjob(false)}>
+                <Image
+                  style={{ width: 35, height: 35 }}
+                  source={require("../../../Assets/cart_delete_icon.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.topMssgTxt}>Add a Business</Text>
+            <Text style={styles.confrTxt}>
+              Are you a customer or the owner/manager of the busineess you'd
+              like to add?
+            </Text>
+            <Button
+              style={[styles.modalBttnVw, { marginTop: 20 }]}
+              buttonLabelStyle={{ color: GREY_COLOR_CODE }}
+              buttonText={"I m a customer"}
+              onPress={() => props.handlePostJob(1)}
+            />
+            <Button
+              style={styles.modalBttnVw}
+              buttonLabelStyle={{ color: GREY_COLOR_CODE }}
+              buttonText={"This is my businesss"}
+              onPress={() => props.handlePostJob(2)}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

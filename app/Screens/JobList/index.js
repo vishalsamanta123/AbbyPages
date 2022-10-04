@@ -24,6 +24,7 @@ const JobList = ({ navigation }) => {
   const [search, setSearch] = useState(false);
   const [jobList, setJobList] = useState();
   const [stopOffset, setstopOffset] = useState(false);
+  const [postjob, setPostjob] = useState(false);
   const [offset, setoffset] = useState(0);
   const [filterData, setFilterData] = useState({
     title: "",
@@ -150,8 +151,16 @@ const JobList = ({ navigation }) => {
   const onPressJob = (item) => {
     navigation.navigate("JobDetails", { detail: item });
   };
-  const onPressPostJob = () => {
-    signOut();
+  const handlePostJob = (type) => {
+    if (type === 1) {
+      navigation.navigate("BusinessSignUp");
+      setPostjob(false);
+      // signOut();
+    } else {
+      navigation.navigate("Login", { loginType: "new" });
+      setPostjob(false);
+      // signOut();
+    }
   };
 
   return (
@@ -172,8 +181,10 @@ const JobList = ({ navigation }) => {
         handleSearch={handleSearch}
         stopOffset={stopOffset}
         offset={offset}
-        onPressPostJob={onPressPostJob}
+        handlePostJob={handlePostJob}
         handleFilter={handleFilter}
+        postjob={postjob}
+        setPostjob={setPostjob}
       />
       <FilterPopUp
         visible={visible}

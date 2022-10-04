@@ -342,5 +342,43 @@ const Styles = StyleSheet.create({
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
+  modal: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+  },
+  modalVw: {
+    backgroundColor: WHITE_COLOR_CODE,
+    borderRadius: 20,
+    marginHorizontal: 30,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+  },
+  topMssgTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_BOLD,
+    color: LIGHT_BLACK_COLOR_CODE,
+    textAlign: "center",
+  },
+  confrTxt: {
+    fontSize: 16,
+    textAlign: "center",
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: LIGHT_BLACK_COLOR_CODE,
+    marginTop: 8,
+  },
+  modalBttnVw: {
+    backgroundColor: "transparent",
+    borderWidth: 0.8,
+    borderColor: GREY_COLOR_CODE,
+    borderRadius: 2,
+    marginVertical: 10,
+  },
+  closeModalVw: {
+    position: "absolute",
+    right: 0,
+    marginVertical: 8,
+    paddingHorizontal: 8,
+  },
 });
 export default Styles;
