@@ -20,6 +20,7 @@ const BusinessUserVerify = ({ route, navigation }) => {
   const [email, setEmail] = useState(emails);
   const { signIn } = React.useContext(AuthContext);
   useEffect(() => {}, []);
+  
   const _handleOtpVerify = async () => {
     // navigation.navigate('DashBoard')
     setVisible(true);

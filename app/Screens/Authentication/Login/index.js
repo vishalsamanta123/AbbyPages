@@ -122,15 +122,30 @@ const SignInView = ({ navigation, route }) => {
           device_token: fcmToken,
         };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
-        console.log("data: ", data);
         if (data.status === 200) {
+          setVisible(false);
           await setDefaultHeader("token", data.token);
-          if (loginType === "new") {
+          if (data.data.verified === 0) {
             if (data.data.login_type === 1) {
-              setErrorMessage("It is not your business account ,please check");
-              setVisibleErr(true);
+              setVisible(false);
+              navigation.navigate("UserVerify", { email: data.data.email });
             } else {
-              if (data.data.verified === 1) {
+              setVisible(false);
+              navigation.navigate("BusinessUserVerify", {
+                email: data.data.email,
+              });
+            }
+          } else {
+            if (loginType === "new") {
+              //if login from without pressing logout
+              if (data.data.login_type === 1) {
+                //if it is not business account
+                setErrorMessage(
+                  "It is not your business account ,please check"
+                );
+                setVisibleErr(true);
+              } else {
+                //if it is business account
                 setUserData(data.data);
                 try {
                   await AsyncStorage.setItem(
@@ -138,28 +153,16 @@ const SignInView = ({ navigation, route }) => {
                     JSON.stringify(data.data)
                   );
                   await AsyncStorage.setItem("userToken", data.token);
-                } catch (e) {
+                } catch (error) {
                   setVisible(false);
-                  setErrorMessage(JSON.stringify(e));
+                  setErrorMessage(error.message.toString());
                   setVisibleErr(true);
                 }
                 setVisible(false);
                 signIn(data);
-              } else {
-                if (data.data.login_type === 1) {
-                  setVisible(false);
-                  navigation.navigate("UserVerify", { email: data.data.email });
-                } else {
-                  setVisible(false);
-                  navigation.navigate("BusinessUserVerify", {
-                    email: data.data.email,
-                  });
-                }
               }
-            }
-            setVisible(false);
-          } else {
-            if (data.data.verified === 1) {
+            } else {
+              //first time login
               setUserData(data.data);
               try {
                 await AsyncStorage.setItem(
@@ -167,18 +170,70 @@ const SignInView = ({ navigation, route }) => {
                   JSON.stringify(data.data)
                 );
                 await AsyncStorage.setItem("userToken", data.token);
-              } catch (e) {
+              } catch (error) {
                 setVisible(false);
-                setErrorMessage(JSON.stringify(e));
+                setErrorMessage(error.message.toString());
                 setVisibleErr(true);
               }
               setVisible(false);
               signIn(data);
-            } else {
-              setVisible(false);
-              navigation.navigate("UserVerify", { email: data.data.email });
             }
           }
+          // await setDefaultHeader("token", data.token);
+          // if (loginType === "new") {
+          //   if (data.data.login_type === 1) {
+          //     setErrorMessage("It is not your business account ,please check");
+          //     setVisibleErr(true);
+          //   } else {
+          //     if (data.data.verified === 1) {
+          //       setUserData(data.data);
+          //       try {
+          //         await AsyncStorage.setItem(
+          //           "localuserdata",
+          //           JSON.stringify(data.data)
+          //         );
+          //         await AsyncStorage.setItem("userToken", data.token);
+          //       } catch (e) {
+          //         setVisible(false);
+          //         setErrorMessage(JSON.stringify(e));
+          //         setVisibleErr(true);
+          //       }
+          //       setVisible(false);
+          //       signIn(data);
+          //     } else {
+          //       if (data.data.login_type == 1) {
+          //         setVisible(false);
+          //         // navigation.navigate("UserVerify", { email: data.data.email });
+          //       } else {
+          //         setVisible(false);
+          //         navigation.navigate("BusinessUserVerify", {
+          //           email: data.data.email,
+          //         });
+          //       }
+          //     }
+          //   }
+          //   setVisible(false);
+          // } else {
+          //   if (data.data.verified === 1) {
+          //     setUserData(data.data);
+          //     try {
+          //       await AsyncStorage.setItem(
+          //         "localuserdata",
+          //         JSON.stringify(data.data)
+          //       );
+          //       await AsyncStorage.setItem("userToken", data.token);
+          //     } catch (e) {
+          //       setVisible(false);
+          //       setErrorMessage(JSON.stringify(e));
+          //       setVisibleErr(true);
+          //     }
+          //     setVisible(false);
+          //     signIn(data);
+          //   } else {
+          //     setVisible(false);
+          //     navigation.navigate("UserVerify", { email: data.data.email });
+          //   }
+          // }
         } else {
           setVisible(false);
           setErrorMessage(data.message);
