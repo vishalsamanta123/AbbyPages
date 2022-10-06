@@ -19,6 +19,8 @@ const UserEventsScreen = (props) => {
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         RightImg={null}
+        leftImg={require("../../../Assets/hamburger_icon.png")}
+        type="Drawer"
       />
       <FlatList
         data={props?.eventsList}

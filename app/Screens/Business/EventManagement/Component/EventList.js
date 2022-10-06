@@ -14,6 +14,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import CommonStyles from "../../../../Utils/CommonStyles";
+import styles from "./styles";
 
 const EventList = (props) => {
   return (
@@ -26,35 +27,30 @@ const EventList = (props) => {
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
       />
-      {/* <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginVertical: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: BLACK_COLOR_CODE,
-              fontSize: 20,
-              fontWeight: "bold",
-            }}
-          >
-            Create an Event
-          </Text>
-          <TouchableOpacity onPress={() => props.onPressCreate()}>
-            <Image
-              style={{ width: 35, height: 35 }}
-              source={require("../../../../Assets/qty_minus_icon3.png")}
-            />
-          </TouchableOpacity>
-        </View> */}
+      <TouchableOpacity
+        style={styles.moreOptionVw}
+        onPress={() => props.onPressCreate()}
+      >
+        <View style={styles.moreOptionInnrVw}>
+          <Image
+            resizeMode={"contain"}
+            style={{ width: 28, height: 28 }}
+            source={require("../../../../Assets/calendar_icon.png")}
+          />
+          <Text style={styles.JobDscrptn}>Create an Event</Text>
+        </View>
+        <Image
+          style={styles.listImg}
+          resizeMode={"contain"}
+          source={require("../../../../Assets/qty_plus_icon.png")}
+        />
+      </TouchableOpacity>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={props?.eventData}
         style={{ marginHorizontal: 10 }}
         keyExtractor={(item, index) => index}
-        renderItem={({ item }) => props.handleEvents(item)}
+        renderItem={({ item, index }) => props.handleEvents({ item, index })}
         ListFooterComponent={() => <View style={{ height: 50 }} />}
       />
     </View>
@@ -62,5 +58,3 @@ const EventList = (props) => {
 };
 
 export default EventList;
-
-const styles = StyleSheet.create({});

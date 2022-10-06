@@ -8,8 +8,44 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  moreOptionVw: {
+    borderColor: GREY_COLOR_CODE,
+    borderWidth: 1,
+    borderRadius: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical: 5,
+    marginHorizontal: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+  },
+  moreOptionInnrVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 15,
+  },
+  JobDscrptn: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 20,
+    color: BLACK_COLOR_CODE,
+    paddingLeft: 8,
+  },
+  PlusImge: {
+    width: 30,
+    height: 30,
+    marginTop: 3,
+    borderWidth: 0.8,
+    borderColor: BLACK_COLOR_CODE,
+    borderRadius: 16,
+  },
+  listImg: {
+    width: 25,
+    height: 25,
+    marginTop: 5,
+    tintColor: BLACK_COLOR_CODE,
+  },
   MainConatiner: {
-    paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,

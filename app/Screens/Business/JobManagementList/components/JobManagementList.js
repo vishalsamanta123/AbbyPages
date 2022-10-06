@@ -7,7 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -19,8 +19,9 @@ import {
 const JobManagementList = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"My Jobs"}

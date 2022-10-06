@@ -28,30 +28,8 @@ const OrderDetailIndex = ({ route, navigation }) => {
     if (route.params) {
       const { OrderDetail } = route.params;
       getOrderDetail(OrderDetail);
-      jobDetails(OrderDetail);
     }
   }, []);
-  const jobDetails = async (orderDetail) => {
-    try {
-      setVisible(true);
-      const params = {
-        job_id: 40,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
-      if (data.status === 200) {
-        setDataForPdf(data.data.job_description);
-        setVisible(false);
-      } else {
-        setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-      }
-    } catch (error) {
-      setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
   const getOrderDetail = async (orderDetail) => {
     setVisible(true);
     try {
@@ -60,13 +38,11 @@ const OrderDetailIndex = ({ route, navigation }) => {
         business_type: orderDetail.business_type,
         order_booking_type: orderDetail.order_booking_type,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_DETAILS,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setOrderDetail(data.data);
         setVisible(false);
@@ -110,15 +86,34 @@ const OrderDetailIndex = ({ route, navigation }) => {
     }
   };
   const onPressInvoice = async () => {
-    let options = {
-      html: dataForPdf,
-      fileName: "AbbyPages" + orderDetail.order_id,
-      directory: "Docs",
-    };
-    let file = await RNHTMLtoPDF.convert(options);
-    setfilePath(file.filePath);
-    if (filePath.filePath !== "") {
-      setShowPdf(true);
+    try {
+      setVisible(true);
+      const params = {
+        job_id: 40,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_DETAILS, params);
+      if (data.status === 200) {
+        setDataForPdf(data.data.job_description);
+        setVisible(false);
+        let options = {
+          html: data.data.job_description,
+          fileName: "AbbyPages" + orderDetail.order_id,
+          directory: "Docs",
+        };
+        let file = await RNHTMLtoPDF.convert(options);
+        setfilePath(file.filePath);
+        if (filePath.filePath !== "") {
+          setShowPdf(true);
+        }
+      } else {
+        setVisible(false);
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setVisible(false);
+      setErrorMessage(error.message);
+      setVisibleErr(true);
     }
   };
   const onPressDownload = async (url) => {

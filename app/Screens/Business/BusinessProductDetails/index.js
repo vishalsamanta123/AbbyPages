@@ -9,17 +9,17 @@ import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import moment from "moment";
 import { useFocusEffect, useLinkProps } from "@react-navigation/native";
+import QuestionModal from "../../../Components/Modal/questionModal";
 
-const OrderDetail = ({ route, props, navigation }) => {
-  const Id = route.params.productData;
+const OrderDetail = ({ route, navigation }) => {
+  const Id = route?.params?.productData || null;
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [deleteProduct, setDeleteProduct] = useState(false);
   const [ProductData, setProductData] = useState();
-
-  const [productId, setProductId] = useState(Id);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -31,7 +31,7 @@ const OrderDetail = ({ route, props, navigation }) => {
     setVisible(true);
     try {
       const params = {
-        product_id: productId,
+        product_id: Id,
       };
       const { data } = await apiCall(
         "POST",
@@ -53,73 +53,6 @@ const OrderDetail = ({ route, props, navigation }) => {
     }
   };
 
-  // const DeleteProductMsg = (ProductData) =>
-  // console.log('ProductData: ', ProductData);
-  //     Alert.alert(
-  //         "",
-  //         "Are you sure you want delete this product",
-  //         [
-  //             {
-  //                 text: "Cancel",
-  //                 onPress: () => console.log("Cancel Pressed"),
-  //                 style: "cancel"
-  //             },
-  //             { text: "OK", onPress: () => productStatus({
-  //                 id: ProductData?.product_id,
-  //                 status: ProductData?.status,
-  //                 is_delete: 1
-  //             }) }
-  //         ],
-  //         { cancelable: false }
-  //     );
-  const DeleteProductMsg = (item) =>
-    Alert.alert(
-      "",
-      "Are you sure you want delete this Job?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "OK",
-          onPress: () =>
-            productStatus({
-              id: item?.product_id,
-              status: item?.status,
-              is_delete: 1,
-            }),
-        },
-      ],
-      { cancelable: false }
-    );
-
-  // const deleteProduct = async () => {
-  //     setVisible(true)
-  //     try {
-  //         const params = {
-  //             product_id: productId,
-  //             delete_type: '1'
-  //         }
-  //         const { data } = await apiCall
-  //             ('POST', ENDPOINTS.BUSINESS_PRODUCT_DELETE, params);
-  //         if (data.status === 200) {
-  //             navigation.navigate('MyProductList')
-  //             setVisible(false);
-  //             // setSuccessMessage('Product delete successfully')
-  //             // setVisibleSuccess(true)
-  //         } else {
-  //             setVisible(false);
-  //             setErrorMessage(data.message);
-  //             setVisibleErr(true);
-  //         };
-  //     } catch (error) {
-  //         setErrorMessage(error);
-  //         setVisibleErr(true);
-  //         setVisible(false);
-  //     };
-  // }
-
   const productStatus = async ({ id, status, is_delete }) => {
     setVisible(true);
     try {
@@ -128,6 +61,7 @@ const OrderDetail = ({ route, props, navigation }) => {
         product_id: id,
         status: status,
       };
+      setDeleteProduct(false);
       const response = await apiCall(
         "POST",
         ENDPOINTS.PRODUCT_STATUS_UPDATE,
@@ -148,7 +82,7 @@ const OrderDetail = ({ route, props, navigation }) => {
 
   const editProduct = () => {
     navigation.navigate("AddBusinessProduct", {
-      productId: productId,
+      productId: Id,
       type: "Edit",
     });
   };
@@ -158,9 +92,9 @@ const OrderDetail = ({ route, props, navigation }) => {
       {visible && <Loader state={visible} />}
       <BusinessProductDetails
         ProductData={ProductData}
-        DeleteProductMsg={DeleteProductMsg}
         editProduct={editProduct}
         productStatus={productStatus}
+        setDeleteProduct={setDeleteProduct}
       />
       <Error
         message={errorMessage}
@@ -171,6 +105,18 @@ const OrderDetail = ({ route, props, navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => ("Home", setVisibleSuccess(false))}
+      />
+      <QuestionModal
+        message={"Are you sure you want delete this product?"}
+        surringVisible={deleteProduct}
+        positiveResponse={() =>
+          productStatus({
+            id: ProductData?.product_id,
+            status: ProductData?.status,
+            is_delete: 1,
+          })
+        }
+        negativeResponse={() => setDeleteProduct(false)}
       />
     </View>
   );

@@ -6,9 +6,8 @@ import { apiCall } from "../../../Utils/httpClient";
 import Loader from "../../../Utils/Loader";
 import EventList from "./Component/EventList";
 import styles from "./Component/styles";
-import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { BLACK_COLOR_CODE } from "../../../Utils/Constant";
 import moment from "moment";
-import AsyncStorage from "@react-native-community/async-storage";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
@@ -61,12 +60,15 @@ const EventManagement = () => {
       setVisible(true);
       const params = {
         event_id: itemData?.event_id,
+        offset: 0,
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_SINGLE_EVENT_DETAILS,
         params
       );
+      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         navigation.navigate("EventView", {
@@ -117,11 +119,11 @@ const EventManagement = () => {
     });
   };
 
-  const handleEvents = (item, index) => {
+  const handleEvents = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => getSingleEvent(item)}
-        style={[styles.MainConatiner, { paddingHorizontal: 0 }]}
+        style={[styles.MainConatiner, { marginTop: index === 0 ? 0 : 10 }]}
       >
         <View>
           <Image

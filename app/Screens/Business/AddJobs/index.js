@@ -129,7 +129,6 @@ const AddJobs = ({ navigation }) => {
     accpt_trms_cond: "",
   });
 
-  console.log("jobFormjobForm: ", jobForm);
   const onPressToPreview = () => {
     navigation.navigate("AddTextPreview");
   };

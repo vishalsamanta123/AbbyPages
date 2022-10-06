@@ -112,7 +112,11 @@ const EditJobScreen = (props) => {
                 monthly_in_hand_salary_from: text,
               })
             }
-            value={props?.jobForm?.monthly_in_hand_salary_from}
+            value={Number(
+              parseFloat(props?.jobForm?.monthly_in_hand_salary_from).toFixed(2)
+            ).toLocaleString("en", {
+              minimumFractionDigits: 2,
+            })}
             secureTextEntry={false}
             placeholder="Monthly In-hand Salary From *"
             InputType="withScroll"
@@ -124,7 +128,11 @@ const EditJobScreen = (props) => {
                 monthly_in_hand_salary_to: text,
               })
             }
-            value={props?.jobForm?.monthly_in_hand_salary_to}
+            value={Number(
+              parseFloat(props?.jobForm?.monthly_in_hand_salary_to).toFixed(2)
+            ).toLocaleString("en", {
+              minimumFractionDigits: 2,
+            })}
             secureTextEntry={false}
             placeholder="Monthly In-hand Salary To *"
             InputType="withScroll"

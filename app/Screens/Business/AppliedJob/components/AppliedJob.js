@@ -12,7 +12,6 @@ import styles from "./styles";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import {
-  LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,

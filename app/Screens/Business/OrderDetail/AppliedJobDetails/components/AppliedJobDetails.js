@@ -144,8 +144,22 @@ const AppliedJobDetailsScreen = (props) => {
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
               <Text style={styles.smallTxt}>
-                ${props?.orderData?.jobs?.monthly_in_hand_salary_from} - $
-                {props?.orderData?.jobs?.monthly_in_hand_salary_to}
+                $
+                {Number(
+                  parseFloat(
+                    props?.orderData?.jobs?.monthly_in_hand_salary_from
+                  ).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}{" "}
+                - $
+                {Number(
+                  parseFloat(
+                    props?.orderData?.jobs?.monthly_in_hand_salary_to
+                  ).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
             </View>
           </View>

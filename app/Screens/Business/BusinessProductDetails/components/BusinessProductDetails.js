@@ -33,59 +33,49 @@ const BusinessProductDetails = (props) => {
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>
-          <View style={styles.maincontainers}>
-            <View style={{ height: 230 }}>
-              <ScrollView
-                horizontal={true}
-                style={styles.scrollViewStyle}
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                onScroll={Animated.event([
-                  {
-                    nativeEvent: {
-                      contentOffset: {
-                        x: scrollX,
-                      },
+          <View style={{ height: 230 }}>
+            <ScrollView
+              horizontal={true}
+              style={styles.scrollViewStyle}
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={Animated.event([
+                {
+                  nativeEvent: {
+                    contentOffset: {
+                      x: scrollX,
                     },
                   },
-                ])}
-                scrollEventThrottle={1}
-              >
-                {props.ProductData ? (
-                  props?.ProductData?.product_image?.map((item, imageIndex) => {
-                    return (
-                      <View
-                        style={{ width: windowWidth, height: "100%" }}
-                        key={imageIndex}
-                      >
-                        <ImageBackground
-                          style={styles.PosterImgeStyle}
-                          source={{
-                            uri: item.product_image,
-                          }}
-                          resizeMode="stretch"
-                          resizeMethod="resize"
-                        />
-                      </View>
-                    );
-                  })
-                ) : (
-                  <Image
-                    style={styles.PosterImgeStyle}
-                    source={require("../../../../Assets/extraImages/blackBuild.png")}
-                  />
-                )}
-              </ScrollView>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                position: "absolute",
-                justifyContent: "center",
-                width: "100%",
-                bottom: 10,
-              }}
+                },
+              ])}
+              scrollEventThrottle={1}
             >
+              {props.ProductData ? (
+                props?.ProductData?.product_image?.map((item, imageIndex) => {
+                  return (
+                    <View
+                      style={{ width: windowWidth, height: "100%" }}
+                      key={imageIndex}
+                    >
+                      <ImageBackground
+                        style={styles.PosterImgeStyle}
+                        source={{
+                          uri: item.product_image,
+                        }}
+                        resizeMode="stretch"
+                        resizeMethod="resize"
+                      />
+                    </View>
+                  );
+                })
+              ) : (
+                <Image
+                  style={styles.PosterImgeStyle}
+                  source={require("../../../../Assets/extraImages/blackBuild.png")}
+                />
+              )}
+            </ScrollView>
+            <View style={styles.dotsVw}>
               {props.ProductData
                 ? props.ProductData.product_image.map((image, imageIndex) => {
                     const width = scrollX.interpolate({
@@ -109,51 +99,41 @@ const BusinessProductDetails = (props) => {
           </View>
           {props.ProductData ? (
             <View style={styles.infocon}>
-              <Text style={[styles.hdngtxt, { fontSize: 20, lineHeight: 24 }]}>
+              <Text style={[styles.hdngtxt, { fontSize: 20 }]}>
                 {props.ProductData.product_name}
               </Text>
-              <View style={styles.basiccon}>
-                <View style={[styles.basiccon]}>
-                  <Text
-                    style={[
-                      styles.hdngtxt,
-                      { width: null, fontSize: 20, paddingRight: 5 },
-                    ]}
-                  >
-                    ${props.ProductData.final_price}
-                  </Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+              <Text style={[styles.hdngtxt, { fontSize: 20 }]}>
+                $
+                {Number(
+                  parseFloat(props.ProductData.final_price).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
+                <Text style={styles.text}> for you</Text>
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={styles.PriceOfDishTxt}>M.R.P :</Text>
                 <Text
                   style={[
                     styles.PriceOfDishTxt,
                     { textDecorationLine: "line-through" },
                   ]}
                 >
-                  M.R.P :
-                </Text>
-                <Text style={[styles.PriceOfDishTxt]}>
                   {" "}
-                  ${props.ProductData.price}
+                  $
+                  {Number(
+                    parseFloat(props.ProductData.price).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}
                 </Text>
                 <Text style={[styles.PriceOfDishTxt]}>
                   {" "}
                   ({props.ProductData.discount}% off)
                 </Text>
               </View>
-              <View
-                style={[
-                  styles.basiccon,
-                  { justifyContent: "space-between", marginBottom: 10 },
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.text,
-                    { width: null, fontSize: 14, lineHeight: 19 },
-                  ]}
-                >
+              <View style={styles.basiccon}>
+                <Text style={styles.text}>
                   Categories: {props.ProductData.sub_category_name}
                 </Text>
                 <TouchableOpacity
@@ -166,43 +146,34 @@ const BusinessProductDetails = (props) => {
                     })
                   }
                 >
-                  {props.ProductData?.status === 1 ? (
-                    <Image
-                      source={require("../../../../Assets/active_switch.png")}
-                    />
-                  ) : (
-                    <Image
-                      source={require("../../../../Assets/unactive_switch.png")}
-                    />
-                  )}
+                  <Image
+                    source={
+                      props.ProductData?.status === 1
+                        ? require("../../../../Assets/active_switch.png")
+                        : require("../../../../Assets/unactive_switch.png")
+                    }
+                  />
                 </TouchableOpacity>
               </View>
-              <View
-                style={
-                  ([styles.localFooter],
-                  { marginTop: 15, width: "100%", flexDirection: "row" })
-                }
-              >
-                <View style={{ width: "50%" }}>
-                  <Button
-                    style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE }}
-                    buttonText="Edit"
-                    onPress={() => props.editProduct()}
-                  />
-                </View>
-                <View style={{ width: "50%" }}>
-                  <Button
-                    style={{ borderWidth: 1, borderColor: WHITE_COLOR_CODE }}
-                    buttonText="Delete"
-                    onPress={() => props.DeleteProductMsg(props.ProductData)}
-                  />
-                </View>
+              <View style={styles.localFooter}>
+                <Button
+                  style={{ width: "48%", padding: 10 }}
+                  buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+                  buttonText="Edit"
+                  onPress={() => props.editProduct()}
+                />
+                <Button
+                  style={{ width: "48%", padding: 10 }}
+                  buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+                  buttonText="Delete"
+                  onPress={() => props.setDeleteProduct(true)}
+                />
               </View>
             </View>
           ) : null}
-          {props.ProductData ? (
+          {props?.ProductData?.description ? (
             <View style={([styles.maincontainers], { padding: 15 })}>
-              <Text style={[styles.hdngtxt]}>Description</Text>
+              <Text style={styles.hdngtxt}>Description</Text>
               <View style={styles.basiccon}>
                 <Text style={styles.text}>{props.ProductData.description}</Text>
               </View>

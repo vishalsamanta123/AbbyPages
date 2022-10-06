@@ -29,7 +29,6 @@ const EditJob = ({ navigation, route }) => {
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState(false);
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
-  const [itemType, setItemType] = useState({});
   const [menuTypeVisible, setMenuTypeVisible] = useState(false);
   const [selectedBenefits, setSelectedBenefits] = useState([]);
   const benifitsStaticContent = [
@@ -168,6 +167,7 @@ const EditJob = ({ navigation, route }) => {
       accpt_trms_cond: "",
     });
   }, [item]);
+  console.log("props?.jobForm?.job_benefits", jobForm?.job_benefits);
 
   const onPressToPreview = () => {
     navigation.navigate("AddTextPreview");
@@ -563,7 +563,6 @@ const EditJob = ({ navigation, route }) => {
       ...jobForm,
       job_benefits: data,
     });
-    setItemType(item);
   };
   const renderStaticContentData = ({ item, index }) => {
     return (

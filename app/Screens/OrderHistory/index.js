@@ -84,6 +84,7 @@ const OrderHistoryView = ({ navigation }) => {
     }
   };
   const onpressOrder = (item) => {
+    console.log("item: ", item);
     navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
   };
   const _renderCategory = (item, index) => {

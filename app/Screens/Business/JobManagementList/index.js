@@ -9,6 +9,7 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
 import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
+import QuestionModal from "../../../Components/Modal/questionModal";
 
 const JobManagementListView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -17,30 +18,11 @@ const JobManagementListView = ({ navigation }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [deleteJob, setDeleteJob] = useState(false);
+  const [deleteData, setDeleteData] = useState({});
   useEffect(() => {
     getBussinessJobList();
   }, []);
-  const DeleteMsg = (item) =>
-    Alert.alert(
-      "",
-      "Are you sure you want delete this Job?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "OK",
-          onPress: () =>
-            jobStatus({
-              id: item?.job_id,
-              status: item?.job_status,
-              is_delete: 1,
-            }),
-        },
-      ],
-      { cancelable: false }
-    );
 
   const getBussinessJobList = async () => {
     setVisible(true);
@@ -74,6 +56,7 @@ const JobManagementListView = ({ navigation }) => {
         job_id: id,
         job_status: status,
       };
+      setDeleteJob(false);
       const response = await apiCall(
         "POST",
         ENDPOINTS.JOB_REMOVE_STATUS_UPDATE,
@@ -82,6 +65,7 @@ const JobManagementListView = ({ navigation }) => {
       if (response.status === 200) {
         getBussinessJobList();
         setVisible(false);
+        setDeleteData({});
       } else {
         setVisible(false);
       }
@@ -121,13 +105,21 @@ const JobManagementListView = ({ navigation }) => {
     const date = moment(item?.create_date).startOf("day").fromNow();
     return (
       <View style={[styles.MainContain, { marginTop: index === 0 ? 2 : 12 }]}>
-        <View style={[styles.JobContainer, { marginBottom: 5 }]}>
-          <Text style={styles.TableNottEXT}>{item?.job_title}</Text>
-          <Text style={styles.DescrptionText}>
-            ${item?.monthly_in_hand_salary_from} - $
-            {item?.monthly_in_hand_salary_to}
-          </Text>
-        </View>
+        <Text style={styles.TableNottEXT}>{item?.job_title}</Text>
+        <Text style={styles.DescrptionText}>
+          $
+          {Number(
+            parseFloat(item?.monthly_in_hand_salary_from).toFixed(2)
+          ).toLocaleString("en", {
+            minimumFractionDigits: 2,
+          })}{" "}
+          - $
+          {Number(
+            parseFloat(item?.monthly_in_hand_salary_to).toFixed(2)
+          ).toLocaleString("en", {
+            minimumFractionDigits: 2,
+          })}
+        </Text>
         <Text style={styles.DescrptnTextStyle}>
           Company name : {item?.company_name}
         </Text>
@@ -174,7 +166,10 @@ const JobManagementListView = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginLeft: 10 }}
-              onPress={() => DeleteMsg(item)}
+              onPress={() => {
+                setDeleteJob(true);
+                setDeleteData(item);
+              }}
             >
               <Image source={require("../../../Assets/list_delete_icon.png")} />
             </TouchableOpacity>
@@ -197,6 +192,8 @@ const JobManagementListView = ({ navigation }) => {
         _handleTableData={_handleTableData}
         onPressAdd={onPressAdd}
         businessJobList={businessJobList}
+        deleteJob={deleteJob}
+        setDeleteJob={setDeleteJob}
       />
       <Error
         message={errorMessage}
@@ -207,6 +204,18 @@ const JobManagementListView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => navigateAndCloseSuccessModal()}
+      />
+      <QuestionModal
+        message={"Are you sure you want delete this Job?"}
+        surringVisible={deleteJob}
+        positiveResponse={() =>
+          jobStatus({
+            id: deleteData?.job_id,
+            status: deleteData?.job_status,
+            is_delete: 1,
+          })
+        }
+        negativeResponse={() => setDeleteJob(false)}
       />
     </View>
   );
