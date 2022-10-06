@@ -5,7 +5,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
@@ -31,7 +31,7 @@ const TicketPaymentScreen = (props) => {
   const couts = newPercentage * 0.16;
   return (
     <Modal
-      animationType={Platform.OS==='ios'?'none':"slide"}
+      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal === 4}
       onRequestClose={() => {
@@ -44,8 +44,9 @@ const TicketPaymentScreen = (props) => {
         closeModel={() => props.setVisibleErr(false)}
       />
       <KeyboardAvoidingView
-       behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={styles.modalCon}>
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={styles.modalCon}
+      >
         {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -54,7 +55,7 @@ const TicketPaymentScreen = (props) => {
           leftImg={""}
           RightImg={null}
         />
-        <ScrollView keyboardShouldPersistTaps={'handled'}>
+        <ScrollView keyboardShouldPersistTaps={"handled"}>
           <View style={styles.modalsVw}>
             <Text style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -81,7 +82,7 @@ const TicketPaymentScreen = (props) => {
                   <Text style={styles.timeTxt}>time remains</Text>
                 </View>
                 <Text style={styles.percentTxt}>
-                  {Number(couts).toFixed(0)}%
+                  {100 - Number(couts).toFixed(0)}%
                 </Text>
               </View>
               <View style={styles.timeCon}>
@@ -140,7 +141,11 @@ const TicketPaymentScreen = (props) => {
                     InputType={null}
                     containerStyle={[
                       styles.smallInputVw,
-                      { width: "56%", height: 42,paddingVertical:Platform.OS==='ios'?10:0 },
+                      {
+                        width: "56%",
+                        height: 42,
+                        paddingVertical: Platform.OS === "ios" ? 10 : 0,
+                      },
                     ]}
                     textInputStyle={styles.smallInnrInpVw}
                     onChangeText={(text) => {

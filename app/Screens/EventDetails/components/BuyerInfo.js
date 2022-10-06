@@ -100,7 +100,7 @@ const BuyerInfoScreen = (props) => {
                 <Text style={styles.timeTxt}>time remains</Text>
               </View>
               <Text style={styles.percentTxt}>
-                {Number(props?.couts).toFixed(0)}%
+                {100 -Number(props?.couts).toFixed(0)}%
               </Text>
             </View>
             <View style={styles.timeCon}>

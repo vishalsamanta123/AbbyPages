@@ -87,9 +87,9 @@ const Styles = StyleSheet.create({
   text: {
     color: SMALL_TEXT_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 12,
-    lineHeight: 14,
-    marginVertical: 2,
+    fontSize: 14,
+    paddingVertical: 3,
+    paddingHorizontal: 3,
   },
   editTxt: {
     color: SMALL_TEXT_COLOR_CODE,
@@ -111,8 +111,8 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   icon: {
-    height: 15,
-    width: 15,
+    height: 20,
+    width: 20,
     margin: 2,
     marginLeft: 0,
     marginRight: 5,

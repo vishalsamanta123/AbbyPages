@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -55,23 +55,35 @@ const ShoppingCartScreen = (props) => {
         <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
           <Text style={[styles.hdngtxt, styles.itemsTxt]}>Original Price</Text>
           <Text style={[styles.hdngtxt, , styles.itemsTxt]}>
-            $ {props.finalAmount}
+            ${" "}
+            {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
+              "en",
+              {
+                minimumFractionDigits: 2,
+              }
+            )}
           </Text>
         </View>
         <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
           <Text style={[styles.hdngtxt, , styles.itemsTxt]}>Offer</Text>
-          <Text style={[styles.hdngtxt, , styles.itemsTxt]}>0</Text>
+          <Text style={[styles.hdngtxt, , styles.itemsTxt]}>0.00</Text>
         </View>
         <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
           <Text style={[styles.hdngtxt, , styles.itemsTxt]}>Promocode</Text>
-          <Text style={[styles.hdngtxt, , styles.itemsTxt]}>0</Text>
+          <Text style={[styles.hdngtxt, , styles.itemsTxt]}>0.00</Text>
         </View>
         <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
           <Text style={[styles.hdngtxt, , styles.itemsTxt]}>
             Current Total Price
           </Text>
           <Text style={[styles.hdngtxt, , styles.itemsTxt]}>
-            $ {props.finalAmount}
+            ${" "}
+            {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
+              "en",
+              {
+                minimumFractionDigits: 2,
+              }
+            )}
           </Text>
         </View>
         <Button
@@ -134,7 +146,12 @@ const ShoppingCartScreen = (props) => {
             </View>
             <View style={styles.priceVw}>
               <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
-                {"$ " + item.total_product_price}
+                {"$ " +
+                  Number(
+                    parseFloat(item.total_product_price).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}
               </Text>
             </View>
           </View>
@@ -143,9 +160,10 @@ const ShoppingCartScreen = (props) => {
     );
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         HeaderText="Marketplace Cart"
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}

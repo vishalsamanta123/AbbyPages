@@ -72,8 +72,17 @@ const JobListScreen = (props) => {
                 source={require("../../../Assets/money_icon.png")}
               />
               <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
-                {item.monthly_in_hand_salary_from}-
-                {item.monthly_in_hand_salary_to}
+                {Number(
+                  parseFloat(item?.monthly_in_hand_salary_from).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
+                -
+                {Number(
+                  parseFloat(item?.monthly_in_hand_salary_to).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
             </View>
             <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>

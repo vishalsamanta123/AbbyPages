@@ -13,18 +13,6 @@ import {
 import Button from "../../../Components/Button";
 
 const OrderDetailScreen = (props) => {
-  // const [a, setA] = useState(false);
-  // useEffect(() => {
-  //   setA(true);
-  //   onNextFirst();
-  // }, []);
-  // const onNextFirst = () => {
-  //   if (a) {
-  //     true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
   const _handleItemList = (item, index) => {
     return (
       <View key={index} style={styles.ConatinView}>
@@ -50,7 +38,13 @@ const OrderDetailScreen = (props) => {
                 Qty: {item.quantity}
               </Text>
               <Text style={[styles.text, { fontSize: 14 }]}>
-                $ {item.price}
+                ${" "}
+                {Number(parseFloat(item.price).toFixed(2)).toLocaleString(
+                  "en",
+                  {
+                    minimumFractionDigits: 2,
+                  }
+                )}
               </Text>
             </View>
           </View>
@@ -87,7 +81,12 @@ const OrderDetailScreen = (props) => {
           {props.orderDetail.total_amount !== null && (
             <Text style={styles.detailTxt}>
               <Text style={styles.detailTitleTxt}>Order Amount :</Text>
-              {" $ " + props?.orderDetail?.total_amount}
+              {" $ " +
+                Number(
+                  parseFloat(props?.orderDetail?.total_amount).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
             </Text>
           )}
           <Text style={styles.detailTxt}>

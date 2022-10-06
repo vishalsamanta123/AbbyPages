@@ -226,9 +226,18 @@ const ProductListing = ({ navigation, route }) => {
             {item.product_name}
           </Text>
           <Text style={styles.finalPriceTxt}>
-            {item.final_price}
+            {Number(parseFloat(item.final_price).toFixed(2)).toLocaleString(
+              "en",
+              {
+                minimumFractionDigits: 2,
+              }
+            )}
             {"      "}
-            <Text style={styles.cutPriceTxt}>{item.price}</Text>
+            <Text style={styles.cutPriceTxt}>
+              {Number(parseFloat(item.price).toFixed(2)).toLocaleString("en", {
+                minimumFractionDigits: 2,
+              })}
+            </Text>
           </Text>
 
           {shoppingCartData &&

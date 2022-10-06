@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -83,7 +83,12 @@ const CheckOutScreen = (props) => {
             </View>
             <View style={{ flex: 1, marginRight: 10 }}>
               <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
-                {"$ " + item.total_product_price}
+                {"$ " +
+                  Number(
+                    parseFloat(item.total_product_price).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}
               </Text>
             </View>
           </View>
@@ -92,7 +97,10 @@ const CheckOutScreen = (props) => {
     );
   };
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? 'padding' : null} style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         HeaderText={"Confirm Order"}
         logoImg={false}
@@ -164,7 +172,7 @@ const CheckOutScreen = (props) => {
                   }
                 />
                 <Text style={[styles.hdngtxt, styles.paymentTxt]}>
-                  CashOnDelievery
+                  Cash-on Delievery
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -223,23 +231,35 @@ const CheckOutScreen = (props) => {
               Original Price
             </Text>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>
-              $ {props.finalAmount}
+              ${" "}
+              {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
+                "en",
+                {
+                  minimumFractionDigits: 2,
+                }
+              )}
             </Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>Offer</Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>0.00</Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>Promocode</Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>0</Text>
+            <Text style={[styles.hdngtxt, styles.amountTxt]}>0.00</Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>
               Current Total Price
             </Text>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>
-              $ {props.finalAmount}
+              ${" "}
+              {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
+                "en",
+                {
+                  minimumFractionDigits: 2,
+                }
+              )}
             </Text>
           </View>
           <Button

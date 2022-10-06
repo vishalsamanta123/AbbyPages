@@ -51,7 +51,11 @@ const OrderHistory = (props) => {
                       { paddingLeft: 5, fontSize: 14 },
                     ]}
                   >
-                    {item.total_amount}
+                    {Number(
+                      parseFloat(item.total_amount).toFixed(2)
+                    ).toLocaleString("en", {
+                      minimumFractionDigits: 2,
+                    })}
                   </Text>
                 </View>
               )}

@@ -234,12 +234,14 @@ const ShopList = ({ navigation, route }) => {
             </Text>
           </View>
           <View style={styles.InformationView}>
-            <Text
-              numberOfLines={1}
-              style={[styles.AddressTextStyles, { paddingVertical: 1 }]}
-            >
-              {item.about_business}
-            </Text>
+            {item.about_business ? (
+              <Text
+                numberOfLines={1}
+                style={[styles.AddressTextStyles, { paddingVertical: 1 }]}
+              >
+                {item.about_business}
+              </Text>
+            ) : null}
             {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
             {/* <View style={{ flexDirection: "row" }}>
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>

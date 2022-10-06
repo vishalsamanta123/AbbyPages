@@ -214,8 +214,22 @@ const JobDetailsScreen = (props) => {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
-                  ${props?.details?.monthly_in_hand_salary_from} - $
-                  {props?.details?.monthly_in_hand_salary_to}
+                  $
+                  {Number(
+                    parseFloat(
+                      props?.details?.monthly_in_hand_salary_from
+                    ).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}{" "}
+                  - $
+                  {Number(
+                    parseFloat(
+                      props?.details?.monthly_in_hand_salary_to
+                    ).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}
                 </Text>
               </View>
             </View>
