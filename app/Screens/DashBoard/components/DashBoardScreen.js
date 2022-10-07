@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -15,9 +15,23 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  GREY_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 
 const DashBoardScreen = (props) => {
+  const [moreShow, setMoreShow] = useState(4);
+  const handleShowMore = () => {
+    if (moreShow === props?.newActivity?.recent_activity.length) {
+      setMoreShow(4);
+    } else {
+      setMoreShow(props?.newActivity?.recent_activity.length);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -39,6 +53,14 @@ const DashBoardScreen = (props) => {
           source={require("../../../Assets/employeeonboard.png")}
           style={styles.LocatnSrchCntain}
         >
+          <View style={styles.straightVw}>
+            <TouchableOpacity style={styles.topVwsCon}>
+              <Text style={styles.topVwsTxt}>For Busines</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.topVwsCon}>
+              <Text style={styles.topVwsTxt}>Write A Review</Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             onPress={() => props.onPressSearchBusinessCategory()}
             style={styles.TextInputView}
@@ -47,7 +69,7 @@ const DashBoardScreen = (props) => {
               <Text
                 style={[
                   styles.TextInputStyle,
-                  { paddingVertical: 16, color: "grey" },
+                  { paddingVertical: 16, color: GREY_COLOR_CODE },
                 ]}
               >
                 Eg: food, service, barber, hotel
@@ -75,7 +97,7 @@ const DashBoardScreen = (props) => {
                 });
               }}
               textInputProps={{
-                placeholderTextColor: "grey",
+                placeholderTextColor: GREY_COLOR_CODE,
                 onChangeText: (address) => {
                   props.setLocation({
                     ...props.location,
@@ -108,66 +130,218 @@ const DashBoardScreen = (props) => {
           />
         </ImageBackground>
         <View style={styles.OptionsConatin}>
-          {/* <TouchableOpacity
-            onPress={() => props.onPressRestro()}
-            style={styles.MainOptinsView}
-          >
-            <View style={styles.OptnsImgContain}>
-              <Image
-                source={require("../../../Assets/restaurant_list_icon.png")}
-              />
-            </View>
-            <View style={{ flex: 5 }}>
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressRestro()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image
+                  source={require("../../../Assets/restaurant_list_icon.png")}
+                />
+              </View>
               <Text style={styles.OptnsMainText}>Restaurant</Text>
-            </View>
-          </TouchableOpacity> */}
-          <TouchableOpacity
-            onPress={() => props.onPressJob()}
-            style={styles.MainOptinsView}
-          >
-            <View style={styles.OptnsImgContain}>
-              <Image source={require("../../../Assets/job_list_icon.png")} />
-            </View>
-            <View style={{ flex: 5 }}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.OptnsImgContain}>
+              <Image
+                style={{ width: 20, height: 20 }}
+                source={require("../../../Assets/dropdown_icon.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressJob()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image source={require("../../../Assets/job_list_icon.png")} />
+              </View>
               <Text style={styles.OptnsMainText}>Job</Text>
-            </View>
-          </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={() => props.onPressProvider()}
-            style={styles.MainOptinsView}
-          >
-            <View style={styles.OptnsImgContain}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                source={require("../../../Assets/service_list_icon.png")}
+                style={{ width: 20, height: 20 }}
+                source={require("../../../Assets/dropdown_icon.png")}
               />
-            </View>
-            <View style={{ flex: 5 }}>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressProvider()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image
+                  source={require("../../../Assets/service_list_icon.png")}
+                />
+              </View>
               <Text style={styles.OptnsMainText}>Service Provider</Text>
-            </View>
-          </TouchableOpacity> */}
-          <TouchableOpacity
-            onPress={() => props.onPressEvents()}
-            style={styles.MainOptinsView}
-          >
-            <View style={styles.OptnsImgContain}>
-              <Image source={require("../../../Assets/event_list_icon.png")} />
-            </View>
-            <View style={{ flex: 5 }}>
-              <Text style={styles.OptnsMainText}>Event</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.onPressShopping()}
-            style={[styles.MainOptinsView, { borderBottomWidth: 0 }]}
-          >
-            <View style={styles.OptnsImgContain}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                source={require("../../../Assets/shopping_list_icon.png")}
+                style={{ width: 20, height: 20 }}
+                source={require("../../../Assets/dropdown_icon.png")}
               />
-            </View>
-            <View style={{ flex: 5 }}>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressEvents()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image
+                  source={require("../../../Assets/event_list_icon.png")}
+                />
+              </View>
+              <Text style={styles.OptnsMainText}>Event</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.OptnsImgContain}>
+              <Image
+                style={{ width: 20, height: 20 }}
+                source={require("../../../Assets/dropdown_icon.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressShopping()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image
+                  source={require("../../../Assets/shopping_list_icon.png")}
+                />
+              </View>
               <Text style={styles.OptnsMainText}>Marketplace</Text>
-            </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.OptnsImgContain}>
+              <Image
+                style={{ width: 20, height: 20 }}
+                source={require("../../../Assets/dropdown_icon.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.titlesTxt}>Our Directory</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {props?.directory?.ourDirectory?.map((item) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => props.handleDirectory(item.type)}
+                  style={[
+                    styles.moreItemsCon,
+                    {
+                      width: null,
+                      borderColor:
+                        props.selectedType === item.type
+                          ? YELLOW_COLOR_CODE
+                          : GREY_COLOR_CODE,
+                      marginLeft: 8,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.directoryTypTxt,
+                      {
+                        color:
+                          props.selectedType === item.type
+                            ? YELLOW_COLOR_CODE
+                            : GREY_COLOR_CODE,
+                      },
+                    ]}
+                  >
+                    {item.search_type.toUpperCase()}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {props?.directory?.top_business?.map((item, index) => {
+              return (
+                <TouchableOpacity style={[styles.moreItemsCon, { width: 200 }]}>
+                  <Image
+                    source={{
+                      uri: item.logo,
+                    }}
+                    style={styles.moreItemsImgs}
+                  />
+                  <Text style={[styles.moreItemsTxt, { width: null }]}>
+                    {item.business_name}
+                  </Text>
+                  <Text>{item.business_phone}</Text>
+                  <View style={styles.rowVw}>
+                    <View style={styles.smallVw}>
+                      <Text style={{ color: WHITE_COLOR_CODE }}>5.0</Text>
+                    </View>
+                    <Text style={styles.ratingTxt}>
+                      {Number(item.rating).toFixed(2)} rating
+                    </Text>
+                  </View>
+                  {item.address_first && (
+                    <View style={styles.rowVw}>
+                      <Image
+                        resizeMode={"contain"}
+                        style={{ width: 20, height: 20, marginRight: 5 }}
+                        source={require("../../../Assets/marker_icon_menu.png")}
+                      />
+                      <Text>{item.address_first}</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+          <Text style={styles.titlesTxt}>Recent Activities</Text>
+          <View style={styles.moreItemsVw}>
+            {props?.newActivity?.recent_activity?.map((item, index) => {
+              return (
+                <>
+                  {index < moreShow && (
+                    <TouchableOpacity style={styles.moreItemsCon}>
+                      <Image
+                        source={{
+                          uri:
+                            props?.newActivity?.product_url +
+                            item.product_image,
+                        }}
+                        style={styles.moreItemsImgs}
+                      />
+                      <Text numberOfLines={1} style={styles.smallSizeTxt}>
+                        {item.product_name}
+                      </Text>
+                      <View style={[styles.rowVw, styles.moreItemsTxtVw]}>
+                        <Image
+                          source={{
+                            uri:
+                              props?.newActivity?.base_url + item.profile_image,
+                          }}
+                          style={styles.smallSizeImg}
+                        />
+                        <Text style={styles.moreItemsTxt}>
+                          {item.business_name}
+                        </Text>
+                      </View>
+                      <Text
+                        style={[
+                          styles.smallSizeTxt,
+                          { alignSelf: "flex-start" },
+                        ]}
+                      >
+                        {item.description}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </>
+              );
+            })}
+          </View>
+          <TouchableOpacity onPress={() => handleShowMore(1)}>
+            <Text style={styles.otherTxt}>
+              {moreShow === 4 ? "Show More Activity" : "Show Less Activity"}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

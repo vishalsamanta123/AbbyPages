@@ -61,7 +61,7 @@ const ShopList = ({ navigation, route }) => {
       } else {
         setstopOffset(true);
         if (data.status === 201) {
-          setShopList([]);
+          // setShopList([]);
           setVisible(false);
         } else {
           setErrorMessage(data.message);
@@ -90,7 +90,7 @@ const ShopList = ({ navigation, route }) => {
         limit: 10 + offSet,
         offset: offSet,
         business_type: 2,
-        search_key: inputSearch ? inputSearch : null,
+        search_key: inputSearch ? inputSearch : "",
       };
       const { data } = await apiCall(
         "POST",
@@ -103,7 +103,7 @@ const ShopList = ({ navigation, route }) => {
       } else {
         setstopOffset(true);
         if (data.status === 201) {
-          setShopList([]);
+          // setShopList([]);
           setVisible(false);
         } else {
           setErrorMessage(data.message);
@@ -128,6 +128,7 @@ const ShopList = ({ navigation, route }) => {
         business_id: item.business_id,
         like_status: item.user_like === 1 ? 0 : 1,
 
+        //USERCOMMONLIKES
         // item_type: Number(item.search_business_type),
         // item_id: 54,
         // like: item?.user_like === 1 ? 0 : 1,

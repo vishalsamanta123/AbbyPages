@@ -8,7 +8,7 @@ export default {
   SOCIAL_LOGIN: "/api/userAuth/socialSiteLogin",
   FORGOT_PASSWORD: "/api/userAuth/forgotPassword",
   PASSWORD_UPDATE: "/api/userAuth/passwordUpdate",
-  BUSINESS_REGISTER: "/api/userAuth/businessRegistration",//for get started
+  BUSINESS_REGISTER: "/api/userAuth/businessRegistration", //for get started
   SERVICE_LIST: "/api/services/getservicesDetail",
   GET_USER_PROFILE: "/api/userAuth/getUserProfileDetails",
   EDIT_USER_PROFILE: "/api/userAuth/editUserProfile",
@@ -125,4 +125,9 @@ export default {
 
   //job accepted
   JOBAPPROVEDBUSINESS: "/api/jobs/jobApprovedForBusiness",
+
+  //for recent activities
+  NEW_ACTIVITIES: "/api/business/getNewActivityFromApp",
+  //for user Home Dashboard
+  HOME_DASHBOARD: "api/dashboard/userHomeDashboard",
 };

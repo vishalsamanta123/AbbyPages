@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import DashBoardScreen from "./components/DashBoardScreen";
 import CommonStyles from "../../Utils/CommonStyles";
@@ -30,6 +30,96 @@ const DashBoardView = ({ navigation }) => {
     status: "",
   });
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
+  const [newActivity, setNewActivity] = useState({
+    recent_activity: [],
+    product_url: "",
+    base_url: "",
+  });
+  const [directory, setDirectory] = useState({
+    business_type: [],
+    top_business: [],
+    ourDirectory: [
+      {
+        type: 0,
+        search_type: "All",
+      },
+      {
+        type: 1,
+        search_type: "Featured",
+      },
+      {
+        type: 2,
+        search_type: "Best Rate",
+      },
+      {
+        type: 3,
+        search_type: "Most View",
+      },
+      {
+        type: 4,
+        search_type: "Popular",
+      },
+      {
+        type: 5,
+        search_type: "Ad Directory",
+      },
+    ],
+  });
+  const [selectedType, setSelectedType] = useState(0);
+  useEffect(() => {
+    handleRecentActivity();
+    handleDirectory(selectedType);
+  }, []);
+  const handleRecentActivity = async () => {
+    try {
+      setVisible(true);
+      const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
+      if (data.status === 200) {
+        setNewActivity({
+          recent_activity: data.data.length > 0 ? data.data : [],
+          product_url: data.product_url,
+          base_url: data.base_url,
+        });
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisible(false);
+    }
+  };
+  const handleDirectory = async (type) => {
+    try {
+      setSelectedType(type ? type : 0);
+      const params = {
+        search_type: type ? type : 0,
+      };
+      setVisible(true);
+      const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD, params);
+      if (data.status === 200) {
+        setDirectory({
+          ...directory,
+          business_type:
+            data.data.business_type.length > 0 ? data.data.business_type : [],
+          top_business:
+            data.data.top_business.length > 0 ? data.data.top_business : [],
+        });
+        setVisible(false);
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+        setVisible(false);
+      }
+    } catch (error) {
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+      setVisible(false);
+    }
+  };
   const onPressJob = () => {
     navigation.navigate("JobList");
   };
@@ -59,41 +149,39 @@ const DashBoardView = ({ navigation }) => {
     setDashBoardDetail(list);
   };
   const onPressSearch = async () => {
-    if (businessCategory?.business_type === 2) {
+    if (businessCategory?.business_type != "") {
       const params = {
         latitude: location.latitude,
         longitude: location.longitude,
         category_id: businessCategory.id,
       };
       if (businessCategory.category_name !== "") {
-        // setBusinessCategory({
-        //   ...businessCategory,
-        //   category_name: "",
-        // });
-        // setLocation({
-        //   address: "",
-        //   latitude: "",
-        //   longitude: "",
-        // });
+        setBusinessCategory({
+          ...businessCategory,
+          category_name: "",
+        });
+        setLocation({
+          address: "",
+          latitude: "",
+          longitude: "",
+        });
         if (businessCategory.business_type == 1) {
           navigation.navigate("Listings", { nearbySearch: params });
         }
         if (businessCategory.business_type == 2) {
           navigation.navigate("ShopList", { nearbySearch: params });
         }
-        // if (businessCategory.business_type == 3) {
-        //   navigation.navigate("ServiceProviderListing", {
-        //     nearbySearch: params,
-        //   });
-        // }
+        if (businessCategory.business_type == 3) {
+          navigation.navigate("ServiceProviderListing", {
+            nearbySearch: params,
+          });
+        }
       } else {
-        // setErrorMessage("Please select any category");
-        // setVisibleErr(true);
+        setErrorMessage("Please select any category");
+        setVisibleErr(true);
       }
     } else {
-      setErrorMessage(
-        "No list available for selected category,Please select any other category"
-      );
+      setErrorMessage("No list available,Please select any other category");
       setVisibleErr(true);
     }
   };
@@ -103,11 +191,7 @@ const DashBoardView = ({ navigation }) => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_SERVICES_DETAIL);
       if (data.status === 200) {
-        var getShopsOnly = _.filter(data.data, {
-          business_type: 2,
-        });
-        // setDashBoardDetail(data.data);
-        setDashBoardDetail(getShopsOnly);
+        setDashBoardDetail(data.data);
         setVisible(false);
       } else {
         setErrorMessage(data.message);
@@ -139,6 +223,10 @@ const DashBoardView = ({ navigation }) => {
         onPressJob={onPressJob}
         onPressShopping={onPressShopping}
         onPressProvider={onPressProvider}
+        newActivity={newActivity}
+        directory={directory}
+        handleDirectory={handleDirectory}
+        selectedType={selectedType}
       />
       <Error
         message={errorMessage}

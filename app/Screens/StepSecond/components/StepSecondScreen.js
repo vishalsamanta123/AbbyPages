@@ -18,9 +18,9 @@ const StepSecondScreen = (props) => {
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText={"2 of 8"}
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       {props.queAnsData ? (
         <View style={styles.questCon}>

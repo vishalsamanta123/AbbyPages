@@ -18,6 +18,7 @@ import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
 
@@ -48,9 +49,9 @@ const CheckoutDetail = (props) => {
       <Header
         HeaderText="Checkout"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <ScrollView>
         <View style={[styles.CheckOutView, { alignItems: "center" }]}>

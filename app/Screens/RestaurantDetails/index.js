@@ -150,7 +150,15 @@ const RestaurantDetailsView = ({ navigation, route }) => {
               <Text numberOfLines={1} style={styles.DishNameTxt}>
                 {item.item_name}
               </Text>
-              <Text style={styles.DishNameTxt}>${item.price}</Text>
+              <Text style={styles.DishNameTxt}>
+                $
+                {Number(parseFloat(item.price).toFixed(2)).toLocaleString(
+                  "en",
+                  {
+                    minimumFractionDigits: 2,
+                  }
+                )}
+              </Text>
               <Text style={styles.ImgeDetailTxt}>1 photos | 0 Reviews</Text>
             </View>
           </View>

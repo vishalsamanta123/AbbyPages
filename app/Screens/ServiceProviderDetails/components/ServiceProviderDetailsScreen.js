@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import moment from "moment";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -50,14 +50,15 @@ const ServiceProviderDetailsScreen = (props) => {
   };
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         HeaderText="Service Provider Details "
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>
@@ -242,16 +243,16 @@ const ServiceProviderDetailsScreen = (props) => {
                 <View style={styles.vervwe}>
                   <Text style={styles.VefiedLiesetxt}>Verified License </Text>
                   <Text style={styles.abbytxt}>
-                    Abby confirmed a business or employee lincense.{" "}
+                    Abby confirmed a business or employee license.{" "}
                   </Text>
                 </View>
               </View>
-              <Button
+              {/* <Button
                 buttonText="See License Information"
                 style={{ marginTop: "5%", width: "100%" }}
                 buttonLabelStyle={styles.startedbtntxt}
                 onPress={() => props.licenseInfo()}
-              />
+              /> */}
             </View>
           )}
           <View style={styles.tenYearbussinessvwe}>

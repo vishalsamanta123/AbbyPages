@@ -22,6 +22,7 @@ import {
   WHITE_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const RestroCheckout = (props) => {
   return (
@@ -29,9 +30,9 @@ const RestroCheckout = (props) => {
       <Header
         HeaderText="Checkout"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body, { flex: 4.5 }]}>
         <ScrollView>
@@ -140,7 +141,12 @@ const RestroCheckout = (props) => {
                 <View style={styles.SubTotalView}>
                   <Text style={styles.SubTotalText}>Subtotal</Text>
                   <Text style={styles.SubTotalText}>
-                    {"$ " + props.totalAmount}
+                    {"$ " +
+                      Number(
+                        parseFloat(props.totalAmount).toFixed(2)
+                      ).toLocaleString("en", {
+                        minimumFractionDigits: 2,
+                      })}
                   </Text>
                 </View>
               }
@@ -186,7 +192,7 @@ const RestroCheckout = (props) => {
               }
               ListFooterComponent={
                 <Button
-                  style={{ padding: 15, marginTop: 15 }}
+                  style={{ padding: 12, marginVertical: 20 }}
                   buttonText="Add New Address"
                   buttonLabelStyle={styles.ButtonLabel}
                   onPress={() => props.onPressAddNewAddress()}

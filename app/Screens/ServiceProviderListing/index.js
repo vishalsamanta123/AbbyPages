@@ -213,7 +213,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
               {item.address}
             </Text>
           </View>
-          <View style={styles.InformationView}>
+          {/* <View style={styles.InformationView}>
             <Image
               style={{ top: 4 }}
               source={require("../../Assets/truck_icon.png")}
@@ -222,7 +222,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
               {" "}
               Curbside drop-off during COVID-19{" "}
             </Text>
-          </View>
+          </View> */}
           {/* <View style={styles.InformationView}>
                             <Image style={{ top: 4 }} source={require('../../Assets/thumb_icon.png')} />
                             <Text style={styles.AddressTextStyles}>  {item.vegNonVegService}</Text>

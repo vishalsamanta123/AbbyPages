@@ -18,6 +18,7 @@ import {
   WHITE_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const ConfirmReservation = (props) => {
   return (
@@ -27,9 +28,9 @@ const ConfirmReservation = (props) => {
       <Header
         RightImg={null}
         HeaderText={"Confirm Reservation"}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <ScrollView>

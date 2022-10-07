@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   },
   MainContent: {
     justifyContent: "center",
-    alignItems: "center",
     marginTop: 15,
   },
   ArrowTouchable: {

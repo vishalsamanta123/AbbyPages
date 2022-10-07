@@ -266,7 +266,12 @@ const ShowMenuView = ({ route, navigation }) => {
                 </Text>
                 {item.discounted_price ? (
                   <Text style={styles.PriceOfDishTxt}>
-                    ${item.discounted_price}
+                    $
+                    {Number(
+                      parseFloat(item.discounted_price).toFixed(2)
+                    ).toLocaleString("en", {
+                      minimumFractionDigits: 2,
+                    })}
                   </Text>
                 ) : null}
                 <Text
@@ -279,7 +284,11 @@ const ShowMenuView = ({ route, navigation }) => {
                     },
                   ]}
                 >
-                  {item.price}
+                  {Number(
+                    parseFloat(item.price).toFixed(2)
+                  ).toLocaleString("en", {
+                    minimumFractionDigits: 2,
+                  })}
                 </Text>
               </TouchableOpacity>
               <View style={styles.ReviewView}>

@@ -120,13 +120,17 @@ const ListingsScreenView = ({ navigation, route }) => {
   const onPressRestro = (item) => {
     navigation.navigate("RestaurantDetails", { detail: item });
   };
-  const onPressLike = async (detail) => {
+  const onPressLike = async (item) => {
     try {
       const params = {
-        business_id: detail.business_id,
-        like_status: detail.user_like == 1 ? 0 : 1,
+        item_type: Number(item.search_business_type),
+        item_id: item?.business_id,
+        like: item?.user_like === 1 ? 0 : 1,
+        favorite: item?.user_favorite ? item?.user_favorite : 0,
+        interest: item?.interest ? item?.interest : 0,
+        views: item?.views,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
         if (search) {
           if (inputSearch) {

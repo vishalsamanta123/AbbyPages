@@ -1,25 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   FlatList,
-  StatusBar,
   KeyboardAvoidingView,
   Text,
-  Platform
+  Platform,
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import styles from "./styles";
 const ServiceProviderListing = (props) => {
+  const [scrollBegin, setScrollBegin] = useState(false);
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}
@@ -29,9 +26,9 @@ const ServiceProviderListing = (props) => {
         type="Map"
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         logoImg={false}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <FlatList
         keyExtractor={(item, index) => index.toString()}
@@ -44,20 +41,29 @@ const ServiceProviderListing = (props) => {
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onEndReached={({ distanceFromEnd }) => {
-          console.log("distanceFromEnd: ", distanceFromEnd);
-
-          props.search || props.inputSearch
-            ? !props.stopOffset
-              ? props?.handleSearchData(
-                  props.serviceData.length > 5 ? props.offSet + 1 : props.offSet
-                )
-              : null
-            : !props.stopOffset
-            ? props?.handleServiceList(
-                props.serviceData.length > 5 ? props.offSet + 1 : props.offSet
-              )
-            : null;
+        onMomentumScrollBegin={() => setScrollBegin(true)}
+        onEndReached={() => {
+          if (scrollBegin) {
+            if (props.search || props.inputSearch) {
+              setScrollBegin(false);
+              !props.stopOffset
+                ? props?.handleSearchData(
+                    props.serviceData.length > 5
+                      ? props.offSet + 1
+                      : props.offSet
+                  )
+                : null;
+            } else {
+              setScrollBegin(false);
+              !props.stopOffset
+                ? props?.handleServiceList(
+                    props.serviceData.length > 5
+                      ? props.offSet + 1
+                      : props.offSet
+                  )
+                : null;
+            }
+          }
         }}
         // onEndReachedThreshold={0.1}
       />

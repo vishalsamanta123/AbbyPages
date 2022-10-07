@@ -10,7 +10,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import _ from "lodash";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -48,20 +48,21 @@ const RestauranrtBookingScreen = (props) => {
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Restaurant Booking"}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <SafeAreaView style={{ alignItems: "center" }}>
-            {/* <FlatList
+            {/*           <FlatList
                             keyExtractor={(item, index) => index.toString()}
                             data={props.restroDetail.image && props.restroDetail.image}
                             scrollEventThrottle={16}
@@ -79,7 +80,7 @@ const RestauranrtBookingScreen = (props) => {
                                 </View>
                             }
                         /> */}
-            <View style={styles.paginationWrapper}>
+            {/* <View style={styles.paginationWrapper}>
               {Array.from(
                 Array(
                   props?.restroDetail?.image?.length > 5
@@ -95,7 +96,7 @@ const RestauranrtBookingScreen = (props) => {
                   key={index}
                 />
               ))}
-            </View>
+            </View> */}
           </SafeAreaView>
           <View style={styles.RestroDetailView}>
             <Text style={styles.RestroNameTxt}>

@@ -75,7 +75,15 @@ const PlaceOrderView = ({ navigation }) => {
           </View>
           {/* <Text style={{ fontFamily: FONT_FAMILY_REGULAR, color: LIGHT_GREY_COLOR_CODE }}>Plain</Text> */}
         </View>
-        <Text style={styles.PriceDishText}>{"$ " + item.total_item_price}</Text>
+        <Text style={styles.PriceDishText}>
+          {"$ " +
+            Number(parseFloat(item.total_item_price).toFixed(2)).toLocaleString(
+              "en",
+              {
+                minimumFractionDigits: 2,
+              }
+            )}
+        </Text>
       </View>
     );
   };

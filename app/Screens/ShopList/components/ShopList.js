@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, FlatList, KeyboardAvoidingView,Platform } from "react-native";
+import { View, FlatList, KeyboardAvoidingView, Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
@@ -7,8 +7,9 @@ const ShopList = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}
@@ -29,9 +30,13 @@ const ShopList = (props) => {
           renderItem={({ item, index }) => props._handleShopList(item, index)}
           onEndReached={() => {
             if (scrollBegin) {
-              if (props.search && props.inputSearch) {
+              if (props.search || props.inputSearch) {
                 !props.stopOffset
-                  ? props?.handleSearchData(props.offSet + 1)
+                  ? props?.handleSearchData(
+                      props.shopList.length > 5
+                        ? props.offSet + 1
+                        : props.offSet
+                    )
                   : null;
                 setScrollBegin(false);
               } else {

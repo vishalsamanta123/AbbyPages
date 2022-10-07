@@ -16,9 +16,9 @@ const PlaceOrder = (props) => {
       <Header
         HeaderText="Place Order"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View
         style={[
@@ -39,7 +39,15 @@ const PlaceOrder = (props) => {
           {/* </View> */}
           <View style={styles.SubTotalView}>
             <Text style={styles.SubTotalText}>Subtotal</Text>
-            <Text style={styles.SubTotalText}>{"$ " + props.totalAmount}</Text>
+            <Text style={styles.SubTotalText}>
+              {"$ " +
+                Number(parseFloat(props.totalAmount).toFixed(2)).toLocaleString(
+                  "en",
+                  {
+                    minimumFractionDigits: 2,
+                  }
+                )}
+            </Text>
           </View>
           <View style={styles.SubTotalView}>
             <Text style={styles.SubTotalText}>Tax</Text>
@@ -47,7 +55,15 @@ const PlaceOrder = (props) => {
           </View>
           <View style={styles.SubTotalView}>
             <Text style={styles.SubTotalText}>Total</Text>
-            <Text style={styles.SubTotalText}>{"$ " + props.totalAmount}</Text>
+            <Text style={styles.SubTotalText}>
+              {"$ " +
+                Number(parseFloat(props.totalAmount).toFixed(2)).toLocaleString(
+                  "en",
+                  {
+                    minimumFractionDigits: 2,
+                  }
+                )}
+            </Text>
           </View>
           <View style={{ paddingTop: 5 }}>
             <Text style={styles.guidedTxt}>

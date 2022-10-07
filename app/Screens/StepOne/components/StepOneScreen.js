@@ -8,6 +8,7 @@ import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 
 const StepOneScreen = (props) => {
@@ -17,9 +18,9 @@ const StepOneScreen = (props) => {
         leftImg={require("../../../Assets/close_window_icon.png")}
         HeaderText="1 of 8"
         RightImg={null}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={styles.centermanimg}>
         <Image

@@ -1,19 +1,28 @@
-import React from "react";
-import { View, FlatList, KeyboardAvoidingView, Text,Platform } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  FlatList,
+  KeyboardAvoidingView,
+  Text,
+  Platform,
+} from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import styles from "./styles";
 
 const ListingsScreen = (props) => {
+  const [scrollBegin, setScrollBegin] = useState();
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={require("../../../Assets/map_list_icon.png")}
         HeaderText={""}
@@ -23,9 +32,9 @@ const ListingsScreen = (props) => {
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
         logoImg={false}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <FlatList
         keyExtractor={(item, index) => index.toString()}
@@ -37,23 +46,26 @@ const ListingsScreen = (props) => {
             </View>
           );
         }}
-        ListFooterComponent={() => {
-          return <View style={{ height: 50 }} />;
-        }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onEndThreshold={0}
+        onMomentumScrollBegin={() => setScrollBegin(true)}
         onEndReached={() => {
-          props.search || props.inputSearch
-            ? !props.stopOffset
-              ? props?.handleSearchData(
-                  props.restroList.length > 5 ? props.offSet + 1 : 0
-                )
-              : null
-            : !props.stopOffset
-            ? props?.handleRestroList(
-                props.restroList.length > 5 ? props.offSet + 1 : 0
-              )
-            : null;
+          if (scrollBegin) {
+            if (props.search && props.inputSearch) {
+              !props.stopOffset
+                ? props?.handleSearchData(
+                    props.restroList.length > 5 ? props.offSet + 1 : 0
+                  )
+                : null;
+              setScrollBegin(false);
+            } else {
+              !props.stopOffset
+                ? props?.handleRestroList(
+                    props.restroList.length > 5 ? props.offSet + 1 : 0
+                  )
+                : null;
+              setScrollBegin(false);
+            }
+          }
         }}
       />
     </KeyboardAvoidingView>

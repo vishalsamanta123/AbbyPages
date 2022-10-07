@@ -177,7 +177,15 @@ const RestroCheckoutView = ({ navigation }) => {
           <Text style={styles.DishTextStyle}>{item.quantity}</Text>
           <Text style={styles.DishTextStyle}>{item.item_name}</Text>
         </View>
-        <Text style={styles.PriceDishText}>{"$" + item.total_item_price}</Text>
+        <Text style={styles.PriceDishText}>
+          {"$" +
+            Number(parseFloat(item.total_item_price).toFixed(2)).toLocaleString(
+              "en",
+              {
+                minimumFractionDigits: 2,
+              }
+            )}
+        </Text>
       </View>
     );
   };
