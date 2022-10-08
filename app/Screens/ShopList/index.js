@@ -122,21 +122,21 @@ const ShopList = ({ navigation, route }) => {
     navigation.navigate("ShopDetail", { detail: item });
   };
   const onPressLike = async (item) => {
+  console.log('item: ', item);
     try {
       setVisible(true);
       const params = {
-        business_id: item.business_id,
-        like_status: item.user_like === 1 ? 0 : 1,
-
-        //USERCOMMONLIKES
-        // item_type: Number(item.search_business_type),
-        // item_id: 54,
-        // like: item?.user_like === 1 ? 0 : 1,
-        // favorite: item?.favorite ? item?.user_favorite : 0,
-        // interest: item?.interest ? item?.interest : 0,
-        // views: item?.views,
+        // business_id: item.business_id,
+        // like_status: item.user_like === 1 ? 0 : 1,
+        
+        item_type: Number(item.search_business_type),
+        item_id: item.business_id,
+        like: item?.user_like === 1 ? 0 : 1,
+        favorite: item?.user_favorite ? item?.user_favorite : 0,
+        interest: item?.interest ? item?.interest : 0,
+        views: item?.views,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIKE, params);
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
         if (search) {
           if (inputSearch) {

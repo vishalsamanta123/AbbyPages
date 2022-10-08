@@ -45,6 +45,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     business_id: "",
   });
   const [serviceDetail, setServiceDetail] = useState([]);
+  console.log('serviceDetail: ', serviceDetail);
   const [handleOptions, setHandleOptions] = useState([
     {
       id: "1",
@@ -323,7 +324,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        item_type: 1, //serviceDetail.business_type,
+        item_type: serviceDetail.business_type,
         item_id: serviceDetail.business_id,
         like: serviceDetail.likes,
         favorite: serviceDetail?.favorite,

@@ -8,7 +8,7 @@ import {
 const Styles = StyleSheet.create({
   header: {
     // flex: 1,
-    paddingVertical: Platform.OS === "ios" ? 24 : 16,
+    paddingVertical: Platform.OS === "ios" ? 24 : 8,
     flexDirection: "row",
     backgroundColor: YELLOW_COLOR_CODE,
     alignItems: "center",
@@ -28,7 +28,7 @@ const Styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     backgroundColor: WHITE_COLOR_CODE,
-    paddingVertical: 12,
+    paddingVertical: Platform.OS === "ios" ? 12 : 6,
   },
   searchIconCon: {
     justifyContent: "center",

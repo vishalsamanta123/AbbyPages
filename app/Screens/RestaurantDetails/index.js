@@ -8,6 +8,7 @@ import {
   Linking,
   Share,
   Platform,
+  ToastAndroid,
 } from "react-native";
 import {
   GREY_COLOR_CODE,
@@ -435,7 +436,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       const params = {
         item_type: restroDetail.business_type,
         item_id: restroDetail.business_id,
-        like: restroDetail.likes,
+        like: restroDetail.user_like === 1 ? 0 : 1,
         favorite: restroDetail?.favorite,
         interest: restroDetail?.interest,
         views: restroDetail.views,
@@ -443,8 +444,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
         setVisible(false);
-        setVisibleSuccess(true);
-        setSuccessMessage(data.message);
+        ToastAndroid.show(data.message, ToastAndroid.SHORT);
         handleRestroDetails(restroDetail);
       } else {
         setVisible(false);

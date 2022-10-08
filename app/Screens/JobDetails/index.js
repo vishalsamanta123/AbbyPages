@@ -9,8 +9,8 @@ import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 
 const JobDetails = ({ route, navigation }) => {
-  const [details, setDetails] = useState([]);
-  console.log("details: ", details);
+  const { detail } = route.params || { detail: "" };
+  const [details, setDetails] = useState();
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -19,7 +19,6 @@ const JobDetails = ({ route, navigation }) => {
 
   useEffect(() => {
     if (route.params) {
-      const { detail } = route.params;
       jobDetails(detail);
     }
   }, []);
@@ -65,10 +64,10 @@ const JobDetails = ({ route, navigation }) => {
         views: details?.job_views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-     console.log("data",data)
       if (data.status === 200) {
         setVisible(false);
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        jobDetails(detail);
       } else {
         setVisible(false);
         setErrorMessage(data.message);

@@ -152,7 +152,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     flexDirection: "row",
-    marginTop:Platform.OS==='ios'? 30:0
+    marginTop: Platform.OS === "ios" ? 30 : 0,
   },
   arealstvwe: {
     flex: 4,
@@ -327,7 +327,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 4,
   },
   formsInputVw: {
-    height:Platform.OS==='ios'?0: 30,
+    paddingVertical: Platform.OS === "ios" ? 0 : 5,
     paddingTop: 0,
     marginBottom: 8,
     marginLeft: 4,

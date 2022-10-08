@@ -19,6 +19,8 @@ import {
   BLACK_COLOR_CODE,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
+  LIGHT_WHITE_COLOR,
+  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
@@ -223,126 +225,135 @@ const DashBoardScreen = (props) => {
               />
             </TouchableOpacity>
           </View>
-          <Text style={styles.titlesTxt}>Our Directory</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {props?.directory?.ourDirectory?.map((item) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => props.handleDirectory(item.type)}
-                  style={[
-                    styles.moreItemsCon,
-                    {
-                      width: null,
-                      borderColor:
-                        props.selectedType === item.type
-                          ? YELLOW_COLOR_CODE
-                          : GREY_COLOR_CODE,
-                      marginLeft: 8,
-                    },
-                  ]}
-                >
-                  <Text
+          <View style={styles.otherConVw}>
+            <Text style={styles.titlesTxt}>Our Directory</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {props?.directory?.ourDirectory?.map((item) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => props.handleDirectory(item.type)}
                     style={[
-                      styles.directoryTypTxt,
+                      styles.moreItemsCon,
                       {
-                        color:
+                        width: null,
+                        borderColor:
                           props.selectedType === item.type
                             ? YELLOW_COLOR_CODE
                             : GREY_COLOR_CODE,
+                        marginLeft: 8,
                       },
                     ]}
                   >
-                    {item.search_type.toUpperCase()}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {props?.directory?.top_business?.map((item, index) => {
-              return (
-                <TouchableOpacity style={[styles.moreItemsCon, { width: 200 }]}>
-                  <Image
-                    source={{
-                      uri: item.logo,
-                    }}
-                    style={styles.moreItemsImgs}
-                  />
-                  <Text style={[styles.moreItemsTxt, { width: null }]}>
-                    {item.business_name}
-                  </Text>
-                  <Text>{item.business_phone}</Text>
-                  <View style={styles.rowVw}>
-                    <View style={styles.smallVw}>
-                      <Text style={{ color: WHITE_COLOR_CODE }}>5.0</Text>
-                    </View>
-                    <Text style={styles.ratingTxt}>
-                      {Number(item.rating).toFixed(2)} rating
+                    <Text
+                      style={[
+                        styles.directoryTypTxt,
+                        {
+                          color:
+                            props.selectedType === item.type
+                              ? YELLOW_COLOR_CODE
+                              : GREY_COLOR_CODE,
+                        },
+                      ]}
+                    >
+                      {item.search_type.toUpperCase()}
                     </Text>
-                  </View>
-                  {item.address_first && (
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {props?.directory?.top_business?.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={[styles.moreItemsCon, { width: 200 }]}
+                  >
+                    <Image
+                      source={{
+                        uri: item.logo,
+                      }}
+                      style={styles.moreItemsImgs}
+                    />
+                    <Text style={[styles.moreItemsTxt, { width: null }]}>
+                      {item.business_name}
+                    </Text>
+                    <Text>{item.business_phone}</Text>
                     <View style={styles.rowVw}>
-                      <Image
-                        resizeMode={"contain"}
-                        style={{ width: 20, height: 20, marginRight: 5 }}
-                        source={require("../../../Assets/marker_icon_menu.png")}
-                      />
-                      <Text>{item.address_first}</Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-          <Text style={styles.titlesTxt}>Recent Activities</Text>
-          <View style={styles.moreItemsVw}>
-            {props?.newActivity?.recent_activity?.map((item, index) => {
-              return (
-                <>
-                  {index < moreShow && (
-                    <TouchableOpacity style={styles.moreItemsCon}>
-                      <Image
-                        source={{
-                          uri:
-                            props?.newActivity?.product_url +
-                            item.product_image,
-                        }}
-                        style={styles.moreItemsImgs}
-                      />
-                      <Text numberOfLines={1} style={styles.smallSizeTxt}>
-                        {item.product_name}
+                      <View style={styles.smallVw}>
+                        <Text style={{ color: WHITE_COLOR_CODE }}>5.0</Text>
+                      </View>
+                      <Text style={styles.ratingTxt}>
+                        {Number(item.rating).toFixed(2)} rating
                       </Text>
-                      <View style={[styles.rowVw, styles.moreItemsTxtVw]}>
+                    </View>
+                    {item.address_first && (
+                      <View style={styles.rowVw}>
+                        <Image
+                          resizeMode={"contain"}
+                          style={{ width: 20, height: 20 }}
+                          source={require("../../../Assets/marker_icon_menu.png")}
+                        />
+                        <Text numberOfLines={2} style={styles.smallSizeTxt}>
+                          {item.address_first}
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
+          <View style={styles.otherConVw}>
+            <Text style={styles.titlesTxt}>Recent Activities</Text>
+            <View style={styles.moreItemsVw}>
+              {props?.newActivity?.recent_activity?.map((item, index) => {
+                return (
+                  <>
+                    {index < moreShow && (
+                      <TouchableOpacity style={styles.moreItemsCon}>
                         <Image
                           source={{
                             uri:
-                              props?.newActivity?.base_url + item.profile_image,
+                              props?.newActivity?.product_url +
+                              item.product_image,
                           }}
-                          style={styles.smallSizeImg}
+                          style={styles.moreItemsImgs}
                         />
-                        <Text style={styles.moreItemsTxt}>
-                          {item.business_name}
+                        <Text numberOfLines={1} style={styles.smallSizeTxt}>
+                          {item.product_name}
                         </Text>
-                      </View>
-                      <Text
-                        style={[
-                          styles.smallSizeTxt,
-                          { alignSelf: "flex-start" },
-                        ]}
-                      >
-                        {item.description}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </>
-              );
-            })}
+                        <View style={[styles.rowVw, styles.moreItemsTxtVw]}>
+                          <Image
+                            source={{
+                              uri:
+                                props?.newActivity?.base_url +
+                                item.profile_image,
+                            }}
+                            style={styles.smallSizeImg}
+                          />
+                          <Text style={styles.moreItemsTxt}>
+                            {item.business_name}
+                          </Text>
+                        </View>
+                        <Text
+                          style={[
+                            styles.smallSizeTxt,
+                            { alignSelf: "flex-start" },
+                          ]}
+                        >
+                          {item.description}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </>
+                );
+              })}
+            </View>
+            <TouchableOpacity onPress={() => handleShowMore(1)}>
+              <Text style={styles.otherTxt}>
+                {moreShow === 4 ? "Show More Activity" : "Show Less Activity"}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => handleShowMore(1)}>
-            <Text style={styles.otherTxt}>
-              {moreShow === 4 ? "Show More Activity" : "Show Less Activity"}
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
       <Modal

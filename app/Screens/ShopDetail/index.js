@@ -43,7 +43,6 @@ const ShopDetail = ({ navigation, route }) => {
   const [reviewModal, setReviewModal] = useState(false);
   const [restroDetail, setRestroDetail] = useState("");
   const [shopDetail, setShopDetail] = useState("");
-  console.log("shopDetail: ", shopDetail);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
   const [reviewData, setReviewData] = useState({

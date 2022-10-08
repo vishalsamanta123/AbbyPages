@@ -146,6 +146,13 @@ const Styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: "lightgrey",
   },
+  otherConVw: {
+    backgroundColor: "#f2f2f2",
+    marginHorizontal: 8,
+    marginVertical: 5,
+    borderRadius: 10,
+    borderTopLeftRadius: 10,
+  },
   titlesTxt: {
     fontSize: 20,
     paddingLeft: 12,
@@ -171,6 +178,7 @@ const Styles = StyleSheet.create({
     width: "100%",
     height: 80,
     resizeMode: "stretch",
+    marginTop: 2,
   },
   directoryTypTxt: {
     fontSize: 16,
