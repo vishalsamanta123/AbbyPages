@@ -67,6 +67,7 @@ const PhotosVideo = ({ navigation }) => {
     setCamerastate(false);
     ImagePicker.openPicker({
       multiple: true,
+      compressImageQuality: 1,
     }).then((images) => {
       onPressSave(images);
       // ImagePicker.openCropper({
@@ -109,6 +110,7 @@ const PhotosVideo = ({ navigation }) => {
     ImagePicker.openCamera({
       cropping: true,
       freeStyleCropEnabled: true,
+      compressImageQuality: 1,
     }).then((image) => {
       // onPressSave(image)
       if (image.size >= 1000000) {

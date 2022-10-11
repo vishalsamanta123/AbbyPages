@@ -192,7 +192,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
     paddingLeft: 8,
-    height: Platform.OS === "ios" ? 50 : 0,
+    // height: Platform.OS === "ios" ? 50 : 0,
   },
   colorVw: {
     paddingVertical: 5,
@@ -249,7 +249,7 @@ const Styles = StyleSheet.create({
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
-    height: Platform.OS === "ios" ? 60 : 0,
+    // height: Platform.OS === "ios" ? 60 : 0,
   },
   selecteTxt: {
     marginVertical: 8,

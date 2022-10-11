@@ -33,27 +33,28 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 const { width, height } = Dimensions.get("window");
 const ShopDetail = (props) => {
   const initialRegion = {
-    latitude: props.shopDetail.latitude
-      ? parseInt(props.shopDetail.latitude)
+    latitude: props?.shopDetail?.latitude
+      ? parseInt(props?.shopDetail?.latitude)
       : 22.72448,
-    longitude: props.shopDetail.longitude
-      ? parseInt(props.shopDetail.longitude)
+    longitude: props?.shopDetail?.longitude
+      ? parseInt(props?.shopDetail?.longitude)
       : 75.889267,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   };
   const coordinate = {
-    latitude: props.shopDetail.latitude
-      ? parseInt(props.shopDetail.latitude)
+    latitude: props?.shopDetail?.latitude
+      ? parseInt(props?.shopDetail?.latitude)
       : 22.72448,
-    longitude: props.shopDetail.longitude
-      ? parseInt(props.shopDetail.longitude)
+    longitude: props?.shopDetail?.longitude
+      ? parseInt(props?.shopDetail?.longitude)
       : 75.889267,
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Shop Detail"}
@@ -123,7 +124,7 @@ const ShopDetail = (props) => {
           <SafeAreaView style={{ alignItems: "center" }}>
             <FlatList
               keyExtractor={(item, index) => index.toString()}
-              data={props.shopDetail.image && props.shopDetail.image}
+              data={props?.shopDetail?.image && props?.shopDetail?.image}
               scrollEventThrottle={16}
               pagingEnabled={true}
               showsHorizontalScrollIndicator={false}
@@ -145,7 +146,7 @@ const ShopDetail = (props) => {
                 );
               }}
             />
-            {/* {props.shopDetail.image.length} */}
+            {/* {props?.shopDetail?.image.length} */}
             <View style={styles.paginationWrapper}>
               {Array.from(
                 Array(
@@ -166,38 +167,26 @@ const ShopDetail = (props) => {
           </SafeAreaView>
           <View style={styles.RestroDetailView}>
             <Text style={styles.RestroNameTxt}>
-              {props.shopDetail && props.shopDetail.business_name}
+              {props?.shopDetail?.business_name}
             </Text>
             <View style={styles.FlexRowView}>
               <Text style={styles.RateTextStyle}>
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 0 &&
-                  "$ | "}
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 1 &&
-                  "$  | "}
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 2 &&
-                  "$$  | "}
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 3 &&
-                  "$$$  | "}
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 4 &&
-                  "$$$$  | "}
-                {props.shopDetail &&
-                  props.shopDetail.business_star === 5 &&
-                  "$$$$$  | "}
+                {props?.shopDetail?.business_star === 0 && "$ | "}
+                {props?.shopDetail?.business_star === 1 && "$  | "}
+                {props?.shopDetail?.business_star === 2 && "$$  | "}
+                {props?.shopDetail?.business_star === 3 && "$$$  | "}
+                {props?.shopDetail?.business_star === 4 && "$$$$  | "}
+                {props?.shopDetail?.business_star === 5 && "$$$$$  | "}
               </Text>
               {/* <FlatList
                                 keyExtractor={(item, index) => index.toString()}
-                                data={props.shopDetail.business_category && props.shopDetail.business_category}
+                                data={props?.shopDetail?.business_category && props?.shopDetail?.business_category}
                                 // horizontal={true}
                                 numColumns={4}
                                 renderItem={({ item, index }) => (item)}
                             /> */}
               <Text style={styles.RateTextStyle}>
-                {props.shopDetail && props.shopDetail.business_service_category}
+                {props?.shopDetail?.business_service_category}
               </Text>
             </View>
             <View style={styles.RatingContainer}>
@@ -206,20 +195,16 @@ const ShopDetail = (props) => {
               </View>
               <Text style={styles.RatingTextMain}>
                 {" "}
-                {props.shopDetail &&
-                  Number(props?.shopDetail.rating).toFixed(1)}{" "}
-                ratings |{" "}
+                {Number(props?.shopDetail.rating).toFixed(1)} ratings |{" "}
               </Text>
               <Text style={styles.MainClosedTime}>
-                {props.shopDetail && props?.shopDetail?.login_status === 1
-                  ? "Open"
-                  : "Closed"}
+                {props?.shopDetail?.login_status === 1 ? "Open" : "Closed"}
               </Text>
               <Text style={styles.RatingTextMain}>
-                {props.shopDetail.business_open_time &&
-                  ": " + props.shopDetail.business_open_time.open_time + "-"}
-                {props.shopDetail.business_open_time &&
-                  props.shopDetail.business_open_time.close_time}
+                {props?.shopDetail?.business_open_time &&
+                  ": " + props?.shopDetail?.business_open_time?.open_time + "-"}
+                {props?.shopDetail?.business_open_time &&
+                  props?.shopDetail?.business_open_time?.close_time}
               </Text>
             </View>
           </View>
@@ -260,7 +245,7 @@ const ShopDetail = (props) => {
               </TouchableOpacity>
             </View>
             {
-              // props.shopDetail.offers_delivery === 1 &&
+              // props?.shopDetail?.offers_delivery === 1 &&
               <TouchableOpacity
                 onPress={() => props.onPressShopNow()}
                 // onPress={() => props.onPressOrderFood()}
@@ -301,8 +286,7 @@ const ShopDetail = (props) => {
               <Text style={styles.UpdatedServics}>Updated Services</Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail &&
-                  props.shopDetail.accept_credit_card === 1 ? (
+                  {props?.shopDetail?.accept_credit_card === 1 ? (
                     <View style={{}}>
                       <ImageBackground
                         style={styles.RightImgeStyle}
@@ -321,7 +305,7 @@ const ShopDetail = (props) => {
                   </Text>
                 </View>
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail && props.shopDetail.bike_parking === 1 ? (
+                  {props?.shopDetail?.bike_parking === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -340,7 +324,7 @@ const ShopDetail = (props) => {
               </View>
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail && props.shopDetail.dogs_allowed === 1 ? (
+                  {props?.shopDetail?.dogs_allowed === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -357,8 +341,7 @@ const ShopDetail = (props) => {
                   <Text style={styles.OutDoorSeatingTxt}>Dogs Allowed</Text>
                 </View>
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail &&
-                  props.shopDetail.offers_delivery === 1 ? (
+                  {props?.shopDetail?.offers_delivery === 1 ? (
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
@@ -382,7 +365,7 @@ const ShopDetail = (props) => {
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail && props.shopDetail.masks_required === 1 ? (
+                  {props?.shopDetail?.masks_required === 1 ? (
                     <View>
                       <Image
                         style={styles.RightImgeStyle}
@@ -403,8 +386,7 @@ const ShopDetail = (props) => {
                 </View>
 
                 <View style={styles.UpdateOptions}>
-                  {props.shopDetail &&
-                  props.shopDetail.staff_wears_gloves === 1 ? (
+                  {props?.shopDetail?.staff_wears_gloves === 1 ? (
                     <View>
                       <Image
                         style={styles.RightImgeStyle}
@@ -428,7 +410,7 @@ const ShopDetail = (props) => {
               </View>
               <View style={{ flexDirection: "row" }}>
                 {/* <View style={styles.UpdateOptions}>
-                                    {props.shopDetail.masks_required === 1 ?
+                                    {props?.shopDetail?.masks_required === 1 ?
                                         <View>
                                             <Image style={styles.RightImgeStyle} source={require('../../../Assets/text_check_icon.png')} />
                                         </View>
@@ -453,35 +435,35 @@ const ShopDetail = (props) => {
               <TouchableOpacity
                 onPress={() =>
                   props.handleGetDirections(
-                    props.shopDetail.latitude,
-                    props.shopDetail.longitude
+                    props?.shopDetail?.latitude,
+                    props?.shopDetail?.longitude
                   )
                 }
               >
                 <Text style={styles.ViewFullmenu}>Get Directions</Text>
               </TouchableOpacity>
             </View>
-              <MapView
-                showsUserLocation
-                style={{ width: "100%", height: 190 }}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={initialRegion}
+            <MapView
+              showsUserLocation
+              style={{ width: "95%", height: 190, alignSelf: "center" }}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={initialRegion}
+            >
+              <Marker
+                coordinate={coordinate}
+                // image={require('../../../Assets/login_logo.png')}
+                title={props?.shopDetail?.business_name}
+                // description={marker.description}
               >
-                <Marker
-                  coordinate={coordinate}
-                  // image={require('../../../Assets/login_logo.png')}
-                  title={props.shopDetail && props.shopDetail.business_name}
-                  // description={marker.description}
-                >
-                  <Image
-                    source={require("../../../Assets/abby_pages_map_icon.png")}
-                    style={{ height: 50, width: 50 }}
-                    resizeMode="contain"
-                    resizeMethod="auto"
-                  />
-                </Marker>
-              </MapView>
-            
+                <Image
+                  source={require("../../../Assets/abby_pages_map_icon.png")}
+                  style={{ height: 50, width: 50 }}
+                  resizeMode="contain"
+                  resizeMethod="auto"
+                />
+              </Marker>
+            </MapView>
+
             <Text style={styles.ChoosedLocationTxt}>
               {props?.shopDetail?.address}
             </Text>
@@ -489,7 +471,7 @@ const ShopDetail = (props) => {
               <View style={styles.DaysContainer}>
                 <FlatList
                   keyExtractor={(item, index) => index.toString()}
-                  data={props.shopDetail.business_service_time}
+                  data={props?.shopDetail?.business_service_time}
                   renderItem={({ item, index }) => (
                     <View key={index} style={{ flexDirection: "row" }}>
                       <Text style={styles.DaysMainText}>{item.day} </Text>
@@ -510,12 +492,15 @@ const ShopDetail = (props) => {
                         </View> */}
           </View>
           {props?.shopDetail?.image?.length > 0 && (
-            <View style={styles.PopularDishContain}>
-              <Text style={styles.CovidMainTxt}>Photos</Text>
+            <View>
+              <Text style={[styles.CovidMainTxt, { paddingLeft: 10 }]}>
+                Photos Gallery
+              </Text>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={props.shopDetail.image}
-                horizontal={true}
+                data={props?.shopDetail?.image}
+                numColumns={2}
+                contentContainerStyle={{alignItems:'center'}}
                 renderItem={({ item, index }) =>
                   props._handlePhotos(item, index)
                 }
@@ -529,18 +514,18 @@ const ShopDetail = (props) => {
             <View style={styles.UserContainer}>
               <Image
                 style={styles.UserProfileStyle}
-                source={{ uri: props.shopDetail && props.shopDetail.logo }}
+                source={{ uri: props?.shopDetail?.logo }}
               />
               <View style={{ paddingLeft: 20 }}>
                 <Text style={styles.CovidMainTxt}>
-                  {props.shopDetail && props.shopDetail.business_user_name}
+                  {props?.shopDetail?.business_user_name}
                 </Text>
                 <Text style={styles.PostDateText}>Business Owner</Text>
               </View>
             </View>
             <View style={styles.CovidParaView}>
               <Text style={styles.ReviewFullView}>
-                {props.shopDetail && props.shopDetail.about_business}
+                {props?.shopDetail?.about_business}
               </Text>
             </View>
           </View>
@@ -601,7 +586,7 @@ const ShopDetail = (props) => {
             )}
             <FlatList
               keyExtractor={(item, index) => index.toString()}
-              data={props.shopDetail.business_review}
+              data={props?.shopDetail?.business_review}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item, index }) => props._handleReview(item, index)}
             />

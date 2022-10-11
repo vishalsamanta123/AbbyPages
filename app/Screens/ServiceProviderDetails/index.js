@@ -44,8 +44,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     business_type: 3,
     business_id: "",
   });
-  const [serviceDetail, setServiceDetail] = useState([]);
-  console.log('serviceDetail: ', serviceDetail);
+  const [serviceDetail, setServiceDetail] = useState();
   const [handleOptions, setHandleOptions] = useState([
     {
       id: "1",
@@ -65,7 +64,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const handleServiceDetails = async (data) => {
     setVisible(true);
     const params = {
-      business_type: 2,
+      business_type: 3,
       business_id: data.business_id,
     };
     try {
@@ -89,16 +88,16 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   };
   const handlePhotos = (item, index) => {
     return (
-      <View key={index}>
-        <View style={{ paddingRight: 10, paddingTop: 10 }}>
-          <Image
-            style={{ width: 125, height: 135, borderRadius: 10 }}
-            source={{ uri: item?.image }}
-          />
-          <View>
-            <Text>{item.userDescription}</Text>
-          </View>
-        </View>
+      <View
+        key={index}
+        style={{ width: "50%", paddingRight: 10, paddingTop: 10 }}
+      >
+        <Image
+          resizeMode={"stretch"}
+          style={{ width: "100%", height: 100, borderRadius: 10 }}
+          source={{ uri: item?.image }}
+        />
+        {item.userDescription && <Text>{item.userDescription}</Text>}
       </View>
     );
   };
@@ -108,6 +107,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });
@@ -118,6 +118,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });

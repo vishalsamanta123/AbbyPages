@@ -140,7 +140,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         } else {
           handleRestroList(offSet);
         }
-        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);

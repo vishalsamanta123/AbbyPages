@@ -225,10 +225,9 @@ const Styles = StyleSheet.create({
     color: LIGHT_GREY_COLOR_CODE,
   },
   tenYearbussinessvwe: {
-    flex: 1,
     backgroundColor: WHITE_COLOR_CODE,
     marginTop: 10,
-    padding: 15,
+    paddingHorizontal: 15,
   },
   hightxt: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -238,6 +237,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 8,
     paddingBottom: 5,
+    alignItems: "center",
   },
   allpostjobsvwe: {
     paddingLeft: 10,
@@ -250,7 +250,7 @@ const Styles = StyleSheet.create({
   photoview: {
     backgroundColor: WHITE_COLOR_CODE,
     marginTop: 10,
-    padding: 15,
+    paddingHorizontal: 15,
   },
   photosecview: {
     flexDirection: "row",
@@ -347,7 +347,7 @@ const Styles = StyleSheet.create({
   },
   ratedVws: {
     borderBottomWidth: 0.5,
-    paddingBottom: 20,
+    paddingBottom: 8,
     borderBottomColor: "#dadada",
   },
   serviceview: {
@@ -388,10 +388,14 @@ const Styles = StyleSheet.create({
     fontSize: 15,
   },
   googlebigimg: {
-    width: "100%",
-    height: 200,
+    width: "95%",
+    height: 190,
+    alignSelf: "center",
   },
-  twoaddvwe: { padding: 15 },
+  twoaddvwe: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+  },
   twotxt: {
     fontSize: 18,
     fontFamily: FONT_FAMILY_REGULAR,
@@ -420,7 +424,7 @@ const Styles = StyleSheet.create({
   aboutbussvwe: {
     backgroundColor: WHITE_COLOR_CODE,
     marginTop: 10,
-    padding: 15,
+    paddingHorizontal: 15,
   },
   aboutview: {
     flexDirection: "row",

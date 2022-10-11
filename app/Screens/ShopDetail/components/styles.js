@@ -96,7 +96,6 @@ const Styles = StyleSheet.create({
   RestroDetailView: {
     backgroundColor: WHITE_COLOR_CODE,
     paddingLeft: 15,
-    paddingBottom: 25,
     paddingRight: 15,
   },
   RestroNameTxt: {
@@ -117,7 +116,7 @@ const Styles = StyleSheet.create({
   AddShareContainer: {
     paddingRight: 15,
     paddingLeft: 15,
-    paddingBottom: 25,
+    paddingBottom: 10,
     borderBottomWidth: 1.3,
     borderBottomColor: LINE_COMMON_COLOR_CODE,
   },
@@ -146,7 +145,8 @@ const Styles = StyleSheet.create({
   },
   MainUpdateContainer: {
     backgroundColor: WHITE_COLOR_CODE,
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingTop: 8,
   },
   UpdatesViewStyle: {
     flexDirection: "row",
@@ -163,7 +163,7 @@ const Styles = StyleSheet.create({
     fontSize: 16,
   },
   CovidParaView: {
-    paddingTop: 10,
+    paddingTop: 5,
   },
   PostDateText: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -207,7 +207,6 @@ const Styles = StyleSheet.create({
     color: GREY_COLOR_CODE,
   },
   PopularDishContain: {
-    marginTop: 10,
     backgroundColor: WHITE_COLOR_CODE,
     paddingHorizontal: 15,
     paddingVertical: 5,
@@ -253,9 +252,8 @@ const Styles = StyleSheet.create({
   },
   AboutBusinessContain: {
     backgroundColor: WHITE_COLOR_CODE,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
   },
   FlexDirectnStyle: {
     flexDirection: "row",
@@ -288,11 +286,9 @@ const Styles = StyleSheet.create({
     fontSize: 14,
   },
   ReviewFullList: {
-    marginTop: 10,
     backgroundColor: WHITE_COLOR_CODE,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 10,
     paddingBottom: 10,
   },
   OptionsContain: {
@@ -322,6 +318,16 @@ const Styles = StyleSheet.create({
   },
   DishNameTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  photosVw: {
+    borderRadius: 10,
+    alignItems: "center",
+    margin: 5,
+    width: "47%",
+  },
+  photosCon: {
+    width: "100%",
+    height: 120,
   },
   ImgeDetailTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -387,7 +393,7 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
-    marginTop: 16,
+    marginTop: 10,
   },
   relatedItems: {
     flexDirection: "row",
@@ -402,7 +408,7 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
   MainImgeStyle: {
-    width: 80,
+    width: 100,
     height: 100,
     borderRadius: 15,
     borderWidth: 0.2,

@@ -4,7 +4,7 @@ import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
 import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -27,7 +27,11 @@ const OrderHistoryView = ({ navigation }) => {
 
   useEffect(() => {
     handleItemCategoryList();
-    handleOrderedItemList(0, isSelectedCatgory);
+    if (offSet === 0) {
+      handleOrderedItemList(0, isSelectedCatgory);
+    } else {
+      setOffSet(0);
+    }
   }, [isFocus]);
 
   const handleItemCategoryList = async () => {
@@ -84,38 +88,33 @@ const OrderHistoryView = ({ navigation }) => {
     }
   };
   const onpressOrder = (item) => {
-    console.log("item: ", item);
     navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
   };
   const _renderCategory = (item, index) => {
     return (
       <>
-        {item.business_type_name === "Job" ||
-        item.business_type_name === "Shoping" ||
-        item.business_type_name === "Event " ? (
-          <TouchableOpacity
-            onPress={() => {
-              if (item.business_type_id != isSelectedCatgory) {
-                handleOrderedItemList(offSet, item.business_type_id);
-              }
-            }}
-            style={styles.lablestyle}
+        <TouchableOpacity
+          onPress={() => {
+            if (item.business_type_id != isSelectedCatgory) {
+              handleOrderedItemList(0, item.business_type_id);
+            }
+          }}
+          style={styles.lablestyle}
+        >
+          <Text
+            style={[
+              styles.txtCat,
+              {
+                color:
+                  item.business_type_id === isSelectedCatgory
+                    ? WHITE_COLOR_CODE
+                    : LIGHT_WHITE_COLOR,
+              },
+            ]}
           >
-            <Text
-              style={[
-                styles.txtCat,
-                {
-                  color:
-                    item.business_type_id === isSelectedCatgory
-                      ? WHITE_COLOR_CODE
-                      : LIGHT_WHITE_COLOR,
-                },
-              ]}
-            >
-              {item.business_type_name}
-            </Text>
-          </TouchableOpacity>
-        ) : null}
+            {item.business_type_name}
+          </Text>
+        </TouchableOpacity>
       </>
     );
   };

@@ -123,7 +123,7 @@ const OrderHistory = (props) => {
         <TouchableOpacity
           onPress={() => {
             if (props.isSelectedCatgory != 0) {
-              props.handleOrderedItemList(props.offSet, 0);
+              props.handleOrderedItemList(0, 0);
             }
           }}
           style={styles.lablestyle}
@@ -177,11 +177,11 @@ const OrderHistory = (props) => {
           onEndReached={() => {
             if (scrollBegin) {
               if (!props.stopOffset) {
+                setScrollBegin(false);
                 props?.handleOrderedItemList(
                   props?.orderItemList?.length > 5 ? props?.offSet + 1 : null,
                   props.isSelectedCatgory
                 );
-                setScrollBegin(false);
               } else {
                 setScrollBegin(false);
               }

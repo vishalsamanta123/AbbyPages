@@ -26,7 +26,8 @@ const StepSevenScreen = (props) => {
     style={CommonStyles.container}>
       <Header
         leftImg={require("../../../Assets/close_window_icon.png")}
-        HeaderText="5 of 8"
+        HeaderText="5 of 5"
+        // HeaderText="5 of 8"
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}

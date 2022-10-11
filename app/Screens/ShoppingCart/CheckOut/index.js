@@ -3,6 +3,7 @@ import { View, Alert } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import CheckOutScreen from "./components/CheckOutScreen";
 import _ from "lodash";
+import { useFocusEffect } from "@react-navigation/native";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
@@ -30,7 +31,6 @@ const CheckOut = ({ navigation }) => {
     validExpiryDate: "",
     validNumber: "",
   });
-  // console.log('onlineDetail: ', onlineDetail);
   const [addressListVisible, setAddressListVisible] = useState(false);
   const [finalAmount, setFinalAmount] = useState("");
   const [locationList, setLocationList] = useState([]);
@@ -40,10 +40,16 @@ const CheckOut = ({ navigation }) => {
   const [allDelete, setAllDelete] = useState(false);
   const [removeIndex, setRemoveIndex] = useState("");
 
-  useEffect(() => {
-    handleFinalAmount();
-    _handleDetails();
-  }, [reload, removeIndex]);
+  useFocusEffect(
+    React.useCallback(() => {
+      handleFinalAmount();
+      _handleDetails();
+      return () => {
+        handleFinalAmount();
+      _handleDetails();
+      };
+    }, [reload, removeIndex])
+  );
 
   const validationForContinue = () => {
     if (location === []) {

@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
@@ -22,9 +22,10 @@ import {
 
 const ApplyJob = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Apply Job"}
@@ -326,7 +327,7 @@ const ApplyJob = (props) => {
                 selectedValue={props.applyJob.gender}
                 style={styles.pickerVw}
                 itemStyle={{
-                  height: Platform.OS === "ios" ? '100%' : null,
+                  height: Platform.OS === "ios" ? "100%" : null,
                   textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>
@@ -351,7 +352,7 @@ const ApplyJob = (props) => {
                 selectedValue={props.applyJob.race}
                 style={styles.pickerVw}
                 itemStyle={{
-                  height: Platform.OS === "ios" ? '100%' : null,
+                  height: Platform.OS === "ios" ? "100%" : null,
                   textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>
@@ -378,7 +379,7 @@ const ApplyJob = (props) => {
                 selectedValue={props.applyJob.veteran_status}
                 style={styles.pickerVw}
                 itemStyle={{
-                  height: Platform.OS === "ios" ? '100%' : null,
+                  height: Platform.OS === "ios" ? "100%" : null,
                   textAlign: "left",
                 }}
                 onValueChange={(itemValue, itemIndex) =>

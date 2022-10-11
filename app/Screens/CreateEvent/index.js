@@ -231,6 +231,7 @@ const CreateEventView = ({ route, navigation }) => {
       width: windowWidth,
       height: windowHeight / 2,
       mediaType: "video",
+      compressVideoPreset: "MediumQuality",
     }).then((video) => {
       setCreateEvent({
         ...createEvent,
@@ -247,6 +248,7 @@ const CreateEventView = ({ route, navigation }) => {
       multiple: true,
       cropping: true,
       mediaType: "photo",
+      compressImageQuality: 1,
     }).then((image) => {
       setUpdatePic(image);
       if (createEvent?.event_photo?.length > 0) {

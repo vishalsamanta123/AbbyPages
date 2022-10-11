@@ -122,13 +122,12 @@ const ShopList = ({ navigation, route }) => {
     navigation.navigate("ShopDetail", { detail: item });
   };
   const onPressLike = async (item) => {
-  console.log('item: ', item);
     try {
       setVisible(true);
       const params = {
         // business_id: item.business_id,
         // like_status: item.user_like === 1 ? 0 : 1,
-        
+
         item_type: Number(item.search_business_type),
         item_id: item.business_id,
         like: item?.user_like === 1 ? 0 : 1,
@@ -146,7 +145,7 @@ const ShopList = ({ navigation, route }) => {
         } else {
           handleShopList(offSet);
         }
-        ToastAndroid.show(data.message, ToastAndroid.SHORT);
+        ToastAndroid.show(data.message, ToastAndroid.LONG);
         setVisible(false);
       } else {
         setErrorMessage(data.message);

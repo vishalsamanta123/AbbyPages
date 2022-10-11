@@ -29,7 +29,8 @@ const StepThirdScreen = (props) => {
     >
       <Header
         leftImg={require("../../../Assets/close_window_icon.png")}
-        HeaderText="3 of 8"
+        HeaderText="3 of 5"
+        // HeaderText="3 of 8"
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -37,7 +38,7 @@ const StepThirdScreen = (props) => {
       />
       <ScrollView
         keyboardDismissMode="on-drag"
-        keyboardShouldPersistTaps={"always"}
+        keyboardShouldPersistTaps={"handled"}
       >
         <View style={styles.inputtexvwe}>
           <View style={styles.maintxtVwe}>

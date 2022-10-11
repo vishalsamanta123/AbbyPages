@@ -160,11 +160,13 @@ const ConfirmOrderView = ({ navigation }) => {
         delivery_type: 1, //takeaway or delievery
         order_booking_type: 2, //table ,outside,foodand item
       };
+      console.log('params: ', params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.PRODUCT_ORDER_BOOKING,
         params
       );
+      console.log("data:PRODUCT_ORDER_BOOKING ", data);
       if (data.status == 200) {
         setSuccessMessage(data.message);
         setVisibleSuccess(true);

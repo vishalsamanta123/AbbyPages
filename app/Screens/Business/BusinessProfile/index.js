@@ -121,6 +121,7 @@ const BusinessProfileView = ({ navigation }) => {
       ImagePicker.openCropper({
         path: images.path,
         freeStyleCropEnabled: true,
+        compressImageQuality: 1,
       }).then((image) => {
         if (image.size >= 1000000) {
           ImageResizer.createResizedImage(image.path, 800, 800, "JPEG", 95)
@@ -155,6 +156,7 @@ const BusinessProfileView = ({ navigation }) => {
     ImagePicker.openCamera({
       cropping: true,
       freeStyleCropEnabled: true,
+      compressImageQuality: 1,
     }).then((image) => {
       if (image.size >= 1000000) {
         ImageResizer.createResizedImage(image.path, 800, 800, "JPEG", 95)

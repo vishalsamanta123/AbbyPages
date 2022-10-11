@@ -152,7 +152,7 @@ const Styles = StyleSheet.create({
   },
   resetVw: {
     paddingHorizontal: 10,
-    top: 5,
+    top: Platform.OS === "ios" ? 5 : 0,
   },
   resetTxt: {
     fontSize: 16,

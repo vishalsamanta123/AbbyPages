@@ -53,6 +53,7 @@ const ProductListing = ({ navigation, route }) => {
     product_tags: "",
     sorting: "",
   });
+  console.log('filterData: ', filterData.color);
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {

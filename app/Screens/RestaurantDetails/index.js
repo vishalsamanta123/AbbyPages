@@ -50,7 +50,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
     business_type: 3,
     business_id: restroDetail.business_id,
   });
-  // const [business_id, setBusinessId] = useState(0);
+  const [galleryPhotos, setGalleryPhotos] = useState(4);
   const [isSelected, setIsSelected] = useState(0);
   const [DialogVisible, setDialogVisible] = useState(false);
   const { width, height } = Dimensions.get("window");
@@ -357,6 +357,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });
@@ -367,6 +368,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });
@@ -408,18 +410,17 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   };
   const _handlePhotos = (item, index) => {
     return (
-      <View key={index} style={styles.PopularConatiner}>
-        <Image
-          style={[
-            styles.PopularDishImg,
-            {
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-            },
-          ]}
-          source={{ uri: item.image }}
-        />
-      </View>
+      <>
+        {index < galleryPhotos ? (
+          <View key={index} style={styles.photosVw}>
+            <Image
+              style={styles.photosCon}
+              resizeMode={"stretch"}
+              source={{ uri: item.image }}
+            />
+          </View>
+        ) : null}
+      </>
     );
   };
   const shareTo = async () => {
@@ -488,6 +489,8 @@ const RestaurantDetailsView = ({ navigation, route }) => {
         shareTo={shareTo}
         saveResto={saveResto}
         onPressRestro={onPressRestro}
+        galleryPhotos={galleryPhotos}
+        setGalleryPhotos={setGalleryPhotos}
       />
       <Error
         message={errorMessage}

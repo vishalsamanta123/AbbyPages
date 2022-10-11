@@ -160,7 +160,9 @@ const AddItem = ({ route, navigation }) => {
 
   const onPressGallery = () => {
     setCamerastate(false);
-    ImagePicker.openPicker({}).then((images) => {
+    ImagePicker.openPicker({
+      compressImageQuality: 1,
+    }).then((images) => {
       ImagePicker.openCropper({
         path: images.path,
         freeStyleCropEnabled: true,
@@ -195,6 +197,7 @@ const AddItem = ({ route, navigation }) => {
     ImagePicker.openCamera({
       cropping: true,
       freeStyleCropEnabled: true,
+      compressImageQuality: 1,
     }).then((image) => {
       if (image.size >= 1000000) {
         ImageResizer.createResizedImage(image.path, 800, 800, "JPEG", 95)

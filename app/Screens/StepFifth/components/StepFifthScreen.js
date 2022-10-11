@@ -26,10 +26,11 @@ const StepFifthScreen = (props) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={[CommonStyles.container]}
     >
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps={"handled"}>
         <Header
           leftImg={require("../../../Assets/close_window_icon.png")}
-          HeaderText="4 of 8"
+          HeaderText="4 of 5"
+          // HeaderText="4 of 8"
           RightImg={null}
           MainHeadStyle={{ color: WHITE_COLOR_CODE }}
           tintColor={WHITE_COLOR_CODE}

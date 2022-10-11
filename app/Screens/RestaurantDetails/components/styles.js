@@ -318,6 +318,16 @@ const Styles = StyleSheet.create({
   DishNameTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
   },
+  photosVw: {
+    borderRadius: 10,
+    alignItems: "center",
+    margin: 5,
+    width: "47%",
+  },
+  photosCon: {
+    width: "100%",
+    height: 120,
+  },
   ImgeDetailTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 10,

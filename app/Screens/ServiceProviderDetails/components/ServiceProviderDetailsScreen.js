@@ -19,8 +19,6 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -29,29 +27,30 @@ import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
+
 const ServiceProviderDetailsScreen = (props) => {
   const initialRegion = {
-    latitude: props.serviceDetail.latitude
-      ? parseInt(props.serviceDetail.latitude)
+    latitude: props?.serviceDetail?.latitude
+      ? parseInt(props?.serviceDetail?.latitude)
       : 22.72448,
-    longitude: props.serviceDetail.longitude
-      ? parseInt(props.serviceDetail.longitude)
+    longitude: props?.serviceDetail?.longitude
+      ? parseInt(props?.serviceDetail?.longitude)
       : 75.889267,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   };
   const coordinate = {
-    latitude: props.serviceDetail.latitude
-      ? parseInt(props.serviceDetail.latitude)
+    latitude: props?.serviceDetail?.latitude
+      ? parseInt(props?.serviceDetail?.latitude)
       : 22.72448,
-    longitude: props.serviceDetail.longitude
-      ? parseInt(props.serviceDetail.longitude)
+    longitude: props?.serviceDetail?.longitude
+      ? parseInt(props?.serviceDetail?.longitude)
       : 75.889267,
   };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={[CommonStyles.container]}
+      style={CommonStyles.container}
     >
       <Header
         HeaderText="Service Provider Details "
@@ -64,30 +63,17 @@ const ServiceProviderDetailsScreen = (props) => {
         <ScrollView>
           <View style={styles.mainfrsrvwe}>
             <Text style={styles.taichitxt}>
-              {props.serviceDetail.business_name}{" "}
+              {props?.serviceDetail?.business_name}{" "}
             </Text>
             <View style={styles.addressvwe}>
               <Text style={styles.addresstxt}>
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 0 &&
-                  "$ | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 1 &&
-                  "$  | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 2 &&
-                  "$$  | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 3 &&
-                  "$$$  | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 4 &&
-                  "$$$$  | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_star === 5 &&
-                  "$$$$$  | "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_service_category}
+                {props?.serviceDetail?.business_star === 0 && "$ | "}
+                {props?.serviceDetail?.business_star === 1 && "$  | "}
+                {props?.serviceDetail?.business_star === 2 && "$$  | "}
+                {props?.serviceDetail?.business_star === 3 && "$$$  | "}
+                {props?.serviceDetail?.business_star === 4 && "$$$$  | "}
+                {props?.serviceDetail?.business_star === 5 && "$$$$$  | "}
+                {props?.serviceDetail?.business_service_category}
               </Text>
             </View>
             <View style={styles.fourmanvwe}>
@@ -96,23 +82,18 @@ const ServiceProviderDetailsScreen = (props) => {
               </View>
               <Text style={styles.fourratingstxt}>
                 {" "}
-                {props.serviceDetail && props.serviceDetail.rating} ratings
+                {props?.serviceDetail?.rating.toString().slice(0, -3)} ratings
               </Text>
               <Text style={styles.standinglinetxt}> | </Text>
               <Text style={styles.closedtxt}>
                 {" "}
-                {props.serviceDetail && props.serviceDetail.login_status === 1
+                {props?.serviceDetail?.login_status === 1
                   ? "Open"
                   : "Closed"}{" "}
               </Text>
               <Text style={styles.timetxt}>
-                :{" "}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_open_time &&
-                  props.serviceDetail.business_open_time.open_time + "-"}
-                {props.serviceDetail &&
-                  props.serviceDetail.business_open_time &&
-                  props.serviceDetail.business_open_time.close_time}{" "}
+                : {props?.serviceDetail?.business_open_time?.open_time + "-"}
+                {props?.serviceDetail?.business_open_time?.close_time}{" "}
               </Text>
             </View>
             <Button
@@ -149,7 +130,7 @@ const ServiceProviderDetailsScreen = (props) => {
               <Image
                 style={{
                   tintColor:
-                    props?.serviceDetail?.user_like > 0
+                    props?.serviceDetail?.user_like === 1
                       ? YELLOW_COLOR_CODE
                       : null,
                 }}
@@ -161,8 +142,7 @@ const ServiceProviderDetailsScreen = (props) => {
           {/* <FlatList
             horizontal={true}
             keyExtractor={(item, index) => index.toString()}
-            // data={props?.serviceDetail?.recommended_business}
-            data={props.handleOptions}
+            data={props?.serviceDetail?.recommended_business}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => props._handleOptions(item, index)}
           /> */}
@@ -188,10 +168,9 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={{ flexDirection: "row", padding: 15 }}>
               <View style={styles.saveimg}>
                 <View style={{ justifyContent: "center" }}>
-                  {props.serviceDetail &&
-                  props.serviceDetail.staff_wears_gloves == 1 ? (
+                  {props?.serviceDetail?.staff_wears_gloves == 1 ? (
                     <View style={{}}>
-                      <ImageBackground
+                      <Image
                         style={styles.RightImgeStyle}
                         source={require("../../../Assets/text_check_icon.png")}
                       />
@@ -211,10 +190,9 @@ const ServiceProviderDetailsScreen = (props) => {
               </View>
               <View style={[styles.saveimg, { paddingLeft: 10 }]}>
                 <View style={{ justifyContent: "center" }}>
-                  {props.serviceDetail &&
-                  props.serviceDetail.masks_required == 1 ? (
+                  {props?.serviceDetail?.masks_required == 1 ? (
                     <View style={{}}>
-                      <ImageBackground
+                      <Image
                         style={styles.RightImgeStyle}
                         source={require("../../../Assets/text_check_icon.png")}
                       />
@@ -234,7 +212,7 @@ const ServiceProviderDetailsScreen = (props) => {
               </View>
             </View>
           </View>
-          {props.serviceDetail.admin_approved == 1 && (
+          {props?.serviceDetail?.admin_approved == 1 && (
             <View style={styles.verfiedview}>
               <View style={styles.profileview}>
                 <View style={styles.profileanotherview}>
@@ -258,55 +236,68 @@ const ServiceProviderDetailsScreen = (props) => {
           <View style={styles.tenYearbussinessvwe}>
             <Text style={styles.hightxt}>Highlights from the Business</Text>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_1.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_1.png")}
+              />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
-                  {moment(
-                    props.serviceDetail.create_date &&
-                      props.serviceDetail.create_date
-                  )
+                  {moment(props?.serviceDetail?.create_date)
                     .startOf("MM/DD/YYYY")
                     .fromNow() + " "}
-                  in business{" "}
+                  in business
                 </Text>
               </View>
             </View>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_2.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_2.png")}
+              />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
-                  Family-owened & oprated{" "}
+                  Family-owened & operated
                 </Text>
               </View>
             </View>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_3.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_3.png")}
+              />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
-                  {" "}
                   Consulations available
                 </Text>
               </View>
             </View>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_4.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_4.png")}
+              />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>Discounts available</Text>
               </View>
             </View>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_5.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_5.png")}
+              />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
-                  {" "}
-                  Parts & labor guarannteed{" "}
+                  Parts & labor guarannteed
                 </Text>
               </View>
             </View>
             <View style={styles.tenanothervwe}>
-              <Image source={require("../../../Assets/highlight_icon_6.png")} />
+              <Image
+                // style={{ width: 24, height: 24 }}
+                source={require("../../../Assets/highlight_icon_6.png")}
+              />
               <View style={styles.allpostjobsvwe}>
-                <Text style={styles.allpostjobstxt}> LGBTQ friendly </Text>
+                <Text style={styles.allpostjobstxt}>LGBTQ friendly </Text>
               </View>
             </View>
           </View>
@@ -316,10 +307,9 @@ const ServiceProviderDetailsScreen = (props) => {
                 <Text style={styles.pandvtxt}>Photos and Videos</Text>
               </View>
               <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 data={props?.serviceDetail?.image}
+                numColumns={2}
                 renderItem={({ item, index }) =>
                   props.handlePhotos(item, index)
                 }
@@ -355,8 +345,8 @@ const ServiceProviderDetailsScreen = (props) => {
               <TouchableOpacity
                 onPress={() =>
                   props.handleGetDirections(
-                    props.serviceDetail && props.serviceDetail.latitude,
-                    props.serviceDetail && props.serviceDetail.longitude
+                    props?.serviceDetail?.latitude,
+                    props?.serviceDetail?.longitude
                   )
                 }
               >
@@ -372,7 +362,7 @@ const ServiceProviderDetailsScreen = (props) => {
               <Marker
                 coordinate={coordinate}
                 // image={require('../../../Assets/login_logo.png')}
-                title={props.serviceDetail && props.serviceDetail.business_name}
+                title={props?.serviceDetail?.business_name}
                 // description={marker.description}
               >
                 <Image
@@ -384,16 +374,11 @@ const ServiceProviderDetailsScreen = (props) => {
               </Marker>
             </MapView>
             <View style={styles.twoaddvwe}>
-              <Text style={styles.twotxt}>
-                {props.serviceDetail && props.serviceDetail.address}
-              </Text>
+              <Text style={styles.twotxt}>{props?.serviceDetail?.address}</Text>
             </View>
             <FlatList
               keyExtractor={(item, index) => index.toString()}
-              data={
-                props.serviceDetail.business_service_time &&
-                props.serviceDetail.business_service_time
-              }
+              data={props?.serviceDetail?.business_service_time}
               renderItem={({ item, index }) => (
                 <View
                   key={index}
@@ -424,13 +409,12 @@ const ServiceProviderDetailsScreen = (props) => {
               <Image
                 style={styles.bussinessimg}
                 source={{
-                  uri: props.serviceDetail && props.serviceDetail.logo,
+                  uri: props?.serviceDetail?.logo,
                 }}
               />
               <View style={styles.steveview}>
                 <Text style={styles.stevetxt}>
-                  {props.serviceDetail &&
-                    props.serviceDetail.business_user_name}
+                  {props?.serviceDetail?.business_user_name}
                 </Text>
                 <Text style={styles.bussinessvwe}>Business Owner</Text>
               </View>
@@ -438,7 +422,7 @@ const ServiceProviderDetailsScreen = (props) => {
             {props?.serviceDetail?.about_business && (
               <View style={styles.longbussinessvwe}>
                 <Text style={styles.longbussinesstxt}>
-                  {props.serviceDetail && props?.serviceDetail?.about_business}
+                  {props?.serviceDetail?.about_business}
                 </Text>
               </View>
             )}
@@ -503,11 +487,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <FlatList
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
-              data={
-                props.serviceDetail &&
-                props.serviceDetail.business_review &&
-                props.serviceDetail.business_review
-              }
+              data={props?.serviceDetail?.business_review}
               renderItem={({ item, index }) => props._handleReview(item, index)}
             />
           </View>

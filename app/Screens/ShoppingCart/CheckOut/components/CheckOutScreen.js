@@ -33,9 +33,10 @@ const CheckOutScreen = (props) => {
   const _renderAddressList = (item) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          props.setLocation(item, props.setAddressListVisible(false))
-        }
+        onPress={() => {
+          props.setLocation([item]);
+          props.setAddressListVisible(false);
+        }}
         style={styles.dataCon}
       >
         <Text style={{ fontFamily: FONT_FAMILY_REGULAR, color: "#3a3838" }}>

@@ -352,6 +352,7 @@ const ShopDetail = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });
@@ -362,6 +363,7 @@ const ShopDetail = ({ navigation, route }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadImage(image);
     });
@@ -403,15 +405,10 @@ const ShopDetail = ({ navigation, route }) => {
   };
   const _handlePhotos = (item, index) => {
     return (
-      <View key={index} style={styles.PopularConatiner}>
+      <View key={index} style={styles.photosVw}>
         <Image
-          style={[
-            styles.PopularDishImg,
-            {
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-            },
-          ]}
+          resizeMode={"stretch"}
+          style={styles.photosCon}
           source={{ uri: item.image }}
         />
       </View>

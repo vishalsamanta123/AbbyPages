@@ -55,6 +55,7 @@ const UpdateProfileView = ({ navigation }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadProfileImage(image);
     });
@@ -65,6 +66,7 @@ const UpdateProfileView = ({ navigation }) => {
       width: 300,
       height: 400,
       cropping: true,
+      compressImageQuality: 1,
     }).then((image) => {
       handleUploadProfileImage(image);
     });

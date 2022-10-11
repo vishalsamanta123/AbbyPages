@@ -217,7 +217,9 @@ const RestaurantDetailsScreen = (props) => {
               <Text style={styles.RatingStylesTxt}>5.0</Text>
             </View>
             <Text style={styles.RatingTextMain}>
-              {props.restroDetail && props.restroDetail.rating} ratings |{" "}
+              {props.restroDetail &&
+                props.restroDetail.rating.toString().slice(0, -3)}{" "}
+              ratings |{" "}
             </Text>
             <Text style={styles.MainClosedTime}>
               {props.restroDetail && props.restroDetail.login_status === 1
@@ -516,7 +518,7 @@ const RestaurantDetailsScreen = (props) => {
           </View>
           <MapView
             showsUserLocation
-            style={{ width: "100%", height: 190 }}
+            style={{ width: "95%", height: 190, alignSelf: "center" }}
             provider={PROVIDER_GOOGLE}
             initialRegion={initialRegion}
           >
@@ -559,19 +561,44 @@ const RestaurantDetailsScreen = (props) => {
                             </View>
                         </View> */}
         </View>
-        <View style={styles.PopularDishContain}>
-          <Text style={styles.CovidMainTxt}>Photos</Text>
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={
-              props.restroDetail &&
-              props.restroDetail.image &&
-              props.restroDetail.image
-            }
-            horizontal={true}
-            renderItem={({ item, index }) => props._handlePhotos(item, index)}
-          />
-        </View>
+        {props?.restroDetail?.image?.length > 0 ? (
+          <>
+            <Text style={[styles.CovidMainTxt, { paddingLeft: 8 }]}>
+              Business Gallery
+            </Text>
+            <FlatList
+              keyExtractor={(item, index) => index.toString()}
+              data={props?.restroDetail?.image}
+              numColumns={2}
+              renderItem={({ item, index }) => props._handlePhotos(item, index)}
+              ListFooterComponent={() => {
+                return (
+                  <>
+                    {props?.restroDetail?.image?.length > 4 && (
+                      <TouchableOpacity
+                        onPress={() => {
+                          if (props.galleryPhotos > 4) {
+                            props.setGalleryPhotos(4);
+                          } else {
+                            props.setGalleryPhotos(
+                              props?.restroDetail?.image.length
+                            );
+                          }
+                        }}
+                      >
+                        <Text
+                          style={[styles.CovidMainTxt, { alignSelf: "center" }]}
+                        >
+                          {props.galleryPhotos > 4 ? "Less" : "More"}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </>
+                );
+              }}
+            />
+          </>
+        ) : null}
         <View style={styles.AboutBusinessContain}>
           <View style={styles.FlexDirectnStyle}>
             <Text style={styles.CovidMainTxt}>About the Business</Text>

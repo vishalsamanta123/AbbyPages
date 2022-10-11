@@ -57,7 +57,7 @@ const JobList = ({ navigation }) => {
   const _hanldeSetLike = async (item) => {
     try {
       const params = {
-        item_type: Number(item.job_type),
+        item_type: Number(item?.job_type),
         item_id: item?.job_id,
         like: item?.user_like === 1 ? 0 : 1,
         favorite: item?.favorite ? item?.favorite : 0,

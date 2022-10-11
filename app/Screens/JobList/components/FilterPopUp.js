@@ -133,6 +133,7 @@ export default function FilterPopUp(props) {
               backgroundColor: name ? WHITE_COLOR_CODE : null,
               lineHeight: 20,
               width: properWidth,
+              textAlign: "center",
             },
           ]}
         >
@@ -220,17 +221,18 @@ export default function FilterPopUp(props) {
         height={props.search ? "50%" : "100%"}
         dialogAnimation={new SlideAnimation({ slideFrom: "bottom" })}
       >
-        <StatusBar
+        {/* <StatusBar
           barStyle="dark-content"
           hidden={false}
           backgroundColor={YELLOW_COLOR_CODE}
           translucent={false}
-        />
+        /> */}
         <View
           style={[
             CommonStyles.header,
             {
-              paddingTop: Platform.OS === "ios" ? (props.search ? 10 : 45) : 10,
+              paddingVertical:
+                Platform.OS === "ios" ? (props.search ? 10 : 45) : 12,
             },
           ]}
         >
@@ -326,30 +328,33 @@ export default function FilterPopUp(props) {
                     name={filterData.categoryName}
                     handleData={() => handleCategory(null)}
                     data={category}
-                    properWidth={90}
+                    properWidth={80}
                   />
 
                   <PickerComponent
                     name={filterData.country}
-                    handleData={() => getPlaces(0, 1)}
+                    handleData={() => getPlaces(0)}
                     title={"Country"}
                     data={country}
                     properWidth={81}
                   />
+
                   <PickerComponent
                     name={filterData.state}
-                    handleData={() => getPlaces(1, 2)}
+                    handleData={() => getPlaces(1)}
                     title={"State"}
                     data={state}
-                    properWidth={58}
+                    properWidth={52}
                   />
+
                   <PickerComponent
                     title={"City"}
                     name={filterData.city}
-                    handleData={() => getPlaces(2, 3)}
+                    handleData={() => getPlaces(2)}
                     data={city}
-                    properWidth={45}
+                    properWidth={40}
                   />
+
                   <PickerComponent
                     title={"Hire Type"}
                     name={filterData.hire_type}
@@ -436,11 +441,11 @@ export default function FilterPopUp(props) {
                     search,
                     category.length > 0
                       ? null
-                      : country.length > 0
+                      : country?.length > 0
                       ? 0
-                      : state.length > 0
+                      : state?.length > 0
                       ? 1
-                      : city.length > 0
+                      : city?.length > 0
                       ? 2
                       : null
                   )

@@ -15,7 +15,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 16,
     flexDirection: "row",
     backgroundColor: YELLOW_COLOR_CODE,
-   
+    alignItems: "center",
   },
   body: {
     flex: 5.5,

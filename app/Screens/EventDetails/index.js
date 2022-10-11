@@ -58,7 +58,6 @@ const EventDetails = ({ route }) => {
   });
   const [percentage, setPercentage] = useState(0);
   const couts = percentage * 0.16;
-  console.log('couts: ', couts);
   const IncreasePercentage =
     100 * Math.abs((60 * 10 - percentage) / ((60 * 10 + percentage) / 2));
   const videoUrl = `${eventDetails?.events_video?.substring(

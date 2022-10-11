@@ -7,25 +7,10 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
-import Dialog, {
-  DialogContent,
-  SlideAnimation,
-} from "react-native-popup-dialog";
-import CommonStyles from "../../../Utils/CommonStyles";
-import Input from "../../../Components/Input";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_BLACK,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  SMALL_TEXT_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+import Dialog, { SlideAnimation } from "react-native-popup-dialog";
+import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import styles from "./styles";
 import { Picker } from "@react-native-community/picker";
 import { apiCall } from "../../../Utils/httpClient";
@@ -33,6 +18,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import Button from "../../../Components/Button";
 const { width, height } = Dimensions.get("window");
+
 export default function FilterPopUp(props) {
   const [productCatg, setProductCatg] = useState([]);
   const [productSubCatg, setProductSubCatg] = useState([]);
@@ -332,7 +318,9 @@ export default function FilterPopUp(props) {
                         sub_category_id: itemValue,
                       });
                     }}
-                    itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
+                    itemStyle={{
+                      height: Platform.OS === "ios" ? "100%" : null,
+                    }}
                     selectedValue={props.filterData.sub_category_id}
                     mode={"dialog"}
                     style={styles.subCategoryTxt}
@@ -358,7 +346,7 @@ export default function FilterPopUp(props) {
           >
             <Text style={[styles.pickerVw]}>
               {props.filterData.color.length > 0
-                ? props.filterData.color + ""
+                ? props.filterData.color.toString() + ""
                 : "Color"}
             </Text>
           </TouchableOpacity>
@@ -376,49 +364,57 @@ export default function FilterPopUp(props) {
               })}
             </>
           ) : null}
-          <Text style={styles.typesTxt}>Select Size</Text>
-          <View style={styles.container}>
-            <Picker
-              selectedValue={props.filterData.product_size}
-              style={styles.pickerVw}
-              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
-              onValueChange={(itemValue, itemIndex) =>
-                props.setFilterData({
-                  ...props.filterData,
-                  product_size: itemValue,
-                })
-              }
-              mode={"dropdown"}
-            >
-              <Picker.Item label="Size" />
-              <Picker.Item label="S" value="S" />
-              <Picker.Item label="M" value="M" />
-              <Picker.Item label="L" value="L" />
-              <Picker.Item label="XL" value="XL" />
-              <Picker.Item label="XXL" value="XXL" />
-            </Picker>
-          </View>
-          <Text style={styles.typesTxt}>Select Company Brand</Text>
-          <View style={styles.container}>
-            <Picker
-              selectedValue={props.filterData.company_brand}
-              style={styles.pickerVw}
-              onValueChange={(itemValue, itemIndex) =>
-                props.setFilterData({
-                  ...props.filterData,
-                  company_brand: itemValue,
-                })
-              }
-              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
-              mode={"dropdown"}
-            >
-              <Picker.Item label="Company Brand" />
-              <Picker.Item label="Levi's" value="Levi's" />
-              <Picker.Item label="Puma" value="Puma" />
-              <Picker.Item label="Jockey" value="Jockey" />
-              <Picker.Item label="BLIVE" value="BLIVE" />
-            </Picker>
-          </View>
+          {props.filterData.sub_category_id == 441 ? (
+            <>
+              <Text style={styles.typesTxt}>Select Size</Text>
+              <View style={styles.container}>
+                <Picker
+                  selectedValue={props.filterData.product_size}
+                  style={styles.pickerVw}
+                  itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    props.setFilterData({
+                      ...props.filterData,
+                      product_size: itemValue,
+                    })
+                  }
+                  mode={"dropdown"}
+                >
+                  <Picker.Item label="Size" />
+                  <Picker.Item label="S" value="S" />
+                  <Picker.Item label="M" value="M" />
+                  <Picker.Item label="L" value="L" />
+                  <Picker.Item label="XL" value="XL" />
+                  <Picker.Item label="XXL" value="XXL" />
+                </Picker>
+              </View>
+            </>
+          ) : null}
+          {props.filterData.sub_category_id == 441 ? (
+            <>
+              <Text style={styles.typesTxt}>Select Company Brand</Text>
+              <View style={styles.container}>
+                <Picker
+                  selectedValue={props.filterData.company_brand}
+                  style={styles.pickerVw}
+                  onValueChange={(itemValue, itemIndex) =>
+                    props.setFilterData({
+                      ...props.filterData,
+                      company_brand: itemValue,
+                    })
+                  }
+                  itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
+                  mode={"dropdown"}
+                >
+                  <Picker.Item label="Company Brand" />
+                  <Picker.Item label="Levi's" value="Levi's" />
+                  <Picker.Item label="Puma" value="Puma" />
+                  <Picker.Item label="Jockey" value="Jockey" />
+                  <Picker.Item label="BLIVE" value="BLIVE" />
+                </Picker>
+              </View>
+            </>
+          ) : null}
           <Text style={styles.typesTxt}>Select Product Tag</Text>
           <View style={styles.container}>
             <Picker
@@ -431,7 +427,7 @@ export default function FilterPopUp(props) {
                 })
               }
               mode={"dropdown"}
-              itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
+              itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
             >
               <Picker.Item label="Product Tags" />
               <Picker.Item label="T-shirt" value="T-shirt" />

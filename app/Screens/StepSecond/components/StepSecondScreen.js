@@ -16,7 +16,8 @@ const StepSecondScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         leftImg={require("../../../Assets/close_window_icon.png")}
-        HeaderText={"2 of 8"}
+        // HeaderText={"2 of 8"}
+        HeaderText={"2 of 5"}
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}

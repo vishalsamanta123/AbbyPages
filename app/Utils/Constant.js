@@ -2,7 +2,7 @@
 export const WHITE_COLOR_CODE = "#ffffff";
 export const BLACK_COLOR_CODE = "#000000";
 export const GREY_COLOR_CODE = "#757070";
-export const YELLOW_COLOR_CODE = "#ffcd00";
+export const YELLOW_COLOR_CODE = "#ffba00";
 // export const SMALL_TEXT_COLOR_CODE = "#959595";
 export const LINE_COMMON_COLOR_CODE = "#dadada";
 
@@ -12,7 +12,8 @@ export const FONT_FAMILY_REGULAR = "WorkSans-Medium";
 export const FONT_FAMILY_THIN = "WorkSans-Thin";
 export const FONT_FAMILY_BLACK = "WorkSans-Black";
 export const FONT_FAMILY_LIGHT = "WorkSans-Light";
-export const LIGHT_WHITE_COLOR = "#ffe98e";
+// export const LIGHT_WHITE_COLOR = "#ffe98e";
+export const LIGHT_WHITE_COLOR = "#ffc426";
 export const SMALL_TEXT_COLOR_CODE = "#868282";
 export const LIGHT_GREEN_COLOR_CODE = "#a3d74e";
 export const LIGHT_RED_COLOR_CODE = "#f32c2c";

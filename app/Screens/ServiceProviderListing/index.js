@@ -120,6 +120,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
   const onPressLike = async (item) => {
+  console.log('item: ', item);
     try {
       setVisible(true);
       const params = {

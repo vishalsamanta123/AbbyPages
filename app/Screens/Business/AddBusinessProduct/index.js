@@ -302,6 +302,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
     setCamerastate(false);
     ImagePicker.openPicker({
       multiple: true,
+      compressImageQuality: 1,
     }).then((images) => {
       setSelectImgUri(images);
     });
@@ -310,6 +311,7 @@ const AddBusinessProduct = ({ route, navigation }) => {
   const onPressCamera = () => {
     setCamerastate(false);
     ImagePicker.openCamera({
+      compressImageQuality: 1,
       // cropping: true,
       // freeStyleCropEnabled: true,
     }).then((image) => {

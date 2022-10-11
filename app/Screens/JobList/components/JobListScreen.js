@@ -60,7 +60,15 @@ const JobListScreen = (props) => {
               source={require("../../../Assets/job_list_icon.png")}
             />
             <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
-              {item.job_type}
+              {Number(item.job_type) === 1
+                ? "Full Time"
+                : Number(item.job_type) === 2
+                ? "Part Time"
+                : Number(item.job_type) === 3
+                ? "Intership"
+                : Number(item.job_type) === 4
+                ? "Freelancer"
+                : "Work"}
             </Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>

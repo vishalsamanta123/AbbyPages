@@ -139,6 +139,7 @@ const PlaceOrderView = ({ navigation }) => {
             ENDPOINTS.ORDERPAYMENT,
             params
           );
+          console.log("data PAyment: ", data);
           if (data.status === 200) {
             OnPressCheckOut();
           } else {
@@ -186,6 +187,7 @@ const PlaceOrderView = ({ navigation }) => {
           ENDPOINTS.BUSINESS_ITEM_ORDER,
           params
         );
+        console.log("data: BUSINESS_ITEM_ORDER", data);
         if (data.status === 200) {
           setCartData([]);
           try {
