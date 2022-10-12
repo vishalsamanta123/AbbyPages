@@ -8,25 +8,20 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
-import Button from "../../../../../Components/Button";
-import CommonStyles from "../../../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import {
   BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 const Goals = (props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={[CommonStyles.container]}
     >
-      <StatusBar
-        translucent={true}
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
       <Header
         RightImg={null}
         HeaderText={"Goal"}
@@ -36,7 +31,7 @@ const Goals = (props) => {
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <Image
           style={styles.TimeLineImge}
-          source={require("../../../../../Assets/Goals123.png")}
+          source={require("../../../../Assets/Goals123.png")}
         />
         <ScrollView>
           <View style={styles.WriteTextView}>
@@ -51,14 +46,14 @@ const Goals = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              <Image source={require("../../../../../Assets/st_icon_1.png")} />
+              <Image source={require(".../../../../Assets/st_icon_1.png")} />
               {props.textOptn ? (
                 <Image
-                  source={require("../../../../../Assets/unchecked_circled_v1.png")}
+                  source={require("../../../../Assets/unchecked_circled_v1.png")}
                 />
               ) : (
                 <Image
-                  source={require("../../../../../Assets/checked_circled_v1.png")}
+                  source={require("../../../../Assets/checked_circled_v1.png")}
                 />
               )}
             </View>
@@ -70,7 +65,7 @@ const Goals = (props) => {
             <View style={styles.RightView}>
               <Image
                 style={{ top: 2 }}
-                source={require("../../../../../Assets/box_check_icon.png")}
+                source={require("../../../../Assets/box_check_icon.png")}
               />
               <View style={styles.RecommndedView}>
                 <Text style={styles.RecommndedText}>
@@ -81,7 +76,7 @@ const Goals = (props) => {
             <View style={styles.RightView}>
               <Image
                 style={{ top: 2 }}
-                source={require("../../../../../Assets/box_check_icon.png")}
+                source={require("../../../../Assets/box_check_icon.png")}
               />
               <View style={styles.RecommndedView}>
                 <Text style={styles.RecommndedText}>
@@ -99,14 +94,14 @@ const Goals = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              <Image source={require("../../../../../Assets/st_icon_2.png")} />
+              <Image source={require("../../../../Assets/st_icon_2.png")} />
               {props.WebsiteClick ? (
                 <Image
-                  source={require("../../../../../Assets/checked_circled_v1.png")}
+                  source={require("../../../../Assets/checked_circled_v1.png")}
                 />
               ) : (
                 <Image
-                  source={require("../../../../../Assets/unchecked_circled_v1.png")}
+                  source={require("../../../../Assets/unchecked_circled_v1.png")}
                 />
               )}
             </View>
@@ -123,14 +118,14 @@ const Goals = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              <Image source={require("../../../../../Assets/st_icon_3.png")} />
+              <Image source={require("../../../../Assets/st_icon_3.png")} />
               {props.callingOptn ? (
                 <Image
-                  source={require("../../../../../Assets/checked_circled_v1.png")}
+                  source={require("../../../../Assets/checked_circled_v1.png")}
                 />
               ) : (
                 <Image
-                  source={require("../../../../../Assets/unchecked_circled_v1.png")}
+                  source={require("../../../../Assets/unchecked_circled_v1.png")}
                 />
               )}
             </View>

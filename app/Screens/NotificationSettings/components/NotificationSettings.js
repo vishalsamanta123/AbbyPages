@@ -1172,9 +1172,9 @@ const NotificationSettings = (props) => {
               style={styles.TouchableFlse}
               onPress={() => props.modalShareFalse()}
             >
-              <Image
+              {/* <Image
                 source={require("../../../Assets/screen_close_icon.png")}
-              />
+              /> */}
             </TouchableOpacity>
             <View style={{ width: "100%" }}>
               <TextInput

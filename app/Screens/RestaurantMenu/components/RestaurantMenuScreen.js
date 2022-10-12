@@ -1,7 +1,7 @@
 import React from "react";
 import {
   View,
- Platform,
+  Platform,
   ScrollView,
   FlatList,
   Text,
@@ -15,19 +15,21 @@ import {
   WHITE_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 const RestaurantMenuScreen = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText={"Restaurant Menu"}
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>

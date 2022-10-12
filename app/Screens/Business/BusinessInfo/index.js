@@ -3,7 +3,7 @@ import {
     View,
 } from 'react-native';
 import CommonStyles from '../../../Utils/CommonStyles';
-import Goals from './component/Goals/Goals';
+import Goals from './component/Goals';
 const BusinessInfoIndex = () => {
     //goal
     const [textOptn, setTextOptn] = useState(false)

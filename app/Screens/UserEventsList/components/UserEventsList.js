@@ -5,11 +5,10 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
 import {
-  FONT_FAMILY_REGULAR,
-  SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const UserEventsScreen = (props) => {
   return (
@@ -40,7 +39,7 @@ const UserEventsScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/profile_icon_list.png")}
+                    source={Images.CHECKOUT_USER_IMG}
                   />
                   <Text style={styles.straightTxt}>
                     {item.ticket_user_name}
