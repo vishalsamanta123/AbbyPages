@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 20,
-    top: 8,
+    top:Platform.OS==='ios'?0: 8,
     paddingTop: 0,
   },
 });

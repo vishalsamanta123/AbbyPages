@@ -11,14 +11,6 @@ import {
 } from "react-native";
 import styles from "./components/styles";
 import moment from "moment";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREEN_COLOR_CODE,
-  LIGHT_GREY_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
-} from "../../Utils/Constant";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
@@ -45,6 +37,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     business_id: "",
   });
   const [serviceDetail, setServiceDetail] = useState();
+
   const [handleOptions, setHandleOptions] = useState([
     {
       id: "1",
@@ -327,12 +320,14 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       const params = {
         item_type: serviceDetail.business_type,
         item_id: serviceDetail.business_id,
-        like: serviceDetail.likes,
-        favorite: serviceDetail?.favorite,
-        interest: serviceDetail?.interest,
+        like: serviceDetail.user_like === 1 ? 0 : 1,
+        favorite: serviceDetail?.favorite ? serviceDetail?.favorite : 0,
+        interest: serviceDetail?.interest ? serviceDetail?.interest : 0,
         views: serviceDetail.views,
       };
+      console.log("params;", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log("data", data);
       if (data.status === 200) {
         setVisible(false);
         setVisibleSuccess(true);

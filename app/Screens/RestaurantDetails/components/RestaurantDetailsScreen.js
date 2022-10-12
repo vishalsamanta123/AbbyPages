@@ -229,7 +229,7 @@ const RestaurantDetailsScreen = (props) => {
             <Text style={styles.timeShowTxt}>
               {props.restroDetail &&
                 props.restroDetail.business_open_time &&
-                " :" + props.restroDetail.business_open_time.open_time + " - "}
+                " : " + props.restroDetail.business_open_time.open_time + " - "}
               {props.restroDetail &&
                 props.restroDetail.business_open_time &&
                 props.restroDetail.business_open_time.close_time}
@@ -270,7 +270,9 @@ const RestaurantDetailsScreen = (props) => {
                 }}
                 source={require("../../../Assets/save_icon.png")}
               />
-              <Text style={[styles.AddOptnsTextMain]}>Save</Text>
+              <Text style={[styles.AddOptnsTextMain]}>
+                {props?.restroDetail?.user_like === 1 ? "Saved" : "Save"}
+              </Text>
             </TouchableOpacity>
           </View>
           {props?.restroDetail?.takes_reservations === 1 && (

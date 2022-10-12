@@ -130,7 +130,9 @@ const ListingsScreenView = ({ navigation, route }) => {
         interest: item?.interest ? item?.interest : 0,
         views: item?.views,
       };
+      console.log('params', params)
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log('data', data)
       if (data.status == 200) {
         if (search) {
           if (inputSearch) {

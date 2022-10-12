@@ -8,6 +8,7 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   LIGHT_WHITE_COLOR,
+  SMALL_TEXT_COLOR_CODE,
 } from "../../../Utils/Constant";
 const OrderHistory = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -135,7 +136,7 @@ const OrderHistory = (props) => {
                 color:
                   props.isSelectedCatgory === 0
                     ? WHITE_COLOR_CODE
-                    : LIGHT_WHITE_COLOR,
+                    : SMALL_TEXT_COLOR_CODE,
               },
             ]}
           >

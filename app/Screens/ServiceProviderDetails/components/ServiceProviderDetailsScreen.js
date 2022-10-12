@@ -136,7 +136,10 @@ const ServiceProviderDetailsScreen = (props) => {
                 }}
                 source={require("../../../Assets/save_icon.png")}
               />
-              <Text style={styles.addtxt}>Save</Text>
+              <Text style={styles.addtxt}>
+                {" "}
+                {props?.serviceDetail?.user_like === 1 ? "Saved" : "Save"}
+              </Text>
             </TouchableOpacity>
           </View>
           {/* <FlatList

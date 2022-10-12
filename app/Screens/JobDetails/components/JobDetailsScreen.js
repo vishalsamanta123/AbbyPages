@@ -127,9 +127,7 @@ const JobDetailsScreen = (props) => {
                 style={styles.btnmncon}
               >
                 <Image
-                  tintColor={
-                    props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null
-                  }
+                  style={{tintColor:props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null}}
                   source={require("../../../Assets/save_icon.png")}
                 />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>

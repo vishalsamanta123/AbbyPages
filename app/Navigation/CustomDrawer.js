@@ -232,7 +232,7 @@ export function customDrawerContents(props) {
               <Image source={require("../Assets/events_icon_menu.png")} />
             </View>
             <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>Events Tickets</Text>
+              <Text style={styles.drawerText}>User Events</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

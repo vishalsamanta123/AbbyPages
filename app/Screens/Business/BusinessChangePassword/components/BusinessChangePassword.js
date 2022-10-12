@@ -21,6 +21,8 @@ const ForgotPassword = (props) => {
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        // leftImg={require("../../../../Assets/hamburger_icon.png")}
+        // type="Drawer"
       />
       <View
         style={{ height: "0.2%", backgroundColor: LINE_COMMON_COLOR_CODE }}

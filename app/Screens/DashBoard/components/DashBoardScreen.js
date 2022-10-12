@@ -371,9 +371,10 @@ const DashBoardScreen = (props) => {
               style={styles.TouchableFlse}
               onPress={() => props.setBusinessCategoryModal(false)}
             >
-              {/* <Image
-                source={require("../../../Assets/screen_close_icon.png")}
-              /> */}
+              <Image
+              style={{width:30,height:30,tintColor:BLACK_COLOR_CODE}}
+                source={require("../../../Assets/cart_delete_icon.png")}
+              />
             </TouchableOpacity>
             <View style={{ width: "100%" }}>
               <TextInput

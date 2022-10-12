@@ -46,7 +46,7 @@ const Goals = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              <Image source={require(".../../../../Assets/st_icon_1.png")} />
+              <Image source={require("../../../../Assets/st_icon_1.png")} />
               {props.textOptn ? (
                 <Image
                   source={require("../../../../Assets/unchecked_circled_v1.png")}

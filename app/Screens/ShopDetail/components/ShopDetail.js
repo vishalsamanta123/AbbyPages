@@ -232,11 +232,12 @@ const ShopDetail = (props) => {
                 style={styles.SaveContainer}
               >
                 <Image
-                  tintColor={
-                    props?.shopDetail?.user_like === 1
-                      ? YELLOW_COLOR_CODE
-                      : null
-                  }
+                  style={{
+                    tintColor:
+                      props?.shopDetail?.user_like === 1
+                        ? YELLOW_COLOR_CODE
+                        : null,
+                  }}
                   source={require("../../../Assets/save_icon.png")}
                 />
                 <Text style={styles.AddOptnsTextMain}>
@@ -500,7 +501,7 @@ const ShopDetail = (props) => {
                 keyExtractor={(item, index) => index.toString()}
                 data={props?.shopDetail?.image}
                 numColumns={2}
-                contentContainerStyle={{alignItems:'center'}}
+                contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) =>
                   props._handlePhotos(item, index)
                 }

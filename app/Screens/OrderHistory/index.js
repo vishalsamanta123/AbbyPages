@@ -3,7 +3,11 @@ import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import _ from "lodash";
 import OrderHistory from "./component/OrderHistory";
 import styles from "./component/styles";
-import { LIGHT_WHITE_COLOR, WHITE_COLOR_CODE } from "../../Utils/Constant";
+import {
+  SMALL_TEXT_COLOR_CODE,
+  LIGHT_WHITE_COLOR,
+  WHITE_COLOR_CODE,
+} from "../../Utils/Constant";
 import { useIsFocused } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import { apiCall } from "../../Utils/httpClient";
@@ -27,11 +31,7 @@ const OrderHistoryView = ({ navigation }) => {
 
   useEffect(() => {
     handleItemCategoryList();
-    if (offSet === 0) {
-      handleOrderedItemList(0, isSelectedCatgory);
-    } else {
-      setOffSet(0);
-    }
+    handleOrderedItemList(0, isSelectedCatgory);
   }, [isFocus]);
 
   const handleItemCategoryList = async () => {
@@ -108,7 +108,7 @@ const OrderHistoryView = ({ navigation }) => {
                 color:
                   item.business_type_id === isSelectedCatgory
                     ? WHITE_COLOR_CODE
-                    : LIGHT_WHITE_COLOR,
+                    : SMALL_TEXT_COLOR_CODE,
               },
             ]}
           >
