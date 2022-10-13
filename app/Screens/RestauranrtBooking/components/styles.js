@@ -152,8 +152,8 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
   },
   RecommndedDishImg: {
-    height: 120,
-    width: 210,
+    height: 80,
+    width: 180,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
@@ -199,7 +199,8 @@ const Styles = StyleSheet.create({
     height: 18,
   },
   FindTableContain: {
-    paddingTop: 10,
+    padding: 13,
+    marginTop: 5,
   },
   SeereservatnView: {
     flexDirection: "row",

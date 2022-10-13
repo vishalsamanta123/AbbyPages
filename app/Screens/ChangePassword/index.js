@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ChangePassword from "./components/ChangePassword";
 import { View } from "react-native";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
-import Success from "../../../Components/Modal/success";
+import { apiCall } from "../../Utils/httpClient";
+import ENDPOINTS from "../../Utils/apiEndPoints";
+import Loader from "../../Utils/Loader";
+import Error from "../../Components/Modal/error";
+import Success from "../../Components/Modal/success";
 const ChangePasswordView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");

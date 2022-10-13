@@ -249,7 +249,6 @@ const ShopDetail = (props) => {
               // props?.shopDetail?.offers_delivery === 1 &&
               <TouchableOpacity
                 onPress={() => props.onPressShopNow()}
-                // onPress={() => props.onPressOrderFood()}
                 style={styles.CameraViewStyle}
               >
                 <Text style={styles.CameraMainText}>Shop Now</Text>

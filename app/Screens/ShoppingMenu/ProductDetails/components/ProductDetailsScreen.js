@@ -1,27 +1,32 @@
 import React from "react";
-import { View, Text, Image, FlatList, ScrollView } from "react-native";
-import { Rating, AirbnbRating } from "react-native-ratings";
-import Input from "../../../Components/Input";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Rating } from "react-native-ratings";
+import Input from "../../../../Components/Input";
 import InputSpinner from "react-native-input-spinner";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import moment from "moment";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
 import {
-  BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
-  SMALL_TEXT_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { TouchableOpacity } from "react-native-gesture-handler";
+} from "../../../../Utils/Constant";
+
 const ProductDetailsScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Product Details"
-        RightImg={require("../../../Assets/cart_icon_header.png")}
+        RightImg={require("../../../../Assets/cart_icon_header.png")}
         onPress={() => props.onPressCart()}
         cartLength={props.shoppingCartData.length}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -75,7 +80,7 @@ const ProductDetailsScreen = (props) => {
             {props.productDetail.rating == 1 && (
               <Image
                 style={[styles.icon, { marginRight: 0, height: 18, width: 18 }]}
-                source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
               />
             )}
             {props.productDetail.rating == 2 && (
@@ -85,14 +90,14 @@ const ProductDetailsScreen = (props) => {
                     styles.icon,
                     { marginRight: 0, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 0, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
               </>
             )}
@@ -103,21 +108,21 @@ const ProductDetailsScreen = (props) => {
                     styles.icon,
                     { marginRight: 0, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
               </>
             )}
@@ -128,28 +133,28 @@ const ProductDetailsScreen = (props) => {
                     styles.icon,
                     { marginRight: 0, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
               </>
             )}
@@ -160,35 +165,35 @@ const ProductDetailsScreen = (props) => {
                     styles.icon,
                     { marginRight: 0, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
                 <Image
                   style={[
                     styles.icon,
                     { marginRight: 5, height: 18, width: 18 },
                   ]}
-                  source={require("../../../Assets/extraImages/rating-star-icon-yellow.png")}
+                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
                 />
               </>
             )}
@@ -378,7 +383,7 @@ const ProductDetailsScreen = (props) => {
                         borderRadius: 30,
                       }}
                       source={{ uri: item.profile_image }}
-                      // source={require('../../../Assets/extraImages/demo-profile-image.png')}
+                      // source={require('../../../../Assets/extraImages/demo-profile-image.png')}
                     />
                   </View>
                   <View style={{ flex: 4.7 }}>

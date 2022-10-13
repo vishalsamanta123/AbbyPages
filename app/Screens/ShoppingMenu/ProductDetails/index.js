@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View } from "react-native";
 import ProductDetailsScreen from "./components/ProductDetailsScreen";
-import CommonStyles from "../../Utils/CommonStyles";
+import CommonStyles from "../../../Utils/CommonStyles";
 import _ from "lodash";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
-import { ShoppingCartContext } from "../../Utils/UserContext";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import Success from "../../../Components/Modal/success";
+import Error from "../../../Components/Modal/error";
+import { ShoppingCartContext } from "../../../Utils/UserContext";
+
 const ProductDetails = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);

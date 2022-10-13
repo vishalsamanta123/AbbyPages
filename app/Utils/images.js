@@ -1,5 +1,6 @@
 export const Images = {
-  MAIN_LOGO: require("../Assets/login_graphic.png"),
+  SPLASH_LOGO: require("../Assets/login_graphic.png"),
+  BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
   ABOUT_IMG: require("../Assets/about_icon_1.png"),
   FAVRT_IMG: require("../Assets/about_icon_2.png"),
@@ -19,7 +20,7 @@ export const Images = {
   CHECK_IMG: require("../Assets/check_icon_btn.png"),
   UNCHECK_IMG: require("../Assets/unchecked_squared_icon_small.png"),
   OTHER_CHECK_IMG: require("../Assets/box_check_white_icon.png"),
-  BUSINESS_ADD_1_IMG: require("../Assets/Goals123.png"),//
+  BUSINESS_ADD_1_IMG: require("../Assets/Goals123.png"), //
   BUSINESS_ADD_2_IMG: require("../Assets/Untitled-1.png"),
   BUSINESS_ADD_3_IMG: require("../Assets/Untitled-2.png"),
   BUSINESS_ADD_4_IMG: require("../Assets/loaction.png"),
@@ -32,7 +33,7 @@ export const Images = {
   BUSINESS_MENU_IMG: require("../Assets/business_menu_icon.png"),
   BUSINESS_PROFILE_IMG: require("../Assets/businessprofile.png"),
   BUSINESS_WEBSITE_IMG: require("../Assets/business_website_icon.png"),
-  CALENDER_IMG: require("../Assets/calendar_icon.png"),
+  CALENDER_IMG: require("../Assets/calendar_icon.png"),//also work on calendar_icon_field.png image
   COLORED_CAMERA_IMG: require("../Assets/camera.png"),
   COLORED_CANCEL_IMG: require("../Assets/cancelModalBtn.png"),
   CANCEL_IMG: require("../Assets/cart_delete_icon.png"),
@@ -60,7 +61,8 @@ export const Images = {
   DINEOUT_IMG: require("../Assets/dine_out_icon.png"),
   DINEER_IMG: require("../Assets/dinner.png"),
   DASHBOARDHOME_IMG: require("../Assets/drawerhome.png"),
-  ARROW_DOWN_IMG: require("../Assets/dropdown_icon.png"),
+  ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"),
+  ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),
   EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),
   EDIT_PHOTO_IMG: require("../Assets/edit_photo_icon.png"),
   EMPLOYESS_IMG: require("../Assets/employeeonboard.png"),
@@ -130,7 +132,7 @@ export const Images = {
   SQUARE_IMG: require("../Assets/squares.png"),
   STAR_IMG: require("../Assets/star_icon.png"),
   STAR_UNFILLED_IMG: require("../Assets/star_icon_text.png"),
-  GOALS_1_IMG: require("../Assets/st_icon_1.png"),
+  THEME_GOALS_IMG: require("../Assets/st_icon_1.png"),
   THEME_CALL_IMG: require("../Assets/st_icon_2.png"),
   THEME_PC_IMG: require("../Assets/st_icon_3.png"),
   THEME_KEYBOARD_IMG: require("../Assets/st_icon_4.png"),

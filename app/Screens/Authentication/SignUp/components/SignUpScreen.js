@@ -7,7 +7,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
@@ -23,6 +23,7 @@ import {
 } from "../../../../Utils/Constant";
 import Header from "../../../../Components/Header";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Images } from "../../../../Utils/images";
 
 const SignUpScreen = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -41,13 +42,14 @@ const SignUpScreen = (props) => {
     hideDatePicker();
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? "padding" : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         HeaderText=""
-        HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        HeaderMiddleImg={Images.BLACK_LOGO}
         tintColor={BLACK_COLOR_CODE}
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
@@ -158,7 +160,7 @@ const SignUpScreen = (props) => {
               <Image
                 resizeMode={"contain"}
                 style={{ height: 24, width: 24, alignSelf: "flex-end" }}
-                source={require("../../../../Assets/calendar_icon_field.png")}
+                source={Images.CALENDER_IMG}
               />
             </TouchableOpacity>
             <DateTimePickerModal

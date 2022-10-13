@@ -7,7 +7,7 @@ import {
   FONT_FAMILY_BOLD,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 
 const { width, height } = Dimensions.get("window");
 const Styles = StyleSheet.create({

@@ -20,6 +20,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+
 const AddBusinessProductScreen = (props) => {
   return (
     <View style={CommonStyles.container}>

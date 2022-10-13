@@ -3,12 +3,12 @@ import { View } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import CheckoutDetail from "./components/CheckoutDetail";
 import AsyncStorage from "@react-native-community/async-storage";
-import { UserContext, AuthContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { apiCall } from "../../../Utils/httpClient";
+
 const CheckoutDetailView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");

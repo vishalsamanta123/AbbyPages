@@ -216,21 +216,13 @@ const ShopDetail = ({ navigation, route }) => {
       </Fragment>
     );
   };
-  const onPressReservation = (data, booking_type) => {
-    navigation.navigate("RestauranrtBooking", {
-      detail: data,
-      booking_type: booking_type,
-    });
-  };
+ 
   const onPressShopNow = () => {
     navigation.navigate("ProductListing", { detail: shopDetail });
   };
-  const onPressOrderFood = () => {
-    setDialogVisible(true);
-  };
   const onPressSubmit = () => {
-    setDialogVisible(false);
-    navigation.navigate("ShowMenu");
+    // setDialogVisible(false);
+    // navigation.navigate("ShowMenu");
   };
   function handleGetDirections(lattitude, longitude) {
     if (Platform.OS === "android") {
@@ -438,11 +430,9 @@ const ShopDetail = ({ navigation, route }) => {
         pageIndex={pageIndex}
         _handleOptions={_handleOptions}
         _handleReview={_handleReview}
-        onPressReservation={onPressReservation}
         onPressShopNow={onPressShopNow}
         DialogVisible={DialogVisible}
         setDialogVisible={setDialogVisible}
-        onPressOrderFood={onPressOrderFood}
         onPressSubmit={onPressSubmit}
         shareTo={shareTo}
         saveResto={saveResto}

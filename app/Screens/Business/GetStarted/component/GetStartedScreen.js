@@ -15,12 +15,12 @@ import Input from "../../../../Components/Input";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Images } from "../../../../Utils/images";
 const GetStartedScreen = (props) => {
   const _renderItems = (item, index) => {
     return (
@@ -38,10 +38,7 @@ const GetStartedScreen = (props) => {
         </View>
         <View style={styles.lstimgvwe}>
           {item.check === true ? (
-            <Image
-              style={styles.iconimg}
-              source={require("../../../../Assets/checked_circled_icon_box.png")}
-            />
+            <Image style={styles.iconimg} source={Images.ROUND_CHECK_IMG} />
           ) : null}
         </View>
       </TouchableOpacity>
@@ -95,17 +92,14 @@ const GetStartedScreen = (props) => {
               onPress={() => props.onPressBusinessCategories()}
               style={{ paddingRight: 10 }}
             >
-              {props.businessCategory ? (
-                <Image
-                  style={{ width: 25, height: 25 }}
-                  source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                />
-              ) : (
-                <Image
-                  style={{ width: 25, height: 25 }}
-                  source={require("../../../../Assets/link_dropdown_ico.png")}
-                />
-              )}
+              <Image
+                style={{ width: 25, height: 25 }}
+                source={
+                  props.businessCategory
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
+              />
             </TouchableOpacity>
           </View>
         </View>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../Utils/apiEndPoints";
+import { apiCall } from "../../Utils/httpClient";
 import ApplyJob from "./components/ApplyJob";
 import DocumentPicker from "react-native-document-picker";
-import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
-import Success from "../../../Components/Modal/success";
+import Loader from "../../Utils/Loader";
+import Error from "../../Components/Modal/error";
+import Success from "../../Components/Modal/success";
 
 const ApplyJobView = ({ navigation, route }) => {
   const [applyJob, setApplyJob] = useState({

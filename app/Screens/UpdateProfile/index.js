@@ -254,7 +254,7 @@ const UpdateProfileView = ({ navigation }) => {
     }
   };
   const onClickCancel = () => {
-    navigation.navigate("ProfileSettings");
+    navigation.goBack(null);
   };
   return (
     <View style={CommonStyles.container}>
@@ -279,7 +279,9 @@ const UpdateProfileView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => navigation.navigate('ProfileSettings', setVisibleSuccess(false))}
+        // closeModel={() => {
+        //   navigation.goBack(null)
+        //   setVisibleSuccess(false)}}
       />
     </View>
   );

@@ -136,7 +136,7 @@ const OrderHistory = (props) => {
                 color:
                   props.isSelectedCatgory === 0
                     ? WHITE_COLOR_CODE
-                    : SMALL_TEXT_COLOR_CODE,
+                    : LIGHT_WHITE_COLOR,
               },
             ]}
           >

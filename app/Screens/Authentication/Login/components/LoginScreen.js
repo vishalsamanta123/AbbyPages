@@ -13,16 +13,17 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import Header from "../../../../Components/Header";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const LoginScreen = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
+      behavior={Platform.OS === "ios" ? "padding" : null}
       style={[CommonStyles.container]}
     >
       <Header
         RightImg={null}
         HeaderText=""
-        HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        HeaderMiddleImg={Images.BLACK_LOGO}
         tintColor={BLACK_COLOR_CODE}
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />

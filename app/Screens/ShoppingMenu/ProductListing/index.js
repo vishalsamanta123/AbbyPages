@@ -1,33 +1,27 @@
-import React, { useState, Fragment, useEffect, useContext } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-  Image,
-} from "react-native";
+import React, { useState, useContext } from "react";
+import { View, TouchableOpacity, Text, Image } from "react-native";
 import ProductListingScreen from "./components/ProductListingScreen";
-import { useFocusEffect, useLinkProps } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import _ from "lodash";
-import CommonStyles from "../../Utils/CommonStyles";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Success from "../../Components/Modal/success";
+import CommonStyles from "../../../Utils/CommonStyles";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import Success from "../../../Components/Modal/success";
 import InputSpinner from "react-native-input-spinner";
-import Button from "../../Components/Button";
-import Error from "../../Components/Modal/error";
+import Button from "../../../Components/Button";
+import Error from "../../../Components/Modal/error";
 import styles from "./components/styles";
 import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
   BLACK_COLOR_CODE,
-} from "../../Utils/Constant";
-import { ShoppingCartContext } from "../../Utils/UserContext";
+} from "../../../Utils/Constant";
+import { ShoppingCartContext } from "../../../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
 import FilterPopUp from "./components/FilterPopUp";
-import QuestionModal from "../../Components/Modal/questionModal";
+import QuestionModal from "../../../Components/Modal/questionModal";
 const ProductListing = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
@@ -53,7 +47,6 @@ const ProductListing = ({ navigation, route }) => {
     product_tags: "",
     sorting: "",
   });
-  console.log('filterData: ', filterData.color);
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {

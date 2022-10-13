@@ -48,7 +48,6 @@ const BussinessInfoScreen = (props) => {
         </View>
         <ScrollView>
           <TouchableOpacity
-            // onPress={() => props.onPressConfirm()}
             // onPress={() => props.navToBasicInfo()}
             style={styles.mainboxvwe}
           >
@@ -113,7 +112,7 @@ const BussinessInfoScreen = (props) => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => props.naviRestaurant()}
+            // onPress={() => props.navtoRestaurant()}
             style={styles.mainboxvwe}
           >
             <View style={styles.secmainvwe}>

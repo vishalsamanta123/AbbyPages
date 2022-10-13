@@ -10,6 +10,7 @@ import moment from "moment";
 import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import QuestionModal from "../../../Components/Modal/questionModal";
+import { DrawerActions } from "@react-navigation/native";
 
 const JobManagementListView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);

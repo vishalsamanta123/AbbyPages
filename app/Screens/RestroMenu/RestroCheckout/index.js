@@ -1,12 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  Image,
-  View,
-  Text,
-  Alert,
-  TouchableOpacity,
-  BackHandler,
-} from "react-native";
+import React, { useState, useContext } from "react";
+import { Image, View, Text, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 import RestroCheckout from "./component/RestroCheckout";
@@ -20,8 +13,8 @@ import { CartContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import QuestionModal from "../../../Components/Modal/questionModal";
+
 const RestroCheckoutView = ({ navigation }) => {
   const [isDateTimePickerVisible, setDateTimePickerVisibility] =
     useState(false);

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, KeyboardAvoidingView ,Platform} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 // import moment from "moment";
 import styles from "./styles";
 import Input from "../../../../Components/Input";
@@ -7,6 +13,7 @@ import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Header from "../../../../Components/Header";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const BusinessSignUp = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -24,13 +31,14 @@ const BusinessSignUp = (props) => {
   //   hideDatePicker();
   // };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? "padding" : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         HeaderText=""
-        HeaderMiddleImg={require("../../../../Assets/login_logo.png")}
+        HeaderMiddleImg={Images.BLACK_LOGO}
         tintColor={BLACK_COLOR_CODE}
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />

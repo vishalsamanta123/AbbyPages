@@ -14,10 +14,6 @@ const BussinessInfo = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [profileData, setProfileData] = useState("");
-
-  const onPressConfirm = () => {
-    navigation.navigate("Confirm");
-  };
   useEffect(() => {
     getProfile();
   }, []);
@@ -38,7 +34,7 @@ const BussinessInfo = ({ navigation }) => {
     }
   };
 
-  const naviRestaurant = () => {
+  const navtoRestaurant = () => {
     navigation.navigate("RestaurantManagement");
   };
   const goalsFun = () => {
@@ -59,13 +55,16 @@ const BussinessInfo = ({ navigation }) => {
   const navToBasicInfo = () => {
     navigation.navigate("BasicInformation");
   };
+  const onPressConfirm = () => {
+    navigation.navigate("Confirm");
+  };
   return (
     <View style={{ flex: 1 }}>
       {visible && <Loader state={visible} />}
       <BussinessInfoScreen
         onPressConfirm={onPressConfirm}
         profileData={profileData}
-        naviRestaurant={naviRestaurant}
+        navtoRestaurant={navtoRestaurant}
         goalsFun={goalsFun}
         AddKeybordFun={AddKeybordFun}
         AddTextFun={AddTextFun}

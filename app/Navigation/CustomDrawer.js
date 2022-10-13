@@ -146,7 +146,7 @@ export function customDrawerContents(props) {
       <View style={{ height: "100%" }}>
         <DesignDrawer />
         <DrawerContentScrollView
-           contentContainerStyle={{
+          contentContainerStyle={{
             paddingTop: Platform.OS === "ios" ? 0 : 0,
           }}
           {...props}
@@ -431,22 +431,6 @@ export function BusinessDrawerContents(props) {
               <Text style={styles.drawerText}>Add Opening Hours</Text>
             </View>
           </TouchableOpacity> */}
-          <TouchableOpacity
-            style={styles.contactUsContainer}
-            onPress={() => {
-              props.navigation.navigate("JobManagementList");
-            }}
-          >
-            <View style={styles.ImgeView}>
-              <Image
-                style={{ width: 25, height: 25 }}
-                source={require("../Assets/teamwork.png")}
-              />
-            </View>
-            <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>Job Management</Text>
-            </View>
-          </TouchableOpacity>
           {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -463,6 +447,22 @@ export function BusinessDrawerContents(props) {
               <Text style={styles.drawerText}>Restuarant Management</Text>
             </View>
           </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.contactUsContainer}
+            onPress={() => {
+              props.navigation.navigate("JobManagementList");
+            }}
+          >
+            <View style={styles.ImgeView}>
+              <Image
+                style={{ width: 25, height: 25 }}
+                source={require("../Assets/teamwork.png")}
+              />
+            </View>
+            <View style={styles.TextContain}>
+              <Text style={styles.drawerText}>Job Management</Text>
+            </View>
+          </TouchableOpacity>
           {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {

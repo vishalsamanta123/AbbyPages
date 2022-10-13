@@ -3,9 +3,10 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LIGHT_GREY_COLOR_CODE,
-  FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  GREY_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const styles = StyleSheet.create({
   lablestyle: {
@@ -35,6 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE_COLOR_CODE,
     borderRadius: 10,
     marginBottom: 10,
+    borderWidth: 0.9,
+    borderColor: GREY_COLOR_CODE,
   },
   searchInputVw: {
     flex: 1,
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     borderRadius: 5,
     flex: 1,
+    color: LIGHT_BLACK_COLOR_CODE,
   },
   MainHeadText: {
     fontFamily: FONT_FAMILY_REGULAR,
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: 20,
-    top:Platform.OS==='ios'?0: 8,
+    top: Platform.OS === "ios" ? 0 : 8,
     paddingTop: 0,
   },
 });

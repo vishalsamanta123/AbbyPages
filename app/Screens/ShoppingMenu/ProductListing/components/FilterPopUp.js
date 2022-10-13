@@ -10,13 +10,13 @@ import {
   Platform,
 } from "react-native";
 import Dialog, { SlideAnimation } from "react-native-popup-dialog";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
 import styles from "./styles";
 import { Picker } from "@react-native-community/picker";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import Button from "../../../Components/Button";
+import Button from "../../../../Components/Button";
 const { width, height } = Dimensions.get("window");
 
 export default function FilterPopUp(props) {
@@ -184,7 +184,7 @@ export default function FilterPopUp(props) {
               handleReset();
             }}
           >
-            <Image source={require("../../../Assets/header_back_btn.png")} />
+            <Image source={require("../../../../Assets/header_back_btn.png")} />
           </TouchableOpacity>
           <Text style={styles.headerMiddleTxt}>Filter Product</Text>
           <TouchableOpacity activeOpacity={0.8} onPress={() => handleReset()}>
@@ -202,8 +202,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 1
-                      ? require("../../../Assets/radio_circled_checked.png")
-                      : require("../../../Assets/radio_circled_unchecked.png")
+                      ? require("../../../../Assets/radio_circled_checked.png")
+                      : require("../../../../Assets/radio_circled_unchecked.png")
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -218,8 +218,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 2
-                      ? require("../../../Assets/radio_circled_checked.png")
-                      : require("../../../Assets/radio_circled_unchecked.png")
+                      ? require("../../../../Assets/radio_circled_checked.png")
+                      : require("../../../../Assets/radio_circled_unchecked.png")
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -234,8 +234,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 3
-                      ? require("../../../Assets/radio_circled_checked.png")
-                      : require("../../../Assets/radio_circled_unchecked.png")
+                      ? require("../../../../Assets/radio_circled_checked.png")
+                      : require("../../../../Assets/radio_circled_unchecked.png")
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -269,7 +269,7 @@ export default function FilterPopUp(props) {
                   return (
                     <Image
                       style={{ width: 24, height: 24 }}
-                      source={require("../../../Assets/abby_pages_map_icon.png")}
+                      source={require("../../../../Assets/abby_pages_map_icon.png")}
                     />
                   );
                 }}
@@ -292,8 +292,8 @@ export default function FilterPopUp(props) {
                     <Image
                       source={
                         selected === index
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? require("../../../../Assets/radio_circled_checked.png")
+                          : require("../../../../Assets/radio_circled_unchecked.png")
                       }
                       style={{ width: 22, height: 22, marginRight: 10 }}
                     />

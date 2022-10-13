@@ -1,26 +1,33 @@
 import React, { useState } from "react";
-import { View, Image, Text, KeyboardAvoidingView,Platform } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
+  LIGHT_GREY_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const Goals = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         HeaderText={"Goal"}
-        editHdr={22}
+        editHdr={25}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -29,10 +36,10 @@ const Goals = (props) => {
         <Image
           style={styles.TimeLineImge}
           resizeMode={"stretch"}
-          source={require("../../../../Assets/Goals123.png")}
+          source={Images.BUSINESS_ADD_1_IMG}
         />
       </View>
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={styles.WriteTextView}>
           <Text style={styles.WriteText}>
             Select a goal for your ad campain
@@ -45,16 +52,15 @@ const Goals = (props) => {
           }
         >
           <View style={styles.ImgeConatiner}>
-            <Image source={require("../../../../Assets/st_icon_1.png")} />
-            {props.textOptn ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image source={Images.THEME_GOALS_IMG} />
+            <Image
+              style={{ width: 36, height: 36 }}
+              source={
+                props.textOptn
+                  ? Images.ROUND_CHECK_IMG
+                  : Images.ROUND_UNCHECK_IMG
+              }
+            />
           </View>
           <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
             <Text style={styles.WriteOwnText}>Let AbbyPages optimize</Text>
@@ -63,8 +69,8 @@ const Goals = (props) => {
           <Text style={styles.NeedHelpText}>Choose this goal if:</Text>
           <View style={styles.RightView}>
             <Image
-              style={{ top: 2 }}
-              source={require("../../../../Assets/box_check_icon.png")}
+              style={{ top: 2, tintColor: LIGHT_GREY_COLOR_CODE }}
+              source={Images.TICK_IMG}
             />
             <View style={styles.RecommndedView}>
               <Text style={styles.RecommndedText}>
@@ -74,8 +80,8 @@ const Goals = (props) => {
           </View>
           <View style={styles.RightView}>
             <Image
-              style={{ top: 2 }}
-              source={require("../../../../Assets/box_check_icon.png")}
+              style={{ top: 2, tintColor: LIGHT_GREY_COLOR_CODE }}
+              source={Images.TICK_IMG}
             />
             <View style={styles.RecommndedView}>
               <Text style={styles.RecommndedText}>
@@ -93,16 +99,15 @@ const Goals = (props) => {
           }
         >
           <View style={styles.ImgeConatiner}>
-            <Image source={require("../../../../Assets/st_icon_2.png")} />
-            {props.WebsiteClick ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image source={Images.THEME_CALL_IMG} />
+            <Image
+              style={{ width: 36, height: 36 }}
+              source={
+                props.WebsiteClick
+                  ? Images.ROUND_CHECK_IMG
+                  : Images.ROUND_UNCHECK_IMG
+              }
+            />
           </View>
           <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
             <Text style={styles.WriteOwnText}>Let AbbyPages optimize</Text>
@@ -117,16 +122,15 @@ const Goals = (props) => {
           }
         >
           <View style={styles.ImgeConatiner}>
-            <Image source={require("../../../../Assets/st_icon_3.png")} />
-            {props.callingOptn ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image source={Images.THEME_PC_IMG} />
+            <Image
+              style={{ width: 36, height: 36 }}
+              source={
+                props.callingOptn
+                  ? Images.ROUND_CHECK_IMG
+                  : Images.ROUND_UNCHECK_IMG
+              }
+            />
           </View>
           <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
             <Text style={styles.WriteOwnText}>Get more website clicks</Text>

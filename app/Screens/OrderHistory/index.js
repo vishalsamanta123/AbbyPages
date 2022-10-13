@@ -108,7 +108,7 @@ const OrderHistoryView = ({ navigation }) => {
                 color:
                   item.business_type_id === isSelectedCatgory
                     ? WHITE_COLOR_CODE
-                    : SMALL_TEXT_COLOR_CODE,
+                    : LIGHT_WHITE_COLOR,
               },
             ]}
           >

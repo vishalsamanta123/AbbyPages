@@ -14,11 +14,12 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   WHITE_COLOR_CODE,
-  BLACK_COLOR_CODE,
   LIGHT_WHITE_COLOR,
-  LIGHT_BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
 } from "../../../../Utils/Constant";
+
 const ShowMenu = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -28,8 +29,6 @@ const ShowMenu = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        // RightImg={require('../../../../Assets/search_icon_header.png')}
-        // onPress={() => ('ram')}
       />
       <View style={[CommonStyles.body]}>
         <View style={styles.FlatlistContain}>
@@ -56,7 +55,6 @@ const ShowMenu = (props) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            // style={{ backgroundColor: YELLOW_COLOR_CODE }}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) => props._renderCategory(item, index)}
           />
@@ -73,6 +71,7 @@ const ShowMenu = (props) => {
                 <TextInput
                   onChangeText={(searchKey) => props.searchItem(searchKey)}
                   placeholder={"Search"}
+                  placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
                   value={props.search}
                   style={styles.searchInput}
                 />

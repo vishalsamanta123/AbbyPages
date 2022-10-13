@@ -10,6 +10,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
+  LIGHT_WHITE_COLOR,
 } from "../../../Utils/Constant";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { apiCall } from "../../../Utils/httpClient";
@@ -129,7 +130,7 @@ const ShowMenuView = ({ route, navigation }) => {
     const selectedColor =
       item.business_item_category_id === isSelectedCatgory
         ? WHITE_COLOR_CODE
-        : "#ffe98e";
+        : LIGHT_WHITE_COLOR;
     return (
       <>
         {item.status === 1 && (
@@ -284,11 +285,12 @@ const ShowMenuView = ({ route, navigation }) => {
                     },
                   ]}
                 >
-                  {Number(
-                    parseFloat(item.price).toFixed(2)
-                  ).toLocaleString("en", {
-                    minimumFractionDigits: 2,
-                  })}
+                  {Number(parseFloat(item.price).toFixed(2)).toLocaleString(
+                    "en",
+                    {
+                      minimumFractionDigits: 2,
+                    }
+                  )}
                 </Text>
               </TouchableOpacity>
               <View style={styles.ReviewView}>

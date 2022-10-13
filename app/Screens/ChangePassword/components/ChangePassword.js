@@ -1,13 +1,11 @@
 import React from "react";
-import { View, StatusBar, KeyboardAvoidingView,Platform } from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import styles from "./styles";
-import Header from "../../../../Components/Header";
-import Input from "../../../../Components/Input";
-import Button from "../../../../Components/Button";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import Header from "../../../Components/Header";
+import Input from "../../../Components/Input";
+import Button from "../../../Components/Button";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+
 const ChangePassword = (props) => {
   return (
     <KeyboardAvoidingView

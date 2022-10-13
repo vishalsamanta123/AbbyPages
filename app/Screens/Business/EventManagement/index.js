@@ -57,30 +57,35 @@ const EventManagement = () => {
   };
   const getSingleEvent = async (itemData) => {
     try {
-      setVisible(true);
-      const params = {
-        event_id: itemData?.event_id,
-        offset: 0,
-      };
-      console.log("params: ", params);
-      const { data } = await apiCall(
-        "POST",
-        ENDPOINTS.GET_SINGLE_EVENT_DETAILS,
-        params
-      );
-      console.log("data: ", data);
-      if (data.status === 200) {
-        setVisible(false);
-        navigation.navigate("EventView", {
-          img_url: data.events_image_url,
-          detail: data.data[0],
-          itemData: itemData,
-        });
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
+      navigation.navigate("EventView", {
+        img_url: '',
+        detail: '',
+        itemData: '',
+      });
+      // setVisible(true);
+      // const params = {
+      //   event_id: itemData?.event_id,
+      //   offset: 0,
+      // };
+      // console.log("params: ", params);
+      // const { data } = await apiCall(
+      //   "POST",
+      //   ENDPOINTS.GET_SINGLE_EVENT_DETAILS,
+      //   params
+      // );
+
+      // if (data.status === 200) {
+      //   setVisible(false);
+      //   navigation.navigate("EventView", {
+      //     img_url: data.events_image_url,
+      //     detail: data.data[0],
+      //     itemData: itemData,
+      //   });
+      // } else {
+      //   setErrorMessage(data.message);
+      //   setVisibleErr(true);
+      //   setVisible(false);
+      // }
     } catch (error) {
       setVisible(false);
     }

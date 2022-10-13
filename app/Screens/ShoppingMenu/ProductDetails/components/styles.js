@@ -4,16 +4,14 @@ import {
   WHITE_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   bannerimg: {
     width: 360,
     height: 240,
     justifyContent: "flex-end",
-    // alignItems: "flex-end"
   },
   infocon: {
     padding: 20,

@@ -74,13 +74,11 @@ const GoalsView = ({ navigation }) => {
         const params = {
           goal: goal,
         };
-        console.log("params: ", params);
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.ADD_BUSINEES_INFO,
           params
         );
-        console.log("data ADD_BUSINEES_INFO: ", data);
         if (data.status === 200) {
           navigation.navigate("AddText");
           setVisible(false);

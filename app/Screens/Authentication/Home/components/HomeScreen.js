@@ -3,13 +3,15 @@ import { View, Image, StatusBar, ScrollView, Platform } from "react-native";
 import styles from "./styles";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
+import { Images } from "../../../../Utils/images";
+import { YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
 
 const HomeScreen = (props) => {
   return (
     <>
       <StatusBar
         translucent={false}
-        backgroundColor="transparent"
+        backgroundColor={YELLOW_COLOR_CODE}
         barStyle="dark-content"
       />
       <View style={CommonStyles.container}>
@@ -21,13 +23,14 @@ const HomeScreen = (props) => {
         >
           <View style={styles.imagesVw}>
             <Image
+              style={{ width: 250, height: 160 }}
               resizeMode="contain"
-              source={require("../../../../Assets/login_logo2.png")}
+              source={Images.BLACK_LOGO}
             />
             <Image
-              style={{ width: 250, height: 250 }}
+              style={{ width: 250, height: 220 }}
               resizeMode={"contain"}
-              source={require("../../../../Assets/login_graphic2.png")}
+              source={Images.GRAPHIC_LOGO_IMG}
             />
           </View>
           <View style={styles.FooterContain}>

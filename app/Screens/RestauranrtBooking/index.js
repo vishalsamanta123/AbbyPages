@@ -75,7 +75,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
       </View>
     );
   };
-  const onPressRecRestro = (item) => {
+  const onPressRestro = (item) => {
     setVisible(true);
     navigation.navigate("RestaurantDetails", { detail: item });
     setVisible(false);
@@ -84,7 +84,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
     return (
       <Fragment>
         <TouchableOpacity
-          onPress={() => onPressRecRestro(item)}
+          onPress={() => onPressRestro(item)}
           style={styles.RecommendedConatiner}
         >
           <Image

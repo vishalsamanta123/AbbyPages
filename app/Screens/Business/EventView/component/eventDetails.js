@@ -16,14 +16,12 @@ import {
 } from "../../../../Utils/Constant";
 import styles from "./styles";
 import moment from "moment";
-import { useNavigation } from "@react-navigation/native";
 
 const eventDetails = (props) => {
-  const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
       <Header
-        HeaderText="Event details"
+        HeaderText="Event Details"
         RightImg={null}
         leftImg={require("../../../../Assets/header_back_btn.png")}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -31,13 +29,17 @@ const eventDetails = (props) => {
         tintColor={WHITE_COLOR_CODE}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Image
-          source={{
-            uri: props?.img_url + props?.detail?.events_image[0]?.events_image,
-          }}
-          style={styles.image}
-          resizeMode={"stretch"}
-        />
+        {props?.img_url ||
+          (props?.detail ? (
+            <Image
+              source={{
+                uri:
+                  props?.img_url + props?.detail?.events_image[0]?.events_image,
+              }}
+              style={styles.image}
+              resizeMode={"stretch"}
+            />
+          ) : null)}
         <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
           <Text style={styles.headingTxt}>
             <Text style={{ color: BLACK_COLOR_CODE }}>Name : </Text>

@@ -56,21 +56,15 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   const { width, height } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
-  useEffect(() => {
-    if (route.params) {
-      const { detail } = route.params;
-      handleRestroDetails(detail); //function
-      setCartData([]);
-    }
-  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {
-        const { detail } = route.params;
-        handleRestroDetails(detail); //function
+        const { detail } = route.params || { detail: "" };
+        handleRestroDetails(detail);
         setCartData([]);
       }
-    }, [])
+    }, [route.params])
   );
   const handleRestroDetails = async (data) => {
     setVisible(true);

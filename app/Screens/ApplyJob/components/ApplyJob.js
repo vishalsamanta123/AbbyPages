@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  StatusBar,
   KeyboardAvoidingView,
   Image,
   ScrollView,
@@ -10,15 +9,12 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Input from "../../../../Components/Input";
-import Button from "../../../../Components/Button";
-import Header from "../../../../Components/Header";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Input from "../../../Components/Input";
+import Button from "../../../Components/Button";
+import Header from "../../../Components/Header";
+import CommonStyles from "../../../Utils/CommonStyles";
 import { Picker } from "@react-native-community/picker";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
 const ApplyJob = (props) => {
   return (
@@ -56,7 +52,7 @@ const ApplyJob = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/upload_icon_field.png")}
+                  source={require("../../../Assets/upload_icon_field.png")}
                 />
               </View>
             </TouchableOpacity>
@@ -215,7 +211,7 @@ const ApplyJob = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/upload_icon_field.png")}
+                  source={require("../../../Assets/upload_icon_field.png")}
                 />
               </View>
             </TouchableOpacity>
@@ -233,8 +229,8 @@ const ApplyJob = (props) => {
                 <Image
                   source={
                     props.applyJob.workStatus == 1
-                      ? require("../../../../Assets/checked_circled_v1.png")
-                      : require("../../../../Assets/unchecked_circled_v1.png")
+                      ? require("../../../Assets/checked_circled_v1.png")
+                      : require("../../../Assets/unchecked_circled_v1.png")
                   }
                 />
                 <Text style={styles.AddPhotosTxt}>Yes</Text>
@@ -248,8 +244,8 @@ const ApplyJob = (props) => {
                 <Image
                   source={
                     props.applyJob.workStatus == 2
-                      ? require("../../../../Assets/checked_circled_v1.png")
-                      : require("../../../../Assets/unchecked_circled_v1.png")
+                      ? require("../../../Assets/checked_circled_v1.png")
+                      : require("../../../Assets/unchecked_circled_v1.png")
                   }
                 />
                 <Text style={styles.AddPhotosTxt}>No</Text>
@@ -267,8 +263,8 @@ const ApplyJob = (props) => {
                 <Image
                   source={
                     props.applyJob.visaStatus == 1
-                      ? require("../../../../Assets/checked_circled_v1.png")
-                      : require("../../../../Assets/unchecked_circled_v1.png")
+                      ? require("../../../Assets/checked_circled_v1.png")
+                      : require("../../../Assets/unchecked_circled_v1.png")
                   }
                 />
                 <Text style={styles.AddPhotosTxt}>Yes</Text>
@@ -282,8 +278,8 @@ const ApplyJob = (props) => {
                 <Image
                   source={
                     props.applyJob.visaStatus == 2
-                      ? require("../../../../Assets/checked_circled_v1.png")
-                      : require("../../../../Assets/unchecked_circled_v1.png")
+                      ? require("../../../Assets/checked_circled_v1.png")
+                      : require("../../../Assets/unchecked_circled_v1.png")
                   }
                 />
                 <Text style={styles.AddPhotosTxt}>No</Text>
@@ -343,7 +339,7 @@ const ApplyJob = (props) => {
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/dropdown_icon.png")}
+                  source={require("../../../Assets/dropdown_icon.png")}
                 />
               </View>
             </View>
@@ -370,7 +366,7 @@ const ApplyJob = (props) => {
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/dropdown_icon.png")}
+                  source={require("../../../Assets/dropdown_icon.png")}
                 />
               </View>
             </View>
@@ -395,7 +391,7 @@ const ApplyJob = (props) => {
               </Picker>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/dropdown_icon.png")}
+                  source={require("../../../Assets/dropdown_icon.png")}
                 />
               </View>
             </View>
