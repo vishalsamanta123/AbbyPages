@@ -463,7 +463,7 @@ export function BusinessDrawerContents(props) {
               <Text style={styles.drawerText}>Job Management</Text>
             </View>
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("BusinessOrderHistory");
@@ -478,7 +478,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>My Orders</Text>
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {

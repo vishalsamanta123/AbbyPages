@@ -25,19 +25,17 @@ const AddPhotosScreen = () => {
       <Header
         RightImg={null}
         HeaderText={"Add Photos"}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
-      <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
-        <View style={styles.ContainerStyle}>
-          <Text style={styles.AddPhotosText}>Add Photos</Text>
-          <TouchableOpacity style={styles.BrowseImgeView}>
-            <Image source={require("../../../Assets/upload_icon_box.png")} />
-            <Text style={[styles.AddPhotosText, { color: YELLOW_COLOR_CODE }]}>
-              Browse Files
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.ContainerStyle}>
+        <Text style={styles.AddPhotosText}>Add Photos</Text>
+        <TouchableOpacity style={styles.BrowseImgeView}>
+          <Image source={require("../../../Assets/upload_icon_box.png")} />
+          <Text style={[styles.AddPhotosText, { color: YELLOW_COLOR_CODE }]}>
+            Browse Files
+          </Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

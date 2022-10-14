@@ -8,12 +8,8 @@ import {
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 import styles from "./styles";
 
 const ListingsScreen = (props) => {
@@ -24,7 +20,7 @@ const ListingsScreen = (props) => {
       style={CommonStyles.container}
     >
       <Header
-        RightImg={require("../../../Assets/map_list_icon.png")}
+        RightImg={Images.MAP_LIST_IMG}
         HeaderText={""}
         onPress={() => props.onPressMap()}
         textInput={true}

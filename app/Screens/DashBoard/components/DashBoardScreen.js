@@ -19,11 +19,10 @@ import {
   BLACK_COLOR_CODE,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const DashBoardScreen = (props) => {
   const [moreShow, setMoreShow] = useState(4);
@@ -38,9 +37,9 @@ const DashBoardScreen = (props) => {
     <View style={CommonStyles.container}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText={""}
-        HeaderMiddleImg={require("../../../Assets/login_logo.png")}
+        HeaderMiddleImg={Images.BLACK_LOGO}
         type="Drawer"
         logoImg={true}
         tintColor={BLACK_COLOR_CODE}
@@ -52,7 +51,7 @@ const DashBoardScreen = (props) => {
       >
         <ImageBackground
           resizeMode={"stretch"}
-          source={require("../../../Assets/employeeonboard.png")}
+          source={Images.EMPLOYESS_IMG}
           style={styles.LocatnSrchCntain}
         >
           <View style={styles.straightVw}>
@@ -81,10 +80,7 @@ const DashBoardScreen = (props) => {
                 {props?.businessCategory?.category_name}
               </Text>
             )}
-            <Image
-              style={styles.TextInputImge}
-              source={require("../../../Assets/search_field_icon.png")}
-            />
+            <Image style={styles.TextInputImge} source={Images.SEARCH_IMG} />
           </TouchableOpacity>
           <View style={styles.TextInputView}>
             <GooglePlacesAutocomplete
@@ -121,7 +117,7 @@ const DashBoardScreen = (props) => {
             <Image
               style={styles.TextInputImge}
               resizeMode={"contain"}
-              source={require("../../../Assets/map_field_icon.png")}
+              source={Images.LOCATION_IMG}
             />
           </View>
           <Button
@@ -138,16 +134,14 @@ const DashBoardScreen = (props) => {
               style={styles.rowVw}
             >
               <View style={styles.OptnsImgContain}>
-                <Image
-                  source={require("../../../Assets/restaurant_list_icon.png")}
-                />
+                <Image source={Images.RESTO_LIST_IMG} />
               </View>
               <Text style={styles.OptnsMainText}>Restaurant</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                style={{ width: 20, height: 20 }}
-                source={require("../../../Assets/dropdown_icon.png")}
+                style={styles.OptnsMainImg}
+                source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -157,14 +151,14 @@ const DashBoardScreen = (props) => {
               style={styles.rowVw}
             >
               <View style={styles.OptnsImgContain}>
-                <Image source={require("../../../Assets/job_list_icon.png")} />
+                <Image source={Images.JOB_LIST_IMG} />
               </View>
               <Text style={styles.OptnsMainText}>Job</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                style={{ width: 20, height: 20 }}
-                source={require("../../../Assets/dropdown_icon.png")}
+                style={styles.OptnsMainImg}
+                source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -174,16 +168,14 @@ const DashBoardScreen = (props) => {
               style={styles.rowVw}
             >
               <View style={styles.OptnsImgContain}>
-                <Image
-                  source={require("../../../Assets/service_list_icon.png")}
-                />
+                <Image source={Images.SERVICE_LIST_IMG} />
               </View>
               <Text style={styles.OptnsMainText}>Service Provider</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                style={{ width: 20, height: 20 }}
-                source={require("../../../Assets/dropdown_icon.png")}
+                style={styles.OptnsMainImg}
+                source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -193,16 +185,14 @@ const DashBoardScreen = (props) => {
               style={styles.rowVw}
             >
               <View style={styles.OptnsImgContain}>
-                <Image
-                  source={require("../../../Assets/event_list_icon.png")}
-                />
+                <Image source={Images.EVENT_LIST_IMG} />
               </View>
               <Text style={styles.OptnsMainText}>Event</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                style={{ width: 20, height: 20 }}
-                source={require("../../../Assets/dropdown_icon.png")}
+                style={styles.OptnsMainImg}
+                source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -212,16 +202,14 @@ const DashBoardScreen = (props) => {
               style={styles.rowVw}
             >
               <View style={styles.OptnsImgContain}>
-                <Image
-                  source={require("../../../Assets/shopping_list_icon.png")}
-                />
+                <Image source={Images.SHOPP_LIST_IMG} />
               </View>
               <Text style={styles.OptnsMainText}>Marketplace</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.OptnsImgContain}>
               <Image
-                style={{ width: 20, height: 20 }}
-                source={require("../../../Assets/dropdown_icon.png")}
+                style={styles.OptnsMainImg}
+                source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -290,7 +278,7 @@ const DashBoardScreen = (props) => {
                         <Image
                           resizeMode={"contain"}
                           style={{ width: 20, height: 20 }}
-                          source={require("../../../Assets/marker_icon_menu.png")}
+                          source={Images.LOCATION_IMG}
                         />
                         <Text numberOfLines={2} style={styles.smallSizeTxt}>
                           {item.address_first}
@@ -372,8 +360,8 @@ const DashBoardScreen = (props) => {
               onPress={() => props.setBusinessCategoryModal(false)}
             >
               <Image
-              style={{width:30,height:30,tintColor:BLACK_COLOR_CODE}}
-                source={require("../../../Assets/cart_delete_icon.png")}
+                style={{ width: 30, height: 30, tintColor: BLACK_COLOR_CODE }}
+                source={Images.CANCEL_IMG}
               />
             </TouchableOpacity>
             <View style={{ width: "100%" }}>

@@ -5,9 +5,9 @@ import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Button from "../../../../Components/Button";
 import {
-  BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 
 const ConfirmScreen = (props) => {
@@ -17,8 +17,8 @@ const ConfirmScreen = (props) => {
         leftImg={require("../../../../Assets/header_back_btn.png")}
         HeaderText="Confirm"
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body]}>
         <View style={styles.FlatlistContain}>

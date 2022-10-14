@@ -15,7 +15,7 @@ import ENDPOINTS from "../Utils/apiEndPoints";
 import { UserContext, AuthContext } from "../Utils/UserContext";
 
 //--------------------------------------ScreensNavigation-------------------------------------------//
-//1 ------------->Authentication<------------------//
+//1 ------------->Authentication and Common<------------------//
 import HomeScreen from "../Screens/Authentication/Home";
 import LoginScreen from "../Screens/Authentication/Login";
 import SignUpScreen from "../Screens/Authentication/SignUp";
@@ -24,7 +24,8 @@ import UserVerifyScreen from "../Screens/Authentication/UserVerify";
 import BusinessUserVerifyScreen from "../Screens/Authentication/BusinessUserVerify";
 import ForgotPasswordScreen from "../Screens/Authentication/ForgotPassword";
 import ForgotPasswordFieldScreen from "../Screens/Authentication/ForgotPasswordField";
-//-----------------Authentication End------------------//
+import AddEmailScreen from "../Screens/AddEmail";
+//-----------------Authentication and Common End------------------//
 
 //2------------------->BusinessScreens<---------------//
 //2.1------------------->BusinessScreens Register or Edit<---------------//
@@ -36,7 +37,7 @@ import AddTextPreviewScreen from "../Screens/Business/AddTextPreview";
 import AddKeybordScreen from "../Screens/Business/AddKeybord";
 import BusinessLocationScreen from "../Screens/Business/BusinessLocation";
 import BudgetsScreen from "../Screens/Business/Budgets";
-
+import ConfirmScreen from "../Screens/Business/Confirm";
 //2.1------------BusinessScreens Register or Edit End------------------//
 
 //2.2------------------->BusinessScreens Drawer and Others<-------------//
@@ -44,11 +45,6 @@ import BusinessHomeScreen from "../Screens/Business/BusinessHome";
 import BasicInformationScreen from "../Screens/Business/BasicInformation";
 import BusinessProfileScreen from "../Screens/Business/BusinessProfile";
 import BussinessInfoScreen from "../Screens/Business/BussinessInfo";
-import JobManagementListScreen from "../Screens/Business/JobManagementList";
-import RestaurantManagementScreen from "../Screens/Business/RestaurantManagement";
-import BusinessOrderHistoryScreen from "../Screens/Business/BusinessOrderHistory";
-import MyProductListScreen from "../Screens/Business/MyProductList";
-import EventManagement from "../Screens/Business/EventManagement";
 import BusinessChangePasswordScreen from "../Screens/Business/BusinessChangePassword";
 import OpeningHoursScreen from "../Screens/Business/OpeningHours";
 import PhotosVideoScreen from "../Screens/Business/PhotosVideo";
@@ -56,6 +52,7 @@ import AddEditBusinessCategoryScreen from "../Screens/Business/AddEditBusinessCa
 //2.2-------------------BusinessScreens Drawer and Others End-------------//
 
 //2.3------------------->BusinessScreens RestaurantScreens<-------------//
+import RestaurantManagementScreen from "../Screens/Business/RestaurantManagement";
 import TableManagementScreen from "../Screens/Business/TableManagement";
 import MyRestaurantItemScreen from "../Screens/Business/MyRestaurantItem";
 import AddTableScreen from "../Screens/Business/AddTable";
@@ -64,6 +61,7 @@ import AddItemScreen from "../Screens/Business/AddItem";
 //2.3-------------------BusinessScreens RestaurantScreens End-------------//
 
 //2.4------------------->BusinessScreens JobScreen<-------------//
+import JobManagementListScreen from "../Screens/Business/JobManagementList";
 import AddJobsScreen from "../Screens/Business/AddJobs";
 import EditJob from "../Screens/Business/EditJob";
 import AppliedJobScreen from "../Screens/Business/AppliedJob";
@@ -71,14 +69,25 @@ import AppliedJobDetailsScreen from "../Screens/Business/OrderDetail/AppliedJobD
 //2.4-------------------BusinessScreens JobScreen End-------------//
 
 //2.5------------------->BusinessScreens ProductScreen<-------------//
+import MyProductListScreen from "../Screens/Business/MyProductList";
 import AddBusinessProductScreen from "../Screens/Business/AddBusinessProduct";
 import BusinessProductDetailsScreen from "../Screens/Business/BusinessProductDetails";
 //2.5-------------------BusinessScreens ProductScreen End-------------//
 
 //2.6------------------->BusinessScreens EventScreen<-------------//
+import EventManagement from "../Screens/Business/EventManagement";
 import CreateEventScreen from "../Screens/CreateEvent";
 import EventViewScreen from "../Screens/Business/EventView";
 //2.6-------------------BusinessScreens EventScreen End-------------//
+
+//2.7------------------->BusinessScreens Orders<-------------//
+import BusinessOrderHistoryScreen from "../Screens/Business/BusinessOrderHistory";
+import FoodOrderDetailsScreen from "../Screens/Business/OrderDetail/FoodOrderDetails";
+import TableBookingDetailsScreen from "../Screens/Business/OrderDetail/TableBookingDetails";
+import OutSideBookingOrderDetailsScreen from "../Screens/Business/OrderDetail/OutSideBookingOrderDetails";
+import ServiceOrderDetailsScreen from "../Screens/Business/OrderDetail/ServiceOrderDetails";
+import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/ShoppingOrderDetails";
+//2.7-------------------BusinessScreens Orders End-------------//
 //2-------------------BusinessScreens End-------------//
 
 //3------------------->UserScreens<----------------//
@@ -144,6 +153,7 @@ import CollectionsScreen from "../Screens/Collections";
 import NotificationsScreen from "../Screens/Notifications";
 import RecentActivityScreen from "../Screens/RecentActivity";
 import FriendsScreen from "../Screens/Friends";
+import InviteFriendsScreen from "../Screens/InviteFriends";
 import UpdateProfileScreen from "../Screens/UpdateProfile";
 import ChangePasswordScreen from "../Screens/ChangePassword";
 import NotificationSettingsScreen from "../Screens/NotificationSettings";
@@ -153,20 +163,12 @@ import UserProfileScreen from "../Screens/UserProfile";
 //3----------------UserScreens End------------------//
 
 import UpdatePagesScreen from "../Screens/Business/UpdatePages";
-import ConfirmScreen from "../Screens/Business/Confirm";
-import FoodOrderDetailsScreen from "../Screens/Business/OrderDetail/FoodOrderDetails";
-import TableBookingDetailsScreen from "../Screens/Business/OrderDetail/TableBookingDetails";
-import ServiceOrderDetailsScreen from "../Screens/Business/OrderDetail/ServiceOrderDetails";
-import OutSideBookingOrderDetailsScreen from "../Screens/Business/OrderDetail/OutSideBookingOrderDetails";
-import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/ShoppingOrderDetails";
 import RestaurantMenuScreen from "../Screens/RestaurantMenu";
 import AddcartcashbackScreen from "../Screens/Addcartcashback";
-import AddEmailScreen from "../Screens/AddEmail";
 import AddPhotosScreen from "../Screens/AddPhotos";
 import BookmarkMapScreen from "../Screens/BookmarkMap";
 import CashBackScreen from "../Screens/CashBack";
 import ManageFriendInviteScreen from "../Screens/ManageFriendInvite";
-import InviteFriendsScreen from "../Screens/InviteFriends";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -310,7 +312,10 @@ function AuthStack() {
 
 function BusinessStack() {
   return (
-    <Business.Navigator screenOptions={{ headerShown: false }}>
+    <Business.Navigator
+      initialRouteName={"BusinessHome"}
+      screenOptions={{ headerShown: false }}
+    >
       <Business.Screen
         name="BusinessHome"
         component={CustomBusinessNavigation}
@@ -367,7 +372,7 @@ function BusinessStack() {
         name="RestaurantManagement"
         component={RestaurantManagementScreen}
       />
-      <Business.Screen name="UpdatePages" component={UpdatePagesScreen} />
+      {/* <Business.Screen name="UpdatePages" component={UpdatePagesScreen} /> */}
 
       <Business.Screen name="Goals" component={GoalsScreen} />
       <Business.Screen name="AddKeybord" component={AddKeybordScreen} />
@@ -444,10 +449,10 @@ function AppStack() {
       <Stack.Screen name="InviteFriends" component={InviteFriendsScreen} />
       <Stack.Screen name="EventManagement" component={EventManagement} />
       <Stack.Screen name="UserEventsList" component={UserEventsListScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ManageFriendInvite"
         component={ManageFriendInviteScreen}
-      />
+      /> */}
       <Stack.Screen
         name="BusinessUserVerify"
         component={BusinessUserVerifyScreen}
@@ -468,7 +473,7 @@ function AppStack() {
       {/* <Stack.Screen name="Collections" component={CollectionsScreen} /> */}
       {/* <Stack.Screen name="BookmarkMap" component={BookmarkMapScreen} /> */}
       {/* <Stack.Screen name="CashBack" component={CashBackScreen} /> */}
-      <Stack.Screen name="AddPhotos" component={AddPhotosScreen} />
+      {/* <Stack.Screen name="AddPhotos" component={AddPhotosScreen} /> */}
       <Stack.Screen name="StepOne" component={StepOneScreen} />
       <Stack.Screen name="StepSecond" component={StepSecondScreen} />
       <Stack.Screen name="AddEmail" component={AddEmailScreen} />
@@ -478,7 +483,7 @@ function AppStack() {
       {/* not in use */}
       <Stack.Screen name="StepSix" component={StepSixScreen} />
       {/* not in use */}
-      <Stack.Screen name="Addcartcashback" component={AddcartcashbackScreen} />
+      {/* <Stack.Screen name="Addcartcashback" component={AddcartcashbackScreen} /> */}
       <Stack.Screen name="StepFifth" component={StepFifthScreen} />
       <Stack.Screen
         name="ConfirmReservation"
@@ -511,7 +516,7 @@ function AppStack() {
       />
       <Stack.Screen name="EventListings" component={EventListingsScreen} />
       <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
-      <Stack.Screen name="RestaurantMenu" component={RestaurantMenuScreen} />
+      {/* <Stack.Screen name="RestaurantMenu" component={RestaurantMenuScreen} /> */}
       <Stack.Screen name="ListingMap" component={ListingMapScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />

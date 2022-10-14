@@ -17,7 +17,11 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
-import { YELLOW_COLOR_CODE } from "../../Utils/Constant";
+import {
+  YELLOW_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
+} from "../../Utils/Constant";
+import { Images } from "../../Utils/images";
 
 const ListingsScreenView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -130,9 +134,9 @@ const ListingsScreenView = ({ navigation, route }) => {
         interest: item?.interest ? item?.interest : 0,
         views: item?.views,
       };
-      console.log('params', params)
+      console.log("params", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log('data', data)
+      console.log("data", data);
       if (data.status == 200) {
         if (search) {
           if (inputSearch) {
@@ -184,11 +188,11 @@ const ListingsScreenView = ({ navigation, route }) => {
             <View style={{ flex: 1, alignItems: "flex-end" }}>
               <TouchableOpacity onPress={() => onPressLike(item)}>
                 <Image
-                  source={
-                    item.user_like === 1
-                      ? require("../../Assets/like_icon_filled.png")
-                      : require("../../Assets/like_icon_disable.png")
-                  }
+                  style={{
+                    tintColor:
+                      item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
+                  }}
+                  source={Images.FAVRT_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -203,7 +207,7 @@ const ListingsScreenView = ({ navigation, route }) => {
             <Image
               style={styles.MapImgeStyle}
               resizeMode="contain"
-              source={require("../../Assets/map_marker_icon.png")}
+              source={Images.LOCATION_IMG}
             />
             <Text
               numberOfLines={2}
@@ -220,8 +224,8 @@ const ListingsScreenView = ({ navigation, route }) => {
                   tintColor={YELLOW_COLOR_CODE}
                   source={
                     item.offers_delivery === 1
-                      ? require("../../Assets/text_check_icon.png")
-                      : require("../../Assets/cart_delete_icon.png")
+                      ? Images.TICK_IMG
+                      : Images.CANCEL_IMG
                   }
                   style={{ marginHorizontal: 2 }}
                 />
@@ -232,8 +236,8 @@ const ListingsScreenView = ({ navigation, route }) => {
                   tintColor={YELLOW_COLOR_CODE}
                   source={
                     item.offers_takeout === 1
-                      ? require("../../Assets/text_check_icon.png")
-                      : require("../../Assets/cart_delete_icon.png")
+                      ? Images.TICK_IMG
+                      : Images.CANCEL_IMG
                   }
                   style={{ marginHorizontal: 2 }}
                 />
@@ -242,7 +246,7 @@ const ListingsScreenView = ({ navigation, route }) => {
             </View>
           </View>
           <View style={styles.InformationView}>
-            <Image style={{}} source={require("../../Assets/fire_icon.png")} />
+            <Image source={Images.FIRE_IMG} />
             <Text style={styles.AddressTextStyles}>
               {moment(item.create_date).startOf("hour").fromNow()}
             </Text>

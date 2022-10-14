@@ -13,11 +13,13 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   GREY_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import moment from "moment";
 import Button from "../../../Components/Button";
+import { Images } from "../../../Utils/images";
 
 const JobListScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -46,7 +48,7 @@ const JobListScreen = (props) => {
             <Image
               style={styles.icon}
               resizeMode="contain"
-              source={require("../../../Assets/info_marker_icon.png")}
+              source={Images.LOCATION_IMG}
             />
             <Text numberOfLines={3} style={styles.text}>
               {item.job_address}
@@ -57,7 +59,7 @@ const JobListScreen = (props) => {
               tintColor={YELLOW_COLOR_CODE}
               style={styles.icon}
               resizeMode="contain"
-              source={require("../../../Assets/job_list_icon.png")}
+              source={Images.JOB_LIST_IMG}
             />
             <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
               {Number(item.job_type) === 1
@@ -77,7 +79,7 @@ const JobListScreen = (props) => {
                 style={styles.icon}
                 tintColor={YELLOW_COLOR_CODE}
                 resizeMode="contain"
-                source={require("../../../Assets/money_icon.png")}
+                source={Images.MONEY_NOTE_IMG}
               />
               <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                 {Number(
@@ -95,20 +97,30 @@ const JobListScreen = (props) => {
             </View>
             <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
-                source={
-                  item.user_like === 1
-                    ? require("../../../Assets/like_icon_filled.png")
-                    : require("../../../Assets/like_icon_disable.png")
-                }
+                style={{
+                  tintColor:
+                    item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
+                }}
+                source={Images.FAVRT_IMG}
               />
             </TouchableOpacity>
           </View>
           {/* <TouchableOpacity style={[styles.basiccon, { marginTop: 5 }]}>
-            <Image
-              style={{ width: 25, height: 25, marginRight: 10 }}
-              resizeMode="contain"
-              source={require("../../../Assets/list_edit_icon.png")}
-            />
+            <View
+              style={{
+                marginRight: 10,
+                backgroundColor: YELLOW_COLOR_CODE,
+                borderRadius: 16,
+                padding: 4,
+              }}
+            >
+              <Image
+                style={{ tintColor: WHITE_COLOR_CODE }}
+                resizeMode="contain"
+                source={Images.EDIT_PENCIL_IMG}
+              />
+            </View>
+
             <Text style={styles.editTxt}>Edit Your Job</Text>
           </TouchableOpacity> */}
         </View>

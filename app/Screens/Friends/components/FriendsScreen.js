@@ -15,6 +15,7 @@ import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 const FriendsScreen = (props) => {
   return (
@@ -27,9 +28,9 @@ const FriendsScreen = (props) => {
         leftImg={require("../../../Assets/hamburger_icon.png")}
         HeaderText="Friends"
         type="Drawer"
-        MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <View style={styles.MainImgeStyle}>

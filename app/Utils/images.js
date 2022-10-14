@@ -2,8 +2,18 @@ export const Images = {
   SPLASH_LOGO: require("../Assets/login_graphic.png"),
   BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
+
+  //-------------Important Images-----------------//
+  RESTO_LIST_IMG: require("../Assets/restaurant_list_icon.png"),
+  JOB_LIST_IMG: require("../Assets/job_list_icon.png"),
+  SERVICE_LIST_IMG: require("../Assets/service_list_icon.png"),
+  EVENT_LIST_IMG: require("../Assets/event_list_icon.png"),
+  SHOPP_LIST_IMG: require("../Assets/shopping_list_icon.png"),
+  //-------------Important Images End-----------------//
+
+  //-------------Other Images-----------------//
   ABOUT_IMG: require("../Assets/about_icon_1.png"),
-  FAVRT_IMG: require("../Assets/about_icon_2.png"),
+  FAVRT_IMG: require("../Assets/like_icon_filled.png"),
   CLOTH_IMG: require("../Assets/about_icon_3.png"),
   P_WORD_IMG: require("../Assets/about_icon_4.png"),
   ACTIVE_SWITCH_IMG: require("../Assets/active_switch.png"),
@@ -33,7 +43,7 @@ export const Images = {
   BUSINESS_MENU_IMG: require("../Assets/business_menu_icon.png"),
   BUSINESS_PROFILE_IMG: require("../Assets/businessprofile.png"),
   BUSINESS_WEBSITE_IMG: require("../Assets/business_website_icon.png"),
-  CALENDER_IMG: require("../Assets/calendar_icon.png"),//also work on calendar_icon_field.png image
+  CALENDER_IMG: require("../Assets/calendar_icon.png"), //also work on calendar_icon_field.png image
   COLORED_CAMERA_IMG: require("../Assets/camera.png"),
   COLORED_CANCEL_IMG: require("../Assets/cancelModalBtn.png"),
   CANCEL_IMG: require("../Assets/cart_delete_icon.png"),
@@ -68,7 +78,6 @@ export const Images = {
   EMPLOYESS_IMG: require("../Assets/employeeonboard.png"),
   ENVELOPE_IMG: require("../Assets/envelope_icon_menu.png"),
   ERROR_IMG: require("../Assets/Error.png"),
-  EVENTLIST_IMG: require("../Assets/event_list_icon.png"),
   FILTER_IMG: require("../Assets/filter_icon.png"),
   FINAL_ORDER_IMG: require("../Assets/final_order.png"),
   FINAL_ORDERDOT_IMG: require("../Assets/final_order1.png"),
@@ -92,7 +101,6 @@ export const Images = {
   INFO_IMG: require("../Assets/info_icon_circled.png"),
   THEME_INFO_IMG: require("../Assets/info_icon_large.png"),
   LOCATION_IMG: require("../Assets/info_marker_icon.png"),
-  JOBLIST_IMG: require("../Assets/job_list_icon.png"),
   LIMITED_IMG: require("../Assets/limited.png"),
   DELETE_IMG: require("../Assets/list_delete_icon.png"),
   LIST_IMG: require("../Assets/listmenucopy.png"),
@@ -121,14 +129,11 @@ export const Images = {
   RADIO_CHECK_IMG: require("../Assets/radio_circled_checked.png"),
   RADIO_UNCHECK_IMG: require("../Assets/radio_circled_unchecked.png"),
   RECENT_IMG: require("../Assets/recent_activity.png"),
-  RESTO_LIST_IMG: require("../Assets/restaurant_list_icon.png"),
   REVIEWED_IMG: require("../Assets/review_graphic.png"),
   SAVED_IMG: require("../Assets/save_icon.png"),
   SEARCH_IMG: require("../Assets/search_field_icon.png"),
-  SERVICE_IMG: require("../Assets/service_list_icon.png"),
   SETTING_IMG: require("../Assets/settings_icon_menu.png"),
   SHARE_IMG: require("../Assets/share_icon.png"),
-  SHOPPING_IMG: require("../Assets/shopping_list_icon.png"),
   SQUARE_IMG: require("../Assets/squares.png"),
   STAR_IMG: require("../Assets/star_icon.png"),
   STAR_UNFILLED_IMG: require("../Assets/star_icon_text.png"),
@@ -159,3 +164,5 @@ export const Images = {
   VERIFIED_BLUE_IMG: require("../Assets/verified_img.png"),
   VIEW_EYE_IMG: require("../Assets/viewed_icon.png"),
 };
+//delete
+//map_field_icon.png

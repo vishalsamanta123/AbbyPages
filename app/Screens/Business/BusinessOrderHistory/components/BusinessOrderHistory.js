@@ -6,7 +6,9 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
+  YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+
 const BusinessOrderHistory = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -15,18 +17,17 @@ const BusinessOrderHistory = (props) => {
         RightImg={null}
         leftImg={require("../../../../Assets/hamburger_icon.png")}
         type="Drawer"
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
-      <View style={[CommonStyles.body]}>
-        <View
-          style={{
-            borderTopWidth: 0.3,
-            borderColor: "#ffe98e",
-            borderBottomWidth: 0.3,
-          }}
-        >
-          {/* <FlatList
+      <View
+        style={{
+          borderTopWidth: 0.3,
+          borderColor: "#ffe98e",
+          borderBottomWidth: 0.3,
+        }}
+      >
+        {/* <FlatList
                         data={props.dataType}
                         horizontal
                         showsHorizontalScrollIndicator={false}
@@ -41,23 +42,22 @@ const BusinessOrderHistory = (props) => {
                         borderWidth: 0.3,
                         borderColor: '#ffe98e'
                     }} /> */}
-        </View>
-        {props.orderData.length > 0 ? (
-          <FlatList
-            data={props.orderData}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => props._handleOrders(item, index)}
-          />
-        ) : (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text style={{ fontSize: 18, fontFamily: FONT_FAMILY_REGULAR }}>
-              Thare is no data{" "}
-            </Text>
-          </View>
-        )}
       </View>
+      {props.orderData.length > 0 ? (
+        <FlatList
+          data={props.orderData}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => props._handleOrders(item, index)}
+        />
+      ) : (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ fontSize: 18, fontFamily: FONT_FAMILY_REGULAR }}>
+            Thare is no data{" "}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

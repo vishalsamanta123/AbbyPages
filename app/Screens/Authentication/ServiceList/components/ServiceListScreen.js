@@ -10,7 +10,12 @@ import {
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import {
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
+
 function ServiceListScreen(props) {
   const _renderItems = (item, index) => {
     return (
@@ -28,10 +33,7 @@ function ServiceListScreen(props) {
         </View>
         <View style={styles.lstimgvwe}>
           {item.isSelect == true && (
-            <Image
-              style={styles.iconimg}
-              source={require("../../../../Assets/checked_circled_icon_box.png")}
-            />
+            <Image style={styles.iconimg} source={Images.ROUND_CHECK_IMG} />
           )}
         </View>
       </TouchableOpacity>
@@ -44,11 +46,11 @@ function ServiceListScreen(props) {
     >
       <Header
         HeaderText="Service List"
-        RightImg={require("../../../../Assets/box_check_white_icon.png")}
+        RightImg={Images.OTHER_CHECK_IMG}
         type="serviceids"
         onPress={() => props.onClickRightIcon()}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       <View style={styles.body}>
         <FlatList

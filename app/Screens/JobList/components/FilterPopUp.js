@@ -25,6 +25,7 @@ import Input from "../../../Components/Input";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
+import { Images } from "../../../Utils/images";
 
 export default function FilterPopUp(props) {
   const [category, setCategory] = useState([]);
@@ -145,7 +146,7 @@ export default function FilterPopUp(props) {
             <Image
               resizeMode={"contain"}
               style={{ bottom: 10 }}
-              source={require("../../../Assets/qty_minus_icon3.png")}
+              source={Images.QTY_MINUS_IMG}
             />
           </TouchableOpacity>
         </View>
@@ -241,11 +242,9 @@ export default function FilterPopUp(props) {
             style={styles.HeaderArrow}
           >
             <Image
-              source={
-                props.search
-                  ? require("../../../Assets/close_window_icon.png")
-                  : require("../../../Assets/header_back_btn.png")
-              }
+              resizeMode={"contain"}
+              style={{ tintColor: WHITE_COLOR_CODE, width: 33, height: 33 }}
+              source={props.search ? Images.CANCEL_IMG : Images.HEADER_BCK_IMG}
             />
           </TouchableOpacity>
           <View style={styles.HeaderViewMidle}>
@@ -261,12 +260,12 @@ export default function FilterPopUp(props) {
             <Text style={styles.resetTxt}>Reset</Text>
           </TouchableOpacity>
           {/* <View style={styles.FilterImgeView}>
-          <Image source={require("../../../Assets/filter_icon.png")} />
-          <Image
-            style={{ marginLeft: 5 }}
-            source={require("../../../Assets/search_icon_header.png")}
-          />
-        </View> */}
+            <Image source={Images.FILTER_IMG} />
+            <Image
+              style={{ marginLeft: 5, tintColor: WHITE_COLOR_CODE }}
+              source={Images.SEARCH_IMG}
+            />
+          </View> */}
         </View>
         <ScrollView
           nestedScrollEnabled
@@ -417,7 +416,7 @@ export default function FilterPopUp(props) {
                 <Image
                   style={{ width: 24, height: 24 }}
                   resizeMode={"contain"}
-                  source={require("../../../Assets/cancelModalBtn.png")}
+                  source={Images.COLORED_CANCEL_IMG}
                 />
               </TouchableOpacity>
             </View>

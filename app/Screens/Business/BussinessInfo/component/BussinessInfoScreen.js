@@ -227,6 +227,7 @@ const BussinessInfoScreen = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             // onPress={() => props.BudgetsFun()}
+            // onPress={() => props.onPressConfirm()}
             style={styles.mainboxvwe}
           >
             <View style={styles.secmainvwe}>

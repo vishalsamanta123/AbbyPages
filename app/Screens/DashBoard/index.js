@@ -120,20 +120,20 @@ const DashBoardView = ({ navigation }) => {
       setVisible(false);
     }
   };
+  const onPressRestro = () => {
+    navigation.navigate("Listings");
+  };
   const onPressJob = () => {
     navigation.navigate("JobList");
   };
-  const onPressRestro = () => {
-    navigation.navigate("Listings");
+  const onPressProvider = () => {
+    navigation.navigate("ServiceProviderListing");
   };
   const onPressEvents = () => {
     navigation.navigate("EventListings");
   };
   const onPressShopping = () => {
     navigation.navigate("ShopList");
-  };
-  const onPressProvider = () => {
-    navigation.navigate("ServiceProviderListing");
   };
   const SearchBusinessCategory = (searchKey) => {
     const lowerCased = searchKey.toLowerCase();

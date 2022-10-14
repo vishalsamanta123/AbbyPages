@@ -70,7 +70,7 @@ const Styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 10,
     width: 22,
-    height: 22,
+    height: 20,
   },
   SearchTxtStyle: {
     color: WHITE_COLOR_CODE,
@@ -110,6 +110,11 @@ const Styles = StyleSheet.create({
     fontSize: 19,
     color: LIGHT_BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  OptnsMainImg: {
+    width: 20,
+    height: 20,
+    tintColor: LIGHT_BLACK_COLOR_CODE,
   },
   centeredView: {
     justifyContent: "center",
