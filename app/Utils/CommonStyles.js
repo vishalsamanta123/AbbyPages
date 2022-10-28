@@ -27,5 +27,11 @@ const Styles = StyleSheet.create({
   scrollCon: {
     flexGrow: 1,
   },
+  editPencilVw:{
+    backgroundColor: YELLOW_COLOR_CODE,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 export default Styles;

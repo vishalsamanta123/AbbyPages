@@ -3,6 +3,7 @@ import { View, Text, Image } from 'react-native';
 import Dialog, { DialogContent, SlideAnimation, } from 'react-native-popup-dialog';
 import Button from '../Button';
 import { FONT_FAMILY_REGULAR, FONT_FAMILY_BOLD, YELLOW_COLOR_CODE } from '../../Utils/Constant';
+import { Images } from '../../Utils/images';
 export default function success({ message, visible, closeModel }) {
     return (
         <View>
@@ -22,7 +23,7 @@ export default function success({ message, visible, closeModel }) {
                         <Image
                             resizeMode='contain'
                             style={{ width: 100 }}
-                            source={require('../../Assets/Success_yellow.png')} />
+                            source={Images.SUCCESS_IMG} />
                     </View>
                 }
                 footer={

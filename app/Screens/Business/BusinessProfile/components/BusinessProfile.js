@@ -14,12 +14,8 @@ import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const BusinessInformation = (props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const { width: windowWidth } = useWindowDimensions();
@@ -28,27 +24,29 @@ const BusinessInformation = (props) => {
     let path = (
       <Image
         key={i}
-        source={require("../../../../Assets/star_icon_filled.png")}
+        style={{ width: 20, height: 20 }}
+        source={Images.STAR_FILLED_IMG}
       />
     );
     if (i > props.profileData.rating) {
       path = (
         <Image
           key={i}
-          source={require("../../../../Assets/star_icon_text.png")}
+          style={{ width: 20, height: 20 }}
+          source={Images.STAR_UNFILLED_IMG}
         />
       );
     }
     stars.push(path);
   }
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Business Info"}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         tintColor={WHITE_COLOR_CODE}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -98,24 +96,24 @@ const BusinessInformation = (props) => {
             <View style={styles.bussinessimg}>
               {props?.profileData
                 ? props?.profileData?.business_imgae?.map(
-                    (image, imageIndex) => {
-                      const width = scrollX.interpolate({
-                        inputRange: [
-                          windowWidth * (imageIndex - 1),
-                          windowWidth * imageIndex,
-                          windowWidth * (imageIndex + 1),
-                        ],
-                        outputRange: [8, 16, 8],
-                        extrapolate: "clamp",
-                      });
-                      return (
-                        <Animated.View
-                          key={imageIndex}
-                          style={[styles.normalDot, { width }]}
-                        />
-                      );
-                    }
-                  )
+                  (image, imageIndex) => {
+                    const width = scrollX.interpolate({
+                      inputRange: [
+                        windowWidth * (imageIndex - 1),
+                        windowWidth * imageIndex,
+                        windowWidth * (imageIndex + 1),
+                      ],
+                      outputRange: [8, 16, 8],
+                      extrapolate: "clamp",
+                    });
+                    return (
+                      <Animated.View
+                        key={imageIndex}
+                        style={[styles.normalDot, { width }]}
+                      />
+                    );
+                  }
+                )
                 : null}
             </View>
             <View style={styles.comnvwe}>
@@ -123,7 +121,7 @@ const BusinessInformation = (props) => {
                 onPress={() => props.onPressProfileImage()}
                 style={styles.UserProfileImage}
               >
-                {props.LocitemImage ? (
+                {!props.LocitemImage ? (
                   <Image
                     style={styles.ProfileIMG}
                     borderRadius={50}
@@ -138,8 +136,8 @@ const BusinessInformation = (props) => {
                 ) : (
                   <Image
                     style={styles.ProfileIMG}
-                    borderRadius={50}
-                    source={require("../../../../Assets/company_default_photo.png")}
+                    borderRadius={120}
+                    source={Images.THEME_COMPANY_DEFAULT_IMG}
                   />
                 )}
                 <TouchableOpacity
@@ -149,7 +147,7 @@ const BusinessInformation = (props) => {
                   <View style={styles.camsecvwe}>
                     <Image
                       style={styles.camimg}
-                      source={require("../../../../Assets/camera_icon_list.png")}
+                      source={Images.CAMERA_IMG}
                     />
                   </View>
                 </TouchableOpacity>
@@ -161,7 +159,7 @@ const BusinessInformation = (props) => {
                 {props.profileData.business_name}
               </Text>
               <View style={styles.StarViewContain}>
-                <Text style={{ fontSize: 20 }}>{stars}</Text>
+                <Text style={{ fontSize: 20, }}>{stars}</Text>
               </View>
               <View style={styles.FollowersCountView}>
                 <View style={styles.EditBtnView}>
@@ -181,7 +179,7 @@ const BusinessInformation = (props) => {
                   <TouchableOpacity style={styles.ImageView}>
                     <Image
                       style={styles.notificationicon}
-                      source={require("../../../../Assets/notification_icon.png")}
+                      source={Images.NOTIFICATION_IMG}
                     />
                   </TouchableOpacity>
                   <Text style={styles.OptionText}>Notifications</Text>
@@ -189,7 +187,7 @@ const BusinessInformation = (props) => {
                 <View style={styles.OptionViewContain}>
                   <TouchableOpacity style={styles.ImageView}>
                     <Image
-                      source={require("../../../../Assets/company_reviews_icon.png")}
+                      source={Images.COMPANY_REVIEW_IMG}
                     />
                   </TouchableOpacity>
                   <Text style={styles.OptionText}>See reviews</Text>
@@ -197,7 +195,7 @@ const BusinessInformation = (props) => {
                 <View style={styles.OptionViewContain}>
                   <TouchableOpacity style={styles.ImageView}>
                     <Image
-                      source={require("../../../../Assets/company_consumer_icon.png")}
+                      source={Images.CONSUMER_IMG}
                     />
                   </TouchableOpacity>
                   <Text style={styles.OptionText}>View as consumer</Text>
@@ -208,7 +206,7 @@ const BusinessInformation = (props) => {
           {/* <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Updates during Coronavirus</Text>
                         <View style={styles.ViewContainer}>
-                            <Image source={require('../../../../Assets/st_icon_5.png')} />
+                            <Image source={Images.THEME_HOME_IMG} />
                             <View style={styles.ViewParagrapgh}>
                                 <Text style={styles.ParagrapghTextMain}>
                                     Give you custorners up-to-date information arabout
@@ -233,15 +231,15 @@ const BusinessInformation = (props) => {
             </Text>
             {props.profileData
               ? props.profileData.business_category.map((item) => {
-                  return (
-                    <Text style={styles.CategoryText}>
-                      {item.category_name}
-                    </Text>
-                  );
-                })
+                return (
+                  <Text style={styles.CategoryText}>
+                    {item.category_name}
+                  </Text>
+                );
+              })
               : null}
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_6.png")} />
+              <Image source={Images.THEME_GO_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What services do you offer? This helps you attract the right
@@ -256,14 +254,14 @@ const BusinessInformation = (props) => {
             <Button
               buttonText="Edit"
               style={{ width: "100%" }}
-              // onPress={() => props.AddEditBusinessCategoryFun()}
+            // onPress={() => props.AddEditBusinessCategoryFun()}
             />
           </View>
           {/* Edit Amenities */}
           <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
             <Text style={styles.MainContainText}>Amenities and more</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_7.png")} />
+              <Image source={Images.THEME_FEATURE_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What are the notable festures of your business? This info can
@@ -284,7 +282,7 @@ const BusinessInformation = (props) => {
           {/* <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
                         <Text style={styles.MainContainText}>Hours of operation</Text>
                         <View style={styles.ViewContainer}>
-                            <Image source={require('../../../../Assets/st_icon_8.png')} />
+                            <Image source={Images.THEME_HOURS_IMG} />
                             <View style={styles.ViewParagrapgh}>
                                 <Text style={styles.ParagrapghTextMain}>
                                     Let yours customers know when they can stop by or give you a call.
@@ -300,7 +298,7 @@ const BusinessInformation = (props) => {
           <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
             <Text style={styles.MainContainText}>Upcoming special hours</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_9.png")} />
+              <Image source={Images.THEME_SPECIAL_HR_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What are your holiday hours? Let your customers know about
@@ -314,13 +312,13 @@ const BusinessInformation = (props) => {
             <Button
               buttonText="Edit"
               style={{ width: "100%" }}
-              // onPress={() => props.OpenigHours()}
+            // onPress={() => props.OpenigHours()}
             />
           </View>
           <View style={[styles.BookMarkContainer, { paddingBottom: 0 }]}>
             <Text style={styles.MainContainText}>From this business</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_10.png")} />
+              <Image source={Images.THEME_SPECIALIST_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What are your holiday hours? Let your customers know about
@@ -332,7 +330,7 @@ const BusinessInformation = (props) => {
               </View>
             </View>
             <View style={{ flexDirection: "row" }}>
-              <Image source={require("../../../../Assets/st_icon_11.png")} />
+              <Image source={Images.THEME_HISTORY_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What are your holiday hours? Let your customers know about
@@ -344,7 +342,7 @@ const BusinessInformation = (props) => {
               </View>
             </View>
             <View style={{ flexDirection: "row" }}>
-              <Image source={require("../../../../Assets/st_icon_12.png")} />
+              <Image source={Images.THEME_INTRO_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   What are your holiday hours? Let your customers know about
@@ -359,7 +357,7 @@ const BusinessInformation = (props) => {
           <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
             <Text style={styles.MainContainText}>Photos and Videos</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_13.png")} />
+              <Image source={Images.THEME_PHOTOS_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   Photos are one of the biggest factors consumers use to
@@ -380,7 +378,7 @@ const BusinessInformation = (props) => {
           <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
             <Text style={styles.MainContainText}>Slideshow</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_14.png")} />
+              <Image source={Images.THEME_SLIDES_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   Make a great first impression by controlling the order of your
@@ -418,7 +416,7 @@ const BusinessInformation = (props) => {
           <View style={[styles.BookMarkContainer, { paddingBottom: 20 }]}>
             <Text style={styles.MainContainText}>Call to Action</Text>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_15.png")} />
+              <Image source={Images.THEME_ACTION_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={styles.ParagrapghTextMain}>
                   Take customers where you want them to go and make it easy to

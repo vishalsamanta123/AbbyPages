@@ -20,6 +20,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const AddBusinessProductScreen = (props) => {
   return (
@@ -46,17 +47,11 @@ const AddBusinessProductScreen = (props) => {
                 ) : null}
               </View>
               <View>
-                {props.businessCategory ? (
-                  <Image
-                    style={styles.dropiconvwe}
-                    source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                  />
-                ) : (
-                  <Image
-                    style={styles.dropiconvwe}
-                    source={require("../../../../Assets/link_dropdown_ico.png")}
-                  />
-                )}
+                <Image
+                  style={styles.dropiconvwe}
+                  source={props.businessCategory ?
+                    Images.ARROW_UP_IMG : Images.ARROW_DOWN_IMG}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -111,17 +106,11 @@ const AddBusinessProductScreen = (props) => {
                 ) : null}
               </View>
               <View>
-                {props.SubCategory ? (
-                  <Image
-                    style={{ width: 25, height: 25 }}
-                    source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                  />
-                ) : (
-                  <Image
-                    style={{ width: 25, height: 25 }}
-                    source={require("../../../../Assets/link_dropdown_ico.png")}
-                  />
-                )}
+                <Image
+                  style={{ width: 25, height: 25 }}
+                  source={props.SubCategory ?
+                    Images.ARROW_UP_IMG : Images.ARROW_DOWN_IMG}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -170,13 +159,9 @@ const AddBusinessProductScreen = (props) => {
                                 <Text style={{ fontSize: 18 }}>Business Category</Text>
                             </View>
                             <View>
-                                {props.BusiCategory ?
-                                    <Image style={styles.dropiconvwe}
-                                        source={require('../../../../Assets/link_dropdown_icon_up.png')} />
-                                    :
-                                    <Image style={styles.dropiconvwe}
-                                        source={require('../../../../Assets/link_dropdown_ico.png')} />
-                                }
+                            <Image style={styles.dropiconvwe}
+                                        source={props.BusiCategory ?
+                                          Images.ARROW_UP_IMG : Images.ARROW_DOWN_IMG} />
                             </View>
                         </TouchableOpacity>
                     </View> */}
@@ -203,7 +188,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Discount"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <Input
             onChangeText={(productQuanlity) =>
@@ -213,7 +198,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Product Quanlity"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <Input
             onChangeText={(productFinalPrice) =>
@@ -223,7 +208,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Product Final Price"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <Input
             onChangeText={(productDescription) =>
@@ -252,7 +237,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Product Color"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <Input
             onChangeText={(productWeight) =>
@@ -262,7 +247,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Product Weight"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <Input
             onChangeText={(productBrand) => props.setProductBrand(productBrand)}
@@ -270,7 +255,7 @@ const AddBusinessProductScreen = (props) => {
             secureTextEntry={false}
             placeholder="Product Brand"
             InputType="withScroll"
-            // keyboardType={'phone-pad'}
+          // keyboardType={'phone-pad'}
           />
           <TouchableOpacity
             onPress={() => props.onPressProfileImage()}
@@ -280,7 +265,7 @@ const AddBusinessProductScreen = (props) => {
               <Text style={styles.prdctimgtxt}>Product Image</Text>
               <Image
                 style={styles.uploadicin}
-                source={require("../../../../Assets/upload_icon_field.png")}
+                source={Images.UPLOAD_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -361,7 +346,7 @@ const AddBusinessProductScreen = (props) => {
             >
               <Image
                 style={styles.closeicon}
-                source={require("../../../../Assets/cancelModalBtn.png")}
+                source={Images.COLORED_CANCEL_IMG}
               />
             </TouchableOpacity>
             <FlatList

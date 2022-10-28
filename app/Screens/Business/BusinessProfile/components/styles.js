@@ -7,6 +7,7 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const win = Dimensions.get("window");
 const ratio = win.width / 541; //541 is actual image width
@@ -48,7 +49,7 @@ const Styles = StyleSheet.create({
   },
   StarViewContain: {
     flexDirection: "row",
-    height: 20,
+    height: 25,
   },
   FollowersCountView: {
     flexDirection: "row",
@@ -215,6 +216,7 @@ const Styles = StyleSheet.create({
   notificationicon: {
     width: 25,
     height: 25,
+    tintColor: BLACK_COLOR_CODE
   },
 });
 export default Styles;

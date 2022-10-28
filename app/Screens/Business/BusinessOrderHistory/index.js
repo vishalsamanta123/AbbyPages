@@ -22,6 +22,7 @@ import {
   useLinkProps,
   useIsFocused,
 } from "@react-navigation/native";
+import { Images } from "../../../Utils/images";
 
 const BusinessOrderHistoryView = ({ route, props, navigation }) => {
   const isFocused = useIsFocused();
@@ -151,20 +152,20 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
     if (item.business_type == 1) {
       item.order_booking_type == 1
         ? navigation.navigate("FoodOrderDetails", {
-            orderId: item.order_id,
-            BusinessType,
-          })
+          orderId: item.order_id,
+          BusinessType,
+        })
         : item.order_booking_type == 3
-        ? navigation.navigate("TableBookingDetails", {
+          ? navigation.navigate("TableBookingDetails", {
             orderId: item.order_id,
             BusinessType,
           })
-        : item.order_booking_type == 4
-        ? navigation.navigate("OutSideBookingOrderDetails", {
-            orderId: item.order_id,
-            BusinessType,
-          })
-        : null;
+          : item.order_booking_type == 4
+            ? navigation.navigate("OutSideBookingOrderDetails", {
+              orderId: item.order_id,
+              BusinessType,
+            })
+            : null;
     } else if (item.business_type == 3) {
       navigation.navigate("ServiceOrderDetails", {
         orderId: item.order_id,
@@ -221,7 +222,7 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
           <View style={styles.DateContainer}>
             <Image
               style={styles.DateImge}
-              source={require("../../../Assets/list_calendar_icon.png")}
+              source={Images.CALENDER_IMG}
             />
             <Text style={[styles.ReviewText, { paddingLeft: 10 }]}>
               {moment(item.create_order).format("MM/DD/YYYY")}
@@ -231,7 +232,7 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
             <View style={styles.PendingView}>
               <Image
                 style={styles.CheckImge}
-                source={require("../../../Assets/checked_circled_icon_box.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
               <Text
                 style={[
@@ -242,17 +243,17 @@ const BusinessOrderHistoryView = ({ route, props, navigation }) => {
                 {item.order_status == 0
                   ? "Pending"
                   : item.order_status == 1
-                  ? "Confirmed"
-                  : item.order_status == 4
-                  ? "Canceled"
-                  : null}
+                    ? "Confirmed"
+                    : item.order_status == 4
+                      ? "Canceled"
+                      : null}
               </Text>
             </View>
             <TouchableOpacity
               onPress={() => onpressButton(item)}
               style={styles.AddBtnTouchable}
             >
-              <Image source={require("../../../Assets/arrow_right_icon.png")} />
+              <Image source={Images.ARROW_RIGHT_IMG} />
             </TouchableOpacity>
           </View>
         </View>

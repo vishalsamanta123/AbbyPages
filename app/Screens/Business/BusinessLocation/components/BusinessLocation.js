@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, KeyboardAvoidingView,Platform } from "react-native";
+import { View, Image, Text, KeyboardAvoidingView, Platform } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import Button from "../../../../Components/Button";
@@ -11,13 +11,14 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const BusinessLocation = (props) => {
   const locaton = parseInt(props.miles);
   const [value] = useState(70);
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Location"}
@@ -27,7 +28,7 @@ const BusinessLocation = (props) => {
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <Image
           style={styles.TimeLineImge}
-          source={require("../../../../Assets/loaction.png")}
+          source={Images.BUSINESS_ADD_4_IMG}
         />
         <ScrollView>
           <View style={styles.WriteTextView}>
@@ -87,7 +88,7 @@ const BusinessLocation = (props) => {
             <Text style={styles.WriteText}>Estimated audience size </Text>
             <Image
               style={{ top: 2 }}
-              source={require("../../../../Assets/info_icon_circled.png")}
+              source={Images.INFO_IMG}
             />
           </View>
           <View style={styles.AudienceCOntain}>
@@ -97,15 +98,15 @@ const BusinessLocation = (props) => {
             <View style={styles.LimitedView}>
               <Image
                 style={{ width: 110, height: 35 }}
-                source={require("../../../../Assets/limited.png")}
+                source={Images.LIMITED_IMG}
               />
               <RNSpeedometer value={value} size={150} />
-              {/* <Image style={styles.MeterImge} source={require('../../../../Assets/meter.png')} /> */}
+              {/* <Image style={styles.MeterImge} source={Images.METER_IMG} /> */}
             </View>
             <View style={styles.HintView}>
               <Image
                 style={{ top: 1 }}
-                source={require("../../../../Assets/bulb_icon_menu.png")}
+                source={Images.BULB_IMG}
               />
               <Text style={styles.HintTextMain}>
                 Targetting a small area can limit how often your ad shown and

@@ -4,6 +4,7 @@ import {
   FONT_FAMILY_REGULAR,
   LIGHT_GREY_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   ContainerStyle: {
@@ -26,6 +27,11 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 15,
   },
+  checkImgs: {
+    width: 38,
+    height: 38,
+    marginRight: 5
+  },
   AddPhotosTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 17,
@@ -36,6 +42,11 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 5,
+  },
+  dropDownImg: {
+    width: 20,
+    height: 20,
+    tintColor: LIGHT_BLACK_COLOR_CODE
   },
   TextinputContain: {
     marginLeft: 0,

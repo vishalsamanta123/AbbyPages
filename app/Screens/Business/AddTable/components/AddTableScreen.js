@@ -10,6 +10,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const AddTableScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -57,7 +58,7 @@ const AddTableScreen = (props) => {
             <Text style={{ paddingLeft: 25, fontSize: 17 }}>Table Image</Text>
             <Image
               style={{ position: "absolute", right: 30 }}
-              source={require("../../../../Assets/upload_icon_field.png")}
+              source={Images.UPLOAD_IMG}
             />
           </View>
         </TouchableOpacity>

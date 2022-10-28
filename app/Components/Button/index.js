@@ -25,18 +25,6 @@ const Button = (props) => {
         onPress={onPress}
         style={[button, style]}
       >
-        {buttonText == "Continue with Facebook" ? (
-          <Image
-            style={{ width: 30, height: 30, right: 8 }}
-            source={require("../../Assets/facebook_icon.png")}
-          />
-        ) : null}
-        {buttonText == "Continue with Google" ? (
-          <Image
-            style={{ width: 30, height: 31, right: 8 }}
-            source={require("../../Assets/google_icon.png")}
-          />
-        ) : null}
         {showIcon ? (
           <Image
             style={[iconsVw, { tintColor: tintColor }]}
@@ -51,6 +39,18 @@ const Button = (props) => {
   );
 };
 Button.Button = { buttonText: "Submit" };
+// {buttonText == "Continue with Facebook" ? (
+  //   <Image
+  //     style={{ width: 30, height: 30, right: 8 }}
+  //     source={require("../../Assets/facebook_icon.png")}
+  //   />
+  // ) : null}
+  // {buttonText == "Continue with Google" ? (
+  //   <Image
+  //     style={{ width: 30, height: 31, right: 8 }}
+  //     source={require("../../Assets/google_icon.png")}
+  //   />
+  // ) : null}
 const styles = StyleSheet.create({
   button: {
     backgroundColor: YELLOW_COLOR_CODE,

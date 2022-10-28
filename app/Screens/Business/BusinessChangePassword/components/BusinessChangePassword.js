@@ -1,5 +1,5 @@
 import React from "react";
-import { View, KeyboardAvoidingView ,Platform} from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import styles from "./styles";
 import {
   BLACK_COLOR_CODE,
@@ -10,6 +10,8 @@ import {
 import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import Header from "../../../../Components/Header";
+import { Images } from "../../../../Utils/images";
+
 const ForgotPassword = (props) => {
   return (
     <KeyboardAvoidingView
@@ -21,8 +23,8 @@ const ForgotPassword = (props) => {
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        // leftImg={require("../../../../Assets/hamburger_icon.png")}
-        // type="Drawer"
+      // leftImg={Images.DRAWER_IMG}
+      // type="Drawer"
       />
       <View
         style={{ height: "0.2%", backgroundColor: LINE_COMMON_COLOR_CODE }}

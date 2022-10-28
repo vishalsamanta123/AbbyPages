@@ -20,6 +20,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const Addcartcashback = (props) => {
   return (
     <KeyboardAvoidingView
@@ -83,7 +84,7 @@ const Addcartcashback = (props) => {
             />
           </View>
           <View style={styles.LockViewCOntain}>
-            <Image source={require("../../../Assets/lock_icon_menu.png")} />
+            <Image source={Images.LOCK_IMG} />
             <Text style={styles.LockTextStyle}>
               256-bit-Bank-Level Encryption
             </Text>
@@ -129,7 +130,7 @@ const Addcartcashback = (props) => {
           </Text>
           <Image
             style={{ width: 50, height: 28, margin: 8 }}
-            source={require("../../../Assets/MaskGroup25.png")}
+            source={Images.EMPTY_IMG}
           />
         </View>
       </ScrollView>

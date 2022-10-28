@@ -8,12 +8,13 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import MapView from "react-native-maps";
+import { Images } from "../../../../Utils/images";
 
 const BussinessInfoScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         HeaderText="Bussiness Info"
         RightImg={null}
@@ -53,7 +54,7 @@ const BussinessInfoScreen = (props) => {
           >
             <View style={styles.secmainvwe}>
               <Image
-                source={require("../../../../Assets/business_address_icon.png")}
+                source={Images.BUSINESS_ADDRS_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Address</Text>
@@ -65,18 +66,18 @@ const BussinessInfoScreen = (props) => {
             <View style={styles.lastimvwe}>
               <View>
                 <Image
-                  source={require("../../../../Assets/arrow_right_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.mainboxvwe}
-            // onPress={() => props.navToBasicInfo()}
+          // onPress={() => props.navToBasicInfo()}
           >
             <View style={styles.secmainvwe}>
               <Image
-                source={require("../../../../Assets/business_call_icon.png")}
+                source={Images.BUSINESS_CALL_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Call</Text>
@@ -85,18 +86,18 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.mainboxvwe}
-            // onPress={() => props.navToBasicInfo()}
+          // onPress={() => props.navToBasicInfo()}
           >
             <View style={styles.secmainvwe}>
               <Image
-                source={require("../../../../Assets/business_address_icon.png")}
+                source={Images.BUSINESS_ADDRS_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Website</Text>
@@ -107,7 +108,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -117,7 +118,7 @@ const BussinessInfoScreen = (props) => {
           >
             <View style={styles.secmainvwe}>
               <Image
-                source={require("../../../../Assets/business_menu_icon.png")}
+                source={Images.BUSINESS_MENU_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Menu</Text>
@@ -128,18 +129,18 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.mainboxvwe}
-            // onPress={() => props.navToBasicInfo()}
+          // onPress={() => props.navToBasicInfo()}
           >
             <View style={styles.secmainvwe}>
               <Image
-                source={require("../../../../Assets/business_menu_icon.png")}
+                source={Images.BUSINESS_MENU_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Service Area</Text>
@@ -150,7 +151,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -159,8 +160,8 @@ const BussinessInfoScreen = (props) => {
             style={styles.mainboxvwe}
           >
             <View style={styles.secmainvwe}>
-              {/* <Image source={require('../../../../Assets/business_address_icon.png')} /> */}
-              <Image source={require("../../../../Assets/st_icon_1.png")} />
+              {/* <Image source={Images.BUSINESS_ADDRS_IMG} /> */}
+              <Image source={Images.THEME_GOALS_IMG} />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Goals</Text>
                 {/* <Text style={styles.alladdtxt}>{props.profileData.website}</Text> */}
@@ -168,7 +169,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -177,7 +178,7 @@ const BussinessInfoScreen = (props) => {
             style={styles.mainboxvwe}
           >
             <View style={styles.secmainvwe}>
-              <Image source={require("../../../../Assets/st_icon_4.png")} />
+              <Image source={Images.THEME_KEYBOARD_IMG} />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Add Keybord</Text>
                 {/* <Text style={styles.alladdtxt}>{props.profileData.website}</Text> */}
@@ -185,7 +186,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -194,14 +195,14 @@ const BussinessInfoScreen = (props) => {
             style={styles.mainboxvwe}
           >
             <View style={styles.secmainvwe}>
-              <Image source={require("../../../../Assets/st_icon_4.png")} />
+              <Image source={Images.THEME_KEYBOARD_IMG} />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Add Text</Text>
               </View>
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -213,7 +214,7 @@ const BussinessInfoScreen = (props) => {
               <Image
                 resizeMode="center"
                 style={{ height: 30, width: 30 }}
-                source={require("../../../../Assets/Location_icon.png")}
+                source={Images.THEME_LOCATION_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Business Location</Text>
@@ -221,7 +222,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -234,7 +235,7 @@ const BussinessInfoScreen = (props) => {
               <Image
                 resizeMode="center"
                 style={{ height: 30, width: 30 }}
-                source={require("../../../../Assets/budget_icon.jpeg")}
+                source={Images.MONEY_IMG}
               />
               <View style={styles.addvxvwe}>
                 <Text style={styles.allicontxt}>Budgets</Text>
@@ -242,7 +243,7 @@ const BussinessInfoScreen = (props) => {
             </View>
             <View style={styles.lastimvwe}>
               <Image
-                source={require("../../../../Assets/arrow_right_icon.png")}
+                source={Images.ARROW_RIGHT_IMG}
               />
             </View>
           </TouchableOpacity>

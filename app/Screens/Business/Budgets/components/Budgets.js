@@ -19,6 +19,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const Budgets = (props) => {
   return (
     <KeyboardAvoidingView
@@ -34,7 +35,7 @@ const Budgets = (props) => {
       <View style={[CommonStyles.body]}>
         <Image
           style={styles.TimeLineImge}
-          source={require("../../../../Assets/Budget11.png")}
+          source={Images.BUSINESS_ADD_5_IMG}
         />
         <ScrollView>
           <View style={styles.WriteTextView}>
@@ -47,15 +48,9 @@ const Budgets = (props) => {
               props.textOptn ? styles.selectOptionContain : styles.OptionContain
             }
           >
-            {props.textOptn ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image
+              source={props.textOptn ? Images.ROUND_CHECK_IMG : Images.ROUND_UNCHECK_IMG}
+            />
             <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
               <Text style={styles.WriteOwnText}>
                 $10.00 <Text style={styles.DayAvgText}>/ day average</Text>
@@ -65,7 +60,8 @@ const Budgets = (props) => {
             <Text style={styles.SecondContainTxt}>+52 clicks/month*</Text>
             <View style={styles.SpecialContainer}>
               <Image
-                source={require("../../../../Assets/specil_offer_icon.png")}
+                style={{ tintColor: YELLOW_COLOR_CODE }}
+                source={Images.CONFIRM_THUNDER_IMG}
               />
               <Text style={styles.SpecialText}> Special Offer</Text>
             </View>
@@ -79,15 +75,10 @@ const Budgets = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              {props.Dollar15Optn ? (
-                <Image
-                  source={require("../../../../Assets/checked_circled_v1.png")}
-                />
-              ) : (
-                <Image
-                  source={require("../../../../Assets/unchecked_circled_v1.png")}
-                />
-              )}
+              <Image
+                source={props.Dollar15Optn
+                  ? Images.ROUND_CHECK_IMG : Images.ROUND_UNCHECK_IMG}
+              />
               <View
                 style={{
                   backgroundColor: "#f2f2f2",
@@ -115,7 +106,8 @@ const Budgets = (props) => {
             <Text style={styles.SecondContainTxt}>+78 clicks/month*</Text>
             <View style={styles.SpecialContainer}>
               <Image
-                source={require("../../../../Assets/specil_offer_icon.png")}
+                style={{ tintColor: YELLOW_COLOR_CODE }}
+                source={Images.CONFIRM_THUNDER_IMG}
               />
               <Text style={styles.SpecialText}> Special Offer</Text>
             </View>
@@ -128,15 +120,10 @@ const Budgets = (props) => {
                 : styles.OptionContain
             }
           >
-            {props.Dollar25Optn ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image
+              source={props.Dollar25Optn ?
+                Images.ROUND_CHECK_IMG : Images.ROUND_UNCHECK_IMG}
+            />
             <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
               <Text style={styles.WriteOwnText}>
                 $25.00 <Text style={styles.DayAvgText}>/ day average</Text>
@@ -146,7 +133,8 @@ const Budgets = (props) => {
             <Text style={styles.SecondContainTxt}>+130 clicks/months*</Text>
             <View style={styles.SpecialContainer}>
               <Image
-                source={require("../../../../Assets/specil_offer_icon.png")}
+                style={{ tintColor: YELLOW_COLOR_CODE }}
+                source={Images.CONFIRM_THUNDER_IMG}
               />
               <Text style={styles.SpecialText}> Special Offer</Text>
             </View>
@@ -159,15 +147,9 @@ const Budgets = (props) => {
                 : styles.OptionContain
             }
           >
-            {props.DollarQualified ? (
-              <Image
-                source={require("../../../../Assets/checked_circled_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_circled_v1.png")}
-              />
-            )}
+            <Image
+              source={props.DollarQualified ? Images.ROUND_CHECK_IMG : Images.ROUND_UNCHECK_IMG}
+            />
             <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
               <Text style={styles.WriteOwnText}>
                 $25.00 <Text style={styles.DayAvgText}>/ day average</Text>
@@ -177,7 +159,8 @@ const Budgets = (props) => {
             <Text style={styles.SecondContainTxt}>+78 clicks/months*</Text>
             <View style={styles.SpecialContainer}>
               <Image
-                source={require("../../../../Assets/specil_offer_icon.png")}
+                style={{ tintColor: YELLOW_COLOR_CODE }}
+                source={Images.CONFIRM_THUNDER_IMG}
               />
               <Text style={[styles.SpecialText]}> Qualified</Text>
             </View>
@@ -209,15 +192,10 @@ const Budgets = (props) => {
             onPress={() => props.onPressUpgrade()}
             style={styles.OptionContain}
           >
-            {props.UpgradePackage ? (
-              <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
-              />
-            ) : (
-              <Image
-                source={require("../../../../Assets/unchecked_squared_v1.png")}
-              />
-            )}
+            <Image
+              source={props.UpgradePackage ?
+                Images.ROUND_CHECK_IMG : Images.ROUND_UNCHECK_IMG}
+            />
             <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
               <Text style={styles.WriteOwnText}>Upgrade Packages</Text>
               <Text style={styles.WriteOwnText}>$4.00 / day</Text>
@@ -227,7 +205,7 @@ const Budgets = (props) => {
             </Text>
             <View style={styles.RightView}>
               <Image
-                source={require("../../../../Assets/box_check_icon.png")}
+                source={Images.CHECK_IMG}
               />
               <View style={styles.RecommndedView}>
                 <Text
@@ -246,7 +224,7 @@ const Budgets = (props) => {
             </View>
             <View style={styles.RightView}>
               <Image
-                source={require("../../../../Assets/box_check_icon.png")}
+                source={Images.CHECK_IMG}
               />
               <View style={styles.RecommndedView}>
                 <Text
@@ -268,7 +246,7 @@ const Budgets = (props) => {
           <View style={[styles.OptionContain, { padding: 15, margin: 15 }]}>
             <View style={styles.BudgetWorkView}>
               <Image
-                source={require("../../../../Assets/info_icon_circled.png")}
+                source={Images.INFO_IMG}
               />
               <Text style={[styles.ShareText, { paddingTop: 0 }]}>
                 {" "}

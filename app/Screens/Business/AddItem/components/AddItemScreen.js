@@ -14,6 +14,7 @@ import Button from "../../../../Components/Button";
 import Input from "../../../../Components/Input";
 import Header from "../../../../Components/Header";
 import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const AddItemScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -91,7 +92,7 @@ const AddItemScreen = (props) => {
               <Text style={{ paddingLeft: 25, fontSize: 17 }}>Item Image</Text>
               <Image
                 style={{ position: "absolute", right: 30 }}
-                source={require("../../../../Assets/upload_icon_field.png")}
+                source={Images.UPLOAD_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -179,7 +180,7 @@ const AddItemScreen = (props) => {
             >
               <Image
                 style={styles.closeicon}
-                source={require("../../../../Assets/cancelModalBtn.png")}
+                source={Images.COLORED_CANCEL_IMG}
               />
             </TouchableOpacity>
             <FlatList

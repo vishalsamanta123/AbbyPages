@@ -10,6 +10,7 @@ import {
   FONT_FAMILY_BOLD,
   WHITE_COLOR_CODE,
 } from "../../Utils/Constant";
+import { Images } from "../../Utils/images";
 export default function error({ message, visible, closeModel, changeColor }) {
   return (
     <View>
@@ -32,7 +33,7 @@ export default function error({ message, visible, closeModel, changeColor }) {
                 width: 100,
                 tintColor: changeColor ? changeColor : null,
               }}
-              source={require("../../Assets/Error.png")}
+              source={Images.ERROR_IMG}
             />
           </View>
         }

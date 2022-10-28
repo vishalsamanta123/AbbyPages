@@ -12,16 +12,17 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import Button from "../../../../Components/Button";
 import Input from "../../../../Components/Input";
 import Header from "../../../../Components/Header";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../../Utils/Constant";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
 import styles from "./styles";
+import { Images } from "../../../../Utils/images";
 const AddCategoryScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText={props.editDeleteType ? "Categories" : "Add Categories"}
         RightImg={null}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={WHITE_COLOR_CODE}
+        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
       {props.editDeleteType ? (
         <FlatList
@@ -71,7 +72,7 @@ const AddCategoryScreen = (props) => {
             >
               <Image
                 style={styles.closeicon}
-                source={require("../../../../Assets/cancelModalBtn.png")}
+                source={Images.COLORED_CANCEL_IMG}
               />
             </TouchableOpacity>
             <Input

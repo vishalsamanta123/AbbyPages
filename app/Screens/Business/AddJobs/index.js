@@ -8,11 +8,6 @@ import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import AddJobsScreen from "./components/AddJobsScreen";
 import { View, Text, TouchableOpacity } from "react-native";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
 const AddJobs = ({ navigation }) => {
   let today = moment(today).format("MM/DD/YYYY");
   let benefits_Date = moment(today);
@@ -512,12 +507,12 @@ const AddJobs = ({ navigation }) => {
           {modalResp === 1
             ? item.category_name
             : modalResp === 2
-            ? item.name
-            : modalResp === 3
-            ? item.name
-            : modalResp === 4
-            ? item.name
-            : "Not Found"}
+              ? item.name
+              : modalResp === 3
+                ? item.name
+                : modalResp === 4
+                  ? item.name
+                  : "Not Found"}
         </Text>
       </TouchableOpacity>
     );

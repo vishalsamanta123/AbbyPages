@@ -32,6 +32,7 @@ import {
   AddItemCategory,
 } from "../Utils/UserContext";
 import QuestionModal from "../Components/Modal/questionModal";
+import { Images } from "../Utils/images";
 
 const DesignDrawer = () => {
   const [logoutVw, setLogoutVw] = useState(false);
@@ -128,7 +129,7 @@ const DesignDrawer = () => {
           </View>
         </View>
         <TouchableOpacity onPress={() => setLogoutVw(true)}>
-          <Image source={require("../Assets/menu-logout-icon.png")} />
+          <Image source={Images.LOGOUT_IMG} />
         </TouchableOpacity>
       </View>
       <QuestionModal
@@ -163,7 +164,8 @@ export function customDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
-                source={require("../Assets/dashboardicon.png")}
+                source={Images.DASHBOARD_IMG}
+                resizeMode={'contain'}
               />
             </View>
             <View style={styles.TextContain}>
@@ -177,7 +179,9 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/profile_icon_menu.png")} />
+              <Image
+               source={Images.PROFILE_IMG}
+               />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Profile Settings</Text>
@@ -190,7 +194,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/following_icon_menu.png")} />
+              <Image source={Images.FOLLOWING_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Following</Text>
@@ -203,7 +207,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/followers_icon_menu.png")} />
+              <Image source={Images.FOLLOWER_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Followers</Text>
@@ -216,7 +220,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/events_icon_menu.png")} />
+              <Image source={Images.EVENT_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Events</Text>
@@ -229,7 +233,8 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/events_icon_menu.png")} />
+              <Image source={Images.EVENT_IMG}
+               />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>User Events</Text>
@@ -242,7 +247,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/order_icon_menu.png")} />
+              <Image source={Images.ORDERLIST_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Order History</Text>
@@ -255,7 +260,9 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/star_icon_menu.png")} />
+              <Image style={{width:18,height:18}}
+              resizeMode={'contain'}
+              source={Images.STAR_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Reviews</Text>
@@ -268,7 +275,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/bookmark_icon_menu.png")} />
+              <Image source={Images.BOOKMARK_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Bookmarks</Text>
@@ -281,7 +288,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/collection_icon_menu.png")} />
+              <Image source={Images.COLLECTION_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Collections</Text>
@@ -296,7 +303,7 @@ export function customDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
-                source={require("../Assets/notification.png")}
+                source={Images.NOTIFICATION_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -312,7 +319,7 @@ export function customDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 20, height: 20 }}
-                source={require("../Assets/recent_activity.png")}
+                source={Images.RECENT_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -326,7 +333,7 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/following_icon_menu.png")} />
+              <Image source={Images.FOLLOWING_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Friends</Text>
@@ -334,7 +341,7 @@ export function customDrawerContents(props) {
           </TouchableOpacity> */}
           {/* <TouchableOpacity style={styles.contactUsContainer}>
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/bulb_icon_menu.png")} />
+              <Image source={Images.BULB_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Tips</Text>
@@ -342,7 +349,7 @@ export function customDrawerContents(props) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.contactUsContainer}>
             <View style={styles.ImgeView}>
-              <Image source={require("../Assets/checkin_icon_menu.png")} />
+              <Image source={Images.CHECK_IN_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Check-Ins</Text>
@@ -376,7 +383,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/drawerhome.png")}
+                source={Images.DASHBOARDHOME_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -392,7 +399,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/businessprofile.png")}
+                source={Images.BUSINESS_PROFILE_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -408,7 +415,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/businessinformation.png")}
+                source={Images.BUSINESS_INFO_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -424,7 +431,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/openinghours.png")}
+                source={Images.HOURS_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -440,7 +447,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/diet.png")}
+                source={Images.DIET_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -456,27 +463,12 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/teamwork.png")}
+                source={Images.MANAGE_JOB_IMG}
+                resizeMode={'contain'}
               />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Job Management</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.contactUsContainer}
-            onPress={() => {
-              props.navigation.navigate("BusinessOrderHistory");
-            }}
-          >
-            <View style={styles.ImgeView}>
-              <Image
-                style={{ width: 25, height: 25 }}
-                source={require("../Assets/box.png")}
-              />
-            </View>
-            <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>My Orders</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -488,7 +480,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/diet.png")}
+                source={Images.DIET_IMG}
               />
             </View>
             <View style={styles.TextContain}>
@@ -504,13 +496,29 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/diet.png")}
+                source={Images.EVENT_LIST_IMG}
               />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Event Management</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+          style={styles.contactUsContainer}
+          onPress={() => {
+            props.navigation.navigate("BusinessOrderHistory");
+          }}
+        >
+          <View style={styles.ImgeView}>
+            <Image
+              style={{ width: 25, height: 25 }}
+              source={Images.PRODUCT_ORDER_IMG}
+            />
+          </View>
+          <View style={styles.TextContain}>
+            <Text style={styles.drawerText}>My Orders</Text>
+          </View>
+        </TouchableOpacity>
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -520,7 +528,8 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                source={require("../Assets/diet.png")}
+                resizeMode={'contain'}
+                source={Images.PRIVACY_IMG}
               />
             </View>
             <View style={styles.TextContain}>

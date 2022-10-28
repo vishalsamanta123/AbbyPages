@@ -17,6 +17,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import moment from "moment";
+import { Images } from "../../../../Utils/images";
 
 const AppliedJob = (props) => {
   return (
@@ -65,7 +66,7 @@ const AppliedJob = (props) => {
               <TouchableOpacity onPress={() => props.navToDetailPage(item)}>
                 <Image
                   style={{ width: 30, height: 30, marginRight: 8 }}
-                  source={require("../../../../Assets/arrow_right_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </TouchableOpacity>
             </View>

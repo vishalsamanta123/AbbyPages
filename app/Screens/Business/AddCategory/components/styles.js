@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { FONT_FAMILY_BOLD, WHITE_COLOR_CODE, LIGHT_GREY_COLOR_CODE, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE } from '../../../../Utils/Constant';
+import { FONT_FAMILY_BOLD, WHITE_COLOR_CODE, LIGHT_GREY_COLOR_CODE, FONT_FAMILY_REGULAR, BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from '../../../../Utils/Constant';
 const styles = StyleSheet.create({
     lablestyle: {
         flexDirection: 'row',
@@ -32,10 +32,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
     },
-    commmonvwe:{
-        flex: 1, 
+    commmonvwe: {
+        flex: 1,
         justifyContent: 'center',
-         alignItems: 'center'
+        alignItems: 'center'
+    },
+    editPencilVw: {
+        width: 40,
+        height: 40,
     },
     centeredView: {
         flex: 1,

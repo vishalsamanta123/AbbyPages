@@ -16,11 +16,12 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const AddText = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Add Text"}
@@ -30,7 +31,7 @@ const AddText = (props) => {
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <Image
           style={styles.TimeLineImge}
-          source={require("../../../../Assets/Untitled-1.png")}
+          source={Images.BUSINESS_ADD_2_IMG}
         />
         <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.WriteTextView}>
@@ -45,7 +46,7 @@ const AddText = (props) => {
             }
           >
             <View style={styles.ImgeConatiner}>
-              <Image source={require("../../../../Assets/st_icon_4.png")} />
+              <Image source={Images.THEME_KEYBOARD_IMG} />
             </View>
             <View style={[styles.WriteTextView, { paddingLeft: 0 }]}>
               <Text style={styles.WriteOwnText}>Write your own text</Text>

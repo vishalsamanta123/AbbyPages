@@ -642,11 +642,7 @@ function AuthLoading({ navigation }) {
         />
         <Image
           resizeMode={"contain"}
-          style={{
-            alignSelf: "center",
-            width: "65%",
-            height: "50%",
-          }}
+          style={Styles.logoImg}
           source={Images.SPLASH_LOGO}
         />
       </View>
@@ -703,4 +699,9 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
+  logoImg: {
+    alignSelf: "center",
+    width: "65%",
+    height: "50%",
+  }
 });

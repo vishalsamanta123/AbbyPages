@@ -21,6 +21,7 @@ import {
   YELLOW_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const AddCategory = ({ navigation, route }) => {
   const params = route.params;
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -40,7 +41,7 @@ const AddCategory = ({ navigation, route }) => {
       if (params) {
         setEditDeleteType(params);
       }
-      return () => {};
+      return () => { };
     }, [editDeleteType])
   );
   const onPressSave = async () => {
@@ -122,13 +123,13 @@ const AddCategory = ({ navigation, route }) => {
       if (response.status === 200) {
         item.status === 0
           ? ToastAndroid.show(
-              "Categories successfully active",
-              ToastAndroid.SHORT
-            )
+            "Categories successfully active",
+            ToastAndroid.SHORT
+          )
           : ToastAndroid.show(
-              "Categories successfully un-active",
-              ToastAndroid.SHORT
-            );
+            "Categories successfully un-active",
+            ToastAndroid.SHORT
+          );
         getCategoryListFun();
       } else {
       }
@@ -162,16 +163,16 @@ const AddCategory = ({ navigation, route }) => {
         </View>
         <View style={styles.commmonvwe}>
           <TouchableOpacity onPress={() => _handleActiveStatus(item)}>
-            {item.status === 1 ? (
-              <Image source={require("../../../Assets/active_switch.png")} />
-            ) : (
-              <Image source={require("../../../Assets/unactive_switch.png")} />
-            )}
+            <Image source={item.status === 1 ?
+              Images.ACTIVE_SWITCH_IMG : Images.UNACTIVE_SWITCH_IMG} />
           </TouchableOpacity>
         </View>
         <View style={styles.commmonvwe}>
-          <TouchableOpacity onPress={() => editModalOpen(item)}>
-            <Image source={require("../../../Assets/list_edit_icon.png")} />
+          <TouchableOpacity style={[CommonStyles.editPencilVw, styles.editPencilVw]}
+            onPress={() => editModalOpen(item)}>
+            <Image
+              style={{ tintColor: WHITE_COLOR_CODE }}
+              source={Images.EDIT_PENCIL_IMG} />
           </TouchableOpacity>
         </View>
       </View>

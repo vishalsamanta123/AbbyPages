@@ -19,7 +19,9 @@ import {
   LINE_COMMON_COLOR_CODE,
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const BasicInformationScreen = (props) => {
   const _renderItems = (item, index) => {
     return (
@@ -39,7 +41,7 @@ const BasicInformationScreen = (props) => {
           {item.check === true ? (
             <Image
               style={styles.iconimg}
-              source={require("../../../../Assets/checked_circled_icon_box.png")}
+              source={Images.ROUND_CHECK_IMG}
             />
           ) : null}
         </View>
@@ -330,21 +332,17 @@ const BasicInformationScreen = (props) => {
                   {props.countryName
                     ? props.countryName
                     : props.BasicInformationData.country_name
-                    ? props.BasicInformationData.country_name
-                    : "Country"}
+                      ? props.BasicInformationData.country_name
+                      : "Country"}
                 </Text>
                 <View style={{ paddingRight: 10 }}>
-                  {props.CountrySta ? (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_ico.png")}
-                    />
-                  )}
+                  <Image
+                    style={{ width: 20, height: 20, tintColor: LIGHT_BLACK_COLOR_CODE }}
+                    source={props.CountrySta ?
+                      Images.ARROW_UP_IMG :
+                      Images.ARROW_DOWN_IMG
+                    }
+                  />
                 </View>
               </TouchableOpacity>
             </View>
@@ -429,21 +427,16 @@ const BasicInformationScreen = (props) => {
                   {props.SiteName
                     ? props.SiteName
                     : props.BasicInformationData.state
-                    ? props.BasicInformationData.state
-                    : "State"}
+                      ? props.BasicInformationData.state
+                      : "State"}
                 </Text>
                 <View style={{ paddingRight: 10 }}>
-                  {props.SiteSta ? (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_ico.png")}
-                    />
-                  )}
+                  <Image
+                    style={{ width: 20, height: 20, tintColor: LIGHT_BLACK_COLOR_CODE }}
+                    source={props.SiteSta ?
+                      Images.ARROW_UP_IMG :
+                      Images.ARROW_DOWN_IMG}
+                  />
                 </View>
               </TouchableOpacity>
             </View>
@@ -527,21 +520,16 @@ const BasicInformationScreen = (props) => {
                   {props.cityName
                     ? props.cityName
                     : props.BasicInformationData.city
-                    ? props.BasicInformationData.city
-                    : "City"}
+                      ? props.BasicInformationData.city
+                      : "City"}
                 </Text>
                 <View style={{ paddingRight: 10 }}>
-                  {props.CitySta ? (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={{ width: 25, height: 25 }}
-                      source={require("../../../../Assets/link_dropdown_ico.png")}
-                    />
-                  )}
+                  <Image
+                    style={{ width: 20, height: 20, tintColor: LIGHT_BLACK_COLOR_CODE }}
+                    source={props.CitySta ?
+                      Images.ARROW_UP_IMG :
+                      Images.ARROW_DOWN_IMG}
+                  />
                 </View>
               </TouchableOpacity>
             </View>
@@ -617,7 +605,7 @@ const BasicInformationScreen = (props) => {
               value={`${props.BasicInformationData.zip_code}`}
               // secureTextEntry={false}
               placeholder="Zip"
-              // InputType="withScroll"
+            // InputType="withScroll"
             />
             <Input
               onChangeText={(phone) =>
@@ -670,18 +658,12 @@ const BasicInformationScreen = (props) => {
                   })
                 }
               >
-                {props.BasicInformationData.service_area === 0 ||
-                props.BasicInformationData.service_area === null ? (
-                  <Image
-                    style={styles.alluncheck}
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    style={styles.alluncheck}
-                    source={require("../../../../Assets/radio_circled_checked.png")}
-                  />
-                )}
+                <Image
+                  style={styles.alluncheck}
+                  source={props.BasicInformationData.service_area === 0 ||
+                    props.BasicInformationData.service_area === null ?
+                    Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                />
               </TouchableOpacity>
               <Text style={styles.yestxt}>Yes</Text>
               <TouchableOpacity
@@ -693,17 +675,11 @@ const BasicInformationScreen = (props) => {
                   })
                 }
               >
-                {props.BasicInformationData.service_area === 1 ? (
-                  <Image
-                    style={[styles.alluncheck, { marginLeft: 10 }]}
-                    source={require("../../../../Assets/unchecked_circled_v1.png")}
-                  />
-                ) : (
-                  <Image
-                    style={[styles.alluncheck, { marginLeft: 10 }]}
-                    source={require("../../../../Assets/radio_circled_checked.png")}
-                  />
-                )}
+                <Image
+                  style={[styles.alluncheck, { marginLeft: 10 }]}
+                  source={props.BasicInformationData.service_area === 1 ?
+                    Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                />
               </TouchableOpacity>
               <Text style={styles.yestxt}>No</Text>
             </View>
@@ -736,19 +712,13 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.alcohol === 0 ||
-                  props.BasicInformationData.alcohol === 2 ||
-                  props.BasicInformationData.alcohol === null ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.alcohol === 0 ||
+                      props.BasicInformationData.alcohol === 2 ||
+                      props.BasicInformationData.alcohol === null ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.beertxt}>Beer & Wine Only </Text>
               </View>
@@ -768,19 +738,13 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.alcohol === 1 ||
-                  props.BasicInformationData.alcohol === 0 ||
-                  props.BasicInformationData.alcohol === null ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.alcohol === 1 ||
+                      props.BasicInformationData.alcohol === 0 ||
+                      props.BasicInformationData.alcohol === null ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.beertxt}>Full Bar</Text>
               </View>
@@ -795,18 +759,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.alcohol === 1 ||
-                  props.BasicInformationData.alcohol === 2 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.alcohol === 1 ||
+                      props.BasicInformationData.alcohol === 2 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.beertxt}>No</Text>
               </View>
@@ -831,18 +789,12 @@ const BasicInformationScreen = (props) => {
                       })
                     }
                   >
-                    {props.BasicInformationData.has_tv === 0 ||
-                    props.BasicInformationData.has_tv === null ? (
-                      <Image
-                        style={styles.alluncheck}
-                        source={require("../../../../Assets/unchecked_circled_v1.png")}
-                      />
-                    ) : (
-                      <Image
-                        style={styles.alluncheck}
-                        source={require("../../../../Assets/radio_circled_checked.png")}
-                      />
-                    )}
+                    <Image
+                      style={styles.alluncheck}
+                      source={props.BasicInformationData.has_tv === 0 ||
+                        props.BasicInformationData.has_tv === null ?
+                        Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                    />
                   </TouchableOpacity>
                   <Text style={styles.yestxt}>Yes</Text>
                   <TouchableOpacity
@@ -855,17 +807,11 @@ const BasicInformationScreen = (props) => {
                       })
                     }
                   >
-                    {props.BasicInformationData.has_tv === 1 ? (
-                      <Image
-                        style={[styles.alluncheck, { marginLeft: 10 }]}
-                        source={require("../../../../Assets/unchecked_circled_v1.png")}
-                      />
-                    ) : (
-                      <Image
-                        style={[styles.alluncheck, { marginLeft: 10 }]}
-                        source={require("../../../../Assets/radio_circled_checked.png")}
-                      />
-                    )}
+                    <Image
+                      style={[styles.alluncheck, { marginLeft: 10 }]}
+                      source={props.BasicInformationData.has_tv === 1 ?
+                        Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                    />
                   </TouchableOpacity>
                   <Text style={styles.yestxt}>No</Text>
                 </View>
@@ -892,18 +838,12 @@ const BasicInformationScreen = (props) => {
                       })
                     }
                   >
-                    {props.BasicInformationData.offers_delivery === 0 ||
-                    props.BasicInformationData.offers_delivery === null ? (
-                      <Image
-                        style={styles.alluncheck}
-                        source={require("../../../../Assets/unchecked_circled_v1.png")}
-                      />
-                    ) : (
-                      <Image
-                        style={styles.alluncheck}
-                        source={require("../../../../Assets/radio_circled_checked.png")}
-                      />
-                    )}
+                    <Image
+                      style={styles.alluncheck}
+                      source={props.BasicInformationData.offers_delivery === 0 ||
+                        props.BasicInformationData.offers_delivery === null ?
+                        Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                    />
                   </TouchableOpacity>
                   <Text style={styles.yestxt}>Yes</Text>
                   <TouchableOpacity
@@ -916,17 +856,11 @@ const BasicInformationScreen = (props) => {
                       })
                     }
                   >
-                    {props.BasicInformationData.offers_delivery === 1 ? (
-                      <Image
-                        style={[styles.alluncheck, { marginLeft: 10 }]}
-                        source={require("../../../../Assets/unchecked_circled_v1.png")}
-                      />
-                    ) : (
-                      <Image
-                        style={[styles.alluncheck, { marginLeft: 10 }]}
-                        source={require("../../../../Assets/radio_circled_checked.png")}
-                      />
-                    )}
+                    <Image
+                      style={[styles.alluncheck, { marginLeft: 10 }]}
+                      source={props.BasicInformationData.offers_delivery === 1 ?
+                        Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                    />
                   </TouchableOpacity>
                   <Text style={styles.yestxt}>No</Text>
                 </View>
@@ -947,18 +881,13 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.accept_credit_card === 0 ||
-                  props.BasicInformationData.accept_credit_card === null ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.accept_credit_card === 0 ||
+                      props.BasicInformationData.accept_credit_card === null ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG
+                    }
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -971,17 +900,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.accept_credit_card === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.accept_credit_card === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1001,18 +924,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.takes_reservations === 0 ||
-                  props.BasicInformationData.takes_reservations === null ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.takes_reservations === 0 ||
+                      props.BasicInformationData.takes_reservations === null ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1025,17 +942,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.takes_reservations === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.takes_reservations === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1055,17 +966,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.caters === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.caters === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1078,17 +983,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.caters === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.caters === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1108,17 +1007,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.wi_fi === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.wi_fi === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1131,17 +1024,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.wi_fi === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.wi_fi === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1161,17 +1048,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.offers_military_discount === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.offers_military_discount === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1184,17 +1065,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.offers_military_discount === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.offers_military_discount === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1214,17 +1089,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.good_for_happy_hour === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.good_for_happy_hour === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1237,17 +1106,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.good_for_happy_hour === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.good_for_happy_hour === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1267,17 +1130,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.wheelchair_accessible === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.wheelchair_accessible === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1290,17 +1147,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.wheelchair_accessible === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.wheelchair_accessible === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1320,17 +1171,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.dogs_allowed === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.dogs_allowed === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1343,17 +1188,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.dogs_allowed === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.dogs_allowed === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1373,17 +1212,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.accept_cryptocurrency === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.accept_cryptocurrency === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1396,17 +1229,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.accept_cryptocurrency === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.accept_cryptocurrency === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1426,17 +1253,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.outdoor_seating === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.outdoor_seating === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1449,17 +1270,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.outdoor_seating === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.outdoor_seating === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1479,17 +1294,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.gender_neutral_restrooms === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.gender_neutral_restrooms === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1502,17 +1311,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.gender_neutral_restrooms === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.gender_neutral_restrooms === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1532,17 +1335,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.bike_parking === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.bike_parking === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1555,17 +1352,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.bike_parking === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.bike_parking === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1585,17 +1376,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.offers_takeout === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.offers_takeout === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1608,17 +1393,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.offers_takeout === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.offers_takeout === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1638,17 +1417,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.open_to_all === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.open_to_all === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1661,17 +1434,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.open_to_all === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.open_to_all === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1692,17 +1459,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.waiter_service === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.waiter_service === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1715,17 +1476,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.waiter_service === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.waiter_service === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1746,17 +1501,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.sitdown_dining === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.sitdown_dining === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1769,17 +1518,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.sitdown_dining === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.sitdown_dining === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1800,17 +1543,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.vegan_options === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.vegan_options === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1823,17 +1560,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.vegan_options === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.vegan_options === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1853,17 +1584,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.staff_wears_gloves === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.staff_wears_gloves === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1876,17 +1601,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.staff_wears_gloves === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.staff_wears_gloves === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1906,17 +1625,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.lactation_room === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.lactation_room === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
+
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1929,17 +1643,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.lactation_room === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.lactation_room === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -1959,17 +1667,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.happy_hour_specials === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.happy_hour_specials === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -1982,17 +1684,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.happy_hour_specials === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.happy_hour_specials === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -2013,17 +1709,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.masks_required === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.masks_required === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -2036,17 +1726,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.masks_required === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.masks_required === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -2067,17 +1751,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.contactless_payments === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.contactless_payments === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -2090,17 +1768,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.contactless_payments === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.contactless_payments === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
+
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -2121,17 +1794,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.high_chairs === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.high_chairs === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -2144,17 +1811,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.high_chairs === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.high_chairs === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -2175,17 +1836,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.changing_tables === 0 ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.changing_tables === 0 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -2198,17 +1853,11 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.changing_tables === 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.changing_tables === 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>
@@ -2228,18 +1877,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.black_owned === 0 ||
-                  props.BasicInformationData.black_owned === null ? (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={styles.alluncheck}
-                      source={require("../../../../Assets/radio_circled_checked.png")}
-                    />
-                  )}
+                  <Image
+                    style={styles.alluncheck}
+                    source={props.BasicInformationData.black_owned === 0 ||
+                      props.BasicInformationData.black_owned === null ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>Yes</Text>
                 <TouchableOpacity
@@ -2252,17 +1895,12 @@ const BasicInformationScreen = (props) => {
                     })
                   }
                 >
-                  {props.BasicInformationData.black_owned == 1 ? (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  ) : (
-                    <Image
-                      style={[styles.alluncheck, { marginLeft: 10 }]}
-                      source={require("../../../../Assets/unchecked_circled_v1.png")}
-                    />
-                  )}
+                  <Image
+                    style={[styles.alluncheck, { marginLeft: 10 }]}
+                    source={props.BasicInformationData.black_owned == 1 ?
+                      Images.RADIO_UNCHECK_IMG : Images.RADIO_CHECK_IMG}
+                  />
+
                 </TouchableOpacity>
                 <Text style={styles.yestxt}>No</Text>
               </View>

@@ -6,7 +6,8 @@ const Styles = StyleSheet.create({
     },
     PosterImgeStyle: {
         width: '100%',
-        height: 190
+        height: 190,
+        backgroundColor: BLACK_COLOR_CODE
     },
     ViewContain: {
         justifyContent: 'center',

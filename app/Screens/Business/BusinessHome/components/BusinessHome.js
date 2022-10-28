@@ -18,16 +18,17 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Moment from "moment";
+import { Images } from "../../../../Utils/images";
 var now = new Date();
 const BusinessHome = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Home"}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -35,10 +36,7 @@ const BusinessHome = (props) => {
       <View style={CommonStyles.body}>
         <ScrollView>
           <View style={styles.ImageContainer}>
-            <ImageBackground
-              style={styles.PosterImgeStyle}
-              source={require("../../../../Assets/extraImages/buil.jpg")}
-            >
+            <View style={styles.PosterImgeStyle}>
               <View style={{ padding: 20 }}>
                 <Text style={styles.ItinfoTextStyle}>
                   {props.profileData.business_name}
@@ -70,11 +68,11 @@ const BusinessHome = (props) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </ImageBackground>
+            </View>
           </View>
           <View style={styles.BookMarkContainer}>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_16.png")} />
+              <Image source={Images.THEME_STAR_HOME_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={[styles.YellowText]}>Step1</Text>
                 <Text style={styles.MainContainText}>
@@ -89,7 +87,7 @@ const BusinessHome = (props) => {
           </View>
           <View style={styles.BookMarkContainer}>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_17.png")} />
+              <Image source={Images.THEME_LOCATION_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={[styles.YellowText]}>Step2</Text>
                 <Text style={styles.MainContainText}>Define Service Area</Text>
@@ -102,7 +100,7 @@ const BusinessHome = (props) => {
           </View>
           <View style={styles.BookMarkContainer}>
             <View style={styles.ViewContainer}>
-              <Image source={require("../../../../Assets/st_icon_18.png")} />
+              <Image source={Images.THEME_IN_IMG} />
               <View style={styles.ViewParagrapgh}>
                 <Text style={[styles.YellowText]}>Step3</Text>
                 <Text style={styles.MainContainText}>
@@ -159,7 +157,7 @@ const BusinessHome = (props) => {
           <View style={styles.MainWelcomeContain}>
             <View style={styles.pageVisitView}>
               <Image
-                source={require("../../../../Assets/info_icon_circled.png")}
+                source={Images.INFO_IMG}
               />
               <Text style={styles.pageVisitTxt}>
                 Page Visits: {props.pageVisit}
@@ -167,7 +165,7 @@ const BusinessHome = (props) => {
             </View>
             <View style={styles.pageVisitView}>
               <Image
-                source={require("../../../../Assets/info_icon_circled.png")}
+                source={Images.INFO_IMG}
               />
               <Text style={styles.pageVisitTxt}>Customer Leads: 366</Text>
             </View>
@@ -210,14 +208,14 @@ const BusinessHome = (props) => {
             </Text>
 
             <View style={styles.AboutOptnView}>
-              <Image source={require("../../../../Assets/st_icon_19.png")} />
+              <Image source={Images.THEME_PHONE_IMG} />
               <View style={{ padding: 10, paddingTop: 0 }}>
                 <Text style={styles.AboutOptnText}>0 User Views (0%)</Text>
                 <Text style={styles.TextDescptn}>Came from mobile devices</Text>
               </View>
             </View>
             <View style={styles.AboutOptnView}>
-              <Image source={require("../../../../Assets/st_icon_20.png")} />
+              <Image source={Images.THEME_SEARCH_IMG} />
               <View style={{ padding: 10, paddingTop: 0 }}>
                 <Text style={styles.TextDescptn}>
                   Your business appeared in AbbyPages

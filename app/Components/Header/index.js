@@ -18,6 +18,7 @@ import {
 } from "../../Utils/Constant";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import { ShoppingCartContext } from "../../Utils/UserContext";
+import { Images } from "../../Utils/images";
 const Header = (props) => {
   const [shoppingCartData, setShoppingCartData] =
     useContext(ShoppingCartContext);
@@ -111,7 +112,7 @@ const Header = (props) => {
           {textInput === true && (
             <View style={[styles.inputCon]}>
               <View style={{ paddingHorizontal: 5 }}>
-                <Image source={require("../../Assets/search_field_icon.png")} />
+                <Image source={Images.SEARCH_IMG} />
               </View>
               <TextInput
                 onChangeText={onChangeText}
@@ -165,8 +166,8 @@ const Header = (props) => {
 };
 Header.defaultProps = {
   HeaderText: "CommonName",
-  RightImg: require("../../Assets/plus_icon_header.png"),
-  leftImg: require("../../Assets/header_back_btn.png"),
+  RightImg: Images.PLUS_IMG,
+  leftImg: Images.HEADER_BCK_IMG,
   logoImg: true,
   bckgColor: YELLOW_COLOR_CODE,
 };

@@ -8,6 +8,7 @@ import {
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const BookmarkMapScreen = (props) => {
   return (
     <KeyboardAvoidingView
@@ -15,7 +16,7 @@ const BookmarkMapScreen = (props) => {
       style={[CommonStyles.container]}
     >
       <Header
-        RightImg={require("../../../Assets/map_list_icon.png")}
+        RightImg={Images.MAP_LIST_IMG}
         HeaderText={"Bookmark"}
         onPress={() => props.onPressBack()}
         tintColor={WHITE_COLOR_CODE}

@@ -9,12 +9,13 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const ConfirmScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../../Assets/header_back_btn.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Confirm"
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -24,7 +25,7 @@ const ConfirmScreen = (props) => {
         <View style={styles.FlatlistContain}>
           <Image
             style={styles.RightImgeStyle}
-            source={require("../../../../Assets/check_icon_info_small.png")}
+            source={Images.ROUNDWHITE_CHECK_IMG}
           />
           <Text style={styles.NoteText}>
             You can now manage itinformation on AbbyPages
@@ -50,7 +51,7 @@ const ConfirmScreen = (props) => {
           </View>
           <View style={styles.secmainvwe}>
             <Image
-              source={require("../../../../Assets/confirm_s_icon_1.png")}
+              source={Images.CONFIRM_S__IMG}
             />
             <View style={styles.addvxvwe}>
               <Text style={styles.allicontxt}>

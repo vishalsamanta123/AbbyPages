@@ -84,6 +84,11 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  dropDownVw: {
+    tintColor: LIGHT_BLACK_COLOR_CODE,
+    width: 20,
+    height: 20
+  },
   TxtInptStyle: {
     borderBottomWidth: 0.5,
     borderColor: GREY_COLOR_CODE,

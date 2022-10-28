@@ -17,6 +17,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const AddEditBusinessCategory = (props) => {
   const _renderItems = (item, index) => {
@@ -37,7 +38,7 @@ const AddEditBusinessCategory = (props) => {
           {item.check === true ? (
             <Image
               style={styles.iconimg}
-              source={require("../../../../Assets/checked_circled_icon_box.png")}
+              source={Images.ROUND_CHECK_IMG}
             />
           ) : null}
         </View>
@@ -134,17 +135,13 @@ const AddEditBusinessCategory = (props) => {
               onPress={() => props.onPressBusinessCategories()}
               style={{ paddingRight: 10 }}
             >
-              {props.businessCategory ? (
-                <Image
-                  style={{ width: 25, height: 25 }}
-                  source={require("../../../../Assets/link_dropdown_icon_up.png")}
-                />
-              ) : (
-                <Image
-                  style={{ width: 25, height: 25 }}
-                  source={require("../../../../Assets/link_dropdown_ico.png")}
-                />
-              )}
+              <Image
+                style={{ width: 25, height: 25 }}
+                source={props.businessCategory ?
+                  Images.ARROW_UP_IMG :
+                  Images.ARROW_DOWN_IMG
+                }
+              />
             </TouchableOpacity>
           </View>
         </View>

@@ -10,15 +10,17 @@ import {
 import styles from "./styles";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import { BLACK_COLOR_CODE, LIGHT_BLACK_COLOR_CODE, WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
+
 const BookmarkScreen = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Bookmark"
         type="Drawer"
         tintColor={BLACK_COLOR_CODE}
@@ -45,13 +47,13 @@ const BookmarkScreen = (props) => {
             <View style={styles.FollowersView}>
               <View style={styles.FollowersContain}>
                 <Image
-                  source={require("../../../Assets/profile_icon_menu.png")}
+                  source={Images.PROFILE_IMG}
                 />
                 <Text style={styles.FollowersText}>276</Text>
               </View>
               <View style={styles.StarViewContain}>
-                <Image source={require("../../../Assets/star_icon_text.png")} />
-                <Text style={styles.FollowersText}> 204</Text>
+                <Image source={Images.STAR_UNFILLED_IMG} />
+                <Text style={styles.FollowersText}> 204star_icon_text</Text>
               </View>
             </View>
             <View style={styles.FollowersCountView}>
@@ -67,16 +69,20 @@ const BookmarkScreen = (props) => {
           </View>
           <View style={styles.SortByView}>
             <Text style={styles.SortByText}>Sort by</Text>
-            <Image source={require("../../../Assets/dropdown_icon.png")} />
+            <Image source={Images.ARROW_DOWN_IMG}
+              style={{ tintColor: LIGHT_BLACK_COLOR_CODE }}
+            />
           </View>
           <View style={styles.ContainerCategory}>
             <View style={styles.CategoryView}>
               <Text style={styles.SortByText}>Categories</Text>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={{ tintColor: LIGHT_BLACK_COLOR_CODE }} />
             </View>
             <View style={styles.CategoryView}>
               <Text style={styles.SortByText}>All Cities</Text>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={{ tintColor: LIGHT_BLACK_COLOR_CODE }} />
             </View>
           </View>
         </View>

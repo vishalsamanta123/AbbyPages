@@ -18,6 +18,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const BusinessProductDetails = (props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -29,7 +30,7 @@ const BusinessProductDetails = (props) => {
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        // RightImg={require('../../../../Assets/cart_icon_header.png')}
+      // RightImg={Images.CART_ADDED_IMG}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>
@@ -78,22 +79,22 @@ const BusinessProductDetails = (props) => {
             <View style={styles.dotsVw}>
               {props.ProductData
                 ? props.ProductData.product_image.map((image, imageIndex) => {
-                    const width = scrollX.interpolate({
-                      inputRange: [
-                        windowWidth * (imageIndex - 1),
-                        windowWidth * imageIndex,
-                        windowWidth * (imageIndex + 1),
-                      ],
-                      outputRange: [8, 16, 8],
-                      extrapolate: "clamp",
-                    });
-                    return (
-                      <Animated.View
-                        key={imageIndex}
-                        style={[styles.normalDot, { width }]}
-                      />
-                    );
-                  })
+                  const width = scrollX.interpolate({
+                    inputRange: [
+                      windowWidth * (imageIndex - 1),
+                      windowWidth * imageIndex,
+                      windowWidth * (imageIndex + 1),
+                    ],
+                    outputRange: [8, 16, 8],
+                    extrapolate: "clamp",
+                  });
+                  return (
+                    <Animated.View
+                      key={imageIndex}
+                      style={[styles.normalDot, { width }]}
+                    />
+                  );
+                })
                 : null}
             </View>
           </View>
@@ -149,8 +150,8 @@ const BusinessProductDetails = (props) => {
                   <Image
                     source={
                       props.ProductData?.status === 1
-                        ? require("../../../../Assets/active_switch.png")
-                        : require("../../../../Assets/unactive_switch.png")
+                        ? Images.ACTIVE_SWITCH_IMG
+                        : Images.UNACTIVE_SWITCH_IMG
                     }
                   />
                 </TouchableOpacity>

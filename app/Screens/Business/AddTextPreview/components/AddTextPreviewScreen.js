@@ -9,12 +9,13 @@ import {
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const PreviewScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../../Assets/header_back_btn.png")}
+        leftImg={Images.HEADER_BCK_IMG}
         HeaderText="Preview"
         RightImg={null}
         tintColor={BLACK_COLOR_CODE}
@@ -26,7 +27,7 @@ const PreviewScreen = (props) => {
             <Text style={styles.maintxt}>Your a preview on AbbyPages </Text>
             <Image
               style={styles.circleicon}
-              source={require("../../../../Assets/info_icon_circled.png")}
+              source={Images.INFO_IMG}
             />
           </View>
           <View>
@@ -34,7 +35,7 @@ const PreviewScreen = (props) => {
               <View style={styles.lefttxtvwe}>
                 <View style={styles.lefttxtvwesec}>
                   <Image
-                    source={require("../../../../Assets/company_default_icon.png")}
+                    source={Images.COMPANY_DEFAULT_IMG}
                   />
                 </View>
                 <View style={styles.ittextvwe}>

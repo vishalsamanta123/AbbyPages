@@ -62,6 +62,7 @@ export const Images = {
   COMMENT_IMG: require("../Assets/comment_icon.png"),
   CONSUMER_IMG: require("../Assets/company_consumer_icon.png"),
   COMPANY_DEFAULT_IMG: require("../Assets/company_default_icon.png"),
+  THEME_COMPANY_DEFAULT_IMG: require("../Assets/company_default_photo.png"),
   COMPANY_REVIEW_IMG: require("../Assets/company_reviews_icon.png"),
   CONFIRM_S__IMG: require("../Assets/confirm_s_icon_1.png"),
   CONFIRM_THUNDER_IMG: require("../Assets/confirm_s_icon_4.png"),
@@ -71,6 +72,7 @@ export const Images = {
   DINEOUT_IMG: require("../Assets/dine_out_icon.png"),
   DINEER_IMG: require("../Assets/dinner.png"),
   DASHBOARDHOME_IMG: require("../Assets/drawerhome.png"),
+  EVENT_IMG: require("../Assets/events_icon_menu.png"),
   ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"),
   ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),
   EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),
@@ -136,6 +138,7 @@ export const Images = {
   SHARE_IMG: require("../Assets/share_icon.png"),
   SQUARE_IMG: require("../Assets/squares.png"),
   STAR_IMG: require("../Assets/star_icon.png"),
+  STAR_FILLED_IMG: require("../Assets/star_icon_filled.png"),
   STAR_UNFILLED_IMG: require("../Assets/star_icon_text.png"),
   THEME_GOALS_IMG: require("../Assets/st_icon_1.png"),
   THEME_CALL_IMG: require("../Assets/st_icon_2.png"),
@@ -152,6 +155,11 @@ export const Images = {
   THEME_PHOTOS_IMG: require("../Assets/st_icon_13.png"),
   THEME_SLIDES_IMG: require("../Assets/st_icon_14.png"),
   THEME_ACTION_IMG: require("../Assets/st_icon_15.png"),
+  THEME_STAR_HOME_IMG: require("../Assets/st_icon_16.png"),
+  THEME_LOCATION_IMG: require("../Assets/st_icon_17.png"),
+  THEME_IN_IMG: require("../Assets/st_icon_18.png"),
+  THEME_PHONE_IMG: require("../Assets/st_icon_19.png"),
+  THEME_SEARCH_IMG: require("../Assets/st_icon_20.png"),
   SUCCESS_IMG: require("../Assets/Success_yellow.png"),
   MANAGE_JOB_IMG: require("../Assets/teamwork.png"),
   TICK_IMG: require("../Assets/text_check_icon.png"),
@@ -159,6 +167,7 @@ export const Images = {
   CHECK_IMG: require("../Assets/uncheck_box.png"),
   THEME_UPLOAD_IMG: require("../Assets/upload_icon_box.png"),
   UPLOAD_IMG: require("../Assets/upload_icon_field.png"),
+  PROFILE_IMG: require("../Assets/user_icon_text.png"),
   THEME_PROFILE_IMG: require("../Assets/user_icon_box_large.png"),
   VERIFIED_IMG: require("../Assets/verified_icon.png"),
   VERIFIED_BLUE_IMG: require("../Assets/verified_img.png"),
@@ -166,3 +175,5 @@ export const Images = {
 };
 //delete
 //map_field_icon.png
+//list_guest_icon.png
+//profile_icon_menu.png

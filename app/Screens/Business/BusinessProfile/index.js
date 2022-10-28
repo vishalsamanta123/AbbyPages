@@ -12,6 +12,7 @@ import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
+import { Images } from "../../../Utils/images";
 
 const BusinessProfileView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -71,7 +72,7 @@ const BusinessProfileView = ({ navigation }) => {
       <View style={styles.MainFlatlistView}>
         <Image
           style={styles.FlatlistImge}
-          source={require("../../../Assets/extraImages/employeeonboard.png")}
+          source={Images.EMPLOYESS_IMG}
         />
         <Text style={styles.portfolioTextMain}>Your project name</Text>
         <Text style={styles.PortfolioPhoto}>12 Photos</Text>
@@ -136,7 +137,7 @@ const BusinessProfileView = ({ navigation }) => {
               onPressSave(uploadData);
               setLocItemImage("");
             })
-            .catch((err) => {});
+            .catch((err) => { });
         } else {
           setItemImage(image.path);
           const uploadData = {
@@ -170,7 +171,7 @@ const BusinessProfileView = ({ navigation }) => {
             onPressSave(uploadData);
             setLocItemImage("");
           })
-          .catch((err) => {});
+          .catch((err) => { });
       } else {
         setItemImage(image.path);
         const uploadData = {

@@ -8,6 +8,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const BusinessOrderHistory = (props) => {
   return (
@@ -15,7 +16,7 @@ const BusinessOrderHistory = (props) => {
       <Header
         HeaderText="Order History"
         RightImg={null}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}

@@ -16,6 +16,7 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const AddPhotosScreen = () => {
   return (
     <KeyboardAvoidingView
@@ -31,7 +32,7 @@ const AddPhotosScreen = () => {
       <View style={styles.ContainerStyle}>
         <Text style={styles.AddPhotosText}>Add Photos</Text>
         <TouchableOpacity style={styles.BrowseImgeView}>
-          <Image source={require("../../../Assets/upload_icon_box.png")} />
+          <Image source={Images.THEME_UPLOAD_IMG} />
           <Text style={[styles.AddPhotosText, { color: YELLOW_COLOR_CODE }]}>
             Browse Files
           </Text>
