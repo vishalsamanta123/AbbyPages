@@ -11,13 +11,14 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const ProductListingScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Product"
-        RightImg={require("../../../../Assets/cart_icon_header.png")}
+        RightImg={Images.CART_ADDED_IMG}
         onPress={() => props.onPressCart()}
         cartLength={props?.shoppingCartData?.length}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -26,7 +27,7 @@ const ProductListingScreen = (props) => {
       <View style={CommonStyles.body}>
         <View style={styles.inputconmn}>
           <View style={styles.inputconsmall}>
-            <Image source={require("../../../../Assets/search_field_icon.png")} />
+            <Image source={Images.SEARCH_IMG} />
             <TextInput
               placeholder="Search"
               onChangeText={(searchKey) => props.SearchProduct(searchKey)}
@@ -37,7 +38,7 @@ const ProductListingScreen = (props) => {
             onPress={() => props.onPressFilter()}
             style={styles.filtericonCon}
           >
-            <Image source={require("../../../../Assets/filter_icon.png")} />
+            <Image source={Images.FILTER_IMG} />
           </TouchableOpacity>
         </View>
         <View style={{ flex: 1 }}>

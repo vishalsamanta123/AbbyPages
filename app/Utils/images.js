@@ -15,7 +15,7 @@ export const Images = {
   ABOUT_IMG: require("../Assets/about_icon_1.png"),
   FAVRT_IMG: require("../Assets/like_icon_filled.png"),
   CLOTH_IMG: require("../Assets/about_icon_3.png"),
-  P_WORD_IMG: require("../Assets/about_icon_4.png"),
+  PARKING_IMG: require("../Assets/about_icon_4.png"),
   ACTIVE_SWITCH_IMG: require("../Assets/active_switch.png"),
   UNACTIVE_SWITCH_IMG: require("../Assets/unactive_switch.png"),
   THEME_ADD_IMG: require("../Assets/add_location_icon.png"),
@@ -27,8 +27,8 @@ export const Images = {
   BOOKMARK_IMG: require("../Assets/bookmark_icon_menu.png"),
   OTHER_BOOKMARK_IMG: require("../Assets/bookmark_icon_text.png"),
   PRODUCT_ORDER_IMG: require("../Assets/box.png"),
-  CHECK_IMG: require("../Assets/check_icon_btn.png"),
   UNCHECK_IMG: require("../Assets/unchecked_squared_icon_small.png"),
+  CHECK_IMG: require("../Assets/checked_squared_icon_small.png"),
   OTHER_CHECK_IMG: require("../Assets/box_check_white_icon.png"),
   BUSINESS_ADD_1_IMG: require("../Assets/Goals123.png"), //
   BUSINESS_ADD_2_IMG: require("../Assets/Untitled-1.png"),
@@ -51,11 +51,13 @@ export const Images = {
   CASHBACK_IMG: require("../Assets/cash_back_icon.png"),
   DOLLAR_IMG: require("../Assets/cash_back_icon_menu.png"),
   THEME_CHECK_IMG: require("../Assets/checked_box.png"),
+  THEME_UNCHECK_IMG: require("../Assets/uncheck_box.png"),
   ROUND_CHECK_IMG: require("../Assets/checked_circled_icon_box.png"),
   ROUND_UNCHECK_IMG: require("../Assets/unchecked_circled_icon_box.png"),
   ROUNDWHITE_CHECK_IMG: require("../Assets/check_icon_info_small.png"),
   CHECK_IN_IMG: require("../Assets/checkin_icon_menu.png"),
   CHECKOUT_PAY_IMG: require("../Assets/checkout_payment_icon.png"),
+  CLOCK_IMG: require("../Assets/clock_icon.png"),
   CHECKOUT_SCHDULD_IMG: require("../Assets/checkout_scheduled_icon.png"),
   CHECKOUT_USER_IMG: require("../Assets/checkout_user_icon.png"),
   COLLECTION_IMG: require("../Assets/collection_icon_menu.png"),
@@ -73,9 +75,9 @@ export const Images = {
   DINEER_IMG: require("../Assets/dinner.png"),
   DASHBOARDHOME_IMG: require("../Assets/drawerhome.png"),
   EVENT_IMG: require("../Assets/events_icon_menu.png"),
-  ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"),
-  ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),
-  EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),
+  ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"),//use another color for color change
+  ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),///use another color for color change
+  EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),//use YELLOW_COLOR_CODE color for background
   EDIT_PHOTO_IMG: require("../Assets/edit_photo_icon.png"),
   EMPLOYESS_IMG: require("../Assets/employeeonboard.png"),
   ENVELOPE_IMG: require("../Assets/envelope_icon_menu.png"),
@@ -103,10 +105,12 @@ export const Images = {
   INFO_IMG: require("../Assets/info_icon_circled.png"),
   THEME_INFO_IMG: require("../Assets/info_icon_large.png"),
   LOCATION_IMG: require("../Assets/info_marker_icon.png"),
+  THUMB_IMG: require("../Assets/thumb_icon.png"),
   LIMITED_IMG: require("../Assets/limited.png"),
   DELETE_IMG: require("../Assets/list_delete_icon.png"),
   LIST_IMG: require("../Assets/listmenucopy.png"),
   THEME_LOCATION_IMG: require("../Assets/Location_icon.png"),
+  CIRCLE_LOCATION_IMG: require("../Assets/Location_icon_small.png"),
   LOCK_IMG: require("../Assets/lock_icon_menu.png"),
   GRAPHIC_LOGO_IMG: require("../Assets/login_graphic2.png"),
   MIDDLE_LOGO_IMG: require("../Assets/login_logo.png"),
@@ -164,7 +168,6 @@ export const Images = {
   MANAGE_JOB_IMG: require("../Assets/teamwork.png"),
   TICK_IMG: require("../Assets/text_check_icon.png"),
   TRASH_IMG: require("../Assets/trash_icon_header.png"),
-  CHECK_IMG: require("../Assets/uncheck_box.png"),
   THEME_UPLOAD_IMG: require("../Assets/upload_icon_box.png"),
   UPLOAD_IMG: require("../Assets/upload_icon_field.png"),
   PROFILE_IMG: require("../Assets/user_icon_text.png"),
@@ -172,8 +175,16 @@ export const Images = {
   VERIFIED_IMG: require("../Assets/verified_icon.png"),
   VERIFIED_BLUE_IMG: require("../Assets/verified_img.png"),
   VIEW_EYE_IMG: require("../Assets/viewed_icon.png"),
+  PRIMARY_IMG: require("../Assets/add_primary_icon_color.png"),
+  CAP_SUCCESS_IMG: require("../Assets/success_icon.png"),
 };
 //delete
-//map_field_icon.png
-//list_guest_icon.png
-//profile_icon_menu.png
+//map_field_icon.png on LOCATION_IMG
+//list_guest_icon.png on PROFILE_IMG
+//profile_icon_menu.png on PROFILE_IMG
+//confirm_s_icon_2.png on CHECKOUT_PAY_IMG
+//confirm_s_icon_3.png on CLOCK_IMG
+//map_marker_icon.png on on PROFILE_IMG
+//musical-sign-of-one-dots.png text added of dot
+//info_calendar_icon.png on CALENDER_IMG
+//business_chevron_icon.png on ARROW_RIGHT_IMG

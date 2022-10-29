@@ -20,11 +20,12 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const ConfirmReservation = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Confirm Reservation"}
@@ -54,7 +55,7 @@ const ConfirmReservation = (props) => {
                   <Image
                     style={styles.UserImgeStyle}
                     resizeMode="contain"
-                    source={require("../../../Assets/list_guest_icon.png")}
+                    source={Images.PROFILE_IMG}
                   />
                   <Text style={styles.DateMainTxt}>
                     {props?.reservationData?.people} guests
@@ -64,7 +65,7 @@ const ConfirmReservation = (props) => {
                   <Image
                     style={styles.CalenderImge}
                     resizeMode="contain"
-                    source={require("../../../Assets/info_calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                   <Text style={styles.DateMainTxt}>
                     {props?.reservationData?.date} , time{"- "}
@@ -158,8 +159,8 @@ const ConfirmReservation = (props) => {
                   style={{ width: 25, height: 25, top: 5 }}
                   source={
                     props.localUserData.receive_special_offer == 1
-                      ? require("../../../Assets/checked_box.png")
-                      : require("../../../Assets/uncheck_box.png")
+                      ? Images.THEME_CHECK_IMG
+                      : Images.THEME_UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>

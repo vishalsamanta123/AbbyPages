@@ -18,14 +18,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const StepSevenScreen = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
-        leftImg={require("../../../Assets/close_window_icon.png")}
+        leftImg={Images.CANCEL_IMG}
         HeaderText="5 of 5"
         // HeaderText="5 of 8"
         RightImg={null}
@@ -62,7 +63,9 @@ const StepSevenScreen = (props) => {
           >
             <Text style={styles.choiceTxt}>Yes, get multiple quotes</Text>
             {props.service_provide_type && (
-              <Image source={require("../../../Assets/check_icon_btn.png")} />
+              <Image
+                style={{ tintColor: BLACK_COLOR_CODE, width: 22, height: 22 }}
+                source={Images.TICK_IMG} />
             )}
           </TouchableOpacity>
           <TouchableOpacity
@@ -81,7 +84,8 @@ const StepSevenScreen = (props) => {
           >
             <Text style={styles.choiceTxt}>No,don't get multiple quotes</Text>
             {!props.service_provide_type && (
-              <Image source={require("../../../Assets/check_icon_btn.png")} />
+              <Image style={{ tintColor: BLACK_COLOR_CODE, width: 22, height: 22 }}
+                source={Images.TICK_IMG} />
             )}
           </TouchableOpacity>
         </View>
@@ -91,7 +95,7 @@ const StepSevenScreen = (props) => {
               <TouchableOpacity onPress={props.goBack}>
                 <Image
                   style={styles.mainboximg}
-                  source={require("../../../Assets/Group1672.png")}
+                  source={Images.WHITE_ARROW_IMG}
                 />
               </TouchableOpacity>
             </View>

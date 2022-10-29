@@ -11,6 +11,8 @@ import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import { DrawerActions } from "@react-navigation/native";
+import { Images } from "../../../Utils/images";
+import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
 const JobManagementListView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -155,15 +157,17 @@ const JobManagementListView = ({ navigation }) => {
               style={{ width: 40, height: 32 }}
               source={
                 item?.job_status === 1
-                  ? require("../../../Assets/active_switch.png")
-                  : require("../../../Assets/unactive_switch.png")
+                  ? Images.ACTIVE_SWITCH_IMG
+                  : Images.UNACTIVE_SWITCH_IMG
               }
             />
           </TouchableOpacity>
-
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => singleJobDetails(item?.job_id)}>
-              <Image source={require("../../../Assets/list_edit_icon.png")} />
+            <TouchableOpacity style={[CommonStyles.editPencilVw, styles.editPencilVw]}
+              onPress={() => singleJobDetails(item?.job_id)}>
+              <Image
+                style={{ tintColor: WHITE_COLOR_CODE }}
+                source={Images.EDIT_PENCIL_IMG} />
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginLeft: 10 }}
@@ -172,7 +176,7 @@ const JobManagementListView = ({ navigation }) => {
                 setDeleteData(item);
               }}
             >
-              <Image source={require("../../../Assets/list_delete_icon.png")} />
+              <Image source={Images.DELETE_IMG} />
             </TouchableOpacity>
           </View>
         </View>

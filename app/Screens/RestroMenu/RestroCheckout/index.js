@@ -14,6 +14,7 @@ import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import QuestionModal from "../../../Components/Modal/questionModal";
+import { Images } from "../../../Utils/images";
 
 const RestroCheckoutView = ({ navigation }) => {
   const [isDateTimePickerVisible, setDateTimePickerVisibility] =
@@ -147,7 +148,7 @@ const RestroCheckoutView = ({ navigation }) => {
         style={styles.addressTxtCon}
       >
         <View style={{ padding: 5 }}>
-          <Image source={require("../../../Assets/qty_plus_icon.png")} />
+          <Image source={Images.QTY_PLUS_IMG} />
         </View>
         <Text style={[styles.commonTxtStyle]}>
           {item.location && item.location}
@@ -165,7 +166,7 @@ const RestroCheckoutView = ({ navigation }) => {
               setRemoveIndex(index);
             }}
           >
-            <Image source={require("../../../Assets/minus_icon_cart.png")} />
+            <Image source={Images.MINUS_IMG} />
           </TouchableOpacity>
           <Text style={styles.DishTextStyle}>{item.quantity}</Text>
           <Text style={styles.DishTextStyle}>{item.item_name}</Text>

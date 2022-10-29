@@ -20,13 +20,14 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const ProductDetailsScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         HeaderText="Product Details"
-        RightImg={require("../../../../Assets/cart_icon_header.png")}
+        RightImg={Images.CART_ADDED_IMG}
         onPress={() => props.onPressCart()}
         cartLength={props.shoppingCartData.length}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -77,127 +78,6 @@ const ProductDetailsScreen = (props) => {
             </View>
           </View>
           <View style={styles.basiccon}>
-            {props.productDetail.rating == 1 && (
-              <Image
-                style={[styles.icon, { marginRight: 0, height: 18, width: 18 }]}
-                source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-              />
-            )}
-            {props.productDetail.rating == 2 && (
-              <>
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 0, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 0, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-              </>
-            )}
-            {props.productDetail.rating == 3 && (
-              <>
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 0, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-              </>
-            )}
-            {props.productDetail.rating == 4 && (
-              <>
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 0, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-              </>
-            )}
-            {props.productDetail.rating == 5 && (
-              <>
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 0, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-                <Image
-                  style={[
-                    styles.icon,
-                    { marginRight: 5, height: 18, width: 18 },
-                  ]}
-                  source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
-                />
-              </>
-            )}
-
             <Text style={[styles.text, { fontSize: 15, lineHeight: 19 }]}>
               {props.productDetail.rating} customer reviews
             </Text>
@@ -283,7 +163,7 @@ const ProductDetailsScreen = (props) => {
                 style={{ marginVertical: 10 }}
                 buttonText="Add to Cart"
                 onPress={() => props.onPressAddProduct(props.productDetail, 1)}
-                // onPress={() => props.onPressAddTocart()}
+              // onPress={() => props.onPressAddTocart()}
               />
             )}
           </View>
@@ -354,7 +234,7 @@ const ProductDetailsScreen = (props) => {
                 buttonText="Submit"
                 buttonLabelStyle={styles.ButtonLabel}
                 onPress={() => props.onSubmitReviewData()}
-                // onPress={() => props.setReviewModal(false)}
+              // onPress={() => props.setReviewModal(false)}
               />
             </View>
           )}
@@ -383,7 +263,6 @@ const ProductDetailsScreen = (props) => {
                         borderRadius: 30,
                       }}
                       source={{ uri: item.profile_image }}
-                      // source={require('../../../../Assets/extraImages/demo-profile-image.png')}
                     />
                   </View>
                   <View style={{ flex: 4.7 }}>
@@ -491,3 +370,123 @@ const ProductDetailsScreen = (props) => {
   );
 };
 export default ProductDetailsScreen;
+// {props.productDetail.rating == 1 && (
+//   <Image
+//     style={[styles.icon, { marginRight: 0, height: 18, width: 18 }]}
+//     source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//   />
+// )}
+// {props.productDetail.rating == 2 && (
+//   <>
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 0, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 0, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//   </>
+// )}
+// {props.productDetail.rating == 3 && (
+//   <>
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 0, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//   </>
+// )}
+// {props.productDetail.rating == 4 && (
+//   <>
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 0, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//   </>
+// )}
+// {props.productDetail.rating == 5 && (
+//   <>
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 0, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//     <Image
+//       style={[
+//         styles.icon,
+//         { marginRight: 5, height: 18, width: 18 },
+//       ]}
+//       source={require("../../../../Assets/extraImages/rating-star-icon-yellow.png")}
+//     />
+//   </>
+// )}

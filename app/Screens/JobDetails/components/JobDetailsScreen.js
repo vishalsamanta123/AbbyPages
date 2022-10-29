@@ -11,6 +11,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import HTML from "react-native-render-html";
+import { Images } from "../../../Utils/images";
 
 const JobDetailsScreen = (props) => {
   return (
@@ -35,15 +36,12 @@ const JobDetailsScreen = (props) => {
             <View style={styles.basiccon}>
               <View style={styles.basiccon}>
                 <Image
-                  style={styles.icon}
+                  style={[styles.icon, { tintColor: YELLOW_COLOR_CODE }]}
                   resizeMode={"contain"}
-                  tintColor={
-                    props?.details?.job_status == 1 ? null : YELLOW_COLOR_CODE
-                  }
                   source={
                     props?.details?.job_status == 1
-                      ? require("../../../Assets/verified_icon.png")
-                      : require("../../../Assets/close_window_icon.png")
+                      ? Images.VERIFIED_IMG
+                      : Images.CANCEL_IMG
                   }
                 />
                 <Text style={[styles.text, { fontSize: 14 }]}>Verified</Text>
@@ -51,7 +49,7 @@ const JobDetailsScreen = (props) => {
               <View style={styles.basiccon}>
                 <Image
                   style={[styles.icon, { width: 20 }]}
-                  source={require("../../../Assets/viewed_icon.png")}
+                  source={Images.VIEW_EYE_IMG}
                 />
                 <Text style={[styles.text, { fontSize: 14 }]}>
                   {props?.details?.job_views} Viewed
@@ -62,7 +60,7 @@ const JobDetailsScreen = (props) => {
               <Image
                 resizeMode={"contain"}
                 style={[styles.icon, { height: 15, width: 15 }]}
-                source={require("../../../Assets/clock_icon.png")}
+                source={Images.CLOCK_IMG}
               />
               <Text style={[styles.text, { fontSize: 14 }]}>
                 {props?.details?.address}
@@ -102,7 +100,7 @@ const JobDetailsScreen = (props) => {
                   { borderRightWidth: 1, borderColor: "lightgrey" },
                 ]}
               >
-                <Image source={require("../../../Assets/save_icon.png")} />
+                <Image source={Images.SAVED_IMG} />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Report
                 </Text>
@@ -116,7 +114,7 @@ const JobDetailsScreen = (props) => {
               >
                 <Image
                   style={[styles.icon, { height: 22, width: 25 }]}
-                  source={require("../../../Assets/share_icon.png")}
+                  source={Images.SHARE_IMG}
                 />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Share
@@ -127,8 +125,8 @@ const JobDetailsScreen = (props) => {
                 style={styles.btnmncon}
               >
                 <Image
-                  style={{tintColor:props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null}}
-                  source={require("../../../Assets/save_icon.png")}
+                  style={{ tintColor: props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null }}
+                  source={Images.SAVED_IMG}
                 />
                 <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   {props?.details?.user_like === 1 ? "Saved" : "Save"}
@@ -140,10 +138,7 @@ const JobDetailsScreen = (props) => {
             <Text style={styles.hdngtxt}>Recruitment Information</Text>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Work Location :
                 </Text>
@@ -154,10 +149,7 @@ const JobDetailsScreen = (props) => {
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Industry :
                 </Text>
@@ -168,10 +160,7 @@ const JobDetailsScreen = (props) => {
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Job Level :
                 </Text>
@@ -182,10 +171,7 @@ const JobDetailsScreen = (props) => {
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Type:</Text>
               </View>
               <View style={{ flex: 1 }}>
@@ -193,21 +179,18 @@ const JobDetailsScreen = (props) => {
                   {props?.details?.job_type == 1 || "Full Time"
                     ? "Full Time"
                     : props?.details?.job_type == 2
-                    ? "Part Time"
-                    : props?.details?.job_type == 3
-                    ? "Intership"
-                    : props?.details?.job_type == 4
-                    ? "Freelancer"
-                    : "Work"}
+                      ? "Part Time"
+                      : props?.details?.job_type == 3
+                        ? "Intership"
+                        : props?.details?.job_type == 4
+                          ? "Freelancer"
+                          : "Work"}
                 </Text>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Salary :</Text>
               </View>
               <View style={{ flex: 1 }}>
@@ -233,10 +216,7 @@ const JobDetailsScreen = (props) => {
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Skills Requires :
                 </Text>
@@ -247,10 +227,7 @@ const JobDetailsScreen = (props) => {
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Image
-                  style={styles.icon}
-                  source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                />
+                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
                 <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Language :
                 </Text>
@@ -296,21 +273,21 @@ const JobDetailsScreen = (props) => {
               <Image
                 resizeMode="contain"
                 style={styles.icon}
-                source={require("../../../Assets/map_field_icon.png")}
+                source={Images.LOCATION_IMG}
               />
               <Text style={styles.text}>{props?.details?.job_address}</Text>
             </View>
             <View style={[styles.basiccon, { padding: 5 }]}>
               <Image
                 style={styles.icon}
-                source={require("../../../Assets/info_call_icon.png")}
+                source={Images.CALL_IMG}
               />
               <Text style={styles.text}>{props?.details?.phone_no}</Text>
             </View>
             <View style={[styles.basiccon, { padding: 5 }]}>
               <Image
                 style={styles.icon}
-                source={require("../../../Assets/info_globe_icon.png")}
+                source={Images.GLOBE_IMG}
               />
               <Text style={styles.text}>{props?.details?.website}</Text>
             </View>
@@ -380,12 +357,12 @@ const JobDetailsScreen = (props) => {
                             {item.job_type == 1 || "Full Time"
                               ? "Full Time"
                               : item.job_type == 2
-                              ? "Part Time"
-                              : item.job_type == 3
-                              ? "Intership"
-                              : item.job_type == 4
-                              ? "Freelancer"
-                              : "Work"}
+                                ? "Part Time"
+                                : item.job_type == 3
+                                  ? "Intership"
+                                  : item.job_type == 4
+                                    ? "Freelancer"
+                                    : "Work"}
                           </Text>
                         </View>
                       </TouchableOpacity>
@@ -435,12 +412,12 @@ const JobDetailsScreen = (props) => {
                             {item.job_type == 1 || "Full Time"
                               ? "Full Time"
                               : item.job_type == 2
-                              ? "Part Time"
-                              : item.job_type == 3
-                              ? "Intership"
-                              : item.job_type == 4
-                              ? "Freelancer"
-                              : "Work"}
+                                ? "Part Time"
+                                : item.job_type == 3
+                                  ? "Intership"
+                                  : item.job_type == 4
+                                    ? "Freelancer"
+                                    : "Work"}
                           </Text>
                         </View>
                       </TouchableOpacity>

@@ -21,6 +21,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Button from "../../../../Components/Button";
+import { Images } from "../../../../Utils/images";
 const ShoppingCartScreen = (props) => {
   const screenlowerdata = (item) => {
     return (
@@ -118,7 +119,7 @@ const ShoppingCartScreen = (props) => {
             >
               <Image
                 style={styles.icon}
-                source={require("../../../../Assets/cart_delete_icon.png")}
+                source={Images.CANCEL_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -169,7 +170,7 @@ const ShoppingCartScreen = (props) => {
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
         headerSecondText={props.shoppingCartData.length}
-        RightImg={require("../../../../Assets/trash_icon_header.png")}
+        RightImg={Images.TRASH_IMG}
         onPress={() => props.setAllDelete(true)}
       />
       <View style={CommonStyles.body}>

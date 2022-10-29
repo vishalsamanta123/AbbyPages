@@ -205,7 +205,7 @@ const Budgets = (props) => {
             </Text>
             <View style={styles.RightView}>
               <Image
-                source={Images.CHECK_IMG}
+                source={Images.THEME_UNCHECK_IMG}
               />
               <View style={styles.RecommndedView}>
                 <Text
@@ -224,7 +224,7 @@ const Budgets = (props) => {
             </View>
             <View style={styles.RightView}>
               <Image
-                source={Images.CHECK_IMG}
+                source={Images.THEME_UNCHECK_IMG}
               />
               <View style={styles.RecommndedView}>
                 <Text

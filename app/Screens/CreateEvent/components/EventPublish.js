@@ -20,6 +20,7 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import Clipboard from "@react-native-clipboard/clipboard";
+import { Images } from "../../../Utils/images";
 
 const StripeConnect = (props) => {
   const handleCopyPress = async () => {
@@ -29,9 +30,9 @@ const StripeConnect = (props) => {
   };
   const richText = React.createRef() || useRef();
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -39,15 +40,15 @@ const StripeConnect = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         leftImg={
           props.type === "busniess" || props.type === "Edit_event"
-            ? require("../../../Assets/header_back_btn.png")
-            : require("../../../Assets/hamburger_icon.png")
+            ? Images.HEADER_BCK_IMG
+            : Images.DRAWER_IMG
         }
         HeaderText={
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-            ? "Edit Event"
-            : "Submit an Event"
+              ? "Edit Event"
+              : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -71,8 +72,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.time_limit === 0
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -91,8 +92,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.time_limit === 1
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -111,8 +112,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.time_limit === 2
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -136,8 +137,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.hide_endTime === 0
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -156,8 +157,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.hide_endTime === 1
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -183,8 +184,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.ticketAvailability_msg === 0
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -203,8 +204,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.ticketAvailability_msg === 1
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -230,8 +231,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.enable_best_feature === 0
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -250,8 +251,8 @@ const StripeConnect = (props) => {
                     <Image
                       source={
                         props?.createEvent?.enable_best_feature === 1
-                          ? require("../../../Assets/radio_circled_checked.png")
-                          : require("../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={styles.radioImg}
                     />
@@ -275,8 +276,8 @@ const StripeConnect = (props) => {
               secureTextEntry={false}
               placeholder=""
               InputType={null}
-              // copyText={true}
-              // onPressCoptTxt={() => handleCopyPress()}
+            // copyText={true}
+            // onPressCoptTxt={() => handleCopyPress()}
             />
             <Text style={styles.titlesTxt}>Slug Url -</Text>
             <Input
@@ -410,8 +411,8 @@ const StripeConnect = (props) => {
                   <Image
                     source={
                       props?.createEvent?.email_Mysend === 0
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -430,8 +431,8 @@ const StripeConnect = (props) => {
                   <Image
                     source={
                       props?.createEvent?.email_Mysend === 1
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -491,8 +492,8 @@ const StripeConnect = (props) => {
                   <Image
                     source={
                       props?.createEvent?.callmail_Mysend === 0
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -511,8 +512,8 @@ const StripeConnect = (props) => {
                   <Image
                     source={
                       props?.createEvent?.callmail_Mysend === 1
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -536,7 +537,7 @@ const StripeConnect = (props) => {
           <Button
             buttonText={"Next is what?"}
             style={styles.bttnNotwoVw}
-            // onPress={() => props.onPressCreateEvent()}
+          // onPress={() => props.onPressCreateEvent()}
           />
         </View>
       </ScrollView>

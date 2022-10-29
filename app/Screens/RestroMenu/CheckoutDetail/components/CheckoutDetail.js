@@ -21,6 +21,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { Images } from "../../../../Utils/images";
 
 const CheckoutDetail = (props) => {
   const initialRegion = {
@@ -43,9 +44,9 @@ const CheckoutDetail = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         HeaderText="Checkout"
         RightImg={null}
@@ -56,7 +57,7 @@ const CheckoutDetail = (props) => {
       <ScrollView>
         <View style={[styles.CheckOutView, { alignItems: "center" }]}>
           <Image
-            source={require("../../../../Assets/checkout_user_icon.png")}
+            source={Images.CHECKOUT_USER_IMG}
           />
           <Text style={styles.CheckoutText}>Checkout</Text>
         </View>
@@ -135,7 +136,7 @@ const CheckoutDetail = (props) => {
         </View>
         <View style={[styles.CheckOutView, { alignItems: "center" }]}>
           <Image
-            source={require("../../../../Assets/checkout_payment_icon.png")}
+            source={Images.CHECKOUT_PAY_IMG}
           />
           <Text style={styles.TakeOutText}>Payment-Method</Text>
         </View>
@@ -148,8 +149,8 @@ const CheckoutDetail = (props) => {
               style={[{ marginRight: 5 }]}
               source={
                 props?.localUserData?.order_payment_type === 2
-                  ? require("../../../../Assets/checked_squared_icon_small.png")
-                  : require("../../../../Assets/unchecked_squared_icon_small.png")
+                  ? Images.CHECK_IMG
+                  : Images.UNCHECK_IMG
               }
             />
             <Text>Online</Text>
@@ -166,8 +167,8 @@ const CheckoutDetail = (props) => {
               style={[{ marginRight: 5 }]}
               source={
                 props?.localUserData?.order_payment_type === 1
-                  ? require("../../../../Assets/checked_squared_icon_small.png")
-                  : require("../../../../Assets/unchecked_squared_icon_small.png")
+                  ? Images.CHECK_IMG
+                  : Images.UNCHECK_IMG
               }
             />
             <Text>Cash On Delievery</Text>
@@ -211,7 +212,7 @@ const CheckoutDetail = (props) => {
                 style={{ top: 5, height: 32, width: 32 }}
                 tintColor={BLACK_COLOR_CODE}
                 resizeMode="contain"
-                source={require("../../../../Assets/Location_icon_small.png")}
+                source={Images.CIRCLE_LOCATION_IMG}
               />
               <View style={{ justifyContent: "center" }}>
                 <Text style={[styles.TakeOutText, { paddingLeft: 10 }]}>
@@ -235,7 +236,7 @@ const CheckoutDetail = (props) => {
               >
                 <Marker coordinate={coordinate}>
                   <Image
-                    source={require("../../../../Assets/abby_pages_map_icon.png")}
+                    source={Images.MAP_LOGO}
                     style={{ height: 50, width: 50 }}
                     resizeMode="contain"
                     resizeMethod="auto"
@@ -253,7 +254,7 @@ const CheckoutDetail = (props) => {
         >
           <Image
             resizeMode="contain"
-            source={require("../../../../Assets/checkout_scheduled_icon.png")}
+            source={Images.CHECKOUT_SCHDULD_IMG}
           />
           <View style={{ justifyContent: "center" }}>
             <Text style={[styles.TakeOutText, { paddingLeft: 10 }]}>

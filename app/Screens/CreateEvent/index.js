@@ -21,6 +21,7 @@ import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
 import Error from "../../Components/Modal/error";
 import styles from "./components/styles";
+import { Images } from "../../Utils/images";
 
 const CreateEventView = ({ route, navigation }) => {
   const { type, item, img_url, detail } = route?.params || {
@@ -321,7 +322,7 @@ const CreateEventView = ({ route, navigation }) => {
                 onPress={() => deleteImage(index)}
               >
                 <Image
-                  source={require("../../Assets/minus_icon_cart.png")}
+                  source={Images.MINUS_IMG}
                   style={styles.deleteImage}
                 />
               </TouchableOpacity>

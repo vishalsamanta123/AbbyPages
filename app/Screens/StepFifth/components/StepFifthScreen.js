@@ -19,6 +19,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const StepFifthScreen = (props) => {
   return (
@@ -28,7 +29,7 @@ const StepFifthScreen = (props) => {
     >
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <Header
-          leftImg={require("../../../Assets/close_window_icon.png")}
+          leftImg={Images.CANCEL_IMG}
           HeaderText="4 of 5"
           // HeaderText="4 of 8"
           RightImg={null}
@@ -103,7 +104,7 @@ const StepFifthScreen = (props) => {
             <View style={styles.imgvwe}>
               <Image
                 style={{ height: 58, width: 60 }}
-                source={require("../../../Assets/Group1672.png")}
+                source={Images.WHITE_ARROW_IMG}
               />
             </View>
           </TouchableOpacity>

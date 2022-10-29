@@ -5,6 +5,7 @@ import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Button from "../../../../Components/Button";
 import {
+  BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -61,7 +62,9 @@ const ConfirmScreen = (props) => {
           </View>
           <View style={styles.secmainvwe}>
             <Image
-              source={require("../../../../Assets/confirm_s_icon_2.png")}
+              source={Images.CHECKOUT_PAY_IMG}
+              style={{ width: 22, height: 22 }}
+              resizeMode={'contain'}
             />
             <View style={styles.addvxvwe}>
               <Text style={styles.allicontxt}>
@@ -70,17 +73,13 @@ const ConfirmScreen = (props) => {
             </View>
           </View>
           <View style={styles.secmainvwe}>
-            <Image
-              source={require("../../../../Assets/confirm_s_icon_3.png")}
-            />
+            <Image source={Images.CLOCK_IMG} style={{ tintColor: BLACK_COLOR_CODE }} />
             <View style={styles.addvxvwe}>
               <Text style={styles.allicontxt}>Get started in minutes.</Text>
             </View>
           </View>
           <View style={[styles.BoxContainer, { marginTop: 10 }]}>
-            <Image
-              source={require("../../../../Assets/confirm_s_icon_4.png")}
-            />
+            <Image source={Images.CONFIRM_THUNDER_IMG} />
             <View style={styles.creditvwe}>
               <Text style={styles.FreeSignUpText}>
                 Start now with $300 free credit. Expires in 01:59:36

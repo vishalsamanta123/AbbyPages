@@ -12,6 +12,7 @@ import {
 } from "../../../../../Utils/Constant";
 import moment from "moment";
 import { Picker } from "@react-native-community/picker";
+import { Images } from "../../../../../Utils/images";
 
 const ServiceOrderDetailsScreen = (props) => {
   return (
@@ -31,7 +32,7 @@ const ServiceOrderDetailsScreen = (props) => {
             source={
               props.orderData
                 ? { uri: props.orderData.logo }
-                : require("../../../../../Assets/default_image_box.png")
+                : Images.DEFAULT_BOX_IMG
             }
           />
           <View style={CommonStyles.container}>
@@ -46,30 +47,30 @@ const ServiceOrderDetailsScreen = (props) => {
                 <View style={[styles.row]}>
                   <Image
                     style={{ height: 16, width: 14, marginHorizontal: 4 }}
-                    source={require("../../../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                   <Text style={styles.text}>
                     {props.orderData
                       ? moment(props.orderData.create_order).format(
-                          "MM/DD/YYYY"
-                        )
+                        "MM/DD/YYYY"
+                      )
                       : null}
                   </Text>
                 </View>
                 <View style={styles.row}>
                   <Image
                     style={{ height: 15, width: 15, marginHorizontal: 10 }}
-                    source={require("../../../../../Assets/clock_icon2.png")}
+                    source={Images.CLOCK_IMG}
                   />
                   <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                     {props.orderData
                       ? props.orderData.order_status == 0
                         ? "Pending"
                         : props.orderData.order_status == 1
-                        ? "Confirmed"
-                        : props.orderData.order_status == 4
-                        ? "Canceled"
-                        : null
+                          ? "Confirmed"
+                          : props.orderData.order_status == 4
+                            ? "Canceled"
+                            : null
                       : null}
                   </Text>
                 </View>
@@ -123,7 +124,7 @@ const ServiceOrderDetailsScreen = (props) => {
               }}
               buttonText="Update"
               onPress={() => props?.updateStatus(props.orderData)}
-              // isDisabled={props.orderProcess.}
+            // isDisabled={props.orderProcess.}
             />
           </View>
         </ScrollView>

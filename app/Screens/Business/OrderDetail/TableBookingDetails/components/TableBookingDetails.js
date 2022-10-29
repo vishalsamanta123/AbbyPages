@@ -12,6 +12,7 @@ import {
   LIGHT_BLACK_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import moment from "moment";
+import { Images } from "../../../../../Utils/images";
 const TableBookingDetailsScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
@@ -49,7 +50,7 @@ const TableBookingDetailsScreen = (props) => {
                     <View style={[styles.row]}>
                       <Image
                         style={{ height: 16, width: 14, marginHorizontal: 4 }}
-                        source={require("../../../../../Assets/calendar_icon.png")}
+                        source={Images.CALENDER_IMG}
                       />
                       <Text style={styles.text}>
                         {/* {props.orderData ? moment(props.orderData.booking_details.booking_date).format('MM/DD/YYYY') : null} */}
@@ -63,7 +64,7 @@ const TableBookingDetailsScreen = (props) => {
                     <View style={styles.row}>
                       <Image
                         style={{ height: 15, width: 15, marginHorizontal: 10 }}
-                        source={require("../../../../../Assets/clock_icon2.png")}
+                        source={Images.CLOCK_IMG}
                       />
                       <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                         {props.orderData
@@ -143,7 +144,7 @@ const TableBookingDetailsScreen = (props) => {
                   width: "100%",
                 }}
                 buttonText="Canceled"
-                // onPress={() => props.cancelOrder(props.orderData)}
+              // onPress={() => props.cancelOrder(props.orderData)}
               />
             ) : (
               <Button

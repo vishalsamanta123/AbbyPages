@@ -22,6 +22,7 @@ import {
 } from "../../../Utils/Constant";
 import Button from "../../../Components/Button";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Images } from "../../../Utils/images";
 
 const EventListingScreen = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -38,7 +39,7 @@ const EventListingScreen = (props) => {
         </Text>
         <Image
           style={[styles.timeDataImg, { tintColor: selectedColor }]}
-          source={require("../../../Assets/processed.jpg")}
+          source={Images.PROCEED_IMG}
         />
       </TouchableOpacity>
     );
@@ -87,7 +88,7 @@ const EventListingScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                   <Text style={styles.straightTxt}>
                     {moment
@@ -98,7 +99,7 @@ const EventListingScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/info_marker_icon.png")}
+                    source={Images.LOCATION_IMG}
                   />
                   <Text style={styles.straightTxt}>
                     {props?.events?.upcoming_events?.event_location}
@@ -141,8 +142,8 @@ const EventListingScreen = (props) => {
                 style={styles.seeForImg}
                 source={
                   alsoSeeFor
-                    ? require("../../../Assets/link_dropdown_icon_up.png")
-                    : require("../../../Assets/dropdown_icon1.png")
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
                 }
               />
             </TouchableOpacity>
@@ -192,7 +193,7 @@ const EventListingScreen = (props) => {
                         <View style={styles.straightVw}>
                           <Image
                             style={styles.straightImg}
-                            source={require("../../../Assets/calendar_icon.png")}
+                            source={Images.CALENDER_IMG}
                           />
                           <Text style={styles.straightTxt}>
                             {moment.unix(item?.event_date).format("MM/DD/YYYY")}
@@ -201,7 +202,7 @@ const EventListingScreen = (props) => {
                         <View style={styles.straightVw}>
                           <Image
                             style={styles.straightImg}
-                            source={require("../../../Assets/info_marker_icon.png")}
+                            source={Images.LOCATION_IMG}
                           />
                           <Text style={styles.straightTxt}>
                             {item?.event_location}
@@ -259,7 +260,7 @@ const EventListingScreen = (props) => {
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
-                        source={require("../../../Assets/calendar_icon.png")}
+                        source={Images.CALENDER_IMG}
                       />
                       <Text style={styles.straightTxt}>
                         {moment.unix(item?.event_date).format("MM/DD/YYYY")}
@@ -268,7 +269,7 @@ const EventListingScreen = (props) => {
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
-                        source={require("../../../Assets/info_marker_icon.png")}
+                        source={Images.LOCATION_IMG}
                       />
                       <Text style={styles.straightTxt}>
                         {item?.event_location}
@@ -322,7 +323,7 @@ const EventListingScreen = (props) => {
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
-                        source={require("../../../Assets/calendar_icon.png")}
+                        source={Images.CALENDER_IMG}
                       />
                       <Text style={styles.straightTxt}>
                         {moment.unix(item?.event_date).format("MM/DD/YYYY")}
@@ -331,7 +332,7 @@ const EventListingScreen = (props) => {
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
-                        source={require("../../../Assets/info_marker_icon.png")}
+                        source={Images.LOCATION_IMG}
                       />
                       <Text style={styles.straightTxt}>
                         {item?.event_location}

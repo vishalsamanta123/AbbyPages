@@ -393,14 +393,14 @@ export default function FilterPopUp(props) {
                   {category.length > 0
                     ? "Select Category"
                     : country.length > 0
-                    ? "Select Country"
-                    : state.length > 0
-                    ? "Select State"
-                    : city.length > 0
-                    ? "Select City"
-                    : hireType.length > 0
-                    ? "Select Hire Type"
-                    : null}
+                      ? "Select Country"
+                      : state.length > 0
+                        ? "Select State"
+                        : city.length > 0
+                          ? "Select City"
+                          : hireType.length > 0
+                            ? "Select Hire Type"
+                            : null}
                 </Text>
               </View>
               <TouchableOpacity
@@ -426,12 +426,12 @@ export default function FilterPopUp(props) {
                   category.length > 0
                     ? "Search Category"
                     : country.length > 0
-                    ? "Search Country"
-                    : state.length > 0
-                    ? "Search State"
-                    : city.length > 0
-                    ? "Search City"
-                    : null
+                      ? "Search Country"
+                      : state.length > 0
+                        ? "Search State"
+                        : city.length > 0
+                          ? "Search City"
+                          : null
                 }
                 style={styles.searchInput}
                 placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
@@ -441,12 +441,12 @@ export default function FilterPopUp(props) {
                     category.length > 0
                       ? null
                       : country?.length > 0
-                      ? 0
-                      : state?.length > 0
-                      ? 1
-                      : city?.length > 0
-                      ? 2
-                      : null
+                        ? 0
+                        : state?.length > 0
+                          ? 1
+                          : city?.length > 0
+                            ? 2
+                            : null
                   )
                 }
               />
@@ -581,10 +581,10 @@ export default function FilterPopUp(props) {
               </>
             )}
             {category.length == 0 &&
-            country.length == 0 &&
-            state.length == 0 &&
-            city.length == 0 &&
-            hireType.length == 0 ? (
+              country.length == 0 &&
+              state.length == 0 &&
+              city.length == 0 &&
+              hireType.length == 0 ? (
               <View style={styles.noDataVw}>
                 <Text style={styles.noDataTxt}>There is no data available</Text>
               </View>
@@ -598,22 +598,22 @@ export default function FilterPopUp(props) {
 {
   /* <View style={styles.AnyKeywordView}>
 <Text style={styles.MainBtnText}>Open Now</Text>
-<Image source={require("../../../Assets/clock_icon2.png")} />
+<Image source={Images.CLOCK_IMG} />
 </View>
 <View style={styles.AnyKeywordView}>
 <Text style={styles.MainBtnText}>Open Now</Text>
-<Image source={require("../../../Assets/clock_icon2.png")} />
+<Image source={Images.CLOCK_IMG} />
 </View>
 <View style={styles.AnyKeywordView}>
 <Text style={styles.MainBtnText}>Highest Rated</Text>
 <Image
   style={{ width: 20, height: 20 }}
-  source={require("../../../Assets/star_icon.png")}
+  source={Images.STAR_IMG}
 />
 </View>
 <View style={[styles.AnyKeywordView, { marginBottom: 15 }]}>
 <Text style={styles.MainBtnText}>Most Reviewed</Text>
-<Image source={require("../../../Assets/comment_icon.png")} />
+<Image source={Images.COMMENT_IMG} />
 </View>
 <View style={styles.PriceRangeView}>
 <Text style={styles.PriceRngetXT}>Price Range</Text>

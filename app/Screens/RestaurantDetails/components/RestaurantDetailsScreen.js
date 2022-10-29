@@ -32,11 +32,12 @@ import {
 } from "../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
 import moment from "moment";
+import { Images } from "../../../Utils/images";
 const { width, height } = Dimensions.get("window");
 const RestaurantDetailsScreen = (props) => {
   const stars = [];
   useEffect(() => {
-    const starImg = require("../../../Assets/star_icon_filled.png");
+    const starImg = Images.STAR_FILLED_IMG;
     for (let i = starImg; i <= props.restroDetail.business_star; i++) {
       stars.push({ star: i });
     }
@@ -100,7 +101,7 @@ const RestaurantDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/camera.png")}
+                      source={Images.COLORED_CAMERA_IMG}
                     />
                     <Text style={styles.modalItem}>Open camera</Text>
                   </TouchableOpacity>
@@ -111,7 +112,7 @@ const RestaurantDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/image-gallery.png")}
+                      source={Images.GALLERY_IMG}
                     />
                     <Text style={styles.modalItem}>Open album</Text>
                   </TouchableOpacity>
@@ -122,7 +123,7 @@ const RestaurantDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/cancelModalBtn.png")}
+                      source={Images.COLORED_CANCEL_IMG}
                     />
                     <Text style={styles.modalItem}>Cancel</Text>
                   </TouchableOpacity>
@@ -242,7 +243,9 @@ const RestaurantDetailsScreen = (props) => {
               onPress={() => props.setAddPhotoModal(true)}
               style={styles.AddPhotoCOntainer}
             >
-              <Image source={require("../../../Assets/add_photo_icon.png")} />
+              <Image
+                style={{ width: 18, height: 18 }}
+                source={Images.CAMERA_IMG} />
               <Text style={styles.AddOptnsTextMain}>Add Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -252,7 +255,7 @@ const RestaurantDetailsScreen = (props) => {
             >
               <Image
                 style={{ width: 19, height: 15 }}
-                source={require("../../../Assets/share_icon.png")}
+                source={Images.SHARE_IMG}
               />
               <Text style={styles.AddOptnsTextMain}>Share</Text>
             </TouchableOpacity>
@@ -268,7 +271,7 @@ const RestaurantDetailsScreen = (props) => {
                       ? YELLOW_COLOR_CODE
                       : null,
                 }}
-                source={require("../../../Assets/save_icon.png")}
+                source={Images.SAVED_IMG}
               />
               <Text style={[styles.AddOptnsTextMain]}>
                 {props?.restroDetail?.user_like === 1 ? "Saved" : "Save"}
@@ -317,7 +320,7 @@ const RestaurantDetailsScreen = (props) => {
             <Text style={styles.CovidMainTxt}>COVID-19 Updates</Text>
             {/* <View style={styles.FlexRowView}>
                                 <Text style={styles.EditTextStyle}>Edit </Text>
-                                <Image source={require('../../../Assets/edit_pencil_icon.png')} />
+                                <Image source={Images.EDIT_PENCIL_IMG} />
                             </View> */}
           </View>
           <View style={styles.CovidParaView}>
@@ -335,17 +338,17 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props?.restroDetail &&
-                props?.restroDetail?.outdoor_seating === 1 ? (
+                  props?.restroDetail?.outdoor_seating === 1 ? (
                   <View style={{}}>
                     <ImageBackground
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -353,17 +356,17 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                props.restroDetail.offers_delivery === 1 ? (
+                  props.restroDetail.offers_delivery === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -371,17 +374,17 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                props.restroDetail.offers_takeout === 1 ? (
+                  props.restroDetail.offers_takeout === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -391,17 +394,17 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                props.restroDetail.sitdown_dining === 1 ? (
+                  props.restroDetail.sitdown_dining === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -414,17 +417,17 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                props.restroDetail.masks_required === 1 ? (
+                  props.restroDetail.masks_required === 1 ? (
                   <View>
                     <Image
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -437,17 +440,17 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                props.restroDetail.staff_wears_gloves === 1 ? (
+                  props.restroDetail.staff_wears_gloves === 1 ? (
                   <View>
                     <Image
                       style={styles.RightImgeStyle}
-                      source={require("../../../Assets/text_check_icon.png")}
+                      source={Images.TICK_IMG}
                     />
                   </View>
                 ) : (
                   <Image
                     style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                     tintColor={YELLOW_COLOR_CODE}
                   />
                 )}
@@ -465,12 +468,12 @@ const RestaurantDetailsScreen = (props) => {
               {/* <View style={styles.UpdateOptions}>
                                     {props.restroDetail.masks_required === 1 ?
                                         <View>
-                                            <Image style={styles.RightImgeStyle} source={require('../../../Assets/text_check_icon.png')} />
+                                            <Image style={styles.RightImgeStyle} source={Images.TICK_IMG} />
                                         </View>
                                         :
                                         <Image
                                             style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                                            source={require('../../../Assets/cart_delete_icon.png')}
+                                            source={Images.CANCEL_IMG}
                                             tintColor={YELLOW_COLOR_CODE} />
                                     }
                                     <View>
@@ -526,12 +529,12 @@ const RestaurantDetailsScreen = (props) => {
           >
             <Marker
               coordinate={coordinate}
-              // image={require('../../../Assets/login_logo.png')}
+              // image={Images.MIDDLE_LOGO_IMG}
               title={props.restroDetail && props.restroDetail.business_name}
-              // description={marker.description}
+            // description={marker.description}
             >
               <Image
-                source={require("../../../Assets/abby_pages_map_icon.png")}
+                source={Images.MAP_LOGO}
                 style={{ height: 50, width: 50 }}
                 resizeMode="contain"
                 resizeMethod="auto"
@@ -558,7 +561,7 @@ const RestaurantDetailsScreen = (props) => {
             />
           </View>
           {/*  <View style={styles.EditBusinessInfoView}>
-                                <Image source={require('../../../Assets/edit_pencil_icon.png')} />
+                                <Image source={Images.EDIT_PENCIL_IMG} />
                                 <Text style={styles.EditTextStyle}> Edit bussiness info</Text>
                             </View>
                         </View> */}
@@ -638,7 +641,7 @@ const RestaurantDetailsScreen = (props) => {
                 onFinishRating={(rating) =>
                   props.setBusinessReviewRating(rating)
                 }
-                onSwipeRating={() => {}}
+                onSwipeRating={() => { }}
                 // onFinishRating={(rating) => props.setReviewData({
                 //     ...props.reviewData,
                 //     business_rating: rating
@@ -806,7 +809,7 @@ const RestaurantDetailsScreen = (props) => {
                 style={styles.ArrowTouchable}
               >
                 <Image
-                  source={require("../../../Assets/cart_delete_icon.png")}
+                  source={Images.CANCEL_IMG}
                 />
               </TouchableOpacity>
               <Text style={styles.PleaseEnterTxt}>

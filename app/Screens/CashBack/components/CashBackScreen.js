@@ -10,6 +10,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const CashBackScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
@@ -22,13 +23,17 @@ const CashBackScreen = (props) => {
       />
       <ScrollView>
         <View style={[styles.BoxContainer, { marginTop: 10 }]}>
-          <Image source={require("../../../Assets/free_signup_icon.png")} />
+          <View styl={CommonStyles.editPencilVw}>
+            <Image
+              style={{ tintColor: WHITE_COLOR_CODE }}
+              source={Images.CHECKOUT_PAY_IMG} />
+          </View>
           <Text style={styles.FreeSignUpText}>Free SignUp</Text>
           <Text style={styles.BoxTextMain}>Activate your credit or </Text>
           <Text style={styles.BoxTextMain}>debit cards.</Text>
         </View>
         <View style={[styles.BoxContainer, { marginTop: 10 }]}>
-          <Image source={require("../../../Assets/dine_out_icon.png")} />
+          <Image source={Images.DINEOUT_IMG} />
           <Text style={styles.FreeSignUpText}>Dine Out</Text>
           <Text style={styles.BoxTextMain}>
             Pay with your card at thousands
@@ -36,7 +41,7 @@ const CashBackScreen = (props) => {
           <Text style={styles.BoxTextMain}>of participating restaurants.</Text>
         </View>
         <View style={[styles.BoxContainer, { marginTop: 10 }]}>
-          <Image source={require("../../../Assets/cash_back_icon.png")} />
+          <Image source={Images.CASHBACK_IMG} />
           <Text style={styles.FreeSignUpText}>Get Cash Back</Text>
           <Text style={styles.BoxTextMain}>Get upto 10% credit back to</Text>
           <Text style={styles.BoxTextMain}>your card's account.</Text>

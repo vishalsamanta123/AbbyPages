@@ -9,6 +9,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import { Images } from "../../Utils/images";
 const LocationsView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -86,14 +87,14 @@ const LocationsView = ({ navigation }) => {
               >
                 <Image
                   style={{ height: 42, width: 42 }}
-                  source={require("../../Assets/add_primary_icon_color.png")}
+                  source={Images.PRIMARY_IMG}
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.ImageDelete}
                 onPress={() => OnDeleteLocation(item)}
               >
-                <Image source={require("../../Assets/list_delete_icon.png")} />
+                <Image source={Images.DELETE_IMG} />
               </TouchableOpacity>
             </View>
           )}

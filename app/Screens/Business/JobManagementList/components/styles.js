@@ -107,6 +107,10 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  editPencilVw: {
+    width: 40,
+    height: 40,
+  },
   HeadingTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 12,

@@ -116,6 +116,24 @@ const Styles = StyleSheet.create({
     height: 20,
     tintColor: LIGHT_BLACK_COLOR_CODE,
   },
+  subCatVw: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  subCatCon: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    backgroundColor: "rgba(50, 50, 50, 0.8)",
+    marginHorizontal: 5,
+    marginVertical: 4,
+    borderRadius: 10,
+  },
+  subCatTxt: {
+    fontSize: 14,
+    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR
+  },
   centeredView: {
     justifyContent: "center",
     alignItems: "center",

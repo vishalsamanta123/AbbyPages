@@ -12,6 +12,7 @@ import {
 } from "../../../Utils/Constant";
 import styles from "./styles";
 import { maxBy } from "lodash";
+import { Images } from "../../../Utils/images";
 const offerScreen = () => {
   return (
     <View style={CommonStyles.container}>
@@ -76,7 +77,7 @@ const offerScreen = () => {
                 }}
               >
                 <Image
-                  source={require("../../../Assets/confirm_s_icon_1.png")}
+                  source={Images.CONFIRM_S__IMG}
                 />
               </View>
               <View
@@ -106,7 +107,7 @@ const offerScreen = () => {
                 }}
               >
                 <Image
-                  source={require("../../../Assets/confirm_s_icon_2.png")}
+                  source={Images.CHECKOUT_PAY_IMG}
                 />
               </View>
               <View
@@ -131,7 +132,7 @@ const offerScreen = () => {
                 }}
               >
                 <Image
-                  source={require("../../../Assets/confirm_s_icon_3.png")}
+                  source={Images.CLOCK_IMG}
                 />
               </View>
               <View
@@ -167,7 +168,7 @@ const offerScreen = () => {
           >
             <Image
               style={{ height: 25, width: 15, marginRight: 5, marginLeft: 15 }}
-              source={require("../../../Assets/confirm_s_icon_4.png")}
+              source={Images.CONFIRM_THUNDER_IMG}
             />
             <Text
               style={{

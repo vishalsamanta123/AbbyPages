@@ -12,6 +12,7 @@ import {
   LIGHT_BLACK_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import moment from "moment";
+import { Images } from "../../../../../Utils/images";
 const OrderDetailScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -30,7 +31,7 @@ const OrderDetailScreen = (props) => {
             source={
               props.orderData
                 ? { uri: props.orderData.logo }
-                : require("../../../../../Assets/default_image_box.png")
+                : Images.DEFAULT_BOX_IMG
             }
           />
           <View style={CommonStyles.container}>
@@ -48,30 +49,30 @@ const OrderDetailScreen = (props) => {
                 <View style={[styles.row]}>
                   <Image
                     style={{ height: 16, width: 14, marginHorizontal: 4 }}
-                    source={require("../../../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                   <Text style={styles.text}>
                     {props.orderData
                       ? moment(props.orderData.create_order).format(
-                          "MM/DD/YYYY"
-                        )
+                        "MM/DD/YYYY"
+                      )
                       : null}
                   </Text>
                 </View>
                 <View style={styles.row}>
                   <Image
                     style={{ height: 15, width: 15, marginHorizontal: 10 }}
-                    source={require("../../../../../Assets/clock_icon2.png")}
+                    source={Images.CLOCK_IMG}
                   />
                   <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                     {props.orderData
                       ? props.orderData.order_status == 0
                         ? "Pending"
                         : props.orderData.order_status == 1
-                        ? "Confirmed"
-                        : props.orderData.order_status == 4
-                        ? "Canceled"
-                        : null
+                          ? "Confirmed"
+                          : props.orderData.order_status == 4
+                            ? "Canceled"
+                            : null
                       : null}
                   </Text>
                 </View>
@@ -83,8 +84,8 @@ const OrderDetailScreen = (props) => {
                 UserName :{" "}
                 {props.orderData
                   ? props.orderData.order_user_info.first_name +
-                    " " +
-                    props.orderData.order_user_info.last_name
+                  " " +
+                  props.orderData.order_user_info.last_name
                   : null}
               </Text>
               <Text style={[styles.text]}>
@@ -111,62 +112,62 @@ const OrderDetailScreen = (props) => {
           <View style={{ marginBottom: 80 }}>
             {props.orderData
               ? props.orderData.items.map((item) => {
-                  return (
-                    <View style={{ padding: 10 }}>
+                return (
+                  <View style={{ padding: 10 }}>
+                    <View
+                      style={{
+                        height: 100,
+                        flexDirection: "row",
+                        borderWidth: 1,
+                        borderColor: "#DEE3E3",
+                        borderRadius: 5,
+                      }}
+                    >
                       <View
                         style={{
-                          height: 100,
-                          flexDirection: "row",
-                          borderWidth: 1,
-                          borderColor: "#DEE3E3",
-                          borderRadius: 5,
+                          width: "30%",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
+                        <Image
+                          style={{
+                            height: 90,
+                            width: 90,
+                            marginHorizontal: 10,
+                          }}
+                          source={{ uri: item.item_image }}
+                        />
+                      </View>
+                      <View style={{ padding: 10, width: "70%" }}>
+                        <View>
+                          <Text
+                            numberOfLines={2}
+                            style={{ fontWeight: "bold", fontSize: 13 }}
+                          >
+                            {item.item_name}
+                          </Text>
+                        </View>
                         <View
                           style={{
-                            width: "30%",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            justifyContent: "space-between",
+                            flexDirection: "row",
                           }}
                         >
-                          <Image
-                            style={{
-                              height: 90,
-                              width: 90,
-                              marginHorizontal: 10,
-                            }}
-                            source={{ uri: item.item_image }}
-                          />
+                          <Text style={{ color: "#A9ADAD" }}>
+                            x {item.quantity}
+                          </Text>
                         </View>
-                        <View style={{ padding: 10, width: "70%" }}>
-                          <View>
-                            <Text
-                              numberOfLines={2}
-                              style={{ fontWeight: "bold", fontSize: 13 }}
-                            >
-                              {item.item_name}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              justifyContent: "space-between",
-                              flexDirection: "row",
-                            }}
-                          >
-                            <Text style={{ color: "#A9ADAD" }}>
-                              x {item.quantity}
-                            </Text>
-                          </View>
-                          <View>
-                            <Text style={{ color: "#A9ADAD" }}>
-                              $ {item.price}
-                            </Text>
-                          </View>
+                        <View>
+                          <Text style={{ color: "#A9ADAD" }}>
+                            $ {item.price}
+                          </Text>
                         </View>
                       </View>
                     </View>
-                  );
-                })
+                  </View>
+                );
+              })
               : null}
           </View>
         </ScrollView>
@@ -190,7 +191,7 @@ const OrderDetailScreen = (props) => {
                   width: "100%",
                 }}
                 buttonText="Canceled"
-                // onPress={() => props.cancelOrder(props.orderData)}
+              // onPress={() => props.cancelOrder(props.orderData)}
               />
             ) : (
               <Button

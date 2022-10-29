@@ -10,12 +10,13 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const GoalPreviewScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../../Assets/header_back_btn.png")}
+        leftImg={Images.HEADER_BCK_IMG}
         HeaderText="Preview"
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -30,16 +31,14 @@ const GoalPreviewScreen = (props) => {
             </TouchableOpacity>
             <Image
               style={styles.circleicon}
-              source={require("../../../../Assets/info_icon_circled.png")}
+              source={Images.INFO_IMG}
             />
           </View>
           <View>
             <View style={styles.mainboxvwe}>
               <View style={styles.lefttxtvwe}>
                 <View style={styles.lefttxtvwesec}>
-                  <Image
-                    source={require("../../../../Assets/company_default_icon.png")}
-                  />
+                  <Image source={Images.COMPANY_DEFAULT_IMG} />
                 </View>
                 <View style={styles.ittextvwe}>
                   <Text style={styles.companytxt}>Itinformatix</Text>

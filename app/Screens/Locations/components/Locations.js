@@ -18,11 +18,12 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const Locations = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         HeaderText={"Locations"}
@@ -41,7 +42,7 @@ const Locations = (props) => {
           >
             <Image
               style={styles.addLocationImg}
-              source={require("../../../Assets/add_location_icon.png")}
+              source={Images.THEME_ADD_IMG}
             />
           </TouchableOpacity>
         </View>

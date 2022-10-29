@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, StatusBar, KeyboardAvoidingView,Platform } from "react-native";
+import { View, FlatList, StatusBar, KeyboardAvoidingView, Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
@@ -7,14 +7,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const RecentActivity = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Recent Activity"
         type="Drawer"
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}

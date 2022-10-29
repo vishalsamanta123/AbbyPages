@@ -18,6 +18,7 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
+import { Images } from "../../../Utils/images";
 
 const PlaceOrderView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -67,7 +68,7 @@ const PlaceOrderView = ({ navigation }) => {
               setRemoveIndex(index);
             }}
           >
-            <Image source={require("../../../Assets/minus_icon_cart.png")} />
+            <Image source={Images.MINUS_IMG} />
           </TouchableOpacity>
           <View style={{ paddingLeft: 5, flexDirection: "row" }}>
             <Text style={styles.DishTextStyle}>{item.quantity + " "}</Text>

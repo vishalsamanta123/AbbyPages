@@ -14,6 +14,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const MyRestaurantItemView = (props) => {
   return (
@@ -35,7 +36,7 @@ const MyRestaurantItemView = (props) => {
         >
           <Image
             style={styles.penciliconszedlt}
-            source={require("../../../../Assets/edit_pencil_icon.png")}
+            source={Images.EDIT_PENCIL_IMG}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -44,7 +45,7 @@ const MyRestaurantItemView = (props) => {
         >
           <Image
             style={styles.iconszedlt}
-            source={require("../../../../Assets/qty_minus_icon3.png")}
+            source={Images.QTY_MINUS_IMG}
           />
         </TouchableOpacity>
         {/* 
@@ -87,7 +88,7 @@ const MyRestaurantItemView = (props) => {
               <TouchableOpacity onPress={() => props.onPressItem()}>
                 <Image
                   style={{ width: 35, height: 35 }}
-                  source={require("../../../../Assets/qty_minus_icon3.png")}
+                  source={Images.QTY_MINUS_IMG}
                 />
               </TouchableOpacity>
             </View>

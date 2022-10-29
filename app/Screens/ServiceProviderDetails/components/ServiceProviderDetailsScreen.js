@@ -19,6 +19,7 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
+  DOT,
   LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -27,6 +28,7 @@ import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
+import { Images } from "../../../Utils/images";
 
 const ServiceProviderDetailsScreen = (props) => {
   const initialRegion = {
@@ -109,7 +111,7 @@ const ServiceProviderDetailsScreen = (props) => {
               onPress={() => props.setAddPhotoModal(true)}
               style={styles.addphotovwe}
             >
-              <Image source={require("../../../Assets/add_photo_icon.png")} />
+              <Image source={Images.CAMERA_IMG} />
               <Text style={styles.addtxt}>Add Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -118,7 +120,7 @@ const ServiceProviderDetailsScreen = (props) => {
               }}
               style={styles.addphotovwe}
             >
-              <Image source={require("../../../Assets/share_icon.png")} />
+              <Image source={Images.SHARE_IMG} />
               <Text style={styles.addtxt}>Share</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -134,7 +136,7 @@ const ServiceProviderDetailsScreen = (props) => {
                       ? YELLOW_COLOR_CODE
                       : null,
                 }}
-                source={require("../../../Assets/save_icon.png")}
+                source={Images.SAVED_IMG}
               />
               <Text style={styles.addtxt}>
                 {" "}
@@ -154,7 +156,7 @@ const ServiceProviderDetailsScreen = (props) => {
               <Text style={styles.coviduudatetxt}>COVID-19 Updates</Text>
               {/* <View style={styles.editvwe}>
                                 <Text style={styles.edittxt}>Edit </Text>
-                                <Image style={{ height: 13, width: 13 }} source={require('../../../Assets/edit_pencil_icon.png')} />
+                                <Image style={{ height: 13, width: 13 }} source={Images.EDIT_PENCIL_IMG} />
                             </View> */}
             </View>
             <Text style={styles.dinetxt}>
@@ -175,13 +177,13 @@ const ServiceProviderDetailsScreen = (props) => {
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -197,13 +199,13 @@ const ServiceProviderDetailsScreen = (props) => {
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -219,7 +221,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.verfiedview}>
               <View style={styles.profileview}>
                 <View style={styles.profileanotherview}>
-                  <Image source={require("../../../Assets/verified_img.png")} />
+                  <Image source={Images.VERIFIED_IMG} />
                 </View>
                 <View style={styles.vervwe}>
                   <Text style={styles.VefiedLiesetxt}>Verified License </Text>
@@ -241,7 +243,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_1.png")}
+                source={Images.HIGHLIGHT_1_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
@@ -255,7 +257,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_2.png")}
+                source={Images.HIGHLIGHT_2_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
@@ -266,7 +268,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_3.png")}
+                source={Images.HIGHLIGHT_3_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
@@ -277,7 +279,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_4.png")}
+                source={Images.HIGHLIGHT_4_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>Discounts available</Text>
@@ -286,7 +288,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_5.png")}
+                source={Images.HIGHLIGHT_5_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>
@@ -297,7 +299,7 @@ const ServiceProviderDetailsScreen = (props) => {
             <View style={styles.tenanothervwe}>
               <Image
                 // style={{ width: 24, height: 24 }}
-                source={require("../../../Assets/highlight_icon_6.png")}
+                source={Images.HIGHLIGHT_6_IMG}
               />
               <View style={styles.allpostjobsvwe}>
                 <Text style={styles.allpostjobstxt}>LGBTQ friendly </Text>
@@ -332,10 +334,7 @@ const ServiceProviderDetailsScreen = (props) => {
               renderItem={({ item, index }) => {
                 return (
                   <View style={styles.serceainview}>
-                    <Image
-                      style={styles.seviceIMG}
-                      source={require("../../../Assets/musical-sign-of-one-dots.png")}
-                    />
+                    <Text style={CommonStyles.dotTxt}>{DOT}</Text>
                     <Text style={styles.srcmntxt}>{item.category_name}</Text>
                   </View>
                 );
@@ -364,12 +363,12 @@ const ServiceProviderDetailsScreen = (props) => {
             >
               <Marker
                 coordinate={coordinate}
-                // image={require('../../../Assets/login_logo.png')}
+                // image={Images.MIDDLE_LOGO_IMG}
                 title={props?.serviceDetail?.business_name}
-                // description={marker.description}
+              // description={marker.description}
               >
                 <Image
-                  source={require("../../../Assets/abby_pages_map_icon.png")}
+                  source={Images.MAP_LOGO}
                   style={{ height: 50, width: 50 }}
                   resizeMode="contain"
                   resizeMethod="auto"
@@ -394,7 +393,7 @@ const ServiceProviderDetailsScreen = (props) => {
               )}
             />
             {/* <View style={styles.editwiewwew}>
-                            <Image style={styles.pencilediticon} source={require('../../../Assets/edit_pencil_icon.png')} />
+                            <Image style={styles.pencilediticon} source={Images.EDIT_PENCIL_IMG} />
                             <Text style={styles.penciltxtedit}>Edit Business info</Text>
                         </View> */}
           </View>
@@ -607,7 +606,7 @@ const ServiceProviderDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/camera.png")}
+                      source={Images.COLORED_CAMERA_IMG}
                     />
                     <Text style={styles.modalItem}>Open camera</Text>
                   </TouchableOpacity>
@@ -618,7 +617,7 @@ const ServiceProviderDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/image-gallery.png")}
+                      source={Images.GALLERY_IMG}
                     />
                     <Text style={styles.modalItem}>Open album</Text>
                   </TouchableOpacity>
@@ -629,7 +628,7 @@ const ServiceProviderDetailsScreen = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/cancelModalBtn.png")}
+                      source={Images.COLORED_CANCEL_IMG}
                     />
                     <Text style={styles.modalItem}>Cancel</Text>
                   </TouchableOpacity>

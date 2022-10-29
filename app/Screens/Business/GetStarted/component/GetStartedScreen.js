@@ -22,6 +22,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Images } from "../../../../Utils/images";
 const GetStartedScreen = (props) => {
+  
   const _renderItems = (item, index) => {
     return (
       <TouchableOpacity

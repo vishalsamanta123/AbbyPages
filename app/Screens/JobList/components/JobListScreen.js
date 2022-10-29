@@ -65,12 +65,12 @@ const JobListScreen = (props) => {
               {Number(item.job_type) === 1
                 ? "Full Time"
                 : Number(item.job_type) === 2
-                ? "Part Time"
-                : Number(item.job_type) === 3
-                ? "Intership"
-                : Number(item.job_type) === 4
-                ? "Freelancer"
-                : "Work"}
+                  ? "Part Time"
+                  : Number(item.job_type) === 3
+                    ? "Intership"
+                    : Number(item.job_type) === 4
+                      ? "Freelancer"
+                      : "Work"}
             </Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
@@ -148,7 +148,7 @@ const JobListScreen = (props) => {
           <Image
             style={{ width: 30, height: 30 }}
             resizeMode={"contain"}
-            source={require("../../../Assets/header_back_btn.png")}
+            source={Images.HEADER_BCK_IMG}
           />
         </TouchableOpacity>
         <View style={[styles.HeaderMiddleCon]}>
@@ -159,21 +159,21 @@ const JobListScreen = (props) => {
             <Image
               resizeMode="cover"
               style={styles.headericon}
-              source={require("../../../Assets/map_list_icon.png")}
+              source={Images.MAP_LIST_IMG}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => props.handleFilter()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
-              source={require("../../../Assets/filter_icon.png")}
+              source={Images.FILTER_IMG}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => props.handleSearch()}>
             <Image
               resizeMode="cover"
               style={styles.headericon}
-              source={require("../../../Assets/search_icon_header.png")}
+              source={Images.SEARCH_IMG}
             />
           </TouchableOpacity>
         </View>
@@ -230,7 +230,7 @@ const JobListScreen = (props) => {
               <TouchableOpacity onPress={() => props.setPostjob(false)}>
                 <Image
                   style={{ width: 35, height: 35 }}
-                  source={require("../../../Assets/cart_delete_icon.png")}
+                  source={Images.CANCEL_IMG}
                 />
               </TouchableOpacity>
             </View>

@@ -14,14 +14,15 @@ import Button from "../../../Components/Button";
 import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const ProfileSettings = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText={"Profile Settings"}
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -37,7 +38,8 @@ const ProfileSettings = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Image
-                  source={require("../../../Assets/profile_icon_menu.png")}
+                  style={{ width: 18, height: 18 }}
+                  source={Images.PROFILE_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -45,7 +47,7 @@ const ProfileSettings = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -56,7 +58,7 @@ const ProfileSettings = (props) => {
               >
                 <View style={styles.CameraImgView}>
                   <Image
-                    source={require("../../../Assets/lock_icon_menu.png")}
+                    source={Images.LOCK_IMG}
                   />
                 </View>
                 <View style={styles.TextContainer}>
@@ -64,7 +66,7 @@ const ProfileSettings = (props) => {
                 </View>
                 <View style={styles.BckArrowBack}>
                   <Image
-                    source={require("../../../Assets/business_chevron_icon.png")}
+                    source={Images.ARROW_RIGHT_IMG}
                   />
                 </View>
               </TouchableOpacity>
@@ -75,7 +77,7 @@ const ProfileSettings = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Image
-                  source={require("../../../Assets/envelope_icon_menu.png")}
+                  source={Images.ENVELOPE_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -83,7 +85,7 @@ const ProfileSettings = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -93,7 +95,7 @@ const ProfileSettings = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Image
-                  source={require("../../../Assets/marker_icon_menu.png")}
+                  source={Images.LOCATION_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -101,7 +103,7 @@ const ProfileSettings = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -111,7 +113,7 @@ const ProfileSettings = (props) => {
             >
               <View style={styles.CameraImgView}>
                 <Image
-                  source={require("../../../Assets/settings_icon_menu.png")}
+                  source={Images.SETTING_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -119,7 +121,7 @@ const ProfileSettings = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -133,8 +135,8 @@ const ProfileSettings = (props) => {
               About{" "}
               {props.userProfileData &&
                 props.userProfileData.first_name +
-                  " " +
-                  props.userProfileData.last_name}
+                " " +
+                props.userProfileData.last_name}
             </Text>
             <View style={styles.LocationView}>
               <Text style={styles.LoctionTextStyle}>Location</Text>
@@ -167,7 +169,7 @@ const ProfileSettings = (props) => {
           <View style={[styles.MainContainer, { marginTop: 10 }]}>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../../Assets/headphones_icon_box.png")}
+                source={Images.HEADPHONES_IMG}
               />
               <Text style={styles.AnyProblmTxt}>Have any problem and</Text>
               <Text style={styles.AnyProblmTxt}>

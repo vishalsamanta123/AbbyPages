@@ -11,6 +11,7 @@ import {
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 import Button from "../../../Components/Button";
+import { Images } from "../../../Utils/images";
 
 const OrderDetailScreen = (props) => {
   const _handleItemList = (item, index) => {
@@ -103,8 +104,8 @@ const OrderDetailScreen = (props) => {
             {props?.orderDetail?.order_status === 5 && " Completed"}
           </Text>
           {props?.orderDetail?.order_status === 3 ||
-          props?.orderDetail?.order_status === 5 ||
-          props?.orderDetail?.order_status === 4 ? null : (
+            props?.orderDetail?.order_status === 5 ||
+            props?.orderDetail?.order_status === 4 ? null : (
             <View style={{ marginTop: 10 }}>
               <Button
                 style={styles.bttnsVw}
@@ -120,7 +121,7 @@ const OrderDetailScreen = (props) => {
           )}
         </View>
         {props?.orderDetail?.business_type === 3 ||
-        props?.orderDetail?.order_booking_type === 3 ? null : (
+          props?.orderDetail?.order_booking_type === 3 ? null : (
           <>
             <FlatList
               data={props?.orderDetail?.item}
@@ -168,7 +169,7 @@ const OrderDetailScreen = (props) => {
                         ? YELLOW_COLOR_CODE
                         : "#c1bcbc"
                     }
-                    source={require("../../../Assets/final_order1.png")}
+                    source={Images.FINAL_ORDERDOT_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>
                     {""} Ordered
@@ -182,7 +183,7 @@ const OrderDetailScreen = (props) => {
                         : "#c1bcbc"
                     }
                     style={{ right: 2 }}
-                    source={require("../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>Packed</Text>
                 </View>
@@ -194,7 +195,7 @@ const OrderDetailScreen = (props) => {
                         : "#c1bcbc"
                     }
                     style={{ right: 2 }}
-                    source={require("../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>Shipped</Text>
                 </View>
@@ -202,12 +203,12 @@ const OrderDetailScreen = (props) => {
                   <Image
                     tintColor={
                       props.orderDetail.order_process >= 4 ||
-                      props?.orderDetail?.order_status === 5
+                        props?.orderDetail?.order_status === 5
                         ? YELLOW_COLOR_CODE
                         : "#c1bcbc"
                     }
                     style={{ right: 2 }}
-                    source={require("../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>
                     Delievered

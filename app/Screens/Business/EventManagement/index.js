@@ -11,6 +11,7 @@ import moment from "moment";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
+import { Images } from "../../../Utils/images";
 
 const EventManagement = () => {
   const [visible, setVisible] = useState(false);
@@ -155,20 +156,16 @@ const EventManagement = () => {
             <Image
               style={styles.MapImgeStyle}
               resizeMode="contain"
-              source={require("../../../Assets/map_marker_icon.png")}
+              source={Images.LOCATION_IMG}
             />
             <Text
               numberOfLines={2}
               style={[styles.AddressTextStyles, { paddingRight: 10 }]}
-            >
-              {item?.event_location}
+            >{item?.event_location}
             </Text>
           </View>
           <View style={styles.InformationView}>
-            <Image
-              style={{}}
-              source={require("../../../Assets/fire_icon.png")}
-            />
+            <Image source={Images.FIRE_IMG} />
             <Text style={styles.AddressTextStyles}>
               {moment.unix(item?.event_date).format("MM/DD/YYYY")}
             </Text>

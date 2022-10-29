@@ -18,11 +18,12 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Images } from "../../../Utils/images";
 const UserProfile = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Profile"}
@@ -54,8 +55,8 @@ const UserProfile = (props) => {
                   style={{ marginTop: 5 }}
                   source={
                     props.findFriends
-                      ? require("../../../Assets/checked_squared_icon_small.png")
-                      : require("../../../Assets/unchecked_squared_icon_small.png")
+                      ? Images.CHECK_IMG
+                      : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
@@ -81,8 +82,8 @@ const UserProfile = (props) => {
                   style={{ marginTop: 5 }}
                   source={
                     props.bookmarks
-                      ? require("../../../Assets/checked_squared_icon_small.png")
-                      : require("../../../Assets/unchecked_squared_icon_small.png")
+                      ? Images.CHECK_IMG
+                      : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
@@ -110,8 +111,8 @@ const UserProfile = (props) => {
                   style={{ marginTop: 5 }}
                   source={
                     props.directMessageFromBussiness
-                      ? require("../../../Assets/checked_squared_icon_small.png")
-                      : require("../../../Assets/unchecked_squared_icon_small.png")
+                      ? Images.CHECK_IMG
+                      : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
@@ -138,8 +139,8 @@ const UserProfile = (props) => {
                   style={{ marginTop: 5 }}
                   source={
                     props.adsDisplayElseWhere
-                      ? require("../../../Assets/checked_squared_icon_small.png")
-                      : require("../../../Assets/unchecked_squared_icon_small.png")
+                      ? Images.CHECK_IMG
+                      : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>

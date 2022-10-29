@@ -19,13 +19,14 @@ import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const ConfirmOrder = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
-        RightImg={require("../../../../Assets/trash_icon_header.png")}
+        RightImg={Images.TRASH_IMG}
         HeaderText={" Confirm Order "}
         headerSecondText={false}
         onPress={() => props.setAllDelete(true)}

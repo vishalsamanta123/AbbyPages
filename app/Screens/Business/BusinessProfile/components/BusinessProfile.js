@@ -121,7 +121,7 @@ const BusinessInformation = (props) => {
                 onPress={() => props.onPressProfileImage()}
                 style={styles.UserProfileImage}
               >
-                {!props.LocitemImage ? (
+                {props.LocitemImage ? (
                   <Image
                     style={styles.ProfileIMG}
                     borderRadius={50}

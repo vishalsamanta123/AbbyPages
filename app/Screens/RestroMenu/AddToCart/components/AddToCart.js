@@ -21,6 +21,7 @@ import {
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const AddToCartScreen = (props) => {
   return (
     <KeyboardAvoidingView
@@ -90,8 +91,8 @@ const AddToCartScreen = (props) => {
             style={{ width: 20, height: 20 }}
             source={
               props?.ShowSpiceLevel
-                ? require("../../../../Assets/link_dropdown_icon_up.png")
-                : require("../../../../Assets/link_dropdown_ico.png")
+                ? Images.ARROW_UP_IMG
+                : Images.ARROW_DOWN_IMG
             }
           />
         </TouchableOpacity>

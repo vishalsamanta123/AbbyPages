@@ -8,6 +8,7 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BLACK,
+  LIGHT_BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   imageStyle: {
@@ -197,6 +198,7 @@ const Styles = StyleSheet.create({
   TextInputImageStyle: {
     width: 18,
     height: 18,
+    tintColor: LIGHT_BLACK_COLOR_CODE
   },
   FindTableContain: {
     padding: 13,
@@ -224,6 +226,7 @@ const Styles = StyleSheet.create({
     height: 17,
     right: 3,
     top: 2,
+    tintColor: LIGHT_BLACK_COLOR_CODE
   },
   AboutContainer: {
     flexDirection: "row",

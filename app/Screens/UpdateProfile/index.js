@@ -10,6 +10,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import { Images } from "../../Utils/images";
 const UpdateProfileView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -123,7 +124,7 @@ const UpdateProfileView = ({ navigation }) => {
     } else {
       return (
         <Image
-          source={require("../../Assets/profile_photo_default_circled.png")}
+          source={Images.DEFAULT_IMG}
           style={{ width: 100, height: 100, borderRadius: 40 }}
         />
       );
@@ -279,9 +280,9 @@ const UpdateProfileView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-        // closeModel={() => {
-        //   navigation.goBack(null)
-        //   setVisibleSuccess(false)}}
+      // closeModel={() => {
+      //   navigation.goBack(null)
+      //   setVisibleSuccess(false)}}
       />
     </View>
   );

@@ -10,6 +10,7 @@ import {
   LIGHT_WHITE_COLOR,
   SMALL_TEXT_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const OrderHistory = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   const _handleOrders = (item, index) => {
@@ -66,7 +67,7 @@ const OrderHistory = (props) => {
               <View style={styles.DateContainer}>
                 <Image
                   style={styles.DateImge}
-                  source={require("../../../Assets/list_calendar_icon.png")}
+                  source={Images.CALENDER_IMG}
                 />
                 <Text style={[styles.ReviewText, { paddingLeft: 10 }]}>
                   {moment(item.create_order).format("MM/DD/YYYY")}
@@ -76,7 +77,7 @@ const OrderHistory = (props) => {
                 <View style={styles.PendingView}>
                   <Image
                     style={styles.CheckImge}
-                    source={require("../../../Assets/checked_circled_icon_box.png")}
+                    source={Images.ROUND_CHECK_IMG}
                   />
                   <Text
                     style={[
@@ -101,7 +102,7 @@ const OrderHistory = (props) => {
               >
                 <Image
                   style={styles.arrowImg}
-                  source={require("../../../Assets/arrow_right_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -114,7 +115,7 @@ const OrderHistory = (props) => {
     <View style={CommonStyles.container}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Order History"
         type="Drawer"
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
@@ -162,7 +163,7 @@ const OrderHistory = (props) => {
                 <View style={[styles.cardCon]}>
                   <View style={styles.imgCon}>
                     <Image
-                      source={require("../../../Assets/order_icon_box_large.png")}
+                      source={Images.ORDERS_IMG}
                     />
                   </View>
                   <Text style={[CommonStyles.text, styles.emptyListTxt]}>

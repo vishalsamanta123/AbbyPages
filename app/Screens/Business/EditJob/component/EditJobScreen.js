@@ -22,13 +22,14 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Images } from "../../../../Utils/images";
 
 const EditJobScreen = (props) => {
   const [isFocused, setIsfocused] = useState(false);
   return (
     <View style={CommonStyles.container}>
       <Header
-        leftImg={require("../../../../Assets/header_back_btn.png")}
+        leftImg={Images.HEADER_BCK_IMG}
         HeaderText="Edit Jobs"
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -52,7 +53,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
           </TouchableOpacity>
           <Input
@@ -149,7 +152,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -164,7 +169,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -179,7 +186,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
           </TouchableOpacity>
           {/* <TouchableOpacity style={styles.container}>
@@ -187,7 +196,9 @@ const EditJobScreen = (props) => {
                                 <Text style={styles.AddPhotosTxt}>Job Location *</Text>
                             </View>
                             <View style={styles.BckArrowBack}>
-                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            <Image source={Images.ARROW_DOWN_IMG}
+                            style={CommonStyles.blackDropDownImg}
+                          />
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.container}>
@@ -195,7 +206,9 @@ const EditJobScreen = (props) => {
                                 <Text style={styles.AddPhotosTxt}>Eg. Andheri</Text>
                             </View>
                             <View style={styles.BckArrowBack}>
-                                <Image source={require('../../../../Assets/dropdown_icon.png')} />
+                            <Image source={Images.ARROW_DOWN_IMG}
+                            style={CommonStyles.blackDropDownImg}
+                          />
                             </View>
                         </TouchableOpacity> */}
         </View>
@@ -248,7 +261,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
             <DateTimePickerModal
               isVisible={props.isStartTimePickerVisible}
@@ -267,7 +282,9 @@ const EditJobScreen = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../../Assets/dropdown_icon.png")} />
+              <Image source={Images.ARROW_DOWN_IMG}
+                style={CommonStyles.blackDropDownImg}
+              />
             </View>
             <DateTimePickerModal
               isVisible={props.isEndTimePickerVisible}
@@ -453,7 +470,7 @@ const EditJobScreen = (props) => {
             >
               <Text style={styles.titlesTxt}>Select job benefits</Text>
               {typeof props?.jobForm?.job_benefits[0] === "object" &&
-              props?.jobForm?.job_benefits?.length > 0 ? (
+                props?.jobForm?.job_benefits?.length > 0 ? (
                 <View style={styles.arrayVw}>
                   {props?.jobForm?.job_benefits?.map((item) => {
                     return (
@@ -484,8 +501,8 @@ const EditJobScreen = (props) => {
                 style={styles.alluncheck}
                 source={
                   props?.jobForm?.accpt_trms_cond === ""
-                    ? require("../../../../Assets/unchecked_circled_icon_box.png")
-                    : require("../../../../Assets/checked_circled_icon_box.png")
+                    ? Images.ROUND_UNCHECK_IMG
+                    : Images.ROUND_CHECK_IMG
                 }
               />
             </TouchableOpacity>
@@ -521,12 +538,12 @@ const EditJobScreen = (props) => {
                   {props?.modalResp === 1
                     ? "Job Category List"
                     : props?.modalResp === 2
-                    ? "Country List"
-                    : props?.modalResp === 3
-                    ? "State List"
-                    : props?.modalResp === 4
-                    ? "City List"
-                    : "List"}
+                      ? "Country List"
+                      : props?.modalResp === 3
+                        ? "State List"
+                        : props?.modalResp === 4
+                          ? "City List"
+                          : "List"}
                 </Text>
               </View>
               <TouchableOpacity
@@ -535,7 +552,7 @@ const EditJobScreen = (props) => {
               >
                 <Image
                   style={styles.cancelimg}
-                  source={require("../../../../Assets/cancelModalBtn.png")}
+                  source={Images.COLORED_CANCEL_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -547,10 +564,10 @@ const EditJobScreen = (props) => {
                       props?.modalResp === 2
                         ? "Search Country"
                         : props?.modalResp === 3
-                        ? "Search State"
-                        : props?.modalResp === 4
-                        ? "Search City"
-                        : "Search"
+                          ? "Search State"
+                          : props?.modalResp === 4
+                            ? "Search City"
+                            : "Search"
                     }
                     onChangeText={(text) => props.SearchPlace(text)}
                     style={styles.TxtInptStyle}
@@ -562,12 +579,12 @@ const EditJobScreen = (props) => {
                   props?.modalResp === 1
                     ? props?.jobCategoryList
                     : props?.modalResp === 2
-                    ? props?.countryList
-                    : props?.modalResp === 3
-                    ? props?.stateList
-                    : props?.modalResp === 4
-                    ? props?.cityList
-                    : []
+                      ? props?.countryList
+                      : props?.modalResp === 3
+                        ? props?.stateList
+                        : props?.modalResp === 4
+                          ? props?.cityList
+                          : []
                 }
                 renderItem={(item) => props.renderModalList(item)}
                 keyExtractor={(item, index) => index.toString()}
@@ -597,7 +614,7 @@ const EditJobScreen = (props) => {
             >
               <Image
                 style={styles.closeicon}
-                source={require("../../../../Assets/cancelModalBtn.png")}
+                source={Images.COLORED_CANCEL_IMG}
               />
             </TouchableOpacity>
             <FlatList

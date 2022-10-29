@@ -20,15 +20,16 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const RestaurantManagement = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Restaurant"}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -44,7 +45,7 @@ const RestaurantManagement = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   style={{ width: 30, height: 30 }}
-                  source={require("../../../../Assets/management.png")}
+                  source={Images.MANAGE_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -52,7 +53,7 @@ const RestaurantManagement = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -63,7 +64,7 @@ const RestaurantManagement = (props) => {
               <View style={styles.CameraImgView}>
                 <Image
                   style={{ width: 30, height: 30 }}
-                  source={require("../../../../Assets/dinner.png")}
+                  source={Images.DINEER_IMG}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -71,7 +72,7 @@ const RestaurantManagement = (props) => {
               </View>
               <View style={styles.BckArrowBack}>
                 <Image
-                  source={require("../../../../Assets/business_chevron_icon.png")}
+                  source={Images.ARROW_RIGHT_IMG}
                 />
               </View>
             </TouchableOpacity>
@@ -104,7 +105,7 @@ const RestaurantManagement = (props) => {
           <View style={[styles.MainContainer, { marginTop: 10 }]}>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../../../Assets/headphones_icon_box.png")}
+                source={Images.HEADPHONES_IMG}
               />
               <Text style={styles.AnyProblmTxt}>Have any problem and</Text>
               <Text style={styles.AnyProblmTxt}>

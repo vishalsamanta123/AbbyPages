@@ -25,11 +25,12 @@ import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const NotificationSettings = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Email / Notification Settings"}
@@ -53,7 +54,7 @@ const NotificationSettings = (props) => {
               >
                 <Image
                   style={{ width: 36, height: 36 }}
-                  source={require("../../../Assets/add_location_icon.png")}
+                  source={Images.THEME_ADD_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -74,7 +75,7 @@ const NotificationSettings = (props) => {
                       >
                         <Image
                           style={{ height: 42, width: 42 }}
-                          source={require("../../../Assets/add_primary_icon_color.png")}
+                          source={Images.PRIMARY_IMG}
                         />
                       </TouchableOpacity>
                     )}
@@ -88,7 +89,7 @@ const NotificationSettings = (props) => {
                         <Image
                           resizeMode="contain"
                           // style={styles.ImageDelete}
-                          source={require("../../../Assets/list_delete_icon.png")}
+                          source={Images.DELETE_IMG}
                         />
                       </TouchableOpacity>
                     )}
@@ -153,7 +154,7 @@ const NotificationSettings = (props) => {
                     }}
                   >
                     <Image
-                      source={require("../../../Assets/arrow_right_icon.png")}
+                      source={Images.ARROW_RIGHT_IMG}
                     />
                   </TouchableOpacity>
                 </TouchableOpacity>
@@ -215,8 +216,8 @@ const NotificationSettings = (props) => {
                   style={{ marginTop: 5 }}
                   source={
                     props.emailNotificationSettings
-                      ? require("../../../Assets/checked_squared_icon_small.png")
-                      : require("../../../Assets/unchecked_squared_icon_small.png")
+                      ? Images.CHECK_IMG
+                      : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
@@ -244,11 +245,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.friends_request === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -266,11 +267,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.new_followers === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -290,11 +291,11 @@ const NotificationSettings = (props) => {
                   {props?.notificationSettings
                     ?.compliment_and_direct_message === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -313,13 +314,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.notificationSettings?.message_from_business_owners ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -338,13 +339,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.notificationSettings?.your_business_info_edits ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -364,11 +365,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.cash_back_updates === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -386,11 +387,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings.contributions === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -413,11 +414,11 @@ const NotificationSettings = (props) => {
                 >
                   {props.notificationSettings?.business_you_might_like === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -436,13 +437,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props.notificationSettings?.abbypages_tips_and_tricks ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -461,13 +462,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props.notificationSettings?.suggested_business_to_review ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -486,13 +487,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.notificationSettings?.discounts_and_promotions ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -512,11 +513,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.restaurants_news === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -533,13 +534,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.notificationSettings?.new_questions_you_can_answer ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -559,11 +560,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.surveys === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -581,11 +582,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.notificationSettings?.neighbourhoods === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -593,7 +594,7 @@ const NotificationSettings = (props) => {
               </View>
             </View>
           </View>
-          {/* <Image style={{ marginTop: 5 }} source={require('../../../Assets/unchecked_squared_icon_small.png')} /> */}
+          {/* <Image style={{ marginTop: 5 }} source={Images.UNCHECK_IMG} /> */}
           <View style={[styles.PhoneNumberContain, { padding: 15 }]}>
             <Text style={styles.EmalNotifyText}>
               Push Notifications Settings
@@ -619,13 +620,13 @@ const NotificationSettings = (props) => {
                     style={styles.MainGetEmailView}
                   >
                     {props?.pushNotificationSetting?.by_friends_in_your_city ===
-                    1 ? (
+                      1 ? (
                       <Image
-                        source={require("../../../Assets/checked_squared_icon_small.png")}
+                        source={Images.CHECK_IMG}
                       />
                     ) : (
                       <Image
-                        source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                        source={Images.UNCHECK_IMG}
                       />
                     )}
                   </TouchableOpacity>
@@ -652,11 +653,11 @@ const NotificationSettings = (props) => {
                     {props?.pushNotificationSetting
                       ?.by_friends_in_all_cities === 1 ? (
                       <Image
-                        source={require("../../../Assets/checked_squared_icon_small.png")}
+                        source={Images.CHECK_IMG}
                       />
                     ) : (
                       <Image
-                        source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                        source={Images.UNCHECK_IMG}
                       />
                     )}
                   </TouchableOpacity>
@@ -685,11 +686,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.review_votes === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -707,11 +708,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.check_in_comments === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -729,11 +730,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.check_in_likes === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -751,11 +752,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.tip_likes === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -772,13 +773,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.pushNotificationSetting?.photo_and_videos_likes ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -798,11 +799,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.compliments === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -820,11 +821,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.direct_messages === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -842,11 +843,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.helpful_answers === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -864,11 +865,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.review_comments === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -888,13 +889,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.pushNotificationSetting?.deals_and_announcements ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -916,11 +917,11 @@ const NotificationSettings = (props) => {
                   {props?.pushNotificationSetting
                     ?.push_business_you_might_like === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -942,11 +943,11 @@ const NotificationSettings = (props) => {
                   {props?.pushNotificationSetting
                     ?.push_suggested_business_to_review === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -966,11 +967,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.case_back_updates === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -987,13 +988,13 @@ const NotificationSettings = (props) => {
                   style={styles.MainGetEmailView}
                 >
                   {props?.pushNotificationSetting?.updates_on_your_views ===
-                  1 ? (
+                    1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1013,11 +1014,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.push_surveys === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1035,11 +1036,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.collections_updates === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1057,11 +1058,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.business_you_hired === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1079,11 +1080,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.push_neighborhoods === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1103,11 +1104,11 @@ const NotificationSettings = (props) => {
                   {props?.pushNotificationSetting
                     ?.order_and_purchase_updates === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1127,11 +1128,11 @@ const NotificationSettings = (props) => {
                 >
                   {props?.pushNotificationSetting?.waitlist_updates === 1 ? (
                     <Image
-                      source={require("../../../Assets/checked_squared_icon_small.png")}
+                      source={Images.CHECK_IMG}
                     />
                   ) : (
                     <Image
-                      source={require("../../../Assets/unchecked_squared_icon_small.png")}
+                      source={Images.UNCHECK_IMG}
                     />
                   )}
                 </TouchableOpacity>
@@ -1173,7 +1174,7 @@ const NotificationSettings = (props) => {
               onPress={() => props.modalShareFalse()}
             >
               {/* <Image
-                source={require("../../../Assets/screen_close_icon.png")}
+                source={Images.CANCEL_IMG}
               /> */}
             </TouchableOpacity>
             <View style={{ width: "100%" }}>

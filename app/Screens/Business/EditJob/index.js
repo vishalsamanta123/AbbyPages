@@ -8,7 +8,6 @@ import Success from "../../../Components/Modal/success";
 import { View, Text, TouchableOpacity } from "react-native";
 import EditJobScreen from "./component/EditJobScreen";
 import styles from "./component/styles";
-import { YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 
 const EditJob = ({ navigation, route }) => {
   const { item } = route?.params || { item: "" };

@@ -17,6 +17,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -83,7 +84,7 @@ const EventListingScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                   <Text style={styles.straightTxt}>
                     {moment.unix(item?.event_date).format("MM/DD/YYYY")}
@@ -92,7 +93,7 @@ const EventListingScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/info_marker_icon.png")}
+                    source={Images.LOCATION_IMG}
                   />
                   <Text style={styles.straightTxt}>{item?.event_location}</Text>
                 </View>

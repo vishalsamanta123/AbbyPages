@@ -24,6 +24,7 @@ import {
 } from "../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
 import Input from "../../../../Components/Input";
+import { Images } from "../../../../Utils/images";
 
 const CheckOutScreen = (props) => {
   const screenlowerdata = (item) => {
@@ -69,7 +70,7 @@ const CheckOutScreen = (props) => {
             >
               <Image
                 style={styles.icon}
-                source={require("../../../../Assets/cart_delete_icon.png")}
+                source={Images.CANCEL_IMG}
               />
             </TouchableOpacity>
           </View>
@@ -108,7 +109,7 @@ const CheckOutScreen = (props) => {
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
         headerSecondText="confirm order with the following details"
-        RightImg={require("../../../../Assets/trash_icon_header.png")}
+        RightImg={Images.TRASH_IMG}
         onPress={() => props.setAllDelete(true)}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -138,7 +139,7 @@ const CheckOutScreen = (props) => {
                 <Image
                   style={styles.addressEditImg}
                   resizeMode="contain"
-                  source={require("../../../../Assets/edit_pencil_icon.png")}
+                  source={Images.EDIT_PENCIL_IMG}
                 />
               </TouchableOpacity>
             ) : (
@@ -150,7 +151,7 @@ const CheckOutScreen = (props) => {
                 <Image
                   style={styles.addressEditImg}
                   resizeMode="contain"
-                  source={require("../../../../Assets/edit_pencil_icon.png")}
+                  source={Images.EDIT_PENCIL_IMG}
                 />
               </TouchableOpacity>
             )}
@@ -168,8 +169,8 @@ const CheckOutScreen = (props) => {
                   style={{ height: 20, width: 20 }}
                   source={
                     props.order_payment_type
-                      ? require("../../../../Assets/radio_circled_checked.png")
-                      : require("../../../../Assets/radio_circled_unchecked.png")
+                      ? Images.RADIO_CHECK_IMG
+                      : Images.RADIO_UNCHECK_IMG
                   }
                 />
                 <Text style={[styles.hdngtxt, styles.paymentTxt]}>
@@ -186,8 +187,8 @@ const CheckOutScreen = (props) => {
                   style={{ height: 20, width: 20 }}
                   source={
                     !props.order_payment_type
-                      ? require("../../../../Assets/radio_circled_checked.png")
-                      : require("../../../../Assets/radio_circled_unchecked.png")
+                      ? Images.RADIO_CHECK_IMG
+                      : Images.RADIO_UNCHECK_IMG
                   }
                 />
                 <Text style={[styles.hdngtxt, styles.paymentTxt]}>

@@ -3,6 +3,7 @@ import { GREY_COLOR_CODE, FONT_FAMILY_REGULAR, LINE_COMMON_COLOR_CODE, YELLOW_CO
 import { Dimensions, View, Text, Image } from 'react-native';
 import styles from './components/styles';
 import RestaurantMenuScreen from './components/RestaurantMenuScreen';
+import { Images } from '../../Utils/images';
 const RestaurantMenuView = () => {
     const [handleDashiStock, setHandleDashiStock] = useState([
         {
@@ -28,10 +29,10 @@ const RestaurantMenuView = () => {
                             health conscious meal.
                         </Text>
                         <View style={styles.ReviewContainer}>
-                            <Image style={styles.StarImageStyle} source={require('../../Assets/star_icon_xs.png')} />
+                            <Image style={styles.StarImageStyle} source={Images.STAR_IMG} />
                             <Text style={styles.ReviewTxtStyle}> 10 reviews</Text>
                             <View style={styles.PhotoReviewView}>
-                                <Image style={styles.StarImageStyle} source={require('../../Assets/camera_icon_xs.png')} />
+                                <Image style={styles.StarImageStyle} source={Images.CAMERA_IMG} />
                                 <Text style={styles.ReviewTxtStyle}> 1 photo</Text>
                             </View>
                         </View>
@@ -50,12 +51,12 @@ const RestaurantMenuView = () => {
                         <Text style={styles.CostOfStockTxt}>$4.95</Text>
                         <Text style={styles.DescriptionTxt}>
                             Vegetarian
-                          </Text>
+                        </Text>
                         <View style={styles.ReviewContainer}>
-                            <Image style={styles.StarImageStyle} source={require('../../Assets/star_icon_xs.png')} />
+                            <Image style={styles.StarImageStyle} source={Images.STAR_IMG} />
                             <Text style={styles.ReviewTxtStyle}> 10 reviews</Text>
                             <View style={styles.PhotoReviewView}>
-                                <Image style={styles.StarImageStyle} source={require('../../Assets/camera_icon_xs.png')} />
+                                <Image style={styles.StarImageStyle} source={Images.CAMERA_IMG} />
                                 <Text style={styles.ReviewTxtStyle}> 1 photo</Text>
                             </View>
                         </View>
@@ -71,10 +72,10 @@ const RestaurantMenuView = () => {
                     <Image style={styles.DashiStockImg} source={require('../../Assets/extraImages/salooonimg.jpg')} />
                     <View style={styles.StockInfoContainer}>
                         <Text style={styles.StockNameTxt}>Fish Ball</Text>
-                        <Text numberOfLines={3} style={[styles.DescriptionTxt,{lineHeight:22}]}>
+                        <Text numberOfLines={3} style={[styles.DescriptionTxt, { lineHeight: 22 }]}>
                             Nino T. Preface:Came in on a sunday night around 9PM for party of 4(1
                             person was still not there yet but)
-                          </Text>
+                        </Text>
                     </View>
                 </View>
             </Fragment>

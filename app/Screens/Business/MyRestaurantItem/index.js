@@ -16,6 +16,7 @@ import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import { AddItemCategory } from "../../../Utils/UserContext";
+import { Images } from "../../../Utils/images";
 
 const MyRestaurantItemView = ({ navigation }) => {
   const [activeCategory, setactiveCategory] = useContext(AddItemCategory);
@@ -114,9 +115,9 @@ const MyRestaurantItemView = ({ navigation }) => {
         item.status === 0
           ? ToastAndroid.show("Item successfully active", ToastAndroid.SHORT)
           : ToastAndroid.show(
-              "Item successfully un-active",
-              ToastAndroid.SHORT
-            );
+            "Item successfully un-active",
+            ToastAndroid.SHORT
+          );
         getItemListFun(activeCategory.categoryId);
       } else {
       }
@@ -213,7 +214,7 @@ const MyRestaurantItemView = ({ navigation }) => {
           <View style={{ flexDirection: "row", paddingTop: 12 }}>
             <Image
               style={{ width: 13, height: 13, top: 2 }}
-              source={require("../../../Assets/squares.png")}
+              source={Images.SQUARE_IMG}
             />
             <Text style={[styles.ReviewText, { paddingLeft: 10 }]}>
               {item.item_type == 1 || item.item_type === "Veg"
@@ -222,7 +223,7 @@ const MyRestaurantItemView = ({ navigation }) => {
             </Text>
           </View>
           {/* <View style={styles.AddBtnTouchable}>
-                            <Image source={require('../../../Assets/arrow_right_icon.png')} />
+                            <Image source={Images.ARROW_RIGHT_IMG} />
                         </View> */}
           <View style={styles.iconicicon}>
             <TouchableOpacity
@@ -231,7 +232,7 @@ const MyRestaurantItemView = ({ navigation }) => {
             >
               <Image
                 style={styles.iconsize}
-                source={require("../../../Assets/edit_photo_icon.png")}
+                source={Images.EDIT_PHOTO_IMG}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -240,20 +241,15 @@ const MyRestaurantItemView = ({ navigation }) => {
             >
               <Image
                 style={styles.iconsize}
-                source={require("../../../Assets/list_delete_icon.png")}
+                source={Images.DELETE_IMG}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.switchstyle}
               onPress={() => handleActiveStatus(item)}
             >
-              {item.status === 1 ? (
-                <Image source={require("../../../Assets/active_switch.png")} />
-              ) : (
-                <Image
-                  source={require("../../../Assets/unactive_switch.png")}
-                />
-              )}
+              <Image source={item.status === 1 ?
+                Images.ACTIVE_SWITCH_IMG : Images.UNACTIVE_SWITCH_IMG} />
             </TouchableOpacity>
           </View>
         </View>

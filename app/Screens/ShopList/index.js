@@ -16,6 +16,8 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import { LINE_COMMON_COLOR_CODE } from "../../Utils/Constant";
+import { Images } from "../../Utils/images";
 
 const ShopList = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -201,11 +203,11 @@ const ShopList = ({ navigation, route }) => {
                 onPress={() => onPressLike(item)}
               >
                 <Image
-                  source={
-                    item.user_like === 1
-                      ? require("../../Assets/like_icon_filled.png")
-                      : require("../../Assets/like_icon_disable.png")
-                  }
+                  style={{
+                    tintColor: item.user_like === 1
+                      ? null : LINE_COMMON_COLOR_CODE
+                  }}
+                  source={Images.FAVRT_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -220,7 +222,7 @@ const ShopList = ({ navigation, route }) => {
             <Image
               style={styles.MapImgeStyle}
               resizeMode="contain"
-              source={require("../../Assets/map_marker_icon.png")}
+              source={Images.LOCATION_IMG}
             />
             <Text
               numberOfLines={1}
@@ -250,10 +252,7 @@ const ShopList = ({ navigation, route }) => {
                                         // style={styles.RightImgeStyle}
                                         source={
                                             item.offers_delivery === 1 ?
-                                                require('../../Assets/text_check_icon.png')
-                                                :
-                                                require('../../Assets/cart_delete_icon.png')
-                                        }
+                                                Images.TICK_IMG : Images.CANCEL_IMG }
                                     />
                                 </View>
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
@@ -262,10 +261,7 @@ const ShopList = ({ navigation, route }) => {
                                         // style={styles.RightImgeStyle}
                                         source={
                                             item.offers_takeout === 1 ?
-                                                require('../../Assets/text_check_icon.png')
-                                                :
-                                                require('../../Assets/cart_delete_icon.png')
-                                        }
+                                            Images.TICK_IMG : Images.CANCEL_IMG}
                                     />
                                     <Text style={styles.AddressTextStyles}>Takeout</Text>
                                 </View>
@@ -273,7 +269,7 @@ const ShopList = ({ navigation, route }) => {
             {/* <Text numberOfLines={1} style={styles.AddressTextStyles}>hii  </Text> */}
           </View>
           <View style={styles.InformationView}>
-            <Image style={{}} source={require("../../Assets/fire_icon.png")} />
+            <Image style={{}} source={Images.FIRE_IMG} />
             <Text style={styles.AddressTextStyles}>
               {moment(item.create_date).startOf("MM/DD/YYYY").fromNow()}
             </Text>

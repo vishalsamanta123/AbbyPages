@@ -9,6 +9,7 @@ import {
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 import styles from "./styles";
 const ServiceProviderListing = (props) => {
   const [scrollBegin, setScrollBegin] = useState(false);
@@ -18,7 +19,7 @@ const ServiceProviderListing = (props) => {
       style={[CommonStyles.container]}
     >
       <Header
-        RightImg={require("../../../Assets/map_list_icon.png")}
+        RightImg={Images.MAP_LIST_IMG}
         HeaderText={""}
         onPress={() => props.onPressMap()}
         placeholder={"Developer Plumber..."}
@@ -48,24 +49,24 @@ const ServiceProviderListing = (props) => {
               setScrollBegin(false);
               !props.stopOffset
                 ? props?.handleSearchData(
-                    props.serviceData.length > 5
-                      ? props.offSet + 1
-                      : props.offSet
-                  )
+                  props.serviceData.length > 5
+                    ? props.offSet + 1
+                    : props.offSet
+                )
                 : null;
             } else {
               setScrollBegin(false);
               !props.stopOffset
                 ? props?.handleServiceList(
-                    props.serviceData.length > 5
-                      ? props.offSet + 1
-                      : props.offSet
-                  )
+                  props.serviceData.length > 5
+                    ? props.offSet + 1
+                    : props.offSet
+                )
                 : null;
             }
           }
         }}
-        // onEndReachedThreshold={0.1}
+      // onEndReachedThreshold={0.1}
       />
     </KeyboardAvoidingView>
   );

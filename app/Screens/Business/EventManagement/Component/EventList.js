@@ -15,6 +15,7 @@ import {
 } from "../../../../Utils/Constant";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
+import { Images } from "../../../../Utils/images";
 
 const EventList = (props) => {
   return (
@@ -22,7 +23,7 @@ const EventList = (props) => {
       <Header
         HeaderText="Events"
         RightImg={null}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -35,14 +36,14 @@ const EventList = (props) => {
           <Image
             resizeMode={"contain"}
             style={{ width: 28, height: 28 }}
-            source={require("../../../../Assets/calendar_icon.png")}
+            source={Images.CALENDER_IMG}
           />
           <Text style={styles.JobDscrptn}>Create an Event</Text>
         </View>
         <Image
           style={styles.listImg}
           resizeMode={"contain"}
-          source={require("../../../../Assets/qty_plus_icon.png")}
+          source={Images.QTY_PLUS_IMG}
         />
       </TouchableOpacity>
       <FlatList

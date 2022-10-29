@@ -9,9 +9,11 @@ import {
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
+  LIGHT_WHITE_COLOR_CODE
 } from "../../../../../Utils/Constant";
 import moment from "moment";
 import { Picker } from "@react-native-community/picker";
+import { Images } from "../../../../../Utils/images";
 
 const ShoppingOrderDetailsScreen = (props) => {
   return (
@@ -27,7 +29,7 @@ const ShoppingOrderDetailsScreen = (props) => {
                 <TouchableOpacity onPress={() => props.goBackFun()} style={{ width: '20%', alignItems: 'center' }}>
                     <Image
                         style={{ width: 35, height: 25 }}
-                        source={require('../../../../../Assets/header_back_btn.png')}
+                        source={Images.HEADER_BCK_IMG}
                     />
                 </TouchableOpacity>
                 <View style={{ width: '60%', alignItems: 'center' }}>
@@ -47,7 +49,7 @@ const ShoppingOrderDetailsScreen = (props) => {
             source={
               props.orderData
                 ? { uri: props.orderData.logo }
-                : require("../../../../../Assets/default_image_box.png")
+                : Images.DEFAULT_BOX_IMG
             }
           />
           <View style={CommonStyles.container}>
@@ -63,30 +65,30 @@ const ShoppingOrderDetailsScreen = (props) => {
                 <View style={[styles.row]}>
                   <Image
                     style={{ height: 16, width: 14, marginHorizontal: 4 }}
-                    source={require("../../../../../Assets/calendar_icon.png")}
+                    source={Images.CLOCK_IMG}
                   />
                   <Text style={styles.text}>
                     {props.orderData
                       ? moment(props.orderData.create_order).format(
-                          "MM/DD/YYYY"
-                        )
+                        "MM/DD/YYYY"
+                      )
                       : null}
                   </Text>
                 </View>
                 <View style={styles.row}>
                   <Image
                     style={{ height: 15, width: 15, marginHorizontal: 10 }}
-                    source={require("../../../../../Assets/clock_icon2.png")}
+                    source={Images.CLOCK_IMG}
                   />
                   <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                     {props.orderData
                       ? props.orderData.order_status == 0
                         ? "Pending"
                         : props.orderData.order_status == 1
-                        ? "Confirmed"
-                        : props.orderData.order_status == 4
-                        ? "Canceled"
-                        : null
+                          ? "Confirmed"
+                          : props.orderData.order_status == 4
+                            ? "Canceled"
+                            : null
                       : null}
                   </Text>
                 </View>
@@ -95,8 +97,8 @@ const ShoppingOrderDetailsScreen = (props) => {
                 UserName:{" "}
                 {props.orderData
                   ? props.orderData.order_user_info.first_name +
-                    " " +
-                    props.orderData.order_user_info.last_name
+                  " " +
+                  props.orderData.order_user_info.last_name
                   : null}
               </Text>
               <Text style={[styles.text]}>
@@ -123,62 +125,62 @@ const ShoppingOrderDetailsScreen = (props) => {
           <View style={{ marginBottom: 20 }}>
             {props.orderData
               ? props.orderData.items.map((item) => {
-                  return (
-                    <View style={{ padding: 10 }}>
+                return (
+                  <View style={{ padding: 10 }}>
+                    <View
+                      style={{
+                        height: 100,
+                        flexDirection: "row",
+                        borderWidth: 1,
+                        borderColor: "#DEE3E3",
+                        borderRadius: 5,
+                      }}
+                    >
                       <View
                         style={{
-                          height: 100,
-                          flexDirection: "row",
-                          borderWidth: 1,
-                          borderColor: "#DEE3E3",
-                          borderRadius: 5,
+                          width: "30%",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
+                        <Image
+                          style={{
+                            height: 90,
+                            width: 90,
+                            marginHorizontal: 10,
+                          }}
+                          source={{ uri: item.item_image }}
+                        />
+                      </View>
+                      <View style={{ padding: 10, width: "70%" }}>
+                        <View>
+                          <Text
+                            numberOfLines={2}
+                            style={{ fontWeight: "bold", fontSize: 13 }}
+                          >
+                            {item.product_name}
+                          </Text>
+                        </View>
                         <View
                           style={{
-                            width: "30%",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            justifyContent: "space-between",
+                            flexDirection: "row",
                           }}
                         >
-                          <Image
-                            style={{
-                              height: 90,
-                              width: 90,
-                              marginHorizontal: 10,
-                            }}
-                            source={{ uri: item.item_image }}
-                          />
+                          <Text style={{ color: "#A9ADAD" }}>
+                            x {item.quantity}
+                          </Text>
                         </View>
-                        <View style={{ padding: 10, width: "70%" }}>
-                          <View>
-                            <Text
-                              numberOfLines={2}
-                              style={{ fontWeight: "bold", fontSize: 13 }}
-                            >
-                              {item.product_name}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              justifyContent: "space-between",
-                              flexDirection: "row",
-                            }}
-                          >
-                            <Text style={{ color: "#A9ADAD" }}>
-                              x {item.quantity}
-                            </Text>
-                          </View>
-                          <View>
-                            <Text style={{ color: "#A9ADAD" }}>
-                              $ {item.price}
-                            </Text>
-                          </View>
+                        <View>
+                          <Text style={{ color: "#A9ADAD" }}>
+                            $ {item.price}
+                          </Text>
                         </View>
                       </View>
                     </View>
-                  );
-                })
+                  </View>
+                );
+              })
               : null}
           </View>
 
@@ -243,7 +245,7 @@ const ShoppingOrderDetailsScreen = (props) => {
               }}
               buttonText="Update"
               onPress={() => props?.orderStatusUpdate(props.orderData)}
-              // isDisabled={props.orderProcess.}
+            // isDisabled={props.orderProcess.}
             />
           </View>
 
@@ -256,9 +258,9 @@ const ShoppingOrderDetailsScreen = (props) => {
                     tintColor={
                       props?.orderData?.order_process >= 1
                         ? YELLOW_COLOR_CODE
-                        : "#c1bcbc"
+                        : LIGHT_WHITE_COLOR_CODE
                     }
-                    source={require("../../../../../Assets/final_order1.png")}
+                    source={Images.FINAL_ORDERDOT_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>
                     {""} Ordered
@@ -269,10 +271,10 @@ const ShoppingOrderDetailsScreen = (props) => {
                     tintColor={
                       props?.orderData?.order_process >= 2
                         ? YELLOW_COLOR_CODE
-                        : "#c1bcbc"
+                        : LIGHT_WHITE_COLOR_CODE
                     }
                     style={{ right: 2 }}
-                    source={require("../../../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>Packed</Text>
                 </View>
@@ -281,10 +283,10 @@ const ShoppingOrderDetailsScreen = (props) => {
                     tintColor={
                       props?.orderData?.order_process >= 3
                         ? YELLOW_COLOR_CODE
-                        : "#c1bcbc"
+                        : LIGHT_WHITE_COLOR_CODE
                     }
                     style={{ right: 2 }}
-                    source={require("../../../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>Shipped</Text>
                 </View>
@@ -292,12 +294,12 @@ const ShoppingOrderDetailsScreen = (props) => {
                   <Image
                     tintColor={
                       props?.orderData.order_process >= 4 ||
-                      props?.orderData?.order_status === 5
+                        props?.orderData?.order_status === 5
                         ? YELLOW_COLOR_CODE
-                        : "#c1bcbc"
+                        : LIGHT_WHITE_COLOR_CODE
                     }
                     style={{ right: 2 }}
-                    source={require("../../../../../Assets/final_order.png")}
+                    source={Images.FINAL_ORDER_IMG}
                   />
                   <Text style={[styles.text, { fontSize: 15 }]}>
                     Delievered

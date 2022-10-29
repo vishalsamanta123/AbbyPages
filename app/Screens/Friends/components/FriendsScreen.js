@@ -17,6 +17,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const FriendsScreen = (props) => {
   return (
     <KeyboardAvoidingView
@@ -25,7 +26,7 @@ const FriendsScreen = (props) => {
     >
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Friends"
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -34,7 +35,7 @@ const FriendsScreen = (props) => {
       />
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         <View style={styles.MainImgeStyle}>
-          <Image source={require("../../../Assets/friends_info_graphic.png")} />
+          <Image source={Images.FRIENDS_IMG} />
         </View>
         <View style={{ paddingTop: 10 }}>
           <View style={styles.ParaViewText}>

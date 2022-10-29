@@ -7,12 +7,13 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const PhotosVideoScreen = (props) => {
   return (
     <View style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../../Assets/header_back_btn.png")}
+        leftImg={Images.HEADER_BCK_IMG}
         HeaderText="Photos and Videos"
         RightImg={null}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
@@ -43,7 +44,7 @@ const PhotosVideoScreen = (props) => {
               ) : (
                 <Image
                   style={{ height: 100, width: 100 }}
-                  source={require("../../../../Assets/upload_icon_box.png")}
+                  source={Images.THEME_UPLOAD_IMG}
                 />
               )}
 

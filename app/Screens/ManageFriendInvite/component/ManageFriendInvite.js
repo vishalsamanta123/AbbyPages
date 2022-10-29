@@ -9,6 +9,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const ManageFriendInvite = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -36,7 +37,7 @@ const ManageFriendInvite = (props) => {
         <View style={[styles.cardCon]}>
           <View style={styles.imgCon}>
             <Image
-              source={require("../../../Assets/user_icon_box_large.png")}
+              source={Images.THEME_PROFILE_IMG}
             />
           </View>
           <Text

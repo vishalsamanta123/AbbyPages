@@ -3,6 +3,7 @@ import { View, FlatList, KeyboardAvoidingView, Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { WHITE_COLOR_CODE } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const ShopList = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   return (
@@ -11,7 +12,7 @@ const ShopList = (props) => {
       style={[CommonStyles.container]}
     >
       <Header
-        RightImg={require("../../../Assets/map_list_icon.png")}
+        RightImg={Images.MAP_LIST_IMG}
         HeaderText={""}
         onPress={() => props.onPressMap()}
         textInput={true}

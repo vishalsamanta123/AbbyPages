@@ -40,6 +40,7 @@ const Styles = StyleSheet.create({
     marginRight: 10,
     height: 25,
     width: 25,
+    tintColor: WHITE_COLOR_CODE
   },
   topInfoVw: {
     paddingHorizontal: 10,

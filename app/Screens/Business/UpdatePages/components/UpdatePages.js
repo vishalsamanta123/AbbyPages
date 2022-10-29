@@ -17,6 +17,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const UpdatePages = (props) => {
   return (
     <KeyboardAvoidingView
@@ -65,7 +66,7 @@ const UpdatePages = (props) => {
                 </Text>
               </View>
               <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
             </View>
             <View style={styles.MainImpression}>
@@ -88,7 +89,7 @@ const UpdatePages = (props) => {
                 </Text>
               </View>
               <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
             </View>
             <View style={styles.LastOptnView}>
@@ -111,7 +112,7 @@ const UpdatePages = (props) => {
                 </Text>
               </View>
               <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
             </View>
           </View>
@@ -137,7 +138,7 @@ const UpdatePages = (props) => {
                 </Text>
               </View>
               <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
             </View>
             <View style={styles.LastOptnView}>
@@ -160,7 +161,7 @@ const UpdatePages = (props) => {
                 </Text>
               </View>
               <Image
-                source={require("../../../../Assets/checked_squared_v1.png")}
+                source={Images.ROUND_CHECK_IMG}
               />
             </View>
           </View>

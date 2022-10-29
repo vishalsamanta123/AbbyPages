@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, StatusBar, KeyboardAvoidingView,Platform } from "react-native";
+import { View, FlatList, StatusBar, KeyboardAvoidingView, Platform } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
@@ -7,13 +7,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
+
 const ServiceProviderListing = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
-        RightImg={require("../../../Assets/map_list_icon.png")}
+        RightImg={Images.MAP_LIST_IMG}
         HeaderText={""}
         onPress={() => props.onPressMap()}
         placeholder={"Developer Plumber..."}

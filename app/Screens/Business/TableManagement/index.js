@@ -8,6 +8,7 @@ import Loader from "../../../Utils/Loader";
 import Error from "../../../Components/Modal/error";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
+import { Images } from "../../../Utils/images";
 
 const TableManagementView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -73,7 +74,7 @@ const TableManagementView = ({ navigation }) => {
           <View style={styles.settingPersonView}>
             <Image
               style={styles.UserIcon}
-              source={require("../../../Assets/following_icon_menu.png")}
+              source={Images.FOLLOWING_IMG}
             />
             <Text style={styles.PersonText}>
               Sitting Person: {item.sitting_person}

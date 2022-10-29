@@ -19,20 +19,21 @@ import {
   LIGHT_GREY_COLOR_CODE,
   WHITE_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
-  BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  LIGHT_WHITE_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const OpeningHours = (props) => {
   const [handleActiveStatus, setHandleActiveStatus] = useState(false);
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
         HeaderText={"Opening Hours"}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -49,7 +50,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -60,7 +61,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -103,10 +104,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.MondayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -151,10 +152,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.MondayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -184,7 +185,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -195,7 +196,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -238,10 +239,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.tuesdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -286,10 +287,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.tuesdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -310,7 +311,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -321,7 +322,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -364,10 +365,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.WednesdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -412,10 +413,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.WednesdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -436,7 +437,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -447,7 +448,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -490,10 +491,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.ThursdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -538,10 +539,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.ThursdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -563,7 +564,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -574,7 +575,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -617,10 +618,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.FridayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -664,10 +665,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.FridayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -689,7 +690,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -700,7 +701,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -743,10 +744,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.SaturdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -790,10 +791,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.SaturdayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -815,7 +816,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/verified_icon.png")}
+                    source={Images.VERIFIED_IMG}
                     style={{ height: 21, width: 20 }}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
@@ -826,7 +827,7 @@ const OpeningHours = (props) => {
                   style={styles.ClosedView}
                 >
                   <Image
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                   <Text style={styles.ClosedTxt}>Closed</Text>
                 </TouchableOpacity>
@@ -869,10 +870,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.SundayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -917,10 +918,10 @@ const OpeningHours = (props) => {
                 <Image
                   source={
                     props.SundayCloseOpen == 1
-                      ? require("../../../../Assets/dropdown_icon.png")
-                      : require("../../../../Assets/dropdown_icon1.png")
+                      ? Images.ARROW_UP_IMG
+                      : Images.ARROW_DOWN_IMG
                   }
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 20, height: 20, tintColor: LIGHT_WHITE_COLOR_CODE }}
                 />
               </TouchableOpacity>
               <DateTimePickerModal
@@ -941,12 +942,12 @@ const OpeningHours = (props) => {
                 {!handleActiveStatus ? (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                 ) : (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_checked.png")}
+                    source={Images.RADIO_CHECK_IMG}
                   />
                 )}
               </TouchableOpacity>
@@ -965,12 +966,12 @@ const OpeningHours = (props) => {
                 {!handleActiveStatus ? (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                 ) : (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_checked.png")}
+                    source={Images.RADIO_CHECK_IMG}
                   />
                 )}
               </TouchableOpacity>
@@ -1006,9 +1007,7 @@ const OpeningHours = (props) => {
                 >
                   Choose Date
                 </Text>
-                <Image
-                  source={require("../../../../Assets/events_icon_menu.png")}
-                />
+                <Image source={Images.EVENT_IMG} />
               </View>
             </View>
             <View style={{ flexDirection: "row", paddingTop: 20 }}>
@@ -1018,12 +1017,12 @@ const OpeningHours = (props) => {
                 {!handleActiveStatus ? (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_unchecked.png")}
+                    source={Images.RADIO_UNCHECK_IMG}
                   />
                 ) : (
                   <Image
                     style={styles.ImgeRadio}
-                    source={require("../../../../Assets/radio_circled_checked.png")}
+                    source={Images.RADIO_CHECK_IMG}
                   />
                 )}
               </TouchableOpacity>
@@ -1059,7 +1058,7 @@ const OpeningHours = (props) => {
               <Button
                 buttonText="Save Changes"
                 style={{ width: "100%", marginTop: 10 }}
-                // onPress={() => props.SaveDetails()}
+              // onPress={() => props.SaveDetails()}
               />
             )}
             <Button

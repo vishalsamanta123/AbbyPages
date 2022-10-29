@@ -21,6 +21,7 @@ import {
 } from "../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
+import { Images } from "../../../Utils/images";
 
 const GenerateTicket = (props) => {
   const [selectedIndex, setSelectedIndex] = useState({
@@ -34,9 +35,9 @@ const GenerateTicket = (props) => {
     });
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -44,15 +45,15 @@ const GenerateTicket = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         leftImg={
           props.type === "busniess" || props.type === "Edit_event"
-            ? require("../../../Assets/header_back_btn.png")
-            : require("../../../Assets/hamburger_icon.png")
+            ? Images.HEADER_BCK_IMG
+            : Images.DRAWER_IMG
         }
         HeaderText={
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-            ? "Edit Event"
-            : "Submit an Event"
+              ? "Edit Event"
+              : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -85,7 +86,7 @@ const GenerateTicket = (props) => {
                           >
                             <Image
                               style={{ width: 24, height: 24 }}
-                              source={require("../../../Assets/cancelModalBtn.png")}
+                              source={Images.COLORED_CANCEL_IMG}
                             />
                           </TouchableOpacity>
                         )}
@@ -126,7 +127,7 @@ const GenerateTicket = (props) => {
                             style={styles.straightVw}
                           >
                             <Image
-                              source={require("../../../Assets/collection_icon_menu.png")}
+                              source={Images.COLLECTION_IMG}
                             />
                             <Text style={styles.moreOptionTxt}>
                               More Options
@@ -168,13 +169,13 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_start_date != ""
                                     ? props?.createEventData[index]
-                                        ?.tckt_start_date
+                                      ?.tckt_start_date
                                     : "Start Sale Date"}
                                 </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
-                                  source={require("../../../Assets/calendar_icon.png")}
+                                  source={Images.CALENDER_IMG}
                                 />
                               </TouchableOpacity>
                               <DateTimePickerModal
@@ -208,13 +209,13 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_end_date != ""
                                     ? props?.createEventData[index]
-                                        ?.tckt_end_date
+                                      ?.tckt_end_date
                                     : "End Sale Date"}
                                 </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
-                                  source={require("../../../Assets/calendar_icon.png")}
+                                  source={Images.CALENDER_IMG}
                                 />
                                 <DateTimePickerModal
                                   isVisible={
@@ -250,13 +251,13 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_start_time != ""
                                     ? props?.createEventData[index]
-                                        ?.tckt_start_time
+                                      ?.tckt_start_time
                                     : "Start Sale Time"}
                                 </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
-                                  source={require("../../../Assets/calendar_icon.png")}
+                                  source={Images.CALENDER_IMG}
                                 />
                                 <DateTimePickerModal
                                   isVisible={
@@ -290,13 +291,13 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_end_time != ""
                                     ? props?.createEventData[index]
-                                        ?.tckt_end_time
+                                      ?.tckt_end_time
                                     : "End Sale Time"}
                                 </Text>
                                 <Image
                                   resizeMode={"contain"}
                                   style={{ width: 18, height: 18 }}
-                                  source={require("../../../Assets/calendar_icon.png")}
+                                  source={Images.CALENDER_IMG}
                                 />
                                 <DateTimePickerModal
                                   isVisible={
@@ -360,8 +361,8 @@ const GenerateTicket = (props) => {
                                   source={
                                     props.createEventData[index]
                                       .hide_description === 0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -386,8 +387,8 @@ const GenerateTicket = (props) => {
                                   source={
                                     props.createEventData[index]
                                       .display_inventry === 0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -411,9 +412,9 @@ const GenerateTicket = (props) => {
                                   style={styles.checkImg}
                                   source={
                                     props.createEventData[index].trasferable ===
-                                    0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      0
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -438,8 +439,8 @@ const GenerateTicket = (props) => {
                                   source={
                                     props.createEventData[index]
                                       .private_ticket === 0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -464,8 +465,8 @@ const GenerateTicket = (props) => {
                                   source={
                                     props.createEventData[index]
                                       .password_req === 0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -490,8 +491,8 @@ const GenerateTicket = (props) => {
                                   source={
                                     props.createEventData[index]
                                       .ticket_limit === 0
-                                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                                      : require("../../../Assets/checked_squared_icon_small.png")
+                                      ? Images.UNCHECK_IMG
+                                      : Images.CHECK_IMG
                                   }
                                 />
                                 <Text style={styles.optionChooseTxt}>
@@ -500,47 +501,47 @@ const GenerateTicket = (props) => {
                               </TouchableOpacity>
                               {props.createEventData[index].ticket_limit ===
                                 1 && (
-                                <View style={{ flexDirection: "row" }}>
-                                  <View style={{ flex: 1 }}>
-                                    <Text style={styles.titlesTxt}>Min</Text>
-                                    <Input
-                                      InputType={""}
-                                      onChangeText={(value) =>
-                                        props.handleTicketInput(
-                                          "min_ticket",
-                                          value,
-                                          index
-                                        )
-                                      }
-                                      value={
-                                        props?.createEventData[index]
-                                          ?.min_ticket
-                                      }
-                                      textInputStyle={styles.formsInputVw}
-                                      keyboardType={"number-pad"}
-                                    />
+                                  <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flex: 1 }}>
+                                      <Text style={styles.titlesTxt}>Min</Text>
+                                      <Input
+                                        InputType={""}
+                                        onChangeText={(value) =>
+                                          props.handleTicketInput(
+                                            "min_ticket",
+                                            value,
+                                            index
+                                          )
+                                        }
+                                        value={
+                                          props?.createEventData[index]
+                                            ?.min_ticket
+                                        }
+                                        textInputStyle={styles.formsInputVw}
+                                        keyboardType={"number-pad"}
+                                      />
+                                    </View>
+                                    <View style={{ flex: 1 }}>
+                                      <Text style={styles.titlesTxt}>Max</Text>
+                                      <Input
+                                        InputType={""}
+                                        onChangeText={(value) =>
+                                          props.handleTicketInput(
+                                            "max_ticket",
+                                            value,
+                                            index
+                                          )
+                                        }
+                                        value={
+                                          props?.createEventData[index]
+                                            ?.max_ticket
+                                        }
+                                        keyboardType={"number-pad"}
+                                        textInputStyle={styles.formsInputVw}
+                                      />
+                                    </View>
                                   </View>
-                                  <View style={{ flex: 1 }}>
-                                    <Text style={styles.titlesTxt}>Max</Text>
-                                    <Input
-                                      InputType={""}
-                                      onChangeText={(value) =>
-                                        props.handleTicketInput(
-                                          "max_ticket",
-                                          value,
-                                          index
-                                        )
-                                      }
-                                      value={
-                                        props?.createEventData[index]
-                                          ?.max_ticket
-                                      }
-                                      keyboardType={"number-pad"}
-                                      textInputStyle={styles.formsInputVw}
-                                    />
-                                  </View>
-                                </View>
-                              )}
+                                )}
                             </View>
                           </View>
                         </>
@@ -625,7 +626,7 @@ const GenerateTicket = (props) => {
                 >
                   <Image
                     style={{ width: 16, height: 16 }}
-                    source={require("../../../Assets/qty_plus_icon.png")}
+                    source={Images.QTY_PLUS_IMG}
                   />
                   <Text style={styles.moreOptionTxt}>Add More Tickets</Text>
                 </TouchableOpacity>

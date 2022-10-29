@@ -17,6 +17,7 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import Button from "../../../../Components/Button";
+import { Images } from "../../../../Utils/images";
 const { width, height } = Dimensions.get("window");
 
 export default function FilterPopUp(props) {
@@ -184,7 +185,7 @@ export default function FilterPopUp(props) {
               handleReset();
             }}
           >
-            <Image source={require("../../../../Assets/header_back_btn.png")} />
+            <Image source={Images.HEADER_BCK_IMG} />
           </TouchableOpacity>
           <Text style={styles.headerMiddleTxt}>Filter Product</Text>
           <TouchableOpacity activeOpacity={0.8} onPress={() => handleReset()}>
@@ -202,8 +203,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 1
-                      ? require("../../../../Assets/radio_circled_checked.png")
-                      : require("../../../../Assets/radio_circled_unchecked.png")
+                      ? Images.RADIO_CHECK_IMG
+                      : Images.RADIO_UNCHECK_IMG
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -218,8 +219,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 2
-                      ? require("../../../../Assets/radio_circled_checked.png")
-                      : require("../../../../Assets/radio_circled_unchecked.png")
+                      ? Images.RADIO_CHECK_IMG
+                      : Images.RADIO_UNCHECK_IMG
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -234,8 +235,8 @@ export default function FilterPopUp(props) {
                 <Image
                   source={
                     props.filterData.sorting === 3
-                      ? require("../../../../Assets/radio_circled_checked.png")
-                      : require("../../../../Assets/radio_circled_unchecked.png")
+                      ? Images.RADIO_CHECK_IMG
+                      : Images.RADIO_UNCHECK_IMG
                   }
                   style={{ width: 18, height: 18, marginRight: 5 }}
                 />
@@ -269,7 +270,7 @@ export default function FilterPopUp(props) {
                   return (
                     <Image
                       style={{ width: 24, height: 24 }}
-                      source={require("../../../../Assets/abby_pages_map_icon.png")}
+                      source={Images.MAP_LOGO}
                     />
                   );
                 }}
@@ -292,8 +293,8 @@ export default function FilterPopUp(props) {
                     <Image
                       source={
                         selected === index
-                          ? require("../../../../Assets/radio_circled_checked.png")
-                          : require("../../../../Assets/radio_circled_unchecked.png")
+                          ? Images.RADIO_CHECK_IMG
+                          : Images.RADIO_UNCHECK_IMG
                       }
                       style={{ width: 22, height: 22, marginRight: 10 }}
                     />

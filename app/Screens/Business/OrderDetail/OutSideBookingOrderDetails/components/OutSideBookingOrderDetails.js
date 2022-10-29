@@ -10,6 +10,7 @@ import {
   BLACK_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import moment from "moment";
+import { Images } from "../../../../../Utils/images";
 
 const OutSideBookingOrderDetailsScreen = (props) => {
   return (
@@ -28,7 +29,7 @@ const OutSideBookingOrderDetailsScreen = (props) => {
           source={
             props?.orderData
               ? { uri: props?.orderData?.logo }
-              : require("../../../../../Assets/default_image_box.png")
+              : Images.DEFAULT_BOX_IMG
           }
         />
         <View style={CommonStyles.container}>
@@ -44,7 +45,7 @@ const OutSideBookingOrderDetailsScreen = (props) => {
               <View style={[styles.row]}>
                 <Image
                   style={{ height: 16, width: 14, marginHorizontal: 4 }}
-                  source={require("../../../../../Assets/calendar_icon.png")}
+                  source={Images.CALENDER_IMG}
                 />
                 <Text style={styles.text}>
                   {props?.orderData
@@ -55,17 +56,17 @@ const OutSideBookingOrderDetailsScreen = (props) => {
               <View style={styles.row}>
                 <Image
                   style={{ height: 15, width: 15, marginHorizontal: 10 }}
-                  source={require("../../../../../Assets/clock_icon2.png")}
+                  source={Images.CLOCK_IMG}
                 />
                 <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                   {props?.orderData
                     ? props?.orderData?.order_status == 0
                       ? "Pending"
                       : props?.orderData?.order_status == 1
-                      ? "Confirmed"
-                      : props?.orderData?.order_status == 4
-                      ? "Canceled"
-                      : null
+                        ? "Confirmed"
+                        : props?.orderData?.order_status == 4
+                          ? "Canceled"
+                          : null
                     : null}
                 </Text>
               </View>
@@ -109,7 +110,7 @@ const OutSideBookingOrderDetailsScreen = (props) => {
                 width: "100%",
               }}
               buttonText="Canceled"
-              // onPress={() => props.cancelOrder(props?.orderData?)}
+            // onPress={() => props.cancelOrder(props?.orderData?)}
             />
           ) : (
             <Button

@@ -269,6 +269,7 @@ const Styles = StyleSheet.create({
   serceainview: {
     flexDirection: "row",
     paddingTop: 10,
+    alignItems: 'center'
   },
   srcmntxt: {
     paddingLeft: 10,

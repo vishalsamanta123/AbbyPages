@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     fontSize: 14.5,
     fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
-    marginLeft: 5,
   },
   straightVw: {
     flexDirection: "row",

@@ -10,12 +10,13 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const CollectionsScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Collections"
         type="Drawer"
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}

@@ -18,12 +18,13 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const StripeConnect = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -31,15 +32,15 @@ const StripeConnect = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         leftImg={
           props.type === "busniess" || props.type === "Edit_event"
-            ? require("../../../Assets/header_back_btn.png")
-            : require("../../../Assets/hamburger_icon.png")
+            ? Images.HEADER_BCK_IMG
+            : Images.DRAWER_IMG
         }
         HeaderText={
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-            ? "Edit Event"
-            : "Submit an Event"
+              ? "Edit Event"
+              : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -73,8 +74,8 @@ const StripeConnect = (props) => {
                 style={styles.checkImg}
                 source={
                   props.createEvent.acceptRefundReq === 0
-                    ? require("../../../Assets/unchecked_squared_icon_small.png")
-                    : require("../../../Assets/checked_squared_icon_small.png")
+                    ? Images.UNCHECK_IMG
+                    : Images.CHECK_IMG
                 }
               />
               <Text style={styles.optionChooseTxt}>Accept refund requests</Text>
@@ -125,8 +126,7 @@ const StripeConnect = (props) => {
                   style={styles.checkImg}
                   source={
                     props?.createEvent?.include_tax === 0
-                      ? require("../../../Assets/unchecked_squared_icon_small.png")
-                      : require("../../../Assets/checked_squared_icon_small.png")
+                      ? Images.UNCHECK_IMG : Images.CHECK_IMG
                   }
                 />
                 <Text style={[styles.optionChooseTxt, { fontSize: 18 }]}>
@@ -182,7 +182,7 @@ const StripeConnect = (props) => {
               <TouchableOpacity activeOpacity={1} style={styles.stripeConnCon}>
                 <Image
                   style={{ width: 24, height: 24, tintColor: WHITE_COLOR_CODE }}
-                  source={require("../../../Assets/cash_back_icon_menu.png")}
+                  source={Images.DOLLAR_IMG}
                 />
                 <Text style={styles.stripeConnTxt}>Connect With Stripe</Text>
               </TouchableOpacity>

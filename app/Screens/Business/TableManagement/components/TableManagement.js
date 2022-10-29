@@ -17,6 +17,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const TableManagement = (props) => {
   return (
     <KeyboardAvoidingView
@@ -37,7 +38,7 @@ const TableManagement = (props) => {
         <Text style={styles.topTxt}>Add Tables</Text>
         <Image
           style={styles.PlusImge}
-          source={require("../../../../Assets/qty_minus_icon3.png")}
+          source={Images.MINUS_IMG}
         />
       </TouchableOpacity>
       {props.tableData.length > 0 ? (

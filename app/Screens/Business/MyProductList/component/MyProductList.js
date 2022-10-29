@@ -8,6 +8,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const MyProductListView = (props) => {
   return (
@@ -15,7 +16,7 @@ const MyProductListView = (props) => {
       <Header
         HeaderText="My Product"
         RightImg={null}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -31,14 +32,14 @@ const MyProductListView = (props) => {
               <Image
                 resizeMode={"contain"}
                 style={{ width: 28, height: 28 }}
-                source={require("../../../../Assets/box.png")}
+                source={Images.PRODUCT_ORDER_IMG}
               />
               <Text style={styles.productTxt}>Product</Text>
             </View>
             <Image
               style={styles.listImg}
               resizeMode={"contain"}
-              source={require("../../../../Assets/qty_plus_icon.png")}
+              source={Images.QTY_PLUS_IMG}
             />
           </TouchableOpacity>
           <FlatList

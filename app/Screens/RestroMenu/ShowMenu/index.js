@@ -19,6 +19,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
+import { Images } from "../../../Utils/images";
 
 const ShowMenuView = ({ route, navigation }) => {
   const [cartData, setCartData] = useContext(CartContext);
@@ -294,12 +295,10 @@ const ShowMenuView = ({ route, navigation }) => {
                 </Text>
               </TouchableOpacity>
               <View style={styles.ReviewView}>
-                <Image
-                  source={require("../../../Assets/star_icon_filled.png")}
-                />
-                <Text style={styles.ReviewText}> 1 Review</Text>
+                <Image source={Images.STAR_FILLED_IMG} />
+                <Text style={styles.ReviewText}> {item.rating} Review</Text>
                 {cartData &&
-                cartData.some(({ item_id }) => item_id === item.item_id) ? (
+                  cartData.some(({ item_id }) => item_id === item.item_id) ? (
                   // {addBtn === index ? selected_row ?
                   // <Text>true1</Text>
                   <InputSpinner

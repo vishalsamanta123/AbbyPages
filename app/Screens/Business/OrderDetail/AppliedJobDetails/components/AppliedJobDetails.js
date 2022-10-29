@@ -12,11 +12,13 @@ import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import Header from "../../../../../Components/Header";
 import {
+  BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Input from "../../../../../Components/Input";
+import { Images } from "../../../../../Utils/images";
 
 const AppliedJobDetailsScreen = (props) => {
   const hideDatePicker = () => {
@@ -44,11 +46,11 @@ const AppliedJobDetailsScreen = (props) => {
           </Text>
           <View style={styles.straightVw}>
             <Image
-              style={{ width: 18, height: 18, tintColor: YELLOW_COLOR_CODE }}
+              style={{ width: 20, height: 20, tintColor: YELLOW_COLOR_CODE }}
               source={
                 props?.orderData?.order_status === 1
-                  ? require("../../../../../Assets/verified_icon.png")
-                  : require("../../../../../Assets/close_window_icon.png")
+                  ? Images.VERIFIED_IMG
+                  : Images.CANCEL_IMG
               }
             />
             <Text style={styles.otherTxt}>
@@ -68,7 +70,7 @@ const AppliedJobDetailsScreen = (props) => {
             <Image
               resizeMode={"contain"}
               style={{ width: 45, height: 45, marginRight: 12 }}
-              source={require("../../../../../Assets/upload_icon_box.png")}
+              source={Images.THEME_UPLOAD_IMG}
             />
             <View>
               <Text style={styles.mainTxt}>Resume</Text>
@@ -80,11 +82,9 @@ const AppliedJobDetailsScreen = (props) => {
           <Text style={styles.mainTxt}>Recruitment Information</Text>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
-              <Text style={styles.secondaryTxt}>Work Location :</Text>
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
+              <Text style={styles.secondaryTxt}>
+                Work Location :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
               <Text style={styles.smallTxt}>
@@ -94,10 +94,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Industry :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -108,10 +105,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Job Level :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -122,10 +116,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Type :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -136,10 +127,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Salary :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -165,10 +153,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Skills Requirement :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -179,10 +164,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Language :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -196,10 +178,7 @@ const AppliedJobDetailsScreen = (props) => {
           <Text style={styles.mainTxt}>User Information</Text>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>User Name :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -210,10 +189,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Email :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -224,10 +200,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Mobile :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -238,10 +211,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Current Company :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -252,10 +222,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={styles.secondaryTxt}>Gender :</Text>
             </View>
             <View style={[styles.straightVw, { flex: 1 }]}>
@@ -263,8 +230,8 @@ const AppliedJobDetailsScreen = (props) => {
                 {props?.orderData?.userInfo?.gender === "1"
                   ? "Male"
                   : props?.orderData?.userInfo?.gender === "2"
-                  ? "Female"
-                  : "other"}
+                    ? "Female"
+                    : "other"}
               </Text>
             </View>
           </View>
@@ -273,10 +240,7 @@ const AppliedJobDetailsScreen = (props) => {
           <Text style={styles.mainTxt}>U.S Work Status</Text>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={[styles.secondaryTxt, { width: "80%" }]}>
                 You legally authorised to work status :
               </Text>
@@ -287,16 +251,13 @@ const AppliedJobDetailsScreen = (props) => {
                   ?.you_legally_authorized_to_work_status === 1
                   ? "Yes"
                   : props?.orderData?.userInfo
-                      ?.you_legally_authorized_to_work_status != 1 && "No"}
+                    ?.you_legally_authorized_to_work_status != 1 && "No"}
               </Text>
             </View>
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={[styles.secondaryTxt, { width: "80%" }]}>
                 Future require sponsorship for employment visa :
               </Text>
@@ -307,8 +268,8 @@ const AppliedJobDetailsScreen = (props) => {
                   ?.future_require_sponsorship_for_employment_visa === 1
                   ? "Yes"
                   : props?.orderData?.userInfo
-                      ?.future_require_sponsorship_for_employment_visa != 1 &&
-                    "No"}
+                    ?.future_require_sponsorship_for_employment_visa != 1 &&
+                  "No"}
               </Text>
             </View>
           </View>
@@ -317,10 +278,7 @@ const AppliedJobDetailsScreen = (props) => {
           <Text style={styles.mainTxt}>Interview Scheduled</Text>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={[styles.secondaryTxt, { width: "80%" }]}>
                 Interview Scheduled on:
               </Text>
@@ -333,10 +291,7 @@ const AppliedJobDetailsScreen = (props) => {
           </View>
           <View style={styles.straightVw}>
             <View style={[styles.straightVw, { flex: 1 }]}>
-              <Image
-                style={styles.dotIcon}
-                source={require("../../../../../Assets/musical-sign-of-one-dots.png")}
-              />
+              <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
               <Text style={[styles.secondaryTxt, { width: "80%" }]}>
                 Interview Scheduled time:
               </Text>
@@ -353,7 +308,7 @@ const AppliedJobDetailsScreen = (props) => {
             buttonText={"JOB ACCEPTED"}
             showIcon={true}
             tintColor={WHITE_COLOR_CODE}
-            iconName={require("../../../../../Assets/verified_icon.png")}
+            iconName={Images.VERIFIED_IMG}
             onPress={() => props.setJobAccepted(true)}
           />
         </View>
@@ -379,8 +334,8 @@ const AppliedJobDetailsScreen = (props) => {
               >
                 <Image
                   resizeMode={"contain"}
-                  style={{ width: 24, height: 24 }}
-                  source={require("../../../../../Assets/cancelModalBtn.png")}
+                  style={{ width: 32, height: 32, tintColor: BLACK_COLOR_CODE }}
+                  source={Images.CANCEL_IMG}
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -396,7 +351,7 @@ const AppliedJobDetailsScreen = (props) => {
                 </View>
                 <View style={styles.bckArrowBack}>
                   <Image
-                    source={require("../../../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                 </View>
                 <DateTimePickerModal
@@ -420,7 +375,8 @@ const AppliedJobDetailsScreen = (props) => {
                 </View>
                 <View style={styles.bckArrowBack}>
                   <Image
-                    source={require("../../../../../Assets/dropdown_icon.png")}
+                    style={CommonStyles.blackDropDownImg}
+                    source={Images.ARROW_DOWN_IMG}
                   />
                 </View>
                 <DateTimePickerModal

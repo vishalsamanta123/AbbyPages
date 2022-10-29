@@ -15,14 +15,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const ReviewsScreen = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText="Reviews"
         type="Drawer"
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
@@ -36,7 +37,7 @@ const ReviewsScreen = (props) => {
         ]}
       >
         <View style={styles.MainImgeStyle}>
-          <Image source={require("../../../Assets/review_graphic.png")} />
+          <Image source={Images.REVIEWED_IMG} />
         </View>
         <View style={{ paddingTop: 20 }}>
           <View style={styles.ParaViewText}>

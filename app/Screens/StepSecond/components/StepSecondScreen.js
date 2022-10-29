@@ -11,11 +11,12 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const StepSecondScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <Header
-        leftImg={require("../../../Assets/close_window_icon.png")}
+        leftImg={Images.CANCEL_IMG}
         // HeaderText={"2 of 8"}
         HeaderText={"2 of 5"}
         RightImg={null}
@@ -48,9 +49,9 @@ const StepSecondScreen = (props) => {
                         resizeMode="contain"
                         source={
                           props.selectedAnswer.question_ans_id ===
-                          item.question_ans_id
-                            ? require("../../../Assets/radio_circled_checked.png")
-                            : require("../../../Assets/radio_circled_unchecked.png")
+                            item.question_ans_id
+                            ? Images.RADIO_CHECK_IMG
+                            : Images.RADIO_UNCHECK_IMG
                         }
                       />
                     </View>
@@ -102,12 +103,12 @@ const StepSecondScreen = (props) => {
                         {
                           borderWidth:
                             props.selectedCategory.category_id ==
-                            item.category_id
+                              item.category_id
                               ? 2
                               : 0.2,
                           borderColor:
                             props.selectedCategory.category_id ==
-                            item.category_id
+                              item.category_id
                               ? YELLOW_COLOR_CODE
                               : GREY_COLOR_CODE,
                         },

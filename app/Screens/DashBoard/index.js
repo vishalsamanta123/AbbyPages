@@ -30,6 +30,16 @@ const DashBoardView = ({ navigation }) => {
     status: "",
   });
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
+  const [subCatType, setSubCatType] = useState(false);
+  const [subCatData, setSubCatData] = useState([{
+    category_name: 'Open Delivery',
+  }, {
+    category_name: 'Reservation',
+  }, {
+    category_name: 'American Restaurant',
+  }, {
+    category_name: 'Open Delivery',
+  }]);
   const [newActivity, setNewActivity] = useState({
     recent_activity: [],
     product_url: "",
@@ -66,10 +76,12 @@ const DashBoardView = ({ navigation }) => {
     ],
   });
   const [selectedType, setSelectedType] = useState(0);
+
   useEffect(() => {
     handleRecentActivity();
     handleDirectory(selectedType);
   }, []);
+
   const handleRecentActivity = async () => {
     try {
       setVisible(true);
@@ -204,6 +216,9 @@ const DashBoardView = ({ navigation }) => {
       setVisible(false);
     }
   };
+  const handleSubItems = (type) => {
+    setSubCatType(type)
+  }
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -227,6 +242,9 @@ const DashBoardView = ({ navigation }) => {
         directory={directory}
         handleDirectory={handleDirectory}
         selectedType={selectedType}
+        handleSubItems={handleSubItems}
+        subCatType={subCatType}
+        subCatData={subCatData}
       />
       <Error
         message={errorMessage}

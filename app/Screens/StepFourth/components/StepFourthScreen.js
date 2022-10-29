@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, KeyboardAvoidingView,Platform } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView, Platform } from "react-native";
 import styles from "./styles";
 import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
@@ -10,14 +10,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const StepFourthScreen = (props) => {
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../Assets/close_window_icon.png")}
+        leftImg={Images.CANCEL_IMG}
         HeaderText="4 of 8"
         RightImg={null}
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
@@ -45,7 +46,7 @@ const StepFourthScreen = (props) => {
           <View style={styles.imgvwe}>
             <Image
               style={{ height: 58, width: 60 }}
-              source={require("../../../Assets/Group1672.png")}
+              source={Images.WHITE_ARROW_IMG}
             />
           </View>
         </View>

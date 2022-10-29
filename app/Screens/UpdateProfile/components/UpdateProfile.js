@@ -31,6 +31,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 const UpdateProfile = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -68,7 +69,7 @@ const UpdateProfile = (props) => {
                     <TouchableOpacity style={{}} onPress={() => props.setProfileModal(true)}>
                     <Image
                     // style={styles.EditProfileImge}
-                    source={require('../../../Assets/edit_photo_icon.png')} />
+                    source={Images.EDIT_PHOTO_IMG} />
                     </TouchableOpacity>
                     </TouchableOpacity>
                     </TouchableOpacity>
@@ -76,7 +77,7 @@ const UpdateProfile = (props) => {
       </View>
       <View style={[CommonStyles.body]}>
         <ImageBackground
-          source={require("../../../Assets/processed.jpg")}
+          source={Images.PROCEED_IMG}
           style={[styles.ImageView, {}]}
         >
           <TouchableOpacity
@@ -89,9 +90,7 @@ const UpdateProfile = (props) => {
                 style={{}}
                 onPress={() => props.setProfileModal(true)}
               >
-                <Image
-                  source={require("../../../Assets/edit_photo_icon.png")}
-                />
+                <Image source={Images.EDIT_PHOTO_IMG} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -123,7 +122,7 @@ const UpdateProfile = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/camera.png")}
+                      source={Images.COLORED_CAMERA_IMG}
                     />
                     <Text style={styles.modalItem}>Open camera</Text>
                   </TouchableOpacity>
@@ -134,7 +133,7 @@ const UpdateProfile = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/image-gallery.png")}
+                      source={Images.GALLERY_IMG}
                     />
                     <Text style={styles.modalItem}>Open album</Text>
                   </TouchableOpacity>
@@ -145,7 +144,7 @@ const UpdateProfile = (props) => {
                   >
                     <Image
                       style={{ height: 40, width: 40 }}
-                      source={require("../../../Assets/cancelModalBtn.png")}
+                      source={Images.COLORED_CANCEL_IMG}
                     />
                     <Text style={styles.modalItem}>Cancel</Text>
                   </TouchableOpacity>
@@ -242,14 +241,14 @@ const UpdateProfile = (props) => {
             >
               <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>
                 {props?.profileData?.birth_date === "" ||
-                props?.profileData?.birth_date === undefined
+                  props?.profileData?.birth_date === undefined
                   ? "Date Of Birth"
                   : props?.profileData?.birth_date}
               </Text>
               <Image
                 resizeMode={"contain"}
                 style={{ height: 24, width: 24, alignSelf: "flex-end" }}
-                source={require("../../../Assets/calendar_icon_field.png")}
+                source={Images.CALENDER_IMG}
               />
             </TouchableOpacity>
             <DateTimePickerModal

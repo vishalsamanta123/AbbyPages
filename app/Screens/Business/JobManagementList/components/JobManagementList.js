@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   FlatList,
-  StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -16,6 +15,8 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
+
 const JobManagementList = (props) => {
   return (
     <KeyboardAvoidingView
@@ -25,7 +26,7 @@ const JobManagementList = (props) => {
       <Header
         RightImg={null}
         HeaderText={"My Jobs"}
-        leftImg={require("../../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -39,14 +40,14 @@ const JobManagementList = (props) => {
           <Image
             resizeMode={"contain"}
             style={{ width: 28, height: 28 }}
-            source={require("../../../../Assets/job_list_icon.png")}
+            source={Images.JOB_LIST_IMG}
           />
           <Text style={styles.JobDscrptn}>Create Job</Text>
         </View>
         <Image
           style={styles.PlusImge}
           resizeMode={"contain"}
-          source={require("../../../../Assets/qty_plus_icon.png")}
+          source={Images.QTY_PLUS_IMG}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -57,14 +58,14 @@ const JobManagementList = (props) => {
           <Image
             resizeMode={"contain"}
             style={{ width: 28, height: 28 }}
-            source={require("../../../../Assets/job_list_icon.png")}
+            source={Images.JOB_LIST_IMG}
           />
           <Text style={styles.JobDscrptn}>Applied Jobs</Text>
         </View>
         <Image
           style={styles.listImg}
           resizeMode={"contain"}
-          source={require("../../../../Assets/listmenucopy.png")}
+          source={Images.LIST_IMG}
         />
       </TouchableOpacity>
       <View style={styles.manageVw}>

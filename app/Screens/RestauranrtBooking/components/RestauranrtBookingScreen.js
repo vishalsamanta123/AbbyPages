@@ -26,6 +26,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const RestauranrtBookingScreen = (props) => {
   const initialRegion = {
@@ -147,7 +148,7 @@ const RestauranrtBookingScreen = (props) => {
             <View style={[styles.TextInputImg, { marginRight: 25 }]}>
               <Image
                 style={[styles.TextInputImageStyle, { height: 24 }]}
-                source={require("../../../Assets/info_calendar_icon.png")}
+                source={Images.CALENDER_IMG}
               />
             </View>
             <DateTimePickerModal
@@ -172,7 +173,7 @@ const RestauranrtBookingScreen = (props) => {
               <Image
                 style={[styles.TextInputImageStyle, { height: 24 }]}
                 resizeMode="contain"
-                source={require("../../../Assets/clock_icon2.png")}
+                source={Images.CLOCK_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -198,7 +199,7 @@ const RestauranrtBookingScreen = (props) => {
               <Image
                 style={styles.TextInputImageStyle}
                 resizeMode="contain"
-                source={require("../../../Assets/dropdown_icon.png")}
+                source={Images.ARROW_DOWN_IMG}
               />
             </View>
           </TouchableOpacity>
@@ -261,7 +262,7 @@ const RestauranrtBookingScreen = (props) => {
                   >
                     <Image
                       style={styles.ArrowImge}
-                      source={require("../../../Assets/link_dropdown_icon.png")}
+                      source={Images.ARROW_UP_IMG}
                     />
                     <Text style={styles.SeereservatnTxt}>
                       See reservations on other dates
@@ -309,7 +310,7 @@ const RestauranrtBookingScreen = (props) => {
                         <Image
                           style={styles.ArrowImge}
                           tintColor={BLACK_COLOR_CODE}
-                          source={require("../../../Assets/link_dropdown_icon.png")}
+                          source={Images.ARROW_DOWN_IMG}
                         />
                       </View>
                     </TouchableOpacity>
@@ -378,14 +379,14 @@ const RestauranrtBookingScreen = (props) => {
               <View style={styles.flexDirectionStyle}>
                 <Image
                   style={styles.AboutImge}
-                  source={require("../../../Assets/about_icon_1.png")}
+                  source={Images.ABOUT_IMG}
                 />
                 <Text style={styles.MainCovidPara}>Good for Groups</Text>
               </View>
               <View style={{ flexDirection: "row", paddingLeft: 15 }}>
                 <Image
                   style={styles.AboutImge}
-                  source={require("../../../Assets/about_icon_2.png")}
+                  source={Images.FAVRT_IMG}
                 />
                 <Text style={styles.MainCovidPara}>Greate Date Spot</Text>
               </View>
@@ -394,14 +395,14 @@ const RestauranrtBookingScreen = (props) => {
               <View style={styles.flexDirectionStyle}>
                 <Image
                   style={styles.AboutImge}
-                  source={require("../../../Assets/about_icon_3.png")}
+                  source={Images.CLOTH_IMG}
                 />
                 <Text style={styles.MainCovidPara}>Casual Attire</Text>
               </View>
               <View style={{ flexDirection: "row", paddingLeft: 15 }}>
                 <Image
                   style={styles.AboutImge}
-                  source={require("../../../Assets/about_icon_4.png")}
+                  source={Images.PARKING_IMG}
                 />
                 <Text style={styles.MainCovidPara}>
                   Parking: Street, Private Lot
@@ -422,10 +423,10 @@ const RestauranrtBookingScreen = (props) => {
               <Marker
                 coordinate={coordinate}
                 title={props?.restroDetail?.business_name}
-                // description={marker.description}
+              // description={marker.description}
               >
                 <Image
-                  source={require("../../../Assets/abby_pages_map_icon.png")}
+                  source={Images.MAP_LOGO}
                   style={{ height: 50, width: 50 }}
                   resizeMode="contain"
                   resizeMethod="auto"

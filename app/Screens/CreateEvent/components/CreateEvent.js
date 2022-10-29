@@ -24,6 +24,7 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Images } from "../../../Utils/images";
 
 const CreateEvent = (props) => {
   const hideDatePicker = () => {
@@ -42,9 +43,9 @@ const CreateEvent = (props) => {
     setIsEndTimePickerVisible(false);
   };
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={CommonStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={CommonStyles.container}>
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -52,15 +53,15 @@ const CreateEvent = (props) => {
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         leftImg={
           props.type === "busniess" || props.type === "Edit_event"
-            ? require("../../../Assets/header_back_btn.png")
-            : require("../../../Assets/hamburger_icon.png")
+            ? Images.HEADER_BCK_IMG
+            : Images.DRAWER_IMG
         }
         HeaderText={
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-            ? "Edit Event"
-            : "Submit an Event"
+              ? "Edit Event"
+              : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -111,7 +112,7 @@ const CreateEvent = (props) => {
                 }
               >
                 <Image
-                  source={require("../../../Assets/cancelModalBtn.png")}
+                  source={Images.COLORED_CANCEL_IMG}
                   style={styles.deleteImage}
                 />
               </TouchableOpacity>
@@ -155,8 +156,8 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props?.createEvent?.eventType == 1
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -175,8 +176,8 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props?.createEvent?.eventType == 2
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -199,7 +200,7 @@ const CreateEvent = (props) => {
                 </View>
                 <View style={styles.BckArrowBack}>
                   <Image
-                    source={require("../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                 </View>
                 <DateTimePickerModal
@@ -227,7 +228,7 @@ const CreateEvent = (props) => {
                 </View>
                 <View style={styles.BckArrowBack}>
                   <Image
-                    source={require("../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                 </View>
                 <DateTimePickerModal
@@ -256,7 +257,7 @@ const CreateEvent = (props) => {
                 </View>
                 <View style={styles.BckArrowBack}>
                   <Image
-                    source={require("../../../Assets/calendar_icon.png")}
+                    source={Images.CALENDER_IMG}
                   />
                 </View>
                 <DateTimePickerModal
@@ -282,7 +283,9 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image
+                style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG} />
             </View>
             <DateTimePickerModal
               isVisible={props.isStartTimePickerVisible}
@@ -304,7 +307,8 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG} />
             </View>
             <DateTimePickerModal
               isVisible={props.isEndTimePickerVisible}
@@ -513,19 +517,19 @@ const CreateEvent = (props) => {
             InputType="withScroll"
           /> */}
           {/* <Text style={styles.titlesTxt}>Free Event</Text> */}
-          {/* <TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
-                            <View style={styles.CameraImgView}>
-                                <TouchableOpacity >
-                                    {props.FreeEvent ?
-                                        <Image source={require('../../../Assets/checked_squared_v1.png')} />
-                                        :
-                                        <Image source={require('../../../Assets/unchecked_squared_v1.png')} />
-                                    }
-                                </TouchableOpacity>
-                                <Text style={styles.AddPhotosTxt}>Free Event</Text>
-                            </View>
-                        </TouchableOpacity>
-                                */}
+          {<TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
+            <View style={styles.CameraImgView}>
+              <TouchableOpacity>
+                <Image
+                  style={{ width: 25, height: 25, }}
+                  resizeMode={'contain'}
+                  source={!props.FreeEvent ?
+                    Images.CHECK_IMG : Images.UNCHECK_IMG} />
+              </TouchableOpacity>
+              <Text style={styles.AddPhotosTxt}>Free Event</Text>
+            </View>
+          </TouchableOpacity>
+          }
           <Text style={styles.titlesTxt}>Category -</Text>
           <TouchableOpacity
             onPress={() => {
@@ -542,7 +546,8 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG} />
             </View>
           </TouchableOpacity>
           <Text style={styles.titlesTxt}>Keywords search terms -</Text>
@@ -555,7 +560,8 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image source={require("../../../Assets/dropdown_icon.png")} />
+              <Image style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG} />
             </View>
           </TouchableOpacity>
           <Text style={styles.titlesTxt}>Type -</Text>
@@ -565,19 +571,19 @@ const CreateEvent = (props) => {
               { flexDirection: Platform.OS === "ios" ? null : "column" },
             ]}
           >
-              <Picker
-                mode={"dropdown"}
-                onValueChange={(itemValue) =>
-                  props.setCreateEvent({
-                    ...props.createEvent,
-                    type: itemValue,
-                  })
-                }
-                itemStyle={{height:Platform.OS==='ios'? '100%':null,}}
-                selectedValue={props.createEvent.type}
-              >
-                <Picker.Item label={"In Person"} value={""} />
-              </Picker>
+            <Picker
+              mode={"dropdown"}
+              onValueChange={(itemValue) =>
+                props.setCreateEvent({
+                  ...props.createEvent,
+                  type: itemValue,
+                })
+              }
+              itemStyle={{ height: Platform.OS === 'ios' ? '100%' : null, }}
+              selectedValue={props.createEvent.type}
+            >
+              <Picker.Item label={"In Person"} value={""} />
+            </Picker>
           </View>
           {/* <View style={styles.radioBttnVw}>
             <Text style={styles.radioBttnTxt}>Ticket Type</Text>
@@ -595,8 +601,8 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props.createEvent.ticketType == 1
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -615,10 +621,10 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props.createEvent.ticketType == 2
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
-                    // source={require("../../../Assets/radio_circled_checked.png")}
+                    // source={Images.RADIO_CHECK_IMG}
                     style={styles.radioImg}
                   />
                 </TouchableOpacity>
@@ -657,8 +663,8 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props.createEvent.ticketAvailability == 1
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -677,8 +683,8 @@ const CreateEvent = (props) => {
                   <Image
                     source={
                       props.createEvent.ticketAvailability == 2
-                        ? require("../../../Assets/radio_circled_checked.png")
-                        : require("../../../Assets/radio_circled_unchecked.png")
+                        ? Images.RADIO_CHECK_IMG
+                        : Images.RADIO_UNCHECK_IMG
                     }
                     style={styles.radioImg}
                   />
@@ -718,8 +724,8 @@ const CreateEvent = (props) => {
                   style={{ width: 24, height: 24 }}
                   source={
                     props?.createEvent?.event_address_type === 1
-                      ? require("../../../Assets/checked_circled_icon_box.png")
-                      : require("../../../Assets/unchecked_circled_icon_box.png")
+                      ? Images.ROUND_CHECK_IMG
+                      : Images.ROUND_UNCHECK_IMG
                   }
                 />
               </View>
@@ -741,8 +747,8 @@ const CreateEvent = (props) => {
                   style={{ width: 24, height: 24 }}
                   source={
                     props?.createEvent?.event_address_type === 2
-                      ? require("../../../Assets/checked_circled_icon_box.png")
-                      : require("../../../Assets/unchecked_circled_icon_box.png")
+                      ? Images.ROUND_CHECK_IMG
+                      : Images.ROUND_UNCHECK_IMG
                   }
                 />
               </View>
@@ -801,7 +807,7 @@ const CreateEvent = (props) => {
               >
                 <Image
                   style={styles.cancelimg}
-                  source={require("../../../Assets/cancelModalBtn.png")}
+                  source={Images.COLORED_CANCEL_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -846,7 +852,7 @@ const CreateEvent = (props) => {
               >
                 <Image
                   style={{ height: 40, width: 40, zIndex: 1 }}
-                  source={require("../../../Assets/image-gallery.png")}
+                  source={Images.GALLERY_IMG}
                 />
                 <Text style={styles.modalItem}>Open Album</Text>
               </TouchableOpacity>

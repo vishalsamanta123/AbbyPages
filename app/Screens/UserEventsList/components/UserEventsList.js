@@ -18,7 +18,7 @@ const UserEventsScreen = (props) => {
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         type="Drawer"
       />
       <FlatList
@@ -48,7 +48,7 @@ const UserEventsScreen = (props) => {
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
-                    source={require("../../../Assets/info_marker_icon.png")}
+                    source={Images.LOCATION_IMG}
                   />
                   <Text style={styles.straightTxt}>{item?.address}</Text>
                 </View>
@@ -61,7 +61,7 @@ const UserEventsScreen = (props) => {
                 <Image
                   style={styles.downloadImg}
                   resizeMode={"contain"}
-                  source={require("../../../Assets/upload_icon_box.png")}
+                  source={Images.THEME_UPLOAD_IMG}
                 />
               </TouchableOpacity>
             </View>

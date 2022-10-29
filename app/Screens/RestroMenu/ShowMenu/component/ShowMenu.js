@@ -19,6 +19,7 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const ShowMenu = (props) => {
   return (
@@ -64,7 +65,7 @@ const ShowMenu = (props) => {
             <View style={styles.searchVw}>
               <View style={styles.searchInputVw}>
                 <Image
-                  source={require("../../../../Assets/search_field_icon.png")}
+                  source={Images.SEARCH_IMG}
                 />
               </View>
               <View style={{ flex: 5 }}>
@@ -91,11 +92,11 @@ const ShowMenu = (props) => {
             buttonText={
               props.totalAmount
                 ? "Checkout - $" +
-                  Number(
-                    parseFloat(props.totalAmount).toFixed(2)
-                  ).toLocaleString("en", {
-                    minimumFractionDigits: 2,
-                  })
+                Number(
+                  parseFloat(props.totalAmount).toFixed(2)
+                ).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })
                 : "Checkout"
             }
           />

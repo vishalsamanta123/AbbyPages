@@ -17,8 +17,10 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {
   BLACK_COLOR_CODE,
+  FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
@@ -33,6 +35,24 @@ const DashBoardScreen = (props) => {
       setMoreShow(props?.newActivity?.recent_activity.length);
     }
   };
+  const SubCategories = ({ }) => {
+    return (
+      <View style={styles.subCatVw}>
+        {props.subCatData.length > 0 ?
+          <>
+            {props.subCatData.map((item, index) => {
+              return (
+                <View style={styles.subCatCon}>
+                  <Text style={styles.subCatTxt}>{item.category_name}</Text>
+                </View>
+              )
+            })}
+          </>
+          : null
+        }
+      </View>
+    )
+  }
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -138,13 +158,18 @@ const DashBoardScreen = (props) => {
               </View>
               <Text style={styles.OptnsMainText}>Restaurant</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.OptnsImgContain}>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(1)}
+              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
                 source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
+          {props.subCatType === 1 ?
+            <SubCategories /> : null
+          }
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressJob()}
@@ -155,13 +180,18 @@ const DashBoardScreen = (props) => {
               </View>
               <Text style={styles.OptnsMainText}>Job</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.OptnsImgContain}>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(2)}
+              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
                 source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
+          {props.subCatType === 2 ?
+            <SubCategories /> : null
+          }
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressProvider()}
@@ -172,13 +202,18 @@ const DashBoardScreen = (props) => {
               </View>
               <Text style={styles.OptnsMainText}>Service Provider</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.OptnsImgContain}>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(3)}
+              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
                 source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
+          {props.subCatType === 3 ?
+            <SubCategories /> : null
+          }
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressEvents()}
@@ -189,13 +224,18 @@ const DashBoardScreen = (props) => {
               </View>
               <Text style={styles.OptnsMainText}>Event</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.OptnsImgContain}>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(4)}
+              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
                 source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
+          {props.subCatType === 4 ?
+            <SubCategories /> : null
+          }
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressShopping()}
@@ -206,13 +246,18 @@ const DashBoardScreen = (props) => {
               </View>
               <Text style={styles.OptnsMainText}>Marketplace</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.OptnsImgContain}>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(5)}
+              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
                 source={Images.ARROW_DOWN_IMG}
               />
             </TouchableOpacity>
           </View>
+          {props.subCatType === 5 ?
+            <SubCategories /> : null
+          }
           <View style={styles.otherConVw}>
             <Text style={styles.titlesTxt}>Our Directory</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -297,7 +342,7 @@ const DashBoardScreen = (props) => {
                 return (
                   <>
                     {index < moreShow && (
-                      <TouchableOpacity style={styles.moreItemsCon}>
+                      <TouchableOpacity style={[styles.moreItemsCon, { width: '47%' }]}>
                         <Image
                           source={{
                             uri:

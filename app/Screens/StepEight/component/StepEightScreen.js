@@ -16,14 +16,15 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const StepSevenScreen = (props) => {
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? 'padding' : null}
-    style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? 'padding' : null}
+      style={[CommonStyles.container]}>
       <Header
-        leftImg={require("../../../Assets/close_window_icon.png")}
+        leftImg={Images.CANCEL_IMG}
         HeaderText="8 of 8"
         RightImg={null}
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
@@ -37,7 +38,7 @@ const StepSevenScreen = (props) => {
               <View style={styles.firstimgvwe}>
                 <Image
                   style={styles.congratulationsimg}
-                  source={require("../../../Assets/success_icon.png")}
+                  source={Images.CAP_SUCCESS_IMG}
                 />
               </View>
               <View style={styles.maintxtimg}>
@@ -58,8 +59,8 @@ const StepSevenScreen = (props) => {
                   <Button
                     buttonText="Yes, get multiple quotes    "
                     buttonLabelStyle={styles.startedbtntxt}
-                    RightBtnImage={require("../../../Assets/check_icon_btn.png")}
-                    // onPress={props.onPressStepfourth}
+                    RightBtnImage={Images.TICK_IMG}
+                  // onPress={props.onPressStepfourth}
                   />
                 </View>
               </View>

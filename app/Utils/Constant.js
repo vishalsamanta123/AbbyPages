@@ -19,7 +19,9 @@ export const LIGHT_GREEN_COLOR_CODE = "#a3d74e";
 export const LIGHT_RED_COLOR_CODE = "#f32c2c";
 export const BLUE_COLOR_CODE = "#0E86D4";
 export const LIGHT_GREY_COLOR_CODE = "#858484";
+export const LIGHT_WHITE_COLOR_CODE = "#C7CBCB";
 export const LIGHT_BLACK_COLOR_CODE = "#262626";
+export const DOT = "\u2B24";
 // export const LINE_COMMON_COLOR_CODE = "#262626";
 //BASEURL
 // export const BASEURL = 'https://itinformatix.org:3040';/*  */

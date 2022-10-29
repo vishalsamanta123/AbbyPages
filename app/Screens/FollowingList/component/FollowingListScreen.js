@@ -7,13 +7,14 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 import styles from "./styles";
 const FollowingListScreen = () => {
   return (
     <View style={CommonStyles.container}>
       <Header
         RightImg={null}
-        leftImg={require("../../../Assets/hamburger_icon.png")}
+        leftImg={Images.DRAWER_IMG}
         HeaderText={"Following"}
         type="Drawer"
         MainHeadStyle={{ color: LIGHT_BLACK_COLOR_CODE }}
@@ -34,7 +35,7 @@ const FollowingListScreen = () => {
           <View style={styles.imgCon}>
             <Image
               style={{}}
-              source={require("../../../Assets/user_icon_box_large.png")}
+              source={Images.THEME_PROFILE_IMG}
             />
           </View>
           <Text

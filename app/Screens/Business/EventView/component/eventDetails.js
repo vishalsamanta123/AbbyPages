@@ -16,6 +16,7 @@ import {
 } from "../../../../Utils/Constant";
 import styles from "./styles";
 import moment from "moment";
+import { Images } from "../../../../Utils/images";
 
 const eventDetails = (props) => {
   return (
@@ -23,7 +24,6 @@ const eventDetails = (props) => {
       <Header
         HeaderText="Event Details"
         RightImg={null}
-        leftImg={require("../../../../Assets/header_back_btn.png")}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
         MainHeadStyle={{ color: WHITE_COLOR_CODE }}
         tintColor={WHITE_COLOR_CODE}
@@ -76,8 +76,8 @@ const eventDetails = (props) => {
               <Image
                 source={
                   props?.detail?.status === 1
-                    ? require("../../../../Assets/active_switch.png")
-                    : require("../../../../Assets/unactive_switch.png")
+                    ? Images.ACTIVE_SWITCH_IMG
+                    : Images.UNACTIVE_SWITCH_IMG
                 }
               />
             </TouchableOpacity>

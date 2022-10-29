@@ -24,6 +24,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 const RestroCheckout = (props) => {
   return (
     <View style={CommonStyles.container}>
@@ -45,8 +46,8 @@ const RestroCheckout = (props) => {
                 style={styles.typesCheckVw}
                 source={
                   props.delivery_type
-                    ? require("../../../../Assets/checked_box.png")
-                    : require("../../../../Assets/uncheck_box.png")
+                    ? Images.THEME_CHECK_IMG
+                    : Images.THEME_UNCHECK_IMG
                 }
               />
               <Text style={styles.commonTxtStyle}>Delievery</Text>
@@ -59,8 +60,8 @@ const RestroCheckout = (props) => {
                 style={styles.typesCheckVw}
                 source={
                   !props.delivery_type
-                    ? require("../../../../Assets/checked_box.png")
-                    : require("../../../../Assets/uncheck_box.png")
+                    ? Images.THEME_CHECK_IMG
+                    : Images.THEME_UNCHECK_IMG
                 }
               />
               <Text style={styles.commonTxtStyle}>Takeout</Text>
@@ -70,9 +71,9 @@ const RestroCheckout = (props) => {
             {props.delivery_type && (
               <View style={styles.AddressCOntain}>
                 <Image
-                  style={{ bottom: 5 }}
+                  style={{ bottom: 5, width: 22, height: 22 }}
                   resizeMode={"contain"}
-                  source={require("../../../../Assets/marker_icon_text.png")}
+                  source={Images.LOCATION_IMG}
                 />
                 <View style={styles.AddressTextView}>
                   {props.location.length > 0 ? (
@@ -104,7 +105,7 @@ const RestroCheckout = (props) => {
             <View style={[styles.AddressCOntain, { paddingTop: 15 }]}>
               <Image
                 style={{ top: 6 }}
-                source={require("../../../../Assets/clock_icon_text.png")}
+                source={Images.CLOCK_IMG}
               />
               <View style={styles.AddressTextView}>
                 <Text style={styles.commonTxtStyle}>
@@ -175,7 +176,7 @@ const RestroCheckout = (props) => {
             >
               <Image
                 resizeMode={"contain"}
-                source={require("../../../../Assets/cart_delete_icon.png")}
+                source={Images.CANCEL_IMG}
               />
             </TouchableOpacity>
             <Text style={styles.PleaseEnterTxt}>Change Address</Text>

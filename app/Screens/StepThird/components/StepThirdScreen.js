@@ -21,6 +21,7 @@ import {
 } from "../../../Utils/Constant";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Images } from "../../../Utils/images";
 
 const StepThirdScreen = (props) => {
   return (
@@ -28,7 +29,7 @@ const StepThirdScreen = (props) => {
       style={[CommonStyles.container, { backgroundColor: WHITE_COLOR_CODE }]}
     >
       <Header
-        leftImg={require("../../../Assets/close_window_icon.png")}
+        leftImg={Images.CANCEL_IMG}
         HeaderText="3 of 5"
         // HeaderText="3 of 8"
         RightImg={null}
@@ -136,7 +137,7 @@ const StepThirdScreen = (props) => {
               <TouchableOpacity onPress={() => props.goBack()}>
                 <Image
                   style={{ height: 58, width: 60 }}
-                  source={require("../../../Assets/Group1672.png")}
+                  source={Images.WHITE_ARROW_IMG}
                 />
               </TouchableOpacity>
             </View>

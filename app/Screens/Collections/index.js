@@ -10,6 +10,7 @@ import styles from './components/styles';
 import CollectionsScreen from './components/CollectionsScreen';
 import CommonStyles from '../../Utils/CommonStyles';
 import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from '../../Utils/Constant';
+import { Images } from '../../Utils/images';
 const Collections = ({ navigation }) => {
     const [isSelectedCatgory, setIsSelectedCatgory] = useState(0);
     const [dataType, setDataType] =
@@ -26,13 +27,13 @@ const Collections = ({ navigation }) => {
         useState([
             {
                 id: 0,
-                bannerimg: require('../../Assets/default_image_box.png'),
+                bannerimg: Images.DEFAULT_BOX_IMG,
                 heading: 'My Bookmarks',
                 timing: 'Non-Public',
             },
             {
                 id: 1,
-                bannerimg: require('../../Assets/default_image_box.png'),
+                bannerimg: Images.DEFAULT_BOX_IMG,
                 heading: 'Test Collection',
                 timing: 'Non-Public',
             },
@@ -45,7 +46,7 @@ const Collections = ({ navigation }) => {
                     source={item.bannerimg}
                 >
                     <View style={styles.btncon}>
-                        <Image source={require('../../Assets/bookmark_icon_text.png')} />
+                        <Image source={Images.OTHER_BOOKMARK_IMG} />
                         <Text style={{ fontFamily: FONT_FAMILY_REGULAR, color: WHITE_COLOR_CODE }}> 12</Text>
                     </View>
                 </ImageBackground>

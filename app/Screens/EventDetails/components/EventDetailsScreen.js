@@ -27,6 +27,7 @@ import {
 } from "../../../Utils/Constant";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Video from "react-native-video";
+import { Images } from "../../../Utils/images";
 
 const EventListingScreen = (props) => {
   const [videoShow, setVideoShow] = useState(false);
@@ -42,47 +43,47 @@ const EventListingScreen = (props) => {
       />
       <ScrollView>
         {/* <SafeAreaView style={{ alignItems: "center", }}> */}
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={props?.eventDetails?.events_image}
-            scrollEventThrottle={16}
-            pagingEnabled={true}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            onScroll={(event) => {
-              props.setSliderPage(event);
-            }}
-            renderItem={({ item, index }) => {
-              return (
-                index <= 4 && (
-                  <View key={index} style={{ width, alignItems: "center", }}>
-                    <Image
-                      resizeMode="stretch"
-                      source={{ uri: item.events_image }}
-                      style={styles.imageStyle}
-                    />
-                  </View>
-                )
-              );
-            }}
-          />
-          <View style={styles.paginationWrapper}>
-            {Array.from(
-              Array(
-                props?.eventDetails?.events_image?.length > 5
-                  ? 5
-                  : props?.eventDetails?.events_image?.length
-              ).keys()
-            ).map((key, index) => (
-              <View
-                style={[
-                  styles.paginationDots,
-                  { opacity: props.pageIndex === index ? 1 : 0.2 },
-                ]}
-                key={index}
-              />
-            ))}
-          </View>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={props?.eventDetails?.events_image}
+          scrollEventThrottle={16}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          onScroll={(event) => {
+            props.setSliderPage(event);
+          }}
+          renderItem={({ item, index }) => {
+            return (
+              index <= 4 && (
+                <View key={index} style={{ width, alignItems: "center", }}>
+                  <Image
+                    resizeMode="stretch"
+                    source={{ uri: item.events_image }}
+                    style={styles.imageStyle}
+                  />
+                </View>
+              )
+            );
+          }}
+        />
+        <View style={styles.paginationWrapper}>
+          {Array.from(
+            Array(
+              props?.eventDetails?.events_image?.length > 5
+                ? 5
+                : props?.eventDetails?.events_image?.length
+            ).keys()
+          ).map((key, index) => (
+            <View
+              style={[
+                styles.paginationDots,
+                { opacity: props.pageIndex === index ? 1 : 0.2 },
+              ]}
+              key={index}
+            />
+          ))}
+        </View>
         {/* </SafeAreaView> */}
         <View style={styles.infocon}>
           <Text style={styles.nameTxt}>{props?.eventDetails?.event_name}</Text>
@@ -90,7 +91,7 @@ const EventListingScreen = (props) => {
             <Image
               resizeMode="contain"
               style={styles.icon}
-              source={require("../../../Assets/info_calendar_icon.png")}
+              source={Images.CALENDER_IMG}
             />
             {props?.eventDetails?.event_start_date ? (
               <Text style={styles.detailTxt}>
@@ -114,7 +115,7 @@ const EventListingScreen = (props) => {
             <Image
               resizeMode="contain"
               style={styles.icon}
-              source={require("../../../Assets/checkout_scheduled_icon.png")}
+              source={Images.CHECKOUT_SCHDULD_IMG}
             />
             <Text style={styles.detailTxt}>
               {props?.eventDetails?.event_start_time}{" "}
@@ -126,7 +127,7 @@ const EventListingScreen = (props) => {
             <Image
               resizeMode="contain"
               style={styles.icon}
-              source={require("../../../Assets/map_marker_icon.png")}
+              source={Images.LOCATION_IMG}
             />
             <Text style={styles.detailTxt}>
               {props?.eventDetails?.event_location}
@@ -150,8 +151,8 @@ const EventListingScreen = (props) => {
             showIcon={true}
             iconName={
               props.eventDetails?.user_interested === 0
-                ? require("../../../Assets/star_icon_filled.png")
-                : require("../../../Assets/dropdown_icon1.png")
+                ? Images.STAR_FILLED_IMG
+                : Images.ARROW_DOWN_IMG
             }
             tintColor={LIGHT_BLACK_COLOR_CODE}
             onPress={() => {
@@ -225,7 +226,7 @@ const EventListingScreen = (props) => {
               <TouchableOpacity onPress={() => props.setInterstedModal(false)}>
                 <Image
                   style={{ width: 32, height: 32, marginRight: 5 }}
-                  source={require("../../../Assets/cart_delete_icon.png")}
+                  source={Images.CANCEL_IMG}
                 />
               </TouchableOpacity>
             </View>
@@ -243,15 +244,15 @@ const EventListingScreen = (props) => {
                         ? YELLOW_COLOR_CODE
                         : BLACK_COLOR_CODE,
                   }}
-                  source={require("../../../Assets/star_icon_filled.png")}
+                  source={Images.STAR_FILLED_IMG}
                 />
                 <Text style={styles.respnsesTxt}>Interested</Text>
               </View>
               <Image
                 source={
                   props?.changeInterest === 1
-                    ? require("../../../Assets/radio_circled_checked.png")
-                    : require("../../../Assets/radio_circled_unchecked.png")
+                    ? Images.RADIO_CHECK_IMG
+                    : Images.RADIO_UNCHECK_IMG
                 }
               />
             </TouchableOpacity>
@@ -269,15 +270,15 @@ const EventListingScreen = (props) => {
                         ? YELLOW_COLOR_CODE
                         : BLACK_COLOR_CODE,
                   }}
-                  source={require("../../../Assets/verified_icon.png")}
+                  source={Images.VERIFIED_IMG}
                 />
                 <Text style={styles.respnsesTxt}>Going</Text>
               </View>
               <Image
                 source={
                   props?.changeInterest === ""
-                    ? require("../../../Assets/radio_circled_checked.png")
-                    : require("../../../Assets/radio_circled_unchecked.png")
+                    ? Images.RADIO_CHECK_IMG
+                    : Images.RADIO_UNCHECK_IMG
                 }
               />
             </TouchableOpacity>
@@ -299,7 +300,7 @@ const EventListingScreen = (props) => {
                 >
                   <Image
                     style={{ tintColor: WHITE_COLOR_CODE }}
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                   />
                 </View>
                 <Text style={styles.respnsesTxt}>Not Interested</Text>
@@ -307,8 +308,8 @@ const EventListingScreen = (props) => {
               <Image
                 source={
                   props?.changeInterest === 0
-                    ? require("../../../Assets/radio_circled_checked.png")
-                    : require("../../../Assets/radio_circled_unchecked.png")
+                    ? Images.RADIO_CHECK_IMG
+                    : Images.RADIO_UNCHECK_IMG
                 }
               />
             </TouchableOpacity>
@@ -320,8 +321,8 @@ const EventListingScreen = (props) => {
                 style={styles.addToCalImg}
                 source={
                   props.addtoCaldr
-                    ? require("../../../Assets/checked_circled_icon_box.png")
-                    : require("../../../Assets/unchecked_circled_icon_box.png")
+                    ? Images.RADIO_CHECK_IMG
+                    : Images.RADIO_UNCHECK_IMG
                 }
               />
               <Text style={styles.addToCalTxt}>Add to calender</Text>

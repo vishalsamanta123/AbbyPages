@@ -17,6 +17,7 @@ import {
   BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
 const ListingMapScreen = (props) => {
   return (
@@ -35,17 +36,17 @@ const ListingMapScreen = (props) => {
         >
           {props?.businessDataList?.map((item) => (
             <Marker
-              // image={require('../../../Assets/abby_pages_map_icon.png')}
+              // image={Images.MAP_LOGO}
               title={
                 props.business_type === 1
                   ? item.business_name
                   : props.business_type === 2
-                  ? item.business_name
-                  : props.business_type === 3
-                  ? item.business_name
-                  : props.business_type === 5
-                  ? item.company_name
-                  : null
+                    ? item.business_name
+                    : props.business_type === 3
+                      ? item.business_name
+                      : props.business_type === 5
+                        ? item.company_name
+                        : null
               }
               coordinate={{
                 latitude: Number(item.latitude),
@@ -53,7 +54,7 @@ const ListingMapScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../Assets/abby_pages_map_icon.png")}
+                source={Images.MAP_LOGO}
                 style={{ height: 50, width: 50 }}
                 resizeMode="contain"
                 resizeMethod="auto"
@@ -73,7 +74,7 @@ const ListingMapScreen = (props) => {
                             })
                         }
                         // coordinate={props.coordinate}
-                        image={require('../../../Assets/login_logo.png')}
+                        image={Images.MIDDLE_LOGO_IMG}
                         // title={props.businessName}
                         // description={'gfyj'}
                     /> */}
@@ -81,14 +82,14 @@ const ListingMapScreen = (props) => {
         <View style={Styles.header}>
           <View style={Styles.headerBackBtnCon}>
             <TouchableOpacity onPress={() => props.onPressBack()}>
-              <Image source={require("../../../Assets/header_back_btn.png")} />
+              <Image source={Images.HEADER_BCK_IMG} />
             </TouchableOpacity>
           </View>
           <View style={Styles.headerMiddleCon}>
             <View style={Styles.iptCon}>
               <View style={Styles.searchIconCon}>
                 <Image
-                  source={require("../../../Assets/search_field_icon.png")}
+                  source={Images.SEARCH_IMG}
                 />
               </View>
               <TextInput
@@ -104,7 +105,7 @@ const ListingMapScreen = (props) => {
                 tintColor={WHITE_COLOR_CODE}
                 resizeMode="contain"
                 style={{ height: 28, width: 28 }}
-                source={require("../../../Assets/listmenucopy.png")}
+                source={Images.LIST_IMG}
               />
             </TouchableOpacity>
           </View>

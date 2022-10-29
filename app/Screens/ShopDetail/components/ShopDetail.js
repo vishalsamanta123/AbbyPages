@@ -30,6 +30,7 @@ import {
   WHITE_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { Rating, AirbnbRating } from "react-native-ratings";
+import { Images } from "../../../Utils/images";
 const { width, height } = Dimensions.get("window");
 const ShopDetail = (props) => {
   const initialRegion = {
@@ -90,7 +91,7 @@ const ShopDetail = (props) => {
                     >
                       <Image
                         style={{ height: 40, width: 40 }}
-                        source={require("../../../Assets/camera.png")}
+                        source={Images.COLORED_CAMERA_IMG}
                       />
                       <Text style={styles.modalItem}>Open camera</Text>
                     </TouchableOpacity>
@@ -101,7 +102,7 @@ const ShopDetail = (props) => {
                     >
                       <Image
                         style={{ height: 40, width: 40 }}
-                        source={require("../../../Assets/image-gallery.png")}
+                        source={Images.GALLERY_IMG}
                       />
                       <Text style={styles.modalItem}>Open album</Text>
                     </TouchableOpacity>
@@ -112,7 +113,7 @@ const ShopDetail = (props) => {
                     >
                       <Image
                         style={{ height: 40, width: 40 }}
-                        source={require("../../../Assets/cancelModalBtn.png")}
+                        source={Images.COLORED_CANCEL_IMG}
                       />
                       <Text style={styles.modalItem}>Cancel</Text>
                     </TouchableOpacity>
@@ -214,7 +215,9 @@ const ShopDetail = (props) => {
                 onPress={() => props.setAddPhotoModal(true)}
                 style={styles.AddPhotoCOntainer}
               >
-                <Image source={require("../../../Assets/add_photo_icon.png")} />
+                <Image
+                  style={{ width: 18, height: 18 }}
+                  source={Images.CAMERA_IMG} />
                 <Text style={styles.AddOptnsTextMain}>Add Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -223,7 +226,7 @@ const ShopDetail = (props) => {
               >
                 <Image
                   style={{ width: 19, height: 15 }}
-                  source={require("../../../Assets/share_icon.png")}
+                  source={Images.SHARE_IMG}
                 />
                 <Text style={styles.AddOptnsTextMain}>Share</Text>
               </TouchableOpacity>
@@ -238,7 +241,7 @@ const ShopDetail = (props) => {
                         ? YELLOW_COLOR_CODE
                         : null,
                   }}
-                  source={require("../../../Assets/save_icon.png")}
+                  source={Images.SAVED_IMG}
                 />
                 <Text style={styles.AddOptnsTextMain}>
                   {props?.shopDetail?.user_like === 1 ? "Saved" : "Save"}
@@ -268,7 +271,7 @@ const ShopDetail = (props) => {
               <Text style={styles.CovidMainTxt}>COVID-19 Updates</Text>
               {/* <View style={styles.FlexRowView}>
                                 <Text style={styles.EditTextStyle}>Edit </Text>
-                                <Image source={require('../../../Assets/edit_pencil_icon.png')} />
+                                <Image source={Images.EDIT_PENCIL_IMG} />
                             </View> */}
             </View>
             {/* <View style={styles.CovidParaView}>
@@ -290,13 +293,13 @@ const ShopDetail = (props) => {
                     <View style={{}}>
                       <ImageBackground
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -309,13 +312,13 @@ const ShopDetail = (props) => {
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -328,13 +331,13 @@ const ShopDetail = (props) => {
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -345,13 +348,13 @@ const ShopDetail = (props) => {
                     <View style={{}}>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -369,13 +372,13 @@ const ShopDetail = (props) => {
                     <View>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -390,13 +393,13 @@ const ShopDetail = (props) => {
                     <View>
                       <Image
                         style={styles.RightImgeStyle}
-                        source={require("../../../Assets/text_check_icon.png")}
+                        source={Images.TICK_IMG}
                       />
                     </View>
                   ) : (
                     <Image
                       style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                      source={require("../../../Assets/cart_delete_icon.png")}
+                      source={Images.CANCEL_IMG}
                       tintColor={YELLOW_COLOR_CODE}
                     />
                   )}
@@ -412,12 +415,12 @@ const ShopDetail = (props) => {
                 {/* <View style={styles.UpdateOptions}>
                                     {props?.shopDetail?.masks_required === 1 ?
                                         <View>
-                                            <Image style={styles.RightImgeStyle} source={require('../../../Assets/text_check_icon.png')} />
+                                            <Image style={styles.RightImgeStyle} source={Images.TICK_IMG} />
                                         </View>
                                         :
                                         <Image
                                             style={[styles.RightImgeStyle, { height: 25, width: 25 }]}
-                                            source={require('../../../Assets/cart_delete_icon.png')}
+                                            source={Images.CANCEL_IMG}
                                             tintColor={YELLOW_COLOR_CODE} />
                                     }
                                     <View>
@@ -451,12 +454,12 @@ const ShopDetail = (props) => {
             >
               <Marker
                 coordinate={coordinate}
-                // image={require('../../../Assets/login_logo.png')}
+                // image={Images.MIDDLE_LOGO_IMG}
                 title={props?.shopDetail?.business_name}
-                // description={marker.description}
+              // description={marker.description}
               >
                 <Image
-                  source={require("../../../Assets/abby_pages_map_icon.png")}
+                  source={Images.MAP_LOGO}
                   style={{ height: 50, width: 50 }}
                   resizeMode="contain"
                   resizeMethod="auto"
@@ -486,7 +489,7 @@ const ShopDetail = (props) => {
               </View>
             )}
             {/*  <View style={styles.EditBusinessInfoView}>
-                                <Image source={require('../../../Assets/edit_pencil_icon.png')} />
+                                <Image source={Images.EDIT_PENCIL_IMG} />
                                 <Text style={styles.EditTextStyle}> Edit bussiness info</Text>
                             </View>
                         </View> */}
@@ -708,7 +711,7 @@ const ShopDetail = (props) => {
                   style={styles.ArrowTouchable}
                 >
                   <Image
-                    source={require("../../../Assets/cart_delete_icon.png")}
+                    source={Images.CANCEL_IMG}
                   />
                 </TouchableOpacity>
                 <Text style={styles.PleaseEnterTxt}>
