@@ -9,14 +9,14 @@ import Error from "../../Components/Modal/error";
 import Loader from "../../Utils/Loader";
 import _ from "lodash";
 import { AuthContext } from "../../Utils/UserContext";
+import QuestionModal from "../../Components/Modal/questionModal";
 
 const JobList = ({ navigation }) => {
-  const { signOut } = React.useContext(AuthContext);
   useEffect(() => {
     if (!search) {
       handleJobFilter(0);
     }
-  }, [jobList]);
+  }, []);
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [loader, setLoader] = useState();
@@ -205,6 +205,19 @@ const JobList = ({ navigation }) => {
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
+      />
+      <QuestionModal
+        surringVisible={postjob}
+        cancelModel={() => setPostjob(false)}
+        modalType={""}
+        topMessage={"Add a Business"}
+        message={
+          "Are you a customer or the owner/manager of the busineess you'd like to add?"
+        }
+        positiveTxt={"I m a customer"}
+        negativeTxt={"This is my businesss"}
+        positiveResponse={() => handlePostJob(1)}
+        negativeResponse={() => handlePostJob(2)}
       />
     </View>
   );

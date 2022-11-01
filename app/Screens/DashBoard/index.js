@@ -8,6 +8,8 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
+import QuestionModal from "../../Components/Modal/questionModal";
+
 const DashBoardView = ({ navigation }) => {
   const [location, setLocation] = useState({
     address: "",
@@ -19,6 +21,7 @@ const DashBoardView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
+  const [forBusinees, setForBusinees] = useState(false);
   const [dashBoardDetail, setDashBoardDetail] = useState("");
   const [businessCategory, setBusinessCategory] = useState({
     business_type: "",
@@ -30,16 +33,8 @@ const DashBoardView = ({ navigation }) => {
     status: "",
   });
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
-  const [subCatType, setSubCatType] = useState(false);
-  const [subCatData, setSubCatData] = useState([{
-    category_name: 'Open Delivery',
-  }, {
-    category_name: 'Reservation',
-  }, {
-    category_name: 'American Restaurant',
-  }, {
-    category_name: 'Open Delivery',
-  }]);
+  const [subCatType, setSubCatType] = useState("");
+  const [subCatData, setSubCatData] = useState([]);
   const [newActivity, setNewActivity] = useState({
     recent_activity: [],
     product_url: "",
@@ -216,9 +211,68 @@ const DashBoardView = ({ navigation }) => {
       setVisible(false);
     }
   };
-  const handleSubItems = (type) => {
-    setSubCatType(type)
-  }
+  const handleSubItems = async (type) => {
+    setSubCatType(type);
+    if (type != subCatType) {
+      setSubCatData([]);
+      if (type === 1 || type === 3) {
+        try {
+          const params = {
+            business_type: type,
+          };
+          const { data } = await apiCall(
+            "POST",
+            ENDPOINTS.CATEGORIES_LIST,
+            params
+          );
+          if (data.status === 200) {
+            setSubCatData(data.data);
+          } else {
+            setErrorMessage(data.message);
+            setVisibleErr(true);
+          }
+        } catch (error) {
+          setVisibleErr(true);
+          setErrorMessage(error.message);
+        }
+      }
+    } else {
+      setSubCatType("");
+    }
+  };
+  const handleNavTo = (type) => {
+    console.log("type: ", type);
+    if (typeof type === "object") {
+      if (type) {
+      } else {
+      }
+    } else {
+      if (type === "postJob" || type === "createEvent" || type === "sellOn") {
+        setForBusinees(true);
+      } else {
+        if (type === "findEvent") {
+          navigation.navigate("EventListings");
+        } else {
+          if (type === "shop") {
+            navigation.navigate("ShopList");
+          } else {
+            if (type === "findJob") {
+              navigation.navigate("JobList");
+            }
+          }
+        }
+      }
+    }
+  };
+  const handlePostJob = (type) => {
+    if (type === 1) {
+      navigation.navigate("BusinessSignUp");
+      setForBusinees(false);
+    } else {
+      navigation.navigate("Login", { loginType: "new" });
+      setForBusinees(false);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -245,6 +299,7 @@ const DashBoardView = ({ navigation }) => {
         handleSubItems={handleSubItems}
         subCatType={subCatType}
         subCatData={subCatData}
+        handleNavTo={handleNavTo}
       />
       <Error
         message={errorMessage}
@@ -255,6 +310,19 @@ const DashBoardView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
+      />
+      <QuestionModal
+        surringVisible={forBusinees}
+        cancelModel={() => setForBusinees(false)}
+        modalType={""}
+        topMessage={"Add a Business"}
+        message={
+          "Are you a customer or the owner/manager of the busineess you'd like to add?"
+        }
+        positiveTxt={"I m a customer"}
+        negativeTxt={"This is my businesss"}
+        positiveResponse={() => handlePostJob(1)}
+        negativeResponse={() => handlePostJob(2)}
       />
     </View>
   );

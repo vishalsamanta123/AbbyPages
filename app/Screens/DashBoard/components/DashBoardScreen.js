@@ -35,24 +35,102 @@ const DashBoardScreen = (props) => {
       setMoreShow(props?.newActivity?.recent_activity.length);
     }
   };
-  const SubCategories = ({ }) => {
+  const SubCategories = () => {
     return (
-      <View style={styles.subCatVw}>
-        {props.subCatData.length > 0 ?
-          <>
-            {props.subCatData.map((item, index) => {
-              return (
-                <View style={styles.subCatCon}>
-                  <Text style={styles.subCatTxt}>{item.category_name}</Text>
-                </View>
-              )
-            })}
-          </>
-          : null
-        }
-      </View>
-    )
-  }
+      <>
+        {props.subCatType === 1 || props.subCatType === 3 ? (
+          <View style={styles.subCatVw}>
+            {props.subCatData.length > 0 ? (
+              <>
+                {props.subCatData.map((item, index) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => props.handleNavTo(item)}
+                      style={styles.subCatCon}
+                    >
+                      <Text style={styles.subCatTxt}>{item.category_name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            ) : null}
+          </View>
+        ) : (
+          <View>
+            {props.subCatType === 2 ? (
+              <>
+                <TouchableOpacity
+                  onPress={() => props.handleNavTo("findJob")}
+                  style={styles.subCatConTwo}
+                >
+                  <Text style={styles.subCatTwoTxt}>Find Job</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => props.handleNavTo("postJob")}
+                  style={styles.subCatConTwo}
+                >
+                  <Text style={styles.subCatTwoTxt}>Post Jobs</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => props.handleNavTo("resumeUpload")}
+                  style={styles.subCatConTwo}
+                >
+                  <Text style={styles.subCatTwoTxt}>Upload Your Resume</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                {props.subCatType === 4 ? (
+                  <>
+                    <TouchableOpacity
+                      onPress={() => props.handleNavTo("findEvent")}
+                      style={styles.subCatConTwo}
+                    >
+                      <Text style={styles.subCatTwoTxt}>Find Event</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => props.handleNavTo("createEvent")}
+                      style={styles.subCatConTwo}
+                    >
+                      <Text style={styles.subCatTwoTxt}>Create an Event</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.subCatConTwo}>
+                      <Text style={styles.subCatTwoTxt}>How it works</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.subCatConTwo}>
+                      <Text style={styles.subCatTwoTxt}>Pricing</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.subCatConTwo}>
+                      <Text style={styles.subCatTwoTxt}>Featured</Text>
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <>
+                    {props.subCatType === 5 ? (
+                      <>
+                        <TouchableOpacity
+                          onPress={() => props.handleNavTo("shop")}
+                          style={styles.subCatConTwo}
+                        >
+                          <Text style={styles.subCatTwoTxt}>Shop</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => props.handleNavTo("sellOn")}
+                          style={styles.subCatConTwo}
+                        >
+                          <Text style={styles.subCatTwoTxt}>Sell On ABBY</Text>
+                        </TouchableOpacity>
+                      </>
+                    ) : null}
+                  </>
+                )}
+              </>
+            )}
+          </View>
+        )}
+      </>
+    );
+  };
   return (
     <View style={CommonStyles.container}>
       <Header
@@ -90,13 +168,13 @@ const DashBoardScreen = (props) => {
               <Text
                 style={[
                   styles.TextInputStyle,
-                  { paddingVertical: 16, color: GREY_COLOR_CODE },
+                  { paddingVertical: 12, color: GREY_COLOR_CODE },
                 ]}
               >
                 Eg: food, service, barber, hotel
               </Text>
             ) : (
-              <Text style={[styles.TextInputStyle, { paddingVertical: 16 }]}>
+              <Text style={[styles.TextInputStyle, { paddingVertical: 12 }]}>
                 {props?.businessCategory?.category_name}
               </Text>
             )}
@@ -160,16 +238,19 @@ const DashBoardScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.handleSubItems(1)}
-              style={styles.OptnsImgContain}>
+              style={styles.OptnsImgContain}
+            >
               <Image
                 style={styles.OptnsMainImg}
-                source={Images.ARROW_DOWN_IMG}
+                source={
+                  props.subCatType === 1
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
               />
             </TouchableOpacity>
           </View>
-          {props.subCatType === 1 ?
-            <SubCategories /> : null
-          }
+          {props.subCatType === 1 ? <SubCategories /> : null}
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressJob()}
@@ -182,38 +263,19 @@ const DashBoardScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.handleSubItems(2)}
-              style={styles.OptnsImgContain}>
-              <Image
-                style={styles.OptnsMainImg}
-                source={Images.ARROW_DOWN_IMG}
-              />
-            </TouchableOpacity>
-          </View>
-          {props.subCatType === 2 ?
-            <SubCategories /> : null
-          }
-          <View style={styles.MainOptinsView}>
-            <TouchableOpacity
-              onPress={() => props.onPressProvider()}
-              style={styles.rowVw}
+              style={styles.OptnsImgContain}
             >
-              <View style={styles.OptnsImgContain}>
-                <Image source={Images.SERVICE_LIST_IMG} />
-              </View>
-              <Text style={styles.OptnsMainText}>Service Provider</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => props.handleSubItems(3)}
-              style={styles.OptnsImgContain}>
               <Image
                 style={styles.OptnsMainImg}
-                source={Images.ARROW_DOWN_IMG}
+                source={
+                  props.subCatType === 2
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
               />
             </TouchableOpacity>
           </View>
-          {props.subCatType === 3 ?
-            <SubCategories /> : null
-          }
+          {props.subCatType === 2 ? <SubCategories /> : null}
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressEvents()}
@@ -226,16 +288,19 @@ const DashBoardScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.handleSubItems(4)}
-              style={styles.OptnsImgContain}>
+              style={styles.OptnsImgContain}
+            >
               <Image
                 style={styles.OptnsMainImg}
-                source={Images.ARROW_DOWN_IMG}
+                source={
+                  props.subCatType === 4
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
               />
             </TouchableOpacity>
           </View>
-          {props.subCatType === 4 ?
-            <SubCategories /> : null
-          }
+          {props.subCatType === 4 ? <SubCategories /> : null}
           <View style={styles.MainOptinsView}>
             <TouchableOpacity
               onPress={() => props.onPressShopping()}
@@ -248,16 +313,44 @@ const DashBoardScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.handleSubItems(5)}
-              style={styles.OptnsImgContain}>
+              style={styles.OptnsImgContain}
+            >
               <Image
                 style={styles.OptnsMainImg}
-                source={Images.ARROW_DOWN_IMG}
+                source={
+                  props.subCatType === 5
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
               />
             </TouchableOpacity>
           </View>
-          {props.subCatType === 5 ?
-            <SubCategories /> : null
-          }
+          {props.subCatType === 5 ? <SubCategories /> : null}
+          <View style={styles.MainOptinsView}>
+            <TouchableOpacity
+              onPress={() => props.onPressProvider()}
+              style={styles.rowVw}
+            >
+              <View style={styles.OptnsImgContain}>
+                <Image source={Images.SERVICE_LIST_IMG} />
+              </View>
+              <Text style={styles.OptnsMainText}>More</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.handleSubItems(3)}
+              style={styles.OptnsImgContain}
+            >
+              <Image
+                style={styles.OptnsMainImg}
+                source={
+                  props.subCatType === 3
+                    ? Images.ARROW_UP_IMG
+                    : Images.ARROW_DOWN_IMG
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          {props.subCatType === 3 ? <SubCategories /> : null}
           <View style={styles.otherConVw}>
             <Text style={styles.titlesTxt}>Our Directory</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -342,7 +435,9 @@ const DashBoardScreen = (props) => {
                 return (
                   <>
                     {index < moreShow && (
-                      <TouchableOpacity style={[styles.moreItemsCon, { width: '47%' }]}>
+                      <TouchableOpacity
+                        style={[styles.moreItemsCon, { width: "47%" }]}
+                      >
                         <Image
                           source={{
                             uri:

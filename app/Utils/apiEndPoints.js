@@ -130,4 +130,6 @@ export default {
   NEW_ACTIVITIES: "/api/business/getNewActivityFromApp",
   //for user Home Dashboard
   HOME_DASHBOARD: "api/dashboard/userHomeDashboard",
+  //for user dashoboard categories
+  CATEGORIES_LIST: "api/masterTableData/getCategoryBybusinessType",
 };

@@ -79,7 +79,7 @@ export const Images = {
   ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),///use another color for color change
   EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),//use YELLOW_COLOR_CODE color for background
   EDIT_PHOTO_IMG: require("../Assets/edit_photo_icon.png"),
-  EMPLOYESS_IMG: require("../Assets/employeeonboard.png"),
+  EMPLOYESS_IMG: require("../Assets/banner.jpg"),
   ENVELOPE_IMG: require("../Assets/envelope_icon_menu.png"),
   ERROR_IMG: require("../Assets/Error.png"),
   FILTER_IMG: require("../Assets/filter_icon.png"),

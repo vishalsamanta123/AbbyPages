@@ -18,7 +18,6 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
 import moment from "moment";
-import Button from "../../../Components/Button";
 import { Images } from "../../../Utils/images";
 
 const JobListScreen = (props) => {
@@ -65,12 +64,12 @@ const JobListScreen = (props) => {
               {Number(item.job_type) === 1
                 ? "Full Time"
                 : Number(item.job_type) === 2
-                  ? "Part Time"
-                  : Number(item.job_type) === 3
-                    ? "Intership"
-                    : Number(item.job_type) === 4
-                      ? "Freelancer"
-                      : "Work"}
+                ? "Part Time"
+                : Number(item.job_type) === 3
+                ? "Intership"
+                : Number(item.job_type) === 4
+                ? "Freelancer"
+                : "Work"}
             </Text>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
@@ -223,37 +222,6 @@ const JobListScreen = (props) => {
           }}
         />
       </View>
-      <Modal animationType="slide" transparent={true} visible={props.postjob}>
-        <View style={styles.modal}>
-          <View style={styles.modalVw}>
-            <View style={styles.closeModalVw}>
-              <TouchableOpacity onPress={() => props.setPostjob(false)}>
-                <Image
-                  style={{ width: 35, height: 35 }}
-                  source={Images.CANCEL_IMG}
-                />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.topMssgTxt}>Add a Business</Text>
-            <Text style={styles.confrTxt}>
-              Are you a customer or the owner/manager of the busineess you'd
-              like to add?
-            </Text>
-            <Button
-              style={[styles.modalBttnVw, { marginTop: 20 }]}
-              buttonLabelStyle={{ color: GREY_COLOR_CODE }}
-              buttonText={"I m a customer"}
-              onPress={() => props.handlePostJob(1)}
-            />
-            <Button
-              style={styles.modalBttnVw}
-              buttonLabelStyle={{ color: GREY_COLOR_CODE }}
-              buttonText={"This is my businesss"}
-              onPress={() => props.handlePostJob(2)}
-            />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };

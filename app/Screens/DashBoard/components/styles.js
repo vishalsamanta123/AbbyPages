@@ -16,7 +16,6 @@ const Styles = StyleSheet.create({
   LocatnSrchCntain: {
     flex: 1,
     backgroundColor: YELLOW_COLOR_CODE,
-    paddingBottom: 15,
   },
   straightVw: {
     flexDirection: "row",
@@ -39,9 +38,9 @@ const Styles = StyleSheet.create({
     alignSelf: "center",
     width: "90%",
     marginTop: 10,
+    backgroundColor: WHITE_COLOR_CODE,
   },
   TextInputStyle: {
-    backgroundColor: WHITE_COLOR_CODE,
     fontSize: 16,
     paddingLeft: 40,
     fontFamily: FONT_FAMILY_REGULAR,
@@ -83,7 +82,7 @@ const Styles = StyleSheet.create({
     marginVertical: 10,
   },
   OptionsConatin: {
-    flex: 3.2,
+    flex: 3,
     backgroundColor: WHITE_COLOR_CODE,
   },
   MainOptinsView: {
@@ -117,22 +116,38 @@ const Styles = StyleSheet.create({
     tintColor: LIGHT_BLACK_COLOR_CODE,
   },
   subCatVw: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   subCatCon: {
-    paddingHorizontal: 10,
     paddingVertical: 3,
     backgroundColor: "rgba(50, 50, 50, 0.8)",
     marginHorizontal: 5,
     marginVertical: 4,
     borderRadius: 10,
+    paddingHorizontal: 10,
+    minWidth: 100,
+    alignItems: "center",
   },
   subCatTxt: {
-    fontSize: 14,
+    fontSize: 15,
     color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  subCatConTwo: {
+    alignItems: "center",
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: YELLOW_COLOR_CODE,
+    marginHorizontal: 18,
+    marginVertical: 4,
+    borderRadius: 10,
+  },
+  subCatTwoTxt: {
+    fontSize: 20,
+    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   centeredView: {
     justifyContent: "center",
