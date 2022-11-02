@@ -7,6 +7,25 @@ import {
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  straightVw: {
+    // flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    marginVertical: 5,
+  },
+  topContainer: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    marginHorizontal: 5,
+    borderRadius: 10,
+  },
+  topContainerTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    lineHeight: 22,
+  },
   MainConatiner: {
     paddingHorizontal: 16,
     flexDirection: "row",

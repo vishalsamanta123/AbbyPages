@@ -5,6 +5,8 @@ import {
   KeyboardAvoidingView,
   Text,
   Platform,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -40,6 +42,93 @@ const ListingsScreen = (props) => {
             <View style={styles.emptyConVw}>
               <Text style={styles.emptyConTxt}>No Restaurant is available</Text>
             </View>
+          );
+        }}
+        ListHeaderComponent={() => {
+          return (
+            <ScrollView
+              contentContainerStyle={styles.straightVw}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {props?.options?.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.topContainer,
+                      {
+                        backgroundColor: item.selected
+                          ? YELLOW_COLOR_CODE
+                          : null,
+                      },
+                    ]}
+                    onPress={() => props.handleOptions(item, index)}
+                  >
+                    <Text style={styles.topContainerTxt}>{item.name}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+              {/* <TouchableOpacity
+                style={[
+                  styles.topContainer,
+                  {
+                    backgroundColor:
+                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
+                  },
+                ]}
+                onPress={() => props.handleOptions("0")}
+              >
+                <Text style={styles.topContainerTxt}>All</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.topContainer,
+                  {
+                    backgroundColor:
+                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
+                  },
+                ]}
+                onPress={() => props.handleOptions("0")}
+              >
+                <Text style={styles.topContainerTxt}>Open Now</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.topContainer,
+                  {
+                    backgroundColor:
+                      props?.search?.option === "1" ? YELLOW_COLOR_CODE : null,
+                  },
+                ]}
+                onPress={() => props.handleOptions("1")}
+              >
+                <Text style={styles.topContainerTxt}>Open Delivery</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.topContainer,
+                  {
+                    backgroundColor:
+                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
+                  },
+                ]}
+                onPress={() => props.handleOptions("0")}
+              >
+                <Text style={styles.topContainerTxt}>Offer Takeout</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.topContainer,
+                  {
+                    backgroundColor:
+                      props?.search?.option === "2" ? YELLOW_COLOR_CODE : null,
+                  },
+                ]}
+                onPress={() => props.handleOptions("2")}
+              >
+                <Text style={styles.topContainerTxt}>Reservation</Text>
+              </TouchableOpacity> */}
+            </ScrollView>
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}

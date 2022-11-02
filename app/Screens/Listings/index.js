@@ -34,11 +34,24 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
+  const [option, setOption] = useState([]);
+  console.log("option: ", option);
+  const [options, setOptions] = useState([
+    { type: "", name: "All", selected: false },
+    { type: "9", name: "Open Now", selected: false },
+    { type: "1", name: "Open Delivery", selected: false },
+    { type: "10", name: "Offer Takeout", selected: false },
+    { type: "2", name: "Reservation", selected: false },
+  ]);
 
   useEffect(() => {
     if (route?.params?.nearbySearch) {
-      const { nearbySearch } = route?.params;
+      const { nearbySearch } = route?.params || {};
       setSearch(nearbySearch);
+      const selectedData = options.find((itm, index) => {
+        return itm.type === nearbySearch.option;
+      });
+      const newArray = { ...selectedData, selected: true };
       handleSearchData(0);
     } else {
       if (inputSearch) {
@@ -65,6 +78,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         offset: offSet,
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
+        options: option?.length > 0 ? option.toString() : "",
       };
       const { data } = await apiCall(
         "POST",
@@ -134,9 +148,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         interest: item?.interest ? item?.interest : 0,
         views: item?.views,
       };
-      console.log("params", params);
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data", data);
       if (data.status == 200) {
         if (search) {
           if (inputSearch) {
@@ -262,6 +274,15 @@ const ListingsScreenView = ({ navigation, route }) => {
     });
   };
 
+  const handleOptions = (item, index) => {
+    const newArray = [...options];
+    const object = newArray[index];
+    if (item?.selected === false) {
+      const newObj = { ...object, selected: true };
+      newArray[index] = newObj;
+      setOptions(newArray);
+    }
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -276,6 +297,9 @@ const ListingsScreenView = ({ navigation, route }) => {
         offSet={offSet}
         stopOffset={stopOffset}
         inputSearch={inputSearch}
+        options={options}
+        option={option}
+        handleOptions={handleOptions}
       />
       <Error
         message={errorMessage}

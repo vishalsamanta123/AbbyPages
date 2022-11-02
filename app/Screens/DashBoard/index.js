@@ -32,9 +32,38 @@ const DashBoardView = ({ navigation }) => {
     parents_id: "",
     status: "",
   });
+  const openDeliveryObj = {
+    business_type: 1,
+    category_name: "Open Delivery",
+    description: null,
+    id: "",
+    image: "no_image.png",
+    is_both: 1,
+    is_show: 1,
+    main_parent_id: "",
+    parents_id: "",
+    status: 1,
+    option: "1",
+  };
+  const reservationsObj = {
+    business_type: 1,
+    category_name: "Reservations",
+    description: null,
+    id: "",
+    image: "no_image.png",
+    is_both: 1,
+    is_show: 1,
+    main_parent_id: "",
+    parents_id: "",
+    status: 1,
+    option: "2",
+  };
   const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
   const [subCatType, setSubCatType] = useState("");
-  const [subCatData, setSubCatData] = useState([]);
+  const [subCatData, setSubCatData] = useState([
+    openDeliveryObj,
+    reservationsObj,
+  ]);
   const [newActivity, setNewActivity] = useState({
     recent_activity: [],
     product_url: "",
@@ -212,38 +241,55 @@ const DashBoardView = ({ navigation }) => {
     }
   };
   const handleSubItems = async (type) => {
-    setSubCatType(type);
     if (type != subCatType) {
-      setSubCatData([]);
-      if (type === 1 || type === 3) {
-        try {
-          const params = {
-            business_type: type,
-          };
-          const { data } = await apiCall(
-            "POST",
-            ENDPOINTS.CATEGORIES_LIST,
-            params
-          );
-          if (data.status === 200) {
-            setSubCatData(data.data);
-          } else {
-            setErrorMessage(data.message);
-            setVisibleErr(true);
-          }
-        } catch (error) {
-          setVisibleErr(true);
-          setErrorMessage(error.message);
-        }
-      }
-    } else {
+      setSubCatData([openDeliveryObj, reservationsObj]);
       setSubCatType("");
+      if (type === 1 || 3) {
+        setSubCatType(type);
+        handleCategories(type);
+      } else {
+        setSubCatType(type);
+      }
     }
   };
-  const handleNavTo = (type) => {
-    console.log("type: ", type);
+  const handleCategories = async (type) => {
+    try {
+      const params = {
+        business_type: type,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.CATEGORIES_LIST, params);
+      if (data.status === 200) {
+        if (type === 3) {
+          setSubCatData(data.data);
+        } else {
+          data.data.map((item) => {
+            subCatData.push(item);
+            setSubCatData([...subCatData]);
+          });
+        }
+      } else {
+        setErrorMessage(data.message);
+        setVisibleErr(true);
+      }
+    } catch (error) {
+      setVisibleErr(true);
+      setErrorMessage(error.message);
+    }
+  };
+  const handleNavTo = (type, index) => {
     if (typeof type === "object") {
-      if (type) {
+      if (
+        type.category_name === "Open Delivery" ||
+        type.category_name === "Reservations"
+      ) {
+        const newObj = subCatData[index];
+        if (type.category_name === "Open Delivery") {
+          const newData = { ...newObj, option: "1" };
+          navigation.navigate("Listings", { nearbySearch: newData });
+        } else {
+          const newData = { ...newObj, option: "2" };
+          navigation.navigate("Listings", { nearbySearch: newData });
+        }
       } else {
       }
     } else {

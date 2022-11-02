@@ -44,12 +44,32 @@ const DashBoardScreen = (props) => {
               <>
                 {props.subCatData.map((item, index) => {
                   return (
-                    <TouchableOpacity
-                      onPress={() => props.handleNavTo(item)}
-                      style={styles.subCatCon}
-                    >
-                      <Text style={styles.subCatTxt}>{item.category_name}</Text>
-                    </TouchableOpacity>
+                    <>
+                      {props.subCatType === 1 ? (
+                        <TouchableOpacity
+                          onPress={() => props.handleNavTo(item,index)}
+                          style={styles.subCatCon}
+                        >
+                          <Text style={styles.subCatTxt}>
+                            {item.category_name}
+                          </Text>
+                        </TouchableOpacity>
+                      ) : (
+                        <>
+                          {item.category_name != "Open Delivery" ||
+                          item.category_name != "Reservations" ? (
+                            <TouchableOpacity
+                              onPress={() => props.handleNavTo(item,index)}
+                              style={styles.subCatCon}
+                            >
+                              <Text style={styles.subCatTxt}>
+                                {item.category_name}
+                              </Text>
+                            </TouchableOpacity>
+                          ) : null}
+                        </>
+                      )}
+                    </>
                   );
                 })}
               </>
