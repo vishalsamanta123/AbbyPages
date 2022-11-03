@@ -52,14 +52,15 @@ const ListingsScreen = (props) => {
               showsHorizontalScrollIndicator={false}
             >
               {props?.options?.map((item, index) => {
+                const selected = props?.search?.selectOption?.filter((itm) => {
+                  return itm.type === item.type;
+                });
                 return (
                   <TouchableOpacity
                     style={[
                       styles.topContainer,
                       {
-                        backgroundColor: item.selected
-                          ? YELLOW_COLOR_CODE
-                          : null,
+                        // backgroundColor:
                       },
                     ]}
                     onPress={() => props.handleOptions(item, index)}

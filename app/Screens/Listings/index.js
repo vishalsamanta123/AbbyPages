@@ -29,29 +29,32 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState({
+    selectOption: [],
+  });
   const [inputSearch, setInputSearch] = useState("");
   const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
   const [restroList, setRestroList] = useState([]);
-  const [option, setOption] = useState([]);
-  console.log("option: ", option);
-  const [options, setOptions] = useState([
-    { type: "", name: "All", selected: false },
-    { type: "9", name: "Open Now", selected: false },
-    { type: "1", name: "Open Delivery", selected: false },
-    { type: "10", name: "Offer Takeout", selected: false },
-    { type: "2", name: "Reservation", selected: false },
-  ]);
+  const options = [
+    { type: "", name: "All" },
+    { type: "9", name: "Open Now" },
+    { type: "1", name: "Open Delivery" },
+    { type: "10", name: "Offer Takeout" },
+    { type: "2", name: "Reservation" },
+  ];
 
   useEffect(() => {
     if (route?.params?.nearbySearch) {
       const { nearbySearch } = route?.params || {};
-      setSearch(nearbySearch);
-      const selectedData = options.find((itm, index) => {
-        return itm.type === nearbySearch.option;
-      });
-      const newArray = { ...selectedData, selected: true };
+      if (search?.selectOption?.length === 0) {
+        const selectedData = options.filter((itm, index) => {
+          return itm.type === nearbySearch.selectOption;
+        });
+        const newSearchObj = nearbySearch;
+        newSearchObj.selectOption = selectedData;
+        setSearch(newSearchObj);
+      }
       handleSearchData(0);
     } else {
       if (inputSearch) {
@@ -78,8 +81,10 @@ const ListingsScreenView = ({ navigation, route }) => {
         offset: offSet,
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
-        options: option?.length > 0 ? option.toString() : "",
       };
+      var selectedOptions = search?.selectOption.map(({ type }) => type);
+      params.options = selectedOptions.toString();
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
@@ -275,12 +280,41 @@ const ListingsScreenView = ({ navigation, route }) => {
   };
 
   const handleOptions = (item, index) => {
-    const newArray = [...options];
-    const object = newArray[index];
-    if (item?.selected === false) {
-      const newObj = { ...object, selected: true };
-      newArray[index] = newObj;
-      setOptions(newArray);
+    if (item.type === "") {
+      setSearch({
+        ...search,
+        selectOption: [item],
+      });
+    } else {
+      if (search.selectOption.length > 0) {
+        search.selectOption?.find((check) => {
+          if (check.type === item.type) {
+            const arrays = [...search.selectOption];
+            arrays.splice(
+              arrays?.findIndex((rmv) => rmv.type === item.type),
+              1
+            );
+            setSearch({
+              ...search,
+              selectOption: arrays,
+            });
+          } else {
+            const arrays = [...search.selectOption];
+            arrays.push(item);
+            setSearch({
+              ...search,
+              selectOption: arrays,
+            });
+          }
+        });
+      } else {
+        const arrays = [...search.selectOption];
+        arrays.push(item);
+        setSearch({
+          ...search,
+          selectOption: arrays,
+        });
+      }
     }
   };
   return (
@@ -298,7 +332,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         stopOffset={stopOffset}
         inputSearch={inputSearch}
         options={options}
-        option={option}
+        // selectOption={selectOption}
         handleOptions={handleOptions}
       />
       <Error

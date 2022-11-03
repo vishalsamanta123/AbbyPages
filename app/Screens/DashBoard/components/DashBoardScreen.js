@@ -27,6 +27,34 @@ import {
 import { Images } from "../../../Utils/images";
 
 const DashBoardScreen = (props) => {
+  const openDeliveryObj = {
+    business_type: 1,
+    category_name: "Open Delivery",
+    description: null,
+    id: "",
+    image: "no_image.png",
+    is_both: 1,
+    is_show: 1,
+    main_parent_id: "",
+    parents_id: "",
+    status: 1,
+    option: "1",
+    selectOption: "1",
+  };
+  const reservationsObj = {
+    business_type: 1,
+    category_name: "Reservations",
+    description: null,
+    id: "",
+    image: "no_image.png",
+    is_both: 1,
+    is_show: 1,
+    main_parent_id: "",
+    parents_id: "",
+    status: 1,
+    option: "2",
+    selectOption: "2",
+  };
   const [moreShow, setMoreShow] = useState(4);
   const handleShowMore = () => {
     if (moreShow === props?.newActivity?.recent_activity.length) {
@@ -39,42 +67,42 @@ const DashBoardScreen = (props) => {
     return (
       <>
         {props.subCatType === 1 || props.subCatType === 3 ? (
-          <View style={styles.subCatVw}>
-            {props.subCatData.length > 0 ? (
-              <>
-                {props.subCatData.map((item, index) => {
-                  return (
-                    <>
-                      {props.subCatType === 1 ? (
-                        <TouchableOpacity
-                          onPress={() => props.handleNavTo(item,index)}
-                          style={styles.subCatCon}
-                        >
-                          <Text style={styles.subCatTxt}>
-                            {item.category_name}
-                          </Text>
-                        </TouchableOpacity>
-                      ) : (
-                        <>
-                          {item.category_name != "Open Delivery" ||
-                          item.category_name != "Reservations" ? (
-                            <TouchableOpacity
-                              onPress={() => props.handleNavTo(item,index)}
-                              style={styles.subCatCon}
-                            >
-                              <Text style={styles.subCatTxt}>
-                                {item.category_name}
-                              </Text>
-                            </TouchableOpacity>
-                          ) : null}
-                        </>
-                      )}
-                    </>
-                  );
-                })}
-              </>
-            ) : null}
-          </View>
+          <FlatList
+            data={props.subCatData}
+            contentContainerStyle={styles.subCatVw}
+            ListHeaderComponent={() => {
+              return (
+                <>
+                  {props.subCatType === 1 && (
+                    <View style={styles.subCatVw}>
+                      <TouchableOpacity
+                        onPress={() => props.handleNavTo(openDeliveryObj)}
+                        style={styles.subCatCon}
+                      >
+                        <Text style={styles.subCatTxt}>Open Delivery</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => props.handleNavTo(reservationsObj)}
+                        style={styles.subCatCon}
+                      >
+                        <Text style={styles.subCatTxt}>Reservations</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </>
+              );
+            }}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => props.handleNavTo(item, index)}
+                  style={styles.subCatCon}
+                >
+                  <Text style={styles.subCatTxt}>{item.category_name}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
         ) : (
           <View>
             {props.subCatType === 2 ? (

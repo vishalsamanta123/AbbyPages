@@ -18,6 +18,7 @@ import _ from "lodash";
 import Error from "../../Components/Modal/error";
 import { Images } from "../../Utils/images";
 import { LINE_COMMON_COLOR_CODE, WHITE_COLOR_CODE } from "../../Utils/Constant";
+
 const ServiceProviderListingView = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -55,13 +56,14 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         setVisible(true);
       }
       const params = {
-        latitude: search.latitude,
-        longitude: search.longitude,
-        category_id: search.category_id,
+        business_type: search.business_type ? search.business_type : "",
+        latitude: search.latitude ? search.latitude : "",
+        longitude: search.longitude ? search.longitude : "",
+        category_id: search.category_id ? search.category_id : "",
         limit: 10 + offSet,
         offset: offSet,
-        business_type: 3,
         search_key: inputSearch ? inputSearch : null,
+        options: "",
       };
       const { data } = await apiCall(
         "POST",
@@ -122,7 +124,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
   const onPressLike = async (item) => {
-    console.log('item: ', item);
+    console.log("item: ", item);
     try {
       setVisible(true);
       const params = {
@@ -197,8 +199,8 @@ const ServiceProviderListingView = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => onPressLike(item)}>
                 <Image
                   style={{
-                    tintColor: item.user_like === 1
-                      ? null : LINE_COMMON_COLOR_CODE
+                    tintColor:
+                      item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
                   }}
                   source={Images.FAVRT_IMG}
                 />
@@ -235,10 +237,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
                             <Text style={styles.AddressTextStyles}>  {item.vegNonVegService}</Text>
                         </View> */}
           <View style={styles.InformationView}>
-            <Image
-              style={{ top: 4 }}
-              source={Images.FIRE_IMG}
-            />
+            <Image style={{ top: 4 }} source={Images.FIRE_IMG} />
             <Text style={styles.AddressTextStyles}>
               {moment(item.create_date).startOf("MM/DD/YYYY").fromNow()}
             </Text>
