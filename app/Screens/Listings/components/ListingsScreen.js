@@ -52,15 +52,20 @@ const ListingsScreen = (props) => {
               showsHorizontalScrollIndicator={false}
             >
               {props?.options?.map((item, index) => {
-                const selected = props?.search?.selectOption?.filter((itm) => {
-                  return itm.type === item.type;
-                });
+                const getSelected =
+                  props?.search?.selectOption?.length === 0
+                    ? ""
+                    : props?.search?.selectOption?.map(({ name }) => name);
                 return (
                   <TouchableOpacity
                     style={[
                       styles.topContainer,
                       {
-                        // backgroundColor:
+                        backgroundColor: getSelected
+                          ?.toString()
+                          ?.includes(item.name)
+                          ? YELLOW_COLOR_CODE
+                          : null,
                       },
                     ]}
                     onPress={() => props.handleOptions(item, index)}
@@ -69,66 +74,6 @@ const ListingsScreen = (props) => {
                   </TouchableOpacity>
                 );
               })}
-              {/* <TouchableOpacity
-                style={[
-                  styles.topContainer,
-                  {
-                    backgroundColor:
-                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
-                  },
-                ]}
-                onPress={() => props.handleOptions("0")}
-              >
-                <Text style={styles.topContainerTxt}>All</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.topContainer,
-                  {
-                    backgroundColor:
-                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
-                  },
-                ]}
-                onPress={() => props.handleOptions("0")}
-              >
-                <Text style={styles.topContainerTxt}>Open Now</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.topContainer,
-                  {
-                    backgroundColor:
-                      props?.search?.option === "1" ? YELLOW_COLOR_CODE : null,
-                  },
-                ]}
-                onPress={() => props.handleOptions("1")}
-              >
-                <Text style={styles.topContainerTxt}>Open Delivery</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.topContainer,
-                  {
-                    backgroundColor:
-                      props?.search?.option === "0" ? YELLOW_COLOR_CODE : null,
-                  },
-                ]}
-                onPress={() => props.handleOptions("0")}
-              >
-                <Text style={styles.topContainerTxt}>Offer Takeout</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.topContainer,
-                  {
-                    backgroundColor:
-                      props?.search?.option === "2" ? YELLOW_COLOR_CODE : null,
-                  },
-                ]}
-                onPress={() => props.handleOptions("2")}
-              >
-                <Text style={styles.topContainerTxt}>Reservation</Text>
-              </TouchableOpacity> */}
             </ScrollView>
           );
         }}
@@ -136,7 +81,7 @@ const ListingsScreen = (props) => {
         onMomentumScrollBegin={() => setScrollBegin(true)}
         onEndReached={() => {
           if (scrollBegin) {
-            if (props.search && props.inputSearch) {
+            if (props.search || props.inputSearch) {
               !props.stopOffset
                 ? props?.handleSearchData(
                     props.restroList.length > 5 ? props.offSet + 1 : 0

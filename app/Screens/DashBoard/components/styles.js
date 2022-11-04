@@ -16,12 +16,13 @@ const Styles = StyleSheet.create({
   LocatnSrchCntain: {
     flex: 1,
     backgroundColor: YELLOW_COLOR_CODE,
+    paddingVertical: 40,
   },
   straightVw: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    paddingVertical: 10,
+    paddingBottom: 10,
   },
   topVwsCon: {
     paddingVertical: 6,
@@ -268,6 +269,18 @@ const Styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: FONT_FAMILY_REGULAR,
     marginLeft: 5,
+  },
+  writeReviewVw: {
+    paddingHorizontal: 10,
+  },
+  reviewAddressVw: {
+    padding: 20,
+    borderColor: "#d8d8d8",
+    borderWidth: 1,
+    borderRadius: 12,
+    margin: 10,
+    marginLeft: 15,
+    marginRight: 15,
   },
 });
 export default Styles;

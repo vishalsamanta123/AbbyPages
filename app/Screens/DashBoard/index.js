@@ -22,6 +22,7 @@ const DashBoardView = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [forBusinees, setForBusinees] = useState(false);
+  const [writeReview, setWriteReview] = useState(false);
   const [dashBoardDetail, setDashBoardDetail] = useState("");
   const [businessCategory, setBusinessCategory] = useState({
     business_type: "",
@@ -250,11 +251,8 @@ const DashBoardView = ({ navigation }) => {
         type.category_name === "Open Delivery" ||
         type.category_name === "Reservations"
       ) {
-        if (type.category_name === "Open Delivery") {
-          navigation.navigate("Listings", { nearbySearch: type });
-        } else {
-          navigation.navigate("Listings", { nearbySearch: type });
-        }
+        console.log("type: ", type);
+        navigation.navigate("Listings", { nearbySearch: type });
       } else {
         const getObject = subCatData[index];
         const newObj = {
@@ -273,7 +271,7 @@ const DashBoardView = ({ navigation }) => {
         }
       }
     } else {
-      if (type === "postJob" || type === "createEvent" || type === "sellOn") {
+      if (type === "toBusiness") {
         setForBusinees(true);
       } else {
         if (type === "findEvent") {
@@ -326,6 +324,8 @@ const DashBoardView = ({ navigation }) => {
         subCatType={subCatType}
         subCatData={subCatData}
         handleNavTo={handleNavTo}
+        writeReview={writeReview}
+        setWriteReview={setWriteReview}
       />
       <Error
         message={errorMessage}

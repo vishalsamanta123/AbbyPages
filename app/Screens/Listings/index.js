@@ -29,9 +29,7 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [search, setSearch] = useState({
-    selectOption: [],
-  });
+  const [search, setSearch] = useState({ selectOption: [] });
   const [inputSearch, setInputSearch] = useState("");
   const [offSet, setOffSet] = useState(0);
   const [stopOffset, setstopOffset] = useState(false);
@@ -41,22 +39,29 @@ const ListingsScreenView = ({ navigation, route }) => {
     { type: "9", name: "Open Now" },
     { type: "1", name: "Open Delivery" },
     { type: "10", name: "Offer Takeout" },
-    { type: "2", name: "Reservation" },
+    { type: "2", name: "Reservations" },
   ];
 
   useEffect(() => {
     if (route?.params?.nearbySearch) {
+      console.log("IT WORKING");
       const { nearbySearch } = route?.params || {};
       if (search?.selectOption?.length === 0) {
-        const selectedData = options.filter((itm, index) => {
-          return itm.type === nearbySearch.selectOption;
+        const selectedArry = options?.filter((item) => {
+          return item.type === nearbySearch?.selectOption;
         });
-        const newSearchObj = nearbySearch;
-        newSearchObj.selectOption = selectedData;
-        setSearch(newSearchObj);
+        const getObj = nearbySearch;
+        getObj.selectOption = selectedArry;
+        setSearch(getObj);
+        handleSearchData(0);
+      } else {
+        if (search?.selectOption?.length === 0) {
+          setSearch(nearbySearch);
+        }
+        handleSearchData(0);
       }
-      handleSearchData(0);
     } else {
+      console.log("IT WORKING TWOO");
       if (inputSearch) {
         handleSearchData(0);
       } else {
@@ -82,8 +87,8 @@ const ListingsScreenView = ({ navigation, route }) => {
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
       };
-      var selectedOptions = search?.selectOption.map(({ type }) => type);
-      params.options = selectedOptions.toString();
+      const getOptions = search?.selectOption?.map(({ type }) => type);
+      params.options = getOptions.length === 0 ? "" : getOptions?.toString();
       console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
@@ -280,17 +285,20 @@ const ListingsScreenView = ({ navigation, route }) => {
   };
 
   const handleOptions = (item, index) => {
-    if (item.type === "") {
+    if (item?.type === "") {
+      //when all types is selected it works
+      const allTypes = [item];
       setSearch({
         ...search,
-        selectOption: [item],
+        selectOption: allTypes,
       });
     } else {
-      if (search.selectOption.length > 0) {
-        search.selectOption?.find((check) => {
-          if (check.type === item.type) {
+      if (search?.selectOption?.length > 0) {
+        search?.selectOption?.find((check) => {
+          if (check?.type === item?.type) {
+            //when same type is selected it works to remove it
             const arrays = [...search.selectOption];
-            arrays.splice(
+            arrays?.splice(
               arrays?.findIndex((rmv) => rmv.type === item.type),
               1
             );
@@ -299,20 +307,36 @@ const ListingsScreenView = ({ navigation, route }) => {
               selectOption: arrays,
             });
           } else {
-            const arrays = [...search.selectOption];
-            arrays.push(item);
-            setSearch({
-              ...search,
-              selectOption: arrays,
-            });
+            if (search?.selectOption[0]?.type === "") {
+              //when other than all types is selected it works to add it
+              const toRemoveAll = [...search.selectOption];
+              toRemoveAll?.splice(
+                arrays?.findIndex((rmv) => rmv.type === ""),
+                1
+              );
+              const arrays = [...toRemoveAll];
+              arrays?.push(item);
+              setSearch({
+                ...search,
+                selectOption: arrays,
+              });
+            } else {
+              //when another type is selected it works to add it
+              const arrays = [...search.selectOption];
+              arrays?.push(item);
+              setSearch({
+                ...search,
+                selectOption: arrays,
+              });
+            }
           }
         });
       } else {
-        const arrays = [...search.selectOption];
-        arrays.push(item);
+        //when nothing is selected it works
+        const firstType = [item.type];
         setSearch({
           ...search,
-          selectOption: arrays,
+          selectOption: firstType,
         });
       }
     }

@@ -6,11 +6,12 @@ const Loader = () => {
   return (
     <View
       style={{
-        backgroundColor: "#000",
+        backgroundColor: "#000000",
+        // backgroundColor: "rgba(0,0,0,0.9)",
         position: "absolute",
         zIndex: 1,
         justifyContent: "center",
-        alignSelf: "center",
+        alignItems: "center",
         width: "100%",
         opacity: 0.5,
         height: "100%",

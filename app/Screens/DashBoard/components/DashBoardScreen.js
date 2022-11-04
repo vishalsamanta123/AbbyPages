@@ -19,8 +19,6 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../Utils/Constant";
@@ -114,7 +112,7 @@ const DashBoardScreen = (props) => {
                   <Text style={styles.subCatTwoTxt}>Find Job</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => props.handleNavTo("postJob")}
+                  onPress={() => props.handleNavTo("toBusiness")}
                   style={styles.subCatConTwo}
                 >
                   <Text style={styles.subCatTwoTxt}>Post Jobs</Text>
@@ -137,7 +135,7 @@ const DashBoardScreen = (props) => {
                       <Text style={styles.subCatTwoTxt}>Find Event</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => props.handleNavTo("createEvent")}
+                      onPress={() => props.handleNavTo("toBusiness")}
                       style={styles.subCatConTwo}
                     >
                       <Text style={styles.subCatTwoTxt}>Create an Event</Text>
@@ -163,7 +161,7 @@ const DashBoardScreen = (props) => {
                           <Text style={styles.subCatTwoTxt}>Shop</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                          onPress={() => props.handleNavTo("sellOn")}
+                          onPress={() => props.handleNavTo("toBusiness")}
                           style={styles.subCatConTwo}
                         >
                           <Text style={styles.subCatTwoTxt}>Sell On ABBY</Text>
@@ -201,10 +199,16 @@ const DashBoardScreen = (props) => {
           style={styles.LocatnSrchCntain}
         >
           <View style={styles.straightVw}>
-            <TouchableOpacity style={styles.topVwsCon}>
+            <TouchableOpacity
+              onPress={() => props.handleNavTo("toBusiness")}
+              style={styles.topVwsCon}
+            >
               <Text style={styles.topVwsTxt}>For Busines</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.topVwsCon}>
+            <TouchableOpacity
+              onPress={() => props.setWriteReview(true)}
+              style={styles.topVwsCon}
+            >
               <Text style={styles.topVwsTxt}>Write A Review</Text>
             </TouchableOpacity>
           </View>
@@ -576,6 +580,29 @@ const DashBoardScreen = (props) => {
                 </TouchableOpacity>
               )}
             />
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType={"none"}
+        hardwareAccelerated={true}
+        visible={props.writeReview}
+        onRequestClose={() => {
+          props.setWriteReview(false);
+        }}
+      >
+        <View style={CommonStyles.container}>
+          <Header
+            RightImg={null}
+            HeaderText={"Find Business"}
+            MainHeadStyle={{ color: WHITE_COLOR_CODE }}
+            tintColor={WHITE_COLOR_CODE}
+            mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+            onPressBackFun={() => props.setWriteReview(false)}
+          />
+          <View style={styles.writeReviewVw}>
+            <Text style={styles.titlesTxt}>Find a business to review</Text>
+         
           </View>
         </View>
       </Modal>
