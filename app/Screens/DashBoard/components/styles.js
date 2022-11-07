@@ -11,6 +11,9 @@ import {
   BLUE_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
   LIGHT_GREEN_COLOR_CODE,
+  SMALL_TEXT_COLOR_CODE,
+  LIGHT_WHITE_COLOR_CODE,
+  FONT_FAMILY_BOLD,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   LocatnSrchCntain: {
@@ -21,7 +24,6 @@ const Styles = StyleSheet.create({
   straightVw: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
     paddingBottom: 10,
   },
   topVwsCon: {
@@ -272,6 +274,18 @@ const Styles = StyleSheet.create({
   },
   writeReviewVw: {
     paddingHorizontal: 10,
+    backgroundColor: LIGHT_WHITE_COLOR_CODE,
+    marginVertical: 5,
+    justifyContent: "center",
+    marginHorizontal: 5,
+    borderRadius: 10,
+  },
+  bigTitleTxt: {
+    fontSize: 24,
+    paddingLeft: 0,
+    color: LIGHT_BLACK_COLOR_CODE,
+    marginTop: 4,
+    fontFamily: FONT_FAMILY_BOLD,
   },
   reviewAddressVw: {
     padding: 20,
@@ -281,6 +295,22 @@ const Styles = StyleSheet.create({
     margin: 10,
     marginLeft: 15,
     marginRight: 15,
+  },
+  reviewCont: {
+    paddingVertical: 8,
+    backgroundColor: WHITE_COLOR_CODE,
+    paddingHorizontal: 5,
+    borderRadius: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 6,
+  },
+  reviewContTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: GREY_COLOR_CODE,
+    paddingVertical: 7,
+    marginLeft: 8,
   },
 });
 export default Styles;

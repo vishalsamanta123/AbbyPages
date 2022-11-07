@@ -2,6 +2,7 @@ export const Images = {
   SPLASH_LOGO: require("../Assets/login_graphic.png"),
   BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
+  ANALYSTIC_DATA: require("../Assets/data-analytics.png"),
 
   //-------------Important Images-----------------//
   RESTO_LIST_IMG: require("../Assets/restaurant_list_icon.png"),

@@ -198,7 +198,7 @@ const DashBoardScreen = (props) => {
           source={Images.EMPLOYESS_IMG}
           style={styles.LocatnSrchCntain}
         >
-          <View style={styles.straightVw}>
+          <View style={[styles.straightVw, { justifyContent: "space-evenly" }]}>
             <TouchableOpacity
               onPress={() => props.handleNavTo("toBusiness")}
               style={styles.topVwsCon}
@@ -600,10 +600,52 @@ const DashBoardScreen = (props) => {
             mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
             onPressBackFun={() => props.setWriteReview(false)}
           />
-          <View style={styles.writeReviewVw}>
-            <Text style={styles.titlesTxt}>Find a business to review</Text>
-         
-          </View>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={[styles.writeReviewVw, { flex: 0 }]}>
+              <Text style={styles.bigTitleTxt}>Find a business to review</Text>
+              <View style={styles.straightVw}>
+                <Image
+                  style={{ width: 32, height: 32, marginRight: 5 }}
+                  source={Images.COMPANY_REVIEW_IMG}
+                />
+                <Text
+                  numberOfLines={2}
+                  style={[styles.subCatTxt, { width: "85%" }]}
+                >
+                  Review anything from your favorite patio spot to your local
+                  flower shop.
+                </Text>
+              </View>
+            </View>
+            <ImageBackground
+              source={Images.ANALYSTIC_DATA}
+              resizeMode={"contain"}
+              style={[styles.writeReviewVw, { flex: 1 }]}
+            >
+              <TouchableOpacity style={styles.reviewCont}>
+                <Image source={Images.SERVICE_LIST_IMG} />
+                <Text style={styles.reviewContTxt}>
+                  Try lunch,yoga studio,plumber
+                </Text>
+              </TouchableOpacity>
+              <View style={styles.reviewCont}>
+                <Image source={Images.LOCATION_IMG} />
+                <Text style={styles.reviewContTxt}>Search places..</Text>
+              </View>
+            </ImageBackground>
+            <View style={[styles.writeReviewVw, { flex: 1 }]}>
+              <Text style={styles.bigTitleTxt}>
+                Visited one of these places recently?
+              </Text>
+              <Text
+                numberOfLines={2}
+                style={[styles.subCatTxt, { width: "85%" }]}
+              >
+                We’re out of suggestions for you right now. Keep on using
+                AbbyPages and we’ll have some more for you soon.
+              </Text>
+            </View>
+          </ScrollView>
         </View>
       </Modal>
     </View>
