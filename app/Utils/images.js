@@ -178,6 +178,7 @@ export const Images = {
   VIEW_EYE_IMG: require("../Assets/viewed_icon.png"),
   PRIMARY_IMG: require("../Assets/add_primary_icon_color.png"),
   CAP_SUCCESS_IMG: require("../Assets/success_icon.png"),
+  SATISFACTION_IMG: require("../Assets/satisfaction.png"),
 };
 //delete
 //map_field_icon.png on LOCATION_IMG

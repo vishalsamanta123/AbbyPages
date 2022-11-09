@@ -601,16 +601,21 @@ const DashBoardScreen = (props) => {
             onPressBackFun={() => props.setWriteReview(false)}
           />
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={[styles.writeReviewVw, { flex: 0 }]}>
+            <View
+              style={[styles.writeReviewVw, { flex: 0, backgroundColor: null }]}
+            >
               <Text style={styles.bigTitleTxt}>Find a business to review</Text>
               <View style={styles.straightVw}>
                 <Image
-                  style={{ width: 32, height: 32, marginRight: 5 }}
+                  style={styles.starImg}
                   source={Images.COMPANY_REVIEW_IMG}
                 />
                 <Text
                   numberOfLines={2}
-                  style={[styles.subCatTxt, { width: "85%" }]}
+                  style={[
+                    styles.subCatTxt,
+                    { width: "85%", color: YELLOW_COLOR_CODE },
+                  ]}
                 >
                   Review anything from your favorite patio spot to your local
                   flower shop.
@@ -637,13 +642,16 @@ const DashBoardScreen = (props) => {
               <Text style={styles.bigTitleTxt}>
                 Visited one of these places recently?
               </Text>
-              <Text
-                numberOfLines={2}
-                style={[styles.subCatTxt, { width: "85%" }]}
-              >
-                We’re out of suggestions for you right now. Keep on using
-                AbbyPages and we’ll have some more for you soon.
-              </Text>
+              <View style={{ alignItems: "center" }}>
+                <Image source={Images.SATISFACTION_IMG} />
+                <Text
+                  numberOfLines={2}
+                  style={[styles.subCatTxt, { width: "85%" }]}
+                >
+                  We’re out of suggestions for you right now. Keep on using
+                  AbbyPages and we’ll have some more for you soon.
+                </Text>
+              </View>
             </View>
           </ScrollView>
         </View>

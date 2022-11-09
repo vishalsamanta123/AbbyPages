@@ -287,6 +287,11 @@ const Styles = StyleSheet.create({
     marginTop: 4,
     fontFamily: FONT_FAMILY_BOLD,
   },
+  starImg: {
+    width: 32,
+    height: 32,
+    marginRight: 5,
+  },
   reviewAddressVw: {
     padding: 20,
     borderColor: "#d8d8d8",
