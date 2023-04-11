@@ -12,6 +12,7 @@ import {
   TRANSPARENT_CODE,
   LIGHT_WHITE_COLOR_CODE,
   GREY_COLOR_CODE,
+  IOS,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   mainVw: {
@@ -173,7 +174,7 @@ const Styles = StyleSheet.create({
   searchModal: {
     flexGrow: 1,
     backgroundColor: WHITE_COLOR_CODE,
-    paddingTop: 18,
+    paddingTop: IOS ? 40 : 18,
   },
   searchTxt: {
     fontSize: 22,
@@ -185,7 +186,7 @@ const Styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     marginRight: 8,
-    top: 6,
+    top:IOS ? 40 : 6,
   },
   searchVw: {
     marginHorizontal: 30,

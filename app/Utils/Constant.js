@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions,  } from "react-native";
+import { Dimensions, Platform,  } from "react-native";
 
 //height Width
 export const windowWidth = Dimensions.get("screen").width;
@@ -32,6 +32,7 @@ export const LIGHT_WHITE_COLOR_CODE = "#C7CBCB";
 export const LIGHT_BLACK_COLOR_CODE = "#262626";
 export const DOT = "\u2B24";
 export const MAP_KEY = "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4";
+export const IOS=Platform.OS==='ios'
 // export const LINE_COMMON_COLOR_CODE = "#262626";
 //BASEURL
 // export const BASEURL = 'https://itinformatix.org:3040';/*  */

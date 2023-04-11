@@ -11,6 +11,7 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
+  IOS,
   WHITE_COLOR_CODE,
   windowHeight,
   windowWidth,
@@ -350,6 +351,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: IOS ? 10 : 0,
   },
   iconActiveVw: {
     borderRadius: 100,
