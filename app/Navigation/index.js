@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //------------------------Styles-------------------//
 import { Image, StatusBar, View, StyleSheet } from "react-native";
@@ -169,26 +170,26 @@ import AddPhotosScreen from "../Screens/AddPhotos";
 import BookmarkMapScreen from "../Screens/BookmarkMap";
 import CashBackScreen from "../Screens/CashBack";
 import ManageFriendInviteScreen from "../Screens/ManageFriendInvite";
+import MyTabBar from "./MyTabBar";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Auth = createStackNavigator();
 const Business = createStackNavigator();
-// const Tab = createBottomTabNavigator();
-// function TabNavigation() {
-//     return (
-//         <Tab.Navigator
-//             lazy={true}
-//             tabBar={props => <MyTabBar {...props} />}>
-//             <Tab.Screen name="Listings" component={ListingsScreen} />
-//             <Tab.Screen name="BusinessHome" component={BusinessHomeScreen} />
-//             <Tab.Screen name="OpeningHours" component={OpeningHoursScreen} />
-//             <Tab.Screen name="UserProfile" component={UserProfileScreen} />
-//             <Tab.Screen name="OrderHistory" component={OrderHistoryScreen} />
-//         </Tab.Navigator>
-//     )
-// }
+const Tab = createBottomTabNavigator();
+function TabNavigation() {
+  return (
+    <Tab.Navigator lazy={true} tabBar={(props) => <MyTabBar {...props} />}>
+      <Tab.Screen name="DashBoard" component={CustomDrawerNavigation} />
+      <Tab.Screen name="EventManagement" component={EventManagement} />
+      <Tab.Screen name="JobList" component={JobListScreen} />
+      <Tab.Screen name="ShopList" component={ShopListScreen} />
+      <Tab.Screen name="ShopDetail" component={ShopDetailScreen} />
+    </Tab.Navigator>
+  );
+}
+
 function CustomBusinessNavigation() {
   return (
     <BusinessDrawer.Navigator
@@ -423,11 +424,12 @@ function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={"DashBoard"}
+      initialRouteName={"HomeDashboard"}
     >
       {/* <Stack.Screen name="BusinessOrderHistory" component={BusinessOrderHistoryScreen} /> */}
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
-      <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} />
+      <Stack.Screen name="HomeDashboard" component={TabNavigation} />
+      {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       <Stack.Screen name="ShopList" component={ShopListScreen} />
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Stack.Screen
@@ -703,5 +705,5 @@ const Styles = StyleSheet.create({
     alignSelf: "center",
     width: "65%",
     height: "50%",
-  }
+  },
 });

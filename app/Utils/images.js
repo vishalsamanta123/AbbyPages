@@ -1,16 +1,20 @@
 export const Images = {
   SPLASH_LOGO: require("../Assets/login_graphic.png"),
+  LOGO: require("../Assets/logo.png"),
   BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
   ANALYSTIC_DATA: require("../Assets/data-analytics.png"),
 
+  
   //-------------Important Images-----------------//
-  RESTO_LIST_IMG: require("../Assets/restaurant_list_icon.png"),
-  JOB_LIST_IMG: require("../Assets/job_list_icon.png"),
+  RESTO_LIST_IMG: require("../Assets/restaurants_list_icon.png"),
+  JOB_LIST_IMG: require("../Assets/jobs_list_icon.png"),
   SERVICE_LIST_IMG: require("../Assets/service_list_icon.png"),
-  EVENT_LIST_IMG: require("../Assets/event_list_icon.png"),
-  SHOPP_LIST_IMG: require("../Assets/shopping_list_icon.png"),
+  MOREIMAGE_IMG: require("../Assets/moreImage.png"),
+  EVENT_LIST_IMG: require("../Assets/events_list_icon.png"),
+  SHOPP_LIST_IMG: require("../Assets/shoppings_list_icon.png"),
   //-------------Important Images End-----------------//
+
 
   //-------------Other Images-----------------//
   ABOUT_IMG: require("../Assets/about_icon_1.png"),
@@ -179,6 +183,17 @@ export const Images = {
   PRIMARY_IMG: require("../Assets/add_primary_icon_color.png"),
   CAP_SUCCESS_IMG: require("../Assets/success_icon.png"),
   SATISFACTION_IMG: require("../Assets/satisfaction.png"),
+  MINICAR_IMG: require("../Assets/minicar.png"),
+  CATEGORY_IMG: require("../Assets/category.png"),
+  AUTOMOTIVE_IMG: require("../Assets/categories/car.png"),
+  RESTAURANTS_IMG: require("../Assets/categories/cutlery.png"),
+  NIGHTLIFE_IMG: require("../Assets/categories/drink.png"),
+  HOMESERVICE_IMG: require("../Assets/categories/house.png"),
+  MORE_IMG: require("../Assets/categories/more.png"),
+  ACTIVELIFE_IMG: require("../Assets/categories/morning-routine.png"),
+  SHOPPING_IMG: require("../Assets/categories/online-shopping.png"),
+  BEAUTYSPA_IMG: require("../Assets/categories/powder.png"),
+  COVER_IMG: require("../Assets/background-thedir-cover.jpg"),
 };
 //delete
 //map_field_icon.png on LOCATION_IMG

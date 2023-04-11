@@ -33,6 +33,7 @@ import {
 } from "../Utils/UserContext";
 import QuestionModal from "../Components/Modal/questionModal";
 import { Images } from "../Utils/images";
+import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 
 const DesignDrawer = () => {
   const [logoutVw, setLogoutVw] = useState(false);
@@ -128,9 +129,9 @@ const DesignDrawer = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => setLogoutVw(true)}>
+        {/* <TouchableOpacity onPress={() => setLogoutVw(true)}>
           <Image source={Images.LOGOUT_IMG} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <QuestionModal
         surringVisible={logoutVw}
@@ -162,14 +163,14 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={Images.DASHBOARD_IMG}
-                resizeMode={'contain'}
+              <IconX
+                origin={ICON_TYPE.FONT_AWESOME5}
+                name="home"
+                color={BLACK_COLOR_CODE}
               />
             </View>
             <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>Dashboard</Text>
+              <Text style={styles.drawerText}>Home</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -179,14 +180,18 @@ export function customDrawerContents(props) {
             }}
           >
             <View style={styles.ImgeView}>
-              <Image
-               source={Images.PROFILE_IMG}
-               />
+              <IconX
+                origin={ICON_TYPE.FONT_AWESOME}
+                name="user"
+                color={BLACK_COLOR_CODE}
+              />
             </View>
             <View style={styles.TextContain}>
-              <Text style={styles.drawerText}>Profile Settings</Text>
+              <Text style={styles.drawerText}>Profile</Text>
             </View>
           </TouchableOpacity>
+          
+
           {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -226,21 +231,20 @@ export function customDrawerContents(props) {
               <Text style={styles.drawerText}>Events</Text>
             </View>
           </TouchableOpacity> */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("UserEventsList");
             }}
           >
             <View style={styles.ImgeView}>
-              <Image source={Images.EVENT_IMG}
-               />
+              <Image source={Images.EVENT_IMG} />
             </View>
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>User Events</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
               props.navigation.navigate("OrderHistory");
@@ -252,7 +256,7 @@ export function customDrawerContents(props) {
             <View style={styles.TextContain}>
               <Text style={styles.drawerText}>Order History</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -355,6 +359,21 @@ export function customDrawerContents(props) {
               <Text style={styles.drawerText}>Check-Ins</Text>
             </View>
           </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.contactUsContainer}
+            onPress={() => setLogoutVw(true)}
+          >
+            <View style={styles.ImgeView}>
+              <IconX
+                origin={ICON_TYPE.FONT_AWESOME}
+                name="power-off"
+                color={BLACK_COLOR_CODE}
+              />
+            </View>
+            <View style={styles.TextContain}>
+              <Text style={styles.drawerText}>LogOut</Text>
+            </View>
+          </TouchableOpacity>
         </DrawerContentScrollView>
       </View>
     </View>
@@ -464,7 +483,7 @@ export function BusinessDrawerContents(props) {
               <Image
                 style={{ width: 25, height: 25 }}
                 source={Images.MANAGE_JOB_IMG}
-                resizeMode={'contain'}
+                resizeMode={"contain"}
               />
             </View>
             <View style={styles.TextContain}>
@@ -504,21 +523,21 @@ export function BusinessDrawerContents(props) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-          style={styles.contactUsContainer}
-          onPress={() => {
-            props.navigation.navigate("BusinessOrderHistory");
-          }}
-        >
-          <View style={styles.ImgeView}>
-            <Image
-              style={{ width: 25, height: 25 }}
-              source={Images.PRODUCT_ORDER_IMG}
-            />
-          </View>
-          <View style={styles.TextContain}>
-            <Text style={styles.drawerText}>My Orders</Text>
-          </View>
-        </TouchableOpacity>
+            style={styles.contactUsContainer}
+            onPress={() => {
+              props.navigation.navigate("BusinessOrderHistory");
+            }}
+          >
+            <View style={styles.ImgeView}>
+              <Image
+                style={{ width: 25, height: 25 }}
+                source={Images.PRODUCT_ORDER_IMG}
+              />
+            </View>
+            <View style={styles.TextContain}>
+              <Text style={styles.drawerText}>My Orders</Text>
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.contactUsContainer}
             onPress={() => {
@@ -528,7 +547,7 @@ export function BusinessDrawerContents(props) {
             <View style={styles.ImgeView}>
               <Image
                 style={{ width: 25, height: 25 }}
-                resizeMode={'contain'}
+                resizeMode={"contain"}
                 source={Images.PRIVACY_IMG}
               />
             </View>
@@ -552,8 +571,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   drawerText: {
-    fontFamily: FONT_FAMILY_LIGHT,
+    fontFamily: FONT_FAMILY_REGULAR,
     color: BLACK_COLOR_CODE,
+    fontSize: 16,
     paddingLeft: 5,
   },
   NavigationContain: {

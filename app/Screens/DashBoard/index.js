@@ -6,328 +6,99 @@ import _ from "lodash";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
-import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
-import QuestionModal from "../../Components/Modal/questionModal";
+import { windowWidth } from "../../Utils/Constant";
+
 
 const DashBoardView = ({ navigation }) => {
-  const [location, setLocation] = useState({
-    address: "",
-    latitude: "",
-    longitude: "",
-  });
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [forBusinees, setForBusinees] = useState(false);
-  const [writeReview, setWriteReview] = useState(false);
-  const [dashBoardDetail, setDashBoardDetail] = useState("");
-  const [businessCategory, setBusinessCategory] = useState({
-    business_type: "",
-    category_name: "",
-    description: "",
-    id: "",
-    image: "",
-    parents_id: "",
-    status: "",
+  const [sliderState, setSliderState] = useState({ currentPage: 0 });
+  const { currentPage: pageIndex } = sliderState;
+  const [recent_activity, setRecent_Activity] = useState([]);
+  const [businessTypes, setBusinessTypes] = useState([]);
+  const [moreCategory, setMoreCategory] = useState(false);
+  const [byCategory, setByCategory] = useState({
+    services: [],
+    moreServices: [],
   });
-  const [businessCategoryModal, setBusinessCategoryModal] = useState(false);
-  const [subCatType, setSubCatType] = useState("");
-  const [subCatData, setSubCatData] = useState([]);
-  const [newActivity, setNewActivity] = useState({
-    recent_activity: [],
-    product_url: "",
-    base_url: "",
-  });
-  const [directory, setDirectory] = useState({
-    business_type: [],
-    top_business: [],
-    ourDirectory: [
-      {
-        type: 0,
-        search_type: "All",
-      },
-      {
-        type: 1,
-        search_type: "Featured",
-      },
-      {
-        type: 2,
-        search_type: "Best Rate",
-      },
-      {
-        type: 3,
-        search_type: "Most View",
-      },
-      {
-        type: 4,
-        search_type: "Popular",
-      },
-      {
-        type: 5,
-        search_type: "Ad Directory",
-      },
-    ],
-  });
-  const [selectedType, setSelectedType] = useState(0);
 
   useEffect(() => {
-    handleRecentActivity();
-    handleDirectory(selectedType);
+    getDashBoardActivity();
+    getDashBoardBussiness();
+    getDashBoardCategory();
   }, []);
+  const setSliderPage = (event) => {
+    const { currentPage } = sliderState;
+    const { x } = event.nativeEvent.contentOffset;
+    const indexOfNextScreen = Math.ceil(x / windowWidth);
+    if (indexOfNextScreen !== currentPage) {
+      setSliderState({
+        ...sliderState,
+        currentPage: indexOfNextScreen,
+      });
+    }
+  };
 
-  const handleRecentActivity = async () => {
-    try {
-      setVisible(true);
-      const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
-      if (data.status === 200) {
-        setNewActivity({
-          recent_activity: data.data.length > 0 ? data.data : [],
-          product_url: data.product_url,
-          base_url: data.base_url,
-        });
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-      setVisible(false);
-    }
-  };
-  const handleDirectory = async (type) => {
-    try {
-      setSelectedType(type ? type : 0);
-      const params = {
-        search_type: type ? type : 0,
-      };
-      setVisible(true);
-      const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD, params);
-      if (data.status === 200) {
-        setDirectory({
-          ...directory,
-          business_type:
-            data.data.business_type.length > 0 ? data.data.business_type : [],
-          top_business:
-            data.data.top_business.length > 0 ? data.data.top_business : [],
-        });
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-      setVisible(false);
-    }
-  };
-  const onPressRestro = () => {
-    navigation.navigate("Listings");
-  };
-  const onPressJob = () => {
-    navigation.navigate("JobList");
-  };
-  const onPressProvider = () => {
-    navigation.navigate("ServiceProviderListing");
-  };
-  const onPressEvents = () => {
-    navigation.navigate("EventListings");
-  };
-  const onPressShopping = () => {
-    navigation.navigate("ShopList");
-  };
-  const SearchBusinessCategory = (searchKey) => {
-    const lowerCased = searchKey.toLowerCase();
-    const searchArray = [...dashBoardDetail];
-    const list = _.filter(searchArray, (item) => {
-      return item.category_name.toLowerCase().match(lowerCased);
-    });
-    if (searchKey == "") {
-      setVisible(true);
-      onPressSearchBusinessCategory();
-      setVisible(false);
-    }
-    setDashBoardDetail(list);
-  };
-  const onPressSearch = async () => {
-    if (businessCategory?.business_type != "") {
-      const params = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-        category_id: businessCategory.id,
-        selectOption: null,
-      };
-      if (businessCategory.category_name !== "") {
-        setBusinessCategory({
-          ...businessCategory,
-          category_name: "",
-        });
-        setLocation({
-          address: "",
-          latitude: "",
-          longitude: "",
-        });
-        if (businessCategory.business_type == 1) {
-          navigation.navigate("Listings", { nearbySearch: params });
-        }
-        if (businessCategory.business_type == 2) {
-          navigation.navigate("ShopList", { nearbySearch: params });
-        }
-        if (businessCategory.business_type == 3) {
-          navigation.navigate("ServiceProviderListing", {
-            nearbySearch: params,
-          });
-        }
-      } else {
-        setErrorMessage("Please select any category");
-        setVisibleErr(true);
-      }
-    } else {
-      setErrorMessage("No list available,Please select any other category");
-      setVisibleErr(true);
-    }
-  };
-  const onPressSearchBusinessCategory = async () => {
+  const getDashBoardActivity = async () => {
     setVisible(true);
-    setBusinessCategoryModal(true);
     try {
-      const { data } = await apiCall("POST", ENDPOINTS.GET_SERVICES_DETAIL);
+      const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
+      console.log('data: ', data);
       if (data.status === 200) {
-        setDashBoardDetail(data.data);
         setVisible(false);
+        setRecent_Activity(data?.data);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
         setVisible(false);
       }
     } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
       setVisible(false);
     }
   };
-  const handleSubItems = async (type) => {
-    if (type != subCatType) {
-      if (type === 1 || type === 3) {
-        setSubCatType(type);
-        await handleCategories(type);
-      } else {
-        setSubCatType(type);
-      }
-    } else {
-      if (subCatData.length > 0) {
-        setSubCatType("");
-      }
-    }
-  };
-  const handleCategories = async (type) => {
-    setSubCatData([]);
+  const getDashBoardCategory = async () => {
+    setVisible(true);
     try {
-      const params = {
-        business_type: type,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.CATEGORIES_LIST, params);
+      const { data } = await apiCall("GET", ENDPOINTS.CATEGORIES_AT_HOME_LIST);
       if (data.status === 200) {
-        setSubCatData(data.data);
+        setVisible(false);
+        setByCategory({
+          ...byCategory,
+          services: data?.data?.services,
+          moreServices: data?.data?.moreServices,
+        });
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        setVisible(false);
       }
     } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
+      setVisible(false);
     }
   };
-  const handleNavTo = (type, index) => {
-    if (typeof type === "object") {
-      if (
-        type.category_name === "Open Delivery" ||
-        type.category_name === "Reservations"
-      ) {
-        console.log("type: ", type);
-        navigation.navigate("Listings", { nearbySearch: type });
+  const getDashBoardBussiness = async () => {
+    setVisible(true);
+    try {
+      const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD);
+      if (data.status === 200) {
+        setVisible(false);
+        setBusinessTypes(data.data.business_type);
       } else {
-        const getObject = subCatData[index];
-        const newObj = {
-          ...getObject,
-          selectOption: null,
-          latitude: "",
-          longitude: "",
-          category_id: type.id,
-        };
-        if (type.business_type === 1) {
-          navigation.navigate("Listings", { nearbySearch: newObj });
-        } else {
-          navigation.navigate("ServiceProviderListing", {
-            nearbySearch: newObj,
-          });
-        }
+        setVisible(false);
       }
-    } else {
-      if (type === "toBusiness") {
-        setForBusinees(true);
-      } else {
-        if (type === "findEvent") {
-          navigation.navigate("EventListings");
-        } else {
-          if (type === "shop") {
-            navigation.navigate("ShopList");
-          } else {
-            if (type === "findJob") {
-              navigation.navigate("JobList");
-            }
-          }
-        }
-      }
-    }
-  };
-  const handlePostJob = (type) => {
-    if (type === 1) {
-      navigation.navigate("BusinessSignUp");
-      setForBusinees(false);
-    } else {
-      navigation.navigate("Login", { loginType: "new" });
-      setForBusinees(false);
+    } catch (error) {
+      setVisible(false);
     }
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <DashBoardScreen
-        setLocation={setLocation}
-        location={location}
-        SearchBusinessCategory={SearchBusinessCategory}
-        businessCategory={businessCategory}
-        setBusinessCategory={setBusinessCategory}
-        businessCategoryModal={businessCategoryModal}
-        setBusinessCategoryModal={setBusinessCategoryModal}
-        dashBoardDetail={dashBoardDetail}
-        onPressSearch={onPressSearch}
-        onPressSearchBusinessCategory={onPressSearchBusinessCategory}
-        onPressRestro={onPressRestro}
-        onPressEvents={onPressEvents}
-        onPressJob={onPressJob}
-        onPressShopping={onPressShopping}
-        onPressProvider={onPressProvider}
-        newActivity={newActivity}
-        directory={directory}
-        handleDirectory={handleDirectory}
-        selectedType={selectedType}
-        handleSubItems={handleSubItems}
-        subCatType={subCatType}
-        subCatData={subCatData}
-        handleNavTo={handleNavTo}
-        writeReview={writeReview}
-        setWriteReview={setWriteReview}
+        pageIndex={pageIndex}
+        setSliderPage={setSliderPage}
+        recent_activity={recent_activity}
+        services={byCategory?.services}
+        moreServices={byCategory?.moreServices}
+        moreCategory={moreCategory}
+        businessTypes={businessTypes}
+        setMoreCategory={setMoreCategory}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -336,8 +107,8 @@ const DashBoardView = ({ navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      />
-      <QuestionModal
+      /> */}
+      {/* <QuestionModal
         surringVisible={forBusinees}
         cancelModel={() => setForBusinees(false)}
         modalType={""}
@@ -349,7 +120,7 @@ const DashBoardView = ({ navigation }) => {
         negativeTxt={"This is my businesss"}
         positiveResponse={() => handlePostJob(1)}
         negativeResponse={() => handlePostJob(2)}
-      />
+      /> */}
     </View>
   );
 };

@@ -32,7 +32,7 @@ const ListingsScreenView = ({ navigation, route }) => {
   const [search, setSearch] = useState({ selectOption: [] });
   const [inputSearch, setInputSearch] = useState("");
   const [offSet, setOffSet] = useState(0);
-  const [stopOffset, setstopOffset] = useState(false);
+  const [moreData, setMoreData] = useState(0);
   const [restroList, setRestroList] = useState([]);
   const options = [
     { type: "", name: "All" },
@@ -44,7 +44,6 @@ const ListingsScreenView = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route?.params?.nearbySearch) {
-      console.log("IT WORKING");
       const { nearbySearch } = route?.params || {};
       if (search?.selectOption?.length === 0) {
         const selectedArry = options?.filter((item) => {
@@ -61,7 +60,6 @@ const ListingsScreenView = ({ navigation, route }) => {
         handleSearchData(0);
       }
     } else {
-      console.log("IT WORKING TWOO");
       if (inputSearch) {
         handleSearchData(0);
       } else {
@@ -82,14 +80,13 @@ const ListingsScreenView = ({ navigation, route }) => {
         latitude: search.latitude ? search.latitude : "",
         longitude: search.longitude ? search.longitude : "",
         category_id: search.category_id ? search.category_id : "",
-        limit: 10 + offSet,
+        limit: 10,
         offset: offSet,
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
       };
       const getOptions = search?.selectOption?.map(({ type }) => type);
       params.options = getOptions.length === 0 ? "" : getOptions?.toString();
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
@@ -97,9 +94,13 @@ const ListingsScreenView = ({ navigation, route }) => {
       );
       if (data.status == 200) {
         setVisible(false);
-        setRestroList(data.data);
+        setMoreData(data.total_number_data);
+        if (offSet === 0) {
+          setRestroList(data.data);
+        } else {
+          setRestroList([...restroList, ...data.data]);
+        }
       } else {
-        setstopOffset(true);
         if (data.status === 201) {
           setRestroList([]);
           setVisible(false);
@@ -126,10 +127,14 @@ const ListingsScreenView = ({ navigation, route }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
       if (data.status === 200) {
-        setRestroList(data.data);
         setVisible(false);
+        setMoreData(data.total_number_data);
+        if (offSet === 0) {
+          setRestroList(data.data);
+        } else {
+          setRestroList([...restroList, ...data.data]);
+        }
       } else {
-        setstopOffset(true);
         if (data.status === 201) {
           setRestroList([]);
           setVisible(false);
@@ -353,7 +358,7 @@ const ListingsScreenView = ({ navigation, route }) => {
         onPressMap={onPressMap}
         handleRestroList={handleRestroList}
         offSet={offSet}
-        stopOffset={stopOffset}
+        moreData={moreData}
         inputSearch={inputSearch}
         options={options}
         // selectOption={selectOption}

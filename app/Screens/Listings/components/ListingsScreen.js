@@ -27,6 +27,7 @@ const ListingsScreen = (props) => {
         onPress={() => props.onPressMap()}
         textInput={true}
         placeholder={"Tea Rooms Current..."}
+        value={props.inputSearch}
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
         logoImg={false}
@@ -78,18 +79,17 @@ const ListingsScreen = (props) => {
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
-        onMomentumScrollBegin={() => setScrollBegin(true)}
         onEndReached={() => {
           if (scrollBegin) {
             if (props.search || props.inputSearch) {
-              !props.stopOffset
+              props.restroList?.length < props.moreData
                 ? props?.handleSearchData(
                     props.restroList.length > 5 ? props.offSet + 1 : 0
                   )
                 : null;
               setScrollBegin(false);
             } else {
-              !props.stopOffset
+              props.restroList?.length < props.moreData
                 ? props?.handleRestroList(
                     props.restroList.length > 5 ? props.offSet + 1 : 0
                   )

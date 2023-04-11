@@ -45,6 +45,7 @@ const Header = (props) => {
     onPress,
     type,
     onChangeText,
+    value,
     placeholder,
     cartLength,
     editHdr,
@@ -52,6 +53,8 @@ const Header = (props) => {
     onPressBackFun,
     tintColor,
     bckgColor,
+    middleImgStyl,
+    onPressRightImg,
   } = props;
   const OnpressBack = () => {
     navigation.goBack(null);
@@ -103,8 +106,13 @@ const Header = (props) => {
             />
           ) : (
             <Image
-              style={{ tintColor: tintColor ? tintColor : BLACK_COLOR_CODE }}
+              style={{
+                width: 20,
+                height: 25,
+                tintColor: tintColor ? tintColor : BLACK_COLOR_CODE,
+              }}
               source={leftImg}
+              resizeMode={"contain"}
             />
           )}
         </TouchableOpacity>
@@ -117,6 +125,7 @@ const Header = (props) => {
               <TextInput
                 onChangeText={onChangeText}
                 placeholder={placeholder}
+                value={value}
                 placeholderTextColor={BLACK_COLOR_CODE}
                 style={styles.input}
               />
@@ -130,7 +139,7 @@ const Header = (props) => {
                 <View style={styles.MainDotView}>
                   <Image
                     resizeMode="contain"
-                    style={{ width: 110, height: 60 }}
+                    style={[{ width: 110, height: 60 }, middleImgStyl]}
                     source={HeaderMiddleImg}
                   />
                 </View>
@@ -150,8 +159,11 @@ const Header = (props) => {
         </View>
         <View style={HeaderView}>
           {RightImg && (
-            <TouchableOpacity onPress={onPress}>
-              <Image style={{ height: 24, width: 24 }} source={RightImg} />
+            <TouchableOpacity onPress={onPressRightImg}>
+              <Image
+                style={{ height: 24, width: 24, tintColor: tintColor }}
+                source={RightImg}
+              />
               {cartLength > 0 && (
                 <View style={styles.cartAddedVw}>
                   <Text style={styles.cartAddedTxt}>{cartLength}</Text>

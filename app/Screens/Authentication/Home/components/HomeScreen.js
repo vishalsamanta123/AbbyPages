@@ -34,12 +34,12 @@ const HomeScreen = (props) => {
             />
           </View>
           <View style={styles.FooterContain}>
-            <Button
+            {/* <Button
               buttonText="Create Business Account"
               buttonLabelStyle={styles.LoginBtnTxt}
               style={{ marginVertical: 5 }}
               onPress={props.onPressCreateBusiness}
-            />
+            /> */}
             <Button
               buttonText="Log In"
               buttonLabelStyle={styles.LoginBtnTxt}
