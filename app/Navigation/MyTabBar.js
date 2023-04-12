@@ -17,6 +17,7 @@ import {
   windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
+import { restaurantObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
   const { isFocused = "", handleNavigation, onPressOptions } = props;
@@ -152,7 +153,7 @@ function MyTabBar({ state, descriptors, navigation }) {
     } else if (type === "Directory") {
       navigation.navigate("ServiceProviderListing");
     } else if (type === "Restaurants") {
-      navigation.navigate("Listings");
+      navigation.navigate("Listings", { nearbySearch: restaurantObj });
     }
   };
   if (focusedOptions.tabBarVisible === false) {

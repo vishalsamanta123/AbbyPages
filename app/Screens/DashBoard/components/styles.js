@@ -186,7 +186,7 @@ const Styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     marginRight: 8,
-    top: IOS ? 40 : 6,
+    top: IOS ? 0 : 6,
   },
   searchVw: {
     marginHorizontal: 30,

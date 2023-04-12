@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
   logoVw: {
     marginVertical: 8,
     alignSelf: "center",
+    marginTop: IOS ? 30 : 0,
   },
   containers: {
     flexDirection: "row",
