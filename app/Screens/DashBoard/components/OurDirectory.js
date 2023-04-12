@@ -25,7 +25,7 @@ const OurDirectory = (props) => {
         <Header
           leftImg={Images.HEADER_BCK_IMG}
           HeaderText={""}
-          HeaderMiddleImg={Images.BLACK_LOGO}
+          HeaderMiddleImg={Images.LOGO}
           onPressBackFun={() => props.setDirectoryModal(false)}
         />
         <View style={styles.otherConVw}>

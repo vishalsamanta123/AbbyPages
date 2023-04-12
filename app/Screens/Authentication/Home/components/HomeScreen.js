@@ -25,10 +25,10 @@ const HomeScreen = (props) => {
             <Image
               style={{ width: 250, height: 160 }}
               resizeMode="contain"
-              source={Images.BLACK_LOGO}
+              source={Images.LOGO}
             />
             <Image
-              style={{ width: 250, height: 220 }}
+              style={{ width: 280, height: 290 }}
               resizeMode={"contain"}
               source={Images.GRAPHIC_LOGO_IMG}
             />

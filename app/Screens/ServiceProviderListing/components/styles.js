@@ -8,7 +8,7 @@ import {
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   MainConatiner: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     alignSelf: "center",
     flexDirection: "row",
     paddingVertical: 10,

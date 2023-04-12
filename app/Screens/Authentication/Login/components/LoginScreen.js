@@ -27,14 +27,17 @@ const LoginScreen = (props) => {
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={[CommonStyles.container]}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView
+          keyboardShouldPersistTaps={"handled"}
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
           <View style={styles.WelcomeCntainer}>
             <View style={styles.MainConatinWelcome}>
               <View style={{ alignSelf: "center" }}>
                 <Image
                   resizeMode="contain"
                   style={{ width: 220, height: 82 }}
-                  source={Images.BLACK_LOGO}
+                  source={Images.LOGO}
                 />
               </View>
               <View style={{ marginTop: 28 }}>

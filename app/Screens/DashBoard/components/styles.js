@@ -186,11 +186,11 @@ const Styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     marginRight: 8,
-    top:IOS ? 40 : 6,
+    top: IOS ? 40 : 6,
   },
   searchVw: {
     marginHorizontal: 30,
-    marginVertical: 10,
+    marginTop: 10,
   },
   catgSearchVw: {
     flexDirection: "row",
@@ -209,6 +209,43 @@ const Styles = StyleSheet.create({
     borderRadius: 20,
     marginHorizontal: 0,
     width: "100%",
+  },
+  categoriesVw: {
+    marginHorizontal: 34,
+    backgroundColor: WHITE_COLOR_CODE,
+    elevation: 10,
+    marginVertical: 3,
+  },
+  searchHeadTxt: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: YELLOW_COLOR_CODE,
+    marginLeft: 10,
+    marginVertical: 5,
+  },
+  categoryVw: {
+    marginVertical: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+  categoryTxt: {
+    fontSize: 18,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginLeft: 10,
+  },
+  categorySmallTxt: {
+    fontSize: 12,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginLeft: 10,
+    marginRight: 50,
+  },
+  categoryImg: {
+    width: 50,
+    height: 40,
+    borderRadius: 12,
   },
 });
 export default Styles;

@@ -42,7 +42,6 @@ const DashBoardView = ({ navigation }) => {
     setVisible(true);
     try {
       const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
-      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setRecent_Activity(data?.data);
@@ -97,6 +96,7 @@ const DashBoardView = ({ navigation }) => {
         moreCategory={moreCategory}
         businessTypes={businessTypes}
         setMoreCategory={setMoreCategory}
+        navigation={navigation}
       />
       {/* <Error
         message={errorMessage}

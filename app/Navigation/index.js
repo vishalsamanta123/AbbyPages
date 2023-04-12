@@ -6,8 +6,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //------------------------Styles-------------------//
 import { Image, StatusBar, View, StyleSheet } from "react-native";
-import { customDrawerContents, BusinessDrawerContents } from "./CustomDrawer";
+import { customDrawerContents, BusinessDrawerContents } from "./CustomDrawer_";
 import { Images } from "../Utils/images";
+import MyCustomDrawer from "./MyCustomDrawer";
 
 //----------------------Functionality-------------//
 import AsyncStorage from "@react-native-community/async-storage";
@@ -178,14 +179,15 @@ const Stack = createStackNavigator();
 const Auth = createStackNavigator();
 const Business = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 function TabNavigation() {
   return (
     <Tab.Navigator lazy={true} tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="DashBoard" component={CustomDrawerNavigation} />
-      <Tab.Screen name="EventManagement" component={EventManagement} />
+      {/* <Tab.Screen name="EventManagement" component={EventManagement} />
       <Tab.Screen name="JobList" component={JobListScreen} />
       <Tab.Screen name="ShopList" component={ShopListScreen} />
-      <Tab.Screen name="ShopDetail" component={ShopDetailScreen} />
+      <Tab.Screen name="ShopDetail" component={ShopDetailScreen} /> */}
     </Tab.Navigator>
   );
 }
@@ -193,7 +195,7 @@ function TabNavigation() {
 function CustomBusinessNavigation() {
   return (
     <BusinessDrawer.Navigator
-      drawerContent={(props) => BusinessDrawerContents(props)}
+      drawerContent={(props) => <MyCustomDrawer {...props} />}
       drawerContentOptions={{ activeBackgroundColor: "#fff" }}
     >
       <BusinessDrawer.Screen
@@ -243,7 +245,7 @@ function CustomBusinessNavigation() {
 function CustomDrawerNavigation() {
   return (
     <customDrawer.Navigator
-      drawerContent={(props) => customDrawerContents(props)}
+      drawerContent={(props) => <MyCustomDrawer {...props} />}
       drawerContentOptions={{ activeBackgroundColor: "#fff" }}
     >
       <customDrawer.Screen name="DashBoard" component={DashBoardScreen} />
@@ -282,7 +284,26 @@ function CustomDrawerNavigation() {
 
 function AuthStack() {
   return (
-    <Auth.Navigator screenOptions={{ headerShown: false }}>
+    <Auth.Navigator
+      initialRouteName="HomeDashboard"
+      screenOptions={{ headerShown: false }}
+    >
+      <Auth.Screen name="HomeDashboard" component={TabNavigation} />
+      <Auth.Screen name="Listings" component={ListingsScreen} />
+      <Auth.Screen
+        name="RestaurantDetails"
+        component={RestaurantDetailsScreen}
+      />
+      <Auth.Screen
+        name="ServiceProviderListing"
+        component={ServiceProviderListingScreen}
+      />
+      <Auth.Screen
+        name="ServiceProviderDetails"
+        component={ServiceProviderDetails}
+      />
+      <Auth.Screen name="ShopList" component={ShopListScreen} />
+      <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Auth.Screen name="Home" component={HomeScreen} />
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="SignUp" component={SignUpScreen} />
@@ -299,14 +320,14 @@ function AuthStack() {
       />
       {/* { business} */}
       <Auth.Screen name="GetStarted" component={GetStartedScreen} />
-      <Business.Screen name="Goals" component={GoalsScreen} />
+      {/* <Business.Screen name="Goals" component={GoalsScreen} />
       <Business.Screen name="AddKeybord" component={AddKeybordScreen} />
       <Business.Screen name="AddText" component={AddTextScreen} />
       <Business.Screen
         name="BusinessLocation"
         component={BusinessLocationScreen}
       />
-      <Business.Screen name="Budgets" component={BudgetsScreen} />
+      <Business.Screen name="Budgets" component={BudgetsScreen} /> */}
     </Auth.Navigator>
   );
 }
@@ -426,17 +447,32 @@ function AppStack() {
       screenOptions={{ headerShown: false }}
       initialRouteName={"HomeDashboard"}
     >
-      {/* <Stack.Screen name="BusinessOrderHistory" component={BusinessOrderHistoryScreen} /> */}
-      {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       <Stack.Screen name="HomeDashboard" component={TabNavigation} />
-      {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
+      <Stack.Screen
+        name="BusinessOrderHistory"
+        component={BusinessOrderHistoryScreen}
+      />
+      <Stack.Screen name="Listings" component={ListingsScreen} />
+      <Stack.Screen
+        name="RestaurantDetails"
+        component={RestaurantDetailsScreen}
+      />
+      <Stack.Screen
+        name="ServiceProviderListing"
+        component={ServiceProviderListingScreen}
+      />
+      <Stack.Screen
+        name="ServiceProviderDetails"
+        component={ServiceProviderDetails}
+      />
       <Stack.Screen name="ShopList" component={ShopListScreen} />
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
+      {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
+      {/* <Stack.Screen
         name="OrderDetailBackEnd"
         component={OrderDetailScreenBackEnd}
       />
-      <Stack.Screen name="Listings" component={ListingsScreen} />
       <Stack.Screen name="ProfileSettings" component={CustomDrawerNavigation} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Stack.Screen name="CheckoutDetail" component={CheckoutDetailScreen} />
@@ -450,20 +486,20 @@ function AppStack() {
       <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
       <Stack.Screen name="InviteFriends" component={InviteFriendsScreen} />
       <Stack.Screen name="EventManagement" component={EventManagement} />
-      <Stack.Screen name="UserEventsList" component={UserEventsListScreen} />
+      <Stack.Screen name="UserEventsList" component={UserEventsListScreen} /> */}
       {/* <Stack.Screen
         name="ManageFriendInvite"
         component={ManageFriendInviteScreen}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="BusinessUserVerify"
         component={BusinessUserVerifyScreen}
       />
       <Stack.Screen
         name="NotificationSettings"
         component={NotificationSettingsScreen}
-      />
-      <Stack.Screen name="AddJobs" component={AddJobsScreen} />
+      /> */}
+      {/* <Stack.Screen name="AddJobs" component={AddJobsScreen} /> */}
       {/* <Stack.Screen name="Friends" component={FriendsScreen} /> */}
       {/* <Stack.Screen name="Notifications" component={NotificationsScreen} /> */}
       {/* <Stack.Screen name="Reviews" component={ReviewsScreen} /> */}
@@ -476,31 +512,23 @@ function AppStack() {
       {/* <Stack.Screen name="BookmarkMap" component={BookmarkMapScreen} /> */}
       {/* <Stack.Screen name="CashBack" component={CashBackScreen} /> */}
       {/* <Stack.Screen name="AddPhotos" component={AddPhotosScreen} /> */}
-      <Stack.Screen name="StepOne" component={StepOneScreen} />
+      {/* <Stack.Screen name="StepOne" component={StepOneScreen} />
       <Stack.Screen name="StepSecond" component={StepSecondScreen} />
       <Stack.Screen name="AddEmail" component={AddEmailScreen} />
       <Stack.Screen name="AddLocation" component={AddLocationScreen} />
       <Stack.Screen name="StepThird" component={StepThirdScreen} />
-      <Stack.Screen name="StepFourth" component={StepFourthScreen} />
+      <Stack.Screen name="StepFourth" component={StepFourthScreen} /> */}
       {/* not in use */}
-      <Stack.Screen name="StepSix" component={StepSixScreen} />
+      {/* <Stack.Screen name="StepSix" component={StepSixScreen} /> */}
       {/* not in use */}
       {/* <Stack.Screen name="Addcartcashback" component={AddcartcashbackScreen} /> */}
-      <Stack.Screen name="StepFifth" component={StepFifthScreen} />
+      {/* <Stack.Screen name="StepFifth" component={StepFifthScreen} />
       <Stack.Screen
         name="ConfirmReservation"
         component={ConfirmReservationScreen}
       />
       <Stack.Screen name="StepSeven" component={StepSevenScreen} />
       <Stack.Screen name="StepEight" component={StepEightScreen} />
-      <Stack.Screen
-        name="ServiceProviderDetails"
-        component={ServiceProviderDetails}
-      />
-      <Stack.Screen
-        name="ServiceProviderListing"
-        component={ServiceProviderListingScreen}
-      />
       <Stack.Screen
         name="RestauranrtBooking"
         component={RestauranrtBookingScreen}
@@ -512,14 +540,10 @@ function AppStack() {
       <Stack.Screen name="JobDetails" component={JobDetailsScreen} />
       <Stack.Screen name="JobList" component={JobListScreen} />
       <Stack.Screen name="ProductListing" component={ProductListingScreen} />
-      <Stack.Screen
-        name="RestaurantDetails"
-        component={RestaurantDetailsScreen}
-      />
       <Stack.Screen name="EventListings" component={EventListingsScreen} />
-      <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
+      <Stack.Screen name="EventDetails" component={EventDetailsScreen} /> */}
       {/* <Stack.Screen name="RestaurantMenu" component={RestaurantMenuScreen} /> */}
-      <Stack.Screen name="ListingMap" component={ListingMapScreen} />
+      {/* <Stack.Screen name="ListingMap" component={ListingMapScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
@@ -536,7 +560,7 @@ function AppStack() {
         name="BusinessLocation"
         component={BusinessLocationScreen}
       />
-      <Stack.Screen name="Budgets" component={BudgetsScreen} />
+      <Stack.Screen name="Budgets" component={BudgetsScreen} /> */}
     </Stack.Navigator>
   );
 }

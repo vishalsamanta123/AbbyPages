@@ -7,6 +7,13 @@ import {
   BLACK_COLOR_CODE,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  headText: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    fontSize: 22,
+    marginLeft: 12,
+    marginBottom: 5,
+  },
   straightVw: {
     // flexDirection: "row",
     alignItems: "center",

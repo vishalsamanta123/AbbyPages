@@ -53,17 +53,6 @@ const ListingsScreenView = ({ navigation, route }) => {
         getObj.selectOption = selectedArry;
         setSearch(getObj);
         handleSearchData(0);
-      } else {
-        if (search?.selectOption?.length === 0) {
-          setSearch(nearbySearch);
-        }
-        handleSearchData(0);
-      }
-    } else {
-      if (inputSearch) {
-        handleSearchData(0);
-      } else {
-        handleRestroList(0);
       }
     }
   }, [search, inputSearch]);
@@ -84,9 +73,10 @@ const ListingsScreenView = ({ navigation, route }) => {
         offset: offSet,
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
+        city: search.city ? search.city : "",
       };
       const getOptions = search?.selectOption?.map(({ type }) => type);
-      params.options = getOptions.length === 0 ? "" : getOptions?.toString();
+      params.options = getOptions?.length === 0 ? "" : getOptions?.toString();
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
@@ -116,40 +106,40 @@ const ListingsScreenView = ({ navigation, route }) => {
       setVisible(false);
     }
   };
-  const handleRestroList = async (offSet) => {
-    setOffSet(offSet);
-    try {
-      setVisible(true);
-      const params = {
-        business_type: 1,
-        offset: offSet,
-        limit: 10,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      if (data.status === 200) {
-        setVisible(false);
-        setMoreData(data.total_number_data);
-        if (offSet === 0) {
-          setRestroList(data.data);
-        } else {
-          setRestroList([...restroList, ...data.data]);
-        }
-      } else {
-        if (data.status === 201) {
-          setRestroList([]);
-          setVisible(false);
-        } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
-          setVisible(false);
-        }
-      }
-    } catch (error) {
-      setVisibleErr(true);
-      setVisible(false);
-      setErrorMessage(error.message);
-    }
-  };
+  // const handleRestroList = async (offSet) => {
+  //   setOffSet(offSet);
+  //   try {
+  //     setVisible(true);
+  //     const params = {
+  //       business_type: 1,
+  //       offset: offSet,
+  //       limit: 10,
+  //     };
+  //     const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
+  //     if (data.status === 200) {
+  //       setVisible(false);
+  //       setMoreData(data.total_number_data);
+  //       if (offSet === 0) {
+  //         setRestroList(data.data);
+  //       } else {
+  //         setRestroList([...restroList, ...data.data]);
+  //       }
+  //     } else {
+  //       if (data.status === 201) {
+  //         setRestroList([]);
+  //         setVisible(false);
+  //       } else {
+  //         setErrorMessage(data.message);
+  //         setVisibleErr(true);
+  //         setVisible(false);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     setVisibleErr(true);
+  //     setVisible(false);
+  //     setErrorMessage(error.message);
+  //   }
+  // };
   const onPressRestro = (item) => {
     navigation.navigate("RestaurantDetails", { detail: item });
   };
@@ -170,8 +160,6 @@ const ListingsScreenView = ({ navigation, route }) => {
             handleSearchData(offSet);
           }
           handleSearchData(offSet);
-        } else {
-          handleRestroList(offSet);
         }
         ToastAndroid.show(data.message, ToastAndroid.LONG);
       } else {
@@ -356,7 +344,6 @@ const ListingsScreenView = ({ navigation, route }) => {
         handleSearchData={handleSearchData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
-        handleRestroList={handleRestroList}
         offSet={offSet}
         moreData={moreData}
         inputSearch={inputSearch}

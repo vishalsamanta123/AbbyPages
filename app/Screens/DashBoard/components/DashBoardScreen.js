@@ -231,7 +231,11 @@ const DashBoardScreen = (props) => {
           </View>
         </View>
       </ScrollView>
-      <ByCategory searchModal={searchModal} setSearchModal={setSearchModal} />
+      <ByCategory
+        navigation={props.navigation}
+        searchModal={searchModal}
+        setSearchModal={setSearchModal}
+      />
     </View>
   );
 };

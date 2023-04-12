@@ -60,6 +60,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         latitude: search.latitude ? search.latitude : "",
         longitude: search.longitude ? search.longitude : "",
         category_id: search.category_id ? search.category_id : "",
+        city: search.city ? search.city : "",
         limit: 10 + offSet,
         offset: offSet,
         search_key: inputSearch ? inputSearch : null,
@@ -70,6 +71,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
+      console.log("data: GET_NEW_BUSINESS", data);
       if (data.status == 200) {
         setVisible(false);
         setserviceData(data.data);
@@ -124,7 +126,6 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
   const onPressLike = async (item) => {
-    console.log("item: ", item);
     try {
       setVisible(true);
       const params = {

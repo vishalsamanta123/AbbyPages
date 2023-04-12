@@ -10,15 +10,18 @@ import {
 } from "react-native";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
+import {
+  IOS,
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../Utils/Constant";
 import { Images } from "../../../Utils/images";
 import styles from "./styles";
 
 const ListingsScreen = (props) => {
-  const [scrollBegin, setScrollBegin] = useState();
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
+      behavior={IOS ? "padding" : null}
       style={CommonStyles.container}
     >
       <Header
@@ -35,6 +38,7 @@ const ListingsScreen = (props) => {
         tintColor={WHITE_COLOR_CODE}
         mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
       />
+      <Text style={styles.headText}>Business Listing</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={props.restroList}
@@ -47,54 +51,46 @@ const ListingsScreen = (props) => {
         }}
         ListHeaderComponent={() => {
           return (
-            <ScrollView
-              contentContainerStyle={styles.straightVw}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            >
-              {props?.options?.map((item, index) => {
-                const getSelected =
-                  props?.search?.selectOption?.length === 0
-                    ? ""
-                    : props?.search?.selectOption?.map(({ name }) => name);
-                return (
-                  <TouchableOpacity
-                    style={[
-                      styles.topContainer,
-                      {
-                        backgroundColor: getSelected
-                          ?.toString()
-                          ?.includes(item.name)
-                          ? YELLOW_COLOR_CODE
-                          : null,
-                      },
-                    ]}
-                    onPress={() => props.handleOptions(item, index)}
-                  >
-                    <Text style={styles.topContainerTxt}>{item.name}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </ScrollView>
+            <>
+              <ScrollView
+                contentContainerStyle={styles.straightVw}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              >
+                {props?.options?.map((item, index) => {
+                  const getSelected =
+                    props?.search?.selectOption?.length === 0
+                      ? ""
+                      : props?.search?.selectOption?.map(({ name }) => name);
+                  return (
+                    <TouchableOpacity
+                      style={[
+                        styles.topContainer,
+                        {
+                          backgroundColor: getSelected
+                            ?.toString()
+                            ?.includes(item.name)
+                            ? YELLOW_COLOR_CODE
+                            : null,
+                        },
+                      ]}
+                      onPress={() => props.handleOptions(item, index)}
+                    >
+                      <Text style={styles.topContainerTxt}>{item.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+            </>
           );
         }}
         renderItem={({ item, index }) => props._handleSerivces(item, index)}
         onEndReached={() => {
-          if (scrollBegin) {
-            if (props.search || props.inputSearch) {
-              props.restroList?.length < props.moreData
-                ? props?.handleSearchData(
-                    props.restroList.length > 5 ? props.offSet + 1 : 0
-                  )
-                : null;
-              setScrollBegin(false);
-            } else {
-              props.restroList?.length < props.moreData
-                ? props?.handleRestroList(
-                    props.restroList.length > 5 ? props.offSet + 1 : 0
-                  )
-                : null;
-              setScrollBegin(false);
+          if (props.search || props.inputSearch) {
+            if (props.restroList?.length < props?.moreData) {
+              props?.handleSearchData(
+                props?.restroList?.length > 5 ? props.offSet + 1 : 0
+              );
             }
           }
         }}

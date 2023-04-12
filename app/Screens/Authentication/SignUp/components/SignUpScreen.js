@@ -49,7 +49,7 @@ const SignUpScreen = (props) => {
       <Header
         RightImg={null}
         HeaderText=""
-        HeaderMiddleImg={Images.BLACK_LOGO}
+        HeaderMiddleImg={Images.LOGO}
         tintColor={BLACK_COLOR_CODE}
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />

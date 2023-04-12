@@ -19,7 +19,7 @@ import {
 } from "../Utils/Constant";
 
 const CustomPopups = (props) => {
-  const { isFocused = "", handleNavigation } = props;
+  const { isFocused = "", handleNavigation, onPressOptions } = props;
   return (
     <>
       {isFocused === "EventManagement" ||
@@ -102,13 +102,20 @@ const CustomPopups = (props) => {
               </>
             ) : isFocused === "MoreManagement" ? (
               <>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => onPressOptions("MarketPlace")}
+                  style={styles.subCatVw}
+                >
                   <Text style={styles.subCatTxt}>{"MarketPlace"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => onPressOptions("Directory")}
+                  style={styles.subCatVw}
+                >
                   <Text style={styles.subCatTxt}>{"Directory"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => onPressOptions("Restaurants")}
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
                   <Text style={styles.subCatTxt}>{"Restaurants"}</Text>
@@ -137,6 +144,15 @@ function MyTabBar({ state, descriptors, navigation }) {
           setIsFocused(type);
         }
         break;
+    }
+  };
+  const onPressOptions = (type) => {
+    if (type === "MarketPlace") {
+      navigation.navigate("ShopList");
+    } else if (type === "Directory") {
+      navigation.navigate("ServiceProviderListing");
+    } else if (type === "Restaurants") {
+      navigation.navigate("Listings");
     }
   };
   if (focusedOptions.tabBarVisible === false) {
@@ -309,6 +325,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         isFocused={isFocused}
         setIsFocused={setIsFocused}
         handleNavigation={handleNavigation}
+        onPressOptions={onPressOptions}
       />
     </View>
   );
