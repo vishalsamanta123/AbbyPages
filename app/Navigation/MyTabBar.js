@@ -17,7 +17,6 @@ import {
   windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
-import { restaurantObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
   const { isFocused = "", handleNavigation, onPressOptions } = props;
@@ -79,7 +78,7 @@ const CustomPopups = (props) => {
                   <Text style={styles.subCatTxt}>{"Create a Post"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Sell Product"}</Text>
+                  <Text style={styles.subCatTxt}>{"Sell Products"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
@@ -153,7 +152,7 @@ function MyTabBar({ state, descriptors, navigation }) {
     } else if (type === "Directory") {
       navigation.navigate("ServiceProviderListing");
     } else if (type === "Restaurants") {
-      navigation.navigate("Listings", { nearbySearch: restaurantObj });
+      navigation.navigate("RestaurantListing");
     }
   };
   if (focusedOptions.tabBarVisible === false) {
@@ -229,7 +228,7 @@ function MyTabBar({ state, descriptors, navigation }) {
               },
             ]}
           >
-            Event
+            Events
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -282,7 +281,7 @@ function MyTabBar({ state, descriptors, navigation }) {
               },
             ]}
           >
-            Job
+            Jobs
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

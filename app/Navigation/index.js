@@ -94,7 +94,7 @@ import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/Shopping
 
 //3------------------->UserScreens<----------------//
 //3.1------------------>UserScreens RestaurantScreens<----------------//
-import RestaurantDetailsScreen from "../Screens/RestaurantDetails";
+import RestaurantDetails from "../Screens/RestaurantManagement/RestaurantDetails";
 import RestauranrtBookingScreen from "../Screens/RestauranrtBooking";
 import ConfirmReservationScreen from "../Screens/ConfirmReservation";
 import ShowMenuScreen from "../Screens/RestroMenu/ShowMenu";
@@ -136,7 +136,7 @@ import ConfirmOrderScreen from "../Screens/ShoppingMenu/ConfirmOrder";
 
 //3.6------------------>UserScreens Drawer and others<----------------//
 import DashBoardScreen from "../Screens/DashBoard";
-import ListingsScreen from "../Screens/Listings";
+import RestaurantListing from "../Screens/RestaurantManagement/RestaurantListing";
 import JobListScreen from "../Screens/JobList";
 import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
 import EventListingsScreen from "../Screens/EventListings";
@@ -289,11 +289,8 @@ function AuthStack() {
       screenOptions={{ headerShown: false }}
     >
       <Auth.Screen name="HomeDashboard" component={TabNavigation} />
-      <Auth.Screen name="Listings" component={ListingsScreen} />
-      <Auth.Screen
-        name="RestaurantDetails"
-        component={RestaurantDetailsScreen}
-      />
+      <Auth.Screen name="RestaurantListing" component={RestaurantListing} />
+      <Auth.Screen name="RestaurantDetails" component={RestaurantDetails} />
       <Auth.Screen
         name="ServiceProviderListing"
         component={ServiceProviderListingScreen}
@@ -452,11 +449,8 @@ function AppStack() {
         name="BusinessOrderHistory"
         component={BusinessOrderHistoryScreen}
       />
-      <Stack.Screen name="Listings" component={ListingsScreen} />
-      <Stack.Screen
-        name="RestaurantDetails"
-        component={RestaurantDetailsScreen}
-      />
+      <Stack.Screen name="RestaurantListing" component={RestaurantListing} />
+      <Stack.Screen name="RestaurantDetails" component={RestaurantDetails} />
       <Stack.Screen
         name="ServiceProviderListing"
         component={ServiceProviderListingScreen}

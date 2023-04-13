@@ -16,22 +16,22 @@ import {
   LINE_COMMON_COLOR_CODE,
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
-} from "../../Utils/Constant";
+} from "../../../Utils/Constant";
 import { useFocusEffect } from "@react-navigation/native";
 import ImagePicker from "react-native-image-crop-picker";
 import _ from "lodash";
 import styles from "./components/styles";
 import moment from "moment";
-import RestaurantDetailsScreen from "./components/RestaurantDetailsScreen";
-import CommonStyles from "../../Utils/CommonStyles";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
-import { CartContext } from "../../Utils/UserContext";
+import RestaurantDetailsView from "./components/RestaurantDetailsView";
+import CommonStyles from "../../../Utils/CommonStyles";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import Success from "../../../Components/Modal/success";
+import Error from "../../../Components/Modal/error";
+import { CartContext } from "../../../Utils/UserContext";
 
-const RestaurantDetailsView = ({ navigation, route }) => {
+const RestaurantDetails = ({ navigation, route }) => {
   const [cartData, setCartData] = useContext(CartContext);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -180,7 +180,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
             ) : (
               <Image
                 style={{ width: 80, height: 75, borderRadius: 75 }}
-                source={require("../../Assets/extraImages/salooonimg.jpg")}
+                source={require("../../../Assets/extraImages/salooonimg.jpg")}
               />
             )}
             <View style={{ paddingLeft: 20, width: "70%" }}>
@@ -455,7 +455,7 @@ const RestaurantDetailsView = ({ navigation, route }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <RestaurantDetailsScreen
+      <RestaurantDetailsView
         _handlePhotos={_handlePhotos}
         openAlbum={openAlbum}
         openCamera={openCamera}
@@ -499,4 +499,4 @@ const RestaurantDetailsView = ({ navigation, route }) => {
     </View>
   );
 };
-export default RestaurantDetailsView;
+export default RestaurantDetails;

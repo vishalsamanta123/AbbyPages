@@ -19,6 +19,7 @@ import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
 import ImagePicker from "react-native-image-crop-picker";
 import _ from "lodash";
+import { windowWidth } from "../../Utils/Constant";
 
 const ServiceProviderDetails = ({ navigation, route }) => {
   const [businessReviewRating, setBusinessReviewRating] = useState(3);
@@ -29,6 +30,8 @@ const ServiceProviderDetails = ({ navigation, route }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [addPhotoModal, setAddPhotoModal] = useState(false);
+  const [sliderState, setSliderState] = useState({ currentPage: 0 });
+  const { currentPage: pageIndex } = sliderState;
   const [reviewData, setReviewData] = useState({
     description: "",
     title: "",
@@ -49,7 +52,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
     },
   ]);
   useEffect(() => {
-    if (route.params) {
+    if (route?.params) {
       const { detail } = route.params;
       handleServiceDetails(detail);
     }
@@ -86,7 +89,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         style={{ width: "50%", paddingRight: 10, paddingTop: 10 }}
       >
         <Image
-          resizeMode={"stretch"}
+          resizeMode={"cover"}
           style={{ width: "100%", height: 100, borderRadius: 10 }}
           source={{ uri: item?.image }}
         />
@@ -344,6 +347,17 @@ const ServiceProviderDetails = ({ navigation, route }) => {
       setVisibleErr(true);
     }
   };
+  const setSliderPage = (event) => {
+    const { currentPage } = sliderState;
+    const { x } = event.nativeEvent.contentOffset;
+    const indexOfNextScreen = Math.ceil(x / windowWidth);
+    if (indexOfNextScreen !== currentPage) {
+      setSliderState({
+        ...sliderState,
+        currentPage: indexOfNextScreen,
+      });
+    }
+  };
   const onPressService = (item) => {
     handleServiceDetails(item);
   };
@@ -358,6 +372,7 @@ const ServiceProviderDetails = ({ navigation, route }) => {
         setReviewData={setReviewData}
         onSubmitReviewData={onSubmitReviewData}
         serviceDetail={serviceDetail}
+        setSliderPage={setSliderPage}
         handleGetDirections={handleGetDirections}
         handlePhotos={(item, index) => handlePhotos(item, index)}
         _handleOptions={_handleOptions}

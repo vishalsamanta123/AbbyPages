@@ -14,27 +14,26 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
-import CommonStyles from "../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import Input from "../../../../Components/Input";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
 import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 import { Rating } from "react-native-ratings";
 import moment from "moment";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../Utils/images";
 const { width, height } = Dimensions.get("window");
-const RestaurantDetailsScreen = (props) => {
+
+const RestaurantDetailsView = (props) => {
   const stars = [];
   useEffect(() => {
     const starImg = Images.STAR_FILLED_IMG;
@@ -245,7 +244,8 @@ const RestaurantDetailsScreen = (props) => {
             >
               <Image
                 style={{ width: 18, height: 18 }}
-                source={Images.CAMERA_IMG} />
+                source={Images.CAMERA_IMG}
+              />
               <Text style={styles.AddOptnsTextMain}>Add Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -338,7 +338,7 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props?.restroDetail &&
-                  props?.restroDetail?.outdoor_seating === 1 ? (
+                props?.restroDetail?.outdoor_seating === 1 ? (
                   <View style={{}}>
                     <ImageBackground
                       style={styles.RightImgeStyle}
@@ -356,7 +356,7 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                  props.restroDetail.offers_delivery === 1 ? (
+                props.restroDetail.offers_delivery === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
@@ -374,7 +374,7 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                  props.restroDetail.offers_takeout === 1 ? (
+                props.restroDetail.offers_takeout === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
@@ -394,7 +394,7 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                  props.restroDetail.sitdown_dining === 1 ? (
+                props.restroDetail.sitdown_dining === 1 ? (
                   <View style={{}}>
                     <Image
                       style={styles.RightImgeStyle}
@@ -417,7 +417,7 @@ const RestaurantDetailsScreen = (props) => {
             <View style={{ flexDirection: "row" }}>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                  props.restroDetail.masks_required === 1 ? (
+                props.restroDetail.masks_required === 1 ? (
                   <View>
                     <Image
                       style={styles.RightImgeStyle}
@@ -440,7 +440,7 @@ const RestaurantDetailsScreen = (props) => {
               </View>
               <View style={styles.UpdateOptions}>
                 {props.restroDetail &&
-                  props.restroDetail.staff_wears_gloves === 1 ? (
+                props.restroDetail.staff_wears_gloves === 1 ? (
                   <View>
                     <Image
                       style={styles.RightImgeStyle}
@@ -531,7 +531,7 @@ const RestaurantDetailsScreen = (props) => {
               coordinate={coordinate}
               // image={Images.MIDDLE_LOGO_IMG}
               title={props.restroDetail && props.restroDetail.business_name}
-            // description={marker.description}
+              // description={marker.description}
             >
               <Image
                 source={Images.MAP_LOGO}
@@ -641,7 +641,7 @@ const RestaurantDetailsScreen = (props) => {
                 onFinishRating={(rating) =>
                   props.setBusinessReviewRating(rating)
                 }
-                onSwipeRating={() => { }}
+                onSwipeRating={() => {}}
                 // onFinishRating={(rating) => props.setReviewData({
                 //     ...props.reviewData,
                 //     business_rating: rating
@@ -808,9 +808,7 @@ const RestaurantDetailsScreen = (props) => {
                 onPress={() => props.setDialogVisible(false)}
                 style={styles.ArrowTouchable}
               >
-                <Image
-                  source={Images.CANCEL_IMG}
-                />
+                <Image source={Images.CANCEL_IMG} />
               </TouchableOpacity>
               <Text style={styles.PleaseEnterTxt}>
                 Please enter your pincode
@@ -823,4 +821,4 @@ const RestaurantDetailsScreen = (props) => {
     </KeyboardAvoidingView>
   );
 };
-export default RestaurantDetailsScreen;
+export default RestaurantDetailsView;

@@ -9,6 +9,8 @@ import {
   ImageBackground,
   TouchableOpacity,
   Platform,
+  SafeAreaView,
+  Dimensions,
 } from "react-native";
 import moment from "moment";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -30,6 +32,7 @@ import Dialog, {
 } from "react-native-popup-dialog";
 import { Images } from "../../../Utils/images";
 
+const { width, height } = Dimensions.get("window");
 const ServiceProviderDetailsScreen = (props) => {
   const initialRegion = {
     latitude: props?.serviceDetail?.latitude
@@ -64,6 +67,50 @@ const ServiceProviderDetailsScreen = (props) => {
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View style={styles.mainfrsrvwe}>
+            <SafeAreaView style={{ alignItems: "center" }}>
+              <FlatList
+                keyExtractor={(item, index) => index.toString()}
+                data={props?.serviceDetail?.image && props?.serviceDetail?.image}
+                scrollEventThrottle={16}
+                pagingEnabled={true}
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                onScroll={(event) => {
+                  props.setSliderPage(event);
+                }}
+                renderItem={({ item, index }) => {
+                  return (
+                    index <= 4 && (
+                      <View key={index} style={{ width, alignItems: "center" }}>
+                        <Image
+                          resizeMode="stretch"
+                          source={{ uri: item.image }}
+                          style={styles.imageStyle}
+                        />
+                      </View>
+                    )
+                  );
+                }}
+              />
+              {/* {props.restroDetail.image.length} */}
+              <View style={styles.paginationWrapper}>
+                {Array.from(
+                  Array(
+                    props?.serviceDetail?.image?.length > 5
+                      ? 5
+                      : props?.serviceDetail?.image?.length
+                  ).keys()
+                ).map((key, index) => (
+                  <View
+                    style={[
+                      styles.paginationDots,
+                      { opacity: props.pageIndex === index ? 1 : 0.2 },
+                    ]}
+                    key={index}
+                  />
+                ))}
+              </View>
+            </SafeAreaView>
             <Text style={styles.taichitxt}>
               {props?.serviceDetail?.business_name}{" "}
             </Text>
@@ -365,7 +412,7 @@ const ServiceProviderDetailsScreen = (props) => {
                 coordinate={coordinate}
                 // image={Images.MIDDLE_LOGO_IMG}
                 title={props?.serviceDetail?.business_name}
-              // description={marker.description}
+                // description={marker.description}
               >
                 <Image
                   source={Images.MAP_LOGO}

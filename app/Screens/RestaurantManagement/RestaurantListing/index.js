@@ -10,20 +10,20 @@ import {
 import _ from "lodash";
 import moment from "moment";
 import styles from "./components/styles";
-import ListingsScreen from "./components/ListingsScreen";
-import CommonStyles from "../../Utils/CommonStyles";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import RestaurantScreen from "./components/RestaurantScreen";
+import CommonStyles from "../../../Utils/CommonStyles";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import Success from "../../../Components/Modal/success";
+import Error from "../../../Components/Modal/error";
 import {
   YELLOW_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
-} from "../../Utils/Constant";
-import { Images } from "../../Utils/images";
+} from "../../../Utils/Constant";
+import { Images } from "../../../Utils/images";
 
-const ListingsScreenView = ({ navigation, route }) => {
+const RestaurantListing = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -337,7 +337,7 @@ const ListingsScreenView = ({ navigation, route }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <ListingsScreen
+      <RestaurantScreen
         restroList={restroList}
         search={search}
         setInputSearch={setInputSearch}
@@ -364,4 +364,4 @@ const ListingsScreenView = ({ navigation, route }) => {
     </View>
   );
 };
-export default ListingsScreenView;
+export default RestaurantListing;

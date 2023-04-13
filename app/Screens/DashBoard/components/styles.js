@@ -186,11 +186,12 @@ const Styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     marginRight: 8,
-    top: IOS ? 0 : 6,
+    top: -12,
+    backgroundColor: WHITE_COLOR_CODE,
   },
   searchVw: {
     marginHorizontal: 30,
-    marginTop: 10,
+    marginVertical: 10,
   },
   catgSearchVw: {
     flexDirection: "row",
@@ -209,6 +210,7 @@ const Styles = StyleSheet.create({
     borderRadius: 20,
     marginHorizontal: 0,
     width: "100%",
+    marginVertical: 8,
   },
   categoriesVw: {
     marginHorizontal: 34,

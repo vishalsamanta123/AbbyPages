@@ -8,17 +8,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Header from "../../../Components/Header";
-import CommonStyles from "../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   IOS,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { Images } from "../../../Utils/images";
+} from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 import styles from "./styles";
 
-const ListingsScreen = (props) => {
+const RestaurantScreen = (props) => {
   return (
     <KeyboardAvoidingView
       behavior={IOS ? "padding" : null}
@@ -98,4 +98,4 @@ const ListingsScreen = (props) => {
     </KeyboardAvoidingView>
   );
 };
-export default ListingsScreen;
+export default RestaurantScreen;

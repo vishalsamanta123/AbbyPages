@@ -90,7 +90,7 @@ const ByCategory = (props) => {
     setSearchModal(false);
     setCategoryShow(false);
     if (type?.business_type === 1) {
-      navigation.navigate("Listings", { nearbySearch: type });
+      navigation.navigate("RestaurantListing", { nearbySearch: type });
     } else if (type?.business_type === 3) {
       navigation.navigate("ServiceProviderListing", {
         nearbySearch: type,
@@ -368,7 +368,7 @@ const ByCategory = (props) => {
           <View style={styles.boxesVw}>
             <BoxContainers
               boxContainerImg={Images.RESTO_LIST_IMG}
-              boxContainerTxt={"Restaurant"}
+              boxContainerTxt={"Restaurants"}
               marginHorizontal={10}
             />
             <BoxContainers
@@ -388,7 +388,7 @@ const ByCategory = (props) => {
             />
             <BoxContainers
               boxContainerImg={Images.SETTING_IMG}
-              boxContainerTxt={"Services"}
+              boxContainerTxt={"Directory"}
               marginHorizontal={10}
             />
           </View>
