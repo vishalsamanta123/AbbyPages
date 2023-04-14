@@ -10,13 +10,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
-import {
-  YELLOW_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { Images } from "../../../Utils/images";
 import { restaurantOptions } from "../../../Utils/staticData";
-import { off } from "npm";
 
 const RestaurantListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};
