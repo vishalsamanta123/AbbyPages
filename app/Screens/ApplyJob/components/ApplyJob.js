@@ -48,7 +48,7 @@ const ApplyJob = (props) => {
                 <Text numberOfLines={1} style={styles.AddPhotosTxt}>
                   {props?.applyJob?.resume
                     ? props?.applyJob?.resume?.name
-                    : "ReSume/CV"}
+                    : "Résumé/CV"}
                 </Text>
               </View>
               <View style={styles.BckArrowBack}>
@@ -405,7 +405,7 @@ const ApplyJob = (props) => {
             </View>
             {props.requires ? (
               <Text style={styles.requireTxt}>
-                All this fields are required :- Resume, Full Name, Email, Phone
+                All this fields are required :- Résumé, Full Name, Email, Phone
                 Number, Current Company, Work Status, Visa Status
               </Text>
             ) : null}

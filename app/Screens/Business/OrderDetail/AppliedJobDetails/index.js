@@ -71,7 +71,7 @@ const AppliedJobDetailsVw = ({ navigation, route }) => {
         setVisibleErr(true);
       }
     } else {
-      setErrorMessage("No Resume Uploaded");
+      setErrorMessage("No Résumé Uploaded");
       setVisibleErr(true);
     }
   };

@@ -32,19 +32,19 @@ const SignUpView = ({ navigation }) => {
   let watchID;
   const { signIn } = React.useContext(AuthContext);
   const [registrationData, setRegistrationData] = useState({
+    user_name: "",
     first_name: "",
     last_name: "",
     email: "",
+    mobile: "",
     password: "",
-    zip_code: "",
-    birth_date: "",
-    address: "",
-    latitude: "",
-    longitude: "",
+    cnfrmpassword: "",
   });
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userValMessage, setUserValMessage] = useState({ message: "" });
   const [visible, setVisible] = useState(false);
+  const [userNameVal, setUserNameVal] = useState(true);
 
   const [userData, setUserData] = useContext(UserContext);
   const [fcmToken, setFcmToken] = useState("");
@@ -55,71 +55,114 @@ const SignUpView = ({ navigation }) => {
   // const { signIn } = React.useContext(AuthContext);
   function validationFrom() {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (registrationData.first_name == "") {
+    if (registrationData.user_name == "") {
+      setErrorMessage("Please Enter UserName");
+      setVisibleErr(true);
+      return false;
+    } else if (registrationData.user_name?.length <= 4) {
+      setErrorMessage("Please Enter UserName More Than 4 Character");
+      setVisibleErr(true);
+      return false;
+    } else if (userNameVal === false) {
+      setErrorMessage("Please Enter Other UserName Correctly");
+      setVisibleErr(true);
+      return false;
+    } else if (registrationData.first_name == "") {
       setErrorMessage("Please Enter FirstName");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.last_name == "") {
+    } else if (registrationData.last_name == "") {
       setErrorMessage("Please Enter LastName");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.email == "") {
+    } else if (registrationData.email == "") {
       setErrorMessage("Please Enter Email");
       setVisibleErr(true);
       return false;
-    }
-    if (reg.test(registrationData.email) === false) {
+    } else if (reg.test(registrationData.email) === false) {
       setErrorMessage("Please Enter Correct Email Address");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.password == "") {
+    } else if (registrationData.mobile == "") {
+      setErrorMessage("Please Enter Mobile No.");
+      setVisibleErr(true);
+      return false;
+    } else if (registrationData.mobile.length < 10) {
+      setErrorMessage("Please Enter 10 Digit Mobile No.");
+      setVisibleErr(true);
+      return false;
+    } else if (registrationData.password == "") {
       setErrorMessage("Please Enter Password");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.password.length <= 5) {
+    } else if (registrationData.password.length <= 5) {
       setErrorMessage("please Enter password min 6 characters");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.zip_code == "") {
-      setErrorMessage("Please Enter Zip Code");
+    } else if (registrationData.cnfrmpassword == "") {
+      setErrorMessage("Please Enter Confirm Password");
       setVisibleErr(true);
       return false;
-    }
-    if (registrationData.birth_date == "") {
-      setErrorMessage("Please Select BirthDate");
-      setVisibleErr(true);
-      return false;
-    }
-    if (registrationData.address == "") {
-      setErrorMessage("Please Enter Address");
+    } else if (registrationData.password !== registrationData.cnfrmpassword) {
+      setErrorMessage("Password and Confirm Password are not matched");
       setVisibleErr(true);
       return false;
     }
     return true;
   }
+  const checkUserName = async (txt) => {
+    if (txt.length > 4) {
+      try {
+        setVisible(true);
+        const { data } = await apiCall("POST", ENDPOINTS.CHECKUSERNAME, {
+          user_name: txt,
+        });
+        if (data.status === 200) {
+          setUserNameVal(true);
+          setVisible(false);
+          setUserValMessage(data);
+        } else if (data.status === 201) {
+          setVisible(false);
+          setUserNameVal(false);
+          setUserValMessage(data);
+        } else {
+          setVisible(false);
+          setErrorMessage(data.message);
+          setVisibleErr(true);
+          setUserValMessage({ message: "" });
+        }
+      } catch (error) {
+        setVisible(false);
+        setErrorMessage(error.message);
+        setVisibleErr(true);
+      }
+    }
+  };
   const onPressSingUp = async () => {
     const valid = validationFrom();
     if (valid) {
       try {
         setVisible(true);
-        const params = registrationData;
+        const params = {
+          user_name: registrationData?.user_name,
+          first_name: registrationData?.first_name,
+          last_name: registrationData?.last_name,
+          email: registrationData?.email,
+          mobile: registrationData?.mobile,
+          password: registrationData?.password,
+        };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_UP, params);
         if (data.status === 200) {
           await setDefaultHeader("token", data.data.token);
           navigation.navigate("UserVerify", { email: registrationData.email });
           setRegistrationData({
+            user_name: "",
             first_name: "",
             last_name: "",
             email: "",
+            mobile: "",
             password: "",
-            zip_code: "",
-            birth_date: "",
-            address: "",
+            cnfrmpassword: "",
           });
           setVisible(false);
         } else {
@@ -332,6 +375,9 @@ const SignUpView = ({ navigation }) => {
         registrationData={registrationData}
         setRegistrationData={setRegistrationData}
         onPressSingUp={onPressSingUp}
+        checkUserName={checkUserName}
+        userValMessage={userValMessage}
+        setUserValMessage={setUserValMessage}
       />
       <Error
         message={errorMessage}

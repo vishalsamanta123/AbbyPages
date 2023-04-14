@@ -26,6 +26,7 @@ const DashBoardView = ({ navigation }) => {
     getDashBoardBussiness();
     getDashBoardCategory();
   }, []);
+  
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;

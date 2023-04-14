@@ -17,6 +17,7 @@ import {
   windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
+import { restaurantObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
   const { isFocused = "", handleNavigation, onPressOptions } = props;
@@ -78,12 +79,15 @@ const CustomPopups = (props) => {
                   <Text style={styles.subCatTxt}>{"Create a Post"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
+                  <Text style={styles.subCatTxt}>{"Write a Review"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Sell Products"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Write a Review"}</Text>
+                  <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
                 </TouchableOpacity>
               </>
             ) : isFocused === "JobManagement" ? (
@@ -97,7 +101,7 @@ const CustomPopups = (props) => {
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Upload Your Resume"}</Text>
+                  <Text style={styles.subCatTxt}>{"Upload Your Résumé"}</Text>
                 </TouchableOpacity>
               </>
             ) : isFocused === "MoreManagement" ? (
@@ -152,7 +156,7 @@ function MyTabBar({ state, descriptors, navigation }) {
     } else if (type === "Directory") {
       navigation.navigate("ServiceProviderListing");
     } else if (type === "Restaurants") {
-      navigation.navigate("RestaurantListing");
+      navigation.navigate("RestaurantListing", { nearbySearch: restaurantObj });
     }
   };
   if (focusedOptions.tabBarVisible === false) {
@@ -368,7 +372,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: IOS ? 10 : 0,
+    marginBottom: IOS ? 10 : 1,
+    paddingTop: 6,
   },
   iconActiveVw: {
     borderRadius: 100,

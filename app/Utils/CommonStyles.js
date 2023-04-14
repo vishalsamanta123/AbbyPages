@@ -32,6 +32,7 @@ const Styles = StyleSheet.create({
   },
   scrollCon: {
     flexGrow: 1,
+    backgroundColor: WHITE_COLOR_CODE,
   },
   editPencilVw: {
     backgroundColor: YELLOW_COLOR_CODE,

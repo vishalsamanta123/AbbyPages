@@ -73,7 +73,7 @@ const AppliedJobDetailsScreen = (props) => {
               source={Images.THEME_UPLOAD_IMG}
             />
             <View>
-              <Text style={styles.mainTxt}>Resume</Text>
+              <Text style={styles.mainTxt}>Résumé</Text>
               <Text style={styles.smallTxt}>You can download it</Text>
             </View>
           </TouchableOpacity>

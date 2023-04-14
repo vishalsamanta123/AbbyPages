@@ -28,6 +28,7 @@ import { apiCall } from "../../../Utils/httpClient";
 import apiEndPoints from "../../../Utils/apiEndPoints";
 import {
   accountantObj,
+  autoRepairsObj,
   offerTakeoutObj,
   openDeliveryObj,
   plumbersObj,
@@ -86,14 +87,15 @@ const ByCategory = (props) => {
       } catch (error) {}
     }
   };
-  const handleListNavigation = (type) => {
+  const handleListNavigation = (data) => {
+    const newObject = { ...data, city: searchData?.address };
     setSearchModal(false);
     setCategoryShow(false);
-    if (type?.business_type === 1) {
-      navigation.navigate("RestaurantListing", { nearbySearch: type });
-    } else if (type?.business_type === 3) {
+    if (data?.business_type === 1) {
+      navigation.navigate("RestaurantListing", { nearbySearch: newObject });
+    } else if (data?.business_type === 3) {
       navigation.navigate("ServiceProviderListing", {
-        nearbySearch: type,
+        nearbySearch: newObject,
       });
     }
   };
@@ -152,12 +154,7 @@ const ByCategory = (props) => {
         ) : (
           <View style={styles.categoriesVw}>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...restaurantObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(restaurantObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -169,12 +166,7 @@ const ByCategory = (props) => {
               <Text style={styles.categoryTxt}>Restaurant</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...openDeliveryObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(openDeliveryObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -186,12 +178,7 @@ const ByCategory = (props) => {
               <Text style={styles.categoryTxt}>Delivery</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...offerTakeoutObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(offerTakeoutObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -203,12 +190,7 @@ const ByCategory = (props) => {
               <Text style={styles.categoryTxt}>Offer Takeout</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...accountantObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(accountantObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -220,12 +202,7 @@ const ByCategory = (props) => {
               <Text style={styles.categoryTxt}>Accountants</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...plumbersObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(plumbersObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -237,12 +214,7 @@ const ByCategory = (props) => {
               <Text style={styles.categoryTxt}>Plumbers</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                handleListNavigation({
-                  ...plumbersObj,
-                  city: searchData?.address,
-                })
-              }
+              onPress={() => handleListNavigation(autoRepairsObj)}
               style={styles.categoryVw}
             >
               <IconX
@@ -367,8 +339,8 @@ const ByCategory = (props) => {
           <Text style={styles.searchTxt}>Or Browse the highlight</Text>
           <View style={styles.boxesVw}>
             <BoxContainers
-              boxContainerImg={Images.RESTO_LIST_IMG}
-              boxContainerTxt={"Restaurants"}
+              boxContainerImg={Images.MINICAR_IMG}
+              boxContainerTxt={"Directory"}
               marginHorizontal={10}
             />
             <BoxContainers
@@ -387,8 +359,8 @@ const ByCategory = (props) => {
               marginHorizontal={10}
             />
             <BoxContainers
-              boxContainerImg={Images.SETTING_IMG}
-              boxContainerTxt={"Directory"}
+              boxContainerImg={Images.RESTO_LIST_IMG}
+              boxContainerTxt={"Restaurants"}
               marginHorizontal={10}
             />
           </View>

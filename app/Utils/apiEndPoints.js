@@ -1,6 +1,7 @@
 export default {
   GENERATE_TOKEN: "/api/tokenGenrate/jwtToken",
   USER_SIGN_UP: "/api/userAuth/userSignup",
+  CHECKUSERNAME: "/api/userAuth/checkUsernameAtSignup",
   BUSINEES_SIGN_UP: "/api/userAuth/businessSignUp",
   RESENT_OTP: "/api/userAuth/resentotp",
   USER_VERIFY: "/api/userAuth/userVerify",
@@ -26,7 +27,6 @@ export default {
   VERIFY_NOTIFICATION_EMAIL: "/api/userProfile/userNotificationVerifyEmail",
   GET_SERVICES_DETAIL: "/api/services/getcategory",
   POST_REVIEW: "/api/reviewRating/businessReview",
-  BUSINESS_LIST: "/api/business/businessList",
   BUSINESS_DETAILS: "api/business/businessDetails",
   BUSINESS_ITEM_LIST: "/api/business/getbusinessItems",
   BUSINESS_ITEM_CATEGORY_LIST: "/api/business/getBusinessItemCategoryList",

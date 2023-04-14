@@ -25,6 +25,7 @@ export const GOLDEN_COLOR = "#DAA520";
 export const LIGHT_YELLOW_COLOR = "#ffc426";
 export const SMALL_TEXT_COLOR_CODE = "#868282";
 export const LIGHT_GREEN_COLOR_CODE = "#a3d74e";
+export const GREEN_COLOR_CODE = "#00FF00";
 export const LIGHT_RED_COLOR_CODE = "#f32c2c";
 export const BLUE_COLOR_CODE = "#0E86D4";
 export const LIGHT_GREY_COLOR_CODE = "#858484";

@@ -139,7 +139,7 @@ const Header = (props) => {
                 <View style={styles.MainDotView}>
                   <Image
                     resizeMode="contain"
-                    style={[{ width: 110, height: 60 }, middleImgStyl]}
+                    style={[{ width: 180, height: 60 }, middleImgStyl]}
                     source={HeaderMiddleImg}
                   />
                 </View>

@@ -10,7 +10,7 @@ export const restaurantObj = {
   parents_id: "",
   status: 1,
   option: "",
-  selectOption: "",
+  selectOption: 0,
 };
 export const openDeliveryObj = {
   business_type: 1,
@@ -24,7 +24,7 @@ export const openDeliveryObj = {
   parents_id: "",
   status: 1,
   option: "1",
-  selectOption: "1",
+  selectOption: 1,
 };
 export const offerTakeoutObj = {
   business_type: 1,
@@ -38,7 +38,7 @@ export const offerTakeoutObj = {
   parents_id: "",
   status: 1,
   option: "10",
-  selectOption: "10",
+  selectOption: 10,
 };
 export const accountantObj = {
   business_type: 3,
@@ -85,3 +85,11 @@ export const autoRepairsObj = {
   option: "",
   selectOption: "",
 };
+
+export const restaurantOptions = [
+  { type: "0", name: "All" },
+  { type: "9", name: "Open Now" },
+  { type: "1", name: "Open Delivery" },
+  { type: "10", name: "Offer Takeout" },
+  { type: "2", name: "Reservations" },
+];

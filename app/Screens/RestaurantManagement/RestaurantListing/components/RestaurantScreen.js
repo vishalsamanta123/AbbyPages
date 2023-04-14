@@ -1,14 +1,15 @@
+import { isArray } from "lodash";
 import React, { useState } from "react";
 import {
   View,
   FlatList,
   KeyboardAvoidingView,
   Text,
-  Platform,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import Header from "../../../../Components/Header";
+import ListItemsView from "../../../../Components/ListItemsView";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   IOS,
@@ -57,24 +58,16 @@ const RestaurantScreen = (props) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
               >
-                {props?.options?.map((item, index) => {
-                  const getSelected =
-                    props?.search?.selectOption?.length === 0
-                      ? ""
-                      : props?.search?.selectOption?.map(({ name }) => name);
+                {props?.restaurantOptions?.map((item, index) => {
                   return (
                     <TouchableOpacity
                       style={[
                         styles.topContainer,
                         {
-                          backgroundColor: getSelected
-                            ?.toString()
-                            ?.includes(item.name)
-                            ? YELLOW_COLOR_CODE
-                            : null,
+                          // backgroundColor: ,
                         },
                       ]}
-                      onPress={() => props.handleOptions(item, index)}
+                      onPress={() => props.handleOptions(item)}
                     >
                       <Text style={styles.topContainerTxt}>{item.name}</Text>
                     </TouchableOpacity>
@@ -84,7 +77,22 @@ const RestaurantScreen = (props) => {
             </>
           );
         }}
-        renderItem={({ item, index }) => props._handleSerivces(item, index)}
+        renderItem={({ item, index }) => {
+          return (
+            <ListItemsView
+              onPressView={props.onPressView}
+              item={item}
+              index={index}
+              largeImg={item?.logo}
+              largeName={item?.business_name}
+              smallTxt={item?.address}
+              rating={item?.rating}
+              rowImgTxt1={item?.business_service_category}
+              rowImgTxt2={item?.create_date}
+              rowImgTxt3={item?.about_business}
+            />
+          );
+        }}
         onEndReached={() => {
           if (props.search || props.inputSearch) {
             if (props.restroList?.length < props?.moreData) {

@@ -20,10 +20,13 @@ import {
   FONT_FAMILY_REGULAR,
   YELLOW_COLOR_CODE,
   BLACK_COLOR_CODE,
+  GREEN_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
 } from "../../../../Utils/Constant";
 import Header from "../../../../Components/Header";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Images } from "../../../../Utils/images";
+import { IconX, ICON_TYPE } from "../../../../Components/Icons/Icon";
 
 const SignUpScreen = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -42,10 +45,7 @@ const SignUpScreen = (props) => {
     hideDatePicker();
   };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      style={[CommonStyles.container]}
-    >
+    <>
       <Header
         RightImg={null}
         HeaderText=""
@@ -54,8 +54,8 @@ const SignUpScreen = (props) => {
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
       />
       <ScrollView
-        keyboardShouldPersistTaps={"always"}
-        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps={"handled"}
+        contentContainerStyle={CommonStyles.scrollCon}
       >
         <View style={styles.WelcomeCntainer}>
           <View style={styles.MainConatinWelcome}>
@@ -64,11 +64,67 @@ const SignUpScreen = (props) => {
           </View>
           <View style={styles.InputContainer}>
             <Input
-              // autoCapitalize={'characters'}
-              onChangeText={(first_name) =>
+              onChangeText={(txt) => {
                 props.setRegistrationData({
                   ...props.registrationData,
-                  first_name: first_name,
+                  user_name: txt,
+                });
+                props.checkUserName(txt);
+                if (txt?.length <= 4) {
+                  props.setUserValMessage({ message: "" });
+                }
+              }}
+              value={props.registrationData.user_name}
+              secureTextEntry={false}
+              placeholder="User Name"
+              onBlurPress={() => props.checkUserName(props.registrationData.user_name)}
+              onFocusPress={() => {
+                props.setUserValMessage({ message: "" });
+              }}
+              InputType="withScroll"
+            />
+            {props?.userValMessage?.message === "" ||
+            props?.userValMessage?.message === null ? null : (
+              <View style={styles.messageVw}>
+                <IconX
+                  origin={
+                    props?.userValMessage?.status === 200
+                      ? ICON_TYPE.FEATHER_ICONS
+                      : ICON_TYPE.ENTYPO
+                  }
+                  size={20}
+                  paddingRight={5}
+                  name={
+                    props?.userValMessage?.status === 200
+                      ? "check-circle"
+                      : "circle-with-cross"
+                  }
+                  color={
+                    props?.userValMessage?.status === 200
+                      ? GREEN_COLOR_CODE
+                      : LIGHT_RED_COLOR_CODE
+                  }
+                />
+                <Text
+                  style={[
+                    styles.messageTxt,
+                    {
+                      color:
+                        props?.userValMessage?.status === 200
+                          ? GREEN_COLOR_CODE
+                          : LIGHT_RED_COLOR_CODE,
+                    },
+                  ]}
+                >
+                  {props?.userValMessage?.message}
+                </Text>
+              </View>
+            )}
+            <Input
+              onChangeText={(txt) =>
+                props.setRegistrationData({
+                  ...props.registrationData,
+                  first_name: txt,
                 })
               }
               value={props.registrationData.first_name}
@@ -77,10 +133,10 @@ const SignUpScreen = (props) => {
               InputType="withScroll"
             />
             <Input
-              onChangeText={(last_name) =>
+              onChangeText={(txt) =>
                 props.setRegistrationData({
                   ...props.registrationData,
-                  last_name: last_name,
+                  last_name: txt,
                 })
               }
               value={props.registrationData.last_name}
@@ -89,10 +145,10 @@ const SignUpScreen = (props) => {
               InputType="withScroll"
             />
             <Input
-              onChangeText={(email) =>
+              onChangeText={(txt) =>
                 props.setRegistrationData({
                   ...props.registrationData,
-                  email: email,
+                  email: txt,
                 })
               }
               value={props.registrationData.email}
@@ -103,120 +159,42 @@ const SignUpScreen = (props) => {
               autoCapitalize="none"
             />
             <Input
-              onChangeText={(password) =>
+              onChangeText={(txt) =>
                 props.setRegistrationData({
                   ...props.registrationData,
-                  password: password,
+                  mobile: txt,
+                })
+              }
+              value={props.registrationData.mobile}
+              placeholder="Mobile"
+              maxLength={10}
+              keyboardType={"number-pad"}
+              InputType="withScroll"
+            />
+            <Input
+              onChangeText={(txt) =>
+                props.setRegistrationData({
+                  ...props.registrationData,
+                  password: txt,
                 })
               }
               value={props.registrationData.password}
-              // secureTextEntry={false}
+              // secureTextEntry={true}
               placeholder="Password"
               InputType="withScroll"
             />
             <Input
-              onChangeText={(zip_code) =>
+              onChangeText={(txt) =>
                 props.setRegistrationData({
                   ...props.registrationData,
-                  zip_code: zip_code,
+                  cnfrmpassword: txt,
                 })
               }
-              value={props.registrationData.zip_code}
-              secureTextEntry={false}
-              placeholder="Zip Code"
-              keyboardType="number-pad"
+              value={props.registrationData.cnfrmpassword}
+              // secureTextEntry={true}
+              placeholder="Confirm Password"
               InputType="withScroll"
             />
-            {/* <Input
-                                onChangeText={(birth_date) => props.setRegistrationData({
-                                    ...props.registrationData,
-                                    birth_date: birth_date
-                                })}
-                                value={props.registrationData.birth_date}
-                                secureTextEntry={false}
-                                placeholder="Birthday"
-                                InputType="withScroll"
-                            /> */}
-            <TouchableOpacity
-              onPress={() => showDatePicker()}
-              style={{
-                padding: 22,
-                borderColor: "#d8d8d8",
-                borderWidth: 1,
-                borderRadius: 12,
-                flexDirection: "row",
-                margin: 10,
-                marginLeft: 15,
-                marginRight: 15,
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>
-                {props.registrationData.birth_date === ""
-                  ? "Select a Date"
-                  : props.registrationData.birth_date}
-              </Text>
-              <Image
-                resizeMode={"contain"}
-                style={{ height: 24, width: 24, alignSelf: "flex-end" }}
-                source={Images.CALENDER_IMG}
-              />
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-              maximumDate={new Date()}
-            />
-            <View style={styles.addressVw}>
-              <GooglePlacesAutocomplete
-                placeholder="Address"
-                fetchDetails={true}
-                onPress={(data, details = null) => {
-                  props.setRegistrationData({
-                    ...props.registrationData,
-                    address: details.formatted_address,
-                    latitude: details.geometry.location.lat,
-                    longitude: details.geometry.location.lng,
-                  });
-                }}
-                value={props.registrationData.address}
-                query={{
-                  key: "AIzaSyDdLk5tb75SiJvRk9F2B4almu-sBAi1-EM",
-                  language: "en",
-                }}
-                textInputProps={{
-                  placeholderTextColor: BLACK_COLOR_CODE,
-                  onChangeText: (e) => {
-                    props.setRegistrationData({
-                      ...props.registrationData,
-                      address: e,
-                    });
-                  },
-                  value: props.registrationData.address,
-                }}
-                styles={{
-                  textInputContainer: {
-                    fontSize: 15,
-                    fontFamily: FONT_FAMILY_REGULAR,
-                    color: BLACK_COLOR_CODE,
-                  },
-                  textInput: {
-                    fontSize: 15,
-                    color: BLACK_COLOR_CODE,
-                    fontFamily: FONT_FAMILY_REGULAR,
-                  },
-                  listView: {
-                    backgroundColor: WHITE_COLOR_CODE,
-                  },
-                }}
-                minLength={2}
-                autoFocus={false}
-                returnKeyType={"default"}
-              />
-            </View>
           </View>
         </View>
         <View style={styles.ButtonContainer}>
@@ -225,21 +203,9 @@ const SignUpScreen = (props) => {
             buttonLabelStyle={styles.LoginBtnTxt}
             onPress={props.onPressSingUp}
           />
-          {/* <Button
-            buttonText="Continue with Facebook"
-            buttonLabelStyle={styles.FacebookBtnTxt}
-            style={styles.FacebookBtnStyle}
-            onPress={props.onPressFacebook}
-          />
-          <Button
-            buttonText="Continue with Google"
-            buttonLabelStyle={styles.LoginBtnTxt}
-            onPress={props.onPressGoogle}
-            style={styles.GoogleBtnStyle}
-          /> */}
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 export default SignUpScreen;

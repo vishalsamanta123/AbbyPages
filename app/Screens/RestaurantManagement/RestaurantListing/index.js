@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ToastAndroid,
-  Keyboard,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import _ from "lodash";
 import moment from "moment";
 import styles from "./components/styles";
@@ -22,8 +15,11 @@ import {
   LINE_COMMON_COLOR_CODE,
 } from "../../../Utils/Constant";
 import { Images } from "../../../Utils/images";
+import { restaurantOptions } from "../../../Utils/staticData";
+import { off } from "npm";
 
 const RestaurantListing = ({ navigation, route }) => {
+  const { nearbySearch } = route?.params || {};
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -34,30 +30,19 @@ const RestaurantListing = ({ navigation, route }) => {
   const [offSet, setOffSet] = useState(0);
   const [moreData, setMoreData] = useState(0);
   const [restroList, setRestroList] = useState([]);
-  const options = [
-    { type: "", name: "All" },
-    { type: "9", name: "Open Now" },
-    { type: "1", name: "Open Delivery" },
-    { type: "10", name: "Offer Takeout" },
-    { type: "2", name: "Reservations" },
-  ];
 
   useEffect(() => {
-    if (route?.params?.nearbySearch) {
-      const { nearbySearch } = route?.params || {};
-      if (search?.selectOption?.length === 0) {
-        const selectedArry = options?.filter((item) => {
-          return item.type === nearbySearch?.selectOption;
-        });
-        const getObj = nearbySearch;
-        getObj.selectOption = selectedArry;
-        setSearch(getObj);
-        handleSearchData(0);
-      }
+    if (navigation) {
+      const filterSearch = nearbySearch?.selectOption?.toString();
+      const navigateObj = { ...search, selectOption: filterSearch };
+      handleSearchData(offSet, navigateObj);
+    } else {
+      handleSearchData(offSet, search);
     }
-  }, [search, inputSearch]);
+  }, [navigation, search]);
 
-  const handleSearchData = async (offSet) => {
+  const handleSearchData = async (offSet, getObj) => {
+    setSearch(getObj);
     setOffSet(offSet);
     try {
       if (inputSearch) {
@@ -66,16 +51,16 @@ const RestaurantListing = ({ navigation, route }) => {
         setVisible(true);
       }
       const params = {
-        latitude: search.latitude ? search.latitude : "",
-        longitude: search.longitude ? search.longitude : "",
-        category_id: search.category_id ? search.category_id : "",
+        latitude: getObj?.latitude ? getObj?.latitude : "",
+        longitude: getObj?.longitude ? getObj?.longitude : "",
+        category_id: getObj?.category_id ? getObj?.category_id : "",
         limit: 10,
         offset: offSet,
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
-        city: search.city ? search.city : "",
+        city: getObj?.city ? getObj?.city : "",
       };
-      const getOptions = search?.selectOption?.map(({ type }) => type);
+      const getOptions = getObj?.selectOption?.map(({ type }) => type);
       params.options = getOptions?.length === 0 ? "" : getOptions?.toString();
       const { data } = await apiCall(
         "POST",
@@ -106,41 +91,7 @@ const RestaurantListing = ({ navigation, route }) => {
       setVisible(false);
     }
   };
-  // const handleRestroList = async (offSet) => {
-  //   setOffSet(offSet);
-  //   try {
-  //     setVisible(true);
-  //     const params = {
-  //       business_type: 1,
-  //       offset: offSet,
-  //       limit: 10,
-  //     };
-  //     const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-  //     if (data.status === 200) {
-  //       setVisible(false);
-  //       setMoreData(data.total_number_data);
-  //       if (offSet === 0) {
-  //         setRestroList(data.data);
-  //       } else {
-  //         setRestroList([...restroList, ...data.data]);
-  //       }
-  //     } else {
-  //       if (data.status === 201) {
-  //         setRestroList([]);
-  //         setVisible(false);
-  //       } else {
-  //         setErrorMessage(data.message);
-  //         setVisibleErr(true);
-  //         setVisible(false);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     setVisibleErr(true);
-  //     setVisible(false);
-  //     setErrorMessage(error.message);
-  //   }
-  // };
-  const onPressRestro = (item) => {
+  const onPressView = (item) => {
     navigation.navigate("RestaurantDetails", { detail: item });
   };
   const onPressLike = async (item) => {
@@ -155,13 +106,7 @@ const RestaurantListing = ({ navigation, route }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
-        if (search) {
-          if (inputSearch) {
-            handleSearchData(offSet);
-          }
-          handleSearchData(offSet);
-        }
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
+        handleSearchData(offSet);
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
@@ -171,105 +116,6 @@ const RestaurantListing = ({ navigation, route }) => {
       setVisibleErr(true);
     }
   };
-  const _handleSerivces = (item) => {
-    return (
-      <TouchableOpacity
-        onPress={() => onPressRestro(item)}
-        style={styles.MainConatiner}
-      >
-        <View>
-          <Image
-            style={styles.MainImgeStyle}
-            resizeMode="contain"
-            source={{ uri: item.logo }}
-          />
-          <View style={styles.RatingContainer}>
-            <View style={styles.RatingStyles}>
-              <Text style={styles.RatingStylesTxt}>5.0</Text>
-            </View>
-            <Text style={styles.RatingTextMain}>
-              {item.rating.length > 5
-                ? item.rating.toString().slice(0, -3)
-                : item.rating.length}{" "}
-              ratings
-            </Text>
-          </View>
-        </View>
-        <View style={styles.MainConatinerView}>
-          <View style={styles.InformationView}>
-            <View style={{ flex: 5 }}>
-              <Text style={styles.MainServiceName}>{item.business_name}</Text>
-            </View>
-            <View style={{ flex: 1, alignItems: "flex-end" }}>
-              <TouchableOpacity onPress={() => onPressLike(item)}>
-                <Image
-                  style={{
-                    tintColor:
-                      item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
-                  }}
-                  source={Images.FAVRT_IMG}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Text
-            numberOfLines={2}
-            style={[styles.AddressTextStyles, { paddingRight: 5 }]}
-          >
-            {item.business_service_category}
-          </Text>
-          <View style={styles.InformationView}>
-            <Image
-              style={styles.MapImgeStyle}
-              resizeMode="contain"
-              source={Images.LOCATION_IMG}
-            />
-            <Text
-              numberOfLines={2}
-              style={[styles.AddressTextStyles, { paddingRight: 10 }]}
-            >
-              {item.address}
-            </Text>
-          </View>
-          <View style={styles.InformationView}>
-            {/* <Image style={{}} source={require('../../Assets/truck_icon.png')} /> */}
-            <View style={{ flexDirection: "row" }}>
-              <View style={styles.statusVw}>
-                <Image
-                  tintColor={YELLOW_COLOR_CODE}
-                  source={
-                    item.offers_delivery === 1
-                      ? Images.TICK_IMG
-                      : Images.CANCEL_IMG
-                  }
-                  style={{ marginHorizontal: 2 }}
-                />
-                <Text style={styles.AddressTextStyles}>Delievery</Text>
-              </View>
-              <View style={styles.statusVw}>
-                <Image
-                  tintColor={YELLOW_COLOR_CODE}
-                  source={
-                    item.offers_takeout === 1
-                      ? Images.TICK_IMG
-                      : Images.CANCEL_IMG
-                  }
-                  style={{ marginHorizontal: 2 }}
-                />
-                <Text style={styles.AddressTextStyles}>Takeout</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.InformationView}>
-            <Image source={Images.FIRE_IMG} />
-            <Text style={styles.AddressTextStyles}>
-              {moment(item.create_date).startOf("hour").fromNow()}
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
   const onPressMap = () => {
     navigation.navigate("ListingMap", {
       businessList: restroList,
@@ -277,63 +123,15 @@ const RestaurantListing = ({ navigation, route }) => {
     });
   };
 
-  const handleOptions = (item, index) => {
-    if (item?.type === "") {
-      //when all types is selected it works
-      const allTypes = [item];
-      setSearch({
-        ...search,
-        selectOption: allTypes,
-      });
-    } else {
-      if (search?.selectOption?.length > 0) {
-        search?.selectOption?.find((check) => {
-          if (check?.type === item?.type) {
-            //when same type is selected it works to remove it
-            const arrays = [...search.selectOption];
-            arrays?.splice(
-              arrays?.findIndex((rmv) => rmv.type === item.type),
-              1
-            );
-            setSearch({
-              ...search,
-              selectOption: arrays,
-            });
-          } else {
-            if (search?.selectOption[0]?.type === "") {
-              //when other than all types is selected it works to add it
-              const toRemoveAll = [...search.selectOption];
-              toRemoveAll?.splice(
-                arrays?.findIndex((rmv) => rmv.type === ""),
-                1
-              );
-              const arrays = [...toRemoveAll];
-              arrays?.push(item);
-              setSearch({
-                ...search,
-                selectOption: arrays,
-              });
-            } else {
-              //when another type is selected it works to add it
-              const arrays = [...search.selectOption];
-              arrays?.push(item);
-              setSearch({
-                ...search,
-                selectOption: arrays,
-              });
-            }
-          }
-        });
-      } else {
-        //when nothing is selected it works
-        const firstType = [item.type];
-        setSearch({
-          ...search,
-          selectOption: firstType,
-        });
-      }
-    }
+  const handleOptions = (item) => {
+    const newArray = [...search?.selectOption];
+    newArray.push(item.type);
+    setSearch({
+      ...search,
+      selectOption: newArray,
+    });
   };
+
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -342,14 +140,14 @@ const RestaurantListing = ({ navigation, route }) => {
         search={search}
         setInputSearch={setInputSearch}
         handleSearchData={handleSearchData}
-        _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
         offSet={offSet}
         moreData={moreData}
         inputSearch={inputSearch}
-        options={options}
+        restaurantOptions={restaurantOptions}
         // selectOption={selectOption}
         handleOptions={handleOptions}
+        onPressView={onPressView}
       />
       <Error
         message={errorMessage}

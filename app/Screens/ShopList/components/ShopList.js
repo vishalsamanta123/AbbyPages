@@ -40,15 +40,6 @@ const ShopList = (props) => {
                     )
                   : null;
                 setScrollBegin(false);
-              } else {
-                !props.stopOffset
-                  ? props?.handleShopList(
-                      props.shopList.length > 5
-                        ? props.offSet + 1
-                        : props.offSet
-                    )
-                  : null;
-                setScrollBegin(false);
               }
             }
           }}

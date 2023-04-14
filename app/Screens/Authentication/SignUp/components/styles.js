@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 import {
   WHITE_COLOR_CODE,
   GREY_COLOR_CODE,
-  FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
+  GREEN_COLOR_CODE,
 } from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   LoginBtnTxt: {
@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
   },
   MainConatinWelcome: {
     padding: 20,
-    paddingTop: 30,
+    paddingTop: 20,
     flex: 2.2,
     justifyContent: "flex-end",
   },
@@ -35,6 +35,18 @@ const Styles = StyleSheet.create({
     flex: 3.8,
     justifyContent: "flex-end",
     marginBottom: 10,
+  },
+  messageVw: {
+    bottom: 12,
+    marginHorizontal: 20,
+    marginTop: 6,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  messageTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: GREEN_COLOR_CODE,
   },
   addressVw: {
     padding: 10,

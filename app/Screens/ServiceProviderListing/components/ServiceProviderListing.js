@@ -49,24 +49,15 @@ const ServiceProviderListing = (props) => {
               setScrollBegin(false);
               !props.stopOffset
                 ? props?.handleSearchData(
-                  props.serviceData.length > 5
-                    ? props.offSet + 1
-                    : props.offSet
-                )
-                : null;
-            } else {
-              setScrollBegin(false);
-              !props.stopOffset
-                ? props?.handleServiceList(
-                  props.serviceData.length > 5
-                    ? props.offSet + 1
-                    : props.offSet
-                )
+                    props.serviceData.length > 5
+                      ? props.offSet + 1
+                      : props.offSet
+                  )
                 : null;
             }
           }
         }}
-      // onEndReachedThreshold={0.1}
+        // onEndReachedThreshold={0.1}
       />
     </KeyboardAvoidingView>
   );

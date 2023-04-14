@@ -41,41 +41,9 @@ const ShopList = ({ navigation, route }) => {
     } else {
       if (inputSearch) {
         handleSearchData(0);
-      } else {
-        handleShopList(0);
       }
     }
   }, [search, inputSearch]);
-
-  const handleShopList = async (offSet) => {
-    setOffSet(offSet);
-    try {
-      setVisible(true);
-      const params = {
-        business_type: 2,
-        offset: offSet,
-        limit: 10 + offSet,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      if (data.status === 200) {
-        setShopList(data.data);
-        setVisible(false);
-      } else {
-        setstopOffset(true);
-        if (data.status === 201) {
-          // setShopList([]);
-          setVisible(false);
-        } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
-          setVisible(false);
-        }
-      }
-    } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-    }
-  };
 
   const handleSearchData = async (offSet) => {
     setOffSet(offSet);
@@ -139,14 +107,7 @@ const ShopList = ({ navigation, route }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
-        if (search) {
-          if (inputSearch) {
-            handleSearchData(offSet);
-          }
-          handleSearchData(offSet);
-        } else {
-          handleShopList(offSet);
-        }
+        handleSearchData(offSet);
         ToastAndroid.show(data.message, ToastAndroid.LONG);
         setVisible(false);
       } else {
@@ -204,8 +165,8 @@ const ShopList = ({ navigation, route }) => {
               >
                 <Image
                   style={{
-                    tintColor: item.user_like === 1
-                      ? null : LINE_COMMON_COLOR_CODE
+                    tintColor:
+                      item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
                   }}
                   source={Images.FAVRT_IMG}
                 />
@@ -294,7 +255,6 @@ const ShopList = ({ navigation, route }) => {
         onPressMap={onPressMap}
         search={search}
         handleSearchData={handleSearchData}
-        handleShopList={handleShopList}
         offSet={offSet}
         stopOffset={stopOffset}
         inputSearch={inputSearch}

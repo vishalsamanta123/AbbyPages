@@ -23,32 +23,8 @@ const ServiceProviderListingView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-
   const [serviceData, setserviceData] = useState([]);
-  useEffect(() => {
-    handleServiceList();
-  }, []);
-  const handleServiceList = async () => {
-    setVisible(true);
-    const params = {
-      business_type: 3,
-    };
-    try {
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      if (data.status === 200) {
-        setserviceData(data.data);
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
-      }
-    } catch (error) {
-      setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
+ 
   const onPressServices = (detail) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
@@ -63,7 +39,6 @@ const ServiceProviderListingView = ({ navigation }) => {
       if (data.status == 200) {
         ToastAndroid.show(data.message, ToastAndroid.SHORT);
         setVisible(false);
-        handleServiceList();
       } else {
         setErrorMessage(data.message);
         setVisibleErr(true);
@@ -168,7 +143,6 @@ const ServiceProviderListingView = ({ navigation }) => {
     });
     if (searchKey == "") {
       setVisible(true);
-      handleServiceList();
       setVisible(false);
     }
     setserviceData(list);

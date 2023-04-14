@@ -115,7 +115,7 @@ const ApplyJobView = ({ navigation, route }) => {
   const validations = () => {
     setRequires(true);
     if (applyJob.resume == "") {
-      setErrorMessage("Please select resume");
+      setErrorMessage("Please select Résumé");
       setVisibleErr(true);
       return false;
     }

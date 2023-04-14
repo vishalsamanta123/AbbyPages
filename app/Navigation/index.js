@@ -6,9 +6,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //------------------------Styles-------------------//
 import { Image, StatusBar, View, StyleSheet } from "react-native";
-import { customDrawerContents, BusinessDrawerContents } from "./CustomDrawer_";
 import { Images } from "../Utils/images";
 import MyCustomDrawer from "./MyCustomDrawer";
+import MyTabBar from "./MyTabBar";
 
 //----------------------Functionality-------------//
 import AsyncStorage from "@react-native-community/async-storage";
@@ -26,7 +26,6 @@ import UserVerifyScreen from "../Screens/Authentication/UserVerify";
 import BusinessUserVerifyScreen from "../Screens/Authentication/BusinessUserVerify";
 import ForgotPasswordScreen from "../Screens/Authentication/ForgotPassword";
 import ForgotPasswordFieldScreen from "../Screens/Authentication/ForgotPasswordField";
-import AddEmailScreen from "../Screens/AddEmail";
 //-----------------Authentication and Common End------------------//
 
 //2------------------->BusinessScreens<---------------//
@@ -93,59 +92,32 @@ import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/Shopping
 //2-------------------BusinessScreens End-------------//
 
 //3------------------->UserScreens<----------------//
+
 //3.1------------------>UserScreens RestaurantScreens<----------------//
 import RestaurantDetails from "../Screens/RestaurantManagement/RestaurantDetails";
-import RestauranrtBookingScreen from "../Screens/RestauranrtBooking";
-import ConfirmReservationScreen from "../Screens/ConfirmReservation";
-import ShowMenuScreen from "../Screens/RestroMenu/ShowMenu";
-import AddToCartScreen from "../Screens/RestroMenu/AddToCart";
-import RestroCheckoutScreen from "../Screens/RestroMenu/RestroCheckout";
-import CheckoutDetailScreen from "../Screens/RestroMenu/CheckoutDetail";
-import PlaceOrderScreen from "../Screens/RestroMenu/PlaceOrder";
 //3.1--------------UserScreens RestaurantScreens End------------------//
 
 //3.2------------------>UserScreens JobScreens<----------------//
-import JobDetailsScreen from "../Screens/JobDetails";
-import ApplyJobScreen from "../Screens/ApplyJob";
 //3.2--------------UserScreens JobScreens End------------------//
 
 //3.3------------------>UserScreens ServicesScreens<----------------//
 import ServiceProviderDetails from "../Screens/ServiceProviderDetails";
-import StepOneScreen from "../Screens/StepOne";
-import StepSecondScreen from "../Screens/StepSecond";
-import StepThirdScreen from "../Screens/StepThird";
-import StepFifthScreen from "../Screens/StepFifth";
-import StepSevenScreen from "../Screens/StepSeven";
-import StepFourthScreen from "../Screens/StepFourth";
-import StepSixScreen from "../Screens/StepSix";
-import StepEightScreen from "../Screens/StepEight";
 //--------------UserScreens ServicesScreens End------------------//
 
 //3.4------------------>UserScreens EventScreens<----------------//
-import EventDetailsScreen from "../Screens/EventDetails";
 //3.4--------------UserScreens EventScreens End------------------//
 
 //3.5------------------>UserScreens ShopScreens<----------------//
 import ShopDetailScreen from "../Screens/ShopDetail";
-import ProductListingScreen from "../Screens/ShoppingMenu/ProductListing";
-import ProductDetailsScreen from "../Screens/ShoppingMenu/ProductDetails";
-import ShoppingCartScreen from "../Screens/ShoppingMenu/ShoppingCart";
-import CheckOutScreen from "../Screens/ShoppingMenu/CheckOut";
-import ConfirmOrderScreen from "../Screens/ShoppingMenu/ConfirmOrder";
 //3.5--------------UserScreens ShopScreens End------------------//
 
 //3.6------------------>UserScreens Drawer and others<----------------//
 import DashBoardScreen from "../Screens/DashBoard";
 import RestaurantListing from "../Screens/RestaurantManagement/RestaurantListing";
-import JobListScreen from "../Screens/JobList";
 import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
-import EventListingsScreen from "../Screens/EventListings";
 import ShopListScreen from "../Screens/ShopList";
-import ListingMapScreen from "../Screens/ListingMap";
 import ProfileSettingsScreen from "../Screens/ProfileSettings";
-import AddLocationScreen from "../Screens/AddLocation";
 import OrderHistoryScreen from "../Screens/OrderHistory";
-import OrderDetailScreenBackEnd from "../Screens/OrderDetail";
 import UserEventsListScreen from "../Screens/UserEventsList";
 import FollowingListScreen from "../Screens/FollowingList";
 import FollowerListScreen from "../Screens/FollowerList";
@@ -155,23 +127,8 @@ import CollectionsScreen from "../Screens/Collections";
 import NotificationsScreen from "../Screens/Notifications";
 import RecentActivityScreen from "../Screens/RecentActivity";
 import FriendsScreen from "../Screens/Friends";
-import InviteFriendsScreen from "../Screens/InviteFriends";
-import UpdateProfileScreen from "../Screens/UpdateProfile";
-import ChangePasswordScreen from "../Screens/ChangePassword";
-import NotificationSettingsScreen from "../Screens/NotificationSettings";
-import LocationsScreen from "../Screens/Locations";
-import UserProfileScreen from "../Screens/UserProfile";
 //3.6------------------>UserScreens Drawer and others End<----------------//
 //3----------------UserScreens End------------------//
-
-import UpdatePagesScreen from "../Screens/Business/UpdatePages";
-import RestaurantMenuScreen from "../Screens/RestaurantMenu";
-import AddcartcashbackScreen from "../Screens/Addcartcashback";
-import AddPhotosScreen from "../Screens/AddPhotos";
-import BookmarkMapScreen from "../Screens/BookmarkMap";
-import CashBackScreen from "../Screens/CashBack";
-import ManageFriendInviteScreen from "../Screens/ManageFriendInvite";
-import MyTabBar from "./MyTabBar";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -184,10 +141,6 @@ function TabNavigation() {
   return (
     <Tab.Navigator lazy={true} tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="DashBoard" component={CustomDrawerNavigation} />
-      {/* <Tab.Screen name="EventManagement" component={EventManagement} />
-      <Tab.Screen name="JobList" component={JobListScreen} />
-      <Tab.Screen name="ShopList" component={ShopListScreen} />
-      <Tab.Screen name="ShopDetail" component={ShopDetailScreen} /> */}
     </Tab.Navigator>
   );
 }
@@ -315,16 +268,8 @@ function AuthStack() {
         name="ForgotPasswordField"
         component={ForgotPasswordFieldScreen}
       />
-      {/* { business} */}
+      
       <Auth.Screen name="GetStarted" component={GetStartedScreen} />
-      {/* <Business.Screen name="Goals" component={GoalsScreen} />
-      <Business.Screen name="AddKeybord" component={AddKeybordScreen} />
-      <Business.Screen name="AddText" component={AddTextScreen} />
-      <Business.Screen
-        name="BusinessLocation"
-        component={BusinessLocationScreen}
-      />
-      <Business.Screen name="Budgets" component={BudgetsScreen} /> */}
     </Auth.Navigator>
   );
 }
@@ -335,7 +280,7 @@ function BusinessStack() {
       initialRouteName={"BusinessHome"}
       screenOptions={{ headerShown: false }}
     >
-      <Business.Screen
+      {/* <Business.Screen
         name="BusinessHome"
         component={CustomBusinessNavigation}
       />
@@ -386,14 +331,14 @@ function BusinessStack() {
         name="TableManagement"
         component={TableManagementScreen}
       />
-      <Business.Screen name="AddTable" component={AddTableScreen} />
-      <Business.Screen
+      <Business.Screen name="AddTable" component={AddTableScreen} /> */}
+      {/* <Business.Screen
         name="RestaurantManagement"
         component={RestaurantManagementScreen}
-      />
+      /> */}
       {/* <Business.Screen name="UpdatePages" component={UpdatePagesScreen} /> */}
 
-      <Business.Screen name="Goals" component={GoalsScreen} />
+      {/* <Business.Screen name="Goals" component={GoalsScreen} />
       <Business.Screen name="AddKeybord" component={AddKeybordScreen} />
       <Business.Screen name="AddText" component={AddTextScreen} />
       <Business.Screen
@@ -433,7 +378,7 @@ function BusinessStack() {
       />
       <Business.Screen name="EventManagement" component={EventManagement} />
       <Business.Screen name="EventView" component={EventViewScreen} />
-      <Business.Screen name="CreateEvent" component={CreateEventScreen} />
+      <Business.Screen name="CreateEvent" component={CreateEventScreen} /> */}
     </Business.Navigator>
   );
 }
@@ -461,6 +406,7 @@ function AppStack() {
       />
       <Stack.Screen name="ShopList" component={ShopListScreen} />
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
+      
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       {/* <Stack.Screen

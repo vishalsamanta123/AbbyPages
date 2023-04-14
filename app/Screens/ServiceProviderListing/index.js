@@ -41,8 +41,6 @@ const ServiceProviderListingView = ({ navigation, route }) => {
     } else {
       if (inputSearch) {
         handleSearchData(0);
-      } else {
-        handleServiceList(0);
       }
     }
   }, [search, inputSearch]);
@@ -92,36 +90,6 @@ const ServiceProviderListingView = ({ navigation, route }) => {
       setVisible(false);
     }
   };
-  const handleServiceList = async (offSet) => {
-    setOffSet(offSet);
-    try {
-      setVisible(true);
-      const params = {
-        business_type: 3,
-        offset: offSet,
-        limit: 10,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.BUSINESS_LIST, params);
-      if (data.status === 200) {
-        setserviceData(data.data);
-        setVisible(false);
-      } else {
-        setstopOffset(true);
-        if (data.status === 201) {
-          setserviceData([]);
-          setVisible(false);
-        } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
-          setVisible(false);
-        }
-      }
-    } catch (error) {
-      setVisible(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-    }
-  };
   const onPressServices = (detail) => {
     navigation.navigate("ServiceProviderDetails", { detail: detail });
   };
@@ -145,8 +113,6 @@ const ServiceProviderListingView = ({ navigation, route }) => {
             handleSearchData(offSet);
           }
           handleSearchData(offSet);
-        } else {
-          handleServiceList(offSet);
         }
       } else {
         setErrorMessage(data.message);
@@ -264,9 +230,7 @@ const ServiceProviderListingView = ({ navigation, route }) => {
       setVisible(true);
       if (search) {
         handleSearchData(0);
-      } else {
-        handleServiceList(0);
-      }
+      } 
       setVisible(false);
     } else {
       setserviceData(list);
@@ -282,7 +246,6 @@ const ServiceProviderListingView = ({ navigation, route }) => {
         handleSearchData={handleSearchData}
         _handleSerivces={_handleSerivces}
         onPressMap={onPressMap}
-        handleServiceList={handleServiceList}
         offSet={offSet}
         stopOffset={stopOffset}
         inputSearch={inputSearch}

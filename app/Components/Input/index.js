@@ -12,6 +12,7 @@ import {
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
 } from "../../Utils/Constant";
+import { IconX, ICON_TYPE } from "../Icons/Icon";
 
 const Input = (props) => {
   const [isFocused, setIsfocused] = useState(true);
@@ -35,13 +36,17 @@ const Input = (props) => {
     selectionColor,
     copyText,
     onPressCoptTxt,
+    onBlurPress = () => {},
+    onFocusPress = () => {},
   } = props;
   const { container, textInput, labelStyle, copyTextTxt } = style;
   const _handleFocus = () => {
     setIsfocused(false);
+    onFocusPress();
   };
   const _handleBlur = () => {
     value === "" && setIsfocused(true);
+    onBlurPress();
   };
   const onPressEye = () => {
     // setShowPassword(!showPassword);
@@ -90,7 +95,7 @@ const Input = (props) => {
           multiline={multiline}
           placeholder={InputType === null ? placeholder : null}
           returnKeyType={returnKeyType}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={secureTextEntry === true ? secureTextEntry : false}
           value={value}
           placeholderTextColor={placeholderTextColor}
           selectionColor={selectionColor ? selectionColor : "#a5a5a5"}
@@ -153,7 +158,7 @@ const style = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 4,
     fontFamily: FONT_FAMILY_REGULAR,
-    paddingVertical:  12,
+    paddingVertical: 12,
   },
   copyTextTxt: {
     fontSize: 13,

@@ -34,12 +34,14 @@ export const IconX = ({
   color,
   size,
   paddingLeft,
+  paddingRight,
   style,
 }) => {
   let colorx = color || "#aaaaaa";
   let sizex = size || 24;
   let namex = name || "right";
   let paddingx = paddingLeft || null;
+  let paddingy = paddingRight || null;
 
   let Element = Ionicons;
 
@@ -93,7 +95,7 @@ export const IconX = ({
       name={namex}
       size={sizex}
       color={colorx}
-      style={[{ paddingLeft: paddingx }, style]}
+      style={[{ paddingLeft: paddingx ,paddingRight:paddingy}, style]}
       onPress={onPress}
     />
   );
