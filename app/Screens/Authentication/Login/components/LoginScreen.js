@@ -50,7 +50,7 @@ const LoginScreen = (props) => {
                 onChangeText={(UserName) => props.setUserName(UserName)}
                 value={props.UserName}
                 secureTextEntry={false}
-                placeholder="Username"
+                placeholder="Email/MobileNo."
                 InputType="withScroll"
                 keyboardType="email-address"
                 autoCapitalize="none"

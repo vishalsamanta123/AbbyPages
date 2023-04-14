@@ -26,17 +26,11 @@ const RestaurantListing = ({ navigation, route }) => {
   const [restroList, setRestroList] = useState([]);
 
   useEffect(() => {
-    if (navigation) {
-      const filterSearch = nearbySearch?.selectOption?.toString();
-      const navigateObj = { ...search, selectOption: filterSearch };
-      handleSearchData(offSet, navigateObj);
-    } else {
       handleSearchData(offSet, search);
-    }
   }, [navigation, search]);
 
   const handleSearchData = async (offSet, getObj) => {
-    setSearch(getObj);
+    console.log("getObj", getObj);
     setOffSet(offSet);
     try {
       if (inputSearch) {
@@ -53,9 +47,10 @@ const RestaurantListing = ({ navigation, route }) => {
         business_type: 1,
         search_key: inputSearch ? inputSearch : null,
         city: getObj?.city ? getObj?.city : "",
+        options: "",
       };
-      const getOptions = getObj?.selectOption?.map(({ type }) => type);
-      params.options = getOptions?.length === 0 ? "" : getOptions?.toString();
+      // const getOptions = getObj?.selectOption?.map(({ type }) => type);
+      // params.options = getOptions?.length === 0 ? "" : getOptions?.toString();
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
