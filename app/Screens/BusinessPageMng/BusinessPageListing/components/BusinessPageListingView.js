@@ -1,4 +1,3 @@
-import { isArray } from "lodash";
 import React, { useState } from "react";
 import {
   View,
@@ -19,7 +18,8 @@ import {
 import { Images } from "../../../../Utils/images";
 import styles from "./styles";
 
-const RestaurantScreen = (props) => {
+const BusinessPageListingView = (props) => {
+  const [allSelect, setAllSelect] = useState(false);
   return (
     <KeyboardAvoidingView
       behavior={IOS ? "padding" : null}
@@ -53,27 +53,52 @@ const RestaurantScreen = (props) => {
         ListHeaderComponent={() => {
           return (
             <>
-              <ScrollView
-                contentContainerStyle={styles.straightVw}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-              >
-                {props?.restaurantOptions?.map((item, index) => {
-                  return (
+              {props?.search?.business_type === "1" ? (
+                <ScrollView
+                  contentContainerStyle={styles.straightVw}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                >
+                  <>
                     <TouchableOpacity
                       style={[
                         styles.topContainer,
                         {
-                          // backgroundColor: ,
+                          backgroundColor: allSelect ? YELLOW_COLOR_CODE : null,
                         },
                       ]}
-                      onPress={() => props.handleOptions(item)}
+                      onPress={() => {
+                        props.handleOptions([]);
+                        setAllSelect(true);
+                      }}
                     >
-                      <Text style={styles.topContainerTxt}>{item.name}</Text>
+                      <Text style={styles.topContainerTxt}>{"All"}</Text>
                     </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
+                  </>
+                  {props?.restaurantOptions?.map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        style={[
+                          styles.topContainer,
+                          {
+                            backgroundColor: props?.search?.selectOption
+                              ?.toString()
+                              ?.includes(item.type)
+                              ? YELLOW_COLOR_CODE
+                              : null,
+                          },
+                        ]}
+                        onPress={() => {
+                          props.handleOptions(item);
+                          setAllSelect(false);
+                        }}
+                      >
+                        <Text style={styles.topContainerTxt}>{item.name}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              ) : null}
             </>
           );
         }}
@@ -106,4 +131,4 @@ const RestaurantScreen = (props) => {
     </KeyboardAvoidingView>
   );
 };
-export default RestaurantScreen;
+export default BusinessPageListingView;

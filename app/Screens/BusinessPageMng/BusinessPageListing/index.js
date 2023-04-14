@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import _ from "lodash";
-import moment from "moment";
-import styles from "./components/styles";
-import RestaurantScreen from "./components/RestaurantScreen";
+import BusinessPageListingView from "./components/BusinessPageListingView";
 import CommonStyles from "../../../Utils/CommonStyles";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
@@ -12,7 +10,7 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/error";
 import { restaurantOptions } from "../../../Utils/staticData";
 
-const RestaurantListing = ({ navigation, route }) => {
+const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -26,12 +24,21 @@ const RestaurantListing = ({ navigation, route }) => {
   const [restroList, setRestroList] = useState([]);
 
   useEffect(() => {
-      handleSearchData(offSet, search);
-  }, [navigation, search]);
+    if (search?.selectOption?.length === 0) {
+      const filterSearch = {
+        ...nearbySearch,
+        selectOption: Number(nearbySearch?.selectOption)
+          ? nearbySearch?.selectOption?.toString()
+          : "",
+      };
+      setSearch(filterSearch);
+      handleSearchData(offSet, filterSearch);
+    }
+  }, [navigation]);
 
   const handleSearchData = async (offSet, getObj) => {
-    console.log("getObj", getObj);
     setOffSet(offSet);
+    setSearch(getObj);
     try {
       if (inputSearch) {
         setVisible(false);
@@ -44,13 +51,15 @@ const RestaurantListing = ({ navigation, route }) => {
         category_id: getObj?.category_id ? getObj?.category_id : "",
         limit: 10,
         offset: offSet,
-        business_type: 1,
+        business_type: getObj?.business_type ? getObj?.business_type : "",
         search_key: inputSearch ? inputSearch : null,
         city: getObj?.city ? getObj?.city : "",
-        options: "",
+        options:
+          getObj?.selectOption?.length > 0 ||
+          Array?.isArray(getObj?.selectOption)
+            ? getObj?.selectOption?.toString()
+            : "",
       };
-      // const getOptions = getObj?.selectOption?.map(({ type }) => type);
-      // params.options = getOptions?.length === 0 ? "" : getOptions?.toString();
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
@@ -81,29 +90,7 @@ const RestaurantListing = ({ navigation, route }) => {
     }
   };
   const onPressView = (item) => {
-    navigation.navigate("RestaurantDetails", { detail: item });
-  };
-  const onPressLike = async (item) => {
-    try {
-      const params = {
-        item_type: Number(item.search_business_type),
-        item_id: item?.business_id,
-        like: item?.user_like === 1 ? 0 : 1,
-        favorite: item?.user_favorite ? item?.user_favorite : 0,
-        interest: item?.interest ? item?.interest : 0,
-        views: item?.views,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      if (data.status == 200) {
-        handleSearchData(offSet);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-      }
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
+    navigation.navigate("BusinessPageDetails", { detail: item });
   };
   const onPressMap = () => {
     navigation.navigate("ListingMap", {
@@ -113,18 +100,31 @@ const RestaurantListing = ({ navigation, route }) => {
   };
 
   const handleOptions = (item) => {
-    const newArray = [...search?.selectOption];
-    newArray.push(item.type);
-    setSearch({
-      ...search,
-      selectOption: newArray,
-    });
+    if (search?.selectOption?.toString()?.includes(item?.type)) {
+      const toRemoveObj = [...search.selectOption];
+      toRemoveObj.splice(
+        toRemoveObj.findIndex((a) => a === item.type),
+        1
+      );
+      const newObject = { ...search, selectOption: toRemoveObj };
+      handleSearchData(0, newObject);
+    } else {
+      if (item?.type) {
+        const newArray = [...search?.selectOption];
+        newArray.push(item.type);
+        const newObject = { ...search, selectOption: newArray };
+        handleSearchData(0, newObject);
+      } else {
+        const newObject = { ...search, selectOption: item };
+        handleSearchData(0, newObject);
+      }
+    }
   };
 
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <RestaurantScreen
+      <BusinessPageListingView
         restroList={restroList}
         search={search}
         setInputSearch={setInputSearch}
@@ -151,4 +151,4 @@ const RestaurantListing = ({ navigation, route }) => {
     </View>
   );
 };
-export default RestaurantListing;
+export default BusinessPageListing;

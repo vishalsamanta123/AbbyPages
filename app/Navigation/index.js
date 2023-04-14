@@ -94,7 +94,7 @@ import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/Shopping
 //3------------------->UserScreens<----------------//
 
 //3.1------------------>UserScreens RestaurantScreens<----------------//
-import RestaurantDetails from "../Screens/RestaurantManagement/RestaurantDetails";
+import BusinessPageDetails from "../Screens/BusinessPageMng/BusinessPageDetails";
 //3.1--------------UserScreens RestaurantScreens End------------------//
 
 //3.2------------------>UserScreens JobScreens<----------------//
@@ -113,7 +113,7 @@ import ShopDetailScreen from "../Screens/ShopDetail";
 
 //3.6------------------>UserScreens Drawer and others<----------------//
 import DashBoardScreen from "../Screens/DashBoard";
-import RestaurantListing from "../Screens/RestaurantManagement/RestaurantListing";
+import BusinessPageListing from "../Screens/BusinessPageMng/BusinessPageListing";
 import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
 import ShopListScreen from "../Screens/ShopList";
 import ProfileSettingsScreen from "../Screens/ProfileSettings";
@@ -242,8 +242,8 @@ function AuthStack() {
       screenOptions={{ headerShown: false }}
     >
       <Auth.Screen name="HomeDashboard" component={TabNavigation} />
-      <Auth.Screen name="RestaurantListing" component={RestaurantListing} />
-      <Auth.Screen name="RestaurantDetails" component={RestaurantDetails} />
+      <Auth.Screen name="BusinessPageListing" component={BusinessPageListing} />
+      <Auth.Screen name="BusinessPageDetails" component={BusinessPageDetails} />
       <Auth.Screen
         name="ServiceProviderListing"
         component={ServiceProviderListingScreen}
@@ -268,7 +268,7 @@ function AuthStack() {
         name="ForgotPasswordField"
         component={ForgotPasswordFieldScreen}
       />
-      
+
       <Auth.Screen name="GetStarted" component={GetStartedScreen} />
     </Auth.Navigator>
   );
@@ -394,8 +394,14 @@ function AppStack() {
         name="BusinessOrderHistory"
         component={BusinessOrderHistoryScreen}
       />
-      <Stack.Screen name="RestaurantListing" component={RestaurantListing} />
-      <Stack.Screen name="RestaurantDetails" component={RestaurantDetails} />
+      <Stack.Screen
+        name="BusinessPageListing"
+        component={BusinessPageListing}
+      />
+      <Stack.Screen
+        name="BusinessPageDetails"
+        component={BusinessPageDetails}
+      />
       <Stack.Screen
         name="ServiceProviderListing"
         component={ServiceProviderListingScreen}
@@ -406,7 +412,7 @@ function AppStack() {
       />
       <Stack.Screen name="ShopList" component={ShopListScreen} />
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
-      
+
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       {/* <Stack.Screen
@@ -609,7 +615,7 @@ function AuthLoading({ navigation }) {
         <Image
           resizeMode={"contain"}
           style={Styles.logoImg}
-          source={Images.SPLASH_LOGO}
+          source={Images.LOADER}
         />
       </View>
     );

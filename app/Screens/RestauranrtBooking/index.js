@@ -77,7 +77,7 @@ const RestauranrtBookingView = ({ route, navigation }) => {
   };
   const onPressRestro = (item) => {
     setVisible(true);
-    navigation.navigate("RestaurantDetails", { detail: item });
+    navigation.navigate("BusinessPageDetails", { detail: item });
     setVisible(false);
   };
   const _handleRecommended = (item) => {

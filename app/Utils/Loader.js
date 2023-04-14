@@ -2,6 +2,7 @@ import React from "react";
 import { View, Image } from "react-native";
 import LottieView from "lottie-react-native";
 import { YELLOW_COLOR_CODE } from "./Constant";
+import { Images } from "./images";
 const Loader = () => {
   return (
     <View
@@ -31,7 +32,7 @@ const Loader = () => {
         source={require('../Assets/loader.json')}
         autoPlay loop /> */}
       <Image
-        source={require("../Assets/loader.gif")}
+        source={Images.LOADER}
         style={{
           width: 100,
           height: 100,
