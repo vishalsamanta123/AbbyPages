@@ -17,7 +17,7 @@ import {
   windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
-import { restaurantObj } from "../Utils/staticData";
+import { businessTypes, businessPageObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
   const { isFocused = "", handleNavigation, onPressOptions } = props;
@@ -107,22 +107,22 @@ const CustomPopups = (props) => {
             ) : isFocused === "MoreManagement" ? (
               <>
                 <TouchableOpacity
-                  onPress={() => onPressOptions("MarketPlace")}
+                  onPress={() => onPressOptions(businessTypes[2])}
                   style={styles.subCatVw}
                 >
-                  <Text style={styles.subCatTxt}>{"MarketPlace"}</Text>
+                  <Text style={styles.subCatTxt}>{businessTypes[2].name}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => onPressOptions("Directory")}
+                  onPress={() => onPressOptions(businessTypes[3])}
                   style={styles.subCatVw}
                 >
-                  <Text style={styles.subCatTxt}>{"Directory"}</Text>
+                  <Text style={styles.subCatTxt}>{businessTypes[3].name}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => onPressOptions("Restaurants")}
+                  onPress={() => onPressOptions(businessTypes[1])}
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Restaurants"}</Text>
+                  <Text style={styles.subCatTxt}>{businessTypes[1].name}</Text>
                 </TouchableOpacity>
               </>
             ) : null}
@@ -150,13 +150,14 @@ function MyTabBar({ state, descriptors, navigation }) {
         break;
     }
   };
-  const onPressOptions = (type) => {
-    if (type === "MarketPlace") {
+  const onPressOptions = (options) => {
+    if (options.type === "2") {
       navigation.navigate("ShopList");
-    } else if (type === "Directory") {
-      navigation.navigate("ServiceProviderListing");
-    } else if (type === "Restaurants") {
-      navigation.navigate("RestaurantListing", { nearbySearch: restaurantObj });
+    } else if (options.type === "1" || options.type === "3") {
+      const newObj = { ...businessPageObj, business_type: options.type };
+      navigation.navigate("BusinessPageListing", {
+        nearbySearch: newObj,
+      });
     }
   };
   if (focusedOptions.tabBarVisible === false) {

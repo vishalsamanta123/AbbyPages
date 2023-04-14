@@ -27,7 +27,7 @@ const ListingMapView = ({ route, navigation }) => {
   const onPressDone = () => {
     if (business_type) {
       if (business_type == 1) {
-        navigation.navigate("RestaurantListing");
+        navigation.navigate("BusinessPageListing");
       }
       if (business_type == 2) {
         navigation.navigate("ShopList");
@@ -39,11 +39,11 @@ const ListingMapView = ({ route, navigation }) => {
         navigation.navigate("JobList");
       }
     } else {
-      navigation.navigate("RestaurantListing");
+      navigation.navigate("BusinessPageListing");
     }
   };
   const onPressRestro = (item) => {
-    navigation.navigate("RestaurantDetails", { detail: item });
+    navigation.navigate("BusinessPageDetails", { detail: item });
   };
   return (
     <>

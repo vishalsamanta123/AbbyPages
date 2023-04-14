@@ -26,18 +26,11 @@ import BoxContainers from "../../../Components/BoxContainer";
 import { Images } from "../../../Utils/images";
 import { apiCall } from "../../../Utils/httpClient";
 import apiEndPoints from "../../../Utils/apiEndPoints";
-import {
-  accountantObj,
-  autoRepairsObj,
-  offerTakeoutObj,
-  openDeliveryObj,
-  plumbersObj,
-  restaurantObj,
-} from "../../../Utils/staticData";
+import { staticSearchOptions } from "../../../Utils/staticData";
+import AddressInput from "../../../Components/AddressInput";
 
 const ByCategory = (props) => {
   const { searchModal, setSearchModal, navigation } = props;
-
   const [categoryShow, setCategoryShow] = useState(false);
   const [searchCategory, setSearchCategory] = useState({
     resBusdata: [],
@@ -47,7 +40,6 @@ const ByCategory = (props) => {
     search_category_or_business: "",
     address: "Orlando, FL, USA",
   });
-
   const getCategories = async (itemData) => {
     if (itemData === "") {
       setSearchCategory({
@@ -88,21 +80,18 @@ const ByCategory = (props) => {
     }
   };
   const handleListNavigation = (data) => {
-    const newObject = { ...data, city: searchData?.address };
+    const newObject = {
+      ...data,
+      city: searchData?.address,
+    };
     setSearchModal(false);
     setCategoryShow(false);
-    if (data?.business_type === 1) {
-      navigation.navigate("RestaurantListing", { nearbySearch: newObject });
-    } else if (data?.business_type === 3) {
-      navigation.navigate("ServiceProviderListing", {
-        nearbySearch: newObject,
-      });
-    }
+    navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
   };
   const handleDetailNavigation = (data) => {
-    if (data?.business_type?.toString() === "1") {
-      navigation.navigate("BusineesPage");
-    }
+    setSearchModal(false);
+    setCategoryShow(false);
+    navigation.navigate("BusinessPageDetails", { detail: data });
   };
   const renderCategories = () => {
     return (
@@ -136,12 +125,23 @@ const ByCategory = (props) => {
                 })}
               </>
             ) : null}
-            {searchCategory?.resBusdata?.length > 0 ? (
+            {searchCategory?.resultCat?.length > 0 ? (
               <>
                 <Text style={styles.searchHeadTxt}>Related Categories:</Text>
                 {searchCategory?.resultCat?.map((itm) => {
                   return (
-                    <TouchableOpacity style={styles.categoryVw}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSearchData({
+                          ...searchData,
+                          category_id: itm.id,
+                          business_type: itm?.business_type?.toString(),
+                          search_category_or_business: itm.category_name,
+                        });
+                        setCategoryShow(false);
+                      }}
+                      style={styles.categoryVw}
+                    >
                       <Text style={styles.categoryTxt}>
                         {itm?.category_name}
                       </Text>
@@ -153,78 +153,22 @@ const ByCategory = (props) => {
           </View>
         ) : (
           <View style={styles.categoriesVw}>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(restaurantObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.ICONICONS}
-                name={"restaurant"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Restaurant</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(openDeliveryObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.MATERIAL_ICONS}
-                name={"delivery-dining"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Delivery</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(offerTakeoutObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.FEATHER_ICONS}
-                name={"shopping-bag"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Offer Takeout</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(accountantObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                name={"badge-account-outline"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Accountants</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(plumbersObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.MATERIAL_ICONS}
-                name={"plumbing"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Plumbers</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleListNavigation(autoRepairsObj)}
-              style={styles.categoryVw}
-            >
-              <IconX
-                origin={ICON_TYPE.ICONICONS}
-                name={"ios-settings"}
-                size={22}
-                color={LIGHT_BLACK_COLOR_CODE}
-              />
-              <Text style={styles.categoryTxt}>Auto Repairs</Text>
-            </TouchableOpacity>
+            {staticSearchOptions?.map((item) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => handleListNavigation(item)}
+                  style={styles.categoryVw}
+                >
+                  <IconX
+                    origin={item.origin}
+                    name={item.name}
+                    size={item.size}
+                    color={item.color}
+                  />
+                  <Text style={styles.categoryTxt}>{item.category_name}</Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         )}
       </>
@@ -275,6 +219,7 @@ const ByCategory = (props) => {
                 placeholderTextColor={GREY_COLOR_CODE}
                 style={styles.catgSearchInput}
                 onFocus={() => setCategoryShow(true)}
+                value={searchData?.search_category_or_business}
                 onChangeText={(txt) => {
                   getCategories(txt === "" ? "" : txt);
                 }}
@@ -292,40 +237,27 @@ const ByCategory = (props) => {
                   name={"location-pin"}
                 />
               </View>
-              <GooglePlacesAutocomplete
-                placeholder="Search Place"
-                fetchDetails={true}
+              <AddressInput
                 onPress={(data, details = null) => {
                   setSearchData({
                     ...searchData,
                     address: data.description,
                   });
                 }}
-                textInputProps={{
-                  placeholderTextColor: GREY_COLOR_CODE,
-                  onChangeText: (txt) => {
-                    if (txt === "") {
-                      setSearchData({
-                        ...searchData,
-                        address: "",
-                      });
-                    } else {
-                      setSearchData({
-                        ...searchData,
-                        address: txt ? txt : searchData?.address,
-                      });
-                    }
-                  },
-                  value: searchData?.address,
+                onChangeText={(txt) => {
+                  if (txt === "") {
+                    setSearchData({
+                      ...searchData,
+                      address: "",
+                    });
+                  } else {
+                    setSearchData({
+                      ...searchData,
+                      address: txt ? txt : searchData?.address,
+                    });
+                  }
                 }}
-                query={{
-                  key: MAP_KEY,
-                  language: "en",
-                }}
-                styles={CommonStyles.locSearchVw}
-                minLength={2}
-                autoFocus={false}
-                returnKeyType={"default"}
+                value={searchData?.address}
               />
             </View>
           </View>
@@ -334,6 +266,7 @@ const ByCategory = (props) => {
               buttonText={"Search"}
               buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
               style={styles.searchButtonVw}
+              onPress={() => handleListNavigation(searchData)}
             />
           </View>
           <Text style={styles.searchTxt}>Or Browse the highlight</Text>

@@ -4,8 +4,8 @@ export const Images = {
   BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
   ANALYSTIC_DATA: require("../Assets/data-analytics.png"),
+  LOADER: require("../Assets/loader.gif"),
 
-  
   //-------------Important Images-----------------//
   RESTO_LIST_IMG: require("../Assets/restaurants_list_icon.png"),
   JOB_LIST_IMG: require("../Assets/jobs_list_icon.png"),
@@ -14,7 +14,6 @@ export const Images = {
   EVENT_LIST_IMG: require("../Assets/events_list_icon.png"),
   SHOPP_LIST_IMG: require("../Assets/shoppings_list_icon.png"),
   //-------------Important Images End-----------------//
-
 
   //-------------Other Images-----------------//
   ABOUT_IMG: require("../Assets/about_icon_1.png"),
@@ -80,9 +79,9 @@ export const Images = {
   DINEER_IMG: require("../Assets/dinner.png"),
   DASHBOARDHOME_IMG: require("../Assets/drawerhome.png"),
   EVENT_IMG: require("../Assets/events_icon_menu.png"),
-  ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"),//use another color for color change
-  ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"),///use another color for color change
-  EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"),//use YELLOW_COLOR_CODE color for background
+  ARROW_DOWN_IMG: require("../Assets/link_dropdown_ico.png"), //use another color for color change
+  ARROW_UP_IMG: require("../Assets/link_dropdown_icon_up.png"), ///use another color for color change
+  EDIT_PENCIL_IMG: require("../Assets/edit_pencil_icon.png"), //use YELLOW_COLOR_CODE color for background
   EDIT_PHOTO_IMG: require("../Assets/edit_photo_icon.png"),
   EMPLOYESS_IMG: require("../Assets/banner.jpg"),
   ENVELOPE_IMG: require("../Assets/envelope_icon_menu.png"),
