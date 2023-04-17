@@ -11,6 +11,7 @@ import {
   LIGHT_RED_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
+  IOS,
 } from "../../../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 
@@ -18,7 +19,7 @@ const Styles = StyleSheet.create({
   topHeaderVw: {
     justifyContent: "space-between",
     paddingHorizontal: 6,
-    paddingVertical: 4,
+    paddingVertical: IOS ? 30 : 4,
   },
   topHeaderTxt: {
     fontSize: 18,

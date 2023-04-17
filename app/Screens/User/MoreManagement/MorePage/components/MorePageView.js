@@ -11,6 +11,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import Loader from "../../../../../Utils/Loader";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MorePageView = (props) => {
   return (
@@ -76,8 +77,10 @@ const MorePageView = (props) => {
             </>
           ) : null}
           <>
-            {props?.visible ? (
+            {!props?.visible ? (
+              <>
               <Loader state={props?.visible} type={"small"} />
+              </>
             ) : null}
           </>
           <Text style={styles.headTxt}>More</Text>

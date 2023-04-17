@@ -26,6 +26,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
       });
     }
   };
+  const handleBack=()=>{
+    navigation.goBack()
+  }
 
   return (
     <View style={CommonStyles.container}>
@@ -46,6 +49,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         // handleGetDirections={handleGetDirections}
         setSliderPage={setSliderPage}
         pageIndex={pageIndex}
+        handleBack={handleBack}
         // _handleOptions={_handleOptions}
         // _handlePopularDish={_handlePopularDish}
         // _handleReview={_handleReview}

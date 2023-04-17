@@ -85,7 +85,9 @@ const BusinessPageDetailsView = (props) => {
         resizeMode={"cover"}
       >
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-          <TouchableOpacity style={CommonStyles.straightCon}>
+          <TouchableOpacity 
+          onPress={()=>props.handleBack()}
+          style={CommonStyles.straightCon}>
             <IconX
               origin={ICON_TYPE.ICONICONS}
               color={WHITE_COLOR_CODE}
