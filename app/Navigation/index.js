@@ -94,7 +94,7 @@ import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/Shopping
 //3------------------->UserScreens<----------------//
 
 //3.1------------------>UserScreens RestaurantScreens<----------------//
-import BusinessPageDetails from "../Screens/BusinessPageMng/BusinessPageDetails";
+import BusinessPageDetails from "../Screens/User/BusinessPageMng/BusinessPageDetails";
 //3.1--------------UserScreens RestaurantScreens End------------------//
 
 //3.2------------------>UserScreens JobScreens<----------------//
@@ -112,8 +112,8 @@ import ShopDetailScreen from "../Screens/ShopDetail";
 //3.5--------------UserScreens ShopScreens End------------------//
 
 //3.6------------------>UserScreens Drawer and others<----------------//
-import DashBoardScreen from "../Screens/DashBoard";
-import BusinessPageListing from "../Screens/BusinessPageMng/BusinessPageListing";
+import DashBoardScreen from "../Screens/User/DashBoard";
+import BusinessPageListing from "../Screens/User/BusinessPageMng/BusinessPageListing";
 import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
 import ShopListScreen from "../Screens/ShopList";
 import ProfileSettingsScreen from "../Screens/ProfileSettings";
@@ -127,6 +127,7 @@ import CollectionsScreen from "../Screens/Collections";
 import NotificationsScreen from "../Screens/Notifications";
 import RecentActivityScreen from "../Screens/RecentActivity";
 import FriendsScreen from "../Screens/Friends";
+import MorePageScreen from "../Screens/User/MoreManagement/MorePage";
 //3.6------------------>UserScreens Drawer and others End<----------------//
 //3----------------UserScreens End------------------//
 
@@ -141,6 +142,7 @@ function TabNavigation() {
   return (
     <Tab.Navigator lazy={true} tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="DashBoard" component={CustomDrawerNavigation} />
+      <Tab.Screen name="MorePage" component={MorePageScreen} />
     </Tab.Navigator>
   );
 }
@@ -244,14 +246,7 @@ function AuthStack() {
       <Auth.Screen name="HomeDashboard" component={TabNavigation} />
       <Auth.Screen name="BusinessPageListing" component={BusinessPageListing} />
       <Auth.Screen name="BusinessPageDetails" component={BusinessPageDetails} />
-      <Auth.Screen
-        name="ServiceProviderListing"
-        component={ServiceProviderListingScreen}
-      />
-      <Auth.Screen
-        name="ServiceProviderDetails"
-        component={ServiceProviderDetails}
-      />
+      <Auth.Screen name="MorePage" component={MorePageScreen} />
       <Auth.Screen name="ShopList" component={ShopListScreen} />
       <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Auth.Screen name="Home" component={HomeScreen} />
@@ -390,6 +385,7 @@ function AppStack() {
       initialRouteName={"HomeDashboard"}
     >
       <Stack.Screen name="HomeDashboard" component={TabNavigation} />
+      <Stack.Screen name="MorePage" component={MorePageScreen} />
       <Stack.Screen
         name="BusinessOrderHistory"
         component={BusinessOrderHistoryScreen}

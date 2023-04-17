@@ -9,11 +9,10 @@ import {
   BLUE_COLOR_CODE,
   FONT_FAMILY_BOLD,
   SMALL_TEXT_COLOR_CODE,
-  TRANSPARENT_CODE,
-  LIGHT_WHITE_COLOR_CODE,
   GREY_COLOR_CODE,
   IOS,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
+
 const Styles = StyleSheet.create({
   mainVw: {
     flex: 1,

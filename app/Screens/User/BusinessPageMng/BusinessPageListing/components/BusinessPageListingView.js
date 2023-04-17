@@ -7,15 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Header from "../../../../Components/Header";
-import ListItemsView from "../../../../Components/ListItemsView";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Header from "../../../../../Components/Header";
+import ListItemsView from "../../../../../Components/ListItemsView";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
   IOS,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
-import { Images } from "../../../../Utils/images";
+} from "../../../../../Utils/Constant";
+import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 
 const BusinessPageListingView = (props) => {

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import DashBoardScreen from "./components/DashBoardScreen";
-import CommonStyles from "../../Utils/CommonStyles";
+import CommonStyles from "../../../Utils/CommonStyles";
 import _ from "lodash";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import { windowWidth } from "../../Utils/Constant";
-
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import { windowWidth } from "../../../Utils/Constant";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -26,7 +25,7 @@ const DashBoardView = ({ navigation }) => {
     getDashBoardBussiness();
     getDashBoardCategory();
   }, []);
-  
+
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-community/async-storage";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -17,16 +18,15 @@ import {
   windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
-import { businessTypes, businessPageObj } from "../Utils/staticData";
+import { businessPageObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
-  const { isFocused = "", handleNavigation, onPressOptions } = props;
+  const { isFocused = "", handleNavigation, onPressOptions, userData } = props;
   return (
     <>
       {isFocused === "EventManagement" ||
       isFocused === "PlusManagement" ||
-      isFocused === "JobManagement" ||
-      isFocused === "MoreManagement" ? (
+      isFocused === "JobManagement" ? (
         <Pressable
           onPress={() => handleNavigation("DashBoard")}
           style={styles.customPopupVw}
@@ -50,36 +50,36 @@ const CustomPopups = (props) => {
             {isFocused === "EventManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
+                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Find Event"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
+                  <Text style={styles.subCatTxt}>{"Featured"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"How it works"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Pricing"}</Text>
-                </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Featured"}</Text>
+                  <Text style={styles.subCatTxt}>{"Pricing"}</Text>
                 </TouchableOpacity>
               </>
             ) : isFocused === "PlusManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Job"}</Text>
+                  <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.subCatVw}>
+                  <Text style={styles.subCatTxt}>{"Business Post"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Create Event"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create a Post"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Write a Review"}</Text>
+                  <Text style={styles.subCatTxt}>{"Post Job"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Sell Products"}</Text>
@@ -87,13 +87,13 @@ const CustomPopups = (props) => {
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
+                  <Text style={styles.subCatTxt}>{"Write a Review "}</Text>
                 </TouchableOpacity>
               </>
             ) : isFocused === "JobManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Find Post"}</Text>
+                  <Text style={styles.subCatTxt}>{"Find a Job"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Post Job"}</Text>
@@ -102,27 +102,6 @@ const CustomPopups = (props) => {
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
                   <Text style={styles.subCatTxt}>{"Upload Your Résumé"}</Text>
-                </TouchableOpacity>
-              </>
-            ) : isFocused === "MoreManagement" ? (
-              <>
-                <TouchableOpacity
-                  onPress={() => onPressOptions(businessTypes[2])}
-                  style={styles.subCatVw}
-                >
-                  <Text style={styles.subCatTxt}>{businessTypes[2].name}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => onPressOptions(businessTypes[3])}
-                  style={styles.subCatVw}
-                >
-                  <Text style={styles.subCatTxt}>{businessTypes[3].name}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => onPressOptions(businessTypes[1])}
-                  style={[styles.subCatVw, { borderBottomWidth: 0 }]}
-                >
-                  <Text style={styles.subCatTxt}>{businessTypes[1].name}</Text>
                 </TouchableOpacity>
               </>
             ) : null}
@@ -135,11 +114,26 @@ const CustomPopups = (props) => {
 function MyTabBar({ state, descriptors, navigation }) {
   const [isFocused, setIsFocused] = useState("DashBoard");
   const focusedOptions = descriptors[state.routes[state.index].key].options;
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    getLoginDetail();
+  }, [navigation]);
+  const getLoginDetail = async () => {
+    const getUserData = await AsyncStorage.getItem("localuserdata");
+    if (JSON?.parse(getUserData)?.login_type) {
+      setUserData(JSON?.parse(getUserData));
+    }
+  };
+
   const handleNavigation = (type) => {
     switch (type) {
       case "DashBoard":
         navigation.navigate(type);
         setIsFocused("DashBoard");
+        break;
+      case "MoreManagement":
+        navigation.navigate("MorePage");
+        setIsFocused("MoreManagement");
         break;
       default:
         if (isFocused === type) {
@@ -158,6 +152,8 @@ function MyTabBar({ state, descriptors, navigation }) {
       navigation.navigate("BusinessPageListing", {
         nearbySearch: newObj,
       });
+    } else if (options.type === "") {
+      navigation.navigate("Login");
     }
   };
   if (focusedOptions.tabBarVisible === false) {
@@ -165,6 +161,13 @@ function MyTabBar({ state, descriptors, navigation }) {
   }
   return (
     <View>
+      <CustomPopups
+        isFocused={isFocused}
+        setIsFocused={setIsFocused}
+        handleNavigation={handleNavigation}
+        onPressOptions={onPressOptions}
+        userData={userData}
+      />
       <View style={styles.iconStyleVw}>
         <TouchableOpacity
           style={styles.tapVws}
@@ -326,12 +329,6 @@ function MyTabBar({ state, descriptors, navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <CustomPopups
-        isFocused={isFocused}
-        setIsFocused={setIsFocused}
-        handleNavigation={handleNavigation}
-        onPressOptions={onPressOptions}
-      />
     </View>
   );
 }

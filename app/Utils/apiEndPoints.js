@@ -132,7 +132,8 @@ export default {
   HOME_DASHBOARD: "api/dashboard/userHomeDashboard",
   BUSINESSLISTBYCATG: "api/business/getBusinessListByCategoryName",
   //for user dashoboard categories
-  
+
   CATEGORIES_LIST: "api/masterTableData/getCategoryBybusinessType",
   CATEGORIES_AT_HOME_LIST: "api/masterTableData/getCategoryAtHomePage",
+  RECENT_VIEWED: "api/masterTableData/getAllRecentlyViewedBusiness",
 };

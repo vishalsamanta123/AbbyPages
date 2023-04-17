@@ -57,11 +57,11 @@ const MyCustomDrawer = (props) => {
                       numberOfLines={1}
                       style={[styles.userNameText, { width: 120 }]}
                     >
-                      {userData?.first_name + userData?.last_name}
+                      {userData?.first_name + " " + userData?.last_name}
                     </Text>
                   )}
                   <Text style={[styles.userAddress, { width: 140 }]}>
-                    {userData?.hometown}
+                    {userData?.location}
                   </Text>
                 </View>
               </View>

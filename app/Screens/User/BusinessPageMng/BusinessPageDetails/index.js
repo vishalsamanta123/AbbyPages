@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Dimensions, View } from "react-native";
 
 import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Loader from "../../../Utils/Loader";
-import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Loader from "../../../../Utils/Loader";
+import Success from "../../../../Components/Modal/success";
+import Error from "../../../../Components/Modal/error";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { width, height } = Dimensions.get("window");

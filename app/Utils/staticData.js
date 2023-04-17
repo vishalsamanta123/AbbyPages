@@ -1,13 +1,55 @@
 import { ICON_TYPE } from "../Components/Icons/Icon";
-import { LIGHT_BLACK_COLOR_CODE } from "./Constant";
+import { BLACK_COLOR_CODE, LIGHT_BLACK_COLOR_CODE } from "./Constant";
 
 export const businessTypes = [
-  {},
-  { type: "1", name: "Restaurants" },
-  { type: "2", name: "MarketPlace" },
-  { type: "3", name: "Directory" },
-  { type: "4", name: "Events" },
-  { type: "5", name: "Jobs" },
+  {
+    type: "Add a Business",
+    optionName: "Abbypages for Business",
+    origin: ICON_TYPE.ENTYPO,
+    name: "add-to-list",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
+    type: "1",
+    optionName: "Restaurants",
+    origin: ICON_TYPE.ICONICONS,
+    name: "ios-restaurant-outline",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
+    type: "2",
+    optionName: "MarketPlace",
+    origin: ICON_TYPE.FEATHER_ICONS,
+    name: "shopping-bag",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
+    type: "3",
+    optionName: "Directory",
+    origin: ICON_TYPE.ICONICONS,
+    name: "car-sport-outline",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
+    type: "4",
+    optionName: "Events",
+    origin: ICON_TYPE.MATERIAL_ICONS,
+    name: "store-mall-directory",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
+    type: "5",
+    optionName: "Jobs",
+    origin: ICON_TYPE.MATERIAL_ICONS,
+    name: "store-mall-directory",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
 ];
 export const staticSearchOptions = [
   {
@@ -96,7 +138,6 @@ export const businessPageObj = {
   selectOption: "",
   city: "Orlando, FL, USA",
 };
-
 
 export const restaurantOptions = [
   { id: 1, type: "9", name: "Open Now" },

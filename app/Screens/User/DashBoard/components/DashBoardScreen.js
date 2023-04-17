@@ -6,24 +6,21 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  useWindowDimensions,
-  Modal,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Header from "../../../../Components/Header";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
   windowWidth,
-} from "../../../Utils/Constant";
-import { Images } from "../../../Utils/images";
+} from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import BoxContainer from "../../../Components/BoxContainer";
-import StarShower from "../../../Components/StarShower";
+import BoxContainer from "../../../../Components/BoxContainer";
+import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 
 const DashBoardScreen = (props) => {
@@ -81,20 +78,6 @@ const DashBoardScreen = (props) => {
           style={styles.backgroundImgVw}
         >
           <View style={styles.imgInnerVw}>
-            {/* <View style={styles.straightVw}>
-              <TouchableOpacity
-                onPress={() => props.handleNavTo("toBusiness")}
-                style={styles.topVwsCon}
-              >
-                <Text style={styles.topVwsTxt}>For Business</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => props.setWriteReview(true)}
-                style={styles.topVwsCon}
-              >
-                <Text style={styles.topVwsTxt}>Write A Review</Text>
-              </TouchableOpacity>
-            </View> */}
             <Text style={CommonStyles.bigTxtVw}>
               <Text style={{ fontFamily: FONT_FAMILY_REGULAR }}>Support </Text>
               Black Excellence!

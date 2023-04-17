@@ -193,6 +193,11 @@ export const Images = {
   SHOPPING_IMG: require("../Assets/categories/online-shopping.png"),
   BEAUTYSPA_IMG: require("../Assets/categories/powder.png"),
   COVER_IMG: require("../Assets/background-thedir-cover.jpg"),
+
+  //Demo Images for static
+  DEMO1: require("../Assets/extraImages/bob-marley-profile.jpg"),
+  DEMO2: require("../Assets/extraImages/bob-marley-cover.jpg"),
+  DEMO3: require("../Assets/extraImages/building.jpg"),
 };
 //delete
 //map_field_icon.png on LOCATION_IMG

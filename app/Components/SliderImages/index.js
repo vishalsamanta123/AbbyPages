@@ -7,20 +7,46 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../Utils/Constant";
 
+const imagess = [
+  {
+    image: require("../../Assets/extraImages/bob-marley-profile.jpg"),
+  },
+  {
+    image: require("../../Assets/extraImages/bob-marley-cover.jpg"),
+  },
+  {
+    image: require("../../Assets/extraImages/building.jpg"),
+  },
+];
+const RenderSlideItem = (props) => {
+  const { posterImg = "", pageIndex = 0 } = props;
+  return (
+    <View>
+      <View>
+        <Image
+          source={props.data ? { uri: posterImg } : posterImg}
+          style={{ height: 200, width: "97%" }}
+        />
+        <Text style={styles.posterTitleTxt}>{props.posterTxt}</Text>
+      </View>
+      <Pagination
+        dotsLength={props.data ? props?.data?.length : imagess.length}
+        activeDotIndex={pageIndex}
+        containerStyle={{
+          paddingVertical: 0,
+        }}
+        inactiveDotStyle={styles.dotInActiveVw}
+        dotStyle={styles.dotActiveVw}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+      />
+    </View>
+  );
+};
 const SliderImages = (props) => {
+  const { renderItem = () => {} } = props;
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
-  const imagess = [
-    {
-      image: require("../../Assets/extraImages/bob-marley-profile.jpg"),
-    },
-    {
-      image: require("../../Assets/extraImages/bob-marley-cover.jpg"),
-    },
-    {
-      image: require("../../Assets/extraImages/building.jpg"),
-    },
-  ];
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
@@ -32,51 +58,36 @@ const SliderImages = (props) => {
       });
     }
   };
-  const RenderSlideItem = ({ item }) => {
-    const { posterTxt = "", posterImg = "" } = item;
-    return (
-      <View style={{ flex: 1 }}>
-        <View>
-          <Image
-            source={props.data ? { uri: posterImg } : item.image}
-            style={{ height: 200, width: "97%" }}
-          />
-          <Text style={styles.posterTitleTxt}>{posterTxt}</Text>
-        </View>
-        <Pagination
-          dotsLength={props.data ? props?.data?.length : imagess.length}
-          activeDotIndex={pageIndex}
-          containerStyle={{
-            paddingVertical: 0,
-          }}
-          inactiveDotStyle={styles.dotInActiveVw}
-          dotStyle={styles.dotActiveVw}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.6}
-        />
-      </View>
-    );
-  };
-  const {} = props;
   return (
-    <Carousel
-      data={props?.data ? props?.data : imagess}
-      renderItem={({ item }) => {
-        return <RenderSlideItem posterTxt={posterTxt} />;
-      }}
-      layout={"default"}
-      sliderWidth={windowWidth}
-      activeDotIndex={1}
-      itemWidth={windowWidth}
-      autoplay
-      onScroll={(event) => {
-        setSliderPage(event);
-      }}
-    />
+    <View style={{ flex: 1 }}>
+      <Carousel
+        data={props?.data ? props?.data : imagess}
+        renderItem={({ item }) =>
+          props?.data ? (
+            renderItem(item)
+          ) : (
+            <RenderSlideItem
+              pageIndex={pageIndex}
+              setSliderState={setSliderState}
+              setSliderPage={setSliderPage}
+              sliderState={sliderState}
+              posterImg={item.image}
+            />
+          )
+        }
+        layout={"default"}
+        sliderWidth={windowWidth}
+        activeDotIndex={1}
+        itemWidth={windowWidth}
+        onScroll={(event) => {
+          setSliderPage(event);
+        }}
+      />
+    </View>
   );
 };
 
-export default SliderImages;
+export { SliderImages, RenderSlideItem };
 const styles = StyleSheet.create({
   dotActiveVw: {
     borderRadius: 100,

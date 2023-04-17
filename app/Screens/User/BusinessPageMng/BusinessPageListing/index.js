@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import _ from "lodash";
 import BusinessPageListingView from "./components/BusinessPageListingView";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Loader from "../../../Utils/Loader";
-import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
-import { restaurantOptions } from "../../../Utils/staticData";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Loader from "../../../../Utils/Loader";
+import Success from "../../../../Components/Modal/success";
+import Error from "../../../../Components/Modal/error";
+import { restaurantOptions } from "../../../../Utils/staticData";
 
 const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};

@@ -11,23 +11,20 @@ import {
   Keyboard,
 } from "react-native";
 import styles from "./styles";
-import { IconX, ICON_TYPE } from "../../../Components/Icons/Icon";
+import { IconX, ICON_TYPE } from "../../../../Components/Icons/Icon";
 import {
   GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
-  MAP_KEY,
   WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import CommonStyles from "../../../Utils/CommonStyles";
-import Button from "../../../Components/Button";
-import BoxContainers from "../../../Components/BoxContainer";
-import { Images } from "../../../Utils/images";
-import { apiCall } from "../../../Utils/httpClient";
-import apiEndPoints from "../../../Utils/apiEndPoints";
-import { staticSearchOptions } from "../../../Utils/staticData";
-import AddressInput from "../../../Components/AddressInput";
+} from "../../../../Utils/Constant";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import Button from "../../../../Components/Button";
+import BoxContainers from "../../../../Components/BoxContainer";
+import { Images } from "../../../../Utils/images";
+import { apiCall } from "../../../../Utils/httpClient";
+import apiEndPoints from "../../../../Utils/apiEndPoints";
+import { staticSearchOptions } from "../../../../Utils/staticData";
+import AddressInput from "../../../../Components/AddressInput";
 
 const ByCategory = (props) => {
   const { searchModal, setSearchModal, navigation } = props;

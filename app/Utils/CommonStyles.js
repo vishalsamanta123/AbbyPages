@@ -10,12 +10,17 @@ import {
   GREY_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   TRANSPARENT_CODE,
+  LIGHT_WHITE_COLOR,
 } from "./Constant";
 
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: WHITE_COLOR_CODE,
+  },
+  otherContainer: {
+    flex: 1,
+    backgroundColor: LIGHT_WHITE_COLOR,
   },
   header: {
     paddingVertical: 16,
@@ -33,6 +38,10 @@ const Styles = StyleSheet.create({
   scrollCon: {
     flexGrow: 1,
     backgroundColor: WHITE_COLOR_CODE,
+  },
+  otherScrollCon: {
+    flexGrow: 1,
+    backgroundColor: LIGHT_WHITE_COLOR,
   },
   editPencilVw: {
     backgroundColor: YELLOW_COLOR_CODE,
@@ -65,6 +74,10 @@ const Styles = StyleSheet.create({
   middleLogoVw: {
     width: 190,
     height: 60,
+  },
+  straightCon: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   locSearchVw: {
     textInputContainer: {
