@@ -34,7 +34,7 @@ const BusinessPageListing = ({ navigation, route }) => {
       setSearch(filterSearch);
       handleSearchData(offSet, filterSearch);
     }
-  }, [navigation]);
+  }, [navigation, inputSearch]);
 
   const handleSearchData = async (offSet, getObj) => {
     setOffSet(offSet);
@@ -60,6 +60,8 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? getObj?.selectOption?.toString()
             : "",
       };
+
+      console.log("params", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,

@@ -122,7 +122,8 @@ const BusinessPageListingView = (props) => {
           if (props.search || props.inputSearch) {
             if (props.restroList?.length < props?.moreData) {
               props?.handleSearchData(
-                props?.restroList?.length > 5 ? props.offSet + 1 : 0
+                props?.restroList?.length > 5 ? props.offSet + 1 : 0,
+                props.search,
               );
             }
           }
