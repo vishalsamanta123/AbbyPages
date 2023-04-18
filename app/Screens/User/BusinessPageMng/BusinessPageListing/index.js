@@ -36,8 +36,8 @@ const BusinessPageListing = ({ navigation, route }) => {
     }
   }, [navigation, inputSearch]);
 
-  const handleSearchData = async (offSet, getObj) => {
-    setOffSet(offSet);
+  const handleSearchData = async (offset, getObj) => {
+    setOffSet(offset);
     setSearch(getObj);
     try {
       if (inputSearch) {
@@ -46,12 +46,14 @@ const BusinessPageListing = ({ navigation, route }) => {
         setVisible(true);
       }
       const params = {
-        latitude: getObj?.latitude ? getObj?.latitude : "",
-        longitude: getObj?.longitude ? getObj?.longitude : "",
+        latitude: getObj?.latitude ? getObj?.latitude : "28",
+        longitude: getObj?.longitude ? getObj?.longitude : "-81",
         category_id: getObj?.category_id ? getObj?.category_id : "",
-        limit: 10,
-        offset: offSet,
-        business_type: getObj?.business_type ? getObj?.business_type : "",
+        limit: 5,
+        offset: offset,
+        business_type: getObj?.business_type
+          ? Number(getObj?.business_type)
+          : "",
         search_key: inputSearch ? inputSearch : null,
         city: getObj?.city ? getObj?.city : "",
         options:
@@ -60,13 +62,13 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? getObj?.selectOption?.toString()
             : "",
       };
-
       console.log("params", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
       );
+      console.log("data: GET_NEW_BUSINESS", data);
       if (data.status == 200) {
         setVisible(false);
         setMoreData(data.total_number_data);

@@ -118,16 +118,16 @@ const BusinessPageListingView = (props) => {
             />
           );
         }}
-        onEndReached={() => {
-          if (props.search || props.inputSearch) {
-            if (props.restroList?.length < props?.moreData) {
-              props?.handleSearchData(
-                props?.restroList?.length > 5 ? props.offSet + 1 : 0,
-                props.search,
-              );
-            }
-          }
-        }}
+        // onEndReached={() => {
+        //   if (props.search || props.inputSearch) {
+        //     if (props.restroList?.length < props?.moreData) {
+        //       props?.handleSearchData(
+        //         props?.restroList?.length > 4 ? props.offSet + 5 : 0,
+        //         props.search
+        //       );
+        //     }
+        //   }
+        // }}
       />
     </KeyboardAvoidingView>
   );

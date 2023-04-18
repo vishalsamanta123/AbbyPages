@@ -11,6 +11,7 @@ import {
   SMALL_TEXT_COLOR_CODE,
   GREY_COLOR_CODE,
   IOS,
+  LIGHT_WHITE_COLOR,
 } from "../../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
@@ -102,9 +103,16 @@ const Styles = StyleSheet.create({
     color: SMALL_TEXT_COLOR_CODE,
   },
   activityBnnrVw: {
-    height: 110,
+    height: 120,
     width: "100%",
     marginTop: 20,
+    marginHorizontal: 5,
+    marginBottom: 12,
+  },
+  photosVw: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   activityMainTxt: {
     fontSize: 16,
@@ -118,6 +126,27 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_BOLD,
     color: SMALL_TEXT_COLOR_CODE,
     paddingHorizontal: 14,
+  },
+  seeAllTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_BOLD,
+    color: BLUE_COLOR_CODE,
+    marginLeft: 16,
+    marginTop: 5,
+  },
+  seeMoreBttn: {
+    backgroundColor: LIGHT_WHITE_COLOR,
+    width: "80%",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  seeMoreBttnTxt: {
+    fontSize: 17,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
   },
   posterVw: {
     flex: 1,

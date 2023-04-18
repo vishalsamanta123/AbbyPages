@@ -15,6 +15,8 @@ const DashBoardView = ({ navigation }) => {
   const [recent_activity, setRecent_Activity] = useState([]);
   const [businessTypes, setBusinessTypes] = useState([]);
   const [moreCategory, setMoreCategory] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [recentLoader, setRecentLoader] = React.useState(false);
   const [byCategory, setByCategory] = useState({
     services: [],
     moreServices: [],
@@ -24,8 +26,16 @@ const DashBoardView = ({ navigation }) => {
     getDashBoardActivity();
     getDashBoardBussiness();
     getDashBoardCategory();
-  }, []);
+  }, [navigation]);
 
+  const onRefresh = () => {
+    getDashBoardActivity();
+    getDashBoardBussiness();
+    getDashBoardCategory();
+    setVisible(false);
+    setRefreshing(false);
+    setRecentLoader(false);
+  };
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
@@ -39,21 +49,31 @@ const DashBoardView = ({ navigation }) => {
   };
 
   const getDashBoardActivity = async () => {
-    setVisible(true);
+    setRecentLoader(true);
+    if (!refreshing) {
+      setVisible(true);
+    }
     try {
       const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
       if (data.status === 200) {
         setVisible(false);
         setRecent_Activity(data?.data);
+        setRecentLoader(false);
+        setRefreshing(false);
       } else {
         setVisible(false);
+        setRefreshing(false);
+        setRecentLoader(false);
       }
     } catch (error) {
       setVisible(false);
+      setRecentLoader(false);
     }
   };
   const getDashBoardCategory = async () => {
-    setVisible(true);
+    if (!refreshing) {
+      setVisible(true);
+    }
     try {
       const { data } = await apiCall("GET", ENDPOINTS.CATEGORIES_AT_HOME_LIST);
       if (data.status === 200) {
@@ -63,26 +83,39 @@ const DashBoardView = ({ navigation }) => {
           services: data?.data?.services,
           moreServices: data?.data?.moreServices,
         });
+        setRefreshing(false);
       } else {
         setVisible(false);
+        setRefreshing(false);
       }
     } catch (error) {
       setVisible(false);
+      setRefreshing(false);
     }
   };
   const getDashBoardBussiness = async () => {
-    setVisible(true);
+    if (!refreshing) {
+      setVisible(true);
+    }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD);
       if (data.status === 200) {
         setVisible(false);
         setBusinessTypes(data.data.business_type);
+        setRefreshing(false);
       } else {
         setVisible(false);
+        setRefreshing(false);
       }
     } catch (error) {
       setVisible(false);
+      setRefreshing(false);
     }
+  };
+  const refreshFun = () => {
+    getDashBoardActivity();
+    getDashBoardBussiness();
+    getDashBoardCategory();
   };
   return (
     <View style={CommonStyles.container}>
@@ -97,6 +130,12 @@ const DashBoardView = ({ navigation }) => {
         businessTypes={businessTypes}
         setMoreCategory={setMoreCategory}
         navigation={navigation}
+        visible={visible}
+        setVisible={setVisible}
+        refreshFun={refreshFun}
+        recentLoader={recentLoader}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
       />
       {/* <Error
         message={errorMessage}

@@ -77,7 +77,7 @@ const MorePageView = (props) => {
             </>
           ) : null}
           <>
-            {!props?.visible ? (
+            {props?.visible ? (
               <>
               <Loader state={props?.visible} type={"small"} />
               </>

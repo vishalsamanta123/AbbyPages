@@ -1,58 +1,105 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 
 const StarShower = (props) => {
+  const {
+    marginLeft = 0,
+    ActiveStarColor = YELLOW_COLOR_CODE,
+    UnActiveStarColor = BLACK_COLOR_CODE,
+    starHeight = 12,
+    starWidth = 12,
+    marginTop = 7,
+  } = props;
   const oneStart = { star: Images.STAR_FILLED_IMG };
-  const stars = [oneStart];
-  useEffect(() => {
-    for (let index = 0; index < props.counts - 1; index++) {
-      const countedStar = stars[index];
-      stars.push(countedStar);
-    }
-  }, [props.counts]);
+  // const [stars, setStars] = useState([oneStart]);
+  // useEffect(() => {
+  //   for (let index = 0; index < props?.counts - 1; index++) {
+  //     const countedStar = stars[index];
+  //     stars.push(countedStar);
+  //   }
+  // }, [props.counts]);
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { marginLeft: marginLeft, marginTop:marginTop, },
+        props.backColor ? styles.backColor : {},
+      ]}
+    >
       <>
-        {stars?.length > 0 ? (
-          <>
-            {stars?.map((itm, ind) => {
-              return (
-                <>
-                  <View
-                    style={[
-                      props.backColor
-                        ? styles.backColor
-                        : {
-                            marginLeft: ind === 0 ? 0 : 6,
-                          },
-                    ]}
-                  >
-                    <Image
-                      source={itm.star}
-                      style={[styles.starImg, { tintColor: props.starColor }]}
-                    />
-                  </View>
-                  <View
-                    style={[
-                      props.backColor
-                        ? styles.backColor
-                        : {},
-                        {
-                          marginLeft: 6,
-                        }
-                    ]}
-                  >
-                    <Image
-                      source={itm.star}
-                      style={[styles.starImg, { tintColor: props.starColor }]}
-                    />
-                  </View>
-                </>
-              );
-            })}
-          </>
-        ) : null}
+        <View>
+          <Image
+            source={oneStart.star}
+            style={[
+              styles.starImg,
+              {
+                width: starWidth,
+                height: starHeight,
+                tintColor:
+                  props?.counts > 1 ? ActiveStarColor : UnActiveStarColor,
+              },
+            ]}
+          />
+        </View>
+        <View>
+          <Image
+            source={oneStart.star}
+            style={[
+              styles.starImg,
+              {
+                width: starWidth,
+                height: starHeight,
+                tintColor:
+                  props?.counts >= 2 ? ActiveStarColor : UnActiveStarColor,
+              },
+            ]}
+          />
+        </View>
+        <View>
+          <Image
+            source={oneStart.star}
+            style={[
+              styles.starImg,
+              {
+                width: starWidth,
+                height: starHeight,
+                tintColor:
+                  props?.counts >= 3 ? ActiveStarColor : UnActiveStarColor,
+              },
+            ]}
+          />
+        </View>
+        <View>
+          <Image
+            source={oneStart.star}
+            style={[
+              styles.starImg,
+              {
+                width: starWidth,
+                height: starHeight,
+                tintColor:
+                  props?.counts >= 4 ? ActiveStarColor : UnActiveStarColor,
+              },
+            ]}
+          />
+        </View>
+        <View>
+          <Image
+            source={oneStart.star}
+            style={[
+              styles.starImg,
+              {
+                width: starWidth,
+                height: starHeight,
+                tintColor:
+                  props?.counts >= 5 ? ActiveStarColor : UnActiveStarColor,
+              },
+            ]}
+          />
+        </View>
       </>
     </View>
   );
@@ -66,8 +113,6 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   starImg: {
-    width: 12,
-    height: 12,
     marginHorizontal: 3,
   },
   backColor: {

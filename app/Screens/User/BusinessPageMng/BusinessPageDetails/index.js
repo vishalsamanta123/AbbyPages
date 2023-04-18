@@ -12,6 +12,10 @@ import Error from "../../../../Components/Modal/error";
 const BusinessPageDetails = ({ navigation, route }) => {
   const { width, height } = Dimensions.get("window");
   const [visible, setVisible] = useState(false);
+  const [moreInfoModal, setMoreInfoModal] = useState({
+    open: false,
+    type: "",
+  });
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
 
@@ -26,46 +30,21 @@ const BusinessPageDetails = ({ navigation, route }) => {
       });
     }
   };
-  const handleBack=()=>{
-    navigation.goBack()
-  }
+  const handleBack = () => {
+    navigation.goBack();
+  };
 
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <BusinessPageDetailsView
-        // _handlePhotos={_handlePhotos}
-        // openAlbum={openAlbum}
-        // openCamera={openCamera}
-        // addPhotoModal={addPhotoModal}
-        // setAddPhotoModal={setAddPhotoModal}
-        // setBusinessReviewRating={setBusinessReviewRating}
-        // reviewModal={reviewModal}
-        // setReviewModal={setReviewModal}
-        // onSubmitReviewData={onSubmitReviewData}
-        // reviewData={reviewData}
-        // setReviewData={setReviewData}
-        // restroDetail={restroDetail}
-        // handleGetDirections={handleGetDirections}
         setSliderPage={setSliderPage}
         pageIndex={pageIndex}
         handleBack={handleBack}
-        // _handleOptions={_handleOptions}
-        // _handlePopularDish={_handlePopularDish}
-        // _handleReview={_handleReview}
-        // onPressReservation={onPressReservation}
-        // onPressFullMenu={onPressFullMenu}
-        // DialogVisible={DialogVisible}
-        // setDialogVisible={setDialogVisible}
-        // onPressOrderFood={onPressOrderFood}
-        // onPressSubmit={onPressSubmit}
-        // shareTo={shareTo}
-        // saveResto={saveResto}
-        // onPressRestro={onPressRestro}
-        // galleryPhotos={galleryPhotos}
-        // setGalleryPhotos={setGalleryPhotos}
+        moreInfoModal={moreInfoModal}
+        setMoreInfoModal={setMoreInfoModal}
       />
-   {/*    <Error
+      {/*    <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}

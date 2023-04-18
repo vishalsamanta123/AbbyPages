@@ -19,32 +19,39 @@ const imagess = [
   },
 ];
 const RenderSlideItem = (props) => {
-  const { posterImg = "", pageIndex = 0 } = props;
+  const { posterImg = "", pageIndex = 0, pagination = false } = props;
   return (
     <View>
       <View>
         <Image
           source={props.data ? { uri: posterImg } : posterImg}
-          style={{ height: 200, width: "97%" }}
+          style={{ height: 200 }}
+          resizeMode={"cover"}
         />
         <Text style={styles.posterTitleTxt}>{props.posterTxt}</Text>
       </View>
-      <Pagination
-        dotsLength={props.data ? props?.data?.length : imagess.length}
-        activeDotIndex={pageIndex}
-        containerStyle={{
-          paddingVertical: 0,
-        }}
-        inactiveDotStyle={styles.dotInActiveVw}
-        dotStyle={styles.dotActiveVw}
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
+      {pagination ? (
+        <Pagination
+          dotsLength={props.data ? props?.data?.length : imagess.length}
+          activeDotIndex={pageIndex}
+          containerStyle={{
+            paddingVertical: 0,
+          }}
+          inactiveDotStyle={styles.dotInActiveVw}
+          dotStyle={styles.dotActiveVw}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}
+        />
+      ) : null}
     </View>
   );
 };
 const SliderImages = (props) => {
-  const { renderItem = () => {} } = props;
+  const {
+    renderItem = () => {},
+    imgWidth = windowWidth,
+    sliderWidth = windowWidth,
+  } = props;
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const setSliderPage = (event) => {
@@ -76,9 +83,9 @@ const SliderImages = (props) => {
           )
         }
         layout={"default"}
-        sliderWidth={windowWidth}
+        sliderWidth={sliderWidth}
         activeDotIndex={1}
-        itemWidth={windowWidth}
+        itemWidth={imgWidth}
         onScroll={(event) => {
           setSliderPage(event);
         }}

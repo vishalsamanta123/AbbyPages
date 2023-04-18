@@ -12,6 +12,9 @@ import {
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
   IOS,
+  SMALL_TEXT_COLOR_CODE,
+  BLUE_COLOR_CODE,
+  windowWidth,
 } from "../../../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 
@@ -110,7 +113,7 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
   },
   sectionTxt: {
-    fontSize: 22,
+    fontSize: 25,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_BOLD,
   },
@@ -119,9 +122,56 @@ const Styles = StyleSheet.create({
     elevation: 2,
     alignItems: "center",
     paddingVertical: 12,
-    marginVertical: 10,
+    marginTop: 10,
   },
-
+  considrVw: {
+    marginVertical: 5,
+    borderBottomWidth: 0.6,
+    borderColor: GREY_COLOR_CODE,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
+  },
+  considrTxt: {
+    fontSize: 22,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_BOLD,
+  },
+  considrImgVw: {
+    width: 34,
+    height: 34,
+    borderRadius: 100,
+    backgroundColor: LINE_COMMON_COLOR_CODE,
+    marginRight: 12,
+  },
+  considrTxtVw: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: SMALL_TEXT_COLOR_CODE,
+    lineHeight: 20,
+    width: "90%",
+  },
+  blueColorTxt: {
+    fontSize: 16,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLUE_COLOR_CODE,
+  },
+  photoImgVw: {
+    width: windowWidth / 1.8,
+    height: 120,
+    marginRight: 12,
+  },
+  tapRowButtonsVw: {
+    backgroundColor: WHITE_COLOR_CODE,
+    elevation: 2,
+    alignItems: "center",
+    paddingVertical: 12,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingHorizontal: 16,
+  },
+  timingVw: {
+    marginVertical: 12,
+  },
   posterVw: {
     flex: 1,
     borderColor: BLACK_COLOR_CODE,
@@ -137,6 +187,15 @@ const Styles = StyleSheet.create({
     backgroundColor: BLACK_COLOR_CODE,
     width: 20,
     height: 20,
+  },
+
+  moreInfoTxt: {
+    textAlign: "center",
+    fontSize: 20,
+    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY_REGULAR,
+    marginRight: 50,
+    flex: 1,
   },
 });
 export default Styles;

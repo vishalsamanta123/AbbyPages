@@ -4,41 +4,49 @@ import {
   Image,
   Text,
   Dimensions,
-  KeyboardAvoidingView,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import Dialog, {
-  DialogContent,
-  SlideAnimation,
-} from "react-native-popup-dialog";
 import {
   BLACK_COLOR_CODE,
-  IOS,
+  GREY_COLOR_CODE,
+  LIGHT_RED_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   windowWidth,
+  YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
-import { Rating } from "react-native-ratings";
-import moment from "moment";
 import { Images } from "../../../../../Utils/images";
-import Carousel, { Pagination } from "react-native-snap-carousel";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
-import {
-  SliderImages,
-  RenderSlideItem,
-} from "../../../../../Components/SliderImages";
-import { businessTypes } from "../../../../../Utils/staticData";
-const { width, height } = Dimensions.get("window");
-const lat = "22";
-const long = "56";
+import MoreInfo from "./MoreInfo";
+
 const BusinessPageDetailsView = (props) => {
+  const considerd = [
+    {
+      businees_name: "Sandeepan da san",
+      description:
+        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
+      profile: require("../../../../../Assets/extraImages/demo-profile-image.png"),
+      review: { businees_review: 3 },
+    },
+    {
+      businees_name: "Sunshine glamour",
+      description:
+        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
+      profile: require("../../../../../Assets/extraImages/demo-profile-image.png"),
+    },
+    {
+      businees_name: "First Impression",
+      description:
+        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
+      profile: require("../../../../../Assets/extraImages/cap.png"),
+    },
+  ];
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=28.543707340175,-81.3514976796&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
-  // const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${long}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C${lat},${long}&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
   const imagess = [
     {
       image: Images.DEMO1,
@@ -50,33 +58,6 @@ const BusinessPageDetailsView = (props) => {
       image: Images.DEMO3,
     },
   ];
-  const renderSlideItem = ({ item }) => {
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={{ position: "absolute" }}>
-          <Text>Sander</Text>
-        </View>
-        <View>
-          <Image
-            resizeMode={"cover"}
-            source={item.image}
-            style={{ height: 200, width: "100%" }}
-          />
-        </View>
-        <Pagination
-          dotsLength={imagess.length}
-          activeDotIndex={props.pageIndex}
-          containerStyle={{
-            paddingVertical: 0,
-          }}
-          inactiveDotStyle={styles.dotInActiveVw}
-          dotStyle={styles.dotActiveVw}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.6}
-        />
-      </View>
-    );
-  };
   return (
     <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
       <ImageBackground
@@ -85,9 +66,10 @@ const BusinessPageDetailsView = (props) => {
         resizeMode={"cover"}
       >
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-          <TouchableOpacity 
-          onPress={()=>props.handleBack()}
-          style={CommonStyles.straightCon}>
+          <TouchableOpacity
+            onPress={() => props.handleBack()}
+            style={CommonStyles.straightCon}
+          >
             <IconX
               origin={ICON_TYPE.ICONICONS}
               color={WHITE_COLOR_CODE}
@@ -99,11 +81,16 @@ const BusinessPageDetailsView = (props) => {
         </View>
         <View style={styles.backImgVw}>
           <Text style={styles.mainTxt}>Swag Desaner Barber</Text>
-          <StarShower
-            counts={3}
-            backColor={true}
-            starColor={WHITE_COLOR_CODE}
-          />
+          <View style={{ width: 120 }}>
+            <StarShower
+              counts={3}
+              backColor={true}
+              starHeight={16}
+              starWidth={16}
+              ActiveStarColor={YELLOW_COLOR_CODE}
+              UnActiveStarColor={WHITE_COLOR_CODE}
+            />
+          </View>
         </View>
       </ImageBackground>
       <View style={styles.mainContainer}>
@@ -163,13 +150,13 @@ const BusinessPageDetailsView = (props) => {
         <Text style={styles.longTxt}>Do You Recommend this businesss?</Text>
         <View style={[CommonStyles.straightCon, { justifyContent: "center" }]}>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={styles.titletxt}>YES</Text>
+            <Text style={[styles.titletxt, { fontSize: 16 }]}>YES</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={styles.titletxt}>NO</Text>
+            <Text style={[styles.titletxt, { fontSize: 16 }]}>NO</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={styles.titletxt}>MAYBE</Text>
+            <Text style={[styles.titletxt, { fontSize: 16 }]}>MAYBE</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -299,10 +286,252 @@ const BusinessPageDetailsView = (props) => {
             color={BLACK_COLOR_CODE}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tapButtonsVw}>
+        <TouchableOpacity
+          onPress={() =>
+            props.setMoreInfoModal({
+              open: true,
+              type: "info",
+            })
+          }
+          style={styles.tapButtonsVw}
+        >
           <Text style={styles.titletxt}>More Info</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>You might also consider</Text>
+        <Text
+          style={[
+            styles.smallTxt,
+            {
+              marginLeft: 8,
+            },
+          ]}
+        >
+          Sponsored
+        </Text>
+        {considerd?.length > 0 ? (
+          <>
+            {considerd?.map((considr) => {
+              return (
+                <TouchableOpacity activeOpacity={1} style={styles.considrVw}>
+                  <Text style={styles.considrTxt}>{considr.businees_name}</Text>
+                  {considr.review ? (
+                    <View>
+                      <StarShower
+                        counts={3}
+                        marginTop={5}
+                        starHeight={16}
+                        starWidth={16}
+                        ActiveStarColor={LIGHT_RED_COLOR_CODE}
+                        UnActiveStarColor={LINE_COMMON_COLOR_CODE}
+                      />
+                    </View>
+                  ) : null}
+                  <View style={CommonStyles.straightCon}>
+                    <Image
+                      source={considr.profile}
+                      style={styles.considrImgVw}
+                    />
+                    <Text style={styles.considrTxtVw}>
+                      {considr.description.substring(0, 60)}
+                      {"..."}
+                      <Text
+                        // onPress={() => }
+                        style={styles.blueColorTxt}
+                      >
+                        Read More
+                      </Text>
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </>
+        ) : null}
+      </View>
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>From this business</Text>
+        <Text style={[styles.smallTxt, { marginTop: 20 }]}>
+          Our BarberShop specilised in cutting hair and cleanong face make up
+          for both male and female
+        </Text>
+        <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+          <Image source={considerd[0].profile} style={styles.considrImgVw} />
+          <View>
+            <Text style={styles.smallOptiontxt2}>Jenniefer louse</Text>
+            <Text style={styles.smallTxt}>Business Owner</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={() =>
+            props.setMoreInfoModal({
+              open: true,
+              type: "read",
+            })
+          }
+          style={styles.tapButtonsVw}
+        >
+          <Text style={styles.titletxt}>Read More</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.mainContainer}>
+        <View
+          style={[
+            CommonStyles.straightCon,
+            { justifyContent: "space-between" },
+          ]}
+        >
+          <Text style={styles.sectionTxt}>Photos</Text>
+          <IconX
+            color={BLACK_COLOR_CODE}
+            origin={ICON_TYPE.ANT_ICON}
+            name={"arrowright"}
+          />
+        </View>
+        {imagess?.length > 0 ? (
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ marginVertical: 16 }}
+            horizontal
+          >
+            {imagess.map((photo) => {
+              return (
+                <>
+                  <Image
+                    source={photo.image}
+                    resizeMode={"cover"}
+                    style={styles.photoImgVw}
+                  />
+                </>
+              );
+            })}
+          </ScrollView>
+        ) : null}
+      </View>
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>Share this Business</Text>
+        <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity style={styles.smallOptionVw}>
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={"message1"}
+                size={20}
+                color={BLACK_COLOR_CODE}
+              />
+            </TouchableOpacity>
+            <Text style={[styles.smallOptiontxt2]}>Message</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity style={styles.smallOptionVw}>
+              <IconX
+                origin={ICON_TYPE.FEATHER_ICONS}
+                name={"copy"}
+                size={20}
+                color={BLACK_COLOR_CODE}
+              />
+            </TouchableOpacity>
+            <Text style={[styles.smallOptiontxt2]}>Copy Link</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity style={styles.smallOptionVw}>
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                name={"dots-horizontal"}
+                size={22}
+                color={BLACK_COLOR_CODE}
+              />
+            </TouchableOpacity>
+            <Text style={[styles.smallOptiontxt2]}>More</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>No reviews yet</Text>
+        <TouchableOpacity style={styles.tapRowButtonsVw}>
+          <Text style={styles.titletxt}>Be the first to review</Text>
+          <IconX
+            origin={ICON_TYPE.MATERIAL_COMMUNITY}
+            color={LIGHT_RED_COLOR_CODE}
+            name={"star-box"}
+            size={32}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
+        >
+          <StarShower
+            ActiveStarColor={LINE_COMMON_COLOR_CODE}
+            UnActiveStarColor={LINE_COMMON_COLOR_CODE}
+            starWidth={18}
+            starHeight={18}
+            marginLeft={14}
+          />
+          <Text
+            style={[
+              styles.smallOptiontxt2,
+              {
+                color: GREY_COLOR_CODE,
+                marginLeft: 14,
+              },
+            ]}
+          >
+            Tap to review....
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={[
+            CommonStyles.straightCon,
+            {
+              justifyContent: "space-between",
+              marginTop: 20,
+            },
+          ]}
+        >
+          <TouchableOpacity style={styles.tapRowButtonsVw}>
+            <IconX
+              origin={ICON_TYPE.MATERIAL_COMMUNITY}
+              name={"camera-plus-outline"}
+              size={29}
+              color={BLACK_COLOR_CODE}
+            />
+            <Text
+              style={[
+                styles.titletxt,
+                {
+                  marginLeft: 12,
+                },
+              ]}
+            >
+              Add Photos
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tapRowButtonsVw}>
+            <IconX
+              origin={ICON_TYPE.MATERIAL_COMMUNITY}
+              name={"check-decagram-outline"}
+              size={29}
+              color={BLACK_COLOR_CODE}
+            />
+            <Text
+              style={[
+                styles.titletxt,
+                {
+                  marginLeft: 12,
+                },
+              ]}
+            >
+              Check
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <MoreInfo
+        visible={props?.moreInfoModal?.open}
+        setVisible={props.setMoreInfoModal}
+        type={props?.moreInfoModal?.type}
+      />
     </ScrollView>
   );
 };
