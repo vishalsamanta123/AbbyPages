@@ -129,21 +129,38 @@ const MyCustomDrawer = (props) => {
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity
-            style={styles.containers}
-            onPress={() => props.navigation.navigate("Login")}
-          >
-            <View style={styles.imgeView}>
-              <IconX
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                name="login"
-                color={BLACK_COLOR_CODE}
-              />
-            </View>
-            <View style={styles.textContain}>
-              <Text style={styles.drawerText}>Login</Text>
-            </View>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity
+              style={styles.containers}
+              onPress={() => props.navigation.navigate("Login")}
+            >
+              <View style={styles.imgeView}>
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                  name="login"
+                  color={BLACK_COLOR_CODE}
+                />
+              </View>
+              <View style={styles.textContain}>
+                <Text style={styles.drawerText}>Login</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.containers}
+              onPress={() => props.navigation.navigate("SignUp")}
+            >
+              <View style={styles.imgeView}>
+                <IconX
+                  origin={ICON_TYPE.FONT_AWESOME}
+                  name="sign-in"
+                  color={BLACK_COLOR_CODE}
+                />
+              </View>
+              <View style={styles.textContain}>
+                <Text style={styles.drawerText}>Sign Up</Text>
+              </View>
+            </TouchableOpacity>
+          </>
         )}
       </DrawerContentScrollView>
       <QuestionModal

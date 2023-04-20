@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { BLACK_COLOR_CODE, YELLOW_COLOR_CODE } from "../../Utils/Constant";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  BLACK_COLOR_CODE,
+  LINE_COMMON_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 
 const StarShower = (props) => {
@@ -11,6 +15,8 @@ const StarShower = (props) => {
     starHeight = 12,
     starWidth = 12,
     marginTop = 7,
+    onPressStar = () => {},
+    starsBackColor = "",
   } = props;
   const oneStart = { star: Images.STAR_FILLED_IMG };
   // const [stars, setStars] = useState([oneStart]);
@@ -25,30 +31,48 @@ const StarShower = (props) => {
     <View
       style={[
         styles.container,
-        { marginLeft: marginLeft, marginTop:marginTop, },
+        { marginLeft: marginLeft, marginTop: marginTop },
         props.backColor ? styles.backColor : {},
       ]}
     >
       <>
-        <View>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onPressStar(1)}
+          style={[
+            starsBackColor === "" ? {} : styles.starVw,
+            {
+              backgroundColor: starsBackColor,
+            },
+          ]}
+        >
           <Image
             source={oneStart.star}
             style={[
-              styles.starImg,
+              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
                 tintColor:
-                  props?.counts > 1 ? ActiveStarColor : UnActiveStarColor,
+                  props?.counts >= 1 ? ActiveStarColor : UnActiveStarColor,
               },
             ]}
           />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onPressStar(2)}
+          style={[
+            styles.starVw,
+            {
+              backgroundColor: starsBackColor,
+            },
+          ]}
+        >
           <Image
             source={oneStart.star}
             style={[
-              styles.starImg,
+              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -57,12 +81,21 @@ const StarShower = (props) => {
               },
             ]}
           />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onPressStar(3)}
+          style={[
+            styles.starVw,
+            {
+              backgroundColor: starsBackColor,
+            },
+          ]}
+        >
           <Image
             source={oneStart.star}
             style={[
-              styles.starImg,
+              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -71,12 +104,21 @@ const StarShower = (props) => {
               },
             ]}
           />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onPressStar(4)}
+          style={[
+            styles.starVw,
+            {
+              backgroundColor: starsBackColor,
+            },
+          ]}
+        >
           <Image
             source={oneStart.star}
             style={[
-              styles.starImg,
+              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -85,12 +127,21 @@ const StarShower = (props) => {
               },
             ]}
           />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onPressStar(5)}
+          style={[
+            styles.starVw,
+            {
+              backgroundColor: starsBackColor,
+            },
+          ]}
+        >
           <Image
             source={oneStart.star}
             style={[
-              styles.starImg,
+              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -99,7 +150,7 @@ const StarShower = (props) => {
               },
             ]}
           />
-        </View>
+        </TouchableOpacity>
       </>
     </View>
   );
@@ -113,6 +164,12 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   starImg: {
+    marginHorizontal: 2,
+  },
+  starVw: {
+    paddingVertical: 3,
+    paddingHorizontal: 3,
+    borderRadius: 5,
     marginHorizontal: 3,
   },
   backColor: {

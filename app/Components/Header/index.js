@@ -117,7 +117,7 @@ const Header = (props) => {
           )}
         </TouchableOpacity>
         <View style={[HeaderMiddleView, HeaderMiddleTxt]}>
-          {/* {textInput === true && (
+          {textInput === true && (
             <View style={[styles.inputCon]}>
               <View style={{ paddingHorizontal: 5 }}>
                 <Image source={Images.SEARCH_IMG} />
@@ -130,7 +130,7 @@ const Header = (props) => {
                 style={styles.input}
               />
             </View>
-          )} */}
+          )}
           {HeaderText != "" ? (
             <Text style={[MainHeadTxt, MainHeadStyle]}>{HeaderText}</Text>
           ) : (

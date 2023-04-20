@@ -51,11 +51,15 @@ const QuestionModal = (props) => {
               <View style={styles.normalModalBttnVw}>
                 <Button
                   style={styles.modalBttn}
+                  width={"45%"}
+                  paddingHeight={10}
                   onPress={positiveResponse}
                   buttonText={positiveTxt ? positiveTxt : "Yes"}
                 />
                 <Button
                   style={styles.modalBttn}
+                  width={"45%"}
+                  paddingHeight={10}
                   onPress={negativeResponse}
                   buttonText={negativeTxt ? negativeTxt : "No"}
                 />

@@ -12,6 +12,11 @@ const ReviewRating = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const [recntRVwsData, setRecntRVwsData] = useState({});
   const [userData, setUserData] = useState({});
+  const [ratingData, setRatingData] = useState({
+    title: "",
+    description: "",
+    business_rating: "",
+  });
 
   useEffect(() => {
     getReviewsAndRating();
@@ -41,10 +46,22 @@ const ReviewRating = ({ navigation, route }) => {
       setVisible(false);
     }
   };
+  const onPressRating = (item) => {
+    setRatingData({
+      ...ratingData,
+      business_rating: item,
+    });
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <ReviewRatingView recntRVwsData={recntRVwsData} userData={userData} />
+      <ReviewRatingView
+        recntRVwsData={recntRVwsData}
+        userData={userData}
+        onPressRating={onPressRating}
+        ratingData={ratingData}
+        setRatingData={setRatingData}
+      />
     </View>
   );
 };

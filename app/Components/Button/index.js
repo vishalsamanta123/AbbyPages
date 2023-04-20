@@ -17,6 +17,9 @@ const Button = (props) => {
     tintColor,
     iconName,
     width = "90%",
+    buttonTxtColor = BLACK_COLOR_CODE,
+    fontSize = 18,
+    paddingHeight = 17,
   } = props;
   const { button, buttonLabel, iconsVw } = styles;
   return (
@@ -29,6 +32,7 @@ const Button = (props) => {
           style,
           {
             width: width,
+            paddingVertical: paddingHeight,
           },
         ]}
       >
@@ -39,7 +43,18 @@ const Button = (props) => {
           />
         ) : null}
         <Image source={LeftBtnImage} />
-        <Text style={[buttonLabel, buttonLabelStyle]}>{buttonText}</Text>
+        <Text
+          style={[
+            buttonLabel,
+            buttonLabelStyle,
+            {
+              color: buttonTxtColor,
+              fontSize: fontSize,
+            },
+          ]}
+        >
+          {buttonText}
+        </Text>
         <Image source={RightBtnImage} />
       </TouchableOpacity>
     </Fragment>
