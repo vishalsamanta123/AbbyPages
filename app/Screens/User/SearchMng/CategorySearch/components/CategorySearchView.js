@@ -20,7 +20,7 @@ const CategorySearchView = (props) => {
                     color={BLACK_COLOR_CODE}
                     origin={ICON_TYPE.ANT_ICON}
                     name={"right"}
-                    size={25}
+                    size={18}
                     paddingRight={5}
                 />
             </TouchableOpacity>
@@ -61,12 +61,12 @@ const CategorySearchView = (props) => {
             },
           ]}
         >
-          Categories
+          More Categories
         </Text>
         <View></View>
       </View>
       {/* LIST */}
-      <View style={{paddingVertical: 10}} >
+      <View style={{flex:1,  marginVertical: 10}} >
         <FlatList
             data={props.categoryList}
             renderItem={({item}) => renderItem(item)}
