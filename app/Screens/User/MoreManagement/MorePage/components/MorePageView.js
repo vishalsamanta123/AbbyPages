@@ -29,7 +29,7 @@ const MorePageView = (props) => {
               <Image
                 source={{ uri: props?.userData?.profile_image }}
                 style={styles.profileImgVw}
-                resizeMode={"contain"}
+                resizeMode={"cover"}
               />
               <View>
                 <Text style={styles.profileTxt}>
@@ -61,7 +61,7 @@ const MorePageView = (props) => {
                     <Image
                       source={{ uri: item.logo }}
                       style={styles.listImgVw}
-                      resizeMode={"contain"}
+                      resizeMode={"cover"}
                     />
                     <View>
                       <Text numberOfLines={1} style={styles.listTxt}>

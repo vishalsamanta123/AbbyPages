@@ -337,7 +337,12 @@ const BusinessPageDetailsView = (props) => {
                       {considr.description.substring(0, 60)}
                       {"..."}
                       <Text
-                        // onPress={() => }
+                       onPress={() =>
+                        props.setMoreInfoModal({
+                          open: true,
+                          type: "read",
+                        })
+                      }
                         style={styles.blueColorTxt}
                       >
                         Read More

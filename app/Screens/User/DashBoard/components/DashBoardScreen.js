@@ -227,7 +227,7 @@ const DashBoardScreen = (props) => {
                 </>
               ) : null}
             </View>
-            {props.recentLoader && (
+            {!props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )}
             {/* {props?.recent_activity?.length > 2 ? (
