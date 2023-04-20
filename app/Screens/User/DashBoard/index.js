@@ -117,6 +117,9 @@ const DashBoardView = ({ navigation }) => {
       navigation.navigate("ReviewRating", item);
     }
   };
+  const onSearchByCategoryPress = (item) => {
+      navigation.navigate("CategorySearch");
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
@@ -136,6 +139,7 @@ const DashBoardView = ({ navigation }) => {
         onRefresh={onRefresh}
         refreshing={refreshing}
         handleOnActivity={handleOnActivity}
+        onSearchByCategoryPress={onSearchByCategoryPress}
       />
       {/* <Error
         message={errorMessage}

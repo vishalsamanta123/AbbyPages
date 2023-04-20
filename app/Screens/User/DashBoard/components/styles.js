@@ -21,7 +21,7 @@ const Styles = StyleSheet.create({
   backgroundImgVw: {
     flex: 2,
     backgroundColor: YELLOW_COLOR_CODE,
-    paddingVertical: 90,
+    paddingVertical: 70,
   },
   imgInnerVw: {
     flex: 1,
@@ -53,6 +53,7 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
   },
   containersVw: {
+    marginTop: 20,
     marginVertical: 4,
     marginHorizontal: 3,
   },
@@ -276,6 +277,32 @@ const Styles = StyleSheet.create({
     width: 50,
     height: 40,
     borderRadius: 12,
+  },
+  searchView: {
+    position: "absolute",
+    bottom: -20,
+    width: "100%",
+  },
+  inputStyle: {
+    flexDirection: 'row',
+    width: "90%",
+    backgroundColor: WHITE_COLOR_CODE,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    paddingVertical: 16,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+  },
+  searchText: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
 });
 export default Styles;

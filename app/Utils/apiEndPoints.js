@@ -133,6 +133,10 @@ export default {
   BUSINESSLISTBYCATG: "api/business/getBusinessListByCategoryName",
   //for user dashoboard categories
 
+  // for category search
+
+  GET_SEARCH_CATEGORY_LIST: "/api/business/getAllCategoryById",
+
   CATEGORIES_LIST: "api/masterTableData/getCategoryBybusinessType",
   CATEGORIES_AT_HOME_LIST: "api/masterTableData/getCategoryAtHomePage",
   RECENT_VIEWED: "api/masterTableData/getAllRecentlyViewedBusiness",

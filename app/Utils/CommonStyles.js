@@ -20,7 +20,7 @@ const Styles = StyleSheet.create({
   },
   otherContainer: {
     flex: 1,
-    backgroundColor: LIGHT_WHITE_COLOR,
+    backgroundColor: LINE_COMMON_COLOR_CODE,
   },
   header: {
     paddingVertical: 16,
