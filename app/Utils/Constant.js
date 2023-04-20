@@ -10,6 +10,7 @@ export const WHITE_COLOR_CODE = "#ffffff";
 export const TRANSPARENT_CODE = "transparent";
 export const BLACK_COLOR_CODE = "#000000";
 export const GREY_COLOR_CODE = "#757070";
+export const BORDER_LINE_CODE = "#dee0e0";
 export const YELLOW_COLOR_CODE = "#ffba00";
 export const RGBA_COLOR = "rgba(0,0,0,0.8)";
 // export const SMALL_TEXT_COLOR_CODE = "#959595";

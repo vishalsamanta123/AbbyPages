@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   RefreshControl,
+  TextInput,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
@@ -25,6 +26,7 @@ import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 import Loader from "../../../../Utils/Loader";
+import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
 
 const DashBoardScreen = (props) => {
   const [searchModal, setSearchModal] = useState(false);
@@ -96,6 +98,20 @@ const DashBoardScreen = (props) => {
               Discover Events, Jobs, Goods, Services, Directions, Reviews,
               Deals, and More on ABBYPAGES.
             </Text>
+          </View>
+          <View style={styles.searchView}>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity style={styles.inputStyle} onPress={() => props.onSearchByCategoryPress()} >
+              <IconX
+                color={BLACK_COLOR_CODE}
+                origin={ICON_TYPE.EVIL_ICONS}
+                name={"search"}
+                size={30}
+                paddingRight={5}
+              />
+                <Text style={styles.searchText}>Search your category </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ImageBackground>
         <View style={styles.mainVw}>
