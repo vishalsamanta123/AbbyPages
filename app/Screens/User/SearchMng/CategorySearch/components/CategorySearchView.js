@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Image, SafeAreaView } from "react-native";
 import React from "react";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import { BLACK_COLOR_CODE } from "../../../../../Utils/Constant";
@@ -28,7 +28,7 @@ const CategorySearchView = (props) => {
     }
 
   return (
-    <View style={CommonStyles.otherContainer}>
+    <SafeAreaView style={CommonStyles.otherContainer}>
         {/* HEADER  */}
       <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
         <TouchableOpacity
@@ -72,7 +72,7 @@ const CategorySearchView = (props) => {
             renderItem={({item}) => renderItem(item)}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

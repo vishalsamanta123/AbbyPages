@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   topHeaderVw: {
     justifyContent: "space-between",
     paddingHorizontal: 6,
-    paddingVertical: IOS ? 30 : 4,
+    paddingVertical: IOS ? 10 : 4,
     backgroundColor: WHITE_COLOR_CODE,
   },
   topHeaderTxt: {

@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  SafeAreaView,
 } from "react-native";
 import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -23,7 +24,7 @@ import Button from "../../../../../Components/Button";
 
 const ReviewRatingView = (props) => {
   return (
-    <View style={CommonStyles.container}>
+    <SafeAreaView style={CommonStyles.container}>
       <View
         style={[
           styles.headerVw,
@@ -108,7 +109,7 @@ const ReviewRatingView = (props) => {
           />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
