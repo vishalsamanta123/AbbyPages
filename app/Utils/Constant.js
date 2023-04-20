@@ -11,6 +11,7 @@ export const TRANSPARENT_CODE = "transparent";
 export const BLACK_COLOR_CODE = "#000000";
 export const GREY_COLOR_CODE = "#757070";
 export const YELLOW_COLOR_CODE = "#ffba00";
+export const RGBA_COLOR = "rgba(0,0,0,0.8)";
 // export const SMALL_TEXT_COLOR_CODE = "#959595";
 export const LINE_COMMON_COLOR_CODE = "#dadada";
 
@@ -27,7 +28,7 @@ export const SMALL_TEXT_COLOR_CODE = "#868282";
 export const LIGHT_GREEN_COLOR_CODE = "#a3d74e";
 export const GREEN_COLOR_CODE = "#00FF00";
 export const LIGHT_RED_COLOR_CODE = "#f32c2c";
-export const BLUE_COLOR_CODE = "#0E86D4";
+export const BLUE_COLOR_CODE = "#00838f";
 export const LIGHT_GREY_COLOR_CODE = "#858484";
 export const LIGHT_WHITE_COLOR_CODE = "#C7CBCB";
 export const LIGHT_BLACK_COLOR_CODE = "#262626";

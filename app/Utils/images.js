@@ -1,6 +1,8 @@
 export const Images = {
   SPLASH_LOGO: require("../Assets/login_graphic.png"),
   LOGO: require("../Assets/logo.png"),
+  ABBYLOGO: require("../Assets/applogo.png"),
+  ABBYLOGO_TRNSP: require("../Assets/abbyLogoT.png"),
   BLACK_LOGO: require("../Assets/Abbypages_black.gif"),
   MAP_LOGO: require("../Assets/abby_pages_map_icon.png"),
   ANALYSTIC_DATA: require("../Assets/data-analytics.png"),

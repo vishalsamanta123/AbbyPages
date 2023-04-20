@@ -112,10 +112,10 @@ const DashBoardView = ({ navigation }) => {
       setRefreshing(false);
     }
   };
-  const refreshFun = () => {
-    getDashBoardActivity();
-    getDashBoardBussiness();
-    getDashBoardCategory();
+  const handleOnActivity = (item) => {
+    if (item?.review) {
+      navigation.navigate("ReviewRating", item);
+    }
   };
   return (
     <View style={CommonStyles.container}>
@@ -132,10 +132,10 @@ const DashBoardView = ({ navigation }) => {
         navigation={navigation}
         visible={visible}
         setVisible={setVisible}
-        refreshFun={refreshFun}
         recentLoader={recentLoader}
         onRefresh={onRefresh}
         refreshing={refreshing}
+        handleOnActivity={handleOnActivity}
       />
       {/* <Error
         message={errorMessage}

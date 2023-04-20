@@ -3,21 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-//------------------------Styles-------------------//
 import { Image, StatusBar, View, StyleSheet } from "react-native";
 import { Images } from "../Utils/images";
 import MyCustomDrawer from "./MyCustomDrawer";
 import MyTabBar from "./MyTabBar";
-
-//----------------------Functionality-------------//
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall, setDefaultHeader } from "../Utils/httpClient";
 import ENDPOINTS from "../Utils/apiEndPoints";
 import { UserContext, AuthContext } from "../Utils/UserContext";
 
-//--------------------------------------ScreensNavigation-------------------------------------------//
-//1 ------------->Authentication and Common<------------------//
 import HomeScreen from "../Screens/Authentication/Home";
 import LoginScreen from "../Screens/Authentication/Login";
 import SignUpScreen from "../Screens/Authentication/SignUp";
@@ -26,92 +20,24 @@ import UserVerifyScreen from "../Screens/Authentication/UserVerify";
 import BusinessUserVerifyScreen from "../Screens/Authentication/BusinessUserVerify";
 import ForgotPasswordScreen from "../Screens/Authentication/ForgotPassword";
 import ForgotPasswordFieldScreen from "../Screens/Authentication/ForgotPasswordField";
-//-----------------Authentication and Common End------------------//
-
-//2------------------->BusinessScreens<---------------//
-//2.1------------------->BusinessScreens Register or Edit<---------------//
 import GetStartedScreen from "../Screens/Business/GetStarted";
-import GoalsScreen from "../Screens/Business/Goals";
-import GoalPreviewScreen from "../Screens/Business/GoalPreview";
-import AddTextScreen from "../Screens/Business/AddText";
-import AddTextPreviewScreen from "../Screens/Business/AddTextPreview";
-import AddKeybordScreen from "../Screens/Business/AddKeybord";
-import BusinessLocationScreen from "../Screens/Business/BusinessLocation";
-import BudgetsScreen from "../Screens/Business/Budgets";
-import ConfirmScreen from "../Screens/Business/Confirm";
-//2.1------------BusinessScreens Register or Edit End------------------//
-
-//2.2------------------->BusinessScreens Drawer and Others<-------------//
 import BusinessHomeScreen from "../Screens/Business/BusinessHome";
-import BasicInformationScreen from "../Screens/Business/BasicInformation";
 import BusinessProfileScreen from "../Screens/Business/BusinessProfile";
 import BussinessInfoScreen from "../Screens/Business/BussinessInfo";
-import BusinessChangePasswordScreen from "../Screens/Business/BusinessChangePassword";
 import OpeningHoursScreen from "../Screens/Business/OpeningHours";
-import PhotosVideoScreen from "../Screens/Business/PhotosVideo";
-import AddEditBusinessCategoryScreen from "../Screens/Business/AddEditBusinessCategory";
-//2.2-------------------BusinessScreens Drawer and Others End-------------//
-
-//2.3------------------->BusinessScreens RestaurantScreens<-------------//
 import RestaurantManagementScreen from "../Screens/Business/RestaurantManagement";
-import TableManagementScreen from "../Screens/Business/TableManagement";
-import MyRestaurantItemScreen from "../Screens/Business/MyRestaurantItem";
-import AddTableScreen from "../Screens/Business/AddTable";
-import AddCategoryScreen from "../Screens/Business/AddCategory";
-import AddItemScreen from "../Screens/Business/AddItem";
-//2.3-------------------BusinessScreens RestaurantScreens End-------------//
-
-//2.4------------------->BusinessScreens JobScreen<-------------//
 import JobManagementListScreen from "../Screens/Business/JobManagementList";
 import AddJobsScreen from "../Screens/Business/AddJobs";
 import EditJob from "../Screens/Business/EditJob";
 import AppliedJobScreen from "../Screens/Business/AppliedJob";
-import AppliedJobDetailsScreen from "../Screens/Business/OrderDetail/AppliedJobDetails";
-//2.4-------------------BusinessScreens JobScreen End-------------//
-
-//2.5------------------->BusinessScreens ProductScreen<-------------//
 import MyProductListScreen from "../Screens/Business/MyProductList";
-import AddBusinessProductScreen from "../Screens/Business/AddBusinessProduct";
-import BusinessProductDetailsScreen from "../Screens/Business/BusinessProductDetails";
-//2.5-------------------BusinessScreens ProductScreen End-------------//
-
-//2.6------------------->BusinessScreens EventScreen<-------------//
 import EventManagement from "../Screens/Business/EventManagement";
 import CreateEventScreen from "../Screens/CreateEvent";
 import EventViewScreen from "../Screens/Business/EventView";
-//2.6-------------------BusinessScreens EventScreen End-------------//
-
-//2.7------------------->BusinessScreens Orders<-------------//
 import BusinessOrderHistoryScreen from "../Screens/Business/BusinessOrderHistory";
-import FoodOrderDetailsScreen from "../Screens/Business/OrderDetail/FoodOrderDetails";
-import TableBookingDetailsScreen from "../Screens/Business/OrderDetail/TableBookingDetails";
-import OutSideBookingOrderDetailsScreen from "../Screens/Business/OrderDetail/OutSideBookingOrderDetails";
-import ServiceOrderDetailsScreen from "../Screens/Business/OrderDetail/ServiceOrderDetails";
-import ShoppingOrderDetailsScreen from "../Screens/Business/OrderDetail/ShoppingOrderDetails";
-//2.7-------------------BusinessScreens Orders End-------------//
-//2-------------------BusinessScreens End-------------//
-
-//3------------------->UserScreens<----------------//
-
-//3.1------------------>UserScreens RestaurantScreens<----------------//
 import BusinessPageDetails from "../Screens/User/BusinessPageMng/BusinessPageDetails";
-//3.1--------------UserScreens RestaurantScreens End------------------//
-
-//3.2------------------>UserScreens JobScreens<----------------//
-//3.2--------------UserScreens JobScreens End------------------//
-
-//3.3------------------>UserScreens ServicesScreens<----------------//
 import ServiceProviderDetails from "../Screens/ServiceProviderDetails";
-//--------------UserScreens ServicesScreens End------------------//
-
-//3.4------------------>UserScreens EventScreens<----------------//
-//3.4--------------UserScreens EventScreens End------------------//
-
-//3.5------------------>UserScreens ShopScreens<----------------//
 import ShopDetailScreen from "../Screens/ShopDetail";
-//3.5--------------UserScreens ShopScreens End------------------//
-
-//3.6------------------>UserScreens Drawer and others<----------------//
 import DashBoardScreen from "../Screens/User/DashBoard";
 import BusinessPageListing from "../Screens/User/BusinessPageMng/BusinessPageListing";
 import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
@@ -128,8 +54,7 @@ import NotificationsScreen from "../Screens/Notifications";
 import RecentActivityScreen from "../Screens/RecentActivity";
 import FriendsScreen from "../Screens/Friends";
 import MorePageScreen from "../Screens/User/MoreManagement/MorePage";
-//3.6------------------>UserScreens Drawer and others End<----------------//
-//3----------------UserScreens End------------------//
+import ReviewRating from "../Screens/User/BusinessPageMng/ReviewRating";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -247,8 +172,7 @@ function AuthStack() {
       <Auth.Screen name="BusinessPageListing" component={BusinessPageListing} />
       <Auth.Screen name="BusinessPageDetails" component={BusinessPageDetails} />
       <Auth.Screen name="MorePage" component={MorePageScreen} />
-      <Auth.Screen name="ShopList" component={ShopListScreen} />
-      <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
+      <Auth.Screen name="ReviewRating" component={ReviewRating} />
       <Auth.Screen name="Home" component={HomeScreen} />
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="SignUp" component={SignUpScreen} />
@@ -398,6 +322,7 @@ function AppStack() {
         name="BusinessPageDetails"
         component={BusinessPageDetails}
       />
+      <Stack.Screen name="ReviewRating" component={ReviewRating} />
       <Stack.Screen
         name="ServiceProviderListing"
         component={ServiceProviderListingScreen}

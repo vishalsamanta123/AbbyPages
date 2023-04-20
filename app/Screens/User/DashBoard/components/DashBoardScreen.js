@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  ActivityIndicator,
   RefreshControl,
 } from "react-native";
 import styles from "./styles";
@@ -16,7 +15,6 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
-  TRANSPARENT_CODE,
   WHITE_COLOR_CODE,
   windowWidth,
   YELLOW_COLOR_CODE,
@@ -27,7 +25,6 @@ import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 import Loader from "../../../../Utils/Loader";
-import Button from "../../../../Components/Button";
 
 const DashBoardScreen = (props) => {
   const [searchModal, setSearchModal] = useState(false);
@@ -109,8 +106,12 @@ const DashBoardScreen = (props) => {
                 <>
                   {props?.recent_activity?.map((activity) => {
                     return (
-                      <View style={styles.activityCon}>
-                        <TouchableOpacity style={styles.rowVw}>
+                      <TouchableOpacity
+                        activeOpacity={1}
+                        style={styles.activityCon}
+                        onPress={() => props.handleOnActivity(activity)}
+                      >
+                        <View style={styles.rowVw}>
                           <Image
                             source={{ uri: activity?.user?.profile }}
                             style={styles.activityProfileVw}
@@ -122,10 +123,18 @@ const DashBoardScreen = (props) => {
                                 activity?.user?.last_name}
                             </Text>
                             <Text style={styles.activityRvwTxt}>
-                              {"Wrote a Review"}
+                              {activity?.review
+                                ? "Wrote a Review"
+                                : activity?.image?.length > 0
+                                ? `${
+                                    "Added " +
+                                    activity?.image?.length +
+                                    " Photos"
+                                  }`
+                                : null}
                             </Text>
                           </View>
-                        </TouchableOpacity>
+                        </View>
                         {activity?.image?.length > 0 ? (
                           <Text style={styles.activityMainTxt}>
                             {activity?.business_name}
@@ -146,54 +155,25 @@ const DashBoardScreen = (props) => {
                           <>
                             {activity?.image?.length > 0 ? (
                               <View style={styles.photosVw}>
-                                {activity?.image?.length === 1 ? (
-                                  <Image
-                                    source={{
-                                      uri: activity?.image[0],
-                                    }}
-                                    resizeMode={"cover"}
-                                    style={[
-                                      styles.activityBnnrVw,
-                                      {
-                                        marginHorizontal: 5,
-                                        marginBottom: 10,
-                                      },
-                                    ]}
-                                  />
-                                ) : (
-                                  <>
+                                {activity?.image?.slice(0, 2)?.map((photos) => {
+                                  return (
                                     <Image
-                                      source={{
-                                        uri: activity?.image[0],
-                                      }}
+                                      source={{ uri: photos }}
                                       resizeMode={"cover"}
                                       style={[
                                         styles.activityBnnrVw,
                                         {
+                                          marginHorizontal: 5,
+                                          marginBottom: 10,
                                           width:
-                                            activity?.image?.length === 0
-                                              ? windowWidth
+                                            activity?.image?.length === 1
+                                              ? windowWidth / 1.2
                                               : windowWidth / 2.4,
                                         },
                                       ]}
                                     />
-                                    <Image
-                                      source={{
-                                        uri: activity?.image[1],
-                                      }}
-                                      resizeMode={"cover"}
-                                      style={[
-                                        styles.activityBnnrVw,
-                                        {
-                                          width:
-                                            activity?.image?.length === 0
-                                              ? windowWidth
-                                              : windowWidth / 2.4,
-                                        },
-                                      ]}
-                                    />
-                                  </>
-                                )}
+                                  );
+                                })}
                               </View>
                             ) : null}
                             {/* {activity?.image?.length > 2 ? (
@@ -221,13 +201,13 @@ const DashBoardScreen = (props) => {
                             </Text>
                           </>
                         ) : null}
-                      </View>
+                      </TouchableOpacity>
                     );
                   })}
                 </>
               ) : null}
             </View>
-            {!props.recentLoader && (
+            {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )}
             {/* {props?.recent_activity?.length > 2 ? (

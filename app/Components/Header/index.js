@@ -117,7 +117,7 @@ const Header = (props) => {
           )}
         </TouchableOpacity>
         <View style={[HeaderMiddleView, HeaderMiddleTxt]}>
-          {textInput === true && (
+          {/* {textInput === true && (
             <View style={[styles.inputCon]}>
               <View style={{ paddingHorizontal: 5 }}>
                 <Image source={Images.SEARCH_IMG} />
@@ -130,7 +130,7 @@ const Header = (props) => {
                 style={styles.input}
               />
             </View>
-          )}
+          )} */}
           {HeaderText != "" ? (
             <Text style={[MainHeadTxt, MainHeadStyle]}>{HeaderText}</Text>
           ) : (
@@ -146,7 +146,7 @@ const Header = (props) => {
               ) : null}
             </>
           )}
-          {HeaderText === "Confirm Order" && (
+          {/* {HeaderText === "Confirm Order" && (
             <Text style={[headerSecondTextStyle, stheaderSecondText]}>
               {headerSecondText}
             </Text>
@@ -155,10 +155,10 @@ const Header = (props) => {
             <Text style={[headerSecondTextStyle, stheaderSecondText]}>
               You have {headerSecondText} items in cart
             </Text>
-          )}
+          )} */}
         </View>
         <View style={HeaderView}>
-          {RightImg && (
+          {RightImg ? (
             <TouchableOpacity onPress={onPressRightImg}>
               <Image
                 style={{ height: 24, width: 24, tintColor: tintColor }}
@@ -170,7 +170,7 @@ const Header = (props) => {
                 </View>
               )}
             </TouchableOpacity>
-          )}
+          ) : null}
         </View>
       </View>
     </>
