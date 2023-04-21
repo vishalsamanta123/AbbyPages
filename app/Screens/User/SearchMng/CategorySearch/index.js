@@ -22,7 +22,6 @@ const CategorySearch = ({ navigation }) => {
     }
     try {
       const { data } = await apiCall("POST", apiEndPoints.GET_SEARCH_CATEGORY_LIST);
-      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setCategoryList(data.data)
@@ -39,7 +38,6 @@ const CategorySearch = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-
       <CategorySearchView navigation={navigation} categoryList={categoryList} />
     </View>
   );

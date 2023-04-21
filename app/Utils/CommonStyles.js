@@ -91,7 +91,7 @@ const Styles = StyleSheet.create({
       fontSize: 16,
       backgroundColor: TRANSPARENT_CODE,
       color: GREY_COLOR_CODE,
-      height: 52,
+      height: 45,
     },
     listView: {
       backgroundColor: LIGHT_WHITE_COLOR_CODE,

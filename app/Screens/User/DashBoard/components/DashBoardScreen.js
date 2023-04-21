@@ -46,17 +46,6 @@ const DashBoardScreen = (props) => {
             {item.total_business_count + " " + "Listing"}
           </Text>
         </View>
-        <Pagination
-          dotsLength={props.businessTypes.length}
-          activeDotIndex={props.pageIndex}
-          containerStyle={{
-            paddingVertical: 0,
-          }}
-          inactiveDotStyle={styles.dotInActiveVw}
-          dotStyle={styles.dotActiveVw}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.6}
-        />
       </View>
     );
   };
@@ -175,8 +164,11 @@ const DashBoardScreen = (props) => {
                         ) : (
                           <>
                             {activity?.image?.length > 0 ? (
-                              <View style={styles.photosVw}>
-                                {activity?.image?.slice(0, 2)?.map((photos) => {
+                              <ScrollView
+                                nestedScrollEnabled
+                                contentContainerStyle={styles.photosVw}
+                              >
+                                {activity?.image?.slice(0, 5)?.map((photos) => {
                                   return (
                                     <Image
                                       source={{ uri: photos }}
@@ -195,7 +187,7 @@ const DashBoardScreen = (props) => {
                                     />
                                   );
                                 })}
-                              </View>
+                              </ScrollView>
                             ) : null}
                             {/* {activity?.image?.length > 2 ? (
                               <TouchableOpacity onPress={() => setViewPhotos()}>
@@ -231,18 +223,20 @@ const DashBoardScreen = (props) => {
             {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )}
-            {/* {props?.recent_activity?.length > 2 ? (
-              <TouchableOpacity style={styles.seeMoreBttn}>
-                <Text style={styles.seeMoreBttnTxt}>See More</Text>
+            {props?.recent_activity?.length > 2 && !props.recentLoader ? (
+              <TouchableOpacity
+                onPress={() => {
+                  if (props?.recent_activity?.length < props?.moreData) {
+                    props.getDashBoardActivity(props.actOffset + 1);
+                  }
+                }}
+                style={styles.seeMoreBttn}
+              >
+                <Text style={styles.seeMoreBttnTxt}>Show More Activity</Text>
               </TouchableOpacity>
-            ) : null} */}
+            ) : null}
           </View>
-          <View
-            style={[
-              styles.containersVw,
-              { borderTopWidth: 0.2, borderBottomWidth: 0.2 },
-            ]}
-          >
+          <View style={styles.containersVw}>
             <Text style={styles.titlesTxt}>
               Find the Best Black-Owned Businesses in
               <Text style={{ fontFamily: FONT_FAMILY_BOLD }}> Town</Text>
@@ -256,9 +250,21 @@ const DashBoardScreen = (props) => {
                 activeDotIndex={1}
                 itemWidth={windowWidth}
                 autoplay
-                onScroll={(event) => {
-                  props.setSliderPage(event);
+                loop
+                onSnapToItem={(index) => {
+                  props.setSliderState({ activeSlide: index });
                 }}
+              />
+              <Pagination
+                dotsLength={props?.businessTypes?.length}
+                activeDotIndex={props?.sliderState?.activeSlide}
+                containerStyle={{
+                  paddingVertical: 0,
+                }}
+                inactiveDotStyle={styles.dotInActiveVw}
+                dotStyle={styles.dotActiveVw}
+                inactiveDotOpacity={0.4}
+                inactiveDotScale={0.6}
               />
             </View>
           </View>
