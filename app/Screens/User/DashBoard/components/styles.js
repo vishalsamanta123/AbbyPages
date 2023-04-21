@@ -115,6 +115,8 @@ const Styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
     justifyContent: "center",
+    height: 150,
+    flexGrow: 1,
   },
   activityMainTxt: {
     fontSize: 16,
@@ -137,17 +139,12 @@ const Styles = StyleSheet.create({
     marginTop: 5,
   },
   seeMoreBttn: {
-    backgroundColor: LIGHT_WHITE_COLOR,
-    width: "80%",
     alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingVertical: 5,
   },
   seeMoreBttnTxt: {
     fontSize: 17,
-    color: BLACK_COLOR_CODE,
+    color: BLUE_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
   },
   posterVw: {
@@ -172,9 +169,9 @@ const Styles = StyleSheet.create({
   },
   dotActiveVw: {
     borderRadius: 100,
-    backgroundColor: YELLOW_COLOR_CODE,
-    width: 16,
-    height: 16,
+    backgroundColor: BLACK_COLOR_CODE,
+    width: 12,
+    height: 12,
   },
   dotInActiveVw: {
     borderRadius: 100,
