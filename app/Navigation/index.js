@@ -183,6 +183,8 @@ function AuthStack() {
         name="BusinessUserVerify"
         component={BusinessUserVerifyScreen}
       />
+      <Auth.Screen name="ShopList" component={ShopListScreen} />
+      <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Auth.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Auth.Screen
         name="ForgotPasswordField"

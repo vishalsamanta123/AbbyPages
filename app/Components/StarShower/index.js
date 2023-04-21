@@ -17,6 +17,7 @@ const StarShower = (props) => {
     marginTop = 7,
     onPressStar = () => {},
     starsBackColor = "",
+    starPaddingH = 3,
   } = props;
   const oneStart = { star: Images.STAR_FILLED_IMG };
   // const [stars, setStars] = useState([oneStart]);
@@ -43,13 +44,13 @@ const StarShower = (props) => {
             starsBackColor === "" ? {} : styles.starVw,
             {
               backgroundColor: starsBackColor,
+              paddingHorizontal: starPaddingH,
             },
           ]}
         >
           <Image
             source={oneStart.star}
             style={[
-              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -66,13 +67,13 @@ const StarShower = (props) => {
             styles.starVw,
             {
               backgroundColor: starsBackColor,
+              paddingHorizontal: starPaddingH,
             },
           ]}
         >
           <Image
             source={oneStart.star}
             style={[
-              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -89,13 +90,13 @@ const StarShower = (props) => {
             styles.starVw,
             {
               backgroundColor: starsBackColor,
+              paddingHorizontal: starPaddingH,
             },
           ]}
         >
           <Image
             source={oneStart.star}
             style={[
-              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -112,13 +113,13 @@ const StarShower = (props) => {
             styles.starVw,
             {
               backgroundColor: starsBackColor,
+              paddingHorizontal: starPaddingH,
             },
           ]}
         >
           <Image
             source={oneStart.star}
             style={[
-              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -135,13 +136,13 @@ const StarShower = (props) => {
             styles.starVw,
             {
               backgroundColor: starsBackColor,
+              paddingHorizontal: starPaddingH,
             },
           ]}
         >
           <Image
             source={oneStart.star}
             style={[
-              starsBackColor === "" ? {} : styles.starVw,
               {
                 width: starWidth,
                 height: starHeight,
@@ -168,7 +169,6 @@ const styles = StyleSheet.create({
   },
   starVw: {
     paddingVertical: 3,
-    paddingHorizontal: 3,
     borderRadius: 5,
     marginHorizontal: 3,
   },

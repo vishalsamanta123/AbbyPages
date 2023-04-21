@@ -56,6 +56,7 @@ const Styles = StyleSheet.create({
     marginTop: 20,
     marginVertical: 4,
     marginHorizontal: 3,
+    borderColor: GREY_COLOR_CODE,
   },
   titlesTxt: {
     //on Dashboard and ByCategory
@@ -203,7 +204,11 @@ const Styles = StyleSheet.create({
   searchModal: {
     flexGrow: 1,
     backgroundColor: WHITE_COLOR_CODE,
-    paddingTop: IOS ? 40 : 18,
+  },
+  ctgTopHeader: {
+    flex: 1,
+    top: 10,
+    marginLeft: 8,
   },
   searchTxt: {
     fontSize: 22,
@@ -212,11 +217,8 @@ const Styles = StyleSheet.create({
     textAlign: "center",
   },
   crossVw: {
-    position: "absolute",
-    right: 0,
-    marginRight: 8,
-    top: -12,
-    backgroundColor: WHITE_COLOR_CODE,
+    paddingRight: 8,
+    marginTop: 2,
   },
   searchVw: {
     marginHorizontal: 30,
@@ -284,7 +286,7 @@ const Styles = StyleSheet.create({
     width: "100%",
   },
   inputStyle: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: "90%",
     backgroundColor: WHITE_COLOR_CODE,
     shadowColor: "#000",

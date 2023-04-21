@@ -27,6 +27,7 @@ import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 import Loader from "../../../../Utils/Loader";
 import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
+import MainHeader from "../../../../Components/MainHeader";
 
 const DashBoardScreen = (props) => {
   const [searchModal, setSearchModal] = useState(false);
@@ -71,8 +72,9 @@ const DashBoardScreen = (props) => {
         logoImg={true}
         tintColor={BLACK_COLOR_CODE}
         mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
-        onPressRightImg={() => setSearchModal(true)}
+        onPressRightImg={() => props.navigation.navigate("CategorySearch")}
       />
+      {/* <MainHeader /> */}
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -101,15 +103,18 @@ const DashBoardScreen = (props) => {
           </View>
           <View style={styles.searchView}>
             <View style={{ alignItems: "center" }}>
-              <TouchableOpacity style={styles.inputStyle} onPress={() => props.onSearchByCategoryPress()} >
-              <IconX
-                color={BLACK_COLOR_CODE}
-                origin={ICON_TYPE.EVIL_ICONS}
-                name={"search"}
-                size={30}
-                paddingRight={5}
-              />
-                <Text style={styles.searchText}>Search your category </Text>
+              <TouchableOpacity
+                style={styles.inputStyle}
+                onPress={() => props.onSearchByCategoryPress()}
+              >
+                <IconX
+                  color={BLACK_COLOR_CODE}
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"search"}
+                  size={30}
+                  paddingRight={5}
+                />
+                <Text style={styles.searchText}>Search by category</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -315,11 +320,11 @@ const DashBoardScreen = (props) => {
           </View>
         </View>
       </ScrollView>
-      <ByCategory
+      {/* <ByCategory
         navigation={props.navigation}
         searchModal={searchModal}
         setSearchModal={setSearchModal}
-      />
+      /> */}
     </View>
   );
 };

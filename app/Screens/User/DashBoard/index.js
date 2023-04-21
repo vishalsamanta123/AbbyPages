@@ -7,6 +7,7 @@ import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import { windowWidth } from "../../../Utils/Constant";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -14,6 +15,7 @@ const DashBoardView = ({ navigation }) => {
   const { currentPage: pageIndex } = sliderState;
   const [recent_activity, setRecent_Activity] = useState([]);
   const [businessTypes, setBusinessTypes] = useState([]);
+  const [actOffset, setActOffset] = useState(0);
   const [moreCategory, setMoreCategory] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [recentLoader, setRecentLoader] = React.useState(false);
@@ -22,14 +24,17 @@ const DashBoardView = ({ navigation }) => {
     moreServices: [],
   });
 
-  useEffect(() => {
-    getDashBoardActivity();
-    getDashBoardBussiness();
-    getDashBoardCategory();
-  }, [navigation]);
+  useFocusEffect(
+    React.useCallback(() => {
+      getDashBoardActivity(0);
+      getDashBoardBussiness();
+      getDashBoardCategory();
+      return () => {};
+    }, [navigation])
+  );
 
   const onRefresh = () => {
-    getDashBoardActivity();
+    getDashBoardActivity(0);
     getDashBoardBussiness();
     getDashBoardCategory();
     setVisible(false);
@@ -48,8 +53,13 @@ const DashBoardView = ({ navigation }) => {
     }
   };
 
-  const getDashBoardActivity = async () => {
+  const getDashBoardActivity = async (offset) => {
     setRecentLoader(true);
+    setActOffset(offset);
+    const params = {
+      offset: offset,
+      limit: 3,
+    };
     if (!refreshing) {
       setVisible(true);
     }
@@ -118,7 +128,7 @@ const DashBoardView = ({ navigation }) => {
     }
   };
   const onSearchByCategoryPress = (item) => {
-      navigation.navigate("CategorySearch");
+    navigation.navigate("CategorySearch");
   };
   return (
     <View style={CommonStyles.container}>
@@ -140,6 +150,7 @@ const DashBoardView = ({ navigation }) => {
         refreshing={refreshing}
         handleOnActivity={handleOnActivity}
         onSearchByCategoryPress={onSearchByCategoryPress}
+        actOffset={actOffset}
       />
       {/* <Error
         message={errorMessage}
