@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, View } from "react-native";
 
 import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
@@ -10,26 +10,47 @@ import Success from "../../../../Components/Modal/success";
 import Error from "../../../../Components/Modal/error";
 
 const BusinessPageDetails = ({ navigation, route }) => {
+  const { detail = {} } = route?.params;
   const { width, height } = Dimensions.get("window");
   const [visible, setVisible] = useState(false);
   const [moreInfoModal, setMoreInfoModal] = useState({
     open: false,
     type: "",
   });
-  const [sliderState, setSliderState] = useState({ currentPage: 0 });
-  const { currentPage: pageIndex } = sliderState;
+  const [detailData, setDetailData] = useState({});
+  console.log('detailData: ', detailData);
 
-  const setSliderPage = (event) => {
-    const { currentPage } = sliderState;
-    const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / width);
-    if (indexOfNextScreen !== currentPage) {
-      setSliderState({
-        ...sliderState,
-        currentPage: indexOfNextScreen,
-      });
+  useEffect(() => {
+    getDetails();
+  }, [navigation]);
+  const getDetails = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        business_id: detail?.business_id,
+        business_type: detail?.search_business_type,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUSINESS_DETAILS,
+        params
+      );
+      if (data.status == 200) {
+        setVisible(false);
+        setDetailData(data?.data);
+      } else {
+        if (data.status === 201) {
+          setDetailData({});
+          setVisible(false);
+        } else {
+          setVisible(false);
+        }
+      }
+    } catch (error) {
+      setVisible(false);
     }
   };
+
   const handleBack = () => {
     navigation.goBack();
   };
@@ -38,13 +59,12 @@ const BusinessPageDetails = ({ navigation, route }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <BusinessPageDetailsView
-        setSliderPage={setSliderPage}
-        pageIndex={pageIndex}
         handleBack={handleBack}
         moreInfoModal={moreInfoModal}
         setMoreInfoModal={setMoreInfoModal}
+        detailData={detailData}
       />
-      {/*    <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}

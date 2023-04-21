@@ -190,18 +190,22 @@ const ByCategory = (props) => {
             Keyboard.dismiss();
           }}
         >
-          <TouchableOpacity
-            onPress={() => setSearchModal(false)}
+          <View style={[CommonStyles.straightCon]}>
+            <View style={styles.ctgTopHeader}>
+              <Text style={styles.searchTxt}>Search</Text>
+            </View>
+            <TouchableOpacity 
             style={styles.crossVw}
-          >
-            <IconX
-              origin={ICON_TYPE.ENTYPO}
-              color={LINE_COMMON_COLOR_CODE}
-              name={"circle-with-cross"}
-              size={40}
-            />
-          </TouchableOpacity>
-          <Text style={styles.searchTxt}>Search</Text>
+            onPress={() => setSearchModal(false)}>
+              <IconX
+                origin={ICON_TYPE.ENTYPO}
+                color={LINE_COMMON_COLOR_CODE}
+                name={"circle-with-cross"}
+                size={40}
+              />
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.searchVw}>
             <Text style={styles.titlesTxt}>What</Text>
             <View style={styles.catgSearchVw}>

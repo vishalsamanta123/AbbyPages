@@ -40,6 +40,7 @@ const Styles = StyleSheet.create({
     color: WHITE_COLOR_CODE,
     fontFamily: FONT_FAMILY_BOLD,
     marginRight: 28,
+    textTransform: "capitalize",
   },
   mainContainer: {
     paddingHorizontal: 16,

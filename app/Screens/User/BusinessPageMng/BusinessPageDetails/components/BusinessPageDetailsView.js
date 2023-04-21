@@ -13,8 +13,10 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   GREY_COLOR_CODE,
+  LIGHT_GREEN_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
+  RGBA_COLOR,
   WHITE_COLOR_CODE,
   windowWidth,
   YELLOW_COLOR_CODE,
@@ -80,25 +82,83 @@ const BusinessPageDetailsView = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.backImgVw}>
-          <Text style={styles.mainTxt}>Swag Desaner Barber</Text>
-          <View style={{ width: 120 }}>
+          <Text style={styles.mainTxt}>{props?.detailData?.business_name}</Text>
+          <View style={{ width: 132 }}>
             <StarShower
-              counts={3}
-              backColor={true}
-              starHeight={16}
-              starWidth={16}
+              counts={
+                props?.detailData?.rating
+                  ? Number(props?.detailData?.rating)
+                  : 0
+              }
+              starHeight={18}
+              starWidth={18}
+              starsBackColor={RGBA_COLOR}
               ActiveStarColor={YELLOW_COLOR_CODE}
               UnActiveStarColor={WHITE_COLOR_CODE}
             />
           </View>
+          {props?.detailData?.claimed ? (
+            <View style={CommonStyles.straightCon}>
+              {props?.detailData?.claimed?.toString() === "1" && (
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"checkcircle"}
+                  color={LIGHT_GREEN_COLOR_CODE}
+                  paddingRight={6}
+                />
+              )}
+              <Text
+                style={[
+                  styles.smallTxt,
+                  {
+                    color: LIGHT_GREEN_COLOR_CODE,
+                  },
+                ]}
+              >
+                {props?.detailData?.claimed?.toString() === "1"
+                  ? "Claimed"
+                  : "UnClaimed"}
+              </Text>
+            </View>
+          ) : null}
         </View>
       </ImageBackground>
       <View style={styles.mainContainer}>
-        <Text style={styles.titletxt}>{"Home Barber"}</Text>
-        <View style={CommonStyles.straightCon}>
-          <Text style={styles.subTitleTxt}>Closed now</Text>
-          <Text style={styles.smallTxt}>- 9:00AM - 7:00 PM</Text>
-        </View>
+        <Text style={styles.titletxt}>
+          {props?.detailData?.business_service_category}
+        </Text>
+        {props?.detailData?.business_open_time ? (
+          <View style={CommonStyles.straightCon}>
+            <Text
+              style={[
+                styles.subTitleTxt,
+                {
+                  color:
+                    props?.detailData?.business_open_time?.closing_day === 1 &&
+                    props?.detailData?.business_open_time?.temporary_close ===
+                      1 &&
+                    props?.detailData?.business_open_time?.permanent_close === 1
+                      ? LIGHT_GREEN_COLOR_CODE
+                      : LIGHT_RED_COLOR_CODE,
+                },
+              ]}
+            >
+              {props?.detailData?.business_open_time?.closing_day === 1 &&
+              props?.detailData?.business_open_time?.temporary_close === 1 &&
+              props?.detailData?.business_open_time?.permanent_close === 1
+                ? "Open Now"
+                : "Closed Now"}
+            </Text>
+            {props?.detailData?.business_open_time?.closing_day === 1 &&
+            props?.detailData?.business_open_time?.temporary_close === 1 &&
+            props?.detailData?.business_open_time?.permanent_close === 1 ? (
+              <Text style={styles.smallTxt}>
+                {" "}
+                - {props?.detailData?.business_open_time?.timeline}
+              </Text>
+            ) : null}
+          </View>
+        ) : null}
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity style={styles.smallOptionVw}>
@@ -337,12 +397,12 @@ const BusinessPageDetailsView = (props) => {
                       {considr.description.substring(0, 60)}
                       {"..."}
                       <Text
-                       onPress={() =>
-                        props.setMoreInfoModal({
-                          open: true,
-                          type: "read",
-                        })
-                      }
+                        onPress={() =>
+                          props.setMoreInfoModal({
+                            open: true,
+                            type: "read",
+                          })
+                        }
                         style={styles.blueColorTxt}
                       >
                         Read More
