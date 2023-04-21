@@ -50,6 +50,13 @@ const MorePage = ({ navigation }) => {
       navigation.navigate("Login");
     }
   };
+  const onPressView = (item) => {
+    const data = {
+      ...item,
+      search_business_type: item.business_type
+    }
+    navigation.navigate("BusinessPageDetails", { detail: data });
+  };
   return (
     <View style={CommonStyles.container}>
       <MorePageView
@@ -58,6 +65,7 @@ const MorePage = ({ navigation }) => {
         recent_view={recent_view}
         handleSignupLogin={handleSignupLogin}
         onPressOptions={onPressOptions}
+        onPressView={onPressView}
       />
     </View>
   );

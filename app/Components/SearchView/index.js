@@ -106,6 +106,7 @@ const SearchView = (props) => {
             style={styles.catgSearchInput}
             // onFocus={() => setCategoryShow(true)}
             value={""}
+            editable={false}
             onChangeText={(txt) => {
               //   getCategories(txt === "" ? "" : txt);
             }}
@@ -152,7 +153,7 @@ const SearchView = (props) => {
         style={styles.searchButtonVw}
         paddingHeight={8}
         width={"92%"}
-        onPress={() => handleListNavigation(searchData)}
+        // onPress={() => handleListNavigation(searchData)}
       />
     </View>
   );

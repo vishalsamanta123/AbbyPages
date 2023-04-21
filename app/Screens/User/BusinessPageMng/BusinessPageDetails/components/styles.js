@@ -15,6 +15,7 @@ import {
   SMALL_TEXT_COLOR_CODE,
   BLUE_COLOR_CODE,
   windowWidth,
+  BORDER_LINE_CODE,
 } from "../../../../../Utils/Constant";
 const { width, height } = Dimensions.get("window");
 
@@ -197,6 +198,42 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_REGULAR,
     marginRight: 50,
     flex: 1,
+  },
+  popularCardTouch: {
+    // backgroundColor: "red",
+    padding: 10,
+    margin: 5,
+    width: 130,
+    height: 180,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    borderRadius: 5,
+    borderColor: BORDER_LINE_CODE,
+    // backgroundColor: BORDER_LINE_CODE,
+    borderWidth: 1,
+  },
+  popularimage: {
+    height: 100,
+    width: 120,
+    alignSelf: 'center',
+    resizeMode: 'cover'
+  },
+  popularNameTxt:{
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
+    marginTop: 10
+  },
+  popularPrice:{
+    fontSize: 18,
+    fontFamily: FONT_FAMILY_REGULAR,
+    color: BLACK_COLOR_CODE,
   },
 });
 export default Styles;

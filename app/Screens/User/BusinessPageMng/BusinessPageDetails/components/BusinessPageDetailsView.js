@@ -7,12 +7,14 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   GREY_COLOR_CODE,
+  IOS,
   LIGHT_GREEN_COLOR_CODE,
   LIGHT_RED_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
@@ -27,6 +29,7 @@ import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 
 const BusinessPageDetailsView = (props) => {
+
   const considerd = [
     {
       businees_name: "Sandeepan da san",
@@ -48,7 +51,8 @@ const BusinessPageDetailsView = (props) => {
       profile: require("../../../../../Assets/extraImages/cap.png"),
     },
   ];
-  const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=28.543707340175,-81.3514976796&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
+  const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props?.detailData?.latitude},${props?.detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
+  console.log("imagePreviewUrl", imagePreviewUrl);
   const imagess = [
     {
       image: Images.DEMO1,
@@ -60,11 +64,22 @@ const BusinessPageDetailsView = (props) => {
       image: Images.DEMO3,
     },
   ];
+
+  const renderPopularDish = (item) => {
+    console.log("item", item);
+    return (
+      <TouchableOpacity style={styles.popularCardTouch}>
+        <Image source={{ uri: item.image }} style={styles.popularimage} />
+        <Text style={styles.popularNameTxt}>{item.item_name}</Text>
+        <Text style={styles.popularPrice}>Price: ${item.discounted_price}</Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
       <ImageBackground
-        source={Images.DEMO2}
-        style={{ width: windowWidth, height: 220 }}
+        source={{ uri: props?.detailData.header_image }}
+        style={{ width: windowWidth, height: IOS ? 280 : 220 }}
         resizeMode={"cover"}
       >
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
@@ -276,7 +291,7 @@ const BusinessPageDetailsView = (props) => {
             },
           ]}
         >
-          Alexender Colony baypass orlando,USA
+          {props?.detailData?.address}
         </Text>
         <TouchableOpacity style={styles.buttonsVw}>
           <Text style={styles.buttonsTxt}>{"Get Directions"}</Text>
@@ -301,7 +316,7 @@ const BusinessPageDetailsView = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>Info</Text>
+        <Text style={styles.sectionTxt}>About the Business</Text>
         <TouchableOpacity
           style={[
             CommonStyles.straightCon,
@@ -311,8 +326,7 @@ const BusinessPageDetailsView = (props) => {
           <View>
             <Text style={styles.titletxt}>Services</Text>
             <Text style={styles.smallTxt}>
-              Kids, HairCut, Saloons, Services, Barber , Neck Trim ,
-              Accessories, Luxury Items ,Brands , T-Shirts , HandleLooms ,Other
+              {props?.detailData?.service_offered}
             </Text>
           </View>
           <IconX
@@ -337,7 +351,7 @@ const BusinessPageDetailsView = (props) => {
               },
             ]}
           >
-            SwitzcutBarbershop.busineess.com
+            {props?.detailData?.websites}
           </Text>
           <IconX
             origin={ICON_TYPE.FONT_AWESOME}
@@ -357,6 +371,14 @@ const BusinessPageDetailsView = (props) => {
         >
           <Text style={styles.titletxt}>More Info</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>Popular Dishes</Text>
+        <FlatList
+          data={props?.detailData?.popular_dish}
+          renderItem={({ item }) => renderPopularDish(item)}
+          horizontal
+        />
       </View>
       <View style={styles.mainContainer}>
         <Text style={styles.sectionTxt}>You might also consider</Text>
@@ -454,17 +476,17 @@ const BusinessPageDetailsView = (props) => {
             name={"arrowright"}
           />
         </View>
-        {imagess?.length > 0 ? (
+        {props?.detailData?.image?.length > 0 ? (
           <ScrollView
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ marginVertical: 16 }}
             horizontal
           >
-            {imagess.map((photo) => {
+            {props?.detailData?.image.map((photo) => {
               return (
                 <>
                   <Image
-                    source={photo.image}
+                    source={{uri: photo.image}}
                     resizeMode={"cover"}
                     style={styles.photoImgVw}
                   />
@@ -596,6 +618,7 @@ const BusinessPageDetailsView = (props) => {
         visible={props?.moreInfoModal?.open}
         setVisible={props.setMoreInfoModal}
         type={props?.moreInfoModal?.type}
+        detailData={props?.detailData}
       />
     </ScrollView>
   );

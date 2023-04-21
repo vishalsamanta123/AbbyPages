@@ -57,6 +57,7 @@ const MorePageView = (props) => {
                 return (
                   <TouchableOpacity
                     style={[CommonStyles.straightCon, styles.listVew]}
+                    onPress={() => props.onPressView(item)}
                   >
                     <Image
                       source={{ uri: item.logo }}
