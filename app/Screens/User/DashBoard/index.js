@@ -11,11 +11,11 @@ import { useFocusEffect } from "@react-navigation/native";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
-  const [sliderState, setSliderState] = useState({ currentPage: 0 });
-  const { currentPage: pageIndex } = sliderState;
+  const [sliderState, setSliderState] = useState({ activeSlide: 0 });
   const [recent_activity, setRecent_Activity] = useState([]);
   const [businessTypes, setBusinessTypes] = useState([]);
   const [actOffset, setActOffset] = useState(0);
+  const [moreData, setMoreData] = useState(0);
   const [moreCategory, setMoreCategory] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [recentLoader, setRecentLoader] = React.useState(false);
@@ -60,14 +60,19 @@ const DashBoardView = ({ navigation }) => {
       offset: offset,
       limit: 3,
     };
-    if (!refreshing) {
+    if (!refreshing && offset === 0) {
       setVisible(true);
     }
     try {
-      const { data } = await apiCall("GET", ENDPOINTS.NEW_ACTIVITIES);
+      const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
       if (data.status === 200) {
         setVisible(false);
-        setRecent_Activity(data?.data);
+        setMoreData(20);
+        if (offset === 0) {
+          setRecent_Activity(data?.data);
+        } else {
+          setRecent_Activity([...recent_activity, ...data?.data]);
+        }
         setRecentLoader(false);
         setRefreshing(false);
       } else {
@@ -134,7 +139,6 @@ const DashBoardView = ({ navigation }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <DashBoardScreen
-        pageIndex={pageIndex}
         setSliderPage={setSliderPage}
         recent_activity={recent_activity}
         services={byCategory?.services}
@@ -151,6 +155,10 @@ const DashBoardView = ({ navigation }) => {
         handleOnActivity={handleOnActivity}
         onSearchByCategoryPress={onSearchByCategoryPress}
         actOffset={actOffset}
+        getDashBoardActivity={getDashBoardActivity}
+        moreData={moreData}
+        setSliderState={setSliderState}
+        sliderState={sliderState}
       />
       {/* <Error
         message={errorMessage}

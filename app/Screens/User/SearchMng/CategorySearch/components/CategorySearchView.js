@@ -12,6 +12,7 @@ import { BLACK_COLOR_CODE } from "../../../../../Utils/Constant";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
+import SearchView from "../../../../../Components/SearchView";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
@@ -19,7 +20,10 @@ const CategorySearchView = (props) => {
   };
   const renderItem = (item) => {
     return (
-      <TouchableOpacity style={styles.listTouch} onPress={() => handleNavigation(item)}>
+      <TouchableOpacity
+        style={styles.listTouch}
+        onPress={() => handleNavigation(item)}
+      >
         {/* <Image
                     source={{uri: item.image}}
                     style={styles.iconStyle}               
@@ -38,7 +42,6 @@ const CategorySearchView = (props) => {
 
   return (
     <SafeAreaView style={CommonStyles.otherContainer}>
-      {/* HEADER  */}
       <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
         <TouchableOpacity
           onPress={() => props.navigation.goBack()}
@@ -74,7 +77,7 @@ const CategorySearchView = (props) => {
         </Text>
         <View></View>
       </View>
-      {/* LIST */}
+      <SearchView />
       <View style={{ flex: 1, marginVertical: 10 }}>
         <FlatList
           data={props.categoryList}
