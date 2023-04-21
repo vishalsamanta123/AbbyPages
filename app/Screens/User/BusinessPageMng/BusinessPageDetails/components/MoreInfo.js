@@ -55,33 +55,8 @@ const MoreInfo = (props) => {
       day: "Sunday",
     },
   ];
-  const amenities = [
-    {
-      image: require("../../../../../Assets/categories/car.png"),
-      name: "Mask Review",
-    },
-    {
-      image: require("../../../../../Assets/categories/more.png"),
-      name: "Staff Wears Mask",
-    },
-    {
-      image: require("../../../../../Assets/categories/car.png"),
-      name: "Accepts Credit Cards",
-    },
-    {
-      image: require("../../../../../Assets/categories/car.png"),
-      name: "Free Wifi",
-    },
-    {
-      image: require("../../../../../Assets/categories/more.png"),
-      name: "Chairs",
-    },
-    {
-      image: require("../../../../../Assets/categories/car.png"),
-      name: "Bike Riding",
-    },
-  ];
-  const { visible = false, setVisible = () => {}, type = "" } = props;
+  const { visible = false, setVisible = () => {}, type = "", detailData } = props;
+  const amenities = detailData?.amenities?.split(',')
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
@@ -131,14 +106,15 @@ const MoreInfo = (props) => {
                 >
                   Closed now
                 </Text>
-                {businessTime?.map((time) => {
+                {props.detailData?.business_service_time?.map((time) => {
+                  console.log('time', time)
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
                       <View style={{ flex: 1 }}>
                         <Text style={styles.titletxt}>{time.day}</Text>
                       </View>
                       <View style={{ flex: 2, alignItems: "flex-end" }}>
-                        <Text style={styles.titletxt}>{time.time}</Text>
+                        <Text style={styles.titletxt}>{time.timeline}</Text>
                       </View>
                     </View>
                   );
@@ -152,15 +128,14 @@ const MoreInfo = (props) => {
                 {amenities?.map((amenty) => {
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
-                      <Image
-                        source={amenty.image}
-                        style={{
-                          width: 30,
-                          height: 30,
-                          marginRight: 12,
-                        }}
+                      <IconX
+                        color={BLACK_COLOR_CODE}
+                        origin={ICON_TYPE.FONT_AWESOME}
+                        name={"dot-circle-o"}
+                        size={20}
+                        paddingRight={5}
                       />
-                      <Text style={styles.titletxt}>{amenty.name}</Text>
+                      <Text style={styles.titletxt}>{amenty}</Text>
                     </View>
                   );
                 })}
@@ -177,11 +152,8 @@ const MoreInfo = (props) => {
           </View>
           <View style={styles.mainContainer}>
             <Text style={styles.sectionTxt}>History</Text>
-            <Text style={[styles.smallTxt, { marginTop: 20 }]}>
-              Established in 2020
-            </Text>
             <Text style={[styles.smallTxt, { marginTop: 8 }]}>
-              Our BarberShop specilised in cutting hair and cleanong
+              {detailData?.about_business}
             </Text>
           </View>
           <View style={styles.mainContainer}>
