@@ -7,27 +7,18 @@ import {
   TouchableOpacity,
   ImageBackground,
   RefreshControl,
-  TextInput,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_REGULAR,
-  WHITE_COLOR_CODE,
-  windowWidth,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 import Loader from "../../../../Utils/Loader";
-import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
-import MainHeader from "../../../../Components/MainHeader";
+
 
 const DashBoardScreen = (props) => {
   const [searchModal, setSearchModal] = useState(false);
@@ -59,15 +50,15 @@ const DashBoardScreen = (props) => {
         RightImg={Images.SEARCH_IMG}
         type="Drawer"
         logoImg={true}
-        tintColor={BLACK_COLOR_CODE}
-        mncontainer={{ backgroundColor: WHITE_COLOR_CODE }}
+        tintColor={COLORS.BLACK}
+        mncontainer={{ backgroundColor: COLORS.WHITE }}
         onPressRightImg={() => props.navigation.navigate("CategorySearch")}
       />
       {/* <MainHeader /> */}
       <ScrollView
         refreshControl={
           <RefreshControl
-            colors={[YELLOW_COLOR_CODE]}
+            colors={[COLORS.YELLOW]}
             refreshing={props.refreshing}
             onRefresh={props.onRefresh}
           />
@@ -82,30 +73,15 @@ const DashBoardScreen = (props) => {
         >
           <View style={styles.imgInnerVw}>
             <Text style={CommonStyles.bigTxtVw}>
-              <Text style={{ fontFamily: FONT_FAMILY_REGULAR }}>Support </Text>
+              <Text style={{ fontFamily: FONT_FAMILY.REGULAR }}>
+                Support{" "}
+              </Text>
               Black Excellence!
             </Text>
             <Text style={[CommonStyles.mediumTxt, { marginTop: 16 }]}>
               Discover Events, Jobs, Goods, Services, Directions, Reviews,
               Deals, and More on ABBYPAGES.
             </Text>
-          </View>
-          <View style={styles.searchView}>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                style={styles.inputStyle}
-                onPress={() => props.onSearchByCategoryPress()}
-              >
-                <IconX
-                  color={BLACK_COLOR_CODE}
-                  origin={ICON_TYPE.EVIL_ICONS}
-                  name={"search"}
-                  size={30}
-                  paddingRight={5}
-                />
-                <Text style={styles.searchText}>Search by category</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </ImageBackground>
         <View style={styles.mainVw}>
@@ -180,8 +156,8 @@ const DashBoardScreen = (props) => {
                                           marginBottom: 10,
                                           width:
                                             activity?.image?.length === 1
-                                              ? windowWidth / 1.2
-                                              : windowWidth / 2.4,
+                                              ? Constants.windowWidth / 1.2
+                                              : Constants.windowWidth / 2.4,
                                         },
                                       ]}
                                     />
@@ -239,16 +215,19 @@ const DashBoardScreen = (props) => {
           <View style={styles.containersVw}>
             <Text style={styles.titlesTxt}>
               Find the Best Black-Owned Businesses in
-              <Text style={{ fontFamily: FONT_FAMILY_BOLD }}> Town</Text>
+              <Text style={{ fontFamily: FONT_FAMILY.BOLD }}>
+                {" "}
+                Town
+              </Text>
             </Text>
             <View style={styles.posterVw}>
               <Carousel
                 data={props.businessTypes}
                 renderItem={renderSlideItem}
                 layout={"default"}
-                sliderWidth={windowWidth}
+                sliderWidth={Constants.windowWidth}
                 activeDotIndex={1}
-                itemWidth={windowWidth}
+                itemWidth={Constants.windowWidth}
                 autoplay
                 loop
                 onSnapToItem={(index) => {
@@ -271,7 +250,10 @@ const DashBoardScreen = (props) => {
           <View style={styles.containersVw}>
             <ImageBackground style={{ flex: 1 }} source={Images.COVER_IMG}>
               <Text
-                style={[styles.titlesTxt, { fontFamily: FONT_FAMILY_BOLD }]}
+                style={[
+                  styles.titlesTxt,
+                  { fontFamily: FONT_FAMILY.BOLD },
+                ]}
               >
                 Browse Businesses by Category
               </Text>
@@ -309,7 +291,7 @@ const DashBoardScreen = (props) => {
                               style={[
                                 CommonStyles.mediumTxt,
                                 {
-                                  color: BLACK_COLOR_CODE,
+                                  color: COLORS.BLACK,
                                 },
                               ]}
                             >

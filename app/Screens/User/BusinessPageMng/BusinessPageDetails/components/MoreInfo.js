@@ -3,60 +3,28 @@ import {
   View,
   Image,
   Text,
-  Dimensions,
   TouchableOpacity,
   ScrollView,
   Modal,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+import { COLORS } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
-import StarShower from "../../../../../Components/StarShower";
 import {
   SliderImages,
   RenderSlideItem,
 } from "../../../../../Components/SliderImages";
-import { businessTypes } from "../../../../../Utils/staticData";
+
 
 const MoreInfo = (props) => {
-  const businessTime = [
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Monday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Tuesday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Wednesday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Thursday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Friday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Saturday",
-    },
-    {
-      time: "9:00AM - 7:00PM",
-      day: "Sunday",
-    },
-  ];
-  const { visible = false, setVisible = () => {}, type = "", detailData } = props;
-  const amenities = detailData?.amenities?.split(',')
+  const {
+    visible = false,
+    setVisible = () => {},
+    type = "",
+    detailData,
+  } = props;
+  const amenities = detailData?.amenities?.split(",");
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
@@ -72,7 +40,7 @@ const MoreInfo = (props) => {
           >
             <IconX
               origin={ICON_TYPE.ICONICONS}
-              color={BLACK_COLOR_CODE}
+              color={COLORS.BLACK}
               size={30}
               name={"chevron-back"}
             />
@@ -80,7 +48,7 @@ const MoreInfo = (props) => {
               style={[
                 styles.topHeaderTxt,
                 {
-                  color: BLACK_COLOR_CODE,
+                  color: COLORS.BLACK,
                 },
               ]}
             >
@@ -107,7 +75,6 @@ const MoreInfo = (props) => {
                   Closed now
                 </Text>
                 {props.detailData?.business_service_time?.map((time) => {
-                  console.log('time', time)
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
                       <View style={{ flex: 1 }}>
@@ -129,7 +96,7 @@ const MoreInfo = (props) => {
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
                       <IconX
-                        color={BLACK_COLOR_CODE}
+                        color={COLORS.BLACK}
                         origin={ICON_TYPE.FONT_AWESOME}
                         name={"dot-circle-o"}
                         size={20}

@@ -53,12 +53,13 @@ const MorePage = ({ navigation }) => {
   const onPressView = (item) => {
     const data = {
       ...item,
-      search_business_type: item.business_type
-    }
+      search_business_type: item.business_type,
+    };
     navigation.navigate("BusinessPageDetails", { detail: data });
   };
   return (
     <View style={CommonStyles.container}>
+      {visible ? <Loader state={visible} /> : null}
       <MorePageView
         userData={userData}
         visible={visible}

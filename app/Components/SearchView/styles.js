@@ -12,13 +12,13 @@ import {
 const styles = StyleSheet.create({
   searchVw: {
     marginHorizontal: 16,
-    marginTop: 10,
   },
   catgSearchVw: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: WHITE_COLOR_CODE,
     borderRadius: 10,
+    marginTop: 12,
   },
   catgSearchInput: {
     height: 45,

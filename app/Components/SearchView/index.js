@@ -1,5 +1,13 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  Keyboard,
+} from "react-native";
+import React, { useState } from "react";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { GREY_COLOR_CODE, WHITE_COLOR_CODE } from "../../Utils/Constant";
@@ -9,7 +17,11 @@ import Button from "../Button";
 import CommonStyles from "../../Utils/CommonStyles";
 
 const SearchView = (props) => {
-  const { resBusdata = [], resultCat = [] } = props;
+  const [searchOpen, setSearchOpen] = useState(false);
+  const { resBusdata = [], resultCat = [], searchStart = false } = props;
+  const handleOnSearch = () => {
+    setSearchOpen(true);
+  };
   const renderCategories = () => {
     return (
       <>
@@ -91,7 +103,12 @@ const SearchView = (props) => {
     );
   };
   return (
-    <View>
+    <Pressable
+      onPress={() => {
+        setSearchOpen(false);
+        Keyboard.dismiss();
+      }}
+    >
       <View style={styles.searchVw}>
         <View style={styles.catgSearchVw}>
           <IconX
@@ -104,58 +121,59 @@ const SearchView = (props) => {
             placeholder="Search"
             placeholderTextColor={GREY_COLOR_CODE}
             style={styles.catgSearchInput}
-            // onFocus={() => setCategoryShow(true)}
+            onFocus={() => handleOnSearch()}
             value={""}
-            editable={false}
             onChangeText={(txt) => {
               //   getCategories(txt === "" ? "" : txt);
             }}
           />
         </View>
-      </View>
-      {/* {categoryShow ? renderCategories() : null} */}
-      <View style={styles.searchVw}>
-        <View style={styles.catgSearchVw}>
-          <View style={CommonStyles.locationIcon}>
-            <IconX
-              origin={ICON_TYPE.SIMPLELINE}
-              color={GREY_COLOR_CODE}
-              name={"location-pin"}
+        {/* {categoryShow ? renderCategories() : null} */}
+        {searchOpen ? (
+          <>
+            <View style={styles.catgSearchVw}>
+              <View style={CommonStyles.locationIcon}>
+                <IconX
+                  origin={ICON_TYPE.SIMPLELINE}
+                  color={GREY_COLOR_CODE}
+                  name={"location-pin"}
+                />
+              </View>
+              <AddressInput
+                onPress={(data, details = null) => {
+                  setSearchData({
+                    ...searchData,
+                    address: data.description,
+                  });
+                }}
+                onChangeText={(txt) => {
+                  // if (txt === "") {
+                  //   setSearchData({
+                  //     ...searchData,
+                  //     address: "",
+                  //   });
+                  // } else {
+                  //   setSearchData({
+                  //     ...searchData,
+                  //     address: txt ? txt : searchData?.address,
+                  //   });
+                  // }
+                }}
+                // value={searchData?.address}
+              />
+            </View>
+            <Button
+              buttonText={"Search"}
+              buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+              style={styles.searchButtonVw}
+              paddingHeight={8}
+              width={"100%"}
+              // onPress={() => handleListNavigation(searchData)}
             />
-          </View>
-          <AddressInput
-            onPress={(data, details = null) => {
-              setSearchData({
-                ...searchData,
-                address: data.description,
-              });
-            }}
-            onChangeText={(txt) => {
-              // if (txt === "") {
-              //   setSearchData({
-              //     ...searchData,
-              //     address: "",
-              //   });
-              // } else {
-              //   setSearchData({
-              //     ...searchData,
-              //     address: txt ? txt : searchData?.address,
-              //   });
-              // }
-            }}
-            // value={searchData?.address}
-          />
-        </View>
+          </>
+        ) : null}
       </View>
-      <Button
-        buttonText={"Search"}
-        buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
-        style={styles.searchButtonVw}
-        paddingHeight={8}
-        width={"92%"}
-        // onPress={() => handleListNavigation(searchData)}
-      />
-    </View>
+    </Pressable>
   );
 };
 

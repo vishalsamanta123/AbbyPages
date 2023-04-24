@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {
   BLACK_COLOR_CODE,
+  Constants,
   FONT_FAMILY_REGULAR,
-  IOS,
   LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
-  windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
 import QuestionModal from "../Components/Modal/questionModal";
@@ -37,7 +36,7 @@ const MyCustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         contentContainerStyle={{
-          paddingTop: IOS ? 0 : 0,
+          paddingTop: Constants.Ios ? 0 : 0,
         }}
         {...props}
       >
@@ -71,7 +70,7 @@ const MyCustomDrawer = (props) => {
           <View style={styles.logoVw}>
             <Image
               resizeMode={"contain"}
-              style={[{ width: windowWidth / 2, height: 60 }]}
+              style={[{ width: Constants.windowWidth / 2, height: 60 }]}
               source={Images.LOGO}
             />
           </View>
@@ -178,7 +177,7 @@ const styles = StyleSheet.create({
   logoVw: {
     marginVertical: 8,
     alignSelf: "center",
-    marginTop: IOS ? 30 : 0,
+    marginTop: Constants.Ios ? 30 : 0,
   },
   containers: {
     flexDirection: "row",

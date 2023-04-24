@@ -10,11 +10,7 @@ import {
 import Header from "../../../../../Components/Header";
 import ListItemsView from "../../../../../Components/ListItemsView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  IOS,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 
@@ -22,7 +18,7 @@ const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
   return (
     <KeyboardAvoidingView
-      behavior={IOS ? "padding" : null}
+      behavior={Constants.Ios ? "padding" : null}
       style={CommonStyles.container}
     >
       <Header
@@ -35,9 +31,9 @@ const BusinessPageListingView = (props) => {
         onChangeText={(searchKey) => props.setInputSearch(searchKey)}
         type="Map"
         logoImg={false}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        MainHeadStyle={{ color: COLORS.WHITE }}
+        tintColor={COLORS.WHITE}
+        mncontainer={{ backgroundColor: COLORS.YELLOW }}
       />
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList
@@ -64,7 +60,9 @@ const BusinessPageListingView = (props) => {
                       style={[
                         styles.topContainer,
                         {
-                          backgroundColor: allSelect ? YELLOW_COLOR_CODE : null,
+                          backgroundColor: allSelect
+                            ? COLORS.YELLOW
+                            : null,
                         },
                       ]}
                       onPress={() => {
@@ -84,7 +82,7 @@ const BusinessPageListingView = (props) => {
                             backgroundColor: props?.search?.selectOption
                               ?.toString()
                               ?.includes(item.type)
-                              ? YELLOW_COLOR_CODE
+                              ? COLORS.YELLOW
                               : null,
                           },
                         ]}

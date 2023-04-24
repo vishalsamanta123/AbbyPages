@@ -11,13 +11,7 @@ import {
 import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import {
-  BLACK_COLOR_CODE,
-  GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import StarShower from "../../../../../Components/StarShower";
 import { Images } from "../../../../../Utils/images";
 import Button from "../../../../../Components/Button";
@@ -53,7 +47,7 @@ const ReviewRatingView = (props) => {
                 style={[
                   styles.topButtonTxt,
                   {
-                    color: BLACK_COLOR_CODE,
+                    color: COLORS.BLACK,
                   },
                 ]}
               >
@@ -77,9 +71,9 @@ const ReviewRatingView = (props) => {
         <View style={styles.reViewCont}>
           <Text style={styles.subHeadTxtNon}>Rate Us & Write A Review</Text>
           <StarShower
-            UnActiveStarColor={WHITE_COLOR_CODE}
+            UnActiveStarColor={COLORS.WHITE}
             starWidth={20}
-            starsBackColor={LINE_COMMON_COLOR_CODE}
+            starsBackColor={COLORS.COMMON}
             starHeight={20}
             counts={props?.ratingData?.business_rating}
             onPressStar={(star) => props.onPressRating(star)}
@@ -87,7 +81,7 @@ const ReviewRatingView = (props) => {
           <Text style={styles.smallTxt}>Choose Number of stars</Text>
           <View style={styles.descriptVw}>
             <TextInput
-              placeholderTextColor={GREY_COLOR_CODE}
+              placeholderTextColor={COLORS.GREY}
               placeholder={"Type your review here..."}
               style={styles.descriptInput}
               multiline={true}
@@ -103,8 +97,8 @@ const ReviewRatingView = (props) => {
         <View style={styles.bottomVw}>
           <Button
             buttonText={"Post Review"}
-            buttonTxtColor={WHITE_COLOR_CODE}
-            fontSize={24}
+            buttonTxtColor={COLORS.WHITE}
+            fontSize={FONT_SIZE.largeL}
             paddingHeight={8}
           />
         </View>

@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import {
   BLACK_COLOR_CODE,
-  windowWidth,
+  Constants,
   YELLOW_COLOR_CODE,
 } from "../../Utils/Constant";
 
@@ -49,15 +49,15 @@ const RenderSlideItem = (props) => {
 const SliderImages = (props) => {
   const {
     renderItem = () => {},
-    imgWidth = windowWidth,
-    sliderWidth = windowWidth,
+    imgWidth = Constants.windowWidth,
+    sliderWidth = Constants.windowWidth,
   } = props;
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / windowWidth);
+    const indexOfNextScreen = Math.ceil(x / Constants.windowWidth);
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,

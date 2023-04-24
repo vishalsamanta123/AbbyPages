@@ -11,7 +11,6 @@ import Error from "../../../../Components/Modal/error";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
-  console.log('detail', detail)
   const { width, height } = Dimensions.get("window");
   const [visible, setVisible] = useState(false);
   const [moreInfoModal, setMoreInfoModal] = useState({
@@ -19,7 +18,6 @@ const BusinessPageDetails = ({ navigation, route }) => {
     type: "",
   });
   const [detailData, setDetailData] = useState({});
-  console.log('detailData: ', detailData);
 
   useEffect(() => {
     getDetails();
@@ -31,7 +29,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         business_id: detail?.business_id,
         business_type: detail?.search_business_type,
       };
-      console.log('params', params)
+      console.log("params", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_DETAILS,

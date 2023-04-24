@@ -12,11 +12,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../../../../Components/Icons/Icon";
-import {
-  GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { COLORS } from "../../../../Utils/Constant";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import Button from "../../../../Components/Button";
 import BoxContainers from "../../../../Components/BoxContainer";
@@ -194,12 +190,13 @@ const ByCategory = (props) => {
             <View style={styles.ctgTopHeader}>
               <Text style={styles.searchTxt}>Search</Text>
             </View>
-            <TouchableOpacity 
-            style={styles.crossVw}
-            onPress={() => setSearchModal(false)}>
+            <TouchableOpacity
+              style={styles.crossVw}
+              onPress={() => setSearchModal(false)}
+            >
               <IconX
                 origin={ICON_TYPE.ENTYPO}
-                color={LINE_COMMON_COLOR_CODE}
+                color={COLORS.COMMON}
                 name={"circle-with-cross"}
                 size={40}
               />
@@ -211,13 +208,13 @@ const ByCategory = (props) => {
             <View style={styles.catgSearchVw}>
               <IconX
                 origin={ICON_TYPE.OCTICONS}
-                color={GREY_COLOR_CODE}
+                color={COLORS.GREY}
                 name={"search"}
                 style={{ marginHorizontal: 10 }}
               />
               <TextInput
                 placeholder="Search"
-                placeholderTextColor={GREY_COLOR_CODE}
+                placeholderTextColor={COLORS.GREY}
                 style={styles.catgSearchInput}
                 onFocus={() => setCategoryShow(true)}
                 value={searchData?.search_category_or_business}
@@ -234,7 +231,7 @@ const ByCategory = (props) => {
               <View style={CommonStyles.locationIcon}>
                 <IconX
                   origin={ICON_TYPE.SIMPLELINE}
-                  color={GREY_COLOR_CODE}
+                  color={COLORS.GREY}
                   name={"location-pin"}
                 />
               </View>
@@ -265,7 +262,7 @@ const ByCategory = (props) => {
           <View style={styles.searchVw}>
             <Button
               buttonText={"Search"}
-              buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+              buttonLabelStyle={{ color: COLORS.WHITE }}
               style={styles.searchButtonVw}
               onPress={() => handleListNavigation(searchData)}
             />

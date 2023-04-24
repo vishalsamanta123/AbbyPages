@@ -3,7 +3,6 @@ import {
   View,
   Image,
   Text,
-  Dimensions,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
@@ -11,25 +10,12 @@ import {
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  GREY_COLOR_CODE,
-  IOS,
-  LIGHT_GREEN_COLOR_CODE,
-  LIGHT_RED_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  RGBA_COLOR,
-  WHITE_COLOR_CODE,
-  windowWidth,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
+import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 
 const BusinessPageDetailsView = (props) => {
-
   const considerd = [
     {
       businees_name: "Sandeepan da san",
@@ -52,21 +38,8 @@ const BusinessPageDetailsView = (props) => {
     },
   ];
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props?.detailData?.latitude},${props?.detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
-  console.log("imagePreviewUrl", imagePreviewUrl);
-  const imagess = [
-    {
-      image: Images.DEMO1,
-    },
-    {
-      image: Images.DEMO2,
-    },
-    {
-      image: Images.DEMO3,
-    },
-  ];
 
   const renderPopularDish = (item) => {
-    console.log("item", item);
     return (
       <TouchableOpacity style={styles.popularCardTouch}>
         <Image source={{ uri: item.image }} style={styles.popularimage} />
@@ -79,7 +52,10 @@ const BusinessPageDetailsView = (props) => {
     <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
       <ImageBackground
         source={{ uri: props?.detailData.header_image }}
-        style={{ width: windowWidth, height: IOS ? 280 : 220 }}
+        style={{
+          width: Constants.windowWidth,
+          height: Constants.Ios ? 280 : 220,
+        }}
         resizeMode={"cover"}
       >
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
@@ -89,7 +65,7 @@ const BusinessPageDetailsView = (props) => {
           >
             <IconX
               origin={ICON_TYPE.ICONICONS}
-              color={WHITE_COLOR_CODE}
+              color={COLORS.WHITE}
               size={30}
               name={"chevron-back"}
             />
@@ -107,9 +83,9 @@ const BusinessPageDetailsView = (props) => {
               }
               starHeight={18}
               starWidth={18}
-              starsBackColor={RGBA_COLOR}
-              ActiveStarColor={YELLOW_COLOR_CODE}
-              UnActiveStarColor={WHITE_COLOR_CODE}
+              starsBackColor={COLORS.RGBA}
+              ActiveStarColor={COLORS.YELLOW}
+              UnActiveStarColor={COLORS.WHITE}
             />
           </View>
           {props?.detailData?.claimed ? (
@@ -118,7 +94,7 @@ const BusinessPageDetailsView = (props) => {
                 <IconX
                   origin={ICON_TYPE.ANT_ICON}
                   name={"checkcircle"}
-                  color={LIGHT_GREEN_COLOR_CODE}
+                  color={COLORS.LIGHT_GREEN}
                   paddingRight={6}
                 />
               )}
@@ -126,7 +102,7 @@ const BusinessPageDetailsView = (props) => {
                 style={[
                   styles.smallTxt,
                   {
-                    color: LIGHT_GREEN_COLOR_CODE,
+                    color: COLORS.LIGHT_GREEN,
                   },
                 ]}
               >
@@ -153,8 +129,8 @@ const BusinessPageDetailsView = (props) => {
                     props?.detailData?.business_open_time?.temporary_close ===
                       1 &&
                     props?.detailData?.business_open_time?.permanent_close === 1
-                      ? LIGHT_GREEN_COLOR_CODE
-                      : LIGHT_RED_COLOR_CODE,
+                      ? COLORS.LIGHT_GREEN
+                      : COLORS.LIGHT_RED,
                 },
               ]}
             >
@@ -181,7 +157,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.FEATHER_ICONS}
                 name={"phone-call"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>Call</Text>
@@ -192,7 +168,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.ENTYPO}
                 name={"location"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>View Map</Text>
@@ -203,7 +179,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"web"}
                 size={22}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>Website</Text>
@@ -214,7 +190,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.ICONICONS}
                 name={"bookmarks-outline"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>Save</Text>
@@ -243,7 +219,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"star-box"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>Add Review</Text>
@@ -254,7 +230,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.MATERIAL_ICONS}
                 name={"add-a-photo"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>Add Photo</Text>
@@ -265,7 +241,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.FONT_AWESOME}
                 name={"check-circle-o"}
                 size={22}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>Check In</Text>
@@ -299,7 +275,7 @@ const BusinessPageDetailsView = (props) => {
             origin={ICON_TYPE.MATERIAL_ICONS}
             name={"directions"}
             size={24}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonsVw}>
@@ -311,7 +287,7 @@ const BusinessPageDetailsView = (props) => {
             origin={ICON_TYPE.FEATHER_ICONS}
             name={"phone-call"}
             size={20}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
           />
         </TouchableOpacity>
       </View>
@@ -333,7 +309,7 @@ const BusinessPageDetailsView = (props) => {
             origin={ICON_TYPE.ENTYPO}
             name={"list"}
             size={20}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -357,7 +333,7 @@ const BusinessPageDetailsView = (props) => {
             origin={ICON_TYPE.FONT_AWESOME}
             name={"share-square-o"}
             size={20}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -405,8 +381,8 @@ const BusinessPageDetailsView = (props) => {
                         marginTop={5}
                         starHeight={16}
                         starWidth={16}
-                        ActiveStarColor={LIGHT_RED_COLOR_CODE}
-                        UnActiveStarColor={LINE_COMMON_COLOR_CODE}
+                        ActiveStarColor={COLORS.LIGHT_RED}
+                        UnActiveStarColor={COLORS.COMMON}
                       />
                     </View>
                   ) : null}
@@ -471,7 +447,7 @@ const BusinessPageDetailsView = (props) => {
         >
           <Text style={styles.sectionTxt}>Photos</Text>
           <IconX
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
             origin={ICON_TYPE.ANT_ICON}
             name={"arrowright"}
           />
@@ -486,7 +462,7 @@ const BusinessPageDetailsView = (props) => {
               return (
                 <>
                   <Image
-                    source={{uri: photo.image}}
+                    source={{ uri: photo.image }}
                     resizeMode={"cover"}
                     style={styles.photoImgVw}
                   />
@@ -505,7 +481,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.ANT_ICON}
                 name={"message1"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>Message</Text>
@@ -516,7 +492,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.FEATHER_ICONS}
                 name={"copy"}
                 size={20}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>Copy Link</Text>
@@ -527,7 +503,7 @@ const BusinessPageDetailsView = (props) => {
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"dots-horizontal"}
                 size={22}
-                color={BLACK_COLOR_CODE}
+                color={COLORS.BLACK}
               />
             </TouchableOpacity>
             <Text style={[styles.smallOptiontxt2]}>More</Text>
@@ -540,7 +516,7 @@ const BusinessPageDetailsView = (props) => {
           <Text style={styles.titletxt}>Be the first to review</Text>
           <IconX
             origin={ICON_TYPE.MATERIAL_COMMUNITY}
-            color={LIGHT_RED_COLOR_CODE}
+            color={COLORS.LIGHT_RED}
             name={"star-box"}
             size={32}
           />
@@ -549,8 +525,8 @@ const BusinessPageDetailsView = (props) => {
           style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
         >
           <StarShower
-            ActiveStarColor={LINE_COMMON_COLOR_CODE}
-            UnActiveStarColor={LINE_COMMON_COLOR_CODE}
+            ActiveStarColor={COLORS.COMMON}
+            UnActiveStarColor={COLORS.COMMON}
             starWidth={18}
             starHeight={18}
             marginLeft={14}
@@ -559,7 +535,7 @@ const BusinessPageDetailsView = (props) => {
             style={[
               styles.smallOptiontxt2,
               {
-                color: GREY_COLOR_CODE,
+                color: COLORS.GREY,
                 marginLeft: 14,
               },
             ]}
@@ -581,7 +557,7 @@ const BusinessPageDetailsView = (props) => {
               origin={ICON_TYPE.MATERIAL_COMMUNITY}
               name={"camera-plus-outline"}
               size={29}
-              color={BLACK_COLOR_CODE}
+              color={COLORS.BLACK}
             />
             <Text
               style={[
@@ -599,7 +575,7 @@ const BusinessPageDetailsView = (props) => {
               origin={ICON_TYPE.MATERIAL_COMMUNITY}
               name={"check-decagram-outline"}
               size={29}
-              color={BLACK_COLOR_CODE}
+              color={COLORS.BLACK}
             />
             <Text
               style={[

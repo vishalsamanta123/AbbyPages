@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import { BLACK_COLOR_CODE } from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
@@ -38,7 +38,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
     const params = {
       category_id: cat_id,
     };
-    console.log('params', params)
+    console.log("params", params);
     try {
       const { data } = await apiCall(
         "POST",
@@ -46,7 +46,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
         params
       );
       console.log("data: ", data);
-      setCategoryRes(data)
+      setCategoryRes(data);
       if (data.status === 200) {
         setVisible(false);
         setCategoryList(data.data);
@@ -65,13 +65,13 @@ const SubCategorySearchView = ({ route, navigation }) => {
     console.log("SubCategorySearchView");
     const newObject = {
       ...item,
-      city: 'Orlando, FL, USA',
+      city: "Orlando, FL, USA",
     };
     setCat_id(item.category_id);
-    setCat_name(item.category_name)
-    console.log('item.category_id', item.category_id)
+    setCat_name(item.category_name);
+    console.log("item.category_id", item.category_id);
     // navigation.navigate("SubCategorySearchView", item);
-    if(categoryRes.status === 201){
+    if (categoryRes.status === 201) {
       navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
     }
   };
@@ -88,7 +88,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
                 /> */}
         <Text style={styles.listText}>{item.category_name}</Text>
         <IconX
-          color={BLACK_COLOR_CODE}
+          color={COLORS.BLACK}
           origin={ICON_TYPE.ANT_ICON}
           name={"right"}
           size={18}
@@ -110,7 +110,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
         >
           <IconX
             origin={ICON_TYPE.ICONICONS}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
             size={30}
             name={"chevron-back"}
           />
@@ -118,7 +118,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
             style={[
               styles.topHeaderTxt,
               {
-                color: BLACK_COLOR_CODE,
+                color: COLORS.BLACK,
               },
             ]}
           >
@@ -129,7 +129,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
           style={[
             styles.topHeaderTxt,
             {
-              color: BLACK_COLOR_CODE,
+              color: COLORS.BLACK,
               marginRight: 50,
             },
           ]}
