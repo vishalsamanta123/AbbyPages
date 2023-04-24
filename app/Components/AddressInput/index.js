@@ -5,11 +5,16 @@ import CommonStyles from "../../Utils/CommonStyles";
 
 const AddressInput = (props) => {
   const [onfocus, setOnfocus] = useState(false);
-  const { onPress = () => {}, onChangeText, value } = props;
+  const {
+    onPress = () => {},
+    onChangeText,
+    value,
+    fetchDetails = true,
+  } = props;
   return (
     <GooglePlacesAutocomplete
       placeholder="Search Place"
-      fetchDetails={true}
+      fetchDetails={fetchDetails}
       onPress={(data, details = null) => {
         onPress(data, details);
       }}

@@ -33,15 +33,5 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
   },
-  emptyConVw: {
-    height: 200,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  emptyConTxt: {
-    fontSize: FONT_SIZE.mediumL,
-    color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.FONT_FAMILY_REGULAR,
-  },
 });
 export default Styles;
