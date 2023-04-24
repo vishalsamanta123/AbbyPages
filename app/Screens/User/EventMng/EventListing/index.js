@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import EventListingScreen from "./components/EventListingScreen";
-import CommonStyles from "../../Utils/CommonStyles";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Error from "../../Components/Modal/error";
+import EventListingScreen from "./components/EventListingView";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Loader from "../../../../Utils/Loader";
+import Error from "../../../../Components/Modal/error";
 import AllEvents from "./components/AllEvents";
 import moment from "moment";
 

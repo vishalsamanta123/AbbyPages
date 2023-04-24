@@ -13,19 +13,20 @@ import {
   Modal,
 } from "react-native";
 import Dialog, { SlideAnimation } from "react-native-popup-dialog";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   YELLOW_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Loader from "../../../Utils/Loader";
-import { Images } from "../../../Utils/images";
+} from "../../../../../Utils/Constant";
+import Button from "../../../../../Components/Button";
+import Input from "../../../../../Components/Input";
+import { apiCall } from "../../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../../Utils/apiEndPoints";
+import Loader from "../../../../../Utils/Loader";
+import { Images } from "../../../../../Utils/images";
+
 
 export default function FilterPopUp(props) {
   const [category, setCategory] = useState([]);
