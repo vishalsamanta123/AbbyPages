@@ -20,44 +20,18 @@ import UserVerifyScreen from "../Screens/Authentication/UserVerify";
 import BusinessUserVerifyScreen from "../Screens/Authentication/BusinessUserVerify";
 import ForgotPasswordScreen from "../Screens/Authentication/ForgotPassword";
 import ForgotPasswordFieldScreen from "../Screens/Authentication/ForgotPasswordField";
-import GetStartedScreen from "../Screens/Business/GetStarted";
-import BusinessHomeScreen from "../Screens/Business/BusinessHome";
-import BusinessProfileScreen from "../Screens/Business/BusinessProfile";
-import BussinessInfoScreen from "../Screens/Business/BussinessInfo";
-import OpeningHoursScreen from "../Screens/Business/OpeningHours";
-import RestaurantManagementScreen from "../Screens/Business/RestaurantManagement";
-import JobManagementListScreen from "../Screens/Business/JobManagementList";
-import AddJobsScreen from "../Screens/Business/AddJobs";
-import EditJob from "../Screens/Business/EditJob";
-import AppliedJobScreen from "../Screens/Business/AppliedJob";
-import MyProductListScreen from "../Screens/Business/MyProductList";
-import EventManagement from "../Screens/Business/EventManagement";
-import CreateEventScreen from "../Screens/CreateEvent";
-import EventViewScreen from "../Screens/Business/EventView";
-import BusinessOrderHistoryScreen from "../Screens/Business/BusinessOrderHistory";
 import BusinessPageDetails from "../Screens/User/BusinessPageMng/BusinessPageDetails";
-import ServiceProviderDetails from "../Screens/ServiceProviderDetails";
 import ShopDetailScreen from "../Screens/ShopDetail";
 import DashBoardScreen from "../Screens/User/DashBoard";
 import BusinessPageListing from "../Screens/User/BusinessPageMng/BusinessPageListing";
-import ServiceProviderListingScreen from "../Screens/ServiceProviderListing";
 import ShopListScreen from "../Screens/ShopList";
 import ProfileSettingsScreen from "../Screens/ProfileSettings";
-import OrderHistoryScreen from "../Screens/OrderHistory";
-import UserEventsListScreen from "../Screens/UserEventsList";
-import FollowingListScreen from "../Screens/FollowingList";
-import FollowerListScreen from "../Screens/FollowerList";
-import ReviewsScreen from "../Screens/Reviews";
-import BookmarkScreen from "../Screens/Bookmark";
-import CollectionsScreen from "../Screens/Collections";
-import NotificationsScreen from "../Screens/Notifications";
-import RecentActivityScreen from "../Screens/RecentActivity";
-import FriendsScreen from "../Screens/Friends";
 import MorePageScreen from "../Screens/User/MoreManagement/MorePage";
 import ReviewRating from "../Screens/User/BusinessPageMng/ReviewRating";
 import CategorySearch from "../Screens/User/SearchMng/CategorySearch";
 import SubCategorySearchView from "../Screens/User/SearchMng/CategorySearch/components/SubCategories";
-import EventListing from "../Screens/EventListings";
+import EventListing from "../Screens/User/EventMng/EventListing";
+import JobListing from "../Screens/User/JobMng/JobListing";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -68,7 +42,11 @@ const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
   return (
-    <Tab.Navigator lazy={true} tabBar={(props) => <MyTabBar {...props} />}>
+    <Tab.Navigator
+      initialRouteName="DashBoard"
+      lazy={true}
+      tabBar={(props) => <MyTabBar {...props} />}
+    >
       <Tab.Screen name="DashBoard" component={CustomDrawerNavigation} />
       <Tab.Screen name="MorePage" component={MorePageScreen} />
     </Tab.Navigator>
@@ -81,11 +59,11 @@ function CustomBusinessNavigation() {
       drawerContent={(props) => <MyCustomDrawer {...props} />}
       drawerContentOptions={{ activeBackgroundColor: "#fff" }}
     >
-      <BusinessDrawer.Screen
+      {/* <BusinessDrawer.Screen
         name="BusinessHome"
         component={BusinessHomeScreen}
-      />
-      <BusinessDrawer.Screen
+      /> */}
+      {/* <BusinessDrawer.Screen
         name="BusinessProfile"
         component={BusinessProfileScreen}
       />
@@ -120,7 +98,7 @@ function CustomBusinessNavigation() {
         name="EventManagement"
         component={EventManagement}
       />
-      <BusinessDrawer.Screen name="EventView" component={EventViewScreen} />
+      <BusinessDrawer.Screen name="EventView" component={EventViewScreen} /> */}
     </BusinessDrawer.Navigator>
   );
 }
@@ -136,7 +114,8 @@ function CustomDrawerNavigation() {
         name="ProfileSettings"
         component={ProfileSettingsScreen}
       />
-      <customDrawer.Screen
+
+      {/* <customDrawer.Screen
         name="FollowingList"
         component={FollowingListScreen}
       />
@@ -159,8 +138,8 @@ function CustomDrawerNavigation() {
         component={RecentActivityScreen}
       />
       <customDrawer.Screen name="EventView" component={EventViewScreen} />
-      <customDrawer.Screen name="EventManagement" component={EventManagement} />
-      <customDrawer.Screen name="Friends" component={FriendsScreen} />
+      <customDrawer.Screen name="EventManagement" component={EventManagement} /> */}
+      {/* <customDrawer.Screen name="Friends" component={FriendsScreen} /> */}
     </customDrawer.Navigator>
   );
 }
@@ -177,6 +156,17 @@ function AuthStack() {
       <Auth.Screen name="MorePage" component={MorePageScreen} />
       <Auth.Screen name="ReviewRating" component={ReviewRating} />
       <Auth.Screen name="Home" component={HomeScreen} />
+      <Auth.Screen name="ShopList" component={ShopListScreen} />
+      <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
+      <Auth.Screen name="CategorySearch" component={CategorySearch} />
+      <Auth.Screen name="JobListing" component={JobListing} />
+      <Auth.Screen
+        name="SubCategorySearchView"
+        component={SubCategorySearchView}
+      />
+      <Auth.Screen name="EventListings" component={EventListing} />
+
+      {/* --------Login Screens----- */}
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="SignUp" component={SignUpScreen} />
       <Auth.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />
@@ -185,18 +175,11 @@ function AuthStack() {
         name="BusinessUserVerify"
         component={BusinessUserVerifyScreen}
       />
-      <Auth.Screen name="ShopList" component={ShopListScreen} />
-      <Auth.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Auth.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Auth.Screen
         name="ForgotPasswordField"
         component={ForgotPasswordFieldScreen}
       />
-
-      <Auth.Screen name="GetStarted" component={GetStartedScreen} />
-      <Auth.Screen name="CategorySearch" component={CategorySearch} />
-      <Auth.Screen name="SubCategorySearchView" component={SubCategorySearchView} />
-      <Auth.Screen name="EventListings" component={EventListing} />
     </Auth.Navigator>
   );
 }
@@ -319,10 +302,6 @@ function AppStack() {
       <Stack.Screen name="HomeDashboard" component={TabNavigation} />
       <Stack.Screen name="MorePage" component={MorePageScreen} />
       <Stack.Screen
-        name="BusinessOrderHistory"
-        component={BusinessOrderHistoryScreen}
-      />
-      <Stack.Screen
         name="BusinessPageListing"
         component={BusinessPageListing}
       />
@@ -331,20 +310,15 @@ function AppStack() {
         component={BusinessPageDetails}
       />
       <Stack.Screen name="ReviewRating" component={ReviewRating} />
-      <Stack.Screen
-        name="ServiceProviderListing"
-        component={ServiceProviderListingScreen}
-      />
-      <Stack.Screen
-        name="ServiceProviderDetails"
-        component={ServiceProviderDetails}
-      />
       <Stack.Screen name="ShopList" component={ShopListScreen} />
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Stack.Screen name="CategorySearch" component={CategorySearch} />
-      <Stack.Screen name="SubCategorySearchView" component={SubCategorySearchView} />
+      <Stack.Screen
+        name="SubCategorySearchView"
+        component={SubCategorySearchView}
+      />
       <Stack.Screen name="EventListings" component={EventListing} />
-
+      <Stack.Screen name="JobListing" component={JobListing} />
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       {/* <Stack.Screen

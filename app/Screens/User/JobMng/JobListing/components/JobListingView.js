@@ -9,18 +9,18 @@ import {
   Platform,
   Modal,
 } from "react-native";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   GREY_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 import moment from "moment";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../../Utils/images";
 
-const JobListScreen = (props) => {
+const JobListingView = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   const _renderJobList = (item, index) => {
     return (
@@ -94,7 +94,7 @@ const JobListScreen = (props) => {
                 })}
               </Text>
             </View>
-            <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
+            {/* <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
                 style={{
                   tintColor:
@@ -102,7 +102,7 @@ const JobListScreen = (props) => {
                 }}
                 source={Images.FAVRT_IMG}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {/* <TouchableOpacity style={[styles.basiccon, { marginTop: 5 }]}>
             <View
@@ -225,4 +225,4 @@ const JobListScreen = (props) => {
     </View>
   );
 };
-export default JobListScreen;
+export default JobListingView;

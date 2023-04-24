@@ -20,7 +20,13 @@ import {
 import { businessPageObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
-  const { isFocused = "", handleNavigation, onPressOptions, userData, navigation } = props;
+  const {
+    isFocused = "",
+    handleNavigation,
+    onPressOptions,
+    userData,
+    navigation,
+  } = props;
   return (
     <>
       {isFocused === "EventManagement" ||
@@ -51,7 +57,10 @@ const CustomPopups = (props) => {
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Create Event"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw} onPress={() => navigation.navigate('EventListings')}>
+                <TouchableOpacity
+                  style={styles.subCatVw}
+                  onPress={() => navigation.navigate("EventListings")}
+                >
                   <Text style={styles.subCatTxt}>{"Find Event"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
@@ -91,7 +100,10 @@ const CustomPopups = (props) => {
               </>
             ) : isFocused === "JobManagement" ? (
               <>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("JobListing")}
+                  style={styles.subCatVw}
+                >
                   <Text style={styles.subCatTxt}>{"Find a Job"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>

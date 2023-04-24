@@ -9,15 +9,15 @@ import {
   FlatList,
 } from "react-native";
 import moment from "moment";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import Header from "../../../Components/Header";
+import Header from "../../../../../Components/Header";
 import {
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { Images } from "../../../Utils/images";
+} from "../../../../../Utils/Constant";
+import { Images } from "../../../../../Utils/images";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();

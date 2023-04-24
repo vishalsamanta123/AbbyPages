@@ -12,7 +12,7 @@ import {
   GREY_COLOR_CODE,
   COLORS,
   FONT_FAMILY,
-} from "../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
     marginHorizontal: 18,
