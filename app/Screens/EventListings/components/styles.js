@@ -10,6 +10,8 @@ import {
   LINE_COMMON_COLOR_CODE,
   LIGHT_WHITE_COLOR,
   GREY_COLOR_CODE,
+  COLORS,
+  FONT_FAMILY,
 } from "../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
@@ -20,6 +22,35 @@ const Styles = StyleSheet.create({
     fontSize: 20,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  bannervideoStyle: {
+    height: 260,
+  },
+  videoBannerView: {},
+  bannerView: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    // backgroundColor: COLORS.BLACK,
+    // opacity: 0.5
+  },
+  bannerHeading: {
+    fontSize: 28,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.WHITE,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  bannerHeadingDesc: {
+    fontSize: 18,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.WHITE,
+    textAlign: 'center',
   },
   seeOnVw: {
     borderColor: BLACK_COLOR_CODE,

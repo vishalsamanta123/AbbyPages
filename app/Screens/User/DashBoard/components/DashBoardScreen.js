@@ -18,7 +18,7 @@ import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import ByCategory from "./ByCategory";
 import Loader from "../../../../Utils/Loader";
-
+import MainHeader from "../../../../Components/MainHeader";
 
 const DashBoardScreen = (props) => {
   const [searchModal, setSearchModal] = useState(false);
@@ -42,18 +42,7 @@ const DashBoardScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText={""}
-        HeaderMiddleImg={Images.LOGO}
-        leftImg={Images.DRAWER_IMG}
-        middleImgStyl={CommonStyles.middleLogoVw}
-        RightImg={Images.SEARCH_IMG}
-        type="Drawer"
-        logoImg={true}
-        tintColor={COLORS.BLACK}
-        mncontainer={{ backgroundColor: COLORS.WHITE }}
-        onPressRightImg={() => props.navigation.navigate("CategorySearch")}
-      />
+      <MainHeader isSearch isDrawer/>
       {/* <MainHeader /> */}
       <ScrollView
         refreshControl={
@@ -73,9 +62,7 @@ const DashBoardScreen = (props) => {
         >
           <View style={styles.imgInnerVw}>
             <Text style={CommonStyles.bigTxtVw}>
-              <Text style={{ fontFamily: FONT_FAMILY.REGULAR }}>
-                Support{" "}
-              </Text>
+              <Text style={{ fontFamily: FONT_FAMILY.REGULAR }}>Support </Text>
               Black Excellence!
             </Text>
             <Text style={[CommonStyles.mediumTxt, { marginTop: 16 }]}>
@@ -215,10 +202,7 @@ const DashBoardScreen = (props) => {
           <View style={styles.containersVw}>
             <Text style={styles.titlesTxt}>
               Find the Best Black-Owned Businesses in
-              <Text style={{ fontFamily: FONT_FAMILY.BOLD }}>
-                {" "}
-                Town
-              </Text>
+              <Text style={{ fontFamily: FONT_FAMILY.BOLD }}> Town</Text>
             </Text>
             <View style={styles.posterVw}>
               <Carousel
@@ -250,10 +234,7 @@ const DashBoardScreen = (props) => {
           <View style={styles.containersVw}>
             <ImageBackground style={{ flex: 1 }} source={Images.COVER_IMG}>
               <Text
-                style={[
-                  styles.titlesTxt,
-                  { fontFamily: FONT_FAMILY.BOLD },
-                ]}
+                style={[styles.titlesTxt, { fontFamily: FONT_FAMILY.BOLD }]}
               >
                 Browse Businesses by Category
               </Text>

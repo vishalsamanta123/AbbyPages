@@ -20,7 +20,7 @@ import {
 import { businessPageObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
-  const { isFocused = "", handleNavigation, onPressOptions, userData } = props;
+  const { isFocused = "", handleNavigation, onPressOptions, userData, navigation } = props;
   return (
     <>
       {isFocused === "EventManagement" ||
@@ -51,7 +51,7 @@ const CustomPopups = (props) => {
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Create Event"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity style={styles.subCatVw} onPress={() => navigation.navigate('EventListings')}>
                   <Text style={styles.subCatTxt}>{"Find Event"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
@@ -166,6 +166,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         handleNavigation={handleNavigation}
         onPressOptions={onPressOptions}
         userData={userData}
+        navigation={navigation}
       />
       <View style={styles.iconStyleVw}>
         <TouchableOpacity

@@ -4,22 +4,15 @@ import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { businessTypes } from "../../../../../Utils/staticData";
 import { IconX } from "../../../../../Components/Icons/Icon";
-import Header from "../../../../../Components/Header";
-import { Images } from "../../../../../Utils/images";
 import Loader from "../../../../../Utils/Loader";
-import { COLORS } from "../../../../../Utils/Constant";
+import MainHeader from "../../../../../Components/MainHeader";
 import EmptyList from "../../../../../Components/EmptyList";
 
 const MorePageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(4);
   return (
     <>
-      <Header
-        HeaderText={""}
-        HeaderMiddleImg={Images.LOGO}
-        leftImg={""}
-        middleImgStyl={CommonStyles.middleLogoVw}
-      />
+      <MainHeader/>
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.mainContainer}>
           {props?.userData?.login_type ? (
