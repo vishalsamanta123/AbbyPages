@@ -12,7 +12,7 @@ import {
   FONT_FAMILY_LIGHT,
   LIGHT_WHITE_COLOR,
   LIGHT_GREY_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   HeaderView: {
     justifyContent: "center",

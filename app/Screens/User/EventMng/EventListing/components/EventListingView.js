@@ -10,9 +10,9 @@ import {
   Modal,
 } from "react-native";
 import moment from "moment";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import Header from "../../../Components/Header";
+import Header from "../../../../../Components/Header";
 import {
   YELLOW_COLOR_CODE,
   WHITE_COLOR_CODE,
@@ -20,14 +20,14 @@ import {
   SMALL_TEXT_COLOR_CODE,
   BLACK_COLOR_CODE,
   FONT_FAMILY,
-} from "../../../Utils/Constant";
-import Button from "../../../Components/Button";
+} from "../../../../../Utils/Constant";
+import Button from "../../../../../Components/Button";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../../Utils/images";
 import Video from "react-native-video";
-import { videos } from "../../../Utils/videos";
+import { videos } from "../../../../../Utils/videos";
 
-const EventListingScreen = (props) => {
+const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
   const _renderTime = (item, index) => {
     const selectedColor =
@@ -404,4 +404,4 @@ const EventListingScreen = (props) => {
     </View>
   );
 };
-export default EventListingScreen;
+export default EventListingView;

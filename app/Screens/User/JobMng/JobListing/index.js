@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { ToastAndroid, View } from "react-native";
-import JobListScreen from "./components/JobListScreen";
-import CommonStyles from "../../Utils/CommonStyles";
+import JobListingView from "./components/JobListingView";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import FilterPopUp from "./components/FilterPopUp";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Error from "../../Components/Modal/error";
-import Loader from "../../Utils/Loader";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Error from "../../../../Components/Modal/error";
+import Loader from "../../../../Utils/Loader";
 import _ from "lodash";
-import { AuthContext } from "../../Utils/UserContext";
-import QuestionModal from "../../Components/Modal/questionModal";
+import { AuthContext } from "../../../../Utils/UserContext";
+import QuestionModal from "../../../../Components/Modal/questionModal";
 
-const JobList = ({ navigation }) => {
+const JobListing = ({ navigation }) => {
   useEffect(() => {
     if (!search) {
       handleJobFilter(0);
@@ -54,51 +54,23 @@ const JobList = ({ navigation }) => {
     setSearch(false);
     setVisible(true);
   };
-  const _hanldeSetLike = async (item) => {
-    try {
-      const params = {
-        item_type: Number(item?.job_type),
-        item_id: item?.job_id,
-        like: item?.user_like === 1 ? 0 : 1,
-        favorite: item?.favorite ? item?.favorite : 0,
-        interest: item?.interest ? item?.interest : 0,
-        views: item?.user_view,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      if (data.status == 200) {
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
-        handleJobFilter(offset);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setLoader(false);
-      }
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-      setLoader(false);
-    }
-  };
-  // const handlejobsList = async (offSet) => {
-  //   setoffset(offSet);
-  //   const params = {
-  //     offset: offSet,
-  //   };
+  // const _hanldeSetLike = async (item) => {
   //   try {
-  //     setLoader(true);
-  //     const { data } = await apiCall("POST", ENDPOINTS.GET_JOB_LIST, params);
-  //     if (data.status === 200) {
-  //       data.data.forEach(function (item, i) {
-  //         item["latitude"] = i + 22.7196;
-  //         item["longitude"] = i + 75.8577;
-  //       });
-  //       setJobList(data.data);
-  //       setLoader(false);
+  //     const params = {
+  //       item_type: Number(item?.job_type),
+  //       item_id: item?.job_id,
+  //       like: item?.user_like === 1 ? 0 : 1,
+  //       favorite: item?.favorite ? item?.favorite : 0,
+  //       interest: item?.interest ? item?.interest : 0,
+  //       views: item?.user_view,
+  //     };
+  //     const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+  //     if (data.status == 200) {
+  //       ToastAndroid.show(data.message, ToastAndroid.LONG);
+  //       handleJobFilter(offset);
   //     } else {
   //       setErrorMessage(data.message);
-  //       setstopOffset(true);
   //       setVisibleErr(true);
-  //       setJobList([]);
   //       setLoader(false);
   //     }
   //   } catch (error) {
@@ -166,8 +138,8 @@ const JobList = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
-      <JobListScreen
-        _hanldeSetLike={_hanldeSetLike}
+      <JobListingView
+        // _hanldeSetLike={_hanldeSetLike}
         jobList={jobList}
         filterData={filterData}
         onPressJob={onPressJob}
@@ -222,7 +194,7 @@ const JobList = ({ navigation }) => {
     </View>
   );
 };
-export default JobList;
+export default JobListing;
 // posterimg: require('../../Assets/extraImages/salooonimg.jpg'),
 // companyname: 'MME Studio',
 // postingtime: '11 hours ago',
