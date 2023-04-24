@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -28,6 +33,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     marginHorizontal: 20,
     marginTop: 20,
+    textAlign: "center",
   },
   subCatVw: {
     alignItems: "center",
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   subCatTxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.large,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
@@ -89,6 +95,15 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.GREY,
+  },
+  seeMoreBttn: {
+    alignSelf: "center",
+    paddingVertical: 5,
+  },
+  seeMoreBttnTxt: {
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.BLUE,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
 export default styles;

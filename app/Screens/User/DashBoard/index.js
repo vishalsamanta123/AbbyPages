@@ -54,18 +54,17 @@ const DashBoardView = ({ navigation }) => {
   };
 
   const getDashBoardActivity = async (offset) => {
-    setRecentLoader(true);
+    // setRecentLoader(true);
     setActOffset(offset);
     const params = {
       offset: offset,
       limit: 3,
     };
     if (!refreshing && offset === 0) {
-      setVisible(true);
+      // setVisible(true);
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
-      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setMoreData(20);
@@ -88,7 +87,7 @@ const DashBoardView = ({ navigation }) => {
   };
   const getDashBoardCategory = async () => {
     if (!refreshing) {
-      setVisible(true);
+      // setVisible(true);
     }
     try {
       const { data } = await apiCall("GET", ENDPOINTS.CATEGORIES_AT_HOME_LIST);
@@ -111,7 +110,7 @@ const DashBoardView = ({ navigation }) => {
   };
   const getDashBoardBussiness = async () => {
     if (!refreshing) {
-      setVisible(true);
+      // setVisible(true);
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD);

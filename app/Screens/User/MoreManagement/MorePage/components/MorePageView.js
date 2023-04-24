@@ -1,15 +1,15 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { businessTypes } from "../../../../../Utils/staticData";
 import { IconX } from "../../../../../Components/Icons/Icon";
-import Header from "../../../../../Components/Header";
-import { Images } from "../../../../../Utils/images";
 import Loader from "../../../../../Utils/Loader";
 import MainHeader from "../../../../../Components/MainHeader";
+import EmptyList from "../../../../../Components/EmptyList";
 
 const MorePageView = (props) => {
+  const [recentViewNo, setRecentViewNo] = useState(4);
   return (
     <>
       <MainHeader/>
@@ -41,10 +41,12 @@ const MorePageView = (props) => {
               <Text style={styles.centerButtonTxt}>Sign Up or Log In</Text>
             </TouchableOpacity>
           )}
-          <Text style={styles.headTxt}>Recently Viewed</Text>
+          <Text style={[styles.headTxt, { textAlign: "left" }]}>
+            Recently Viewed
+          </Text>
           {props?.recent_view?.length > 0 ? (
             <>
-              {props?.recent_view?.map((item) => {
+              {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
                 return (
                   <TouchableOpacity
                     style={[CommonStyles.straightCon, styles.listVew]}
@@ -55,10 +57,8 @@ const MorePageView = (props) => {
                       style={styles.listImgVw}
                       resizeMode={"cover"}
                     />
-                    <View>
-                      <Text numberOfLines={1} style={styles.listTxt}>
-                        {item.business_name}
-                      </Text>
+                    <View style={{ width: "92%" }}>
+                      <Text style={styles.listTxt}>{item.business_name}</Text>
                       <Text numberOfLines={2} style={styles.listSmallTxt}>
                         {item.address}
                       </Text>
@@ -66,8 +66,20 @@ const MorePageView = (props) => {
                   </TouchableOpacity>
                 );
               })}
+              <TouchableOpacity
+                onPress={() => {
+                  setRecentViewNo(10);
+                }}
+                style={styles.seeMoreBttn}
+              >
+                <Text style={styles.seeMoreBttnTxt}>See More</Text>
+              </TouchableOpacity>
             </>
-          ) : null}
+          ) : (
+            <>
+              <EmptyList message={"Recently View"} height={45} />
+            </>
+          )}
           <>
             {props?.visible ? (
               <>
@@ -75,7 +87,6 @@ const MorePageView = (props) => {
               </>
             ) : null}
           </>
-          <Text style={styles.headTxt}>More</Text>
           <TouchableOpacity
             onPress={() => props.onPressOptions(businessTypes[3])}
             style={styles.subCatVw}

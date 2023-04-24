@@ -52,21 +52,23 @@ const BusinessPageListing = ({ navigation, route }) => {
         limit: 5,
         offset: offset,
         business_type: getObj?.business_type
-          ? Number(getObj?.business_type)
-          : "",
+        ? Number(getObj?.business_type)
+        : "",
         search_key: inputSearch ? inputSearch : null,
         city: getObj?.city ? getObj?.city : "",
         options:
-          getObj?.selectOption?.length > 0 ||
-          Array?.isArray(getObj?.selectOption)
-            ? getObj?.selectOption?.toString()
-            : "",
+        getObj?.selectOption?.length > 0 ||
+        Array?.isArray(getObj?.selectOption)
+        ? getObj?.selectOption?.toString()
+        : "",
       };
+      // console.log('params: ', params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
-      );
+        );
+        // console.log('data: ', data);
       if (data.status == 200) {
         setVisible(false);
         setMoreData(data.total_number_data);

@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import EmptyList from "../../../../../Components/EmptyList";
 import Header from "../../../../../Components/Header";
 import ListItemsView from "../../../../../Components/ListItemsView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -31,11 +32,7 @@ const BusinessPageListingView = (props) => {
         keyExtractor={(item, index) => index.toString()}
         data={props.restroList}
         ListEmptyComponent={() => {
-          return (
-            <View style={styles.emptyConVw}>
-              <Text style={styles.emptyConTxt}>No Restaurant is available</Text>
-            </View>
-          );
+          return <EmptyList message={"Restaurant"} />;
         }}
         ListHeaderComponent={() => {
           return (
@@ -51,9 +48,7 @@ const BusinessPageListingView = (props) => {
                       style={[
                         styles.topContainer,
                         {
-                          backgroundColor: allSelect
-                            ? COLORS.YELLOW
-                            : null,
+                          backgroundColor: allSelect ? COLORS.YELLOW : null,
                         },
                       ]}
                       onPress={() => {
