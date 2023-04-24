@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import { BLACK_COLOR_CODE } from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
@@ -30,7 +30,7 @@ const CategorySearchView = (props) => {
                 /> */}
         <Text style={styles.listText}>{item.category_name}</Text>
         <IconX
-          color={BLACK_COLOR_CODE}
+          color={COLORS.BLACK}
           origin={ICON_TYPE.ANT_ICON}
           name={"right"}
           size={18}
@@ -49,7 +49,7 @@ const CategorySearchView = (props) => {
         >
           <IconX
             origin={ICON_TYPE.ICONICONS}
-            color={BLACK_COLOR_CODE}
+            color={COLORS.BLACK}
             size={30}
             name={"chevron-back"}
           />
@@ -57,7 +57,7 @@ const CategorySearchView = (props) => {
             style={[
               styles.topHeaderTxt,
               {
-                color: BLACK_COLOR_CODE,
+                color: COLORS.BLACK,
               },
             ]}
           >
@@ -68,7 +68,7 @@ const CategorySearchView = (props) => {
           style={[
             styles.topHeaderTxt,
             {
-              color: BLACK_COLOR_CODE,
+              color: COLORS.BLACK,
               marginRight: 50,
             },
           ]}

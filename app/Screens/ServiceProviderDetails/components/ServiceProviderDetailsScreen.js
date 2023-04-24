@@ -21,7 +21,7 @@ import Button from "../../../Components/Button";
 import Header from "../../../Components/Header";
 import CommonStyles from "../../../Utils/CommonStyles";
 import {
-  DOT,
+  Constants,
   LIGHT_RED_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -70,7 +70,9 @@ const ServiceProviderDetailsScreen = (props) => {
             <SafeAreaView style={{ alignItems: "center" }}>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={props?.serviceDetail?.image && props?.serviceDetail?.image}
+                data={
+                  props?.serviceDetail?.image && props?.serviceDetail?.image
+                }
                 scrollEventThrottle={16}
                 pagingEnabled={true}
                 showsHorizontalScrollIndicator={false}
@@ -381,7 +383,7 @@ const ServiceProviderDetailsScreen = (props) => {
               renderItem={({ item, index }) => {
                 return (
                   <View style={styles.serceainview}>
-                    <Text style={CommonStyles.dotTxt}>{DOT}</Text>
+                    <Text style={CommonStyles.dotTxt}>{Constants.dot}</Text>
                     <Text style={styles.srcmntxt}>{item.category_name}</Text>
                   </View>
                 );

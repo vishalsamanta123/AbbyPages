@@ -33,12 +33,58 @@ export const BLUE_COLOR_CODE = "#00838f";
 export const LIGHT_GREY_COLOR_CODE = "#858484";
 export const LIGHT_WHITE_COLOR_CODE = "#C7CBCB";
 export const LIGHT_BLACK_COLOR_CODE = "#262626";
-export const DOT = "\u2B24";
-export const MAP_KEY = "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4";
-export const IOS = Platform.OS === "ios";
-// export const LINE_COMMON_COLOR_CODE = "#262626";
-//BASEURL
+
+export const COLORS = {
+  WHITE: "#ffffff",
+  TRANSPARENT: "transparent",
+  BLACK: "#000000",
+  GREY: "#757070",
+  BORDER_LINE: "#e5e4e4",
+  YELLOW: "#ffba00",
+  RGBA: "rgba(0,0,0,0.8)",
+  COMMON: "#dadada",
+  LIGHT_BLACK: "#262626",
+  LIGHT_WHITE: "#E1E1D9",
+  GOLDEN: "#DAA520",
+  LIGHT_YELLOW: "#ffc426",
+  SMALL_TEXT: "#868282",
+  LIGHT_GREEN: "#a3d74e",
+  GREEN: "#00FF00",
+  LIGHT_RED: "#f32c2c",
+  BLUE: "#00838f",
+  LIGHT_GREY: "#858484",
+  LIGHT_WHITE: "#C7CBCB",
+};
+
+export const FONT_FAMILY = {
+  BOLD: "WorkSans-Bold",
+  REGULAR: "WorkSans-Medium",
+  THIN: "WorkSans-Thin",
+  BLACK: "WorkSans-Black",
+  LIGHT: "WorkSans-Light",
+};
+export const FONT_SIZE = {
+  small: 12,
+  smallL: 14,
+  large: 20,
+  largeL: 24,
+  largeM: 22,
+  veryLarge: 30,
+  medium: 16,
+  mediumL: 18,
+  normal: 15,
+};
+
+export const Constants = {
+  normalBW: 0.3,
+  dot: "\u2B24",
+  Ios: Platform.OS === "ios",
+  mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
+  windowWidth: Dimensions.get("screen").width,
+  windowHeight: Dimensions.get("window").height,
+};
+
 // export const BASEURL = 'https://itinformatix.org:3040';/*  */
-export const BASEURL = "https://itinformatix.org:3040";
+export const BASEURL = "http://itinformatix.org:3040";
 // export const BASEURL = 'https://abbypages.com:8080';
 // export const BASEURL = 'http://199.241.139.254:8080';

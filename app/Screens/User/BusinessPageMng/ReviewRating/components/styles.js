@@ -1,14 +1,9 @@
 import { StyleSheet } from "react-native";
 import {
-  BLACK_COLOR_CODE,
-  BLUE_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
 } from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
@@ -18,7 +13,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     justifyContent: "space-between",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -38,14 +33,14 @@ const styles = StyleSheet.create({
   },
 
   topButtonVw: {
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 12,
     marginLeft: 8,
   },
   topButtonVwNon: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     elevation: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -56,9 +51,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
   },
   topButtonTxt: {
-    color: WHITE_COLOR_CODE,
-    fontSize: 16,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 
   mainContainer: {
@@ -67,37 +62,37 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   headTxt: {
-    fontFamily: FONT_FAMILY_BOLD,
-    color: BLACK_COLOR_CODE,
-    fontSize: 22,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.largeM,
   },
   subHeadTxt: {
     marginTop: 20,
-    fontSize: 17,
-    fontFamily: FONT_FAMILY_BOLD,
-    color: BLUE_COLOR_CODE,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.BLUE,
     marginLeft: 2,
   },
   subHeadTxtNon: {
     marginTop: 0,
-    fontSize: 17,
-    fontFamily: FONT_FAMILY_BOLD,
-    color: BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.BLACK,
     marginBottom: 10,
   },
   reViewCont: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     paddingVertical: 12,
     paddingHorizontal: 10,
     marginVertical: 5,
-    borderWidth: 0.5,
-    borderColor: GREY_COLOR_CODE,
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.BORDER_LINE,
     marginTop: 30,
   },
   smallTxt: {
-    fontSize: 15,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
+    fontSize: FONT_SIZE.normal,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
     marginLeft: 6,
   },
   descriptVw: {
@@ -105,9 +100,9 @@ const styles = StyleSheet.create({
     minHeight: 200,
   },
   descriptInput: {
-    fontSize: 17,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
     marginHorizontal: 5,
   },
   bottomVw: {

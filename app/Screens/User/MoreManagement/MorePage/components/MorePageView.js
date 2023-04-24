@@ -3,15 +3,10 @@ import React from "react";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { businessTypes } from "../../../../../Utils/staticData";
-import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
+import { IconX } from "../../../../../Components/Icons/Icon";
 import Header from "../../../../../Components/Header";
 import { Images } from "../../../../../Utils/images";
-import {
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
 import Loader from "../../../../../Utils/Loader";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const MorePageView = (props) => {
   return (
@@ -80,7 +75,7 @@ const MorePageView = (props) => {
           <>
             {props?.visible ? (
               <>
-              <Loader state={props?.visible} type={"small"} />
+                <Loader state={props?.visible} type={"small"} />
               </>
             ) : null}
           </>

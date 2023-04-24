@@ -10,12 +10,11 @@ import {
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import {
   BLACK_COLOR_CODE,
+  COLORS,
+  Constants,
   FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
-  IOS,
   WHITE_COLOR_CODE,
-  windowHeight,
-  windowWidth,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
 import { businessPageObj } from "../Utils/staticData";
@@ -354,7 +353,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 5,
     paddingHorizontal: 8,
-    borderWidth: 0.5,
+    borderWidth: Constants.normalBW,
   },
   tapVws: {
     alignItems: "center",
@@ -370,7 +369,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: IOS ? 10 : 1,
+    marginBottom: Constants.Ios ? 10 : 1,
     paddingTop: 6,
   },
   iconActiveVw: {
@@ -391,8 +390,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     position: "absolute",
     bottom: 55,
-    height: windowHeight,
-    width: windowWidth,
+    height: Constants.windowHeight,
+    width: Constants.windowWidth,
     backgroundColor: "rgba(0,0,0,0.1)",
   },
   popupVw: {
@@ -404,8 +403,8 @@ const styles = StyleSheet.create({
   subCatVw: {
     alignItems: "center",
     justifyContent: "center",
-    borderColor: GREY_COLOR_CODE,
-    borderBottomWidth: 1.2,
+    borderColor: COLORS.BORDER_LINE,
+    borderBottomWidth: Constants.normalBW,
     paddingVertical: 8,
   },
   subCatTxt: {

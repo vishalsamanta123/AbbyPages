@@ -6,8 +6,8 @@ import _ from "lodash";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import { windowWidth } from "../../../Utils/Constant";
 import { useFocusEffect } from "@react-navigation/native";
+import { Constants } from "../../../Utils/Constant";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -44,7 +44,7 @@ const DashBoardView = ({ navigation }) => {
   const setSliderPage = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / windowWidth);
+    const indexOfNextScreen = Math.ceil(x / Constants.windowWidth);
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
@@ -65,6 +65,7 @@ const DashBoardView = ({ navigation }) => {
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
+      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setMoreData(20);

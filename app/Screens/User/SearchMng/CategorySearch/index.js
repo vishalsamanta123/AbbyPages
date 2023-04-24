@@ -6,7 +6,6 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
 
-
 const CategorySearch = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
