@@ -28,13 +28,13 @@ const Styles = StyleSheet.create({
   },
   videoBannerView: {},
   bannerView: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
     left: 0,
     bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 20,
     // backgroundColor: COLORS.BLACK,
     // opacity: 0.5
@@ -44,13 +44,20 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   bannerHeadingDesc: {
     fontSize: 18,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.WHITE,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  createbtn: {
+    borderRadius: 30,
+    marginTop: 10
+  },
+  createBtnTxt: {
+    color: COLORS.WHITE
   },
   seeOnVw: {
     borderColor: BLACK_COLOR_CODE,
