@@ -19,10 +19,13 @@ import {
   FONT_FAMILY_REGULAR,
   SMALL_TEXT_COLOR_CODE,
   BLACK_COLOR_CODE,
+  FONT_FAMILY,
 } from "../../../Utils/Constant";
 import Button from "../../../Components/Button";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Images } from "../../../Utils/images";
+import Video from "react-native-video";
+import { videos } from "../../../Utils/videos";
 
 const EventListingScreen = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -64,6 +67,28 @@ const EventListingScreen = (props) => {
         RightImg={null}
       />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
+        {/* <ImageBackground
+          source={Images.EMPLOYESS_IMG}
+          style={styles.backgroundImgVw}
+        > */}
+        <View style={styles.videoBannerView}>
+          <Video
+            source={videos.FIND_EVENT_BANNER_VIDEO}
+            style={styles.bannervideoStyle}
+            repeat
+            resizeMode={"stretch"}
+          />
+          <View style={styles.bannerView}>
+            <Text style={styles.bannerHeading}>
+              Sell Event Tickets on ABBYPAGES
+            </Text>
+            <Text style={styles.bannerHeadingDesc}>
+              Online ticket sales and the creation of fantastic events just got
+              a whole lot simpler. Create
+            </Text>
+          </View>
+        </View>
+        {/* </ImageBackground> */}
         {props?.events?.upcoming_events && (
           <View style={styles.containers}>
             <Text style={styles.eventTitlesTxt}>
@@ -141,9 +166,7 @@ const EventListingScreen = (props) => {
               <Image
                 style={styles.seeForImg}
                 source={
-                  alsoSeeFor
-                    ? Images.ARROW_UP_IMG
-                    : Images.ARROW_DOWN_IMG
+                  alsoSeeFor ? Images.ARROW_UP_IMG : Images.ARROW_DOWN_IMG
                 }
               />
             </TouchableOpacity>

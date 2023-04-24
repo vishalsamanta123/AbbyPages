@@ -13,6 +13,7 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
 import SearchView from "../../../../../Components/SearchView";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
@@ -42,7 +43,7 @@ const CategorySearchView = (props) => {
 
   return (
     <SafeAreaView style={CommonStyles.otherContainer}>
-      <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+      {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
         <TouchableOpacity
           onPress={() => props.navigation.goBack()}
           style={CommonStyles.straightCon}
@@ -76,7 +77,12 @@ const CategorySearchView = (props) => {
           More Categories
         </Text>
         <View></View>
-      </View>
+      </View> */}
+      <MainHeader
+        isBack={true}
+        headerText={'More Categories'}
+        isSearch={false}
+      />
       <SearchView />
       <View style={{ flex: 1, marginVertical: 10 }}>
         <FlatList

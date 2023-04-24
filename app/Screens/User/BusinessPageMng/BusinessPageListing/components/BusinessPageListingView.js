@@ -13,6 +13,7 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
@@ -21,19 +22,9 @@ const BusinessPageListingView = (props) => {
       behavior={Constants.Ios ? "padding" : null}
       style={CommonStyles.container}
     >
-      <Header
-        RightImg={Images.MAP_LIST_IMG}
-        HeaderText={""}
-        onPress={() => props.onPressMap()}
-        textInput={true}
-        placeholder={"Tea Rooms Current..."}
-        value={props.inputSearch}
-        onChangeText={(searchKey) => props.setInputSearch(searchKey)}
-        type="Map"
-        logoImg={false}
-        MainHeadStyle={{ color: COLORS.WHITE }}
-        tintColor={COLORS.WHITE}
-        mncontainer={{ backgroundColor: COLORS.YELLOW }}
+      <MainHeader
+        isSearch={true}
+        isBack={true}
       />
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList

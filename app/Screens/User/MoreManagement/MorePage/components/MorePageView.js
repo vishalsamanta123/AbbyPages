@@ -7,16 +7,12 @@ import { IconX } from "../../../../../Components/Icons/Icon";
 import Header from "../../../../../Components/Header";
 import { Images } from "../../../../../Utils/images";
 import Loader from "../../../../../Utils/Loader";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const MorePageView = (props) => {
   return (
     <>
-      <Header
-        HeaderText={""}
-        HeaderMiddleImg={Images.LOGO}
-        leftImg={""}
-        middleImgStyl={CommonStyles.middleLogoVw}
-      />
+      <MainHeader/>
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.mainContainer}>
           {props?.userData?.login_type ? (

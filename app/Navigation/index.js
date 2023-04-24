@@ -57,6 +57,7 @@ import MorePageScreen from "../Screens/User/MoreManagement/MorePage";
 import ReviewRating from "../Screens/User/BusinessPageMng/ReviewRating";
 import CategorySearch from "../Screens/User/SearchMng/CategorySearch";
 import SubCategorySearchView from "../Screens/User/SearchMng/CategorySearch/components/SubCategories";
+import EventListing from "../Screens/EventListings";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -195,6 +196,7 @@ function AuthStack() {
       <Auth.Screen name="GetStarted" component={GetStartedScreen} />
       <Auth.Screen name="CategorySearch" component={CategorySearch} />
       <Auth.Screen name="SubCategorySearchView" component={SubCategorySearchView} />
+      <Auth.Screen name="EventListings" component={EventListing} />
     </Auth.Navigator>
   );
 }
@@ -341,6 +343,7 @@ function AppStack() {
       <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
       <Stack.Screen name="CategorySearch" component={CategorySearch} />
       <Stack.Screen name="SubCategorySearchView" component={SubCategorySearchView} />
+      <Stack.Screen name="EventListings" component={EventListing} />
 
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
