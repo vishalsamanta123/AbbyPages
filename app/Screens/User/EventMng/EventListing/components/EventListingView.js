@@ -86,6 +86,14 @@ const EventListingView = (props) => {
               Online ticket sales and the creation of fantastic events just got
               a whole lot simpler. Create
             </Text>
+            <Button
+              style={styles.createbtn}
+              buttonLabelStyle={styles.createBtnTxt}
+              onPress={() => {}}
+              buttonText={"Create Event"}
+              width={'50%'}
+              paddingHeight={12}
+            />
           </View>
         </View>
         {/* </ImageBackground> */}
