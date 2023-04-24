@@ -12,18 +12,21 @@ const CategorySearch = ({ navigation }) => {
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    getCategoryList()
-  }, [])
+    getCategoryList();
+  }, [navigation]);
 
   const getCategoryList = async () => {
     if (!refreshing) {
-      setVisible(true);
+      // setVisible(true);
     }
     try {
-      const { data } = await apiCall("POST", apiEndPoints.GET_SEARCH_CATEGORY_LIST);
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.GET_SEARCH_CATEGORY_LIST
+      );
       if (data.status === 200) {
         setVisible(false);
-        setCategoryList(data.data)
+        setCategoryList(data.data);
         // setRefreshing(false);
       } else {
         setVisible(false);

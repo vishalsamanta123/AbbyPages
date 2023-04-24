@@ -59,7 +59,7 @@ const MorePage = ({ navigation }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {visible ? <Loader state={visible} /> : null}
+      {/* {visible ? <Loader state={visible} /> : null} */}
       <MorePageView
         userData={userData}
         visible={visible}

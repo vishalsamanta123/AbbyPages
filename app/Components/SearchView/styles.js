@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   catgSearchInput: {
-    height: 45,
+    height: 48,
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 16,
     color: GREY_COLOR_CODE,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   categoriesVw: {
-    marginHorizontal: 34,
+    marginHorizontal: 2,
     backgroundColor: WHITE_COLOR_CODE,
     elevation: 10,
     marginVertical: 3,
