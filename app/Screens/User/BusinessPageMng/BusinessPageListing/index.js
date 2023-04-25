@@ -6,16 +6,10 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/error";
 import { restaurantOptions } from "../../../../Utils/staticData";
 
 const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState({ selectOption: [] });
   const [inputSearch, setInputSearch] = useState("");
@@ -82,14 +76,10 @@ const BusinessPageListing = ({ navigation, route }) => {
           setRestroList([]);
           setVisible(false);
         } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
           setVisible(false);
         }
       }
     } catch (error) {
-      setErrorMessage(data.message);
-      setVisibleErr(true);
       setVisible(false);
     }
   };
@@ -141,16 +131,6 @@ const BusinessPageListing = ({ navigation, route }) => {
         // selectOption={selectOption}
         handleOptions={handleOptions}
         onPressView={onPressView}
-      />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
       />
     </View>
   );

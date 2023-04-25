@@ -17,13 +17,10 @@ const JobListing = ({ navigation }) => {
       handleJobFilter(0);
     }
   }, []);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
   const [loader, setLoader] = useState();
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState(false);
   const [jobList, setJobList] = useState();
-  const [stopOffset, setstopOffset] = useState(false);
   const [postjob, setPostjob] = useState(false);
   const [offset, setoffset] = useState(0);
   const [filterData, setFilterData] = useState({
@@ -54,35 +51,11 @@ const JobListing = ({ navigation }) => {
     setSearch(false);
     setVisible(true);
   };
-  // const _hanldeSetLike = async (item) => {
-  //   try {
-  //     const params = {
-  //       item_type: Number(item?.job_type),
-  //       item_id: item?.job_id,
-  //       like: item?.user_like === 1 ? 0 : 1,
-  //       favorite: item?.favorite ? item?.favorite : 0,
-  //       interest: item?.interest ? item?.interest : 0,
-  //       views: item?.user_view,
-  //     };
-  //     const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-  //     if (data.status == 200) {
-  //       ToastAndroid.show(data.message, ToastAndroid.LONG);
-  //       handleJobFilter(offset);
-  //     } else {
-  //       setErrorMessage(data.message);
-  //       setVisibleErr(true);
-  //       setLoader(false);
-  //     }
-  //   } catch (error) {
-  //     setErrorMessage(error.message);
-  //     setVisibleErr(true);
-  //     setLoader(false);
-  //   }
-  // };
+ 
   const handleJobFilter = async (offSet) => {
     setoffset(offSet);
     try {
-      setLoader(true);
+      // setLoader(true);
       const params = {
         job_title: filterData?.title ? filterData?.title : null,
         city_name: filterData?.city_name ? filterData?.city_name : null,
@@ -102,21 +75,16 @@ const JobListing = ({ navigation }) => {
         setLoader(false);
         setVisible(false);
       } else {
-        setstopOffset(true);
         if (data.status == 201) {
           setJobList([]);
           setLoader(false);
           setVisible(false);
         } else {
           setLoader(false);
-          setErrorMessage(data.message);
-          setVisibleErr(true);
         }
       }
     } catch (error) {
       setLoader(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
     }
   };
 
@@ -139,7 +107,6 @@ const JobListing = ({ navigation }) => {
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
       <JobListingView
-        // _hanldeSetLike={_hanldeSetLike}
         jobList={jobList}
         filterData={filterData}
         onPressJob={onPressJob}
@@ -148,10 +115,8 @@ const JobListing = ({ navigation }) => {
         onPressMap={onPressMap}
         search={search}
         setSearch={setSearch}
-        // handlejobsList={handlejobsList}
         handleJobFilter={handleJobFilter}
         handleSearch={handleSearch}
-        stopOffset={stopOffset}
         offset={offset}
         handlePostJob={handlePostJob}
         handleFilter={handleFilter}
@@ -167,18 +132,10 @@ const JobListing = ({ navigation }) => {
         setFilterData={setFilterData}
         handleJobFilter={handleJobFilter}
         filterData={filterData}
-        errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
-        setVisibleErr={setVisibleErr}
         setLoader={setLoader}
         loader={loader}
       />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <QuestionModal
+      {/* <QuestionModal
         surringVisible={postjob}
         cancelModel={() => setPostjob(false)}
         modalType={""}
@@ -190,7 +147,7 @@ const JobListing = ({ navigation }) => {
         negativeTxt={"This is my businesss"}
         positiveResponse={() => handlePostJob(1)}
         negativeResponse={() => handlePostJob(2)}
-      />
+      /> */}
     </View>
   );
 };

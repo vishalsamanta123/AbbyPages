@@ -11,7 +11,6 @@ import Error from "../../../../Components/Modal/error";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
-  const { width, height } = Dimensions.get("window");
   const [visible, setVisible] = useState(false);
   const [moreInfoModal, setMoreInfoModal] = useState({
     open: false,
@@ -29,7 +28,6 @@ const BusinessPageDetails = ({ navigation, route }) => {
         business_id: detail?.business_id,
         business_type: detail?.search_business_type,
       };
-      console.log("params", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_DETAILS,
@@ -64,16 +62,6 @@ const BusinessPageDetails = ({ navigation, route }) => {
         setMoreInfoModal={setMoreInfoModal}
         detailData={detailData}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      /> */}
     </View>
   );
 };
