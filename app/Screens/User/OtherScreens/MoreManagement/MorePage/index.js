@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import apiEndPoints from "../../../../Utils/apiEndPoints";
-import { apiCall } from "../../../../Utils/httpClient";
-import Loader from "../../../../Utils/Loader";
+import apiEndPoints from "../../../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../../Utils/httpClient";
 import MorePageView from "./components/MorePageView";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
-import { businessPageObj } from "../../../../Utils/staticData";
+import { businessPageObj } from "../../../../../Utils/staticData";
 
 const MorePage = ({ navigation }) => {
   const [visible, setVisible] = useState(false);

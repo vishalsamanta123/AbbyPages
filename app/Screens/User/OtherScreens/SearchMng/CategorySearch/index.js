@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import CategorySearchView from "./components/CategorySearchView";
-import Loader from "../../../../Utils/Loader";
-import CommonStyles from "../../../../Utils/CommonStyles";
-import apiEndPoints from "../../../../Utils/apiEndPoints";
-import { apiCall } from "../../../../Utils/httpClient";
+import Loader from "../../../../../Utils/Loader";
+import CommonStyles from "../../../../../Utils/CommonStyles";
+import apiEndPoints from "../../../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../../Utils/httpClient";
 
 const CategorySearch = ({ navigation }) => {
   const [visible, setVisible] = useState(false);

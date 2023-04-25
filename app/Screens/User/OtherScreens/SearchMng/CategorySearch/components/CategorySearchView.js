@@ -7,13 +7,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import React from "react";
-import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import { COLORS } from "../../../../../Utils/Constant";
-import CommonStyles from "../../../../../Utils/CommonStyles";
+import { ICON_TYPE, IconX } from "../../../../../../Components/Icons/Icon";
+import { COLORS } from "../../../../../../Utils/Constant";
+import CommonStyles from "../../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
-import SearchView from "../../../../../Components/SearchView";
-import MainHeader from "../../../../../Components/MainHeader";
+import SearchView from "../../../../../../Components/SearchView";
+import MainHeader from "../../../../../../Components/MainHeader";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
@@ -80,7 +80,7 @@ const CategorySearchView = (props) => {
       </View> */}
       <MainHeader
         isBack={true}
-        headerText={'More Categories'}
+        headerText={"More Categories"}
         isSearch={false}
       />
       <SearchView />

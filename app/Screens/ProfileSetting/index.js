@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
-import ProfileSettings from "./components/ProfileSettings";
+import ProfileSettingsView from "./components/ProfileSettingsView";
 import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import Error from "../../Components/Modal/error";
-const ProfileSettingsView = ({ navigation }) => {
+
+const ProfileSetting = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -53,7 +54,7 @@ const ProfileSettingsView = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <ProfileSettings
+      <ProfileSettingsView
         userProfileData={userProfileData}
         onPressPassword={onPressPassword}
         onPressProfile={onPressProfile}
@@ -74,4 +75,4 @@ const ProfileSettingsView = ({ navigation }) => {
     </View>
   );
 };
-export default ProfileSettingsView;
+export default ProfileSetting;

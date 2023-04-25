@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -15,11 +15,13 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
 import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
 import { Images } from "../../../Utils/images";
-const ProfileSettings = (props) => {
+
+const ProfileSettingsView = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={[CommonStyles.container]}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
       <Header
         RightImg={null}
         leftImg={Images.DRAWER_IMG}
@@ -46,9 +48,7 @@ const ProfileSettings = (props) => {
                 <Text style={styles.AddPhotosTxt}>Update Profile</Text>
               </View>
               <View style={styles.BckArrowBack}>
-                <Image
-                  source={Images.ARROW_RIGHT_IMG}
-                />
+                <Image source={Images.ARROW_RIGHT_IMG} />
               </View>
             </TouchableOpacity>
             {props?.userProfileData.signup_mode == 0 ? (
@@ -57,17 +57,13 @@ const ProfileSettings = (props) => {
                 style={styles.container}
               >
                 <View style={styles.CameraImgView}>
-                  <Image
-                    source={Images.LOCK_IMG}
-                  />
+                  <Image source={Images.LOCK_IMG} />
                 </View>
                 <View style={styles.TextContainer}>
                   <Text style={styles.AddPhotosTxt}>Password</Text>
                 </View>
                 <View style={styles.BckArrowBack}>
-                  <Image
-                    source={Images.ARROW_RIGHT_IMG}
-                  />
+                  <Image source={Images.ARROW_RIGHT_IMG} />
                 </View>
               </TouchableOpacity>
             ) : null}
@@ -76,17 +72,13 @@ const ProfileSettings = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image
-                  source={Images.ENVELOPE_IMG}
-                />
+                <Image source={Images.ENVELOPE_IMG} />
               </View>
               <View style={styles.TextContainer}>
                 <Text style={styles.AddPhotosTxt}>Email / Notifications</Text>
               </View>
               <View style={styles.BckArrowBack}>
-                <Image
-                  source={Images.ARROW_RIGHT_IMG}
-                />
+                <Image source={Images.ARROW_RIGHT_IMG} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -94,17 +86,13 @@ const ProfileSettings = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image
-                  source={Images.LOCATION_IMG}
-                />
+                <Image source={Images.LOCATION_IMG} />
               </View>
               <View style={styles.TextContainer}>
                 <Text style={styles.AddPhotosTxt}>Locations</Text>
               </View>
               <View style={styles.BckArrowBack}>
-                <Image
-                  source={Images.ARROW_RIGHT_IMG}
-                />
+                <Image source={Images.ARROW_RIGHT_IMG} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -112,17 +100,13 @@ const ProfileSettings = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image
-                  source={Images.SETTING_IMG}
-                />
+                <Image source={Images.SETTING_IMG} />
               </View>
               <View style={styles.TextContainer}>
                 <Text style={styles.AddPhotosTxt}>Settings</Text>
               </View>
               <View style={styles.BckArrowBack}>
-                <Image
-                  source={Images.ARROW_RIGHT_IMG}
-                />
+                <Image source={Images.ARROW_RIGHT_IMG} />
               </View>
             </TouchableOpacity>
           </View>
@@ -135,8 +119,8 @@ const ProfileSettings = (props) => {
               About{" "}
               {props.userProfileData &&
                 props.userProfileData.first_name +
-                " " +
-                props.userProfileData.last_name}
+                  " " +
+                  props.userProfileData.last_name}
             </Text>
             <View style={styles.LocationView}>
               <Text style={styles.LoctionTextStyle}>Location</Text>
@@ -168,9 +152,7 @@ const ProfileSettings = (props) => {
           </View>
           <View style={[styles.MainContainer, { marginTop: 10 }]}>
             <View style={{ alignItems: "center" }}>
-              <Image
-                source={Images.HEADPHONES_IMG}
-              />
+              <Image source={Images.HEADPHONES_IMG} />
               <Text style={styles.AnyProblmTxt}>Have any problem and</Text>
               <Text style={styles.AnyProblmTxt}>
                 need support? Call Us directly
@@ -185,4 +167,4 @@ const ProfileSettings = (props) => {
     </KeyboardAvoidingView>
   );
 };
-export default ProfileSettings;
+export default ProfileSettingsView;
