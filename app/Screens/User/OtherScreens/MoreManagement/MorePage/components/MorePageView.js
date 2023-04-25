@@ -1,18 +1,18 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
-import CommonStyles from "../../../../../Utils/CommonStyles";
-import { businessTypes } from "../../../../../Utils/staticData";
-import { IconX } from "../../../../../Components/Icons/Icon";
-import Loader from "../../../../../Utils/Loader";
-import MainHeader from "../../../../../Components/MainHeader";
-import EmptyList from "../../../../../Components/EmptyList";
+import CommonStyles from "../../../../../../Utils/CommonStyles";
+import { businessTypes } from "../../../../../../Utils/staticData";
+import { IconX } from "../../../../../../Components/Icons/Icon";
+import Loader from "../../../../../../Utils/Loader";
+import MainHeader from "../../../../../../Components/MainHeader";
+import EmptyList from "../../../../../../Components/EmptyList";
 
 const MorePageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(4);
   return (
     <>
-      <MainHeader/>
+      <MainHeader />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.mainContainer}>
           {props?.userData?.login_type ? (

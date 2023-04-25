@@ -7,14 +7,14 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import { COLORS } from "../../../../../Utils/Constant";
-import CommonStyles from "../../../../../Utils/CommonStyles";
+import { ICON_TYPE, IconX } from "../../../../../../Components/Icons/Icon";
+import { COLORS } from "../../../../../../Utils/Constant";
+import CommonStyles from "../../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
-import Loader from "../../../../../Utils/Loader";
-import { apiCall } from "../../../../../Utils/httpClient";
-import apiEndPoints from "../../../../../Utils/apiEndPoints";
+import Loader from "../../../../../../Utils/Loader";
+import { apiCall } from "../../../../../../Utils/httpClient";
+import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 
 const SubCategorySearchView = ({ route, navigation }) => {
   // console.log("route", route.params);
@@ -28,7 +28,6 @@ const SubCategorySearchView = ({ route, navigation }) => {
 
   useEffect(() => {
     getSubCategoryList();
-    console.log("useEfffect called");
   }, [cat_id]);
 
   const getSubCategoryList = async () => {
@@ -38,14 +37,13 @@ const SubCategorySearchView = ({ route, navigation }) => {
     const params = {
       category_id: cat_id,
     };
-    console.log("params", params);
+
     try {
       const { data } = await apiCall(
         "POST",
         apiEndPoints.GET_SEARCH_CATEGORY_LIST,
         params
       );
-      console.log("data: ", data);
       setCategoryRes(data);
       if (data.status === 200) {
         setVisible(false);
@@ -62,15 +60,12 @@ const SubCategorySearchView = ({ route, navigation }) => {
   };
 
   const handleNavigation = (item) => {
-    console.log("SubCategorySearchView");
     const newObject = {
       ...item,
       city: "Orlando, FL, USA",
     };
     setCat_id(item.category_id);
     setCat_name(item.category_name);
-    console.log("item.category_id", item.category_id);
-    // navigation.navigate("SubCategorySearchView", item);
     if (categoryRes.status === 201) {
       navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
     }

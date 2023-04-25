@@ -25,11 +25,11 @@ import ShopDetailScreen from "../Screens/ShopDetail";
 import DashBoardScreen from "../Screens/User/DashBoard";
 import BusinessPageListing from "../Screens/User/BusinessPageMng/BusinessPageListing";
 import ShopListScreen from "../Screens/ShopList";
-import ProfileSettingsScreen from "../Screens/ProfileSettings";
-import MorePageScreen from "../Screens/User/MoreManagement/MorePage";
+import ProfileSetting from "../Screens/ProfileSetting";
+import MorePageScreen from "../Screens/User/OtherScreens/MoreManagement/MorePage";
 import ReviewRating from "../Screens/User/BusinessPageMng/ReviewRating";
-import CategorySearch from "../Screens/User/SearchMng/CategorySearch";
-import SubCategorySearchView from "../Screens/User/SearchMng/CategorySearch/components/SubCategories";
+import CategorySearch from "../Screens/User/OtherScreens/SearchMng/CategorySearch";
+import SubCategorySearchView from "../Screens/User/OtherScreens/SearchMng/CategorySearch/components/SubCategories";
 import EventListing from "../Screens/User/EventMng/EventListing";
 import JobListing from "../Screens/User/JobMng/JobListing";
 
@@ -112,7 +112,7 @@ function CustomDrawerNavigation() {
       <customDrawer.Screen name="DashBoard" component={DashBoardScreen} />
       <customDrawer.Screen
         name="ProfileSettings"
-        component={ProfileSettingsScreen}
+        component={ProfileSetting}
       />
 
       {/* <customDrawer.Screen

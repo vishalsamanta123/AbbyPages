@@ -4,7 +4,7 @@ import {
   Constants,
   FONT_FAMILY,
   FONT_SIZE,
-} from "../../../../../Utils/Constant";
+} from "../../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
   topHeaderVw: {
