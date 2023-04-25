@@ -1,5 +1,5 @@
 import { ICON_TYPE } from "../Components/Icons/Icon";
-import { BLACK_COLOR_CODE, LIGHT_BLACK_COLOR_CODE } from "./Constant";
+import { BLACK_COLOR_CODE, COLORS, LIGHT_BLACK_COLOR_CODE } from "./Constant";
 
 export const businessTypes = [
   {
@@ -144,4 +144,47 @@ export const restaurantOptions = [
   { id: 2, type: "1", name: "Open Delivery" },
   { id: 3, type: "10", name: "Offer Takeout" },
   { id: 4, type: "2", name: "Reservations" },
+];
+
+export const createEventSteps = [
+  {
+    heading: "1. Create a free account",
+    description: `A new account can be created quickly, easily, and for no cost. You only need to enter your contact information and the specifics of the event to get started! No agreements or applications are required.`,
+    origin: ICON_TYPE.ANT_ICON,
+    name: "adduser",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "2. Create your event page and start selling tickets.",
+    description: `With our editable templates, creating a professional-looking event page is simple and takes only a few minutes. Then you may decide on your own price points, design a unique seating arrangement (if necessary), look over your payment methods, and start selling tickets!`,
+    origin: ICON_TYPE.FONT_AWESOME5,
+    name: "ticket-alt",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "3. Advertise the event",
+    description: `Our technology enables any event organiser to increase ticket sales by providing integrated marketing tools like email blasts, social sharing, and tracking codes. You can also more effectively track sales and evaluate your results with the help of our simple analytics and reporting features.`,
+    origin: ICON_TYPE.ENTYPO,
+    name: "megaphone",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "4. Greetings to your visitors",
+    description: `Our solution streamlines the check-in procedure for both live and virtual events on show day. Use our mobile app to scan people at the event, utilise your mobile device to sell tickets at the door, or use our online event capabilities to restrict access to the live broadcast to enrolled participants only!`,
+    origin: ICON_TYPE.MATERIAL_COMMUNITY,
+    name: "account-group",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "5. Get paid quickly",
+    description: `You'll receive payment shortly after your event ends in business days. No hassle, no complicated fee structures; just fast, easy payments!`,
+    origin: ICON_TYPE.FONT_AWESOME5,
+    name: "file-invoice-dollar",
+    size: 70,
+    color: COLORS.WHITE,
+  },
 ];
