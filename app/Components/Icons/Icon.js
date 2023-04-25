@@ -11,6 +11,8 @@ import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import FoundationIcons from "react-native-vector-icons/Foundation";
+
 
 export const ICON_TYPE = {
   ICONICONS: "Ionicons",
@@ -25,6 +27,7 @@ export const ICON_TYPE = {
   MATERIAL_COMMUNITY: "MATERIALCOMMUNITY",
   Fontisto: "Fontisto",
   SIMPLELINE: "SimpleLineIcons",
+  FOUNDATION: "Foundation",
 };
 
 export const IconX = ({
@@ -84,6 +87,9 @@ export const IconX = ({
       break;
     case ICON_TYPE.SIMPLELINE:
       Element = SimpleLineIcons;
+      break;
+    case ICON_TYPE.FOUNDATION:
+      Element = FoundationIcons;
       break;
 
     default:

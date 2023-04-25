@@ -189,3 +189,53 @@ export const createEventSteps = [
     color: COLORS.WHITE,
   },
 ];
+export const ticketPricingPros = [
+  {
+    heading: "Free events never cost anything",
+    description: `Free means free at AbbyPages, so if you're offering free events, you'll never be charged a penny in costs. There is no better offer available to you or your buyers.`,
+    origin: ICON_TYPE.ANT_ICON,
+    name: "like1",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "Special pricing of $5 and below",
+    description: `For all tickets $5 or less, there is a standard price of $0.25. (some restrictions may apply). For your buyers, this means keeping your ticket price as low as possible.`,
+    origin: ICON_TYPE.FONT_AWESOME5,
+    name: "dollar-sign",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "No fees for onsite sales",
+    description: `With the help of our free app, onsite ticket sales are simple. You can sell tickets at the door using your own mobile devices and what's best? We don’t charge fees for onsite sales, only credit card processing.`,
+    origin: ICON_TYPE.ENTYPO,
+    name: "creative-commons-noncommercial-us",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "No agreements",
+    description: `No agreements or obligations. Ever. Just provide us with some basic information about yourself (name, email, etc.) and how you prefer to get paid. Our user-friendly, reasonably priced ticketing software, in our opinion, speaks for itself!`,
+    origin: ICON_TYPE.ICONICONS,
+    name: "document-attach-sharp",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "Without limiting service tiers",
+    description: `Any event organizer, regardless of size, can use our whole toolkit for event management and ticketing. There is never a fee to use our complete feature package, unlike our competitors!`,
+    origin: ICON_TYPE.ANT_ICON,
+    name: "closecircle",
+    size: 70,
+    color: COLORS.WHITE,
+  },
+  {
+    heading: "International fees",
+    description: `Our always-affordable fees are catered to your area, whether you're selling tickets to an event in England, New Zealand, or with one of our other approved currencies. Locate yourself right now.`,
+    origin: ICON_TYPE.FOUNDATION,
+    name: "web",
+    size: 90,
+    color: COLORS.WHITE,
+  },
+];
