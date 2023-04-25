@@ -4,18 +4,25 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { Images } from "../../Utils/images";
-import { BLACK_COLOR_CODE } from "../../Utils/Constant";
+import { BLACK_COLOR_CODE, COLORS } from "../../Utils/Constant";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import Input from "../Input";
+import CommonStyles from "../../Utils/CommonStyles";
 
 const MainHeader = (props) => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { isBack, headerText, isSearch, isDrawer } = props;
+  const {
+    isBack,
+    headerText,
+    isSearch = true,
+    isDrawer,
+    notify = true,
+  } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
     navigation.goBack(null);
@@ -32,7 +39,7 @@ const MainHeader = (props) => {
   return (
     <SafeAreaView style={styles.headCon}>
       <View style={styles.blockCont}>
-        <TouchableOpacity onPress={() => isBack ? handleGoBack () : handleDrawer()}>
+        <TouchableOpacity onPress={() => (isBack ? handleGoBack() : {})}>
           {isBack ? (
             <View style={styles.backView}>
               <IconX
@@ -43,32 +50,46 @@ const MainHeader = (props) => {
               />
               {headerText ? <Text style={styles.backtxt}>Back</Text> : null}
             </View>
-          ) : isDrawer ? (
-            <IconX
-              origin={ICON_TYPE.FEATHER_ICONS}
-              name={"list"}
-              size={25}
-              color={BLACK_COLOR_CODE}
+          ) : (
+            <Image
+              source={Images.LOGO}
+              resizeMode={"contain"}
+              style={styles.logoVw}
             />
-          ) : null}
+          )}
         </TouchableOpacity>
         {headerText ? (
           <Text style={styles.topHeaderTxt}>{headerText}</Text>
-        ) : (
-          <Image
-            source={Images.LOGO}
-            resizeMode={"contain"}
-            style={styles.logoVw}
-          />
-        )}
-        <TouchableOpacity disabled={!isSearch} onPress={() => handleSearchPress()}>
-          {isSearch ? <IconX
-            origin={ICON_TYPE.ICONICONS}
-            name={"search-outline"}
-            size={25}
-            color={BLACK_COLOR_CODE}
-          /> : null}
-        </TouchableOpacity>
+        ) : null}
+        <View style={CommonStyles.straightCon}>
+          <TouchableOpacity style={styles.leftIconVw}>
+            {notify ? (
+              <IconX
+                origin={ICON_TYPE.FONT_AWESOME}
+                name={"bell-o"}
+                size={21}
+                color={BLACK_COLOR_CODE}
+              />
+            ) : null}
+            <View style={styles.notifyVw}>
+              <Text style={styles.notifyTxt}>1</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={!isSearch}
+            onPress={() => handleSearchPress()}
+            style={styles.leftIconVw}
+          >
+            {isSearch ? (
+              <IconX
+                origin={ICON_TYPE.ICONICONS}
+                name={"search-outline"}
+                size={22}
+                color={BLACK_COLOR_CODE}
+              />
+            ) : null}
+          </TouchableOpacity>
+        </View>
       </View>
       {/* {searchOpen ? (
         <>

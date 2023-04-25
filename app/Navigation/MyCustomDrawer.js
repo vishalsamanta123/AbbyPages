@@ -75,7 +75,7 @@ const MyCustomDrawer = (props) => {
             />
           </View>
         )}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.containers}
           onPress={() => {
             props.navigation.navigate("DashBoard");
@@ -91,7 +91,7 @@ const MyCustomDrawer = (props) => {
           <View style={styles.textContain}>
             <Text style={styles.drawerText}>Home</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {userData?.login_type ? (
           <>
             <TouchableOpacity
@@ -112,7 +112,7 @@ const MyCustomDrawer = (props) => {
             <TouchableOpacity
               style={styles.containers}
               onPress={() => {
-                props.navigation.navigate("ProfileSettings");
+                props.navigation.navigate("ProfileSetting");
               }}
             >
               <View style={styles.imgeView}>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
-import MorePageView from "./components/MorePageView";
+import MenuPageView from "./components/MenuPageView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import { businessPageObj } from "../../../../../Utils/staticData";
 
-const MorePage = ({ navigation }) => {
+const MenuPage = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [recent_view, setRecent_view] = useState([]);
   const [userData, setUserData] = useState({});
@@ -37,7 +37,7 @@ const MorePage = ({ navigation }) => {
   const handleSignupLogin = () => {
     navigation.navigate("Login");
   };
-  const onPressOptions = (options) => {
+  const onPressOptions = async (options) => {
     if (options.type === "2") {
       navigation.navigate("ShopList");
     } else if (options.type === "1" || options.type === "3") {
@@ -47,6 +47,13 @@ const MorePage = ({ navigation }) => {
       });
     } else if (options.type === "") {
       navigation.navigate("Login");
+    } else if (options?.type?.includes("Business")) {
+      const supported = await Linking.canOpenURL(options.url);
+      if (supported) {
+        await Linking.openURL(options.url);
+      } else {
+        Alert.alert(`Don't know how to open this URL: ${options.url}`);
+      }
     }
   };
   const onPressView = (item) => {
@@ -59,7 +66,7 @@ const MorePage = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {/* {visible ? <Loader state={visible} /> : null} */}
-      <MorePageView
+      <MenuPageView
         userData={userData}
         visible={visible}
         recent_view={recent_view}
@@ -71,4 +78,4 @@ const MorePage = ({ navigation }) => {
   );
 };
 
-export default MorePage;
+export default MenuPage;

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   Pressable,
+  Image,
 } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import {
@@ -17,49 +18,61 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../Utils/Constant";
+import { Images } from "../Utils/images";
 import { businessPageObj } from "../Utils/staticData";
 
 const CustomPopups = (props) => {
   const {
-    isFocused = "",
-    handleNavigation,
+    isFocused,
+    setIsFocused = () => {},
     onPressOptions,
     userData,
     navigation,
   } = props;
   return (
     <>
-      {isFocused === "EventManagement" ||
-      isFocused === "PlusManagement" ||
-      isFocused === "JobManagement" ? (
+      {isFocused.modal === "EventManagement" ||
+      isFocused.modal === "PlusManagement" ||
+      isFocused.modal === "JobManagement" ? (
         <Pressable
-          onPress={() => handleNavigation("DashBoard")}
+          onPress={() =>
+            setIsFocused({
+              ...isFocused,
+              modal: "",
+            })
+          }
           style={styles.customPopupVw}
         >
           <View
             style={[
               styles.popupVw,
               {
-                marginLeft: isFocused === "EventManagement" ? 24 : 0,
+                marginLeft: isFocused.modal === "EventManagement" ? 24 : 0,
                 alignSelf:
-                  isFocused === "JobManagement" ||
-                  isFocused === "MoreManagement"
+                  isFocused.modal === "JobManagement" ||
+                  isFocused.modal === "MoreManagement"
                     ? "flex-end"
-                    : isFocused === "PlusManagement"
+                    : isFocused.modal === "PlusManagement"
                     ? "center"
                     : "auto",
-                marginRight: isFocused === "JobManagement" ? 24 : 0,
+                marginRight: isFocused.modal === "JobManagement" ? 24 : 0,
               },
             ]}
           >
-            {isFocused === "EventManagement" ? (
+            {isFocused.modal === "EventManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Create Event"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.subCatVw}
-                  onPress={() => navigation.navigate("EventListings")}
+                  onPress={() => {
+                    navigation.navigate("EventListings");
+                    setIsFocused({
+                      ...isFocused,
+                      modal: "",
+                    });
+                  }}
                 >
                   <Text style={styles.subCatTxt}>{"Find Event"}</Text>
                 </TouchableOpacity>
@@ -68,18 +81,30 @@ const CustomPopups = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.subCatVw}
-                  onPress={() => navigation.navigate("HowItWorks")}
+                  onPress={() => {
+                    navigation.navigate("HowItWorks");
+                    setIsFocused({
+                      ...isFocused,
+                      modal: "",
+                    });
+                  }}
                 >
                   <Text style={styles.subCatTxt}>{"How it works"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
-                  onPress={() => navigation.navigate("Pricing")}
+                  onPress={() => {
+                    navigation.navigate("Pricing");
+                    setIsFocused({
+                      ...isFocused,
+                      modal: "",
+                    });
+                  }}
                 >
                   <Text style={styles.subCatTxt}>{"Pricing"}</Text>
                 </TouchableOpacity>
               </>
-            ) : isFocused === "PlusManagement" ? (
+            ) : isFocused.modal === "PlusManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
@@ -102,10 +127,16 @@ const CustomPopups = (props) => {
                   <Text style={styles.subCatTxt}>{"Write a Review "}</Text>
                 </TouchableOpacity>
               </>
-            ) : isFocused === "JobManagement" ? (
+            ) : isFocused.modal === "JobManagement" ? (
               <>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("JobListing")}
+                  onPress={() => {
+                    navigation.navigate("JobListing");
+                    setIsFocused({
+                      ...isFocused,
+                      modal: "",
+                    });
+                  }}
                   style={styles.subCatVw}
                 >
                   <Text style={styles.subCatTxt}>{"Find a Job"}</Text>
@@ -127,8 +158,10 @@ const CustomPopups = (props) => {
   );
 };
 function MyTabBar({ state, descriptors, navigation }) {
-  const [isFocused, setIsFocused] = useState("DashBoard");
-  const focusedOptions = descriptors[state.routes[state.index].key].options;
+  const [isFocused, setIsFocused] = useState({
+    same: true,
+    other: "DashBoard",
+  });
   const [userData, setUserData] = useState({});
   useEffect(() => {
     getLoginDetail();
@@ -141,22 +174,19 @@ function MyTabBar({ state, descriptors, navigation }) {
   };
 
   const handleNavigation = (type) => {
-    switch (type) {
-      case "DashBoard":
-        navigation.navigate(type);
-        setIsFocused("DashBoard");
-        break;
-      case "MoreManagement":
-        navigation.navigate("MorePage");
-        setIsFocused("MoreManagement");
-        break;
-      default:
-        if (isFocused === type) {
-          setIsFocused("DashBoard");
-        } else {
-          setIsFocused(type);
-        }
-        break;
+    if (type === "DashBoard" || type === "MenuPage") {
+      navigation.navigate(type);
+      setIsFocused({
+        same: type,
+        other: type,
+        modal: "",
+      });
+    } else {
+      setIsFocused({
+        same: type,
+        other: type,
+        modal: type === isFocused.modal ? "" : type,
+      });
     }
   };
   const onPressOptions = (options) => {
@@ -171,37 +201,34 @@ function MyTabBar({ state, descriptors, navigation }) {
       navigation.navigate("Login");
     }
   };
-  if (focusedOptions.tabBarVisible === false) {
-    return null;
-  }
+  // if (focusedOptions.tabBarVisible === false) {
+  //   return null;
+  // }
   return (
     <View>
       <CustomPopups
         isFocused={isFocused}
         setIsFocused={setIsFocused}
-        handleNavigation={handleNavigation}
         onPressOptions={onPressOptions}
         userData={userData}
         navigation={navigation}
+        // setOpenTapModel={setOpenTapModel}
+        // openTapModel={openTapModel}
       />
       <View style={styles.iconStyleVw}>
         <TouchableOpacity
           style={styles.tapVws}
           onPress={() => handleNavigation("DashBoard")}
         >
-          <View
-            style={
-              isFocused === "DashBoard"
-                ? styles.iconActiveVw
-                : styles.iconInActiveVw
-            }
-          >
+          <View>
             <IconX
-              origin={ICON_TYPE.FONT_AWESOME5}
+              origin={ICON_TYPE.ANT_ICON}
               name="home"
-              size={20}
+              size={24}
               color={
-                isFocused === "DashBoard" ? WHITE_COLOR_CODE : BLACK_COLOR_CODE
+                isFocused.same === "DashBoard"
+                  ? YELLOW_COLOR_CODE
+                  : BLACK_COLOR_CODE
               }
             />
           </View>
@@ -210,7 +237,7 @@ function MyTabBar({ state, descriptors, navigation }) {
               styles.iconTxt,
               {
                 color:
-                  isFocused === "DashBoard"
+                  isFocused.same === "DashBoard"
                     ? YELLOW_COLOR_CODE
                     : BLACK_COLOR_CODE,
               },
@@ -223,20 +250,14 @@ function MyTabBar({ state, descriptors, navigation }) {
           style={styles.tapVws}
           onPress={() => handleNavigation("EventManagement")}
         >
-          <View
-            style={
-              isFocused === "EventManagement"
-                ? styles.iconActiveVw
-                : styles.iconInActiveVw
-            }
-          >
+          <View>
             <IconX
-              origin={ICON_TYPE.FONT_AWESOME5}
-              name="calendar-day"
+              origin={ICON_TYPE.FEATHER_ICONS}
+              name="calendar"
               size={20}
               color={
-                isFocused === "EventManagement"
-                  ? WHITE_COLOR_CODE
+                isFocused.same === "EventManagement"
+                  ? YELLOW_COLOR_CODE
                   : BLACK_COLOR_CODE
               }
             />
@@ -246,7 +267,7 @@ function MyTabBar({ state, descriptors, navigation }) {
               styles.iconTxt,
               {
                 color:
-                  isFocused === "EventManagement"
+                  isFocused.same === "EventManagement"
                     ? YELLOW_COLOR_CODE
                     : BLACK_COLOR_CODE,
               },
@@ -261,11 +282,11 @@ function MyTabBar({ state, descriptors, navigation }) {
         >
           <View>
             <IconX
-              origin={ICON_TYPE.FONT_AWESOME}
-              name="plus-circle"
-              size={40}
+              origin={ICON_TYPE.EVIL_ICONS}
+              name="plus"
+              size={48}
               color={
-                isFocused === "PlusManagement"
+                isFocused.same === "PlusManagement"
                   ? YELLOW_COLOR_CODE
                   : BLACK_COLOR_CODE
               }
@@ -276,20 +297,14 @@ function MyTabBar({ state, descriptors, navigation }) {
           style={styles.tapVws}
           onPress={() => handleNavigation("JobManagement")}
         >
-          <View
-            style={
-              isFocused === "JobManagement"
-                ? styles.iconActiveVw
-                : styles.iconInActiveVw
-            }
-          >
+          <View>
             <IconX
-              origin={ICON_TYPE.ENTYPO}
+              origin={ICON_TYPE.SIMPLELINE}
               name="briefcase"
               size={20}
               color={
-                isFocused === "JobManagement"
-                  ? WHITE_COLOR_CODE
+                isFocused.same === "JobManagement"
+                  ? YELLOW_COLOR_CODE
                   : BLACK_COLOR_CODE
               }
             />
@@ -299,7 +314,7 @@ function MyTabBar({ state, descriptors, navigation }) {
               styles.iconTxt,
               {
                 color:
-                  isFocused === "JobManagement"
+                  isFocused.same === "JobManagement"
                     ? YELLOW_COLOR_CODE
                     : BLACK_COLOR_CODE,
               },
@@ -310,38 +325,48 @@ function MyTabBar({ state, descriptors, navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tapVws}
-          onPress={() => handleNavigation("MoreManagement")}
+          onPress={() => handleNavigation("MenuPage")}
         >
-          <View
-            style={
-              isFocused === "MoreManagement"
-                ? styles.iconActiveVw
-                : styles.iconInActiveVw
-            }
-          >
-            <IconX
-              origin={ICON_TYPE.MATERIAL_COMMUNITY}
-              name="more"
-              size={20}
-              color={
-                isFocused === "MoreManagement"
-                  ? WHITE_COLOR_CODE
-                  : BLACK_COLOR_CODE
-              }
-            />
-          </View>
+          {!userData?.login_type ? (
+            <View>
+              <Image
+                source={Images.DEFAULT_IMG}
+                style={[
+                  styles.profileVw,
+                  {
+                    borderWidth: isFocused.same === "MenuPage" ? 1 : 0,
+                  },
+                ]}
+                resizeMode={"contain"}
+              />
+            </View>
+          ) : (
+            <View>
+              <IconX
+                origin={ICON_TYPE.FEATHER_ICONS}
+                name="menu"
+                size={20}
+                color={
+                  isFocused.same === "MenuPage"
+                    ? YELLOW_COLOR_CODE
+                    : BLACK_COLOR_CODE
+                }
+              />
+            </View>
+          )}
+
           <Text
             style={[
               styles.iconTxt,
               {
                 color:
-                  isFocused === "MoreManagement"
+                  isFocused.same === "MenuPage"
                     ? YELLOW_COLOR_CODE
                     : BLACK_COLOR_CODE,
               },
             ]}
           >
-            More
+            Menu
           </Text>
         </TouchableOpacity>
       </View>
@@ -392,16 +417,23 @@ const styles = StyleSheet.create({
   iconActiveVw: {
     borderRadius: 100,
     backgroundColor: YELLOW_COLOR_CODE,
-    padding: 6,
+    padding: 5,
   },
   iconInActiveVw: {
-    borderRadius: 50,
+    borderRadius: 100,
     padding: 6,
   },
   iconTxt: {
     fontSize: 12,
     fontFamily: FONT_FAMILY_REGULAR,
     textAlign: "center",
+  },
+  profileVw: {
+    width: 30,
+    height: 30,
+    borderWidth: 1,
+    borderColor: YELLOW_COLOR_CODE,
+    borderRadius: 100,
   },
   customPopupVw: {
     justifyContent: "flex-end",

@@ -170,7 +170,7 @@
 //           <TouchableOpacity
 //             style={styles.contactUsContainer}
 //             onPress={() => {
-//               props.navigation.navigate("ProfileSettings");
+//               props.navigation.navigate("ProfileSetting");
 //             }}
 //           >
 //             <View style={styles.ImgeView}>
