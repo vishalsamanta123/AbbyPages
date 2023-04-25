@@ -32,6 +32,7 @@ import CategorySearch from "../Screens/User/OtherScreens/SearchMng/CategorySearc
 import SubCategorySearchView from "../Screens/User/OtherScreens/SearchMng/CategorySearch/components/SubCategories";
 import EventListing from "../Screens/User/EventMng/EventListing";
 import JobListing from "../Screens/User/JobMng/JobListing";
+import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -110,6 +111,7 @@ function CustomDrawerNavigation() {
       drawerContentOptions={{ activeBackgroundColor: "#fff" }}
     >
       <customDrawer.Screen name="DashBoard" component={DashBoardScreen} />
+      <customDrawer.Screen name="HowItWorks" component={HowItWorks} />
       <customDrawer.Screen
         name="ProfileSettings"
         component={ProfileSetting}
@@ -165,7 +167,7 @@ function AuthStack() {
         component={SubCategorySearchView}
       />
       <Auth.Screen name="EventListings" component={EventListing} />
-
+      <Auth.Screen name="HowItWorks" component={HowItWorks} />
       {/* --------Login Screens----- */}
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="SignUp" component={SignUpScreen} />
@@ -319,6 +321,7 @@ function AppStack() {
       />
       <Stack.Screen name="EventListings" component={EventListing} />
       <Stack.Screen name="JobListing" component={JobListing} />
+      <Stack.Screen name="HowItWorks" component={HowItWorks} />
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       {/* <Stack.Screen
