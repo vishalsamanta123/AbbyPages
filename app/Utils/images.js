@@ -195,6 +195,7 @@ export const Images = {
   SHOPPING_IMG: require("../Assets/categories/online-shopping.png"),
   BEAUTYSPA_IMG: require("../Assets/categories/powder.png"),
   COVER_IMG: require("../Assets/background-thedir-cover.jpg"),
+  HOW_IT_WORKS_BANNER: require("../Assets/how_it_works_banner.jpg"),
 
   //Demo Images for static
   DEMO1: require("../Assets/extraImages/bob-marley-profile.jpg"),

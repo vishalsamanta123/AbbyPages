@@ -74,6 +74,7 @@ const CustomPopups = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
+                  onPress={() => navigation.navigate("Pricing")}
                 >
                   <Text style={styles.subCatTxt}>{"Pricing"}</Text>
                 </TouchableOpacity>

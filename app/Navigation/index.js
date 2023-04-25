@@ -33,6 +33,7 @@ import SubCategorySearchView from "../Screens/User/OtherScreens/SearchMng/Catego
 import EventListing from "../Screens/User/EventMng/EventListing";
 import JobListing from "../Screens/User/JobMng/JobListing";
 import HowItWorks from "../Screens/User/EventMng/HowItWorks";
+import Pricing from "../Screens/User/EventMng/Pricing";
 
 const BusinessDrawer = createDrawerNavigator();
 const customDrawer = createDrawerNavigator();
@@ -168,6 +169,7 @@ function AuthStack() {
       />
       <Auth.Screen name="EventListings" component={EventListing} />
       <Auth.Screen name="HowItWorks" component={HowItWorks} />
+      <Auth.Screen name="Pricing" component={Pricing} />
       {/* --------Login Screens----- */}
       <Auth.Screen name="Login" component={LoginScreen} />
       <Auth.Screen name="SignUp" component={SignUpScreen} />
@@ -322,6 +324,7 @@ function AppStack() {
       <Stack.Screen name="EventListings" component={EventListing} />
       <Stack.Screen name="JobListing" component={JobListing} />
       <Stack.Screen name="HowItWorks" component={HowItWorks} />
+      <Stack.Screen name="Pricing" component={Pricing} />
       {/* <Stack.Screen name="OfferScreen" component={OfferScreen} /> */}
       {/* <Stack.Screen name="DashBoard" component={CustomDrawerNavigation} /> */}
       {/* <Stack.Screen

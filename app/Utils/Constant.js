@@ -54,6 +54,7 @@ export const COLORS = {
   BLUE: "#00838f",
   LIGHT_GREY: "#858484",
   LIGHT_WHITE: "#C7CBCB",
+  DARK_PURPLE: "#140423",
 };
 
 export const FONT_FAMILY = {
