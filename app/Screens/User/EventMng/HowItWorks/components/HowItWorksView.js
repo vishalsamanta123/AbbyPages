@@ -28,7 +28,7 @@ const HowItWorksView = (props) => {
             name={item.name}
           />
         </View>
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ flex: 1, alignItems: "center" }}>
           <Text style={styles.cardheading}>{item.heading}</Text>
           <Text style={styles.cardDesc}>{item.description}</Text>
         </View>
@@ -37,7 +37,7 @@ const HowItWorksView = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader isSearch isBack  />
+      <MainHeader isSearch isDrawer />
       <ScrollView
         // refreshControl={
         //   <RefreshControl
@@ -56,7 +56,7 @@ const HowItWorksView = (props) => {
           opacity={0.5}
         >
           <View style={styles.imgInnerVw}>
-            <Text style={[CommonStyles.bigTxtVw, {color: COLORS.WHITE}]}>
+            <Text style={[CommonStyles.bigTxtVw, { color: COLORS.WHITE }]}>
               How AbbyPages Events Works
             </Text>
             <Text

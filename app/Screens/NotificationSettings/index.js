@@ -338,7 +338,7 @@ const NotificationSettingsView = ({ navigation }) => {
     }
   };
   const onPressCancel = () => {
-    navigation.navigate("ProfileSettings");
+    navigation.navigate("ProfileSetting");
   };
   const onPressPrimaryEmail = async (email_id) => {
     try {

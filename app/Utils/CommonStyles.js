@@ -41,7 +41,7 @@ const Styles = StyleSheet.create({
   },
   otherScrollCon: {
     flexGrow: 1,
-    backgroundColor: LIGHT_WHITE_COLOR,
+    backgroundColor: "#efefef",
   },
   editPencilVw: {
     backgroundColor: YELLOW_COLOR_CODE,
