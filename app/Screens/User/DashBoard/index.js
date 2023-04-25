@@ -160,16 +160,6 @@ const DashBoardView = ({ navigation }) => {
         setSliderState={setSliderState}
         sliderState={sliderState}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      /> */}
       {/* <QuestionModal
         surringVisible={forBusinees}
         cancelModel={() => setForBusinees(false)}

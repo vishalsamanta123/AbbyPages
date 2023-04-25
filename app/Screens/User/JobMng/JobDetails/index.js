@@ -11,14 +11,10 @@ import Error from "../../Components/Modal/error";
 const JobDetails = ({ route, navigation }) => {
   const { detail } = route.params || { detail: "" };
   const [details, setDetails] = useState();
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (route.params) {
+    if (route?.params) {
       jobDetails(detail);
     }
   }, []);
@@ -34,13 +30,9 @@ const JobDetails = ({ route, navigation }) => {
         setVisible(false);
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
       }
     } catch (error) {
       setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
     }
   };
   const applyNow = async () => {
@@ -66,17 +58,12 @@ const JobDetails = ({ route, navigation }) => {
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
         setVisible(false);
-        ToastAndroid.show(data.message, ToastAndroid.SHORT);
         jobDetails(detail);
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
-        setVisibleErr(true);
       }
     } catch (error) {
       setVisible(false);
-      setErrorMessage(error.message);
-      setVisibleErr(true);
     }
   };
   const shareTo = async () => {
@@ -95,16 +82,6 @@ const JobDetails = ({ route, navigation }) => {
         saveJob={saveJob}
         shareTo={shareTo}
         onPressJob={onPressJob}
-      />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
       />
     </View>
   );

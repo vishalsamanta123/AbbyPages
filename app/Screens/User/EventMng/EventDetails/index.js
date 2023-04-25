@@ -14,7 +14,7 @@ import TicketPayment from "./components/TicketPayment";
 
 const EventDetails = ({ route }) => {
   const { width } = Dimensions.get("window");
-  const params = route.params;
+  const params = route?.params;
   const [counrtys, setCounrtys] = useState([]);
   const [eventDetails, setEventDetails] = useState("");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
@@ -83,8 +83,8 @@ const EventDetails = ({ route }) => {
       );
       if (data.status === 200) {
         setLoader(false);
-        setEventDetails(data.data);
-        setChangeInterest(data.data.user_interested);
+        setEventDetails(data?.data);
+        setChangeInterest(data?.data?.user_interested);
         // setTicketCategory(data.data.event_ticket_type);
       } else {
         setLoader(false);

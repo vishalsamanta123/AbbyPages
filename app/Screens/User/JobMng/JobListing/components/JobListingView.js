@@ -19,6 +19,7 @@ import {
 } from "../../../../../Utils/Constant";
 import moment from "moment";
 import { Images } from "../../../../../Utils/images";
+import EmptyList from "../../../../../Components/EmptyList";
 
 const JobListingView = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -201,23 +202,13 @@ const JobListingView = (props) => {
           }}
           renderItem={({ item, index }) => _renderJobList(item, index)}
           ListEmptyComponent={() => {
-            return (
-              <View style={styles.emptyVw}>
-                <Text style={styles.emptyTxt}>Jobs not available</Text>
-              </View>
-            );
+            return <EmptyList message={"Job"} />;
           }}
-          onMomentumScrollBegin={() => setScrollBegin(true)}
           onEndReached={(item) => {
-            if (scrollBegin) {
-              if (!props.stopOffset) {
-                props?.handleJobFilter(
-                  props.jobList.length > 5 ? props.offset + 1 : 0
-                );
-                setScrollBegin(false);
-              } else {
-                setScrollBegin(false);
-              }
+            if (props?.jobList > 10) {
+              props?.handleJobFilter(
+                props.jobList.length > 5 ? props.offset + 1 : 0
+              );
             }
           }}
         />

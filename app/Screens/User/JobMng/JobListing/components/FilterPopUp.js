@@ -65,8 +65,6 @@ export default function FilterPopUp(props) {
         props.setLoader(false);
       }
     } catch (error) {
-      props.setErrorMessage(error.message);
-      props.setVisibleErr(true);
       props.setLoader(false);
     }
   };
@@ -92,13 +90,9 @@ export default function FilterPopUp(props) {
         }
         props.setLoader(false);
       } else {
-        props.setErrorMessage(data.message);
-        props.setVisibleErr(true);
         props.setLoader(false);
       }
     } catch (error) {
-      props.setErrorMessage(error.message);
-      props.setVisibleErr(true);
       props.setLoader(false);
     }
   };
@@ -223,12 +217,6 @@ export default function FilterPopUp(props) {
         height={props.search ? "50%" : "100%"}
         dialogAnimation={new SlideAnimation({ slideFrom: "bottom" })}
       >
-        {/* <StatusBar
-          barStyle="dark-content"
-          hidden={false}
-          backgroundColor={YELLOW_COLOR_CODE}
-          translucent={false}
-        /> */}
         <View
           style={[
             CommonStyles.header,
@@ -260,13 +248,6 @@ export default function FilterPopUp(props) {
           >
             <Text style={styles.resetTxt}>Reset</Text>
           </TouchableOpacity>
-          {/* <View style={styles.FilterImgeView}>
-            <Image source={Images.FILTER_IMG} />
-            <Image
-              style={{ marginLeft: 5, tintColor: WHITE_COLOR_CODE }}
-              source={Images.SEARCH_IMG}
-            />
-          </View> */}
         </View>
         <ScrollView
           nestedScrollEnabled
@@ -330,7 +311,6 @@ export default function FilterPopUp(props) {
                     data={category}
                     properWidth={80}
                   />
-
                   <PickerComponent
                     name={filterData.country}
                     handleData={() => getPlaces(0)}
@@ -338,7 +318,6 @@ export default function FilterPopUp(props) {
                     data={country}
                     properWidth={81}
                   />
-
                   <PickerComponent
                     name={filterData.state}
                     handleData={() => getPlaces(1)}
@@ -346,7 +325,6 @@ export default function FilterPopUp(props) {
                     data={state}
                     properWidth={52}
                   />
-
                   <PickerComponent
                     title={"City"}
                     name={filterData.city}
@@ -354,7 +332,6 @@ export default function FilterPopUp(props) {
                     data={city}
                     properWidth={40}
                   />
-
                   <PickerComponent
                     title={"Hire Type"}
                     name={filterData.hire_type}
@@ -595,45 +572,4 @@ export default function FilterPopUp(props) {
       </Modal>
     </View>
   );
-}
-{
-  /* <View style={styles.AnyKeywordView}>
-<Text style={styles.MainBtnText}>Open Now</Text>
-<Image source={Images.CLOCK_IMG} />
-</View>
-<View style={styles.AnyKeywordView}>
-<Text style={styles.MainBtnText}>Open Now</Text>
-<Image source={Images.CLOCK_IMG} />
-</View>
-<View style={styles.AnyKeywordView}>
-<Text style={styles.MainBtnText}>Highest Rated</Text>
-<Image
-  style={{ width: 20, height: 20 }}
-  source={Images.STAR_IMG}
-/>
-</View>
-<View style={[styles.AnyKeywordView, { marginBottom: 15 }]}>
-<Text style={styles.MainBtnText}>Most Reviewed</Text>
-<Image source={Images.COMMENT_IMG} />
-</View>
-<View style={styles.PriceRangeView}>
-<Text style={styles.PriceRngetXT}>Price Range</Text>
-<Text style={styles.PriceRngeText}>From $1 to $2000</Text>
-</View>
-<View style={styles.FiltersTgView}>
-<Text style={styles.PriceRngetXT}>Filters by tags</Text>
-<View style={{ flexDirection: "row" }}>
-  <View style={styles.FilterOptnView}>
-    <Text style={styles.FiltersText}>Filters by tags</Text>
-  </View>
-  <View
-    style={[
-      styles.FilterOptnView,
-      { marginLeft: 10, backgroundColor: LINE_COMMON_COLOR_CODE },
-    ]}
-  >
-    <Text style={styles.FiltersText}>Develpoers</Text>
-  </View>
-</View>
-</View> */
 }
