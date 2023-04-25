@@ -12,10 +12,10 @@ import {
 const DropDownApp = (props) => {
   const {
     DropDownText = "DropDown",
-    onPress,
-    onLongPress,
+    onPress = () => {},
+    onLongPress = () => {},
     DropDownImg,
-    onPressArrow,
+    onPressArrow  = () => {},
     arrowShow = false,
   } = props;
   return (
@@ -26,7 +26,7 @@ const DropDownApp = (props) => {
         style={styles.rowVw}
       >
         <View style={styles.OptnsImgContain}>
-          <Image source={DropDownImg} style={styles.dropDownImg} />
+          <Image source={DropDownImg} style={DropDownImg ? styles.dropDownImg : null} />
         </View>
         <Text style={styles.OptnsMainText}>{DropDownText}</Text>
       </TouchableOpacity>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 10,
+    borderRadius: 10
   },
   dropDownImg: {
     width: 24,
