@@ -16,6 +16,7 @@ import {
   RenderSlideItem,
 } from "../../../../../Components/SliderImages";
 import moment from "moment";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const MoreInfo = (props) => {
   const {
@@ -31,7 +32,7 @@ const MoreInfo = (props) => {
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
-        <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+        {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <TouchableOpacity
             onPress={() =>
               setVisible({
@@ -61,7 +62,17 @@ const MoreInfo = (props) => {
           <Text style={styles.moreInfoTxt}>
             {type === "read" ? "Swag Cut Barber" : "More Info"}
           </Text>
-        </View>
+        </View> */}
+        <MainHeader
+          notify={props?.userData?.login_type ? true : false}
+          isBack
+          onPressBack={() => {
+            setVisible({
+              open: false,
+              type: "",
+            })
+          }}
+        />
         <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
           {type == "info" ? (
             <>
