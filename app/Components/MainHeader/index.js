@@ -38,6 +38,7 @@ const MainHeader = (props) => {
     justifyContent = "space-between",
     fontSize = FONT_SIZE.largeL,
     backgroundColor = COLORS.WHITE,
+    onPressBack=false
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -95,7 +96,7 @@ const MainHeader = (props) => {
         </View>
       ) : (
         <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
-          <TouchableOpacity onPress={() => handleGoBack()} activeOpacity={1}>
+          <TouchableOpacity onPress={() => onPressBack ? onPressBack() : handleGoBack()} activeOpacity={1}>
             {isLogin ? (
               <View style={CommonStyles.straightCon}>
                 <IconX

@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import {
   BLACK_COLOR_CODE,
+  COLORS,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
   FONT_SIZE,
