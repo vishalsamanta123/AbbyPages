@@ -7,6 +7,7 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { restaurantOptions } from "../../../../Utils/staticData";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};
@@ -16,7 +17,7 @@ const BusinessPageListing = ({ navigation, route }) => {
   const [offSet, setOffSet] = useState(0);
   const [moreData, setMoreData] = useState(0);
   const [restroList, setRestroList] = useState([]);
-
+  const [userData, setUserData] = useState({});
   useEffect(() => {
     if (search?.selectOption?.length === 0) {
       const filterSearch = {
@@ -31,6 +32,10 @@ const BusinessPageListing = ({ navigation, route }) => {
   }, [navigation, inputSearch]);
 
   const handleSearchData = async (offset, getObj) => {
+    const getUserData = await AsyncStorage.getItem("localuserdata");
+    if (JSON?.parse(getUserData)?.login_type) {
+      setUserData(JSON?.parse(getUserData));
+    }
     setOffSet(offset);
     setSearch(getObj);
     try {
@@ -131,6 +136,7 @@ const BusinessPageListing = ({ navigation, route }) => {
         // selectOption={selectOption}
         handleOptions={handleOptions}
         onPressView={onPressView}
+        userData={userData}
       />
     </View>
   );

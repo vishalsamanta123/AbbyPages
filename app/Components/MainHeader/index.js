@@ -25,6 +25,7 @@ const MainHeader = (props) => {
     loginButton = false,
     headerType = "",
     justifyContent = "space-between",
+    backgroundColor = COLORS.WHITE
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -39,7 +40,7 @@ const MainHeader = (props) => {
   return (
     <SafeAreaView style={styles.headCon}>
       {headerType === "logo" ? (
-        <View style={styles.blockCont}>
+        <View style={[styles.blockCont , {backgroundColor : backgroundColor }] }>
           <View>
             <Image
               source={Images.LOGO}
@@ -78,7 +79,7 @@ const MainHeader = (props) => {
           </View>
         </View>
       ) : (
-        <View style={styles.blockCont}>
+        <View style={[styles.blockCont , {backgroundColor : backgroundColor }]}>
           {isLogin ? (
             <TouchableOpacity
               onPress={() => handleGoBack()}
