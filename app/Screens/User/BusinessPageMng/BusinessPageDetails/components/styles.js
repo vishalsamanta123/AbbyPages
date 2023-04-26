@@ -10,7 +10,7 @@ const Styles = StyleSheet.create({
   topHeaderVw: {
     justifyContent: "space-between",
     paddingHorizontal: 6,
-    paddingVertical: Constants.Ios ? 30 : 4,
+    paddingVertical: Constants.Ios ? 10 : 4,
   },
   topHeaderTxt: {
     fontSize: FONT_SIZE.mediumL,
