@@ -4,6 +4,7 @@ import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
+  FONT_SIZE,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LINE_COMMON_COLOR_CODE,
@@ -27,151 +28,116 @@ const ListItemsView = (props) => {
     rowImgTxt1 = "",
     rowImgTxt2 = "",
     rowImgTxt3 = "",
+    listType = "",
+    smallImg = "",
+    rowImgTxt4 = "",
+    title = "",
+    profile_image,
+    description = "Scooping and hapiness every single child have to do other ",
   } = props;
   return (
-    <TouchableOpacity
-      onPress={() => onPressView(item)}
-      style={styles.mainConatiner}
-    >
-      <Image
-        style={styles.largeImgVw}
-        resizeMode="cover"
-        source={{ uri: largeImg }}
-      />
-      <View style={styles.innContainer}>
-        <Text style={styles.largeNameTxt}>{largeName}</Text>
-        <Text style={styles.smallTxt}>{smallTxt}</Text>
-        <View style={styles.straightVw}>
-          <View style={styles.ratingVw}>
-            <Text style={styles.ratingTxt}>{rating}</Text>
-          </View>
-          <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
-            rating
-          </Text>
-        </View>
-        <View style={styles.straightVw}>
-          <IconX
-            color={YELLOW_COLOR_CODE}
-            origin={ICON_TYPE.FEATHER_ICONS}
-            name={"thumbs-up"}
-            size={20}
-            paddingRight={5}
-          />
-          <Text style={styles.smallTxt}>{rowImgTxt1}</Text>
-        </View>
-        <View style={styles.straightVw}>
-          <IconX
-            color={YELLOW_COLOR_CODE}
-            origin={ICON_TYPE.SIMPLELINE}
-            name={"fire"}
-            size={20}
-            paddingRight={5}
-          />
-          <Text style={styles.smallTxt}>
-            {moment(rowImgTxt2).startOf("hour").fromNow()}
-          </Text>
-        </View>
-        <View style={styles.straightVw}>
-          <IconX
-            color={YELLOW_COLOR_CODE}
-            origin={ICON_TYPE.SIMPLELINE}
-            name={"briefcase"}
-            size={20}
-            paddingRight={5}
-          />
-          <Text style={styles.smallTxt}>{rowImgTxt3}</Text>
-        </View>
-      </View>
-      {/* <View>
-        <Image
-          style={styles.mainImgSty}
-          resizeMode="contain"
-          source={{ uri: item.logo }}
-        />
-        <View style={styles.ratingContainer}>
-          <View style={styles.ratingVw}>
-            <Text style={styles.ratingStyTxt}>5.0</Text>
-          </View>
-          <Text style={styles.ratingTxt}>
-            {item?.rating?.length > 5
-              ? item?.rating?.toString()?.slice(0, -3)
-              : item?.rating?.length}{" "}
-            ratings
-          </Text>
-        </View>
-      </View>
-      <View style={styles.containerView}>
-        <View style={styles.infoView}>
-          <View style={{ flex: 5 }}>
-            <Text style={styles.mainServiceName}>{item.business_name}</Text>
-          </View>
-          <View style={{ flex: 1, alignItems: "flex-end" }}>
-            <TouchableOpacity onPress={() => onPressLike(item)}>
-              <Image
-                style={{
-                  tintColor:
-                    item.user_like === 1 ? null : LINE_COMMON_COLOR_CODE,
-                }}
-                source={Images.FAVRT_IMG}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text
-          numberOfLines={2}
-          style={[styles.AddressTextStyles, { paddingRight: 5 }]}
+    <>
+      {listType === "" ? (
+        <TouchableOpacity
+          onPress={() => onPressView(item)}
+          style={styles.mainConatiner}
         >
-          {item.business_service_category}
-        </Text>
-        <View style={styles.infoView}>
           <Image
-            style={styles.MapImgeStyle}
-            resizeMode="contain"
-            source={Images.LOCATION_IMG}
+            style={styles.largeImgVw}
+            resizeMode="cover"
+            source={{ uri: largeImg }}
           />
-          <Text
-            numberOfLines={2}
-            style={[styles.AddressTextStyles, { paddingRight: 10 }]}
-          >
-            {item.address}
-          </Text>
-        </View>
-        <View style={styles.infoView}>
-          <View style={{ flexDirection: "row" }}>
-            <View style={styles.statusVw}>
-              <Image
-                tintColor={YELLOW_COLOR_CODE}
-                source={
-                  item.offers_delivery === 1
-                    ? Images.TICK_IMG
-                    : Images.CANCEL_IMG
-                }
-                style={{ marginHorizontal: 2 }}
-              />
-              <Text style={styles.AddressTextStyles}>Delievery</Text>
+          <View style={styles.innContainer}>
+            <Text style={styles.largeNameTxt}>{largeName}</Text>
+            <Text style={styles.smallTxt}>{smallTxt}</Text>
+            <View style={styles.straightVw}>
+              <View style={styles.ratingVw}>
+                <Text style={styles.ratingTxt}>{rating}</Text>
+              </View>
+              <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                rating
+              </Text>
             </View>
-            <View style={styles.statusVw}>
-              <Image
-                tintColor={YELLOW_COLOR_CODE}
-                source={
-                  item.offers_takeout === 1
-                    ? Images.TICK_IMG
-                    : Images.CANCEL_IMG
-                }
-                style={{ marginHorizontal: 2 }}
+            <View style={styles.straightVw}>
+              <IconX
+                color={YELLOW_COLOR_CODE}
+                origin={ICON_TYPE.FEATHER_ICONS}
+                name={"thumbs-up"}
+                size={20}
+                paddingRight={5}
               />
-              <Text style={styles.AddressTextStyles}>Takeout</Text>
+              <Text style={styles.smallTxt}>{rowImgTxt1}</Text>
             </View>
+            <View style={styles.straightVw}>
+              <IconX
+                color={YELLOW_COLOR_CODE}
+                origin={ICON_TYPE.SIMPLELINE}
+                name={"fire"}
+                size={20}
+                paddingRight={5}
+              />
+              <Text style={styles.smallTxt}>
+                {moment(rowImgTxt2).startOf("hour").fromNow()}
+              </Text>
+            </View>
+            {rowImgTxt3 ? (
+              <View style={styles.straightVw}>
+                <IconX
+                  color={YELLOW_COLOR_CODE}
+                  origin={ICON_TYPE.SIMPLELINE}
+                  name={"briefcase"}
+                  size={20}
+                  paddingRight={5}
+                />
+                <Text numberOfLines={2} style={styles.smallTxt}>
+                  {rowImgTxt3}
+                </Text>
+              </View>
+            ) : null}
           </View>
-        </View>
-        <View style={styles.infoView}>
-          <Image source={Images.FIRE_IMG} />
-          <Text style={styles.AddressTextStyles}>
-            {moment(item.create_date).startOf("hour").fromNow()}
-          </Text>
-        </View>
-      </View> */}
-    </TouchableOpacity>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={styles.rowVw}>
+          <Image
+            style={styles.smallImgVw}
+            resizeMode="cover"
+            source={{ uri: profile_image }}
+          />
+          <View style={{ flex: 1 }}>
+            <View
+              style={[
+                styles.rowVw,
+                {
+                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
+                },
+              ]}
+            >
+              <View style={{ width: "70%" }}>
+                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                  {title}
+                </Text>
+                <View style={styles.rowVw}>
+                  <Text style={styles.lightTxt}>By {largeName} | </Text>
+                  <Text style={styles.lightTxt}>
+                    {moment(rowImgTxt2).startOf("hour").fromNow()}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.straightVw}>
+                <View style={styles.ratingVw}>
+                  <Text style={styles.ratingTxt}>{rating}</Text>
+                </View>
+                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                  rating
+                </Text>
+              </View>
+            </View>
+            <Text>{description}</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
@@ -197,6 +163,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 4,
   },
+  rowVw: {
+    flexDirection: "row",
+    marginVertical: 4,
+  },
   ratingVw: {
     backgroundColor: "#a3d74e",
     paddingHorizontal: 5,
@@ -208,7 +178,7 @@ const styles = StyleSheet.create({
   ratingTxt: {
     color: WHITE_COLOR_CODE,
     fontFamily: FONT_FAMILY_BOLD,
-    fontSize: 13,
+    fontSize: FONT_SIZE.medium,
   },
   innContainer: {
     flex: 1,
@@ -239,5 +209,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: BLACK_COLOR_CODE,
     fontFamily: FONT_FAMILY_REGULAR,
+  },
+  lightTxt: {
+    fontSize: 14,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY_REGULAR,
+  },
+  smallImgVw: {
+    width: 35,
+    height: 35,
+    borderRadius: 100,
+    marginHorizontal: 5,
+    marginLeft: 10,
+    marginTop: 10,
   },
 });
