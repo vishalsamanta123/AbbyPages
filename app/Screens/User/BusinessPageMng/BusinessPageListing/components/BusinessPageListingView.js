@@ -23,10 +23,7 @@ const BusinessPageListingView = (props) => {
       behavior={Constants.Ios ? "padding" : null}
       style={CommonStyles.container}
     >
-      <MainHeader
-        isSearch={true}
-        isBack={true}
-      />
+      <MainHeader isSearch={true} isLogin={true} />
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
@@ -102,16 +99,20 @@ const BusinessPageListingView = (props) => {
             />
           );
         }}
-        // onEndReached={() => {
-        //   if (props.search || props.inputSearch) {
-        //     if (props.restroList?.length < props?.moreData) {
-        //       props?.handleSearchData(
-        //         props?.restroList?.length > 4 ? props.offSet + 5 : 0,
-        //         props.search
-        //       );
-        //     }
-        //   }
-        // }}
+        onEndReached={() => {
+          if (props.search || props.inputSearch) {
+            if (props.restroList?.length < props?.moreData) {
+              console.log(
+                "props.restroList?.length: ",
+                props.restroList?.length
+              );
+              props?.handleSearchData(
+                props?.restroList?.length > 4 ? props.offSet + 5 : 0,
+                props.search
+              );
+            }
+          }
+        }}
       />
     </KeyboardAvoidingView>
   );

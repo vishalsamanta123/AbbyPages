@@ -56,13 +56,13 @@ const BusinessPageListing = ({ navigation, route }) => {
         ? getObj?.selectOption?.toString()
         : "",
       };
-      // console.log('params: ', params);
+      console.log('params: ', params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
         );
-        // console.log('data: ', data);
+        console.log('data: ', data);
       if (data.status == 200) {
         setVisible(false);
         setMoreData(data.total_number_data);
