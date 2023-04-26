@@ -23,7 +23,10 @@ const BusinessPageListingView = (props) => {
       behavior={Constants.Ios ? "padding" : null}
       style={CommonStyles.container}
     >
-      <MainHeader isSearch={true} isLogin={true} />
+      <MainHeader
+        headerType={"logo"}
+        notify={props?.userData?.login_type ? true : false}
+      />
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}

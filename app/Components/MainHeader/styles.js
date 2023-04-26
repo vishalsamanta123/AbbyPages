@@ -10,7 +10,6 @@ import {
 const styles = StyleSheet.create({
   headCon: {
     paddingHorizontal: 8,
-    backgroundColor: WHITE_COLOR_CODE,
   },
   topHeaderVw: {
     justifyContent: "space-between",
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Constants.Ios ? 15 : 0,
     paddingVertical: Constants.Ios ? 10 : 12,
     backgroundColor: COLORS.WHITE,
+
   },
   logoVw: {
     width: 190,

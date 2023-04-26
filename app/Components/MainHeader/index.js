@@ -37,6 +37,7 @@ const MainHeader = (props) => {
     headerType = "",
     justifyContent = "space-between",
     fontSize = FONT_SIZE.largeL,
+    backgroundColor = COLORS.WHITE,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -51,7 +52,7 @@ const MainHeader = (props) => {
   return (
     <SafeAreaView style={styles.headCon}>
       {headerType === "logo" ? (
-        <View style={styles.blockCont}>
+        <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
           <View>
             <Image
               source={Images.LOGO}
@@ -90,7 +91,7 @@ const MainHeader = (props) => {
           </View>
         </View>
       ) : (
-        <View style={styles.blockCont}>
+        <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
           <TouchableOpacity onPress={() => handleGoBack()} activeOpacity={1}>
             {isLogin ? (
               <View style={CommonStyles.straightCon}>
@@ -183,89 +184,6 @@ const MainHeader = (props) => {
           )}
         </View>
       )}
-      {/* <TouchableOpacity onPress={() => (isBack ? handleGoBack() : {})}>
-          {isBack ? (
-            <View style={styles.backView}>
-              <IconX
-                origin={ICON_TYPE.ANT_ICON}
-                name={"left"}
-                size={25}
-                color={BLACK_COLOR_CODE}
-              />
-              {<Text style={styles.backtxt}>Back</Text>}
-            </View>
-          ) : (
-            <Image
-              source={Images.LOGO}
-              resizeMode={"contain"}
-              style={styles.logoVw}
-            />
-          )}
-        </TouchableOpacity>
-        {headerText ? (
-          <Text style={styles.topHeaderTxt}>{headerText}</Text>
-        ) : null}
-        {isLogin ? (
-          <View style={CommonStyles.straightCon}>
-            {notify ? (
-              <TouchableOpacity style={styles.leftIconVw}>
-                <IconX
-                  origin={ICON_TYPE.FONT_AWESOME}
-                  name={"bell-o"}
-                  size={21}
-                  color={BLACK_COLOR_CODE}
-                />
-                <View style={styles.notifyVw}>
-                  <Text style={styles.notifyTxt}>1</Text>
-                </View>
-              </TouchableOpacity>
-            ) : null}
-            <TouchableOpacity
-              disabled={!isSearch}
-              onPress={() => handleSearchPress()}
-              style={styles.leftIconVw}
-            >
-              {isSearch ? (
-                <IconX
-                  origin={ICON_TYPE.ICONICONS}
-                  name={"search-outline"}
-                  size={22}
-                  color={BLACK_COLOR_CODE}
-                />
-              ) : null}
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <>
-            {loginButton ? (
-              <View style={CommonStyles.straightCon}>
-                <TouchableOpacity
-                  style={[styles.topButtonVw, styles.topButtonVwNon]}
-                >
-                  <Text
-                    style={[
-                      styles.topButtonTxt,
-                      {
-                        color: COLORS.BLACK,
-                      },
-                    ]}
-                  >
-                    Log In
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.topButtonVw}>
-                  <Text style={styles.topButtonTxt}>To Register</Text>
-                </TouchableOpacity>
-              </View>
-            ) : null}
-          </>
-        )} */}
-      {/* {searchOpen ? (
-        <>
-          <Input />
-          <Input />
-        </>
-      ) : null} */}
     </SafeAreaView>
   );
 };

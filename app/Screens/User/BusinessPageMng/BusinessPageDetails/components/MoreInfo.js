@@ -15,7 +15,7 @@ import {
   SliderImages,
   RenderSlideItem,
 } from "../../../../../Components/SliderImages";
-
+import moment from "moment";
 
 const MoreInfo = (props) => {
   const {
@@ -23,8 +23,11 @@ const MoreInfo = (props) => {
     setVisible = () => {},
     type = "",
     detailData,
+    moreData,
   } = props;
   const amenities = detailData?.amenities?.split(",");
+  console.log('detailData?.about_business', detailData?.create_date)
+
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
@@ -110,17 +113,17 @@ const MoreInfo = (props) => {
             </>
           ) : null}
 
-          <View style={styles.mainContainer}>
+          {/* <View style={styles.mainContainer}>
             <Text style={styles.sectionTxt}>Specialist</Text>
             <Text style={[styles.smallTxt, { marginTop: 20 }]}>
               Our BarberShop specilised in cutting hair and cleanong face make
               up for both male and female
             </Text>
-          </View>
+          </View> */}
           <View style={styles.mainContainer}>
             <Text style={styles.sectionTxt}>History</Text>
             <Text style={[styles.smallTxt, { marginTop: 8 }]}>
-              {detailData?.about_business}
+              Established in {moment(detailData?.create_date).format("YYYY")}
             </Text>
           </View>
           <View style={styles.mainContainer}>
@@ -131,13 +134,12 @@ const MoreInfo = (props) => {
                 style={styles.considrImgVw}
               />
               <View>
-                <Text style={styles.smallOptiontxt2}>Jenniefer louse</Text>
+                <Text style={styles.smallOptiontxt2}>{detailData?.business_user_name}</Text>
                 <Text style={styles.smallTxt}>Business Owner</Text>
               </View>
             </View>
             <Text style={[styles.smallTxt, { marginTop: 8 }]}>
-              I have been barbering since 2016 i m BarberShop specilised in
-              cutting hair and cleanong face make up for both male and female
+              {detailData?.about_business}
             </Text>
           </View>
         </ScrollView>
