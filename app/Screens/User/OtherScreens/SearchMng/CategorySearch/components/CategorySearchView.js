@@ -41,22 +41,23 @@ const CategorySearchView = (props) => {
       </TouchableOpacity>
     );
   };
-
   return (
-    <ScrollView contentContainerStyle={CommonStyles.otherContainer}>
+    <>
       <MainHeader
         isSearch={false}
         headerText={"Categories"}
         fontSize={FONT_SIZE.mediumL}
       />
-      <SearchView />
-      <View style={{ flex: 1, marginVertical: 10 }}>
-        <FlatList
-          data={props.categoryList}
-          renderItem={({ item }) => renderItem(item)}
-        />
-      </View>
-    </ScrollView>
+      <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
+        <SearchView />
+        <View style={{ flex: 1, marginVertical: 10 }}>
+          <FlatList
+            data={props.categoryList}
+            renderItem={({ item }) => renderItem(item)}
+          />
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

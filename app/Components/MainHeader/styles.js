@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Constants.Ios ? 15 : 0,
     paddingVertical: Constants.Ios ? 10 : 12,
     backgroundColor: COLORS.WHITE,
-
   },
   logoVw: {
     width: 190,
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   leftIconVw: {
-    marginLeft: 10,
+    marginHorizontal: 6,
     backgroundColor: "#efefef",
     borderRadius: 100,
     padding: 8,
