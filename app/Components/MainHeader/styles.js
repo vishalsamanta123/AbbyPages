@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 8,
     // marginVertical: 5,
     justifyContent: "space-between",
-    paddingHorizontal: 8,
+    paddingHorizontal: 15,
     paddingVertical: Constants.Ios ? 10 : 6,
     backgroundColor: COLORS.WHITE,
   },
@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     color: COLORS.BLACK,
   },
   topHeaderTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.largeL,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
-    marginRight: 50,
+    marginLeft: 30,
   },
   leftIconVw: {
     marginLeft: 10,
@@ -69,6 +69,30 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.small,
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.BOLD,
+  },
+
+  topButtonVw: {
+    backgroundColor: COLORS.YELLOW,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginLeft: 8,
+  },
+  topButtonVwNon: {
+    backgroundColor: COLORS.WHITE,
+    elevation: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  topButtonTxt: {
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
 export default styles;
