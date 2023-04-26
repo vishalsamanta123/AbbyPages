@@ -15,11 +15,12 @@ import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import StarShower from "../../../../../Components/StarShower";
 import { Images } from "../../../../../Utils/images";
 import Button from "../../../../../Components/Button";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const ReviewRatingView = (props) => {
   return (
     <SafeAreaView style={CommonStyles.container}>
-      <View
+      {/* <View
         style={[
           styles.headerVw,
           {
@@ -59,7 +60,12 @@ const ReviewRatingView = (props) => {
             </TouchableOpacity>
           </View>
         )}
-      </View>
+      </View> */}
+      <MainHeader
+        isBack
+        headerText={''}
+        loginButton={true}
+      />
       <ScrollView contentContainerStyle={styles.mainContainer}>
         <Text style={styles.headTxt}>
           {props?.recntRVwsData?.business_name}

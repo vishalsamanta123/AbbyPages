@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   topLogoVw: {
     width: 45,
     height: 38,
+    marginLeft: 5
   },
   topLogoVw2: {
     width: 200,
