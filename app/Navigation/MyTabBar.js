@@ -159,7 +159,7 @@ const CustomPopups = (props) => {
 };
 function MyTabBar({ state, descriptors, navigation }) {
   const [isFocused, setIsFocused] = useState({
-    same: true,
+    same: "DashBoard",
     other: "DashBoard",
   });
   const [userData, setUserData] = useState({});
