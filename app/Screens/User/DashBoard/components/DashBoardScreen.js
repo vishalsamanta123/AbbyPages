@@ -43,12 +43,9 @@ const DashBoardScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <MainHeader
-        isSearch
-        isDrawer
-        isLogin={props?.userData?.login_type ? false : true}
+        headerType={"logo"}
         notify={props?.userData?.login_type ? true : false}
       />
-      {/* <MainHeader /> */}
       <ScrollView
         refreshControl={
           <RefreshControl

@@ -21,21 +21,14 @@ const styles = StyleSheet.create({
   blockCont: {
     flexDirection: "row",
     alignItems: "center",
-    // justifyContent: "space-between",
-    // paddingHorizontal: 8,
-    // marginVertical: 5,
     justifyContent: "space-between",
-    paddingHorizontal: 15,
-    paddingVertical: Constants.Ios ? 10 : 6,
+    paddingHorizontal: Constants.Ios ? 15 : 0,
+    paddingVertical: Constants.Ios ? 10 : 8,
     backgroundColor: COLORS.WHITE,
   },
   logoVw: {
     width: 190,
     height: 50,
-  },
-  backView: {
-    flexDirection: "row",
-    alignItems: "center",
   },
   backtxt: {
     fontFamily: FONT_FAMILY.REGULAR,
@@ -70,7 +63,11 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.BOLD,
   },
-
+  topLogoVw: {
+    width: 45,
+    height: 38,
+    marginLeft: Constants.Ios ? 5 : 2,
+  },
   topButtonVw: {
     backgroundColor: COLORS.YELLOW,
     paddingVertical: 8,

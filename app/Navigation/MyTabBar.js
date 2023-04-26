@@ -327,7 +327,7 @@ function MyTabBar({ state, descriptors, navigation }) {
           style={styles.tapVws}
           onPress={() => handleNavigation("MenuPage")}
         >
-          {!userData?.login_type ? (
+          {userData?.login_type ? (
             <View>
               <Image
                 source={Images.DEFAULT_IMG}
@@ -354,7 +354,6 @@ function MyTabBar({ state, descriptors, navigation }) {
               />
             </View>
           )}
-
           <Text
             style={[
               styles.iconTxt,
