@@ -368,6 +368,7 @@ function AuthLoading({ navigation }) {
       },
       signOut: async () => {
         try {
+          console.log("LOGOUTTTT");
           await AsyncStorage.removeItem("localuserdata");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
@@ -410,9 +411,9 @@ function AuthLoading({ navigation }) {
   }
   return (
     <AuthContext.Provider value={authContext}>
-      {/* {loginState.userToken == null ? (
+      {loginState.userToken == null ? (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Auth" component={AuthStack} />
+          <Stack.Screen name="App" component={AppStack} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -422,17 +423,7 @@ function AuthLoading({ navigation }) {
             <Stack.Screen name="App" component={AppStack} />
           )}
         </Stack.Navigator>
-      )} */}
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {loginType === 2 ? (
-          <Stack.Screen name="Business" component={BusinessStack} />
-        ) : (
-          <Stack.Screen name="App" component={AppStack} />
-        )}
-        {loginState.userToken === null ? (
-          <Stack.Screen name="Auth" component={AuthStack} />
-        ) : null}
-      </Stack.Navigator>
+      )}
     </AuthContext.Provider>
   );
 }

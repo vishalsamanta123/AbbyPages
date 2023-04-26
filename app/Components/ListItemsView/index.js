@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import {
   BLACK_COLOR_CODE,
+  COLORS,
+  Constants,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
   GREY_COLOR_CODE,
@@ -71,16 +73,20 @@ const ListItemsView = (props) => {
             {moment(rowImgTxt2).startOf("hour").fromNow()}
           </Text>
         </View>
-        <View style={styles.straightVw}>
-          <IconX
-            color={YELLOW_COLOR_CODE}
-            origin={ICON_TYPE.SIMPLELINE}
-            name={"briefcase"}
-            size={20}
-            paddingRight={5}
-          />
-          <Text style={styles.smallTxt}>{rowImgTxt3}</Text>
-        </View>
+        {rowImgTxt3 ? (
+          <View style={styles.straightVw}>
+            <IconX
+              color={YELLOW_COLOR_CODE}
+              origin={ICON_TYPE.SIMPLELINE}
+              name={"briefcase"}
+              size={20}
+              paddingRight={5}
+            />
+            <Text numberOfLines={2} style={styles.smallTxt}>
+              {rowImgTxt3}
+            </Text>
+          </View>
+        ) : null}
       </View>
       {/* <View>
         <Image
@@ -183,8 +189,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
-    borderBottomWidth: 0.5,
-    borderColor: GREY_COLOR_CODE,
+    borderBottomWidth: Constants.normalBW,
+    borderColor: COLORS.BORDER_LINE,
   },
   largeImgVw: {
     width: 110,
@@ -212,7 +218,8 @@ const styles = StyleSheet.create({
   },
   innContainer: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingLeft: 10,
+    marginRight: 5,
   },
   infoView: {
     flexDirection: "row",

@@ -6,15 +6,28 @@ import MenuPageView from "./components/MenuPageView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import { businessPageObj } from "../../../../../Utils/staticData";
+import { AuthContext } from "../../../../../Utils/UserContext";
+import QuestionModal from "../../../../../Components/Modal/questionModal";
+import { useFocusEffect } from "@react-navigation/native";
 
-const MenuPage = ({ navigation }) => {
+const MenuPage = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const [recent_view, setRecent_view] = useState([]);
   const [userData, setUserData] = useState({});
+  const { signOut } = React.useContext(AuthContext);
+  const [logoutVw, setLogoutVw] = useState(false);
+  
+  const signOutFun = () => {
+    signOut();
+    navigation.navigate("App");
+    setLogoutVw(false);
+  };
 
-  useEffect(() => {
-    getRecentView();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getRecentView();
+    }, [navigation, route, logoutVw, signOut])
+  );
   const getRecentView = async () => {
     setVisible(true);
     try {
@@ -73,6 +86,14 @@ const MenuPage = ({ navigation }) => {
         handleSignupLogin={handleSignupLogin}
         onPressOptions={onPressOptions}
         onPressView={onPressView}
+        logoutVw={logoutVw}
+        setLogoutVw={setLogoutVw}
+      />
+      <QuestionModal
+        surringVisible={logoutVw}
+        message={"Are you sure you want to Logout"}
+        positiveResponse={() => signOutFun()}
+        negativeResponse={() => setLogoutVw(false)}
       />
     </View>
   );

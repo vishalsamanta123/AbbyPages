@@ -14,10 +14,13 @@ const MenuPageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(4);
   return (
     <>
-      <MainHeader />
+      <MainHeader
+        headerType={"logo"}
+        notify={props?.userData?.login_type ? true : false}
+      />
       <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
         <View style={styles.mainContainer}>
-          {!props?.userData?.login_type ? (
+          {props?.userData?.login_type ? (
             <View style={styles.profileVw}>
               <View
                 style={[
@@ -30,32 +33,25 @@ const MenuPageView = (props) => {
               >
                 <View style={CommonStyles.straightCon}>
                   <Image
-                    source={Images.DEFAULT_IMG}
-                    style={[styles.profileImgVw]}
-                    resizeMode={"contain"}
-                  />
-                  {/* <Image
                     source={{ uri: props?.userData?.profile_image }}
                     style={styles.profileImgVw}
                     resizeMode={"cover"}
-                  /> */}
+                  />
                   <View>
-                    {/* <Text style={styles.profileTxt}>
-                  {props?.userData?.first_name +
-                    " " +
-                    props?.userData?.last_name}
-                </Text>
-                 */}
-                    <Text style={styles.profileTxt}>{"John Deg"}</Text>
+                    <Text style={styles.profileTxt}>
+                      {props?.userData?.first_name +
+                        " " +
+                        props?.userData?.last_name}
+                    </Text>
                   </View>
                 </View>
-                <View>
+                <TouchableOpacity onPress={() => props.setLogoutVw(true)}>
                   <IconX
                     origin={ICON_TYPE.FONT_AWESOME}
                     name="power-off"
                     color={COLORS.BLUE}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
               <View style={styles.seeAllVw}>
                 <Text style={styles.seeAllTxt}>See Profile</Text>
@@ -69,12 +65,11 @@ const MenuPageView = (props) => {
               <Text style={styles.centerButtonTxt}>Sign Up or Log In</Text>
             </TouchableOpacity>
           )}
-
+          <Text style={[styles.headTxt, { right: 5, textAlign: "left" }]}>
+            Recently Viewed
+          </Text>
           {props?.recent_view?.length > 0 ? (
             <>
-              <Text style={[styles.headTxt, { right: 5, textAlign: "left" }]}>
-                Recently Viewed
-              </Text>
               {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
                 return (
                   <TouchableOpacity
@@ -95,6 +90,11 @@ const MenuPageView = (props) => {
                   </TouchableOpacity>
                 );
               })}
+              {props?.visible ? (
+                <>
+                  <Loader state={props?.visible} type={"small"} />
+                </>
+              ) : null}
               <TouchableOpacity
                 onPress={() => {
                   setRecentViewNo(10);
@@ -103,13 +103,15 @@ const MenuPageView = (props) => {
               >
                 <Text style={styles.seeMoreBttnTxt}>See More</Text>
               </TouchableOpacity>
-              {props?.visible ? (
-                <>
-                  <Loader state={props?.visible} type={"small"} />
-                </>
-              ) : null}
             </>
-          ) : null}
+          ) : (
+            <EmptyList
+              alignItems={"flex-start"}
+              height={24}
+              marginLeft={16}
+              message={"Views"}
+            />
+          )}
           <View style={{ marginTop: 20 }}>
             <Text style={[styles.headTxt, {}]}>Menu</Text>
             {businessTypes?.map((item) => {

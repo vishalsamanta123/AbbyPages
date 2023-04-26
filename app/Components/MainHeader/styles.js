@@ -23,23 +23,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Constants.Ios ? 15 : 0,
-    paddingVertical: Constants.Ios ? 10 : 8,
+    paddingVertical: Constants.Ios ? 10 : 12,
     backgroundColor: COLORS.WHITE,
   },
   logoVw: {
     width: 190,
-    height: 50,
+    height: 48,
   },
   backtxt: {
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
   },
   topHeaderTxt: {
     fontSize: FONT_SIZE.largeL,
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.REGULAR,
-    marginLeft: 30,
+    fontFamily: FONT_FAMILY.BOLD,
+    textAlign: "center",
   },
   leftIconVw: {
     marginLeft: 10,

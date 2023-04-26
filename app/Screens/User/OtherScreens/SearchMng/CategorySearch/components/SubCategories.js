@@ -5,68 +5,65 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ICON_TYPE, IconX } from "../../../../../../Components/Icons/Icon";
-import { COLORS } from "../../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../../Utils/Constant";
 import CommonStyles from "../../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
 import Loader from "../../../../../../Utils/Loader";
 import { apiCall } from "../../../../../../Utils/httpClient";
 import apiEndPoints from "../../../../../../Utils/apiEndPoints";
+import MainHeader from "../../../../../../Components/MainHeader";
 
 const SubCategorySearchView = ({ route, navigation }) => {
-  // console.log("route", route.params);
-  const { category_id, category_name } = route.params;
+  const allItems = route?.params;
   const [visible, setVisible] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
   const [categoryRes, setCategoryRes] = useState([]);
-  const [cat_id, setCat_id] = useState(category_id);
-  const [cat_name, setCat_name] = useState(category_name);
+  const [subCategoryData, setSubCategoryData] = useState({
+    ...allItems,
+    category_name: allItems?.category_name,
+    category_id: allItems?.category_id,
+  });
 
   useEffect(() => {
-    getSubCategoryList();
-  }, [cat_id]);
+    getSubCategoryList(subCategoryData, {});
+  }, [navigation, subCategoryData]);
 
-  const getSubCategoryList = async () => {
-    if (!refreshing) {
-      setVisible(true);
-    }
+  const getSubCategoryList = async (item) => {
+    setVisible(true);
     const params = {
-      category_id: cat_id,
+      category_id: item?.category_id ? item?.category_id : "",
     };
-
     try {
       const { data } = await apiCall(
         "POST",
         apiEndPoints.GET_SEARCH_CATEGORY_LIST,
         params
       );
-      setCategoryRes(data);
       if (data.status === 200) {
         setVisible(false);
         setCategoryList(data.data);
-        // setRefreshing(false);
+      } else if (data.status === 201) {
+        handleNavigation(item, data);
       } else {
         setVisible(false);
-        setRefreshing(false);
       }
     } catch (error) {
       setVisible(false);
-      setRefreshing(false);
     }
   };
 
-  const handleNavigation = (item) => {
+  const handleNavigation = (item, data) => {
     const newObject = {
       ...item,
       city: "Orlando, FL, USA",
     };
-    setCat_id(item.category_id);
-    setCat_name(item.category_name);
-    if (categoryRes.status === 201) {
+    setSubCategoryData({ ...newObject });
+    if (data?.status === 201) {
       navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
     }
   };
@@ -75,7 +72,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
     return (
       <TouchableOpacity
         style={styles.listTouch}
-        onPress={() => handleNavigation(item)}
+        onPress={() => getSubCategoryList(item, {})}
       >
         {/* <Image
                     source={{uri: item.image}}
@@ -94,53 +91,24 @@ const SubCategorySearchView = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={CommonStyles.otherContainer}>
-      {/* HEADER  */}
+    <ScrollView contentContainerStyle={CommonStyles.otherContainer}>
       {visible && <Loader state={visible} />}
-
-      <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={CommonStyles.straightCon}
-        >
-          <IconX
-            origin={ICON_TYPE.ICONICONS}
-            color={COLORS.BLACK}
-            size={30}
-            name={"chevron-back"}
-          />
-          <Text
-            style={[
-              styles.topHeaderTxt,
-              {
-                color: COLORS.BLACK,
-              },
-            ]}
-          >
-            Back
-          </Text>
-        </TouchableOpacity>
-        <Text
-          style={[
-            styles.topHeaderTxt,
-            {
-              color: COLORS.BLACK,
-              marginRight: 50,
-            },
-          ]}
-        >
-          {cat_name}
-        </Text>
-        <View></View>
-      </View>
-      {/* LIST */}
+      <MainHeader
+        isSearch={false}
+        headerText={
+          subCategoryData?.category_name
+            ? subCategoryData?.category_name
+            : "Categories"
+        }
+        fontSize={FONT_SIZE.mediumL}
+      />
       <View style={{ flex: 1, marginVertical: 10 }}>
         <FlatList
           data={categoryList}
           renderItem={({ item }) => renderItem(item)}
         />
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

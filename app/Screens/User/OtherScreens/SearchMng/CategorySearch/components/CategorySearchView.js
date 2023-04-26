@@ -5,10 +5,11 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { ICON_TYPE, IconX } from "../../../../../../Components/Icons/Icon";
-import { COLORS } from "../../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../../Utils/Constant";
 import CommonStyles from "../../../../../../Utils/CommonStyles";
 
 import styles from "./styles";
@@ -42,46 +43,11 @@ const CategorySearchView = (props) => {
   };
 
   return (
-    <SafeAreaView style={CommonStyles.otherContainer}>
-      {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-        <TouchableOpacity
-          onPress={() => props.navigation.goBack()}
-          style={CommonStyles.straightCon}
-        >
-          <IconX
-            origin={ICON_TYPE.ICONICONS}
-            color={COLORS.BLACK}
-            size={30}
-            name={"chevron-back"}
-          />
-          <Text
-            style={[
-              styles.topHeaderTxt,
-              {
-                color: COLORS.BLACK,
-              },
-            ]}
-          >
-            Back
-          </Text>
-        </TouchableOpacity>
-        <Text
-          style={[
-            styles.topHeaderTxt,
-            {
-              color: COLORS.BLACK,
-              marginRight: 50,
-            },
-          ]}
-        >
-          More Categories
-        </Text>
-        <View></View>
-      </View> */}
+    <ScrollView contentContainerStyle={CommonStyles.otherContainer}>
       <MainHeader
-        isBack={true}
-        headerText={"More Categories"}
         isSearch={false}
+        headerText={"Categories"}
+        fontSize={FONT_SIZE.mediumL}
       />
       <SearchView />
       <View style={{ flex: 1, marginVertical: 10 }}>
@@ -90,7 +56,7 @@ const CategorySearchView = (props) => {
           renderItem={({ item }) => renderItem(item)}
         />
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
