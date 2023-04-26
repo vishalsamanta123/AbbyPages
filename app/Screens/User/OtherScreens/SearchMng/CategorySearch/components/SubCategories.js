@@ -17,27 +17,31 @@ import Loader from "../../../../../../Utils/Loader";
 import { apiCall } from "../../../../../../Utils/httpClient";
 import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 import MainHeader from "../../../../../../Components/MainHeader";
+import { useFocusEffect } from "@react-navigation/native";
 
-const SubCategorySearchView = ({ route, navigation }) => {
-  const allItems = route?.params;
+const SubCategorySearchView = ({ navigation, route }) => {
+  const allItems = route?.params || {};
   const [visible, setVisible] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
-  const [categoryRes, setCategoryRes] = useState([]);
   const [subCategoryData, setSubCategoryData] = useState({
-    ...allItems,
-    category_name: allItems?.category_name,
-    category_id: allItems?.category_id,
+    category_name: "",
+    category_id: "",
   });
 
-  useEffect(() => {
-    getSubCategoryList(subCategoryData, {});
-  }, [navigation, subCategoryData]);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      getSubCategoryList(allItems, {});
+      if (allItems) {
+        setSubCategoryData({ ...allItems });
+      }
+    }, [navigation, allItems])
+  );
   const getSubCategoryList = async (item) => {
     setVisible(true);
     const params = {
       category_id: item?.category_id ? item?.category_id : "",
     };
+    console.log("params: ", params);
     try {
       const { data } = await apiCall(
         "POST",
@@ -91,8 +95,7 @@ const SubCategorySearchView = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={CommonStyles.otherContainer}>
-      {visible && <Loader state={visible} />}
+    <View style={CommonStyles.container}>
       <MainHeader
         isSearch={false}
         headerText={
@@ -102,13 +105,16 @@ const SubCategorySearchView = ({ route, navigation }) => {
         }
         fontSize={FONT_SIZE.mediumL}
       />
-      <View style={{ flex: 1, marginVertical: 10 }}>
-        <FlatList
-          data={categoryList}
-          renderItem={({ item }) => renderItem(item)}
-        />
-      </View>
-    </ScrollView>
+      {visible && <Loader state={visible} />}
+      <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
+        <View style={{ flex: 1, marginVertical: 10 }}>
+          <FlatList
+            data={categoryList}
+            renderItem={({ item }) => renderItem(item)}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

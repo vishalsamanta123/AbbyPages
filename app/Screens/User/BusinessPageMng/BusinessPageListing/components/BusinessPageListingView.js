@@ -94,10 +94,12 @@ const BusinessPageListingView = (props) => {
               index={index}
               largeImg={item?.logo}
               largeName={item?.business_name}
-              smallTxt={item?.address}
+              smallTxt={item?.business_service_category}
+              // smallTxt={item?.address}
               rating={item?.rating}
               rowImgTxt1={item?.business_service_category}
               rowImgTxt2={item?.create_date}
+              rowImgTxt4={item?.create_date}
               rowImgTxt3={item?.about_business}
             />
           );

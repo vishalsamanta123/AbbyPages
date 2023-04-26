@@ -2,8 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import {
   BLACK_COLOR_CODE,
-  COLORS,
-  Constants,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
   FONT_SIZE,
@@ -103,7 +101,7 @@ const ListItemsView = (props) => {
           <Image
             style={styles.smallImgVw}
             resizeMode="cover"
-            source={{uri: profile_image}}
+            source={{ uri: profile_image }}
           />
           <View style={{ flex: 1 }}>
             <View
@@ -116,10 +114,14 @@ const ListItemsView = (props) => {
               ]}
             >
               <View style={{ width: "70%" }}>
-                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>{title}</Text>
+                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                  {title}
+                </Text>
                 <View style={styles.rowVw}>
                   <Text style={styles.lightTxt}>By {largeName} | </Text>
-                  <Text style={styles.lightTxt}>{moment(rowImgTxt2).startOf("hour").fromNow()}</Text>
+                  <Text style={styles.lightTxt}>
+                    {moment(rowImgTxt2).startOf("hour").fromNow()}
+                  </Text>
                 </View>
               </View>
               <View style={styles.straightVw}>
@@ -147,8 +149,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
-    borderBottomWidth: Constants.normalBW,
-    borderColor: COLORS.BORDER_LINE,
+    borderBottomWidth: 0.5,
+    borderColor: GREY_COLOR_CODE,
   },
   largeImgVw: {
     width: 110,
@@ -180,8 +182,7 @@ const styles = StyleSheet.create({
   },
   innContainer: {
     flex: 1,
-    paddingLeft: 10,
-    marginRight: 5,
+    paddingHorizontal: 10,
   },
   infoView: {
     flexDirection: "row",
@@ -220,6 +221,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginHorizontal: 5,
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
   },
 });

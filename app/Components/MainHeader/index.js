@@ -78,7 +78,10 @@ const MainHeader = (props) => {
               <TouchableOpacity
                 disabled={!isSearch}
                 onPress={() => handleSearchPress()}
-                style={styles.leftIconVw}
+                style={[
+                  styles.leftIconVw,
+                  { marginHorizontal: 0, marginLeft: 4 },
+                ]}
               >
                 <IconX
                   origin={ICON_TYPE.ICONICONS}
@@ -150,7 +153,7 @@ const MainHeader = (props) => {
                 <TouchableOpacity
                   disabled={!isSearch}
                   onPress={() => handleSearchPress()}
-                  style={styles.leftIconVw}
+                  style={[styles.leftIconVw, { marginHorizontal: 0 }]}
                 >
                   <IconX
                     origin={ICON_TYPE.ICONICONS}
