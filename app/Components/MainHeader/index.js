@@ -22,6 +22,8 @@ const MainHeader = (props) => {
     isSearch = true,
     isDrawer,
     notify = true,
+    isLogin = false,
+    loginButton = false
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -48,7 +50,7 @@ const MainHeader = (props) => {
                 size={25}
                 color={BLACK_COLOR_CODE}
               />
-              {headerText ? <Text style={styles.backtxt}>Back</Text> : null}
+              {<Text style={styles.backtxt}>Back</Text>}
             </View>
           ) : (
             <Image
@@ -61,35 +63,60 @@ const MainHeader = (props) => {
         {headerText ? (
           <Text style={styles.topHeaderTxt}>{headerText}</Text>
         ) : null}
-        <View style={CommonStyles.straightCon}>
-          <TouchableOpacity style={styles.leftIconVw}>
-            {notify ? (
-              <IconX
-                origin={ICON_TYPE.FONT_AWESOME}
-                name={"bell-o"}
-                size={21}
-                color={BLACK_COLOR_CODE}
-              />
-            ) : null}
-            <View style={styles.notifyVw}>
-              <Text style={styles.notifyTxt}>1</Text>
-            </View>
-          </TouchableOpacity>
+        {isLogin ? (
+          <View style={CommonStyles.straightCon}>
+            {notify ? <TouchableOpacity style={styles.leftIconVw}>
+                <IconX
+                  origin={ICON_TYPE.FONT_AWESOME}
+                  name={"bell-o"}
+                  size={21}
+                  color={BLACK_COLOR_CODE}
+                />
+              <View style={styles.notifyVw}>
+                <Text style={styles.notifyTxt}>1</Text>
+              </View>
+            </TouchableOpacity> : null}
+            <TouchableOpacity
+              disabled={!isSearch}
+              onPress={() => handleSearchPress()}
+              style={styles.leftIconVw}
+            >
+              {isSearch ? (
+                <IconX
+                  origin={ICON_TYPE.ICONICONS}
+                  name={"search-outline"}
+                  size={22}
+                  color={BLACK_COLOR_CODE}
+                />
+              ) : null}
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <>
+          {loginButton?
+          <View style={CommonStyles.straightCon}>
           <TouchableOpacity
-            disabled={!isSearch}
-            onPress={() => handleSearchPress()}
-            style={styles.leftIconVw}
+            style={[styles.topButtonVw, styles.topButtonVwNon]}
           >
-            {isSearch ? (
-              <IconX
-                origin={ICON_TYPE.ICONICONS}
-                name={"search-outline"}
-                size={22}
-                color={BLACK_COLOR_CODE}
-              />
-            ) : null}
+            <Text
+              style={[
+                styles.topButtonTxt,
+                {
+                  color: COLORS.BLACK,
+                },
+              ]}
+            >
+              Log In
+            </Text>
           </TouchableOpacity>
-        </View>
+          <TouchableOpacity style={styles.topButtonVw}>
+            <Text style={styles.topButtonTxt}>To Register</Text>
+          </TouchableOpacity>
+        </View>:null
+
+          }
+          </>
+        )}
       </View>
       {/* {searchOpen ? (
         <>

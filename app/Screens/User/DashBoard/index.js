@@ -8,6 +8,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 import { Constants } from "../../../Utils/Constant";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -19,6 +20,7 @@ const DashBoardView = ({ navigation }) => {
   const [moreCategory, setMoreCategory] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [recentLoader, setRecentLoader] = React.useState(false);
+  const [userData, setUserData] = useState({});
   const [byCategory, setByCategory] = useState({
     services: [],
     moreServices: [],
@@ -56,6 +58,10 @@ const DashBoardView = ({ navigation }) => {
   const getDashBoardActivity = async (offset) => {
     // setRecentLoader(true);
     setActOffset(offset);
+    const getUserData = await AsyncStorage.getItem("localuserdata");
+    if (JSON?.parse(getUserData)?.login_type) {
+      setUserData(JSON?.parse(getUserData));
+    }
     const params = {
       offset: offset,
       limit: 3,
@@ -159,6 +165,7 @@ const DashBoardView = ({ navigation }) => {
         moreData={moreData}
         setSliderState={setSliderState}
         sliderState={sliderState}
+        userData={userData}
       />
       {/* <QuestionModal
         surringVisible={forBusinees}
