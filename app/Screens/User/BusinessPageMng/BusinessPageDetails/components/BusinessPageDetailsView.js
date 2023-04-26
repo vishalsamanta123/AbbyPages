@@ -18,10 +18,13 @@ import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 import MainHeader from "../../../../../Components/MainHeader";
+import ListItemsView from "../../../../../Components/ListItemsView";
 
 const BusinessPageDetailsView = (props) => {
-  console.log('props?.detailData?.business_review', props?.detailData?.business_review)
-
+  console.log(
+    "props?.detailData?.business_review",
+    props?.detailData?.business_review
+  );
 
   const considerd = [
     {
@@ -204,7 +207,7 @@ const BusinessPageDetailsView = (props) => {
         ) : null}
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           {props?.detailData?.mobileno ? (
-            <View style={{ alignItems: "center" }}>
+            <View style={{ alignItems: "center", marginTop: 10 }}>
               <TouchableOpacity
                 style={styles.smallOptionVw}
                 onPress={() => {
@@ -222,7 +225,7 @@ const BusinessPageDetailsView = (props) => {
               <Text style={styles.smallOptiontxt}>Call</Text>
             </View>
           ) : null}
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
@@ -242,7 +245,7 @@ const BusinessPageDetailsView = (props) => {
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>View Map</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
@@ -263,7 +266,7 @@ const BusinessPageDetailsView = (props) => {
             </TouchableOpacity>
             <Text style={styles.smallOptiontxt}>Website</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
             <TouchableOpacity style={styles.smallOptionVw}>
               <IconX
                 origin={ICON_TYPE.ICONICONS}
@@ -276,7 +279,7 @@ const BusinessPageDetailsView = (props) => {
           </View>
         </View>
       </View>
-      <View style={styles.mainContainer}>
+      {/* <View style={styles.mainContainer}>
         <Text style={styles.longTxt}>Do You Recommend this businesss?</Text>
         <View style={[CommonStyles.straightCon, { justifyContent: "center" }]}>
           <TouchableOpacity style={styles.smallCon}>
@@ -289,7 +292,7 @@ const BusinessPageDetailsView = (props) => {
             <Text style={[styles.titletxt, { fontSize: 16 }]}>MAYBE</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
       <View style={styles.mainContainer}>
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <View style={{ alignItems: "center" }}>
@@ -326,7 +329,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>Check In</Text>
+            <Text style={[styles.smallOptiontxt2]}>View Gallery</Text>
           </View>
         </View>
         {/* <SliderImages
@@ -648,6 +651,28 @@ const BusinessPageDetailsView = (props) => {
         {props?.detailData?.business_review?.length > 0 ? (
           <View>
             <Text style={styles.sectionTxt}>Reviews and Ratings</Text>
+
+            {props?.detailData?.business_review.map((item, index) => {
+              console.log('item', item)
+              return (
+                <ListItemsView
+                  onPressView={props.onPressView}
+                  item={item}
+                  index={index}
+                  largeImg={item?.profile_image}
+                  largeName={item?.first_name + ' ' + item?.last_name}
+                  smallTxt={item?.address}
+                  rating={item?.business_rating}
+                  rowImgTxt1={item?.business_service_category}
+                  rowImgTxt2={item?.create_date}
+                  rowImgTxt3={item?.about_business}
+                  listType={"review"}
+                  description={item?.description}
+                  title={item?.title}
+                  profile_image={item?.profile_image}
+                />
+              );
+            })}
           </View>
         ) : (
           <View>
