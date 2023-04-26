@@ -105,10 +105,6 @@ const BusinessPageListingView = (props) => {
         onEndReached={() => {
           if (props.search || props.inputSearch) {
             if (props.restroList?.length < props?.moreData) {
-              console.log(
-                "props.restroList?.length: ",
-                props.restroList?.length
-              );
               props?.handleSearchData(
                 props?.restroList?.length > 4 ? props.offSet + 5 : 0,
                 props.search
@@ -116,6 +112,8 @@ const BusinessPageListingView = (props) => {
             }
           }
         }}
+        refreshing={false}
+        onRefresh={() => props.handleSearchData(0, props.search)}
       />
     </KeyboardAvoidingView>
   );

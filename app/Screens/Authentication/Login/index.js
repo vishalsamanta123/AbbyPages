@@ -170,6 +170,7 @@ const SignInView = ({ navigation, route }) => {
                   JSON.stringify(data.data)
                 );
                 await AsyncStorage.setItem("userToken", data.token);
+                navigation.navigate("HomeDashboard");
               } catch (error) {
                 setVisible(false);
                 setErrorMessage(error.message.toString());

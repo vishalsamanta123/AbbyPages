@@ -9,7 +9,7 @@ import {
 import React from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
-import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
@@ -37,7 +37,11 @@ const HowItWorksView = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader isSearch isDrawer />
+      <MainHeader
+        headerText={"How it work"}
+        notify={props?.userData?.login_type ? true : false}
+        fontSize={FONT_SIZE.large}
+      />
       <ScrollView
         // refreshControl={
         //   <RefreshControl

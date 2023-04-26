@@ -14,6 +14,7 @@ import {
   COLORS,
   Constants,
   FONT_FAMILY_REGULAR,
+  FONT_SIZE,
   GREY_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -157,7 +158,7 @@ const CustomPopups = (props) => {
     </>
   );
 };
-function MyTabBar({ state, descriptors, navigation }) {
+function MyTabBar({ state, navigation }) {
   const [isFocused, setIsFocused] = useState({
     same: "DashBoard",
     other: "DashBoard",
@@ -165,7 +166,7 @@ function MyTabBar({ state, descriptors, navigation }) {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     getLoginDetail();
-  }, [navigation]);
+  }, [navigation, state]);
   const getLoginDetail = async () => {
     const getUserData = await AsyncStorage.getItem("localuserdata");
     if (JSON?.parse(getUserData)?.login_type) {
@@ -222,8 +223,8 @@ function MyTabBar({ state, descriptors, navigation }) {
         >
           <View>
             <IconX
-              origin={ICON_TYPE.ANT_ICON}
-              name="home"
+              origin={ICON_TYPE.ICONICONS}
+              name={isFocused.same === "DashBoard" ? "home" : "home-outline"}
               size={24}
               color={
                 isFocused.same === "DashBoard"
@@ -252,9 +253,13 @@ function MyTabBar({ state, descriptors, navigation }) {
         >
           <View>
             <IconX
-              origin={ICON_TYPE.FEATHER_ICONS}
-              name="calendar"
-              size={20}
+              origin={
+                isFocused.same === "EventManagement"
+                  ? ICON_TYPE.MATERIAL_ICONS
+                  : ICON_TYPE.FEATHER_ICONS
+              }
+              name={isFocused.same === "EventManagement" ? "event" : "calendar"}
+              size={isFocused.same === "EventManagement" ? 26 : 20}
               color={
                 isFocused.same === "EventManagement"
                   ? YELLOW_COLOR_CODE
@@ -280,11 +285,15 @@ function MyTabBar({ state, descriptors, navigation }) {
           style={styles.tapVws}
           onPress={() => handleNavigation("PlusManagement")}
         >
-          <View>
+          <View style={{ marginBottom: 5 }}>
             <IconX
-              origin={ICON_TYPE.EVIL_ICONS}
-              name="plus"
-              size={48}
+              origin={ICON_TYPE.ANT_ICON}
+              name={
+                isFocused.same === "PlusManagement"
+                  ? "pluscircle"
+                  : "pluscircleo"
+              }
+              size={34}
               color={
                 isFocused.same === "PlusManagement"
                   ? YELLOW_COLOR_CODE
@@ -299,8 +308,12 @@ function MyTabBar({ state, descriptors, navigation }) {
         >
           <View>
             <IconX
-              origin={ICON_TYPE.SIMPLELINE}
-              name="briefcase"
+              origin={ICON_TYPE.ICONICONS}
+              name={
+                isFocused.same === "JobManagement"
+                  ? "briefcase"
+                  : "briefcase-outline"
+              }
               size={20}
               color={
                 isFocused.same === "JobManagement"
@@ -330,7 +343,7 @@ function MyTabBar({ state, descriptors, navigation }) {
           {userData?.login_type ? (
             <View>
               <Image
-                source={Images.DEFAULT_IMG}
+                source={require("../Assets/extraImages/demo-profile-image.png")}
                 style={[
                   styles.profileVw,
                   {
@@ -343,8 +356,8 @@ function MyTabBar({ state, descriptors, navigation }) {
           ) : (
             <View>
               <IconX
-                origin={ICON_TYPE.FEATHER_ICONS}
-                name="menu"
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                name={"menu"}
                 size={20}
                 color={
                   isFocused.same === "MenuPage"
@@ -423,7 +436,7 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   iconTxt: {
-    fontSize: 12,
+    fontSize: FONT_SIZE.verysmall,
     fontFamily: FONT_FAMILY_REGULAR,
     textAlign: "center",
   },

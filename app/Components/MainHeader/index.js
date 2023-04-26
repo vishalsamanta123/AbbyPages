@@ -6,26 +6,38 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { Images } from "../../Utils/images";
-import { BLACK_COLOR_CODE, COLORS } from "../../Utils/Constant";
+import { BLACK_COLOR_CODE, COLORS, FONT_SIZE } from "../../Utils/Constant";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const MainHeader = (props) => {
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    getUserDetails();
+  }, [props]);
+  const getUserDetails = async () => {
+    const getUserData = await AsyncStorage.getItem("localuserdata");
+    if (JSON?.parse(getUserData)?.login_type) {
+      setUserData(JSON?.parse(getUserData));
+    }
+  };
   const [searchOpen, setSearchOpen] = useState(false);
   const {
     isBack,
     headerText,
     isSearch = true,
-    notify = true,
+    notify = userData?.login_type ? true : false,
     isLogin = true,
     loginButton = false,
     headerType = "",
     justifyContent = "space-between",
-    backgroundColor = COLORS.WHITE
+    fontSize = FONT_SIZE.largeL,
+    backgroundColor = COLORS.WHITE,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -40,7 +52,7 @@ const MainHeader = (props) => {
   return (
     <SafeAreaView style={styles.headCon}>
       {headerType === "logo" ? (
-        <View style={[styles.blockCont , {backgroundColor : backgroundColor }] }>
+        <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
           <View>
             <Image
               source={Images.LOGO}
@@ -79,25 +91,45 @@ const MainHeader = (props) => {
           </View>
         </View>
       ) : (
-        <View style={[styles.blockCont , {backgroundColor : backgroundColor }]}>
+        <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
+          <TouchableOpacity onPress={() => handleGoBack()} activeOpacity={1}>
+            {isLogin ? (
+              <View style={CommonStyles.straightCon}>
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"left"}
+                  size={25}
+                  color={BLACK_COLOR_CODE}
+                />
+                <Text style={styles.backtxt}>Back</Text>
+              </View>
+            ) : (
+              <View style={CommonStyles.straightCon}>
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"left"}
+                  size={25}
+                  color={BLACK_COLOR_CODE}
+                />
+                <Image
+                  source={Images.ABBYLOGO_TRNSP}
+                  style={styles.topLogoVw}
+                />
+              </View>
+            )}
+          </TouchableOpacity>
           {isLogin ? (
-            <TouchableOpacity
-              onPress={() => handleGoBack()}
-              style={CommonStyles.straightCon}
+            <Text
+              style={[
+                styles.topHeaderTxt,
+                {
+                  fontSize: fontSize,
+                  marginRight: !isSearch && !notify ? 18 : 0,
+                },
+              ]}
             >
-              <IconX
-                origin={ICON_TYPE.ANT_ICON}
-                name={"left"}
-                size={25}
-                color={BLACK_COLOR_CODE}
-              />
-              <Text style={styles.backtxt}>Back</Text>
-            </TouchableOpacity>
-          ) : (
-            <Image source={Images.ABBYLOGO_TRNSP} style={styles.topLogoVw} />
-          )}
-          {isLogin ? (
-            <Text style={styles.topHeaderTxt}>{headerText}</Text>
+              {headerText}
+            </Text>
           ) : null}
           {isLogin ? (
             <View style={CommonStyles.straightCon}>
@@ -152,89 +184,6 @@ const MainHeader = (props) => {
           )}
         </View>
       )}
-      {/* <TouchableOpacity onPress={() => (isBack ? handleGoBack() : {})}>
-          {isBack ? (
-            <View style={styles.backView}>
-              <IconX
-                origin={ICON_TYPE.ANT_ICON}
-                name={"left"}
-                size={25}
-                color={BLACK_COLOR_CODE}
-              />
-              {<Text style={styles.backtxt}>Back</Text>}
-            </View>
-          ) : (
-            <Image
-              source={Images.LOGO}
-              resizeMode={"contain"}
-              style={styles.logoVw}
-            />
-          )}
-        </TouchableOpacity>
-        {headerText ? (
-          <Text style={styles.topHeaderTxt}>{headerText}</Text>
-        ) : null}
-        {isLogin ? (
-          <View style={CommonStyles.straightCon}>
-            {notify ? (
-              <TouchableOpacity style={styles.leftIconVw}>
-                <IconX
-                  origin={ICON_TYPE.FONT_AWESOME}
-                  name={"bell-o"}
-                  size={21}
-                  color={BLACK_COLOR_CODE}
-                />
-                <View style={styles.notifyVw}>
-                  <Text style={styles.notifyTxt}>1</Text>
-                </View>
-              </TouchableOpacity>
-            ) : null}
-            <TouchableOpacity
-              disabled={!isSearch}
-              onPress={() => handleSearchPress()}
-              style={styles.leftIconVw}
-            >
-              {isSearch ? (
-                <IconX
-                  origin={ICON_TYPE.ICONICONS}
-                  name={"search-outline"}
-                  size={22}
-                  color={BLACK_COLOR_CODE}
-                />
-              ) : null}
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <>
-            {loginButton ? (
-              <View style={CommonStyles.straightCon}>
-                <TouchableOpacity
-                  style={[styles.topButtonVw, styles.topButtonVwNon]}
-                >
-                  <Text
-                    style={[
-                      styles.topButtonTxt,
-                      {
-                        color: COLORS.BLACK,
-                      },
-                    ]}
-                  >
-                    Log In
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.topButtonVw}>
-                  <Text style={styles.topButtonTxt}>To Register</Text>
-                </TouchableOpacity>
-              </View>
-            ) : null}
-          </>
-        )} */}
-      {/* {searchOpen ? (
-        <>
-          <Input />
-          <Input />
-        </>
-      ) : null} */}
     </SafeAreaView>
   );
 };

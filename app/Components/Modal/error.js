@@ -9,6 +9,7 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   WHITE_COLOR_CODE,
+  COLORS,
 } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 export default function error({ message, visible, closeModel, changeColor }) {
@@ -38,16 +39,12 @@ export default function error({ message, visible, closeModel, changeColor }) {
           </View>
         }
         footer={
-          <View>
+          <View style={{ marginVertical: 16 }}>
             <Button
               buttonText="OK"
-              buttonLabelStyle={{
-                fontFamily: FONT_FAMILY_BOLD,
-                fontSize: 20,
-                color: WHITE_COLOR_CODE,
-              }}
+              buttonLabelStyle={{ fontFamily: FONT_FAMILY_BOLD }}
+              buttonTxtColor={COLORS.WHITE}
               style={{
-                width: "100%",
                 backgroundColor: changeColor ? changeColor : "red",
               }}
               onPress={() => closeModel()}

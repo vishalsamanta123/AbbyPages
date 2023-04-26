@@ -65,6 +65,7 @@ export const FONT_FAMILY = {
   LIGHT: "WorkSans-Light",
 };
 export const FONT_SIZE = {
+  verysmall: 11,
   small: 12,
   smallL: 14,
   large: 20,

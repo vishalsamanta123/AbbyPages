@@ -3,13 +3,20 @@ import React from "react";
 import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 
 const EmptyList = (props) => {
-  const { message = "List", height = 200 } = props;
+  const {
+    message = "List",
+    height = 200,
+    alignItems = "center",
+    marginLeft = 0,
+  } = props;
   return (
     <View
       style={[
         styles.emptyConVw,
         {
           height: height,
+          alignItems: alignItems,
+          marginLeft: marginLeft,
         },
       ]}
     >
@@ -21,7 +28,6 @@ const EmptyList = (props) => {
 export default EmptyList;
 const styles = StyleSheet.create({
   emptyConVw: {
-    alignItems: "center",
     justifyContent: "center",
   },
   emptyConTxt: {

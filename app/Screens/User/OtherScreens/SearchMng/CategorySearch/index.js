@@ -5,16 +5,18 @@ import Loader from "../../../../../Utils/Loader";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
+import { useFocusEffect } from "@react-navigation/native";
 
-const CategorySearch = ({ navigation }) => {
+const CategorySearch = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
 
-  useEffect(() => {
-    getCategoryList();
-  }, [navigation]);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      getCategoryList();
+    }, [navigation, route])
+  );
   const getCategoryList = async () => {
     if (!refreshing) {
       // setVisible(true);
