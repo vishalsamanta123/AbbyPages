@@ -7,15 +7,22 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Linking,
+  Platform,
 } from "react-native";
+import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const BusinessPageDetailsView = (props) => {
+  console.log('props?.detailData?.business_review', props?.detailData?.business_review)
+
+
   const considerd = [
     {
       businees_name: "Sandeepan da san",
@@ -37,6 +44,46 @@ const BusinessPageDetailsView = (props) => {
       profile: require("../../../../../Assets/extraImages/cap.png"),
     },
   ];
+  function handleGetDirections(lattitude, longitude) {
+    if (Platform.OS === "android") {
+      const url = `${
+        "http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
+      }`;
+      Linking.canOpenURL(url)
+        .then((supported) => {
+          if (supported) {
+            Linking.openURL(
+              "http://maps.google.com/maps?daddr=" +
+                lattitude +
+                "," +
+                longitude +
+                ""
+            );
+          } else {
+            alert("Don't know how to go");
+          }
+        })
+        .catch((err) => console.error("An error occurred", err));
+    } else {
+      Linking.canOpenURL(
+        "http://maps.apple.com/maps?daddr=" + lattitude + "," + longitude + ""
+      )
+        .then((supported) => {
+          if (supported) {
+            Linking.openURL(
+              "http://maps.apple.com/maps?daddr=" +
+                lattitude +
+                "," +
+                longitude +
+                ""
+            );
+          } else {
+            alert("Don't know how to go");
+          }
+        })
+        .catch((err) => console.error("An error occurred", err));
+    }
+  }
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props?.detailData?.latitude},${props?.detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
 
   const renderPopularDish = (item) => {
@@ -58,7 +105,11 @@ const BusinessPageDetailsView = (props) => {
         }}
         resizeMode={"cover"}
       >
-        <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+        <MainHeader
+          backgroundColor={COLORS.TRANSPARENT}
+          notify={props?.userData?.login_type ? true : false}
+        />
+        {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <TouchableOpacity
             onPress={() => props.handleBack()}
             style={CommonStyles.straightCon}
@@ -71,7 +122,8 @@ const BusinessPageDetailsView = (props) => {
             />
             <Text style={styles.topHeaderTxt}>Back</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
+
         <View style={styles.backImgVw}>
           <Text style={styles.mainTxt}>{props?.detailData?.business_name}</Text>
           <View style={{ width: 132 }}>
@@ -151,19 +203,36 @@ const BusinessPageDetailsView = (props) => {
           </View>
         ) : null}
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+          {props?.detailData?.mobileno ? (
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() => {
+                  console.log("Message pressed");
+                  Linking.openURL(`tel:${props?.detailData?.mobileno}`);
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.FEATHER_ICONS}
+                  name={"phone-call"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <Text style={styles.smallOptiontxt}>Call</Text>
+            </View>
+          ) : null}
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
-              <IconX
-                origin={ICON_TYPE.FEATHER_ICONS}
-                name={"phone-call"}
-                size={20}
-                color={COLORS.BLACK}
-              />
-            </TouchableOpacity>
-            <Text style={styles.smallOptiontxt}>Call</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => {
+                console.log("Message pressed");
+                handleGetDirections(
+                  props?.detailData?.latitude,
+                  props?.detailData?.longitude
+                );
+              }}
+            >
               <IconX
                 origin={ICON_TYPE.ENTYPO}
                 name={"location"}
@@ -174,7 +243,17 @@ const BusinessPageDetailsView = (props) => {
             <Text style={styles.smallOptiontxt}>View Map</Text>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => {
+                console.log("Message pressed");
+                if (props?.detailData?.websites) {
+                  Linking.openURL(props?.detailData?.websites);
+                } else {
+                  alert(`Can't open website`);
+                }
+              }}
+            >
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"web"}
@@ -214,7 +293,10 @@ const BusinessPageDetailsView = (props) => {
       <View style={styles.mainContainer}>
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => props.handleNavigation("ReviewRating")}
+            >
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"star-box"}
@@ -269,7 +351,15 @@ const BusinessPageDetailsView = (props) => {
         >
           {props?.detailData?.address}
         </Text>
-        <TouchableOpacity style={styles.buttonsVw}>
+        <TouchableOpacity
+          style={styles.buttonsVw}
+          onPress={() => {
+            handleGetDirections(
+              props?.detailData?.latitude,
+              props?.detailData?.longitude
+            );
+          }}
+        >
           <Text style={styles.buttonsTxt}>{"Get Directions"}</Text>
           <IconX
             origin={ICON_TYPE.MATERIAL_ICONS}
@@ -278,18 +368,30 @@ const BusinessPageDetailsView = (props) => {
             color={COLORS.BLACK}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonsVw}>
-          <View>
-            <Text style={styles.buttonsTxt}>{"Call"}</Text>
-            <Text style={styles.smallTxt}>{"  (321)-4376487474"}</Text>
-          </View>
-          <IconX
-            origin={ICON_TYPE.FEATHER_ICONS}
-            name={"phone-call"}
-            size={20}
-            color={COLORS.BLACK}
-          />
-        </TouchableOpacity>
+        {props?.detailData?.mobileno ? (
+          <TouchableOpacity
+            style={styles.buttonsVw}
+            onPress={() => {
+              console.log("Message pressed");
+              Linking.openURL(`tel:${props?.detailData?.mobileno}`);
+            }}
+          >
+            <View>
+              <Text style={styles.buttonsTxt}>{"Call"}</Text>
+              <Text style={styles.smallTxt}>
+                {props?.detailData?.mobileno
+                  ? props?.detailData?.mobileno
+                  : "Mobile no. Not Found"}
+              </Text>
+            </View>
+            <IconX
+              origin={ICON_TYPE.FEATHER_ICONS}
+              name={"phone-call"}
+              size={20}
+              color={COLORS.BLACK}
+            />
+          </TouchableOpacity>
+        ) : null}
       </View>
       <View style={styles.mainContainer}>
         <Text style={styles.sectionTxt}>About the Business</Text>
@@ -312,33 +414,44 @@ const BusinessPageDetailsView = (props) => {
             color={COLORS.BLACK}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            CommonStyles.straightCon,
-            { justifyContent: "space-between", marginVertical: 12 },
-          ]}
-        >
-          <Text
-            numberOfLines={2}
+        {props?.detailData?.websites ? (
+          <TouchableOpacity
             style={[
-              styles.titletxt,
-              {
-                width: "80%",
-              },
+              CommonStyles.straightCon,
+              { justifyContent: "space-between", marginVertical: 12 },
             ]}
+            onPress={() => {
+              console.log("Message pressed");
+              if (props?.detailData?.websites) {
+                Linking.openURL(props?.detailData?.websites);
+              } else {
+                alert(`Can't open website`);
+              }
+            }}
           >
-            {props?.detailData?.websites}
-          </Text>
-          <IconX
-            origin={ICON_TYPE.FONT_AWESOME}
-            name={"share-square-o"}
-            size={20}
-            color={COLORS.BLACK}
-          />
-        </TouchableOpacity>
+            <Text
+              numberOfLines={2}
+              style={[
+                styles.titletxt,
+                {
+                  width: "80%",
+                },
+              ]}
+            >
+              {props?.detailData?.websites}
+            </Text>
+            <IconX
+              origin={ICON_TYPE.FONT_AWESOME}
+              name={"share-square-o"}
+              size={20}
+              color={COLORS.BLACK}
+            />
+          </TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           onPress={() =>
             props.setMoreInfoModal({
+              ...props?.moreInfoModal,
               open: true,
               type: "info",
             })
@@ -348,36 +461,40 @@ const BusinessPageDetailsView = (props) => {
           <Text style={styles.titletxt}>More Info</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>Popular Dishes</Text>
-        <FlatList
-          data={props?.detailData?.popular_dish}
-          renderItem={({ item }) => renderPopularDish(item)}
-          horizontal
-        />
-      </View>
-      <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>You might also consider</Text>
-        <Text
-          style={[
-            styles.smallTxt,
-            {
-              marginLeft: 8,
-            },
-          ]}
-        >
-          Sponsored
-        </Text>
-        {considerd?.length > 0 ? (
+      {props?.detailData?.popular_dish?.length > 0 ? (
+        <View style={styles.mainContainer}>
+          <Text style={styles.sectionTxt}>Popular Dishes</Text>
+          <FlatList
+            data={props?.detailData?.popular_dish}
+            renderItem={({ item }) => renderPopularDish(item)}
+            horizontal
+          />
+        </View>
+      ) : null}
+      {props?.detailData?.recommended_business?.length > 0 ? (
+        <View style={styles.mainContainer}>
+          <Text style={styles.sectionTxt}>You might also consider</Text>
+          <Text
+            style={[
+              styles.smallTxt,
+              {
+                marginLeft: 8,
+              },
+            ]}
+          >
+            Sponsored
+          </Text>
           <>
-            {considerd?.map((considr) => {
+            {props?.detailData?.recommended_business?.map((considr) => {
               return (
                 <TouchableOpacity activeOpacity={1} style={styles.considrVw}>
-                  <Text style={styles.considrTxt}>{considr.businees_name}</Text>
-                  {considr.review ? (
+                  <Text style={styles.considrTxt}>
+                    {considr?.business_name}
+                  </Text>
+                  {considr?.rating ? (
                     <View>
                       <StarShower
-                        counts={3}
+                        counts={considr?.rating}
                         marginTop={5}
                         starHeight={16}
                         starWidth={16}
@@ -387,18 +504,16 @@ const BusinessPageDetailsView = (props) => {
                     </View>
                   ) : null}
                   <View style={CommonStyles.straightCon}>
-                    <Image
-                      source={considr.profile}
-                      style={styles.considrImgVw}
-                    />
+                    <Image source={considr?.logo} style={styles.considrImgVw} />
                     <Text style={styles.considrTxtVw}>
-                      {considr.description.substring(0, 60)}
+                      {considr?.about_business?.substring(0, 60)}
                       {"..."}
                       <Text
                         onPress={() =>
                           props.setMoreInfoModal({
                             open: true,
                             type: "read",
+                            moreData: considr,
                           })
                         }
                         style={styles.blueColorTxt}
@@ -411,24 +526,27 @@ const BusinessPageDetailsView = (props) => {
               );
             })}
           </>
-        ) : null}
-      </View>
+        </View>
+      ) : null}
       <View style={styles.mainContainer}>
         <Text style={styles.sectionTxt}>From this business</Text>
         <Text style={[styles.smallTxt, { marginTop: 20 }]}>
-          Our BarberShop specilised in cutting hair and cleanong face make up
-          for both male and female
+          {props?.detailData?.about_business?.substring(0, 40)}
+          {"..."}
         </Text>
         <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
           <Image source={considerd[0].profile} style={styles.considrImgVw} />
           <View>
-            <Text style={styles.smallOptiontxt2}>Jenniefer louse</Text>
+            <Text style={styles.smallOptiontxt2}>
+              {props?.detailData?.business_user_name}
+            </Text>
             <Text style={styles.smallTxt}>Business Owner</Text>
           </View>
         </View>
         <TouchableOpacity
           onPress={() =>
             props.setMoreInfoModal({
+              ...props?.moreInfoModal,
               open: true,
               type: "read",
             })
@@ -476,7 +594,13 @@ const BusinessPageDetailsView = (props) => {
         <Text style={styles.sectionTxt}>Share this Business</Text>
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => {
+                console.log("Message pressed");
+                Linking.openURL(`sms:`);
+              }}
+            >
               <IconX
                 origin={ICON_TYPE.ANT_ICON}
                 name={"message1"}
@@ -487,7 +611,17 @@ const BusinessPageDetailsView = (props) => {
             <Text style={[styles.smallOptiontxt2]}>Message</Text>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => {
+                console.log("Message pressed");
+                console.log(
+                  "props?.detailData?.websites",
+                  props?.detailData?.websites
+                );
+                Clipboard.setString(props?.detailData?.websites);
+              }}
+            >
               <IconX
                 origin={ICON_TYPE.FEATHER_ICONS}
                 name={"copy"}
@@ -511,38 +645,46 @@ const BusinessPageDetailsView = (props) => {
         </View>
       </View>
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>No reviews yet</Text>
-        <TouchableOpacity style={styles.tapRowButtonsVw}>
-          <Text style={styles.titletxt}>Be the first to review</Text>
-          <IconX
-            origin={ICON_TYPE.MATERIAL_COMMUNITY}
-            color={COLORS.LIGHT_RED}
-            name={"star-box"}
-            size={32}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
-        >
-          <StarShower
-            ActiveStarColor={COLORS.COMMON}
-            UnActiveStarColor={COLORS.COMMON}
-            starWidth={18}
-            starHeight={18}
-            marginLeft={14}
-          />
-          <Text
-            style={[
-              styles.smallOptiontxt2,
-              {
-                color: COLORS.GREY,
-                marginLeft: 14,
-              },
-            ]}
-          >
-            Tap to review....
-          </Text>
-        </TouchableOpacity>
+        {props?.detailData?.business_review?.length > 0 ? (
+          <View>
+            <Text style={styles.sectionTxt}>Reviews and Ratings</Text>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.sectionTxt}>No reviews yet</Text>
+            <TouchableOpacity style={styles.tapRowButtonsVw}>
+              <Text style={styles.titletxt}>Be the first to review</Text>
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                color={COLORS.LIGHT_RED}
+                name={"star-box"}
+                size={32}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
+            >
+              <StarShower
+                ActiveStarColor={COLORS.COMMON}
+                UnActiveStarColor={COLORS.COMMON}
+                starWidth={18}
+                starHeight={18}
+                marginLeft={14}
+              />
+              <Text
+                style={[
+                  styles.smallOptiontxt2,
+                  {
+                    color: COLORS.GREY,
+                    marginLeft: 14,
+                  },
+                ]}
+              >
+                Tap to review....
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
         <View
           style={[
             CommonStyles.straightCon,
@@ -595,6 +737,7 @@ const BusinessPageDetailsView = (props) => {
         setVisible={props.setMoreInfoModal}
         type={props?.moreInfoModal?.type}
         detailData={props?.detailData}
+        moreData={props?.moreInfoModal?.moreData}
       />
     </ScrollView>
   );
