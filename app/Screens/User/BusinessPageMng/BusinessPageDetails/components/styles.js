@@ -227,12 +227,12 @@ const Styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.BORDER_LINE
+    borderColor: COLORS.BORDER_LINE,
   },
   availjobsImage: {
     height: 60,
     width: 60,
-    borderRadius: 7
+    borderRadius: 7,
   },
   availJobstxt: {
     fontSize: FONT_SIZE.large,
@@ -253,13 +253,49 @@ const Styles = StyleSheet.create({
   locationView: {
     flexDirection: "row",
     marginTop: 10,
-
   },
   availJobslocationTxt: {
     fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginLeft: 10,
+  },
+
+  eventsImage: {
+    height: 200,
+    width: 150,
+    backgroundColor: COLORS.BLACK,
+    borderRadius: 10,
+  },
+  eventsView: {
+    margin: 10,
+  },
+  eventheadingView: {
+    flex: 1,
+    alignItems: "center",
+    // justifyContent: 'center',
+    marginTop: 10,
+  },
+  eventsheadignTxt: {
+    fontSize: FONT_SIZE.largeL,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.WHITE,
+    // marginLeft: 10,
+  },
+  eventknowTouch: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: COLORS.WHITE,
+    borderRadius: 10
+  },
+  knowTxt: {
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.WHITE,
+    // marginLeft: 10,
   },
 });
 export default Styles;

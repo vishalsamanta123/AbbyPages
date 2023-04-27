@@ -7,6 +7,7 @@ import {
   ScrollView,
   Modal,
   FlatList,
+  ImageBackground,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -35,18 +36,6 @@ const MoreInfo = (props) => {
   );
 
   const DUMMY_DATA = [
-    {
-      jobRole: "Full stack developer",
-      location: "mumbai, indore, hyderabad, gurgaon",
-      experience: 2.5,
-      createdDate: "9d ago",
-    },
-    {
-      jobRole: "Full stack developer",
-      location: "mumbai, indore, hyderabad, gurgaon",
-      experience: 2.5,
-      createdDate: "9d ago",
-    },
     {
       jobRole: "Full stack developer",
       location: "mumbai, indore, hyderabad, gurgaon",
@@ -94,7 +83,7 @@ const MoreInfo = (props) => {
               <Text style={styles.availJobslocationTxt}>{item.location}</Text>
             </View>
           </View>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Image
               source={Images.HOW_IT_WORKS_BANNER}
               style={styles.availjobsImage}
@@ -104,6 +93,26 @@ const MoreInfo = (props) => {
       </View>
     );
   };
+
+  const renderEvents = (item) => {
+    return(
+      <View style={styles.eventsView}>
+        <ImageBackground
+          source={Images.HOW_IT_WORKS_BANNER}
+          style={styles.eventsImage}
+          borderRadius={10}
+          opacity={0.6}
+        >
+          <View style={styles.eventheadingView}>
+            <Text style={styles.eventsheadignTxt}>{item?.jobRole}</Text>
+          </View>
+          <TouchableOpacity style={styles.eventknowTouch}>
+            <Text style={styles.knowTxt}>Know more</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
+    )
+  }
 
   return (
     <Modal visible={visible}>
@@ -203,13 +212,25 @@ const MoreInfo = (props) => {
             </Text>
           </View>
           {type === "read" ? (
-            <View style={styles.mainContainer}>
-              <Text style={styles.sectionTxt}>Available Jobs</Text>
-              <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-                <FlatList
-                  data={DUMMY_DATA}
-                  renderItem={({ item }) => renderJobs(item)}
-                />
+            <View>
+              <View style={styles.mainContainer}>
+                <Text style={styles.sectionTxt}>Available Jobs</Text>
+                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                  <FlatList
+                    data={DUMMY_DATA}
+                    renderItem={({ item }) => renderJobs(item)}
+                  />
+                </View>
+              </View>
+              <View style={styles.mainContainer}>
+                <Text style={styles.sectionTxt}>Events</Text>
+                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                  <FlatList
+                    data={DUMMY_DATA}
+                    renderItem={({ item }) => renderEvents(item)}
+                    horizontal
+                  />
+                </View>
               </View>
             </View>
           ) : null}
