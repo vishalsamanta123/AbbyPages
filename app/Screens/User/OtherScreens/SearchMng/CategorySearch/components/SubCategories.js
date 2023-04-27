@@ -104,6 +104,8 @@ const SubCategorySearchView = ({ navigation, route }) => {
             : "Categories"
         }
         fontSize={FONT_SIZE.mediumL}
+        loginButton={false}
+        isLogin={true}
       />
       {visible && <Loader state={visible} />}
       <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>

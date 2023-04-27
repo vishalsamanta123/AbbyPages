@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  View,
   FlatList,
   KeyboardAvoidingView,
   Text,
@@ -8,13 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import EmptyList from "../../../../../Components/EmptyList";
-import Header from "../../../../../Components/Header";
 import ListItemsView from "../../../../../Components/ListItemsView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import MainHeader from "../../../../../Components/MainHeader";
+import { businessTypeOptions } from "../../../../../Utils/staticData";
 
 const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
@@ -23,10 +21,7 @@ const BusinessPageListingView = (props) => {
       behavior={Constants.Ios ? "padding" : null}
       style={CommonStyles.container}
     >
-      <MainHeader
-        headerType={"logo"}
-        notify={props?.userData?.login_type ? true : false}
-      />
+      <MainHeader headerType={"logo"} />
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
@@ -59,7 +54,7 @@ const BusinessPageListingView = (props) => {
                       <Text style={styles.topContainerTxt}>{"All"}</Text>
                     </TouchableOpacity>
                   </>
-                  {props?.restaurantOptions?.map((item, index) => {
+                  {businessTypeOptions?.map((item, index) => {
                     return (
                       <TouchableOpacity
                         style={[
@@ -105,17 +100,17 @@ const BusinessPageListingView = (props) => {
           );
         }}
         onEndReached={() => {
-          if (props.search || props.inputSearch) {
-            if (props.restroList?.length < props?.moreData) {
+          if (props?.search) {
+            if (props?.restroList?.length < props?.moreData) {
               props?.handleSearchData(
                 props?.restroList?.length > 4 ? props.offSet + 5 : 0,
-                props.search
+                props?.search
               );
             }
           }
         }}
         refreshing={false}
-        onRefresh={() => props.handleSearchData(0, props.search)}
+        onRefresh={() => props.handleSearchData(0, props?.search)}
       />
     </KeyboardAvoidingView>
   );

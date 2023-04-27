@@ -39,8 +39,9 @@ const HowItWorksView = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader
         headerText={"How it work"}
-        notify={props?.userData?.login_type ? true : false}
         fontSize={FONT_SIZE.large}
+        loginButton={false}
+        isLogin={true}
       />
       <ScrollView
         // refreshControl={
