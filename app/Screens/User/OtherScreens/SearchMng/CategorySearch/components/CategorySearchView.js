@@ -47,6 +47,8 @@ const CategorySearchView = (props) => {
         isSearch={false}
         headerText={"Categories"}
         fontSize={FONT_SIZE.mediumL}
+        loginButton={false}
+        isLogin={true}
       />
       <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
         <SearchView />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import _ from "lodash";
 import BusinessPageListingView from "./components/BusinessPageListingView";
@@ -6,44 +6,37 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import { restaurantOptions } from "../../../../Utils/staticData";
-import AsyncStorage from "@react-native-community/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch } = route?.params || {};
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState({ selectOption: [] });
-  const [inputSearch, setInputSearch] = useState("");
   const [offSet, setOffSet] = useState(0);
   const [moreData, setMoreData] = useState(0);
   const [restroList, setRestroList] = useState([]);
-  const [userData, setUserData] = useState({});
-  useEffect(() => {
-    if (search?.selectOption?.length === 0) {
-      const filterSearch = {
-        ...nearbySearch,
-        selectOption: Number(nearbySearch?.selectOption)
-          ? nearbySearch?.selectOption?.toString()
-          : "",
-      };
-      setSearch(filterSearch);
-      handleSearchData(offSet, filterSearch);
-    }
-  }, [navigation, inputSearch]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (search?.selectOption?.length === 0) {
+        const filterSearch = {
+          ...nearbySearch,
+          selectOption: Number(nearbySearch?.selectOption)
+            ? nearbySearch?.selectOption?.toString()
+            : "",
+        };
+        setSearch(filterSearch);
+        handleSearchData(offSet, filterSearch);
+      }
+      return () => {};
+    }, [navigation, route?.params])
+  );
 
   const handleSearchData = async (offset, getObj) => {
-    const getUserData = await AsyncStorage.getItem("localuserdata");
-    if (JSON?.parse(getUserData)?.login_type) {
-      setUserData(JSON?.parse(getUserData));
-    }
     setOffSet(offset);
     setSearch(getObj);
     try {
-      if (inputSearch) {
-        setVisible(false);
-      } else {
-        setVisible(true);
-      }
+      setVisible(true);
       const params = {
         latitude: getObj?.latitude ? getObj?.latitude : "28",
         longitude: getObj?.longitude ? getObj?.longitude : "-81",
@@ -51,27 +44,25 @@ const BusinessPageListing = ({ navigation, route }) => {
         limit: 5,
         offset: offset,
         business_type: getObj?.business_type
-        ? Number(getObj?.business_type)
-        : "",
-        search_key: inputSearch ? inputSearch : null,
+          ? Number(getObj?.business_type)
+          : "",
+        search_key: null,
         city: getObj?.city ? getObj?.city : "",
         options:
-        getObj?.selectOption?.length > 0 ||
-        Array?.isArray(getObj?.selectOption)
-        ? getObj?.selectOption?.toString()
-        : "",
+          getObj?.selectOption?.length > 0 ||
+          Array?.isArray(getObj?.selectOption)
+            ? getObj?.selectOption?.toString()
+            : "",
       };
-      console.log('params: ', params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,
         params
-        );
-        console.log('data: ', data);
+      );
       if (data.status == 200) {
         setVisible(false);
         setMoreData(data.total_number_data);
-        if (offSet === 0) {
+        if (offset === 0) {
           setRestroList(data.data);
         } else {
           setRestroList([...restroList, ...data.data]);
@@ -126,17 +117,12 @@ const BusinessPageListing = ({ navigation, route }) => {
       <BusinessPageListingView
         restroList={restroList}
         search={search}
-        setInputSearch={setInputSearch}
         handleSearchData={handleSearchData}
         onPressMap={onPressMap}
         offSet={offSet}
         moreData={moreData}
-        inputSearch={inputSearch}
-        restaurantOptions={restaurantOptions}
-        // selectOption={selectOption}
         handleOptions={handleOptions}
         onPressView={onPressView}
-        userData={userData}
       />
     </View>
   );

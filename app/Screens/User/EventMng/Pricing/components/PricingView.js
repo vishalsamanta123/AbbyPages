@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
-import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
@@ -31,11 +31,11 @@ const PricingView = () => {
   const [youReceive, setYouReceive] = useState(0.0);
 
   useEffect(() => {
-    handleCharges(ticketPrice)
-  }, [paymentCondition])
+    handleCharges(ticketPrice);
+  }, [paymentCondition]);
 
   const handleCharges = (tp) => {
-    console.log('tp', tp)
+    console.log("tp", tp);
     const tkt_p = Number(tp);
     var abby = (0).toFixed(2);
     var card = (0).toFixed(2);
@@ -93,7 +93,12 @@ const PricingView = () => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader isSearch isBack />
+      <MainHeader
+        headerText={"Pricing"}
+        fontSize={FONT_SIZE.large}
+        loginButton={false}
+        isLogin={true}
+      />
       <ScrollView
         // refreshControl={
         //   <RefreshControl
@@ -188,7 +193,9 @@ const PricingView = () => {
                   style={styles.textinputStyle}
                   placeholder="20.00"
                   keyboardType="number-pad"
-                  onChangeText={(val) => {handleCharges(val)}}
+                  onChangeText={(val) => {
+                    handleCharges(val);
+                  }}
                 />
               </View>
               <View style={styles.partition} />

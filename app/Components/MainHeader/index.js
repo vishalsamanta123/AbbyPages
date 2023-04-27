@@ -11,34 +11,42 @@ import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { Images } from "../../Utils/images";
 import { BLACK_COLOR_CODE, COLORS, FONT_SIZE } from "../../Utils/Constant";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
+import {
+  DrawerActions,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const MainHeader = (props) => {
   const [userData, setUserData] = useState({});
-  useEffect(() => {
-    getUserDetails();
-  }, [props]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserDetails();
+      return () => {};
+    }, [props])
+  );
+  
   const getUserDetails = async () => {
     const getUserData = await AsyncStorage.getItem("localuserdata");
     if (JSON?.parse(getUserData)?.login_type) {
       setUserData(JSON?.parse(getUserData));
     }
   };
-  const [searchOpen, setSearchOpen] = useState(false);
   const {
     isBack,
     headerText,
     isSearch = true,
     notify = userData?.login_type ? true : false,
-    isLogin = true,
-    loginButton = false,
+    isLogin = userData?.login_type ? true : false,
+    loginButton = true,
     headerType = "",
     justifyContent = "space-between",
     fontSize = FONT_SIZE.largeL,
     backgroundColor = COLORS.WHITE,
-    onPressBack=false
+    onPressBack = false,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -96,7 +104,10 @@ const MainHeader = (props) => {
         </View>
       ) : (
         <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
-          <TouchableOpacity onPress={() => onPressBack ? onPressBack() : handleGoBack()} activeOpacity={1}>
+          <TouchableOpacity
+            onPress={() => (onPressBack ? onPressBack() : handleGoBack())}
+            activeOpacity={1}
+          >
             {isLogin ? (
               <View style={CommonStyles.straightCon}>
                 <IconX
@@ -166,25 +177,59 @@ const MainHeader = (props) => {
               ) : null}
             </View>
           ) : (
-            <View style={CommonStyles.straightCon}>
-              <TouchableOpacity
-                style={[styles.topButtonVw, styles.topButtonVwNon]}
-              >
-                <Text
-                  style={[
-                    styles.topButtonTxt,
-                    {
-                      color: COLORS.BLACK,
-                    },
-                  ]}
-                >
-                  Log In
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.topButtonVw}>
-                <Text style={styles.topButtonTxt}>To Register</Text>
-              </TouchableOpacity>
-            </View>
+            <>
+              {loginButton ? (
+                <View style={CommonStyles.straightCon}>
+                  <TouchableOpacity
+                    style={[styles.topButtonVw, styles.topButtonVwNon]}
+                  >
+                    <Text
+                      style={[
+                        styles.topButtonTxt,
+                        {
+                          color: COLORS.BLACK,
+                        },
+                      ]}
+                    >
+                      Log In
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.topButtonVw}>
+                    <Text style={styles.topButtonTxt}>To Register</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={CommonStyles.straightCon}>
+                  {notify ? (
+                    <TouchableOpacity style={styles.leftIconVw}>
+                      <IconX
+                        origin={ICON_TYPE.FONT_AWESOME}
+                        name={"bell-o"}
+                        size={21}
+                        color={BLACK_COLOR_CODE}
+                      />
+                      <View style={styles.notifyVw}>
+                        <Text style={styles.notifyTxt}>1</Text>
+                      </View>
+                    </TouchableOpacity>
+                  ) : null}
+                  {isSearch ? (
+                    <TouchableOpacity
+                      disabled={!isSearch}
+                      onPress={() => handleSearchPress()}
+                      style={[styles.leftIconVw, { marginHorizontal: 0 }]}
+                    >
+                      <IconX
+                        origin={ICON_TYPE.ICONICONS}
+                        name={"search-outline"}
+                        size={22}
+                        color={BLACK_COLOR_CODE}
+                      />
+                    </TouchableOpacity>
+                  ) : null}
+                </View>
+              )}
+            </>
           )}
         </View>
       )}

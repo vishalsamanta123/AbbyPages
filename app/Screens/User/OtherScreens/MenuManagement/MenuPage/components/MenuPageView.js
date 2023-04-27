@@ -11,7 +11,7 @@ import { Images } from "../../../../../../Utils/images";
 import { COLORS, Constants } from "../../../../../../Utils/Constant";
 
 const MenuPageView = (props) => {
-  const [recentViewNo, setRecentViewNo] = useState(4);
+  const [recentViewNo, setRecentViewNo] = useState(3);
   return (
     <>
       <MainHeader
@@ -95,14 +95,16 @@ const MenuPageView = (props) => {
                   <Loader state={props?.visible} type={"small"} />
                 </>
               ) : null}
-              <TouchableOpacity
-                onPress={() => {
-                  setRecentViewNo(10);
-                }}
-                style={styles.seeMoreBttn}
-              >
-                <Text style={styles.seeMoreBttnTxt}>See More</Text>
-              </TouchableOpacity>
+              {recentViewNo <= 3 ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setRecentViewNo(10);
+                  }}
+                  style={styles.seeMoreBttn}
+                >
+                  <Text style={styles.seeMoreBttnTxt}>See More</Text>
+                </TouchableOpacity>
+              ) : null}
             </>
           ) : (
             <EmptyList

@@ -140,7 +140,7 @@ export const businessPageObj = {
   city: "Orlando, FL, USA",
 };
 
-export const restaurantOptions = [
+export const businessTypeOptions = [
   { id: 1, type: "9", name: "Open Now" },
   { id: 2, type: "1", name: "Open Delivery" },
   { id: 3, type: "10", name: "Offer Takeout" },

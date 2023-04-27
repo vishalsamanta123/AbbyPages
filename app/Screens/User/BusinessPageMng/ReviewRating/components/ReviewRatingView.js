@@ -61,12 +61,7 @@ const ReviewRatingView = (props) => {
           </View>
         )}
       </View> */}
-      <MainHeader
-        isBack
-        headerText={"Review"}
-        loginButton={true}
-        isLogin={props?.userData?.login_type ? true : false}
-      />
+      <MainHeader headerText={"Review"} />
       <ScrollView contentContainerStyle={styles.mainContainer}>
         <Text style={styles.headTxt}>
           {props?.recntRVwsData?.business_name}
