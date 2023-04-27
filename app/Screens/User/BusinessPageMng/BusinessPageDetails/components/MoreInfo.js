@@ -56,12 +56,35 @@ const MoreInfo = (props) => {
     },
   ];
 
+  const getJobType = (jobType) => {
+    // 1 = Fixed Term Freelance ,2= Paid Freelance , 3= Unpaid Full Time ,
+    // 4 = Paid Internship , 5 = Part Time Temporary , 6 = Unpaid Internship
+    console.log(typeof jobType);
+    let val = "";
+    val =
+      jobType === "1"
+        ? "Fixed Term Freelance"
+        : jobType === "2"
+        ? "Paid Freelance"
+        : jobType === "3"
+        ? "Unpaid Full Time"
+        : jobType === "4"
+        ? "Paid Internship"
+        : jobType === "5"
+        ? "Part Time Temporary"
+        : jobType === "6"
+        ? "Unpaid Internship"
+        : "Not Found";
+
+    return val;
+  };
+
   const renderJobs = (item) => {
     return (
       <View style={styles.availJobsView}>
         <View style={styles.jobHeadingView}>
           <View style={{ flex: 5 }}>
-            <Text style={styles.availJobstxt}>{item.jobRole}</Text>
+            <Text style={styles.availJobstxt}>{item.job_title}</Text>
             <View style={[CommonStyles.straightCon, { alignItems: "center" }]}>
               <IconX
                 origin={ICON_TYPE.FONT_AWESOME}
@@ -70,7 +93,7 @@ const MoreInfo = (props) => {
                 color={COLORS.BLACK}
               />
               <Text style={styles.availJobsExptxt}>
-                {item.experience} years
+                {getJobType(item?.job_type)}
               </Text>
             </View>
             <View style={styles.locationView}>
@@ -80,7 +103,7 @@ const MoreInfo = (props) => {
                 size={20}
                 color={COLORS.BLACK}
               />
-              <Text style={styles.availJobslocationTxt}>{item.location}</Text>
+              <Text style={styles.availJobslocationTxt}>{item.name}</Text>
             </View>
           </View>
           <View style={{ flex: 1 }}>
@@ -95,24 +118,25 @@ const MoreInfo = (props) => {
   };
 
   const renderEvents = (item) => {
-    return(
+    console.log('item renderEvents', item)
+    return (
       <View style={styles.eventsView}>
         <ImageBackground
-          source={Images.HOW_IT_WORKS_BANNER}
+          source={{uri: item?.event_images}}
           style={styles.eventsImage}
           borderRadius={10}
           opacity={0.6}
         >
           <View style={styles.eventheadingView}>
-            <Text style={styles.eventsheadignTxt}>{item?.jobRole}</Text>
+            <Text style={styles.eventsheadignTxt}>{item?.event_name}</Text>
           </View>
           <TouchableOpacity style={styles.eventknowTouch}>
             <Text style={styles.knowTxt}>Know more</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <Modal visible={visible}>
@@ -217,7 +241,7 @@ const MoreInfo = (props) => {
                 <Text style={styles.sectionTxt}>Available Jobs</Text>
                 <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
                   <FlatList
-                    data={DUMMY_DATA}
+                    data={detailData?.business_job_details}
                     renderItem={({ item }) => renderJobs(item)}
                   />
                 </View>
@@ -226,7 +250,7 @@ const MoreInfo = (props) => {
                 <Text style={styles.sectionTxt}>Events</Text>
                 <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
                   <FlatList
-                    data={DUMMY_DATA}
+                    data={detailData?.business_event_details}
                     renderItem={({ item }) => renderEvents(item)}
                     horizontal
                   />
