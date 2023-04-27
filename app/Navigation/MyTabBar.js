@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -9,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
+import TabModalScreens from "../Components/TabModalScreens";
 import {
   BLACK_COLOR_CODE,
   COLORS,
@@ -22,151 +24,26 @@ import {
 import { Images } from "../Utils/images";
 import { businessPageObj } from "../Utils/staticData";
 
-const CustomPopups = (props) => {
-  const {
-    isFocused,
-    setIsFocused = () => {},
-    onPressOptions,
-    userData,
-    navigation,
-  } = props;
-  return (
-    <>
-      {isFocused.modal === "EventManagement" ||
-      isFocused.modal === "PlusManagement" ||
-      isFocused.modal === "JobManagement" ? (
-        <Pressable
-          onPress={() =>
-            setIsFocused({
-              ...isFocused,
-              modal: "",
-            })
-          }
-          style={styles.customPopupVw}
-        >
-          <View
-            style={[
-              styles.popupVw,
-              {
-                marginLeft: isFocused.modal === "EventManagement" ? 24 : 0,
-                alignSelf:
-                  isFocused.modal === "JobManagement" ||
-                  isFocused.modal === "MoreManagement"
-                    ? "flex-end"
-                    : isFocused.modal === "PlusManagement"
-                    ? "center"
-                    : "auto",
-                marginRight: isFocused.modal === "JobManagement" ? 24 : 0,
-              },
-            ]}
-          >
-            {isFocused.modal === "EventManagement" ? (
-              <>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.subCatVw}
-                  onPress={() => {
-                    navigation.navigate("EventListings");
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    });
-                  }}
-                >
-                  <Text style={styles.subCatTxt}>{"Find Event"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Featured"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.subCatVw}
-                  onPress={() => {
-                    navigation.navigate("HowItWorks");
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    });
-                  }}
-                >
-                  <Text style={styles.subCatTxt}>{"How it works"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.subCatVw, { borderBottomWidth: 0 }]}
-                  onPress={() => {
-                    navigation.navigate("Pricing");
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    });
-                  }}
-                >
-                  <Text style={styles.subCatTxt}>{"Pricing"}</Text>
-                </TouchableOpacity>
-              </>
-            ) : isFocused.modal === "PlusManagement" ? (
-              <>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Business Post"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Post Job"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Sell Products"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.subCatVw, { borderBottomWidth: 0 }]}
-                >
-                  <Text style={styles.subCatTxt}>{"Write a Review "}</Text>
-                </TouchableOpacity>
-              </>
-            ) : isFocused.modal === "JobManagement" ? (
-              <>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("JobListing");
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    });
-                  }}
-                  style={styles.subCatVw}
-                >
-                  <Text style={styles.subCatTxt}>{"Find a Job"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Post Job"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.subCatVw, { borderBottomWidth: 0 }]}
-                >
-                  <Text style={styles.subCatTxt}>{"Upload Your Résumé"}</Text>
-                </TouchableOpacity>
-              </>
-            ) : null}
-          </View>
-        </Pressable>
-      ) : null}
-    </>
-  );
-};
 function MyTabBar({ state, navigation }) {
   const [isFocused, setIsFocused] = useState({
     same: "DashBoard",
+    modal: "",
     other: "DashBoard",
   });
   const [userData, setUserData] = useState({});
-  useEffect(() => {
-    getLoginDetail();
-  }, [navigation, state]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getLoginDetail();
+      if (state?.index === 0 || state?.index === 1) {
+        setIsFocused({
+          same: state?.index === 1 ? "MenuPage" : "DashBoard",
+          modal: "",
+          other: "",
+        });
+      }
+    }, [navigation, state])
+  );
   const getLoginDetail = async () => {
     const getUserData = await AsyncStorage.getItem("localuserdata");
     if (JSON?.parse(getUserData)?.login_type) {
@@ -190,31 +67,14 @@ function MyTabBar({ state, navigation }) {
       });
     }
   };
-  const onPressOptions = (options) => {
-    if (options.type === "2") {
-      navigation.navigate("ShopList");
-    } else if (options.type === "1" || options.type === "3") {
-      const newObj = { ...businessPageObj, business_type: options.type };
-      navigation.navigate("BusinessPageListing", {
-        nearbySearch: newObj,
-      });
-    } else if (options.type === "") {
-      navigation.navigate("Login");
-    }
-  };
-  // if (focusedOptions.tabBarVisible === false) {
-  //   return null;
-  // }
+
   return (
     <View>
-      <CustomPopups
+      <TabModalScreens
         isFocused={isFocused}
         setIsFocused={setIsFocused}
-        onPressOptions={onPressOptions}
         userData={userData}
         navigation={navigation}
-        // setOpenTapModel={setOpenTapModel}
-        // openTapModel={openTapModel}
       />
       <View style={styles.iconStyleVw}>
         <TouchableOpacity
