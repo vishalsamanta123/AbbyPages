@@ -98,6 +98,21 @@ const BusinessPageDetailsView = (props) => {
       </TouchableOpacity>
     );
   };
+  const renderBusinessHighlights = (item) => {
+    console.log("item", item);
+    return (
+      <View style={styles.highlightsView}>
+        {/* <Image source={{ uri: item.icon }} style={styles.highlightsImage} /> */}
+        <IconX
+          origin={ICON_TYPE.FEATHER_ICONS}
+          name={"phone-call"}
+          size={40}
+          color={COLORS.BLACK}
+        />
+        <Text style={styles.highlightsText}>{item.highlights}</Text>
+      </View>
+    );
+  };
   return (
     <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
       <ImageBackground
@@ -474,6 +489,17 @@ const BusinessPageDetailsView = (props) => {
           />
         </View>
       ) : null}
+      <View style={styles.mainContainer}>
+        <Text style={styles.sectionTxt}>Highlights from the Business</Text>
+
+        <FlatList
+          data={props?.detailData?.highlights}
+          renderItem={({ item }) => renderBusinessHighlights(item)}
+          // horizontal
+          numColumns={2}
+        />
+      </View>
+
       {props?.detailData?.recommended_business?.length > 0 ? (
         <View style={styles.mainContainer}>
           <Text style={styles.sectionTxt}>You might also consider</Text>
@@ -653,14 +679,14 @@ const BusinessPageDetailsView = (props) => {
             <Text style={styles.sectionTxt}>Reviews and Ratings</Text>
 
             {props?.detailData?.business_review.map((item, index) => {
-              console.log('item', item)
+              console.log("item", item);
               return (
                 <ListItemsView
                   onPressView={props.onPressView}
                   item={item}
                   index={index}
                   largeImg={item?.profile_image}
-                  largeName={item?.first_name + ' ' + item?.last_name}
+                  largeName={item?.first_name + " " + item?.last_name}
                   smallTxt={item?.address}
                   rating={item?.business_rating}
                   rowImgTxt1={item?.business_service_category}

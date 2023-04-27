@@ -38,7 +38,8 @@ const MainHeader = (props) => {
     justifyContent = "space-between",
     fontSize = FONT_SIZE.largeL,
     backgroundColor = COLORS.WHITE,
-    onPressBack=false
+    onPressBack=false,
+    TxtMarginRight = 0
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -128,7 +129,7 @@ const MainHeader = (props) => {
                 styles.topHeaderTxt,
                 {
                   fontSize: fontSize,
-                  marginRight: !isSearch && !notify ? 18 : 0,
+                  marginRight: !isSearch && !notify ? 18 : TxtMarginRight,
                 },
               ]}
             >

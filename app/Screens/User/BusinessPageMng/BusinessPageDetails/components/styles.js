@@ -205,5 +205,61 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
+  highlightsView: {
+    // backgroundColor: 'red',
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  highlightsImage: {
+    height: 30,
+    width: 30,
+  },
+  highlightsText: {
+    textAlign: "center",
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+  },
+  availJobsView: {
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_LINE
+  },
+  availjobsImage: {
+    height: 60,
+    width: 60,
+    borderRadius: 7
+  },
+  availJobstxt: {
+    fontSize: FONT_SIZE.large,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    marginBottom: 10,
+  },
+  availJobsExptxt: {
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    marginLeft: 10,
+  },
+  jobHeadingView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  locationView: {
+    flexDirection: "row",
+    marginTop: 10,
+
+  },
+  availJobslocationTxt: {
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    marginLeft: 10,
+  },
 });
 export default Styles;
