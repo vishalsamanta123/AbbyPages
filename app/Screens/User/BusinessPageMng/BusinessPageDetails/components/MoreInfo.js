@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Modal,
+  FlatList,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -17,6 +18,7 @@ import {
 } from "../../../../../Components/SliderImages";
 import moment from "moment";
 import MainHeader from "../../../../../Components/MainHeader";
+import { Images } from "../../../../../Utils/images";
 
 const MoreInfo = (props) => {
   const {
@@ -27,50 +29,95 @@ const MoreInfo = (props) => {
     moreData,
   } = props;
   const amenities = detailData?.amenities?.split(",");
-  console.log('detailData?.about_business', detailData?.create_date)
+  console.log(
+    "detailData?.business_job_details",
+    detailData?.business_job_details
+  );
+
+  const DUMMY_DATA = [
+    {
+      jobRole: "Full stack developer",
+      location: "mumbai, indore, hyderabad, gurgaon",
+      experience: 2.5,
+      createdDate: "9d ago",
+    },
+    {
+      jobRole: "Full stack developer",
+      location: "mumbai, indore, hyderabad, gurgaon",
+      experience: 2.5,
+      createdDate: "9d ago",
+    },
+    {
+      jobRole: "Full stack developer",
+      location: "mumbai, indore, hyderabad, gurgaon",
+      experience: 2.5,
+      createdDate: "9d ago",
+    },
+    {
+      jobRole: "Full stack developer",
+      location: "mumbai, indore, hyderabad, gurgaon",
+      experience: 2.5,
+      createdDate: "9d ago",
+    },
+    {
+      jobRole: "Full stack developer",
+      location: "mumbai, indore, hyderabad, gurgaon",
+      experience: 2.5,
+      createdDate: "9d ago",
+    },
+  ];
+
+  const renderJobs = (item) => {
+    return (
+      <View style={styles.availJobsView}>
+        <View style={styles.jobHeadingView}>
+          <View style={{ flex: 5 }}>
+            <Text style={styles.availJobstxt}>{item.jobRole}</Text>
+            <View style={[CommonStyles.straightCon, { alignItems: "center" }]}>
+              <IconX
+                origin={ICON_TYPE.FONT_AWESOME}
+                name={"shopping-bag"}
+                size={20}
+                color={COLORS.BLACK}
+              />
+              <Text style={styles.availJobsExptxt}>
+                {item.experience} years
+              </Text>
+            </View>
+            <View style={styles.locationView}>
+              <IconX
+                origin={ICON_TYPE.ENTYPO}
+                name={"location"}
+                size={20}
+                color={COLORS.BLACK}
+              />
+              <Text style={styles.availJobslocationTxt}>{item.location}</Text>
+            </View>
+          </View>
+          <View style={{flex: 1}}>
+            <Image
+              source={Images.HOW_IT_WORKS_BANNER}
+              style={styles.availjobsImage}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
-        {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-          <TouchableOpacity
-            onPress={() =>
-              setVisible({
-                open: false,
-                type: "",
-              })
-            }
-            style={CommonStyles.straightCon}
-          >
-            <IconX
-              origin={ICON_TYPE.ICONICONS}
-              color={COLORS.BLACK}
-              size={30}
-              name={"chevron-back"}
-            />
-            <Text
-              style={[
-                styles.topHeaderTxt,
-                {
-                  color: COLORS.BLACK,
-                },
-              ]}
-            >
-              Back
-            </Text>
-          </TouchableOpacity>
-          <Text style={styles.moreInfoTxt}>
-            {type === "read" ? "Swag Cut Barber" : "More Info"}
-          </Text>
-        </View> */}
         <MainHeader
           notify={props?.userData?.login_type ? true : false}
           isBack
+          TxtMarginRight={25}
+          headerText={type === "read" ? "Read More" : "More Info"}
           onPressBack={() => {
             setVisible({
               open: false,
               type: "",
-            })
+            });
           }}
         />
         <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
@@ -145,7 +192,9 @@ const MoreInfo = (props) => {
                 style={styles.considrImgVw}
               />
               <View>
-                <Text style={styles.smallOptiontxt2}>{detailData?.business_user_name}</Text>
+                <Text style={styles.smallOptiontxt2}>
+                  {detailData?.business_user_name}
+                </Text>
                 <Text style={styles.smallTxt}>Business Owner</Text>
               </View>
             </View>
@@ -153,6 +202,17 @@ const MoreInfo = (props) => {
               {detailData?.about_business}
             </Text>
           </View>
+          {type === "read" ? (
+            <View style={styles.mainContainer}>
+              <Text style={styles.sectionTxt}>Available Jobs</Text>
+              <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                <FlatList
+                  data={DUMMY_DATA}
+                  renderItem={({ item }) => renderJobs(item)}
+                />
+              </View>
+            </View>
+          ) : null}
         </ScrollView>
       </View>
     </Modal>
