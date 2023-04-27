@@ -28,7 +28,7 @@ const MainHeader = (props) => {
       return () => {};
     }, [props])
   );
-  
+
   const getUserDetails = async () => {
     const getUserData = await AsyncStorage.getItem("localuserdata");
     if (JSON?.parse(getUserData)?.login_type) {
@@ -47,6 +47,7 @@ const MainHeader = (props) => {
     fontSize = FONT_SIZE.largeL,
     backgroundColor = COLORS.WHITE,
     onPressBack = false,
+    TxtMarginRight = 0,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -108,7 +109,7 @@ const MainHeader = (props) => {
             onPress={() => (onPressBack ? onPressBack() : handleGoBack())}
             activeOpacity={1}
           >
-            {isLogin ? (
+            {isLogin || !loginButton ? (
               <View style={CommonStyles.straightCon}>
                 <IconX
                   origin={ICON_TYPE.ANT_ICON}
@@ -139,7 +140,7 @@ const MainHeader = (props) => {
                 styles.topHeaderTxt,
                 {
                   fontSize: fontSize,
-                  marginRight: !isSearch && !notify ? 18 : 0,
+                  marginRight: !isSearch && !notify ? 18 : TxtMarginRight,
                 },
               ]}
             >
