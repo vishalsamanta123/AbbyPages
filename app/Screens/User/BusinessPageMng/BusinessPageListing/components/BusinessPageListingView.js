@@ -25,14 +25,14 @@ const BusinessPageListingView = (props) => {
       <Text style={styles.headText}>Business Listing</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={props.restroList}
+        data={props.businessList}
         ListEmptyComponent={() => {
           return <EmptyList message={"Restaurant"} />;
         }}
         ListHeaderComponent={() => {
           return (
             <>
-              {props?.search?.business_type === "1" ? (
+              {props?.search?.business_type?.toString() === "1" ? (
                 <ScrollView
                   contentContainerStyle={styles.straightVw}
                   horizontal
@@ -101,9 +101,9 @@ const BusinessPageListingView = (props) => {
         }}
         onEndReached={() => {
           if (props?.search) {
-            if (props?.restroList?.length < props?.moreData) {
+            if (props?.businessList?.length < props?.moreData) {
               props?.handleSearchData(
-                props?.restroList?.length > 4 ? props.offSet + 5 : 0,
+                props?.businessList?.length > 4 ? props.offSet + 5 : 0,
                 props?.search
               );
             }

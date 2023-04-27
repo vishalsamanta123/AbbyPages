@@ -9,12 +9,12 @@ import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 
 const BusinessPageListing = ({ navigation, route }) => {
-  const { nearbySearch } = route?.params || {};
+  const { nearbySearch = {} } = route?.params || {};
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState({ selectOption: [] });
   const [offSet, setOffSet] = useState(0);
   const [moreData, setMoreData] = useState(0);
-  const [restroList, setRestroList] = useState([]);
+  const [businessList, setBusinessList] = useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -63,13 +63,13 @@ const BusinessPageListing = ({ navigation, route }) => {
         setVisible(false);
         setMoreData(data.total_number_data);
         if (offset === 0) {
-          setRestroList(data.data);
+          setBusinessList(data.data);
         } else {
-          setRestroList([...restroList, ...data.data]);
+          setBusinessList([...businessList, ...data.data]);
         }
       } else {
         if (data.status === 201) {
-          setRestroList([]);
+          setBusinessList([]);
           setVisible(false);
         } else {
           setVisible(false);
@@ -81,12 +81,6 @@ const BusinessPageListing = ({ navigation, route }) => {
   };
   const onPressView = (item) => {
     navigation.navigate("BusinessPageDetails", { detail: item });
-  };
-  const onPressMap = () => {
-    navigation.navigate("ListingMap", {
-      businessList: restroList,
-      business_type: 1,
-    });
   };
 
   const handleOptions = (item) => {
@@ -115,10 +109,9 @@ const BusinessPageListing = ({ navigation, route }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <BusinessPageListingView
-        restroList={restroList}
+        businessList={businessList}
         search={search}
         handleSearchData={handleSearchData}
-        onPressMap={onPressMap}
         offSet={offSet}
         moreData={moreData}
         handleOptions={handleOptions}
