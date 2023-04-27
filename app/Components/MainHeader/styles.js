@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Constants.Ios ? 15 : 0,
-    paddingVertical: Constants.Ios ? 10 : 12,
+    paddingVertical: Constants.Ios ? 10 : 10,
     backgroundColor: COLORS.WHITE,
   },
   logoVw: {

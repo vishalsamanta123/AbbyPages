@@ -21,23 +21,18 @@ import Button from "../Button";
 import CommonStyles from "../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import apiEndPoints from "../../Utils/apiEndPoints";
+import { apiCall } from "../../Utils/httpClient";
 
 const SearchView = (props) => {
+  const {
+    // resBusdata = [],
+    // resultCat = [],
+    searchStart = false,
+    searchValues = () => {},
+  } = props;
   const navigation = useNavigation();
   const [searchHistory, setSearchHistory] = useState([]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getHistory();
-    }, [navigation, searchOpen])
-  );
-
-  const getHistory = async () => {
-    const searchData = await AsyncStorage.getItem("searchCategoryHistory");
-    if (JSON?.parse(searchData)) {
-      setSearchHistory(JSON?.parse(searchData)?.reverse());
-    }
-  };
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchCategory, setSearchCategory] = useState({
     resBusdata: [],
@@ -47,12 +42,55 @@ const SearchView = (props) => {
     search_category_or_business: "",
     address: "Orlando, FL, USA",
   });
-  const {
-    resBusdata = [],
-    resultCat = [],
-    searchStart = false,
-    searchValues = () => {},
-  } = props;
+
+  const handleDetailNavigation = (data) => {
+    setSearchOpen(false);
+    navigation.navigate("BusinessPageDetails", { detail: data });
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      getHistorySearch();
+    }, [navigation, searchOpen])
+  );
+  const getHistorySearch = async () => {
+    const historySearchData = await AsyncStorage.getItem(
+      "searchCategoryHistory"
+    );
+    if (JSON?.parse(historySearchData)) {
+      setSearchHistory(JSON?.parse(historySearchData)?.reverse());
+    }
+  };
+
+  const getCategories = async (itemData) => {
+    console.log("itemData: ", itemData);
+    setSearchData({ ...itemData });
+    const params = {
+      search_category_or_business: itemData?.search_category_or_business
+        ? itemData?.search_category_or_business
+        : "",
+      address: itemData?.address ? itemData?.address : "",
+    };
+    console.log("params:BUSINESSLISTBYCATG ", params);
+    try {
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.BUSINESSLISTBYCATG,
+        params
+      );
+      console.log("data:BUSINESSLISTBYCATG ", data);
+      if (data?.status === 200) {
+        setSearchCategory({
+          resBusdata: data?.data?.resBusdata,
+          resultCat: data?.data?.resultCat,
+        });
+      } else {
+        setSearchCategory({
+          resBusdata: [],
+          resultCat: [],
+        });
+      }
+    } catch (error) {}
+  };
 
   const onSearchData = async (data) => {
     if (searchData?.search_category_or_business !== "") {
@@ -91,86 +129,116 @@ const SearchView = (props) => {
     setSearchOpen(true);
   };
 
-  // const renderCategories = () => {
-  //   return (
-  //     <>
-  //       {resBusdata?.length > 0 || resultCat?.length > 0 ? (
-  //         <View style={styles.categoriesVw}>
-  //           {resBusdata?.length > 0 ? (
-  //             <>
-  //               <Text style={styles.searchHeadTxt}>Related Businesses:</Text>
-  //               {resBusdata?.map((itm) => {
-  //                 return (
-  //                   <TouchableOpacity
-  //                     onPress={() => handleDetailNavigation(itm)}
-  //                     style={styles.categoryVw}
-  //                   >
-  //                     <Image
-  //                       source={{ uri: itm?.logo }}
-  //                       style={styles.categoryImg}
-  //                     />
-  //                     <View>
-  //                       <Text style={styles.categoryTxt}>
-  //                         {itm?.business_name}
-  //                       </Text>
-  //                       <Text style={styles.categorySmallTxt}>
-  //                         {itm?.address}
-  //                       </Text>
-  //                     </View>
-  //                   </TouchableOpacity>
-  //                 );
-  //               })}
-  //             </>
-  //           ) : null}
-  //           {resultCat?.length > 0 ? (
-  //             <>
-  //               <Text style={styles.searchHeadTxt}>Related Categories:</Text>
-  //               {resultCat?.map((itm) => {
-  //                 return (
-  //                   <TouchableOpacity
-  //                     onPress={() => {
-  //                       setSearchData({
-  //                         ...searchData,
-  //                         category_id: itm.id,
-  //                         business_type: itm?.business_type?.toString(),
-  //                         search_category_or_business: itm.category_name,
-  //                       });
-  //                       setCategoryShow(false);
-  //                     }}
-  //                     style={styles.categoryVw}
-  //                   >
-  //                     <Text style={styles.categoryTxt}>
-  //                       {itm?.category_name}
-  //                     </Text>
-  //                   </TouchableOpacity>
-  //                 );
-  //               })}
-  //             </>
-  //           ) : null}
-  //         </View>
-  //       ) : (
-  //         <View style={styles.categoriesVw}>
-  //           {staticSearchOptions?.map((item) => {
-  //             return (
-  //               <TouchableOpacity
-  //                 onPress={() => handleListNavigation(item)}
-  //                 style={styles.categoryVw}
-  //               >
-  //                 <IconX
-  //                   origin={item.origin}
-  //                   name={item.name}
-  //                   size={item.size}
-  //                   color={item.color}
-  //                 />
-  //                 <Text style={styles.categoryTxt}>{item.category_name}</Text>
-  //               </TouchableOpacity>
-  //             );
-  //           })}
-  //         </View>
-  //       )}
-  //     </>
-  //   );
-  // };
+  const renderCategories = () => {
+    return (
+      <View style={styles.categoriesVw}>
+        {searchHistory?.length > 0 && Array?.isArray(searchHistory)
+          ? searchHistory?.map((itm) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSearchData({
+                      ...itm,
+                      search_category_or_business: itm.category_name,
+                    });
+                  }}
+                  style={styles.categoryVw}
+                >
+                  <IconX
+                    origin={ICON_TYPE.MATERIAL_ICONS}
+                    name={"history"}
+                    size={22}
+                    color={COLORS.BLACK}
+                  />
+                  <Text style={styles.categoryTxt}>{itm.category_name}</Text>
+                </TouchableOpacity>
+              );
+            })
+          : null}
+        {searchCategory?.resBusdata?.length > 0 ||
+        searchCategory?.resultCat?.length > 0 ? (
+          <>
+            {searchCategory?.resBusdata?.length > 0 ? (
+              <>
+                <Text style={styles.searchHeadTxt}>Related Businesses:</Text>
+                {searchCategory?.resBusdata?.map((itm) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => handleDetailNavigation(itm)}
+                      style={styles.categoryVw}
+                    >
+                      <Image
+                        source={{ uri: itm?.logo }}
+                        style={styles.categoryImg}
+                      />
+                      <View>
+                        <Text style={styles.categoryTxt}>
+                          {itm?.business_name}
+                        </Text>
+                        <Text style={styles.categorySmallTxt}>
+                          {itm?.address}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            ) : null}
+            {searchCategory?.resultCat?.length > 0 ? (
+              <>
+                <Text style={styles.searchHeadTxt}>Related Categories:</Text>
+                {searchCategory?.resultCat?.map((itm) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSearchData({
+                          ...itm,
+                          search_category_or_business: itm.category_name,
+                        });
+                      }}
+                      style={styles.categoryVw}
+                    >
+                      <Text style={styles.categoryTxt}>
+                        {itm?.category_name}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </>
+            ) : null}
+          </>
+        ) : (
+          <>
+            {staticSearchOptions?.map((item) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSearchData({
+                      ...item,
+                      search_category_or_business: item.category_name,
+                    });
+                    onSearchData({
+                      ...item,
+                      search_category_or_business: item.category_name,
+                    });
+                  }}
+                  style={styles.categoryVw}
+                >
+                  <IconX
+                    origin={item.origin}
+                    name={item.name}
+                    size={item.size}
+                    color={item.color}
+                  />
+                  <Text style={styles.categoryTxt}>{item.category_name}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </>
+        )}
+      </View>
+    );
+  };
   return (
     <Pressable
       onPress={() => {
@@ -198,73 +266,21 @@ const SearchView = (props) => {
                 search_category_or_business: txt,
               });
               searchValues(searchData);
+              if (txt != "") {
+                getCategories({
+                  address: searchData?.address,
+                  search_category_or_business: txt,
+                });
+              } else {
+                setSearchCategory({
+                  resBusdata: [],
+                  resultCat: [],
+                });
+              }
             }}
           />
         </View>
-        {searchOpen ? (
-          <View style={styles.categoriesVw}>
-            {searchHistory?.length > 0 && Array?.isArray(searchHistory)
-              ? searchHistory?.map((itm) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => {
-                        setSearchData({
-                          ...itm,
-                          search_category_or_business: itm.category_name,
-                        });
-                        onSearchData({
-                          ...itm,
-                          search_category_or_business: itm.category_name,
-                        });
-                      }}
-                      style={styles.categoryVw}
-                    >
-                      <IconX
-                        origin={ICON_TYPE.MATERIAL_ICONS}
-                        name={"history"}
-                        size={22}
-                        color={COLORS.BLACK}
-                      />
-                      <Text style={styles.categoryTxt}>
-                        {itm.category_name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })
-              : null}
-            {
-              <>
-                {staticSearchOptions?.map((item) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => {
-                        setSearchData({
-                          ...item,
-                          search_category_or_business: item.category_name,
-                        });
-                        onSearchData({
-                          ...item,
-                          search_category_or_business: item.category_name,
-                        });
-                      }}
-                      style={styles.categoryVw}
-                    >
-                      <IconX
-                        origin={item.origin}
-                        name={item.name}
-                        size={item.size}
-                        color={item.color}
-                      />
-                      <Text style={styles.categoryTxt}>
-                        {item.category_name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </>
-            }
-          </View>
-        ) : null}
+        {searchOpen ? renderCategories() : null}
         {searchOpen ? (
           <>
             <View style={styles.catgSearchVw}>
