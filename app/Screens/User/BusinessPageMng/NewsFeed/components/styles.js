@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import {
   BLACK_COLOR_CODE,
   COLORS,
+  Constants,
   FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
   FONT_SIZE,
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   postImageStyle: {
-    width: 380,
+    width: Constants.windowWidth / 1.2,
     height: 200,
     borderRadius: 10,
     marginHorizontal: 5,
@@ -97,31 +98,31 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   likeSection: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    padding: 20
+    padding: 20,
   },
   likeView: {
     flex: 1,
-    justifyContent :'space-between'
+    justifyContent: "space-between",
   },
   likeSectionText: {
-    textAlign: 'center',
+    textAlign: "center",
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: FONT_SIZE.medium,
   },
-  postBreakView:{
-    height: 2,
+  postBreakView: {
+    height: 0.5,
     backgroundColor: COLORS.BORDER_LINE,
-    width: '100%'
+    width: "100%",
   },
-  likeCountView:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  likeCountView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 20,
     marginVertical: 5,
-  }
+  },
 });
 
 export default styles;

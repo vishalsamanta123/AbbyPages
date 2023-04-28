@@ -405,26 +405,20 @@ function AuthLoading({ navigation }) {
         <Image
           resizeMode={"contain"}
           style={Styles.logoImg}
-          source={Images.LOADER}
+          source={Images.LOGO}
         />
       </View>
     );
   }
   return (
     <AuthContext.Provider value={authContext}>
-      {loginState.userToken == null ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {loginType === 2 ? (
+          <Stack.Screen name="Business" component={BusinessStack} />
+        ) : (
           <Stack.Screen name="App" component={AppStack} />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {loginType === 2 ? (
-            <Stack.Screen name="Business" component={BusinessStack} />
-          ) : (
-            <Stack.Screen name="App" component={AppStack} />
-          )}
-        </Stack.Navigator>
-      )}
+        )}
+      </Stack.Navigator>
     </AuthContext.Provider>
   );
 }

@@ -26,7 +26,6 @@ import ListItemsView from "../../../../../Components/ListItemsView";
 import { Images } from "../../../../../Utils/images";
 
 const BusinessPageDetailsView = (props) => {
-
   const considerd = [
     {
       businees_name: "Sandeepan da san",
@@ -125,7 +124,11 @@ const BusinessPageDetailsView = (props) => {
       >
         <MainHeader
           backgroundColor={COLORS.TRANSPARENT}
-          notify={props?.userData?.login_type ? true : false}
+          notify={false}
+          isSearch={false}
+          backIconColor={COLORS.WHITE}
+          backTxtColor={COLORS.WHITE}
+          loginButton={false}
         />
         {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <TouchableOpacity
