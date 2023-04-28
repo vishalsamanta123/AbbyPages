@@ -36,6 +36,7 @@ import EventListing from "../Screens/User/EventMng/EventListing";
 import JobListing from "../Screens/User/JobMng/JobListing";
 import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 import Pricing from "../Screens/User/EventMng/Pricing";
+import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -280,6 +281,7 @@ function AppStack() {
       <Stack.Screen name="EventListings" component={TabNavigation} />
       <Stack.Screen name="JobListing" component={TabNavigation} />
       <Stack.Screen name="Pricing" component={TabNavigation} />
+      <Stack.Screen name="NewsFeed" component={NewsFeed} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

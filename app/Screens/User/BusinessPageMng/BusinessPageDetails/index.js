@@ -51,8 +51,8 @@ const BusinessPageDetails = ({ navigation, route }) => {
     }
   };
 
-  const handleNavigation = (screenName) => {
-    navigation.navigate(screenName);
+  const handleNavigation = (screenName, data) => {
+    navigation.navigate(screenName, data);
   };
 
   const handleBack = () => {
