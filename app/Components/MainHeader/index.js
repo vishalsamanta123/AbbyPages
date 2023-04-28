@@ -48,6 +48,8 @@ const MainHeader = (props) => {
     backgroundColor = COLORS.WHITE,
     onPressBack = false,
     TxtMarginRight = 0,
+    backIconColor = COLORS.BLACK,
+    backTxtColor = COLORS.BLACK,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -115,9 +117,18 @@ const MainHeader = (props) => {
                   origin={ICON_TYPE.ANT_ICON}
                   name={"left"}
                   size={25}
-                  color={BLACK_COLOR_CODE}
+                  color={backIconColor}
                 />
-                <Text style={styles.backtxt}>Back</Text>
+                <Text
+                  style={[
+                    styles.backtxt,
+                    {
+                      color: backTxtColor,
+                    },
+                  ]}
+                >
+                  Back
+                </Text>
               </View>
             ) : (
               <View style={CommonStyles.straightCon}>
