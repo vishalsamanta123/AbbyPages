@@ -28,6 +28,7 @@ export default {
   GET_SERVICES_DETAIL: "/api/services/getcategory",
   POST_REVIEW: "/api/reviewRating/businessReview",
   BUSINESS_DETAILS: "api/business/businessDetails",
+  GETABBYCONNECTPOST: "/api/abbyConnect/getAbbyConnectPost",
   BUSINESS_ITEM_LIST: "/api/business/getbusinessItems",
   BUSINESS_ITEM_CATEGORY_LIST: "/api/business/getBusinessItemCategoryList",
   BUSINESS_CATEGORY_LIST: "/api/services/getBusinessType",
