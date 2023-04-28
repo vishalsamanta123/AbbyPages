@@ -13,18 +13,19 @@ import {
 import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import { COLORS, Constants } from "../../../../../Utils/Constant";
+import {
+  BLACK_COLOR_CODE,
+  COLORS,
+  Constants,
+} from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 import MainHeader from "../../../../../Components/MainHeader";
 import ListItemsView from "../../../../../Components/ListItemsView";
+import { Images } from "../../../../../Utils/images";
 
 const BusinessPageDetailsView = (props) => {
-  console.log(
-    "props?.detailData?.business_review",
-    props?.detailData?.business_review
-  );
 
   const considerd = [
     {
@@ -99,7 +100,6 @@ const BusinessPageDetailsView = (props) => {
     );
   };
   const renderBusinessHighlights = (item) => {
-    console.log("item", item);
     return (
       <View style={styles.highlightsView}>
         {/* <Image source={{ uri: item.icon }} style={styles.highlightsImage} /> */}
@@ -226,7 +226,6 @@ const BusinessPageDetailsView = (props) => {
               <TouchableOpacity
                 style={styles.smallOptionVw}
                 onPress={() => {
-                  console.log("Message pressed");
                   Linking.openURL(`tel:${props?.detailData?.mobileno}`);
                 }}
               >
@@ -244,7 +243,6 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
-                console.log("Message pressed");
                 handleGetDirections(
                   props?.detailData?.latitude,
                   props?.detailData?.longitude
@@ -264,7 +262,6 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
-                console.log("Message pressed");
                 if (props?.detailData?.websites) {
                   Linking.openURL(props?.detailData?.websites);
                 } else {
@@ -313,7 +310,7 @@ const BusinessPageDetailsView = (props) => {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={styles.smallOptionVw}
-              onPress={() => props.handleNavigation("ReviewRating")}
+              onPress={() => props.handleNavigation("ReviewRating", {})}
             >
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
@@ -390,7 +387,6 @@ const BusinessPageDetailsView = (props) => {
           <TouchableOpacity
             style={styles.buttonsVw}
             onPress={() => {
-              console.log("Message pressed");
               Linking.openURL(`tel:${props?.detailData?.mobileno}`);
             }}
           >
@@ -439,7 +435,6 @@ const BusinessPageDetailsView = (props) => {
               { justifyContent: "space-between", marginVertical: 12 },
             ]}
             onPress={() => {
-              console.log("Message pressed");
               if (props?.detailData?.websites) {
                 Linking.openURL(props?.detailData?.websites);
               } else {
@@ -478,6 +473,75 @@ const BusinessPageDetailsView = (props) => {
         >
           <Text style={styles.titletxt}>More Info</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.mainContainer}>
+        {props?.detailData?.business_review?.length > 0 ? (
+          <View>
+            <Text style={styles.sectionTxt}>News feeds</Text>
+
+            <TouchableOpacity style={styles.rowVw}>
+              <Image
+                style={styles.smallImgVw}
+                resizeMode="cover"
+                source={Images.DEMO1}
+              />
+              <View style={{ flex: 1 }}>
+                <View
+                  style={[
+                    styles.rowVw,
+                    {
+                      justifyContent: "space-between",
+                      paddingHorizontal: 10,
+                    },
+                  ]}
+                >
+                  <View style={{ width: "70%" }}>
+                    <Text
+                      style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
+                    >
+                      New post from the business
+                    </Text>
+                    <View style={styles.rowVw}>
+                      <Text style={styles.lightTxt}>By Owner | </Text>
+                      <Text style={styles.lightTxt}>a month ago</Text>
+                    </View>
+                  </View>
+                  <View style={styles.straightVw}>
+                    <View style={styles.ratingVw}>
+                      <Text style={styles.ratingTxt}>12 likes</Text>
+                    </View>
+                    {/* <Text
+                      style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
+                    >
+                      rating
+                    </Text> */}
+                  </View>
+                </View>
+                <Text>
+                  abhwdbrg derh rtj rtj sr tjsrtk t cvuk ctyictuo, cou,.tidgrgr
+                  th rth rthrtjy jttuk
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Image
+                style={styles.postImageStyle}
+                resizeMode="cover"
+                source={Images.DEMO1}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                props.handleNavigation("NewsFeed", {
+                  business_id: props?.detailData?.business_id,
+                });
+              }}
+              style={styles.tapButtonsVw}
+            >
+              <Text style={styles.titletxt}>See More</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </View>
       {props?.detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
@@ -626,7 +690,6 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
-                console.log("Message pressed");
                 Linking.openURL(`sms:`);
               }}
             >
@@ -643,11 +706,6 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.smallOptionVw}
               onPress={() => {
-                console.log("Message pressed");
-                console.log(
-                  "props?.detailData?.websites",
-                  props?.detailData?.websites
-                );
                 Clipboard.setString(props?.detailData?.websites);
               }}
             >
@@ -679,7 +737,6 @@ const BusinessPageDetailsView = (props) => {
             <Text style={styles.sectionTxt}>Reviews and Ratings</Text>
 
             {props?.detailData?.business_review.map((item, index) => {
-              console.log("item", item);
               return (
                 <ListItemsView
                   onPressView={props.onPressView}

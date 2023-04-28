@@ -30,10 +30,6 @@ const MoreInfo = (props) => {
     moreData,
   } = props;
   const amenities = detailData?.amenities?.split(",");
-  console.log(
-    "detailData?.business_job_details",
-    detailData?.business_job_details
-  );
 
   const DUMMY_DATA = [
     {
