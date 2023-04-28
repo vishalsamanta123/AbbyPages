@@ -16,25 +16,29 @@ const MenuPage = ({ navigation, route }) => {
   const [userData, setUserData] = useState({});
   const { signOut } = React.useContext(AuthContext);
   const [logoutVw, setLogoutVw] = useState(false);
-  
+
   const signOutFun = () => {
     signOut();
-    navigation.navigate("App");
+    navigation.navigate("Login");
     setLogoutVw(false);
   };
 
   useFocusEffect(
     React.useCallback(() => {
       getRecentView();
-    }, [navigation, route, logoutVw, signOut])
+      getLoginDetail();
+    }, [navigation, route])
   );
+  const getLoginDetail = async () => {
+    const getUserData = await AsyncStorage.getItem("localuserdata");
+    if (JSON?.parse(getUserData)?.login_type) {
+      setUserData(JSON?.parse(getUserData));
+    }
+  };
+
   const getRecentView = async () => {
     setVisible(true);
     try {
-      const getUserData = await AsyncStorage.getItem("localuserdata");
-      if (JSON?.parse(getUserData)?.login_type) {
-        setUserData(JSON?.parse(getUserData));
-      }
       const { data } = await apiCall("GET", apiEndPoints.RECENT_VIEWED);
       if (data.status === 200) {
         setVisible(false);
@@ -78,7 +82,6 @@ const MenuPage = ({ navigation, route }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {/* {visible ? <Loader state={visible} /> : null} */}
       <MenuPageView
         userData={userData}
         visible={visible}

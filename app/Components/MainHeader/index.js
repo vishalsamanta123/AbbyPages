@@ -63,13 +63,13 @@ const MainHeader = (props) => {
     <SafeAreaView style={styles.headCon}>
       {headerType === "logo" ? (
         <View style={[styles.blockCont, { backgroundColor: backgroundColor }]}>
-          <View>
+          <TouchableOpacity onPress={() => navigation.navigate("DashBoard")}>
             <Image
               source={Images.LOGO}
               resizeMode={"contain"}
               style={styles.logoVw}
             />
-          </View>
+          </TouchableOpacity>
           <View style={CommonStyles.straightCon}>
             {notify ? (
               <TouchableOpacity style={styles.leftIconVw}>

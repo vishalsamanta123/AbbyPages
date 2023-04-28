@@ -14,10 +14,7 @@ const MenuPageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(3);
   return (
     <>
-      <MainHeader
-        headerType={"logo"}
-        notify={props?.userData?.login_type ? true : false}
-      />
+      <MainHeader headerType={"logo"} />
       <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
         <View style={styles.mainContainer}>
           {props?.userData?.login_type ? (

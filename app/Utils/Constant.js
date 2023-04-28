@@ -87,6 +87,6 @@ export const Constants = {
 };
 
 // export const BASEURL = 'https://itinformatix.org:3040';/*  */
-export const BASEURL = "http://itinformatix.org:3040";
+export const BASEURL = "https://itinformatix.org:3040";
 // export const BASEURL = 'https://abbypages.com:8080';
 // export const BASEURL = 'http://199.241.139.254:8080';

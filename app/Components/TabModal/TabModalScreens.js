@@ -1,45 +1,49 @@
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles";
 
 const TabModalScreens = (props) => {
   const {
-    isFocused,
+    onPressmodal,
+    setOnPressmodal = () => {},
     navigation,
+    isFocused,
     setIsFocused = () => {},
-    handleNavigation = () => {},
   } = props;
+
+  const modalNavigation = (navigate, modal) => {
+    navigation.navigate(navigate);
+    setIsFocused(modal);
+    setOnPressmodal({
+      ...onPressmodal,
+      modal: "",
+      navigate: modal,
+    });
+  };
+
   return (
     <>
-      {isFocused.modal === "EventManagement" ||
-      isFocused.modal === "PlusManagement" ||
-      isFocused.modal === "JobManagement" ? (
-        <Pressable
-          onPress={() =>
-            setIsFocused({
-              ...isFocused,
-              modal: "",
-            })
-          }
-          style={styles.customPopupVw}
-        >
+      {onPressmodal.modal === "EventManagement" ||
+      onPressmodal.modal === "JobManagement" ||
+      onPressmodal.modal === "PlusManagement" ? (
+        <View style={styles.customPopupVw}>
           <View
             style={[
               styles.popupVw,
               {
-                marginLeft: isFocused.modal === "EventManagement" ? 24 : 0,
+                marginLeft: onPressmodal.modal === "EventManagement" ? 24 : 0,
                 alignSelf:
-                  isFocused.modal === "JobManagement" ||
-                  isFocused.modal === "MoreManagement"
+                  onPressmodal.modal === "JobManagement" ||
+                  onPressmodal.modal === "MoreManagement"
                     ? "flex-end"
-                    : isFocused.modal === "PlusManagement"
+                    : onPressmodal.modal === "PlusManagement"
                     ? "center"
                     : "auto",
-                marginRight: isFocused.modal === "JobManagement" ? 24 : 0,
+                marginRight: onPressmodal.modal === "JobManagement" ? 24 : 0,
               },
             ]}
           >
-            {isFocused.modal === "EventManagement" ? (
+            {onPressmodal.modal === "EventManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Create Event"}</Text>
@@ -47,12 +51,7 @@ const TabModalScreens = (props) => {
                 <TouchableOpacity
                   style={styles.subCatVw}
                   onPress={() => {
-                    navigation.navigate("EventListings");
-                    handleNavigation(isFocused?.modal);
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    })
+                    modalNavigation("EventListings", "EventManagement");
                   }}
                 >
                   <Text style={styles.subCatTxt}>{"Find Event"}</Text>
@@ -63,12 +62,7 @@ const TabModalScreens = (props) => {
                 <TouchableOpacity
                   style={styles.subCatVw}
                   onPress={() => {
-                    navigation.navigate("HowItWorks");
-                    handleNavigation(isFocused?.modal);
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    })
+                    modalNavigation("HowItWorks", "EventManagement");
                   }}
                 >
                   <Text style={styles.subCatTxt}>{"How it works"}</Text>
@@ -76,18 +70,13 @@ const TabModalScreens = (props) => {
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                   onPress={() => {
-                    navigation.navigate("Pricing");
-                    handleNavigation(isFocused?.modal);
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    })
+                    modalNavigation("Pricing", "EventManagement");
                   }}
                 >
                   <Text style={styles.subCatTxt}>{"Pricing"}</Text>
                 </TouchableOpacity>
               </>
-            ) : isFocused.modal === "PlusManagement" ? (
+            ) : onPressmodal.modal === "PlusManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
                   <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
@@ -110,16 +99,11 @@ const TabModalScreens = (props) => {
                   <Text style={styles.subCatTxt}>{"Write a Review "}</Text>
                 </TouchableOpacity>
               </>
-            ) : isFocused.modal === "JobManagement" ? (
+            ) : onPressmodal.modal === "JobManagement" ? (
               <>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("JobListing");
-                    handleNavigation(isFocused?.modal);
-                    setIsFocused({
-                      ...isFocused,
-                      modal: "",
-                    })
+                    modalNavigation("JobListing", "JobManagement");
                   }}
                   style={styles.subCatVw}
                 >
@@ -136,7 +120,7 @@ const TabModalScreens = (props) => {
               </>
             ) : null}
           </View>
-        </Pressable>
+        </View>
       ) : null}
     </>
   );

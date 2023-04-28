@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Image } from "react-native";
-import LottieView from "lottie-react-native";
 import { YELLOW_COLOR_CODE } from "./Constant";
 import { Images } from "./images";
 const Loader = (props) => {

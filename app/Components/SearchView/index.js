@@ -34,6 +34,7 @@ const SearchView = (props) => {
   const navigation = useNavigation();
   const [searchHistory, setSearchHistory] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
   const [searchCategory, setSearchCategory] = useState({
     resBusdata: [],
     resultCat: [],
@@ -45,6 +46,7 @@ const SearchView = (props) => {
 
   const handleDetailNavigation = (data) => {
     setSearchOpen(false);
+    setListOpen(false);
     navigation.navigate("BusinessPageDetails", { detail: data });
   };
   useFocusEffect(
@@ -53,16 +55,13 @@ const SearchView = (props) => {
     }, [navigation, searchOpen])
   );
   const getHistorySearch = async () => {
-    const historySearchData = await AsyncStorage.getItem(
-      "searchCategoryHistory"
-    );
-    if (JSON?.parse(historySearchData)) {
-      setSearchHistory(JSON?.parse(historySearchData)?.reverse());
+    const historySearch = await AsyncStorage.getItem("searchCategoryHistory");
+    if (JSON?.parse(historySearch)) {
+      setSearchHistory(JSON?.parse(historySearch)?.reverse());
     }
   };
 
   const getCategories = async (itemData) => {
-    console.log("itemData: ", itemData);
     setSearchData({ ...itemData });
     const params = {
       search_category_or_business: itemData?.search_category_or_business
@@ -70,14 +69,12 @@ const SearchView = (props) => {
         : "",
       address: itemData?.address ? itemData?.address : "",
     };
-    console.log("params:BUSINESSLISTBYCATG ", params);
     try {
       const { data } = await apiCall(
         "POST",
         apiEndPoints.BUSINESSLISTBYCATG,
         params
       );
-      console.log("data:BUSINESSLISTBYCATG ", data);
       if (data?.status === 200) {
         setSearchCategory({
           resBusdata: data?.data?.resBusdata,
@@ -99,6 +96,7 @@ const SearchView = (props) => {
         category_name: searchData?.search_category_or_business,
       };
       setSearchOpen(false);
+      setListOpen(false);
       if (catSearchNew?.length >= 5) {
         catSearchNew?.splice(catSearchNew.length - 1, 1);
         catSearchNew?.push(objNew);
@@ -124,9 +122,19 @@ const SearchView = (props) => {
       navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
     }
   };
+  const onPressCat = (itm) => {
+    const newObject = {
+      ...itm,
+      address: searchData?.address,
+      search_category_or_business: itm?.category_name,
+    };
+    setSearchData({ ...newObject });
+    setListOpen(false);
+  };
 
   const handleOnSearch = () => {
     setSearchOpen(true);
+    setListOpen(true);
   };
 
   const renderCategories = () => {
@@ -135,15 +143,7 @@ const SearchView = (props) => {
         {searchHistory?.length > 0 && Array?.isArray(searchHistory)
           ? searchHistory?.map((itm) => {
               return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSearchData({
-                      ...itm,
-                      search_category_or_business: itm.category_name,
-                    });
-                  }}
-                  style={styles.categoryVw}
-                >
+                <TouchableOpacity onPress={() => {}} style={styles.categoryVw}>
                   <IconX
                     origin={ICON_TYPE.MATERIAL_ICONS}
                     name={"history"}
@@ -190,12 +190,7 @@ const SearchView = (props) => {
                 {searchCategory?.resultCat?.map((itm) => {
                   return (
                     <TouchableOpacity
-                      onPress={() => {
-                        setSearchData({
-                          ...itm,
-                          search_category_or_business: itm.category_name,
-                        });
-                      }}
+                      onPress={() => onPressCat(itm)}
                       style={styles.categoryVw}
                     >
                       <Text style={styles.categoryTxt}>
@@ -212,16 +207,7 @@ const SearchView = (props) => {
             {staticSearchOptions?.map((item) => {
               return (
                 <TouchableOpacity
-                  onPress={() => {
-                    setSearchData({
-                      ...item,
-                      search_category_or_business: item.category_name,
-                    });
-                    onSearchData({
-                      ...item,
-                      search_category_or_business: item.category_name,
-                    });
-                  }}
+                  onPress={() => onPressCat(item)}
                   style={styles.categoryVw}
                 >
                   <IconX
@@ -243,11 +229,15 @@ const SearchView = (props) => {
     <Pressable
       onPress={() => {
         setSearchOpen(false);
+        setListOpen(false);
         Keyboard.dismiss();
       }}
     >
       <View style={styles.searchVw}>
-        <View style={styles.catgSearchVw}>
+        <TouchableOpacity
+          onPress={() => setSearchOpen(searchOpen ? false : true)}
+          style={styles.catgSearchVw}
+        >
           <IconX
             origin={ICON_TYPE.OCTICONS}
             color={GREY_COLOR_CODE}
@@ -265,10 +255,9 @@ const SearchView = (props) => {
                 ...searchData,
                 search_category_or_business: txt,
               });
-              searchValues(searchData);
               if (txt != "") {
                 getCategories({
-                  address: searchData?.address,
+                  ...searchData,
                   search_category_or_business: txt,
                 });
               } else {
@@ -279,8 +268,8 @@ const SearchView = (props) => {
               }
             }}
           />
-        </View>
-        {searchOpen ? renderCategories() : null}
+        </TouchableOpacity>
+        {searchOpen && listOpen ? renderCategories() : null}
         {searchOpen ? (
           <>
             <View style={styles.catgSearchVw}>
@@ -299,17 +288,16 @@ const SearchView = (props) => {
                     latitude: details?.geometry?.location?.lat,
                     longitude: details?.geometry?.location?.lng,
                   });
-                  searchValues(searchData);
                 }}
                 onChangeText={(txt) => {
                   if (txt === "") {
                     setSearchData({
                       ...searchData,
                       address: "",
+                      latitude: "",
+                      longitude: "",
                     });
-                    searchValues(searchData);
                   } else {
-                    searchValues(searchData);
                     setSearchData({
                       ...searchData,
                       address: txt ? txt : searchData?.address,

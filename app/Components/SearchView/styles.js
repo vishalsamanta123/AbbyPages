@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: WHITE_COLOR_CODE,
     borderRadius: 10,
-    marginTop: 12,
+    marginTop: 10,
   },
   catgSearchInput: {
     height: 48,
