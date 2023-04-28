@@ -7,36 +7,9 @@ import {
 } from "../../Utils/Constant";
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flexDirection: "row",
-    backfaceVisibility: "visible",
-    backgroundColor: COLORS.WHITE,
-    alignItems: "center",
-    borderTopRightRadius: 12,
-    borderTopLeftRadius: 12,
-    paddingVertical: 5,
-    justifyContent: "space-between",
-    paddingHorizontal: 12,
-  },
-  plusVw: {
-    position: "absolute",
-    bottom: 30,
-    backgroundColor: COLORS.WHITE,
-    borderRadius: 100,
-    alignSelf: "center",
-    padding: 5,
-    paddingHorizontal: 8,
-    borderWidth: Constants.normalBW,
-  },
   tapVws: {
     alignItems: "center",
     flex: 1,
-  },
-  leftContainers: {
-    marginRight: 45,
-  },
-  rightContainers: {
-    marginLeft: 26,
   },
   iconStyleVw: {
     marginHorizontal: 5,
@@ -44,15 +17,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: Constants.Ios ? 10 : 1,
     paddingTop: 6,
-  },
-  iconActiveVw: {
-    borderRadius: 100,
-    backgroundColor: COLORS.YELLOW,
-    padding: 5,
-  },
-  iconInActiveVw: {
-    borderRadius: 100,
-    padding: 6,
   },
   iconTxt: {
     fontSize: FONT_SIZE.verysmall,

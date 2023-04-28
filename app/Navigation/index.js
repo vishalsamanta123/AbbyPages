@@ -370,7 +370,6 @@ function AuthLoading({ navigation }) {
       },
       signOut: async () => {
         try {
-          console.log("LOGOUTTTT");
           await AsyncStorage.removeItem("localuserdata");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
@@ -430,7 +429,6 @@ function AuthLoading({ navigation }) {
   );
 }
 function Route() {
-  const [userData, setUserData] = useContext(UserContext);
   useEffect(() => {
     getToken();
   }, []);

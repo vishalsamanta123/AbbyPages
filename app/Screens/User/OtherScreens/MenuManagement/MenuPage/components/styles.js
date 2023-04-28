@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     marginHorizontal: 10,
     marginHorizontal: 20,
-    elevation: 2,
+    // elevation: 2,
     borderRadius: 20,
   },
   centerButtonTxt: {
@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     paddingHorizontal: 12,
     borderRadius: 10,
-    elevation: 2,
+    // elevation: 2,
   },
   profileImgVw: {
     width: 50,
     height: 50,
-    borderRadius: 5,
+    borderRadius: 100,
     marginRight: 12,
   },
   profileTxt: {

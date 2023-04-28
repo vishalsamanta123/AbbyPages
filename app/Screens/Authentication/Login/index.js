@@ -121,7 +121,9 @@ const SignInView = ({ navigation, route }) => {
           device_type: deviceType,
           device_token: fcmToken,
         };
+        console.log('params: ', params);
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_IN, params);
+        console.log('data: ', data);
         if (data.status === 200) {
           setVisible(false);
           await setDefaultHeader("token", data.token);
