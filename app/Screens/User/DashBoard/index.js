@@ -67,7 +67,7 @@ const DashBoardView = ({ navigation }) => {
       limit: 3,
     };
     if (!refreshing && offset === 0) {
-      // setVisible(true);
+      setVisible(true);
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
@@ -93,7 +93,7 @@ const DashBoardView = ({ navigation }) => {
   };
   const getDashBoardCategory = async () => {
     if (!refreshing) {
-      // setVisible(true);
+      setVisible(true);
     }
     try {
       const { data } = await apiCall("GET", ENDPOINTS.CATEGORIES_AT_HOME_LIST);
@@ -116,7 +116,7 @@ const DashBoardView = ({ navigation }) => {
   };
   const getDashBoardBussiness = async () => {
     if (!refreshing) {
-      // setVisible(true);
+      setVisible(true);
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.HOME_DASHBOARD);
@@ -143,7 +143,7 @@ const DashBoardView = ({ navigation }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
+      {/* {visible && <Loader state={visible} />} */}
       <DashBoardScreen
         setSliderPage={setSliderPage}
         recent_activity={recent_activity}
