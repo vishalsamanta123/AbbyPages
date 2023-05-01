@@ -3,14 +3,16 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, StatusBar, View, StyleSheet } from "react-native";
+import { Image, StatusBar, View, StyleSheet, Text } from "react-native";
 import { Images } from "../Utils/images";
 import MyCustomDrawer from "./MyCustomDrawer";
+import AnimatedLottieView from "lottie-react-native";
 import MyTabBar from "./MyTabBar";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall, setDefaultHeader } from "../Utils/httpClient";
 import ENDPOINTS from "../Utils/apiEndPoints";
 import { UserContext, AuthContext } from "../Utils/UserContext";
+import Loader from "../Utils/Loader";
 
 // ==================Auth Screens=========================
 import LoginScreen from "../Screens/Authentication/Login";
@@ -37,6 +39,7 @@ import JobListing from "../Screens/User/JobMng/JobListing";
 import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 import Pricing from "../Screens/User/EventMng/Pricing";
 import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
+import { COLORS, Constants, FONT_FAMILY } from "../Utils/Constant";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -396,18 +399,24 @@ function AuthLoading({ navigation }) {
   }, []);
   if (loginState.isLoading) {
     return (
-      <View style={Styles.container}>
+      <>
         <StatusBar
           translucent={true}
           backgroundColor={"transparent"}
           barStyle="dark-content"
         />
-        <Image
-          resizeMode={"contain"}
-          style={Styles.logoImg}
-          source={Images.LOGO}
-        />
-      </View>
+        <View style={Styles.container}>
+          <Image
+            resizeMode={"contain"}
+            style={Styles.spalshLogoImg}
+            source={Images.LOGO}
+          />
+          <View>
+            <Text style={Styles.splashText}>Loading...</Text>
+            <Loader type={"small"} />
+          </View>
+        </View>
+      </>
     );
   }
   return (
@@ -454,9 +463,12 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  logoImg: {
-    alignSelf: "center",
-    width: "65%",
-    height: "50%",
+  spalshLogoImg: {
+    width: Constants.windowWidth / 1.5,
+  },
+  splashText: {
+    fontSize: 18,
+    color: COLORS.LIGHT_YELLOW,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
