@@ -1,70 +1,58 @@
-import { Platform, StyleSheet } from "react-native";
-import {
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  LIGHT_WHITE_COLOR_CODE,
-  GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  TRANSPARENT_CODE,
-  LIGHT_WHITE_COLOR,
-} from "./Constant";
+import { StyleSheet } from "react-native";
+import { COLORS, FONT_FAMILY } from "./Constant";
 
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   otherContainer: {
     flex: 1,
-    backgroundColor: LINE_COMMON_COLOR_CODE,
+    backgroundColor: COLORS.COMMON,
   },
   header: {
     paddingVertical: 16,
     flexDirection: "row",
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     alignItems: "center",
   },
   body: {
     flex: 5.5,
   },
   text: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
   },
   scrollCon: {
     flexGrow: 1,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   otherScrollCon: {
     flexGrow: 1,
     backgroundColor: "#efefef",
   },
   editPencilVw: {
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },
   bigTxtVw: {
     fontSize: 24,
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_BOLD,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.BOLD,
     textAlign: "center",
   },
   mediumTxt: {
     fontSize: 19,
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
   },
   blackDropDownImg: {
     width: 20,
     height: 20,
-    tintColor: LIGHT_BLACK_COLOR_CODE,
+    tintColor: COLORS.LIGHT_BLACK,
   },
   dotTxt: {
     fontSize: 10,
@@ -82,19 +70,19 @@ const Styles = StyleSheet.create({
   locSearchVw: {
     textInputContainer: {
       fontSize: 16,
-      fontFamily: FONT_FAMILY_REGULAR,
+      fontFamily: FONT_FAMILY.REGULAR,
       paddingLeft: 30,
       width: "95%",
     },
     textInput: {
-      fontFamily: FONT_FAMILY_REGULAR,
+      fontFamily: FONT_FAMILY.REGULAR,
       fontSize: 16,
-      backgroundColor: TRANSPARENT_CODE,
-      color: GREY_COLOR_CODE,
+      backgroundColor: COLORS.TRANSPARENT,
+      color: COLORS.GREY,
       height: 45,
     },
     listView: {
-      backgroundColor: LIGHT_WHITE_COLOR_CODE,
+      backgroundColor: COLORS.LIGHT_WHITE,
     },
   },
   locationIcon: {

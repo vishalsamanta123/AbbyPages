@@ -39,7 +39,7 @@ const MainHeader = (props) => {
     loginButton = true,
     headerType = "",
     justifyContent = "space-between",
-    fontSize = FONT_SIZE.largeL,
+    fontSize = FONT_SIZE.large,
     backgroundColor = COLORS.WHITE,
     onPressBack = false,
     TxtMarginRight = 0,
