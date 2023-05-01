@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     justifyContent: "space-between",
     backgroundColor: COLORS.WHITE,
-    shadowColor: "#000",
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   topButtonVwNon: {
     backgroundColor: COLORS.WHITE,
     elevation: 10,
-    shadowColor: "#000",
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 1,

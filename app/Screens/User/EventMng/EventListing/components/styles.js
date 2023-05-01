@@ -1,17 +1,8 @@
 import { StyleSheet } from "react-native";
 import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  SMALL_TEXT_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  LIGHT_GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  GREY_COLOR_CODE,
   COLORS,
   FONT_FAMILY,
+  FONT_SIZE,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
@@ -19,9 +10,9 @@ const Styles = StyleSheet.create({
     marginTop: 8,
   },
   eventTitlesTxt: {
-    fontSize: 20,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: FONT_SIZE.large,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   bannervideoStyle: {
     height: 260,
@@ -36,18 +27,17 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    // backgroundColor: COLORS.BLACK,
     // opacity: 0.5
   },
   bannerHeading: {
-    fontSize: 28,
+    fontSize: FONT_SIZE.veryLarge,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
     marginBottom: 10,
     textAlign: "center",
   },
   bannerHeadingDesc: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.WHITE,
     textAlign: "center",
@@ -60,16 +50,16 @@ const Styles = StyleSheet.create({
     color: COLORS.WHITE
   },
   seeOnVw: {
-    borderColor: BLACK_COLOR_CODE,
+    borderColor: COLORS.BLACK,
     borderWidth: 0.3,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 2,
   },
   seeOnTxt: {
-    fontSize: 14,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
   },
   seeForImg: {
     width: 14,
@@ -77,7 +67,7 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
     resizeMode: "contain",
     top: 2,
-    tintColor: SMALL_TEXT_COLOR_CODE,
+    tintColor: COLORS.SMALL_TEXT,
   },
   containerVw: {
     paddingVertical: 8,
@@ -94,9 +84,9 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
   },
   nameTxt: {
-    fontSize: 20,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: FONT_SIZE.large,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   straightVw: {
     flexDirection: "row",
@@ -104,9 +94,9 @@ const Styles = StyleSheet.create({
     paddingVertical: 2,
   },
   straightTxt: {
-    fontSize: 12,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: FONT_SIZE.small,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
     maxWidth: 230,
   },
   straightImg: {
@@ -120,8 +110,8 @@ const Styles = StyleSheet.create({
     marginVertical: 8,
   },
   seeAllBttnTxt: {
-    color: BLACK_COLOR_CODE,
-    fontSize: 18,
+    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.mediumL,
   },
   popularEventVw: {
     paddingVertical: 10,
@@ -139,10 +129,10 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   txtTimeCat: {
-    fontSize: 15,
+    fontSize: FONT_SIZE.medium,
     lineHeight: 18,
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   timeDataImg: {
     width: 16,
@@ -153,7 +143,7 @@ const Styles = StyleSheet.create({
   mnCon: {
     margin: 5,
     elevation: 2,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 10,
     width: "92%",
     alignSelf: "center",
@@ -173,9 +163,9 @@ const Styles = StyleSheet.create({
     padding: 20,
   },
   hdngtxt: {
-    fontSize: 17,
+    fontSize: FONT_SIZE.mediumL,
     lineHeight: 20,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "#3a3838",
   },
   icon: {
@@ -186,12 +176,12 @@ const Styles = StyleSheet.create({
     marginRight: 5,
   },
   text: {
-    color: SMALL_TEXT_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   yellowtxt: {
-    color: YELLOW_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.YELLOW,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   intcon: {
     flexDirection: "row",
@@ -206,13 +196,13 @@ const Styles = StyleSheet.create({
   btncon: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     borderRadius: 8,
     marginBottom: 10,
     marginRight: 10,
   },
   buytckttxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     lineHeight: 16,
   },
   emptyEventVw: {
@@ -221,17 +211,17 @@ const Styles = StyleSheet.create({
     minHeight: 50,
   },
   emptyEventTxt: {
-    fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
   },
   footerVw: {
     paddingHorizontal: 10,
   },
   footerTxt: {
-    fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
     alignSelf: "flex-start",
     paddingVertical: 10,
   },

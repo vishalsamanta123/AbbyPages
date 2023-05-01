@@ -1,13 +1,5 @@
 import { StyleSheet } from "react-native";
-import {
-  FONT_FAMILY_REGULAR,
-  YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  SMALL_TEXT_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   bannerimg: {
     width: "100%",
@@ -20,9 +12,9 @@ const Styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   hdngtxt: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.mediumL,
     width: "90%",
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "#3a3838",
   },
   basiccon: {
@@ -34,9 +26,9 @@ const Styles = StyleSheet.create({
   maincontainers: {
     padding: 20,
     flex: 1,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderBottomWidth: 20,
-    borderColor: "#f2f2f2",
+    borderColor: COLORS.WHITE,
   },
   descriptioncon: {
     flex: 1,
@@ -56,14 +48,14 @@ const Styles = StyleSheet.create({
     width: 18,
   },
   text: {
-    color: SMALL_TEXT_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
     lineHeight: 22,
     letterSpacing: 0.2,
   },
   btncon: {
     paddingVertical: 18,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     borderRadius: 10,
     marginTop: 8,
     marginBottom: 5,
@@ -71,21 +63,21 @@ const Styles = StyleSheet.create({
     alignItems: "center",
   },
   btntxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 17,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
   },
   noTimeTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
-    color: YELLOW_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.YELLOW,
     marginTop: 8,
     marginLeft: 5,
   },
   relatedItemsTxt: {
     marginLeft: 16,
-    fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
   },
   relatedItems: {
     flexDirection: "row",
@@ -113,19 +105,19 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   mainServiceName: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16.5,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
   },
   addressTxtStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 15,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+    color: COLORS.GREY,
     lineHeight: 15,
   },
   jobTypeTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.LIGHT_BLACK,
     lineHeight: 20,
   },
 });

@@ -1,12 +1,8 @@
 import { StyleSheet } from "react-native";
 import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
-  LIGHT_GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
+  COLORS,
+  FONT_FAMILY,
+  FONT_SIZE,
 } from "../../Utils/Constant";
 
 const styles = StyleSheet.create({
@@ -16,15 +12,15 @@ const styles = StyleSheet.create({
   catgSearchVw: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 10,
     marginTop: 10,
   },
   catgSearchInput: {
     height: 48,
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.GREY,
     width: "80%",
   },
   searchButtonVw: {
@@ -34,14 +30,14 @@ const styles = StyleSheet.create({
   },
   categoriesVw: {
     marginHorizontal: 2,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     elevation: 10,
     marginVertical: 3,
   },
   searchHeadTxt: {
-    fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: YELLOW_COLOR_CODE,
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.YELLOW,
     marginLeft: 10,
     marginVertical: 5,
   },
@@ -52,15 +48,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   categoryTxt: {
-    fontSize: 18,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: FONT_SIZE.mediumL,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
     marginLeft: 10,
   },
   categorySmallTxt: {
-    fontSize: 12,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: FONT_SIZE.small,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
     marginLeft: 10,
     marginRight: 50,
   },
@@ -77,8 +73,8 @@ const styles = StyleSheet.create({
   inputStyle: {
     flexDirection: "row",
     width: "90%",
-    backgroundColor: WHITE_COLOR_CODE,
-    shadowColor: "#000",
+    backgroundColor: COLORS.WHITE,
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -91,9 +87,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   searchText: {
-    fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
   },
 });
 export default styles;

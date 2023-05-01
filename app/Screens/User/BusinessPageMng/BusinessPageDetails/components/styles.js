@@ -1,15 +1,9 @@
 import { StyleSheet } from "react-native";
 import {
-  BLACK_COLOR_CODE,
   COLORS,
   Constants,
   FONT_FAMILY,
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_REGULAR,
   FONT_SIZE,
-  GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
@@ -309,7 +303,7 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 0.5,
-    borderColor: GREY_COLOR_CODE,
+    borderColor: COLORS.GREY_COLOR_CODE,
   },
   largeImgVw: {
     width: 110,
@@ -335,8 +329,8 @@ const Styles = StyleSheet.create({
     marginRight: 5,
   },
   ratingTxt: {
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_BOLD,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.BOLD,
     fontSize: FONT_SIZE.medium,
   },
   innContainer: {
@@ -349,15 +343,15 @@ const Styles = StyleSheet.create({
     paddingVertical: 2,
   },
   largeNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
     textTransform: "capitalize",
   },
   smallTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13.5,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   emptyConVw: {
     height: 200,
@@ -366,13 +360,13 @@ const Styles = StyleSheet.create({
   },
   emptyConTxt: {
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   lightTxt: {
     fontSize: 14,
     color: COLORS.SMALL_TEXT,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   smallImgVw: {
     width: 35,
