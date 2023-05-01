@@ -20,6 +20,7 @@ import {
 import moment from "moment";
 import { Images } from "../../../../../Utils/images";
 import EmptyList from "../../../../../Components/EmptyList";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const JobListingView = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -38,21 +39,21 @@ const JobListingView = (props) => {
         </View>
         <View style={styles.detailsVw}>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={styles.text}>{item.company_name}</Text>
-            <Text style={styles.text}>
+            <ScaleText style={styles.text}>{item.company_name}</ScaleText>
+            <ScaleText style={styles.text}>
               {moment(item.create_date).endOf("day").fromNow()}
-            </Text>
+            </ScaleText>
           </View>
-          <Text style={styles.jobTitle}>{item.job_title}</Text>
+          <ScaleText style={styles.jobTitle}>{item.job_title}</ScaleText>
           <View style={styles.basiccon}>
             <Image
               style={styles.icon}
               resizeMode="contain"
               source={Images.LOCATION_IMG}
             />
-            <Text numberOfLines={3} style={styles.text}>
+            <ScaleText numberOfLines={3} style={styles.text}>
               {item.job_address}
-            </Text>
+            </ScaleText>
           </View>
           <View style={styles.basiccon}>
             <Image
@@ -61,7 +62,7 @@ const JobListingView = (props) => {
               resizeMode="contain"
               source={Images.JOB_LIST_IMG}
             />
-            <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+            <ScaleText style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
               {Number(item.job_type) === 1
                 ? "Full Time"
                 : Number(item.job_type) === 2
@@ -71,7 +72,7 @@ const JobListingView = (props) => {
                 : Number(item.job_type) === 4
                 ? "Freelancer"
                 : "Work"}
-            </Text>
+            </ScaleText>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
             <View style={styles.basiccon}>
@@ -81,7 +82,7 @@ const JobListingView = (props) => {
                 resizeMode="contain"
                 source={Images.MONEY_NOTE_IMG}
               />
-              <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+              <ScaleText style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                 {Number(
                   parseFloat(item?.monthly_in_hand_salary_from).toFixed(2)
                 ).toLocaleString("en", {
@@ -93,7 +94,7 @@ const JobListingView = (props) => {
                 ).toLocaleString("en", {
                   minimumFractionDigits: 2,
                 })}
-              </Text>
+              </ScaleText>
             </View>
             {/* <TouchableOpacity onPress={() => props._hanldeSetLike(item)}>
               <Image
@@ -121,7 +122,7 @@ const JobListingView = (props) => {
               />
             </View>
 
-            <Text style={styles.editTxt}>Edit Your Job</Text>
+            <ScaleText style={styles.editTxt}>Edit Your Job</ScaleText>
           </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
@@ -152,7 +153,7 @@ const JobListingView = (props) => {
           />
         </TouchableOpacity>
         <View style={[styles.HeaderMiddleCon]}>
-          <Text style={[styles.MainHeadTxt]}>Jobs</Text>
+          <ScaleText style={[styles.MainHeadTxt]}>Jobs</ScaleText>
         </View>
         <View style={styles.HeaderRightView}>
           <TouchableOpacity onPress={() => props.onPressMap()}>
@@ -186,16 +187,16 @@ const JobListingView = (props) => {
           ListHeaderComponent={() => {
             return (
               <View style={styles.topInfoVw}>
-                <Text style={styles.hdngtxt}>
+                <ScaleText style={styles.hdngtxt}>
                   {props?.jobList?.length} Results found
-                </Text>
+                </ScaleText>
                 <TouchableOpacity
                   style={styles.postJobVW}
                   onPress={() => props.setPostjob(true)}
                 >
-                  <Text style={[styles.hdngtxt, { fontSize: 16 }]}>
+                  <ScaleText style={[styles.hdngtxt, { fontSize: 16 }]}>
                     Post Job
-                  </Text>
+                  </ScaleText>
                 </TouchableOpacity>
               </View>
             );

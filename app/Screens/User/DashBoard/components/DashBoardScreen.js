@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   ScrollView,
   TouchableOpacity,
@@ -9,21 +8,16 @@ import {
   RefreshControl,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { COLORS, Constants, FONT_FAMILY } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
-import ByCategory from "./ByCategory";
-import Loader from "../../../../Utils/Loader";
 import MainHeader from "../../../../Components/MainHeader";
+import ScaleText from "../../../../Components/ScaleText";
 
 const DashBoardScreen = (props) => {
-  const [searchModal, setSearchModal] = useState(false);
-  const [viewPhotos, setViewPhotos] = useState(false);
-
   const renderSlideItem = ({ item }) => {
     return (
       <View style={{ flex: 1, marginHorizontal: 4 }}>
@@ -32,10 +26,12 @@ const DashBoardScreen = (props) => {
             source={{ uri: item.business_type_image }}
             style={{ height: 200, width: "97%" }}
           />
-          <Text style={styles.posterTitleTxt}>{item.business_type_name}</Text>
-          <Text style={styles.posterTxt}>
+          <ScaleText style={styles.posterTitleTxt}>
+            {item.business_type_name}
+          </ScaleText>
+          <ScaleText style={styles.posterTxt}>
             {item.total_business_count + " " + "Listing"}
-          </Text>
+          </ScaleText>
         </View>
       </View>
     );
@@ -63,19 +59,21 @@ const DashBoardScreen = (props) => {
           style={styles.backgroundImgVw}
         >
           <View style={styles.imgInnerVw}>
-            <Text style={CommonStyles.bigTxtVw}>
-              <Text style={{ fontFamily: FONT_FAMILY.REGULAR }}>Support </Text>
+            <ScaleText style={CommonStyles.bigTxtVw}>
+              <ScaleText style={{ fontFamily: FONT_FAMILY.REGULAR }}>
+                Support{" "}
+              </ScaleText>
               Black Excellence!
-            </Text>
-            <Text style={[CommonStyles.mediumTxt, { marginTop: 16 }]}>
+            </ScaleText>
+            <ScaleText style={[CommonStyles.mediumTxt, { marginTop: 16 }]}>
               Discover Events, Jobs, Goods, Services, Directions, Reviews,
               Deals, and More on ABBYPAGES.
-            </Text>
+            </ScaleText>
           </View>
         </ImageBackground>
         <View style={styles.mainVw}>
           <View style={styles.containersVw}>
-            <Text style={styles.titlesTxt}>Recent Activities</Text>
+            <ScaleText style={styles.titlesTxt}>Recent Activities</ScaleText>
             <View style={styles.activityConVw}>
               {props?.recent_activity?.length > 0 ? (
                 <>
@@ -92,12 +90,12 @@ const DashBoardScreen = (props) => {
                             style={styles.activityProfileVw}
                           />
                           <View style={styles.textVw}>
-                            <Text style={styles.activityNameTxt}>
+                            <ScaleText style={styles.activityNameTxt}>
                               {activity?.user?.first_name +
                                 " " +
                                 activity?.user?.last_name}
-                            </Text>
-                            <Text style={styles.activityRvwTxt}>
+                            </ScaleText>
+                            <ScaleText style={styles.activityRvwTxt}>
                               {activity?.review
                                 ? "Wrote a Review"
                                 : activity?.image?.length > 0
@@ -107,13 +105,13 @@ const DashBoardScreen = (props) => {
                                     " Photos"
                                   }`
                                 : null}
-                            </Text>
+                            </ScaleText>
                           </View>
                         </View>
                         {activity?.image?.length > 0 ? (
-                          <Text style={styles.activityMainTxt}>
+                          <ScaleText style={styles.activityMainTxt}>
                             {activity?.business_name}
-                          </Text>
+                          </ScaleText>
                         ) : null}
                         {activity?.review ? (
                           <Image
@@ -156,17 +154,17 @@ const DashBoardScreen = (props) => {
                             ) : null}
                             {/* {activity?.image?.length > 2 ? (
                               <TouchableOpacity onPress={() => setViewPhotos()}>
-                                <Text style={styles.seeAllTxt}>
+                                <ScaleText style={styles.seeAllTxt}>
                                   See All {activity?.image?.length} Photos
-                                </Text>
+                                </ScaleText>
                               </TouchableOpacity>
                             ) : null} */}
                           </>
                         )}
                         {activity?.review ? (
-                          <Text style={styles.activityMainTxt}>
+                          <ScaleText style={styles.activityMainTxt}>
                             {activity?.business_name}
-                          </Text>
+                          </ScaleText>
                         ) : null}
                         {activity?.review ? (
                           <>
@@ -174,9 +172,9 @@ const DashBoardScreen = (props) => {
                               marginLeft={8}
                               counts={activity?.review?.business_rating}
                             />
-                            <Text style={styles.activityCmntTxt}>
+                            <ScaleText style={styles.activityCmntTxt}>
                               {activity?.review?.description}
-                            </Text>
+                            </ScaleText>
                           </>
                         ) : null}
                       </TouchableOpacity>
@@ -197,15 +195,20 @@ const DashBoardScreen = (props) => {
                 }}
                 style={styles.seeMoreBttn}
               >
-                <Text style={styles.seeMoreBttnTxt}>Show More Activity</Text>
+                <ScaleText style={styles.seeMoreBttnTxt}>
+                  Show More Activity
+                </ScaleText>
               </TouchableOpacity>
             ) : null}
           </View>
           <View style={styles.containersVw}>
-            <Text style={styles.titlesTxt}>
+            <ScaleText style={styles.titlesTxt}>
               Find the Best Black-Owned Businesses in
-              <Text style={{ fontFamily: FONT_FAMILY.BOLD }}> Town</Text>
-            </Text>
+              <ScaleText style={{ fontFamily: FONT_FAMILY.BOLD }}>
+                {" "}
+                Town
+              </ScaleText>
+            </ScaleText>
             <View style={styles.posterVw}>
               <Carousel
                 data={props.businessTypes}
@@ -235,11 +238,11 @@ const DashBoardScreen = (props) => {
           </View>
           <View style={styles.containersVw}>
             <ImageBackground style={{ flex: 1 }} source={Images.COVER_IMG}>
-              <Text
+              <ScaleText
                 style={[styles.titlesTxt, { fontFamily: FONT_FAMILY.BOLD }]}
               >
                 Browse Businesses by Category
-              </Text>
+              </ScaleText>
               {props?.services?.length > 0 ? (
                 <>
                   {props.services?.map((type) => {
@@ -270,7 +273,7 @@ const DashBoardScreen = (props) => {
                       {props?.moreServices?.map((more) => {
                         return (
                           <TouchableOpacity style={styles.moreServiceVw}>
-                            <Text
+                            <ScaleText
                               style={[
                                 CommonStyles.mediumTxt,
                                 {
@@ -279,7 +282,7 @@ const DashBoardScreen = (props) => {
                               ]}
                             >
                               {more.category_name}
-                            </Text>
+                            </ScaleText>
                           </TouchableOpacity>
                         );
                       })}

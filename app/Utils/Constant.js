@@ -1,5 +1,6 @@
 import React from "react";
 import { Dimensions, Platform } from "react-native";
+import { normalize } from "./scaleFontSize";
 
 //height Width
 export const windowWidth = Dimensions.get("screen").width;
@@ -65,16 +66,16 @@ export const FONT_FAMILY = {
   LIGHT: "WorkSans-Light",
 };
 export const FONT_SIZE = {
-  verysmall: 11,
-  small: 12,
-  smallL: 14,
-  large: 20,
-  largeL: 24,
-  largeM: 22,
-  veryLarge: 30,
-  medium: 16,
-  mediumL: 18,
-  normal: 15,
+  verysmall: normalize(11),
+  small: normalize(12),
+  smallL: normalize(14),
+  large: normalize(20),
+  largeL: normalize(24),
+  largeM: normalize(22),
+  veryLarge: normalize(30),
+  medium: normalize(16),
+  mediumL: normalize(18),
+  normal: normalize(15),
 };
 
 export const Constants = {

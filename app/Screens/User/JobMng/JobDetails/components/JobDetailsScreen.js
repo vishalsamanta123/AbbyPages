@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView } from "react-native";
+import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import CommonStyles from "../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -12,6 +12,7 @@ import {
 } from "../../../Utils/Constant";
 import HTML from "react-native-render-html";
 import { Images } from "../../../Utils/images";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const JobDetailsScreen = (props) => {
   return (
@@ -30,9 +31,9 @@ const JobDetailsScreen = (props) => {
             source={{ uri: props?.details?.business_logo }}
           />
           <View style={styles.infocon}>
-            <Text style={[styles.hdngtxt, { fontSize: 20 }]}>
+            <ScaleText style={[styles.hdngtxt, { fontSize: 20 }]}>
               {props?.details?.job_title}
-            </Text>
+            </ScaleText>
             <View style={styles.basiccon}>
               <View style={styles.basiccon}>
                 <Image
@@ -44,16 +45,18 @@ const JobDetailsScreen = (props) => {
                       : Images.CANCEL_IMG
                   }
                 />
-                <Text style={[styles.text, { fontSize: 14 }]}>Verified</Text>
+                <ScaleText style={[styles.text, { fontSize: 14 }]}>
+                  Verified
+                </ScaleText>
               </View>
               <View style={styles.basiccon}>
                 <Image
                   style={[styles.icon, { width: 20 }]}
                   source={Images.VIEW_EYE_IMG}
                 />
-                <Text style={[styles.text, { fontSize: 14 }]}>
+                <ScaleText style={[styles.text, { fontSize: 14 }]}>
                   {props?.details?.job_views} Viewed
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
@@ -62,9 +65,9 @@ const JobDetailsScreen = (props) => {
                 style={[styles.icon, { height: 15, width: 15 }]}
                 source={Images.CLOCK_IMG}
               />
-              <Text style={[styles.text, { fontSize: 14 }]}>
+              <ScaleText style={[styles.text, { fontSize: 14 }]}>
                 {props?.details?.address}
-              </Text>
+              </ScaleText>
             </View>
             {/* <Button
               style={{
@@ -101,9 +104,9 @@ const JobDetailsScreen = (props) => {
                 ]}
               >
                 <Image source={Images.SAVED_IMG} />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Report
-                </Text>
+                </ScaleText>
               </View>
               <TouchableOpacity
                 onPress={() => props.shareTo()}
@@ -116,85 +119,102 @@ const JobDetailsScreen = (props) => {
                   style={[styles.icon, { height: 22, width: 25 }]}
                   source={Images.SHARE_IMG}
                 />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   Share
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => props.saveJob()}
                 style={styles.btnmncon}
               >
                 <Image
-                  style={{ tintColor: props?.details?.user_like === 1 ? YELLOW_COLOR_CODE : null }}
+                  style={{
+                    tintColor:
+                      props?.details?.user_like === 1
+                        ? YELLOW_COLOR_CODE
+                        : null,
+                  }}
                   source={Images.SAVED_IMG}
                 />
-                <Text style={[styles.text, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.text, { color: BLACK_COLOR_CODE }]}>
                   {props?.details?.user_like === 1 ? "Saved" : "Save"}
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.maincontainers}>
-            <Text style={styles.hdngtxt}>Recruitment Information</Text>
+            <ScaleText style={styles.hdngtxt}>
+              Recruitment Information
+            </ScaleText>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Work Location :
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{props?.details?.job_address}</Text>
+                <ScaleText style={styles.text}>
+                  {props?.details?.job_address}
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Industry :
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{props?.details?.company_name}</Text>
+                <ScaleText style={styles.text}>
+                  {props?.details?.company_name}
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Job Level :
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{props?.details?.job_level}</Text>
+                <ScaleText style={styles.text}>
+                  {props?.details?.job_level}
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Type:</Text>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
+                  Type:
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+                <ScaleText style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                   {props?.details?.job_type == 1 || "Full Time"
                     ? "Full Time"
                     : props?.details?.job_type == 2
-                      ? "Part Time"
-                      : props?.details?.job_type == 3
-                        ? "Intership"
-                        : props?.details?.job_type == 4
-                          ? "Freelancer"
-                          : "Work"}
-                </Text>
+                    ? "Part Time"
+                    : props?.details?.job_type == 3
+                    ? "Intership"
+                    : props?.details?.job_type == 4
+                    ? "Freelancer"
+                    : "Work"}
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>Salary :</Text>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
+                  Salary :
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
+                <ScaleText style={[styles.text, { color: YELLOW_COLOR_CODE }]}>
                   $
                   {Number(
                     parseFloat(
@@ -211,38 +231,42 @@ const JobDetailsScreen = (props) => {
                   ).toLocaleString("en", {
                     minimumFractionDigits: 2,
                   })}
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Skills Requires :
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{props?.details?.skills}</Text>
+                <ScaleText style={styles.text}>
+                  {props?.details?.skills}
+                </ScaleText>
               </View>
             </View>
             <View style={styles.basiccon}>
               <View style={styles.descriptioncon}>
-                <Text style={CommonStyles.dotTxt}>{'\u2B24'}</Text>
-                <Text style={[styles.hdngtxt, { fontSize: 15 }]}>
+                <ScaleText style={CommonStyles.dotTxt}>{"\u2B24"}</ScaleText>
+                <ScaleText style={[styles.hdngtxt, { fontSize: 15 }]}>
                   Language :
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.text}>{props?.details?.language}</Text>
+                <ScaleText style={styles.text}>
+                  {props?.details?.language}
+                </ScaleText>
               </View>
             </View>
           </View>
           <View
             style={[styles.maincontainers, { paddingRight: 30, padding: 0 }]}
           >
-            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>
+            <ScaleText style={[styles.hdngtxt, { marginLeft: 20 }]}>
               Job Description
-            </Text>
+            </ScaleText>
             <View style={[styles.basiccon, { paddingLeft: 10 }]}>
               <HTML
                 contentWidth={50}
@@ -255,9 +279,9 @@ const JobDetailsScreen = (props) => {
           <View
             style={[styles.maincontainers, { paddingRight: 30, padding: 0 }]}
           >
-            <Text style={[styles.hdngtxt, { marginLeft: 20 }]}>
+            <ScaleText style={[styles.hdngtxt, { marginLeft: 20 }]}>
               Job Requirement
-            </Text>
+            </ScaleText>
             <View style={[styles.basiccon, { paddingLeft: 10 }]}>
               <HTML
                 contentWidth={50}
@@ -268,62 +292,64 @@ const JobDetailsScreen = (props) => {
             </View>
           </View>
           <View style={styles.maincontainers}>
-            <Text style={styles.hdngtxt}>Arates Property Company</Text>
+            <ScaleText style={styles.hdngtxt}>
+              Arates Property Company
+            </ScaleText>
             <View style={[styles.basiccon, { padding: 5 }]}>
               <Image
                 resizeMode="contain"
                 style={styles.icon}
                 source={Images.LOCATION_IMG}
               />
-              <Text style={styles.text}>{props?.details?.job_address}</Text>
+              <ScaleText style={styles.text}>
+                {props?.details?.job_address}
+              </ScaleText>
             </View>
             <View style={[styles.basiccon, { padding: 5 }]}>
-              <Image
-                style={styles.icon}
-                source={Images.CALL_IMG}
-              />
-              <Text style={styles.text}>{props?.details?.phone_no}</Text>
+              <Image style={styles.icon} source={Images.CALL_IMG} />
+              <ScaleText style={styles.text}>
+                {props?.details?.phone_no}
+              </ScaleText>
             </View>
             <View style={[styles.basiccon, { padding: 5 }]}>
-              <Image
-                style={styles.icon}
-                source={Images.GLOBE_IMG}
-              />
-              <Text style={styles.text}>{props?.details?.website}</Text>
+              <Image style={styles.icon} source={Images.GLOBE_IMG} />
+              <ScaleText style={styles.text}>
+                {props?.details?.website}
+              </ScaleText>
             </View>
           </View>
           <View style={[styles.maincontainers, { borderBottomWidth: 0 }]}>
-            <Text style={styles.hdngtxt}>Business Hours</Text>
+            <ScaleText style={styles.hdngtxt}>Business Hours</ScaleText>
             {props?.details?.business_time?.map((item) => {
               return (
                 <View style={styles.basiccon}>
                   <View style={styles.descriptioncon}>
-                    <Text
+                    <ScaleText
                       style={[
                         styles.text,
                         { fontSize: 15, fontFamily: FONT_FAMILY_BOLD },
                       ]}
                     >
                       {item.day}
-                    </Text>
+                    </ScaleText>
                   </View>
                   <View style={{ flex: 4 }}>
-                    <Text style={styles.text}>
+                    <ScaleText style={styles.text}>
                       {item.open_time} - {item.close_time}
-                    </Text>
+                    </ScaleText>
                   </View>
                 </View>
               );
             })}
             {props?.details?.business_time?.length < 1 && (
-              <Text style={styles.noTimeTxt}>
+              <ScaleText style={styles.noTimeTxt}>
                 No Time Details Available for this Job
-              </Text>
+              </ScaleText>
             )}
           </View>
           {props?.details?.related_job && (
             <>
-              <Text style={styles.relatedItemsTxt}>Related Jobs</Text>
+              <ScaleText style={styles.relatedItemsTxt}>Related Jobs</ScaleText>
               <View style={styles.relatedItems}>
                 <ScrollView
                   showsHorizontalScrollIndicator={false}
@@ -344,26 +370,29 @@ const JobDetailsScreen = (props) => {
                           }}
                         />
                         <View style={styles.mainConatinerView}>
-                          <Text style={styles.mainServiceName}>
+                          <ScaleText style={styles.mainServiceName}>
                             {item.company_name}
-                          </Text>
-                          <Text
+                          </ScaleText>
+                          <ScaleText
                             numberOfLines={1}
                             style={styles.addressTxtStyle}
                           >
                             {item.job_address}
-                          </Text>
-                          <Text numberOfLines={2} style={styles.jobTypeTxt}>
+                          </ScaleText>
+                          <ScaleText
+                            numberOfLines={2}
+                            style={styles.jobTypeTxt}
+                          >
                             {item.job_type == 1 || "Full Time"
                               ? "Full Time"
                               : item.job_type == 2
-                                ? "Part Time"
-                                : item.job_type == 3
-                                  ? "Intership"
-                                  : item.job_type == 4
-                                    ? "Freelancer"
-                                    : "Work"}
-                          </Text>
+                              ? "Part Time"
+                              : item.job_type == 3
+                              ? "Intership"
+                              : item.job_type == 4
+                              ? "Freelancer"
+                              : "Work"}
+                          </ScaleText>
                         </View>
                       </TouchableOpacity>
                     );
@@ -374,9 +403,9 @@ const JobDetailsScreen = (props) => {
           )}
           {props?.details?.recently_applyed_job && (
             <>
-              <Text style={[styles.relatedItemsTxt, { marginTop: 0 }]}>
+              <ScaleText style={[styles.relatedItemsTxt, { marginTop: 0 }]}>
                 Recently Viewed Jobs
-              </Text>
+              </ScaleText>
               <View style={styles.relatedItems}>
                 <ScrollView
                   showsHorizontalScrollIndicator={false}
@@ -399,26 +428,29 @@ const JobDetailsScreen = (props) => {
                           />
                         </View>
                         <View style={styles.mainConatinerView}>
-                          <Text style={styles.mainServiceName}>
+                          <ScaleText style={styles.mainServiceName}>
                             {item.category_name}
-                          </Text>
-                          <Text
+                          </ScaleText>
+                          <ScaleText
                             numberOfLines={1}
                             style={styles.addressTxtStyle}
                           >
                             {item.city_name}
-                          </Text>
-                          <Text numberOfLines={2} style={styles.jobTypeTxt}>
+                          </ScaleText>
+                          <ScaleText
+                            numberOfLines={2}
+                            style={styles.jobTypeTxt}
+                          >
                             {item.job_type == 1 || "Full Time"
                               ? "Full Time"
                               : item.job_type == 2
-                                ? "Part Time"
-                                : item.job_type == 3
-                                  ? "Intership"
-                                  : item.job_type == 4
-                                    ? "Freelancer"
-                                    : "Work"}
-                          </Text>
+                              ? "Part Time"
+                              : item.job_type == 3
+                              ? "Intership"
+                              : item.job_type == 4
+                              ? "Freelancer"
+                              : "Work"}
+                          </ScaleText>
                         </View>
                       </TouchableOpacity>
                     );

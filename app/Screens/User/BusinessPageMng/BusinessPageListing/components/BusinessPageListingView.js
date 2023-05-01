@@ -13,6 +13,7 @@ import { COLORS, Constants } from "../../../../../Utils/Constant";
 import styles from "./styles";
 import MainHeader from "../../../../../Components/MainHeader";
 import { businessTypeOptions } from "../../../../../Utils/staticData";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
@@ -22,7 +23,7 @@ const BusinessPageListingView = (props) => {
       style={CommonStyles.container}
     >
       <MainHeader headerType={"logo"} />
-      <Text style={styles.headText}>Business Listing</Text>
+      <ScaleText style={styles.headText}>Business Listing</ScaleText>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={props.businessList}
@@ -51,7 +52,9 @@ const BusinessPageListingView = (props) => {
                         setAllSelect(true);
                       }}
                     >
-                      <Text style={styles.topContainerTxt}>{"All"}</Text>
+                      <ScaleText style={styles.topContainerTxt}>
+                        {"All"}
+                      </ScaleText>
                     </TouchableOpacity>
                   </>
                   {businessTypeOptions?.map((item, index) => {
@@ -72,7 +75,9 @@ const BusinessPageListingView = (props) => {
                           setAllSelect(false);
                         }}
                       >
-                        <Text style={styles.topContainerTxt}>{item.name}</Text>
+                        <ScaleText style={styles.topContainerTxt}>
+                          {item.name}
+                        </ScaleText>
                       </TouchableOpacity>
                     );
                   })}

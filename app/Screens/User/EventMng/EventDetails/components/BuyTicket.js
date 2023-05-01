@@ -23,6 +23,7 @@ import Loader from "../../../Utils/Loader";
 import Input from "../../../Components/Input";
 import InputSpinner from "react-native-input-spinner";
 import _ from "lodash";
+import ScaleText from "../../../../../Components/ScaleText";
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
   const eventDate = moment(props?.eventDetails?.created_at).format(
@@ -134,7 +135,7 @@ const BuyTicketScreen = (props) => {
   };
   return (
     <Modal
-    animationType={Platform.OS==='ios'?'none':"slide"}
+      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal == 1}
       onRequestClose={() => {
@@ -155,16 +156,18 @@ const BuyTicketScreen = (props) => {
         <ScrollView>
           {props?.loader && <Loader state={props?.loader} />}
           <View style={styles.modalsVw}>
-            <Text style={styles.eventNameTx}>
+            <ScaleText style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
-            </Text>
-            <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
-            <Text style={styles.selectTxt}>Select Ticket</Text>
+            </ScaleText>
+            <ScaleText style={styles.startDateTxt}>
+              Event Starts : {eventDate}
+            </ScaleText>
+            <ScaleText style={styles.selectTxt}>Select Ticket</ScaleText>
             <>
-              <Text style={styles.titleTxt}>Qty :</Text>
-              <Text style={[styles.subTitleTxt, { marginLeft: 5 }]}>
+              <ScaleText style={styles.titleTxt}>Qty :</ScaleText>
+              <ScaleText style={[styles.subTitleTxt, { marginLeft: 5 }]}>
                 Show best available for
-              </Text>
+              </ScaleText>
               <Input
                 placeholder=""
                 keyboardType={"number-pad"}
@@ -178,15 +181,15 @@ const BuyTicketScreen = (props) => {
               />
               <Button style={styles.bttnSubmitVw} buttonText={"Submit"} />
               <View style={{ marginVertical: 12 }}>
-                <Text style={styles.titleTxt}>Ticket Category</Text>
+                <ScaleText style={styles.titleTxt}>Ticket Category</ScaleText>
                 <FlatList
                   data={props.ticketCategory}
                   ListEmptyComponent={() => {
                     return (
                       <View>
-                        <Text style={styles.emptyTxt}>
+                        <ScaleText style={styles.emptyTxt}>
                           No Tickets Available
-                        </Text>
+                        </ScaleText>
                       </View>
                     );
                   }}
@@ -194,12 +197,12 @@ const BuyTicketScreen = (props) => {
                     return (
                       <View style={styles.ticketCategoryVw}>
                         <View>
-                          <Text style={styles.ticketCtgryTxt}>
+                          <ScaleText style={styles.ticketCtgryTxt}>
                             {item?.event_type_name}
-                          </Text>
-                          <Text style={styles.ticketAmtTxt}>
+                          </ScaleText>
+                          <ScaleText style={styles.ticketAmtTxt}>
                             $ {item?.ticket_price}
-                          </Text>
+                          </ScaleText>
                         </View>
                         <View style={{ alignItems: "flex-end" }}>
                           <InputSpinner
@@ -226,52 +229,54 @@ const BuyTicketScreen = (props) => {
                             buttonFontFamily={FONT_FAMILY_REGULAR}
                             style={styles.spinnerVw}
                           />
-                          <Text style={styles.smallTxt}>
+                          <ScaleText style={styles.smallTxt}>
                             Total Amount:{" "}
                             {props?.ticketsData[index]?.total_amount
                               ? props?.ticketsData[index]?.total_amount
                               : "0.00"}
-                          </Text>
+                          </ScaleText>
                         </View>
                       </View>
                     );
                   }}
                 />
               </View>
-              <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
                 Ticket Total
-              </Text>
+              </ScaleText>
               {props?.ticketsData?.map((item) => {
                 return (
                   <View style={styles.straightVw}>
-                    <Text style={styles.ticketsNameTxt}>
+                    <ScaleText style={styles.ticketsNameTxt}>
                       ({item.quantity}) {item.name}
-                    </Text>
-                    <Text style={styles.smallTxt}>${item.total_amount}</Text>
+                    </ScaleText>
+                    <ScaleText style={styles.smallTxt}>
+                      ${item.total_amount}
+                    </ScaleText>
                   </View>
                 );
               })}
               <View style={styles.straightVw}>
-                <Text style={styles.subTitleTxt}>Service fee</Text>
-                <Text style={styles.subTitleTxt}>
+                <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
+                <ScaleText style={styles.subTitleTxt}>
                   {props?.eventDetails?.serviceAmount
                     ? props?.eventDetails?.serviceAmount
                     : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
               <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
-                <Text style={styles.subTitleTxt}>Taxes</Text>
-                <Text style={[styles.subTitleTxt]}>
+                <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
+                <ScaleText style={[styles.subTitleTxt]}>
                   {props?.eventDetails?.taxesAmount
                     ? props?.eventDetails?.taxesAmount
                     : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.straightVw}>
-                <Text style={styles.subTitleTxt}>Total</Text>
-                <Text style={styles.subTitleTxt}>
+                <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
+                <ScaleText style={styles.subTitleTxt}>
                   {props?.totalAmount ? props?.totalAmount : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
             </>
             <View style={styles.modalBttnVw}>

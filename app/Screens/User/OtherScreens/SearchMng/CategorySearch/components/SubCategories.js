@@ -18,6 +18,7 @@ import { apiCall } from "../../../../../../Utils/httpClient";
 import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 import MainHeader from "../../../../../../Components/MainHeader";
 import { useFocusEffect } from "@react-navigation/native";
+import ScaleText from "../../../../../../Components/ScaleText";
 
 const SubCategorySearchView = ({ navigation, route }) => {
   const allItems = route?.params || {};
@@ -82,7 +83,7 @@ const SubCategorySearchView = ({ navigation, route }) => {
                     source={{uri: item.image}}
                     style={styles.iconStyle}               
                 /> */}
-        <Text style={styles.listText}>{item.category_name}</Text>
+        <ScaleText style={styles.listText}>{item.category_name}</ScaleText>
         <IconX
           color={COLORS.BLACK}
           origin={ICON_TYPE.ANT_ICON}

@@ -1,12 +1,12 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { Images } from "../../../../../Utils/images";
-import { BLACK_COLOR_CODE } from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const NewsPost = (props) => {
   const { newsData } = props;
-  console.log("newsData", newsData?.photo);
   return (
     <View style={styles.mainConatiner}>
       <View>
@@ -27,26 +27,26 @@ const NewsPost = (props) => {
               ]}
             >
               <View style={{ width: "70%" }}>
-                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
                   Here goes the usernme
-                </Text>
+                </ScaleText>
                 <View style={styles.rowVw}>
-                  <Text style={styles.lightTxt}>By Owner | </Text>
-                  <Text style={styles.lightTxt}>a month ago</Text>
+                  <ScaleText style={styles.lightTxt}>By Owner | </ScaleText>
+                  <ScaleText style={styles.lightTxt}>a month ago</ScaleText>
                 </View>
               </View>
               <View style={styles.straightVw}>
                 {/* <View style={styles.ratingVw}>
-                  <Text style={styles.ratingTxt}>12 likes</Text>
+                  <ScaleText style={styles.ratingTxt}>12 likes</ScaleText>
                 </View> */}
-                {/* <Text
-                      style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
+                {/* <ScaleText
+                      style={[styles.ratingTxt, { color: COLORS.BLACK }]}
                     >
                       rating
-                    </Text> */}
+                    </ScaleText> */}
               </View>
             </View>
-            <Text>{newsData?.description}</Text>
+            <ScaleText>{newsData?.description}</ScaleText>
           </View>
         </TouchableOpacity>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -57,22 +57,22 @@ const NewsPost = (props) => {
           />
         </View>
         <View style={styles.likeCountView}>
-          <Text style={styles.likeSectionText}>
+          <ScaleText style={styles.likeSectionText}>
             {newsData?.postLikeData?.likeCount} Likes
-          </Text>
-          <Text style={styles.likeSectionText}>
+          </ScaleText>
+          <ScaleText style={styles.likeSectionText}>
             {newsData?.commentData.length} Comments
-          </Text>
+          </ScaleText>
         </View>
         <View style={styles.likeSection}>
           <View style={styles.likeView}>
-            <Text style={styles.likeSectionText}>Like</Text>
+            <ScaleText style={styles.likeSectionText}>Like</ScaleText>
           </View>
           <View style={styles.likeView}>
-            <Text style={styles.likeSectionText}>Comment</Text>
+            <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </View>
           <View style={styles.likeView}>
-            <Text style={styles.likeSectionText}>Subscribe</Text>
+            <ScaleText style={styles.likeSectionText}>Subscribe</ScaleText>
           </View>
         </View>
         <View style={styles.postBreakView}></View>

@@ -1,11 +1,7 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
-import {
-  FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../Utils/Constant";
-import { Images } from "../../Utils/images";
+import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const BoxContainers = (props) => {
   const {
@@ -32,7 +28,7 @@ const BoxContainers = (props) => {
       {boxContainerImg ? (
         <Image source={boxContainerImg} style={[styles.mainImg]} />
       ) : null}
-      <Text
+      <ScaleText
         style={[
           styles.mainTxt,
           {
@@ -41,7 +37,7 @@ const BoxContainers = (props) => {
         ]}
       >
         {boxContainerTxt}
-      </Text>
+      </ScaleText>
     </TouchableOpacity>
   );
 };
@@ -50,15 +46,15 @@ export default BoxContainers;
 
 const styles = StyleSheet.create({
   mainVw: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     elevation: 2,
     borderRadius: 8,
     margin: 5,
     alignItems: "center",
   },
   mainTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
     fontSize: 18,
   },
   mainImg: {

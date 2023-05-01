@@ -25,6 +25,7 @@ import Input from "../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Error from "../../../Components/Modal/error";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const TicketDetailsScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
@@ -92,19 +93,23 @@ const TicketDetailsScreen = (props) => {
         />
         <ScrollView keyboardShouldPersistTaps={"always"}>
           <View style={styles.modalsVw}>
-            <Text style={styles.eventNameTx}>
+            <ScaleText style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
-            </Text>
-            <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
-            <Text style={styles.selectTxt}>Create Ticket</Text>
+            </ScaleText>
+            <ScaleText style={styles.startDateTxt}>
+              Event Starts : {eventDate}
+            </ScaleText>
+            <ScaleText style={styles.selectTxt}>Create Ticket</ScaleText>
             {selectedIndex < props?.ticketsDetails?.length && (
               <View style={styles.ticketDetailVw}>
-                <Text style={styles.ticketTxt}>
+                <ScaleText style={styles.ticketTxt}>
                   Ticket Number : {selectedIndex + 1} [
                   {props?.ticketsDetails[selectedIndex].ticket_Name}]
-                </Text>
+                </ScaleText>
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
-                  <Text style={styles.subTitleTxt}>User's first name</Text>
+                  <ScaleText style={styles.subTitleTxt}>
+                    User's first name
+                  </ScaleText>
                   <Input
                     placeholder=""
                     InputType={null}
@@ -117,7 +122,9 @@ const TicketDetailsScreen = (props) => {
                   />
                 </View>
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
-                  <Text style={styles.subTitleTxt}>User's last name</Text>
+                  <ScaleText style={styles.subTitleTxt}>
+                    User's last name
+                  </ScaleText>
                   <Input
                     placeholder=""
                     InputType={null}
@@ -130,7 +137,7 @@ const TicketDetailsScreen = (props) => {
                   />
                 </View>
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
-                  <Text style={styles.subTitleTxt}>User's email</Text>
+                  <ScaleText style={styles.subTitleTxt}>User's email</ScaleText>
                   <Input
                     placeholder=""
                     InputType={null}
@@ -143,7 +150,9 @@ const TicketDetailsScreen = (props) => {
                   />
                 </View>
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
-                  <Text style={styles.subTitleTxt}>User's Address</Text>
+                  <ScaleText style={styles.subTitleTxt}>
+                    User's Address
+                  </ScaleText>
                   <View style={[styles.ticketsInputVw, styles.secInputVw]}>
                     <GooglePlacesAutocomplete
                       placeholder=""
@@ -197,10 +206,12 @@ const TicketDetailsScreen = (props) => {
                 </View>
 
                 <View style={{ marginLeft: 5, marginTop: 8 }}>
-                  <Text style={styles.subTitleTxt}>User's Phone number</Text>
+                  <ScaleText style={styles.subTitleTxt}>
+                    User's Phone number
+                  </ScaleText>
                   <View style={styles.straightVw}>
                     <TouchableOpacity style={styles.codesVw}>
-                      <Text style={styles.codesTxt}>{"+91"}</Text>
+                      <ScaleText style={styles.codesTxt}>{"+91"}</ScaleText>
                     </TouchableOpacity>
                     <Input
                       placeholder=""
@@ -255,13 +266,13 @@ const TicketDetailsScreen = (props) => {
               //       console.log("item: ", item);
               //       return (
               //         <View style={styles.ticketDetailVw}>
-              //           <Text style={styles.ticketTxt}>
+              //           <ScaleText style={styles.ticketTxt}>
               //             Ticket Number : {index + 1} [{item.ticket_Name}]
-              //           </Text>
+              //           </ScaleText>
               //           <View style={{ marginLeft: 5, marginTop: 8 }}>
-              //             <Text style={styles.subTitleTxt}>
+              //             <ScaleText style={styles.subTitleTxt}>
               //               User's first name
-              //             </Text>
+              //             </ScaleText>
               //             <Input
               //               placeholder=""
               //               InputType={null}
@@ -274,7 +285,7 @@ const TicketDetailsScreen = (props) => {
               //             />
               //           </View>
               //           <View style={{ marginLeft: 5, marginTop: 8 }}>
-              //             <Text style={styles.subTitleTxt}>User's last name</Text>
+              //             <ScaleText style={styles.subTitleTxt}>User's last name</ScaleText>
               //             <Input
               //               placeholder=""
               //               InputType={null}
@@ -287,7 +298,7 @@ const TicketDetailsScreen = (props) => {
               //             />
               //           </View>
               //           <View style={{ marginLeft: 5, marginTop: 8 }}>
-              //             <Text style={styles.subTitleTxt}>User's email</Text>
+              //             <ScaleText style={styles.subTitleTxt}>User's email</ScaleText>
               //             <Input
               //               placeholder=""
               //               InputType={null}
@@ -300,7 +311,7 @@ const TicketDetailsScreen = (props) => {
               //             />
               //           </View>
               //           <View style={{ marginLeft: 5, marginTop: 8 }}>
-              //             <Text style={styles.subTitleTxt}>User's Address</Text>
+              //             <ScaleText style={styles.subTitleTxt}>User's Address</ScaleText>
               //             <View
               //               style={[styles.ticketsInputVw, styles.secInputVw]}
               //             >
@@ -355,12 +366,12 @@ const TicketDetailsScreen = (props) => {
               //             </View>
               //           </View>
               //           <View style={{ marginLeft: 5, marginTop: 8 }}>
-              //             <Text style={styles.subTitleTxt}>
+              //             <ScaleText style={styles.subTitleTxt}>
               //               User's Phone number
-              //             </Text>
+              //             </ScaleText>
               //             <View style={styles.straightVw}>
               //               <TouchableOpacity style={styles.codesVw}>
-              //                 <Text style={styles.codesTxt}>{"+91"}</Text>
+              //                 <ScaleText style={styles.codesTxt}>{"+91"}</ScaleText>
               //               </TouchableOpacity>
               //               <Input
               //                 placeholder=""
@@ -384,40 +395,42 @@ const TicketDetailsScreen = (props) => {
               //     })}
               //   </>
             )}
-            <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+            <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
               Ticket Total
-            </Text>
+            </ScaleText>
             {props?.ticketsData?.map((item) => {
               return (
                 <View style={styles.straightVw}>
-                  <Text style={styles.ticketsNameTxt}>
+                  <ScaleText style={styles.ticketsNameTxt}>
                     ({item.quantity}) {item.name}
-                  </Text>
-                  <Text style={styles.smallTxt}>${item.total_amount}</Text>
+                  </ScaleText>
+                  <ScaleText style={styles.smallTxt}>
+                    ${item.total_amount}
+                  </ScaleText>
                 </View>
               );
             })}
             <View style={styles.straightVw}>
-              <Text style={styles.subTitleTxt}>Service fee</Text>
-              <Text style={styles.subTitleTxt}>
+              <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
                 {props?.eventDetails?.serviceAmount
                   ? props?.eventDetails?.serviceAmount
                   : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
-              <Text style={styles.subTitleTxt}>Taxes</Text>
-              <Text style={[styles.subTitleTxt]}>
+              <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
+              <ScaleText style={[styles.subTitleTxt]}>
                 {props?.eventDetails?.taxesAmount
                   ? props?.eventDetails?.taxesAmount
                   : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.straightVw}>
-              <Text style={styles.subTitleTxt}>Total</Text>
-              <Text style={styles.subTitleTxt}>
+              <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
                 {props?.totalAmount ? props?.totalAmount : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.modalBttnVw}>
               <Button

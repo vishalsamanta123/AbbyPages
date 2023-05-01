@@ -4,24 +4,19 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
-  StatusBar,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { Images } from "../../Utils/images";
-import { BLACK_COLOR_CODE, COLORS, FONT_SIZE } from "../../Utils/Constant";
-import {
-  DrawerActions,
-  useFocusEffect,
-  useNavigation,
-} from "@react-navigation/native";
+import { COLORS, FONT_SIZE } from "../../Utils/Constant";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
+import ScaleText from "../ScaleText";
 
 const MainHeader = (props) => {
   const [userData, setUserData] = useState({});
-
   useFocusEffect(
     React.useCallback(() => {
       getUserDetails();
@@ -79,10 +74,10 @@ const MainHeader = (props) => {
                   origin={ICON_TYPE.FONT_AWESOME}
                   name={"bell-o"}
                   size={21}
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
                 <View style={styles.notifyVw}>
-                  <Text style={styles.notifyTxt}>1</Text>
+                  <ScaleText style={styles.notifyTxt}>1</ScaleText>
                 </View>
               </TouchableOpacity>
             ) : null}
@@ -99,7 +94,7 @@ const MainHeader = (props) => {
                   origin={ICON_TYPE.ICONICONS}
                   name={"search-outline"}
                   size={22}
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
               </TouchableOpacity>
             ) : null}
@@ -119,7 +114,7 @@ const MainHeader = (props) => {
                   size={25}
                   color={backIconColor}
                 />
-                <Text
+                <ScaleText
                   style={[
                     styles.backtxt,
                     {
@@ -128,7 +123,7 @@ const MainHeader = (props) => {
                   ]}
                 >
                   Back
-                </Text>
+                </ScaleText>
               </View>
             ) : (
               <View style={CommonStyles.straightCon}>
@@ -136,7 +131,7 @@ const MainHeader = (props) => {
                   origin={ICON_TYPE.ANT_ICON}
                   name={"left"}
                   size={25}
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
                 <Image
                   source={Images.ABBYLOGO_TRNSP}
@@ -146,7 +141,7 @@ const MainHeader = (props) => {
             )}
           </TouchableOpacity>
           {isLogin ? (
-            <Text
+            <ScaleText
               style={[
                 styles.topHeaderTxt,
                 {
@@ -156,7 +151,7 @@ const MainHeader = (props) => {
               ]}
             >
               {headerText}
-            </Text>
+            </ScaleText>
           ) : null}
           {isLogin ? (
             <View style={CommonStyles.straightCon}>
@@ -166,10 +161,10 @@ const MainHeader = (props) => {
                     origin={ICON_TYPE.FONT_AWESOME}
                     name={"bell-o"}
                     size={21}
-                    color={BLACK_COLOR_CODE}
+                    color={COLORS.BLACK}
                   />
                   <View style={styles.notifyVw}>
-                    <Text style={styles.notifyTxt}>1</Text>
+                    <ScaleText style={styles.notifyTxt}>1</ScaleText>
                   </View>
                 </TouchableOpacity>
               ) : null}
@@ -183,7 +178,7 @@ const MainHeader = (props) => {
                     origin={ICON_TYPE.ICONICONS}
                     name={"search-outline"}
                     size={22}
-                    color={BLACK_COLOR_CODE}
+                    color={COLORS.BLACK}
                   />
                 </TouchableOpacity>
               ) : null}
@@ -195,7 +190,7 @@ const MainHeader = (props) => {
                   <TouchableOpacity
                     style={[styles.topButtonVw, styles.topButtonVwNon]}
                   >
-                    <Text
+                    <ScaleText
                       style={[
                         styles.topButtonTxt,
                         {
@@ -204,10 +199,12 @@ const MainHeader = (props) => {
                       ]}
                     >
                       Log In
-                    </Text>
+                    </ScaleText>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.topButtonVw}>
-                    <Text style={styles.topButtonTxt}>To Register</Text>
+                    <ScaleText style={styles.topButtonTxt}>
+                      To Register
+                    </ScaleText>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -218,10 +215,10 @@ const MainHeader = (props) => {
                         origin={ICON_TYPE.FONT_AWESOME}
                         name={"bell-o"}
                         size={21}
-                        color={BLACK_COLOR_CODE}
+                        color={COLORS.BLACK}
                       />
                       <View style={styles.notifyVw}>
-                        <Text style={styles.notifyTxt}>1</Text>
+                        <ScaleText style={styles.notifyTxt}>1</ScaleText>
                       </View>
                     </TouchableOpacity>
                   ) : null}
@@ -235,7 +232,7 @@ const MainHeader = (props) => {
                         origin={ICON_TYPE.ICONICONS}
                         name={"search-outline"}
                         size={22}
-                        color={BLACK_COLOR_CODE}
+                        color={COLORS.BLACK}
                       />
                     </TouchableOpacity>
                   ) : null}

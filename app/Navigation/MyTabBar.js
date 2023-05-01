@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
+import ScaleText from "../Components/ScaleText";
 import TabModal from "../Components/TabModal/TabModal";
 import TabModalScreens from "../Components/TabModal/TabModalScreens";
 import {
@@ -80,7 +81,7 @@ function MyTabBar({ state, navigation }) {
                     }
                   />
                 </View>
-                <Text
+                <ScaleText
                   style={[
                     styles.iconTxt,
                     {
@@ -92,7 +93,7 @@ function MyTabBar({ state, navigation }) {
                   ]}
                 >
                   Home
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
             )
           );
@@ -138,7 +139,7 @@ function MyTabBar({ state, navigation }) {
                     />
                   </View>
                 )}
-                <Text
+                <ScaleText
                   style={[
                     styles.iconTxt,
                     {
@@ -148,7 +149,7 @@ function MyTabBar({ state, navigation }) {
                   ]}
                 >
                   Menu
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
             )
           );

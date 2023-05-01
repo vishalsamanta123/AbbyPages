@@ -28,6 +28,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Video from "react-native-video";
 import { Images } from "../../../Utils/images";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const EventListingScreen = (props) => {
   const [videoShow, setVideoShow] = useState(false);
@@ -56,7 +57,7 @@ const EventListingScreen = (props) => {
           renderItem={({ item, index }) => {
             return (
               index <= 4 && (
-                <View key={index} style={{ width, alignItems: "center", }}>
+                <View key={index} style={{ width, alignItems: "center" }}>
                   <Image
                     resizeMode="stretch"
                     source={{ uri: item.events_image }}
@@ -86,7 +87,9 @@ const EventListingScreen = (props) => {
         </View>
         {/* </SafeAreaView> */}
         <View style={styles.infocon}>
-          <Text style={styles.nameTxt}>{props?.eventDetails?.event_name}</Text>
+          <ScaleText style={styles.nameTxt}>
+            {props?.eventDetails?.event_name}
+          </ScaleText>
           <View style={styles.basiccon}>
             <Image
               resizeMode="contain"
@@ -94,21 +97,21 @@ const EventListingScreen = (props) => {
               source={Images.CALENDER_IMG}
             />
             {props?.eventDetails?.event_start_date ? (
-              <Text style={styles.detailTxt}>
+              <ScaleText style={styles.detailTxt}>
                 {moment
                   .unix(props?.eventDetails?.event_start_date)
                   .format("ddd, MMM Do, YYYY")}{" "}
-                <Text style={styles.detailTxt}>
-                  <Text style={{ color: BLACK_COLOR_CODE }}>To </Text>
+                <ScaleText style={styles.detailTxt}>
+                  <ScaleText style={{ color: BLACK_COLOR_CODE }}>To </ScaleText>
                   {moment
                     .unix(props?.eventDetails?.event_end_date)
                     .format("ddd, MMM Do, YYYY")}
-                </Text>
-              </Text>
+                </ScaleText>
+              </ScaleText>
             ) : (
-              <Text style={styles.detailTxt}>
+              <ScaleText style={styles.detailTxt}>
                 {moment(props?.eventDetails?.event_date).format("MM/DD/YYYY")}
-              </Text>
+              </ScaleText>
             )}
           </View>
           <View style={styles.basiccon}>
@@ -117,11 +120,11 @@ const EventListingScreen = (props) => {
               style={styles.icon}
               source={Images.CHECKOUT_SCHDULD_IMG}
             />
-            <Text style={styles.detailTxt}>
+            <ScaleText style={styles.detailTxt}>
               {props?.eventDetails?.event_start_time}{" "}
-              <Text style={{ color: BLACK_COLOR_CODE }}>To</Text>
+              <ScaleText style={{ color: BLACK_COLOR_CODE }}>To</ScaleText>
               {props?.eventDetails?.event_end_time}
-            </Text>
+            </ScaleText>
           </View>
           <View style={styles.basiccon}>
             <Image
@@ -129,9 +132,9 @@ const EventListingScreen = (props) => {
               style={styles.icon}
               source={Images.LOCATION_IMG}
             />
-            <Text style={styles.detailTxt}>
+            <ScaleText style={styles.detailTxt}>
               {props?.eventDetails?.event_location}
-            </Text>
+            </ScaleText>
           </View>
           <Button
             style={[
@@ -172,7 +175,7 @@ const EventListingScreen = (props) => {
           />
           {props.videoUrl != "null" ? (
             <>
-              <Text style={styles.titleTxt}>Event Video</Text>
+              <ScaleText style={styles.titleTxt}>Event Video</ScaleText>
               <View style={styles.videoVw}>
                 <Video
                   source={{ uri: props.eventDetails?.events_video }} // Can be a URL or a local file.
@@ -186,9 +189,9 @@ const EventListingScreen = (props) => {
                     onPress={() => setVideoShow(!videoShow)}
                     style={styles.startPauseVw}
                   >
-                    <Text style={{ color: WHITE_COLOR_CODE }}>
+                    <ScaleText style={{ color: WHITE_COLOR_CODE }}>
                       {!videoShow ? "Pause" : "Start"}
-                    </Text>
+                    </ScaleText>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -196,12 +199,12 @@ const EventListingScreen = (props) => {
           ) : null}
           {props.eventDetails?.event_description ? (
             <>
-              <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
                 Discription
-              </Text>
-              <Text style={[styles.subTitleTxt, { padding: 6 }]}>
+              </ScaleText>
+              <ScaleText style={[styles.subTitleTxt, { padding: 6 }]}>
                 {props.eventDetails?.event_description}
-              </Text>
+              </ScaleText>
             </>
           ) : null}
         </View>
@@ -222,7 +225,7 @@ const EventListingScreen = (props) => {
         >
           <View style={styles.interestedModalVw}>
             <View style={styles.respnsesTxtVw}>
-              <Text style={styles.responseTxt}>Your Response</Text>
+              <ScaleText style={styles.responseTxt}>Your Response</ScaleText>
               <TouchableOpacity onPress={() => props.setInterstedModal(false)}>
                 <Image
                   style={{ width: 32, height: 32, marginRight: 5 }}
@@ -246,7 +249,7 @@ const EventListingScreen = (props) => {
                   }}
                   source={Images.STAR_FILLED_IMG}
                 />
-                <Text style={styles.respnsesTxt}>Interested</Text>
+                <ScaleText style={styles.respnsesTxt}>Interested</ScaleText>
               </View>
               <Image
                 source={
@@ -272,7 +275,7 @@ const EventListingScreen = (props) => {
                   }}
                   source={Images.VERIFIED_IMG}
                 />
-                <Text style={styles.respnsesTxt}>Going</Text>
+                <ScaleText style={styles.respnsesTxt}>Going</ScaleText>
               </View>
               <Image
                 source={
@@ -303,7 +306,7 @@ const EventListingScreen = (props) => {
                     source={Images.CANCEL_IMG}
                   />
                 </View>
-                <Text style={styles.respnsesTxt}>Not Interested</Text>
+                <ScaleText style={styles.respnsesTxt}>Not Interested</ScaleText>
               </View>
               <Image
                 source={
@@ -325,7 +328,7 @@ const EventListingScreen = (props) => {
                     : Images.RADIO_UNCHECK_IMG
                 }
               />
-              <Text style={styles.addToCalTxt}>Add to calender</Text>
+              <ScaleText style={styles.addToCalTxt}>Add to calender</ScaleText>
             </TouchableOpacity>
             <View style={styles.respnsesBttnVw}>
               <Button

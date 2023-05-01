@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import React from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { FONT_SIZE } from "../../../../../Utils/Constant";
@@ -7,7 +7,6 @@ import NewsPost from "./NewsPost";
 
 const NewsFeedView = (props) => {
   const { newsfeedData } = props;
-  console.log("newsfeedData", newsfeedData);
   return (
     <View style={CommonStyles.container}>
       <MainHeader

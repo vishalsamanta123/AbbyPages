@@ -2,17 +2,12 @@ import React, { Fragment, useState } from "react";
 import {
   View,
   TextInput,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Platform,
 } from "react-native";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  WHITE_COLOR_CODE,
-} from "../../Utils/Constant";
-import { IconX, ICON_TYPE } from "../Icons/Icon";
+import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const Input = (props) => {
   const [isFocused, setIsfocused] = useState(true);
@@ -55,7 +50,7 @@ const Input = (props) => {
     <Fragment>
       <View style={[container, containerStyle]}>
         {InputType === "withScroll" ? (
-          <Text
+          <ScaleText
             style={[
               labelStyle,
               {
@@ -68,21 +63,21 @@ const Input = (props) => {
                   : -13,
                 color: isFocused
                   ? value === ""
-                    ? BLACK_COLOR_CODE
-                    : BLACK_COLOR_CODE
+                    ? COLORS.BLACK
+                    : COLORS.BLACK
                   : "grey",
                 backgroundColor: isFocused
                   ? value === ""
                     ? null
                     : null
-                  : WHITE_COLOR_CODE,
+                  : COLORS.WHITE,
                 fontSize: isFocused ? (value === "" ? 17 : 16) : 16,
               },
               labelStyleMain,
             ]}
           >
             {placeholder}
-          </Text>
+          </ScaleText>
         ) : null}
         <TextInput
           numberOfLines={numberOfLines}
@@ -118,7 +113,7 @@ const Input = (props) => {
             style={{ marginHorizontal: 6 }}
             onPress={onPressCoptTxt}
           >
-            <Text style={copyTextTxt}>Copy</Text>
+            <ScaleText style={copyTextTxt}>Copy</ScaleText>
           </TouchableOpacity>
         )}
       </View>
@@ -150,19 +145,19 @@ const style = StyleSheet.create({
     position: "absolute",
     left: 25,
     justifyContent: "center",
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   textInput: {
     width: "100%",
     // fontSize: 18,
     paddingLeft: 20,
     marginLeft: 4,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     paddingVertical: 12,
   },
   copyTextTxt: {
     fontSize: 13,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
 export default Input;

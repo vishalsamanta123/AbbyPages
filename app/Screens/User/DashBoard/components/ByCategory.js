@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   Modal,
-  TextInput,
   ScrollView,
   Image,
   Pressable,
@@ -21,6 +19,7 @@ import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { staticSearchOptions } from "../../../../Utils/staticData";
 import AddressInput from "../../../../Components/AddressInput";
+import ScaleText from "../../../../Components/ScaleText";
 
 const ByCategory = (props) => {
   const { searchModal, setSearchModal, navigation } = props;
@@ -94,7 +93,9 @@ const ByCategory = (props) => {
           <View style={styles.categoriesVw}>
             {searchCategory?.resBusdata?.length > 0 ? (
               <>
-                <Text style={styles.searchHeadTxt}>Related Businesses:</Text>
+                <ScaleText style={styles.searchHeadTxt}>
+                  Related Businesses:
+                </ScaleText>
                 {searchCategory?.resBusdata?.map((itm) => {
                   return (
                     <TouchableOpacity
@@ -106,12 +107,12 @@ const ByCategory = (props) => {
                         style={styles.categoryImg}
                       />
                       <View>
-                        <Text style={styles.categoryTxt}>
+                        <ScaleText style={styles.categoryTxt}>
                           {itm?.business_name}
-                        </Text>
-                        <Text style={styles.categorySmallTxt}>
+                        </ScaleText>
+                        <ScaleText style={styles.categorySmallTxt}>
                           {itm?.address}
-                        </Text>
+                        </ScaleText>
                       </View>
                     </TouchableOpacity>
                   );
@@ -120,7 +121,9 @@ const ByCategory = (props) => {
             ) : null}
             {searchCategory?.resultCat?.length > 0 ? (
               <>
-                <Text style={styles.searchHeadTxt}>Related Categories:</Text>
+                <ScaleText style={styles.searchHeadTxt}>
+                  Related Categories:
+                </ScaleText>
                 {searchCategory?.resultCat?.map((itm) => {
                   return (
                     <TouchableOpacity
@@ -135,9 +138,9 @@ const ByCategory = (props) => {
                       }}
                       style={styles.categoryVw}
                     >
-                      <Text style={styles.categoryTxt}>
+                      <ScaleText style={styles.categoryTxt}>
                         {itm?.category_name}
-                      </Text>
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -158,7 +161,9 @@ const ByCategory = (props) => {
                     size={item.size}
                     color={item.color}
                   />
-                  <Text style={styles.categoryTxt}>{item.category_name}</Text>
+                  <ScaleText style={styles.categoryTxt}>
+                    {item.category_name}
+                  </ScaleText>
                 </TouchableOpacity>
               );
             })}
@@ -188,7 +193,7 @@ const ByCategory = (props) => {
         >
           <View style={[CommonStyles.straightCon]}>
             <View style={styles.ctgTopHeader}>
-              <Text style={styles.searchTxt}>Search</Text>
+              <ScaleText style={styles.searchTxt}>Search</ScaleText>
             </View>
             <TouchableOpacity
               style={styles.crossVw}
@@ -204,7 +209,7 @@ const ByCategory = (props) => {
           </View>
 
           <View style={styles.searchVw}>
-            <Text style={styles.titlesTxt}>What</Text>
+            <ScaleText style={styles.titlesTxt}>What</ScaleText>
             <View style={styles.catgSearchVw}>
               <IconX
                 origin={ICON_TYPE.OCTICONS}
@@ -212,7 +217,7 @@ const ByCategory = (props) => {
                 name={"search"}
                 style={{ marginHorizontal: 10 }}
               />
-              <TextInput
+              <ScaleTextInput
                 placeholder="Search"
                 placeholderTextColor={COLORS.GREY}
                 style={styles.catgSearchInput}
@@ -226,7 +231,9 @@ const ByCategory = (props) => {
           </View>
           {categoryShow ? renderCategories() : null}
           <View style={styles.searchVw}>
-            <Text style={[styles.titlesTxt, { marginTop: 0 }]}>Where</Text>
+            <ScaleText style={[styles.titlesTxt, { marginTop: 0 }]}>
+              Where
+            </ScaleText>
             <View style={styles.catgSearchVw}>
               <View style={CommonStyles.locationIcon}>
                 <IconX
@@ -267,7 +274,9 @@ const ByCategory = (props) => {
               onPress={() => handleListNavigation(searchData)}
             />
           </View>
-          <Text style={styles.searchTxt}>Or Browse the highlight</Text>
+          <ScaleText style={styles.searchTxt}>
+            Or Browse the highlight
+          </ScaleText>
           <View style={styles.boxesVw}>
             <BoxContainers
               boxContainerImg={Images.MINICAR_IMG}

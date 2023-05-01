@@ -26,7 +26,7 @@ import { apiCall } from "../../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../../Utils/apiEndPoints";
 import Loader from "../../../../../Utils/Loader";
 import { Images } from "../../../../../Utils/images";
-
+import ScaleText from "../../../../../Components/ScaleText";
 
 export default function FilterPopUp(props) {
   const [category, setCategory] = useState([]);
@@ -121,7 +121,7 @@ export default function FilterPopUp(props) {
   const PickerComponent = ({ title, name, handleData, data, properWidth }) => {
     return (
       <View style={styles.filterCon}>
-        <Text
+        <ScaleText
           style={[
             styles.filterTxt,
             {
@@ -134,9 +134,9 @@ export default function FilterPopUp(props) {
           ]}
         >
           {title}
-        </Text>
+        </ScaleText>
         <View style={styles.filterVw}>
-          <Text style={styles.filterTxt}>{name}</Text>
+          <ScaleText style={styles.filterTxt}>{name}</ScaleText>
           <TouchableOpacity onPress={(type) => handleData(type)}>
             <Image
               resizeMode={"contain"}
@@ -237,16 +237,16 @@ export default function FilterPopUp(props) {
             />
           </TouchableOpacity>
           <View style={styles.HeaderViewMidle}>
-            <Text style={styles.HeaderMiddleTxt}>
+            <ScaleText style={styles.HeaderMiddleTxt}>
               {props.search ? "Search Job" : "Filter Jobs"}
-            </Text>
+            </ScaleText>
           </View>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handleReset()}
             style={styles.resetVw}
           >
-            <Text style={styles.resetTxt}>Reset</Text>
+            <ScaleText style={styles.resetTxt}>Reset</ScaleText>
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -254,7 +254,7 @@ export default function FilterPopUp(props) {
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 10 }}
         >
           <View style={{ flex: 1 }}>
-            <Text style={styles.searchTxt}>Refine your search</Text>
+            <ScaleText style={styles.searchTxt}>Refine your search</ScaleText>
             <View style={{ marginHorizontal: 10 }}>
               <Input
                 containerStyle={styles.filterInputVw}
@@ -367,19 +367,19 @@ export default function FilterPopUp(props) {
           <>
             <View style={styles.typeVw}>
               <View style={{ flex: 1, alignItems: "center" }}>
-                <Text style={styles.typeTxt}>
+                <ScaleText style={styles.typeTxt}>
                   {category.length > 0
                     ? "Select Category"
                     : country.length > 0
-                      ? "Select Country"
-                      : state.length > 0
-                        ? "Select State"
-                        : city.length > 0
-                          ? "Select City"
-                          : hireType.length > 0
-                            ? "Select Hire Type"
-                            : null}
-                </Text>
+                    ? "Select Country"
+                    : state.length > 0
+                    ? "Select State"
+                    : city.length > 0
+                    ? "Select City"
+                    : hireType.length > 0
+                    ? "Select Hire Type"
+                    : null}
+                </ScaleText>
               </View>
               <TouchableOpacity
                 onPress={() => {
@@ -404,12 +404,12 @@ export default function FilterPopUp(props) {
                   category.length > 0
                     ? "Search Category"
                     : country.length > 0
-                      ? "Search Country"
-                      : state.length > 0
-                        ? "Search State"
-                        : city.length > 0
-                          ? "Search City"
-                          : null
+                    ? "Search Country"
+                    : state.length > 0
+                    ? "Search State"
+                    : city.length > 0
+                    ? "Search City"
+                    : null
                 }
                 style={styles.searchInput}
                 placeholderTextColor={LIGHT_BLACK_COLOR_CODE}
@@ -419,12 +419,12 @@ export default function FilterPopUp(props) {
                     category.length > 0
                       ? null
                       : country?.length > 0
-                        ? 0
-                        : state?.length > 0
-                          ? 1
-                          : city?.length > 0
-                            ? 2
-                            : null
+                      ? 0
+                      : state?.length > 0
+                      ? 1
+                      : city?.length > 0
+                      ? 2
+                      : null
                   )
                 }
               />
@@ -450,9 +450,9 @@ export default function FilterPopUp(props) {
                       }}
                       style={styles.filterDataVw}
                     >
-                      <Text style={styles.filterDataTxt}>
+                      <ScaleText style={styles.filterDataTxt}>
                         {item.category_name}
-                      </Text>
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -477,7 +477,9 @@ export default function FilterPopUp(props) {
                       }}
                       style={styles.filterDataVw}
                     >
-                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                      <ScaleText style={styles.filterDataTxt}>
+                        {item.name}
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -502,7 +504,9 @@ export default function FilterPopUp(props) {
                       }}
                       style={styles.filterDataVw}
                     >
-                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                      <ScaleText style={styles.filterDataTxt}>
+                        {item.name}
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -527,7 +531,9 @@ export default function FilterPopUp(props) {
                       }}
                       style={styles.filterDataVw}
                     >
-                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                      <ScaleText style={styles.filterDataTxt}>
+                        {item.name}
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -552,19 +558,23 @@ export default function FilterPopUp(props) {
                       }}
                       style={styles.filterDataVw}
                     >
-                      <Text style={styles.filterDataTxt}>{item.name}</Text>
+                      <ScaleText style={styles.filterDataTxt}>
+                        {item.name}
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
               </>
             )}
             {category.length == 0 &&
-              country.length == 0 &&
-              state.length == 0 &&
-              city.length == 0 &&
-              hireType.length == 0 ? (
+            country.length == 0 &&
+            state.length == 0 &&
+            city.length == 0 &&
+            hireType.length == 0 ? (
               <View style={styles.noDataVw}>
-                <Text style={styles.noDataTxt}>There is no data available</Text>
+                <ScaleText style={styles.noDataTxt}>
+                  There is no data available
+                </ScaleText>
               </View>
             ) : null}
           </ScrollView>

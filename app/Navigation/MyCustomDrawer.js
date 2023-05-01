@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import {
-  BLACK_COLOR_CODE,
-  Constants,
-  FONT_FAMILY_REGULAR,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY } from "../Utils/Constant";
 import QuestionModal from "../Components/Modal/questionModal";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import { AuthContext } from "../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Images } from "../Utils/images";
+import ScaleText from "../Components/ScaleText";
 
 const MyCustomDrawer = (props) => {
   const [userData, setUserData] = useState({});
@@ -52,16 +46,16 @@ const MyCustomDrawer = (props) => {
                 )}
                 <View style={styles.userNameView}>
                   {userData?.login_type === 2 ? null : (
-                    <Text
+                    <ScaleText
                       numberOfLines={1}
                       style={[styles.userNameText, { width: 120 }]}
                     >
                       {userData?.first_name + " " + userData?.last_name}
-                    </Text>
+                    </ScaleText>
                   )}
-                  <Text style={[styles.userAddress, { width: 140 }]}>
+                  <ScaleText style={[styles.userAddress, { width: 140 }]}>
                     {userData?.location}
-                  </Text>
+                  </ScaleText>
                 </View>
               </View>
             </View>
@@ -85,11 +79,11 @@ const MyCustomDrawer = (props) => {
             <IconX
               origin={ICON_TYPE.FONT_AWESOME5}
               name="home"
-              color={BLACK_COLOR_CODE}
+              color={COLORS.BLACK}
             />
           </View>
           <View style={styles.textContain}>
-            <Text style={styles.drawerText}>Home</Text>
+            <ScaleText style={styles.drawerText}>Home</ScaleText>
           </View>
         </TouchableOpacity> */}
         {userData?.login_type ? (
@@ -102,11 +96,11 @@ const MyCustomDrawer = (props) => {
                 <IconX
                   origin={ICON_TYPE.FONT_AWESOME}
                   name="power-off"
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
               </View>
               <View style={styles.textContain}>
-                <Text style={styles.drawerText}>LogOut</Text>
+                <ScaleText style={styles.drawerText}>LogOut</ScaleText>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -119,11 +113,11 @@ const MyCustomDrawer = (props) => {
                 <IconX
                   origin={ICON_TYPE.FONT_AWESOME}
                   name="user"
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
               </View>
               <View style={styles.textContain}>
-                <Text style={styles.drawerText}>Profile</Text>
+                <ScaleText style={styles.drawerText}>Profile</ScaleText>
               </View>
             </TouchableOpacity>
           </>
@@ -137,11 +131,11 @@ const MyCustomDrawer = (props) => {
                 <IconX
                   origin={ICON_TYPE.MATERIAL_COMMUNITY}
                   name="login"
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
               </View>
               <View style={styles.textContain}>
-                <Text style={styles.drawerText}>Login</Text>
+                <ScaleText style={styles.drawerText}>Login</ScaleText>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -152,11 +146,11 @@ const MyCustomDrawer = (props) => {
                 <IconX
                   origin={ICON_TYPE.FONT_AWESOME}
                   name="sign-in"
-                  color={BLACK_COLOR_CODE}
+                  color={COLORS.BLACK}
                 />
               </View>
               <View style={styles.textContain}>
-                <Text style={styles.drawerText}>Sign Up</Text>
+                <ScaleText style={styles.drawerText}>Sign Up</ScaleText>
               </View>
             </TouchableOpacity>
           </>
@@ -181,16 +175,16 @@ const styles = StyleSheet.create({
   },
   containers: {
     flexDirection: "row",
-    borderBottomColor: LINE_COMMON_COLOR_CODE,
-    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.COMMON,
+    borderBottomWidth: Constants.normalBW,
     width: "100%",
     height: 50,
     paddingLeft: 15,
     alignItems: "center",
   },
   drawerText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
     fontSize: 16,
     paddingLeft: 5,
   },
@@ -204,13 +198,13 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     padding: 15,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
   },
   containerView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: Platform.OS === "ios" ? 24 : 0,
+    paddingTop: Constants.Ios ? 24 : 0,
   },
   nameContainer: {
     flexDirection: "row",
@@ -226,12 +220,12 @@ const styles = StyleSheet.create({
   },
   userNameText: {
     fontSize: 20,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.WHITE,
   },
   userAddress: {
     fontSize: 13,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: WHITE_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.WHITE,
   },
 });

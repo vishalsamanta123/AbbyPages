@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const EmptyList = (props) => {
   const {
@@ -20,7 +21,9 @@ const EmptyList = (props) => {
         },
       ]}
     >
-      <Text style={styles.emptyConTxt}>No {message} is available</Text>
+      <ScaleText style={styles.emptyConTxt}>
+        No {message} is available
+      </ScaleText>
     </View>
   );
 };
@@ -33,6 +36,6 @@ const styles = StyleSheet.create({
   emptyConTxt: {
     fontSize: FONT_SIZE.mediumL,
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });

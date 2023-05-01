@@ -22,6 +22,7 @@ import Error from "../../../Components/Modal/error";
 import { CardField } from "@stripe/stripe-react-native";
 import CountDown from "react-native-countdown-component";
 import Input from "../../../Components/Input";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const TicketPaymentScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
@@ -57,11 +58,13 @@ const TicketPaymentScreen = (props) => {
         />
         <ScrollView keyboardShouldPersistTaps={"handled"}>
           <View style={styles.modalsVw}>
-            <Text style={styles.eventNameTx}>
+            <ScaleText style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
-            </Text>
-            <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
-            <Text style={styles.selectTxt}>Ticket Payment</Text>
+            </ScaleText>
+            <ScaleText style={styles.startDateTxt}>
+              Event Starts : {eventDate}
+            </ScaleText>
+            <ScaleText style={styles.selectTxt}>Ticket Payment</ScaleText>
             <>
               <View style={styles.straightVw}>
                 <View style={styles.timeShownVw}>
@@ -79,11 +82,11 @@ const TicketPaymentScreen = (props) => {
                     timeLabels={{}}
                     showSeparator
                   />
-                  <Text style={styles.timeTxt}>time remains</Text>
+                  <ScaleText style={styles.timeTxt}>time remains</ScaleText>
                 </View>
-                <Text style={styles.percentTxt}>
+                <ScaleText style={styles.percentTxt}>
                   {100 - Number(couts).toFixed(0)}%
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.timeCon}>
                 <View
@@ -94,19 +97,21 @@ const TicketPaymentScreen = (props) => {
                     },
                   ]}
                 >
-                  <Text />
+                  <ScaleText />
                 </View>
               </View>
-              <Text style={styles.timeTxt}>to complete the purchase</Text>
+              <ScaleText style={styles.timeTxt}>
+                to complete the purchase
+              </ScaleText>
               <View style={styles.ticketDetailVw}>
-                <Text
+                <ScaleText
                   style={[
                     styles.selectTxt,
                     { marginTop: 0, textAlign: "left" },
                   ]}
                 >
                   Card Details
-                </Text>
+                </ScaleText>
                 <CardField
                   postalCodeEnabled={true}
                   placeholders={{
@@ -131,9 +136,9 @@ const TicketPaymentScreen = (props) => {
                     });
                   }}
                 />
-                <Text style={[styles.subTitleTxt, { marginTop: 12 }]}>
+                <ScaleText style={[styles.subTitleTxt, { marginTop: 12 }]}>
                   Have a discount code?
-                </Text>
+                </ScaleText>
                 <View style={styles.straightVw}>
                   <Input
                     placeholder=""
@@ -162,40 +167,42 @@ const TicketPaymentScreen = (props) => {
                   />
                 </View>
               </View>
-              <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
                 Ticket Total
-              </Text>
+              </ScaleText>
               {props?.ticketsData?.map((item) => {
                 return (
                   <View style={styles.straightVw}>
-                    <Text style={styles.ticketsNameTxt}>
+                    <ScaleText style={styles.ticketsNameTxt}>
                       ({item.quantity}) {item.name}
-                    </Text>
-                    <Text style={styles.smallTxt}>${item.total_amount}</Text>
+                    </ScaleText>
+                    <ScaleText style={styles.smallTxt}>
+                      ${item.total_amount}
+                    </ScaleText>
                   </View>
                 );
               })}
               <View style={styles.straightVw}>
-                <Text style={styles.subTitleTxt}>Service fee</Text>
-                <Text style={styles.subTitleTxt}>
+                <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
+                <ScaleText style={styles.subTitleTxt}>
                   {props?.eventDetails?.serviceAmount
                     ? props?.eventDetails?.serviceAmount
                     : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
               <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
-                <Text style={styles.subTitleTxt}>Taxes</Text>
-                <Text style={[styles.subTitleTxt]}>
+                <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
+                <ScaleText style={[styles.subTitleTxt]}>
                   {props?.eventDetails?.taxesAmount
                     ? props?.eventDetails?.taxesAmount
                     : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.straightVw}>
-                <Text style={styles.subTitleTxt}>Total</Text>
-                <Text style={styles.subTitleTxt}>
+                <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
+                <ScaleText style={styles.subTitleTxt}>
                   {props?.totalAmount ? props?.totalAmount : "0.00"}
-                </Text>
+                </ScaleText>
               </View>
             </>
             <View style={styles.modalBttnVw}>

@@ -1,20 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import {
-  BLACK_COLOR_CODE,
-  COLORS,
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_REGULAR,
-  FONT_SIZE,
-  GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../Utils/Constant";
-import { Images } from "../../Utils/images";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import moment from "moment";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
+import ScaleText from "../ScaleText";
 
 const ListItemsView = (props) => {
   const {
@@ -49,50 +38,50 @@ const ListItemsView = (props) => {
             source={{ uri: largeImg }}
           />
           <View style={styles.innContainer}>
-            <Text style={styles.largeNameTxt}>{largeName}</Text>
-            <Text style={styles.smallTxt}>{smallTxt}</Text>
+            <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+            <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
             <View style={styles.straightVw}>
               <View style={styles.ratingVw}>
-                <Text style={styles.ratingTxt}>{rating}</Text>
+                <ScaleText style={styles.ratingTxt}>{rating}</ScaleText>
               </View>
-              <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+              <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
                 rating
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.straightVw}>
               <IconX
-                color={YELLOW_COLOR_CODE}
+                color={COLORS.YELLOW}
                 origin={ICON_TYPE.FEATHER_ICONS}
                 name={"thumbs-up"}
                 size={20}
                 paddingRight={5}
               />
-              <Text style={styles.smallTxt}>{rowImgTxt1}</Text>
+              <ScaleText style={styles.smallTxt}>{rowImgTxt1}</ScaleText>
             </View>
             <View style={styles.straightVw}>
               <IconX
-                color={YELLOW_COLOR_CODE}
+                color={COLORS.YELLOW}
                 origin={ICON_TYPE.SIMPLELINE}
                 name={"fire"}
                 size={20}
                 paddingRight={5}
               />
-              <Text style={styles.smallTxt}>
+              <ScaleText style={styles.smallTxt}>
                 {moment(rowImgTxt2).startOf("hour").fromNow()}
-              </Text>
+              </ScaleText>
             </View>
             {rowImgTxt3 ? (
               <View style={styles.straightVw}>
                 <IconX
-                  color={YELLOW_COLOR_CODE}
+                  color={COLORS.YELLOW}
                   origin={ICON_TYPE.SIMPLELINE}
                   name={"briefcase"}
                   size={20}
                   paddingRight={5}
                 />
-                <Text numberOfLines={2} style={styles.smallTxt}>
+                <ScaleText numberOfLines={2} style={styles.smallTxt}>
                   {rowImgTxt3}
-                </Text>
+                </ScaleText>
               </View>
             ) : null}
           </View>
@@ -115,26 +104,28 @@ const ListItemsView = (props) => {
               ]}
             >
               <View style={{ width: "70%" }}>
-                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
                   {title}
-                </Text>
+                </ScaleText>
                 <View style={styles.rowVw}>
-                  <Text style={styles.lightTxt}>By {largeName} | </Text>
-                  <Text style={styles.lightTxt}>
+                  <ScaleText style={styles.lightTxt}>
+                    By {largeName} |{" "}
+                  </ScaleText>
+                  <ScaleText style={styles.lightTxt}>
                     {moment(rowImgTxt2).startOf("hour").fromNow()}
-                  </Text>
+                  </ScaleText>
                 </View>
               </View>
               <View style={styles.straightVw}>
                 <View style={styles.ratingVw}>
-                  <Text style={styles.ratingTxt}>{rating}</Text>
+                  <ScaleText style={styles.ratingTxt}>{rating}</ScaleText>
                 </View>
-                <Text style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}>
+                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
                   rating
-                </Text>
+                </ScaleText>
               </View>
             </View>
-            <Text>{description}</Text>
+            <ScaleText>{description}</ScaleText>
           </View>
         </TouchableOpacity>
       )}
@@ -151,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 0.5,
-    borderColor: GREY_COLOR_CODE,
+    borderColor: COLORS.GREY,
   },
   largeImgVw: {
     width: 110,
@@ -177,8 +168,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   ratingTxt: {
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_BOLD,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.BOLD,
     fontSize: FONT_SIZE.medium,
   },
   innContainer: {
@@ -191,15 +182,15 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   largeNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
     textTransform: "capitalize",
   },
   smallTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13.5,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
   },
   emptyConVw: {
     height: 200,
@@ -208,13 +199,13 @@ const styles = StyleSheet.create({
   },
   emptyConTxt: {
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   lightTxt: {
     fontSize: 14,
     color: COLORS.SMALL_TEXT,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   smallImgVw: {
     width: 35,

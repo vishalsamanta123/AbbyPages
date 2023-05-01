@@ -1,6 +1,7 @@
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
+import ScaleText from "../ScaleText";
 
 const TabModalScreens = (props) => {
   const {
@@ -46,7 +47,9 @@ const TabModalScreens = (props) => {
             {onPressmodal.modal === "EventManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Create Event"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.subCatVw}
@@ -54,10 +57,10 @@ const TabModalScreens = (props) => {
                     modalNavigation("EventListings", "EventManagement");
                   }}
                 >
-                  <Text style={styles.subCatTxt}>{"Find Event"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Find Event"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Featured"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Featured"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.subCatVw}
@@ -65,7 +68,9 @@ const TabModalScreens = (props) => {
                     modalNavigation("HowItWorks", "EventManagement");
                   }}
                 >
-                  <Text style={styles.subCatTxt}>{"How it works"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"How it works"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
@@ -73,30 +78,40 @@ const TabModalScreens = (props) => {
                     modalNavigation("Pricing", "EventManagement");
                   }}
                 >
-                  <Text style={styles.subCatTxt}>{"Pricing"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Pricing"}</ScaleText>
                 </TouchableOpacity>
               </>
             ) : onPressmodal.modal === "PlusManagement" ? (
               <>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Add a Business"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Add a Business"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Business Post"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Business Post"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Create Event"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Create Event"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Post Job"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Post Job"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Sell Products"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Sell Products"}
+                  </ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Write a Review "}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Write a Review "}
+                  </ScaleText>
                 </TouchableOpacity>
               </>
             ) : onPressmodal.modal === "JobManagement" ? (
@@ -107,15 +122,17 @@ const TabModalScreens = (props) => {
                   }}
                   style={styles.subCatVw}
                 >
-                  <Text style={styles.subCatTxt}>{"Find a Job"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Find a Job"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.subCatVw}>
-                  <Text style={styles.subCatTxt}>{"Post Job"}</Text>
+                  <ScaleText style={styles.subCatTxt}>{"Post Job"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
                 >
-                  <Text style={styles.subCatTxt}>{"Upload Your Résumé"}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {"Upload Your Résumé"}
+                  </ScaleText>
                 </TouchableOpacity>
               </>
             ) : null}

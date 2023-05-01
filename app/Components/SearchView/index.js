@@ -10,11 +10,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
-import {
-  COLORS,
-  GREY_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../Utils/Constant";
+import { COLORS } from "../../Utils/Constant";
 import AddressInput from "../AddressInput";
 import { staticSearchOptions } from "../../Utils/staticData";
 import Button from "../Button";
@@ -240,13 +236,13 @@ const SearchView = (props) => {
         >
           <IconX
             origin={ICON_TYPE.OCTICONS}
-            color={GREY_COLOR_CODE}
+            color={COLORS.GREY}
             name={"search"}
             style={{ marginHorizontal: 10 }}
           />
           <TextInput
             placeholder="Search"
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             style={styles.catgSearchInput}
             onFocus={() => handleOnSearch()}
             value={searchData?.search_category_or_business}
@@ -276,7 +272,7 @@ const SearchView = (props) => {
               <View style={CommonStyles.locationIcon}>
                 <IconX
                   origin={ICON_TYPE.SIMPLELINE}
-                  color={GREY_COLOR_CODE}
+                  color={COLORS.GREY}
                   name={"location-pin"}
                 />
               </View>
@@ -309,7 +305,7 @@ const SearchView = (props) => {
             </View>
             <Button
               buttonText={"Search"}
-              buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+              buttonLabelStyle={{ color: COLORS.WHITE }}
               style={styles.searchButtonVw}
               paddingHeight={8}
               width={"100%"}

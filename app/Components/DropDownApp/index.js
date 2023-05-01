@@ -1,13 +1,8 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React from "react";
+import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Images } from "../../Utils/images";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const DropDownApp = (props) => {
   const {
@@ -15,7 +10,7 @@ const DropDownApp = (props) => {
     onPress = () => {},
     onLongPress = () => {},
     DropDownImg,
-    onPressArrow  = () => {},
+    onPressArrow = () => {},
     arrowShow = false,
   } = props;
   return (
@@ -26,9 +21,12 @@ const DropDownApp = (props) => {
         style={styles.rowVw}
       >
         <View style={styles.OptnsImgContain}>
-          <Image source={DropDownImg} style={DropDownImg ? styles.dropDownImg : null} />
+          <Image
+            source={DropDownImg}
+            style={DropDownImg ? styles.dropDownImg : null}
+          />
         </View>
-        <Text style={styles.OptnsMainText}>{DropDownText}</Text>
+        <ScaleText style={styles.OptnsMainText}>{DropDownText}</ScaleText>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => onPressArrow()}
@@ -47,24 +45,24 @@ export default DropDownApp;
 const styles = StyleSheet.create({
   OptionsConatin: {
     flex: 3,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   MainOptinsView: {
     flexDirection: "row",
     borderBottomWidth: 0.9,
     paddingLeft: 16,
-    borderBottomColor: LINE_COMMON_COLOR_CODE,
-    backgroundColor: WHITE_COLOR_CODE,
+    borderBottomColor: COLORS.COMMON,
+    backgroundColor: COLORS.WHITE,
     paddingVertical: 12,
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   dropDownImg: {
     width: 24,
     height: 24,
-    tintColor: LIGHT_BLACK_COLOR_CODE,
+    tintColor: COLORS.LIGHT_BLACK,
   },
   rowVw: {
     flexDirection: "row",
@@ -77,12 +75,12 @@ const styles = StyleSheet.create({
   },
   OptnsMainText: {
     fontSize: 19,
-    color: LIGHT_BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.LIGHT_BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   OptnsMainImg: {
     width: 20,
     height: 20,
-    tintColor: LIGHT_BLACK_COLOR_CODE,
+    tintColor: COLORS.LIGHT_BLACK,
   },
 });
