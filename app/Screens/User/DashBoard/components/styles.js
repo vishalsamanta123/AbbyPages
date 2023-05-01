@@ -262,5 +262,10 @@ const Styles = StyleSheet.create({
     height: 40,
     borderRadius: 12,
   },
+  supportTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
+    color: COLORS.WHITE
+  },
 });
 export default Styles;

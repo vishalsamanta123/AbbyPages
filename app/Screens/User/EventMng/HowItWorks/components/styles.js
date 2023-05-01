@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     marginBottom: 10,
     textAlign: "center",
+    marginHorizontal: 10
   },
   cardView: {
     backgroundColor: COLORS.WHITE,

@@ -190,13 +190,14 @@ const PricingView = () => {
                 <ScaleText style={styles.inputHeading}>
                   Ticket Price ($)
                 </ScaleText>
-                <ScaleTextInput
+                <TextInput
                   style={styles.textinputStyle}
                   placeholder="20.00"
                   keyboardType="number-pad"
                   onChangeText={(val) => {
                     handleCharges(val);
                   }}
+                  allowFontScaling={false}
                 />
               </View>
               <View style={styles.partition} />
@@ -228,19 +229,29 @@ const PricingView = () => {
               </View>
               <View style={styles.partition} />
               <View style={styles.thirdWrap}>
-                <ScaleText style={[styles.inputHeading]}>
-                  Your Buyers Pay:
-                </ScaleText>
-                <ScaleText style={styles.txtWithYellow}>${buyerPay}</ScaleText>
+                <View style={{ flex: 1 }}>
+                  <ScaleText style={[styles.inputHeading]}>
+                    Your Buyers Pay:
+                  </ScaleText>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <ScaleText style={[styles.txtWithYellow, {textAlign: "right"}]}>
+                    ${buyerPay}
+                  </ScaleText>
+                </View>
               </View>
               <View style={styles.partition} />
               <View style={styles.thirdWrap}>
-                <ScaleText style={[styles.inputHeading]}>
-                  You Receive:
-                </ScaleText>
-                <ScaleText style={styles.txtWithYellow}>
-                  ${youReceive}
-                </ScaleText>
+                <View style={{ flex: 1 }}>
+                  <ScaleText style={[styles.inputHeading]}>
+                    You Receive:
+                  </ScaleText>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <ScaleText style={[styles.txtWithYellow, {textAlign: "right"}]}>
+                    ${youReceive}
+                  </ScaleText>
+                </View>
               </View>
               <View style={styles.partition} />
               {/* <TouchableOpacity onPress={() => setPaymentCondition(1)}>
