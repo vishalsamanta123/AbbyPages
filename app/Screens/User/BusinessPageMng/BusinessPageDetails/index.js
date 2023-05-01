@@ -61,13 +61,14 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
+      {/* {visible && <Loader state={visible} />} */}
       <BusinessPageDetailsView
         handleBack={handleBack}
         moreInfoModal={moreInfoModal}
         setMoreInfoModal={setMoreInfoModal}
         detailData={detailData}
         handleNavigation={handleNavigation}
+        visible={visible}
       />
     </View>
   );

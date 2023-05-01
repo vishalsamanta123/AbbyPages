@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 
 const ScaleText = ({
   style: propStyle,
@@ -31,22 +31,22 @@ export default ScaleText;
 
 const styles = StyleSheet.create({
   titleStyle: {
-    fontSize: 17,
+    fontSize: FONT_SIZE.medium,
     letterSpacing: -0.408,
     color: "red",
     fontFamily: FONT_FAMILY.REGULAR,
   },
   subtitleStyle: {
-    fontSize: 14,
+    fontSize: FONT_SIZE.smallL,
     letterSpacing: -0.24,
-    color: COLORS.YELLOW,
+    color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   descriptionStyle: {
-    fontSize: 11,
+    fontSize: FONT_SIZE.verysmall,
     fontWeight: "400",
     letterSpacing: -0.078,
-    color: COLORS.YELLOW,
+    color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
   },
 });
