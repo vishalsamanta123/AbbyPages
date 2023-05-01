@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   View,
   Image,
-  Text,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
@@ -13,17 +12,14 @@ import {
 import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  COLORS,
-  Constants,
-} from "../../../../../Utils/Constant";
+import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 import MainHeader from "../../../../../Components/MainHeader";
 import ListItemsView from "../../../../../Components/ListItemsView";
 import { Images } from "../../../../../Utils/images";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const BusinessPageDetailsView = (props) => {
   const considerd = [
@@ -93,8 +89,10 @@ const BusinessPageDetailsView = (props) => {
     return (
       <TouchableOpacity style={styles.popularCardTouch}>
         <Image source={{ uri: item.image }} style={styles.popularimage} />
-        <Text style={styles.popularNameTxt}>{item.item_name}</Text>
-        <Text style={styles.popularPrice}>Price: ${item.discounted_price}</Text>
+        <ScaleText style={styles.popularNameTxt}>{item.item_name}</ScaleText>
+        <ScaleText style={styles.popularPrice}>
+          Price: ${item.discounted_price}
+        </ScaleText>
       </TouchableOpacity>
     );
   };
@@ -108,7 +106,7 @@ const BusinessPageDetailsView = (props) => {
           size={40}
           color={COLORS.BLACK}
         />
-        <Text style={styles.highlightsText}>{item.highlights}</Text>
+        <ScaleText style={styles.highlightsText}>{item.highlights}</ScaleText>
       </View>
     );
   };
@@ -141,12 +139,14 @@ const BusinessPageDetailsView = (props) => {
               size={30}
               name={"chevron-back"}
             />
-            <Text style={styles.topHeaderTxt}>Back</Text>
+            <ScaleText style={styles.topHeaderTxt}>Back</ScaleText>
           </TouchableOpacity>
         </View> */}
 
         <View style={styles.backImgVw}>
-          <Text style={styles.mainTxt}>{props?.detailData?.business_name}</Text>
+          <ScaleText style={styles.mainTxt}>
+            {props?.detailData?.business_name}
+          </ScaleText>
           <View style={{ width: 132 }}>
             <StarShower
               counts={
@@ -171,7 +171,7 @@ const BusinessPageDetailsView = (props) => {
                   paddingRight={6}
                 />
               )}
-              <Text
+              <ScaleText
                 style={[
                   styles.smallTxt,
                   {
@@ -182,18 +182,18 @@ const BusinessPageDetailsView = (props) => {
                 {props?.detailData?.claimed?.toString() === "1"
                   ? "Claimed"
                   : "UnClaimed"}
-              </Text>
+              </ScaleText>
             </View>
           ) : null}
         </View>
       </ImageBackground>
       <View style={styles.mainContainer}>
-        <Text style={styles.titletxt}>
+        <ScaleText style={styles.titletxt}>
           {props?.detailData?.business_service_category}
-        </Text>
+        </ScaleText>
         {props?.detailData?.business_open_time ? (
           <View style={CommonStyles.straightCon}>
-            <Text
+            <ScaleText
               style={[
                 styles.subTitleTxt,
                 {
@@ -212,14 +212,14 @@ const BusinessPageDetailsView = (props) => {
               props?.detailData?.business_open_time?.permanent_close === 1
                 ? "Open Now"
                 : "Closed Now"}
-            </Text>
+            </ScaleText>
             {props?.detailData?.business_open_time?.closing_day === 1 &&
             props?.detailData?.business_open_time?.temporary_close === 1 &&
             props?.detailData?.business_open_time?.permanent_close === 1 ? (
-              <Text style={styles.smallTxt}>
+              <ScaleText style={styles.smallTxt}>
                 {" "}
                 - {props?.detailData?.business_open_time?.timeline}
-              </Text>
+              </ScaleText>
             ) : null}
           </View>
         ) : null}
@@ -239,7 +239,7 @@ const BusinessPageDetailsView = (props) => {
                   color={COLORS.BLACK}
                 />
               </TouchableOpacity>
-              <Text style={styles.smallOptiontxt}>Call</Text>
+              <ScaleText style={styles.smallOptiontxt}>Call</ScaleText>
             </View>
           ) : null}
           <View style={{ alignItems: "center", marginTop: 10 }}>
@@ -259,7 +259,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={styles.smallOptiontxt}>View Map</Text>
+            <ScaleText style={styles.smallOptiontxt}>View Map</ScaleText>
           </View>
           <View style={{ alignItems: "center", marginTop: 10 }}>
             <TouchableOpacity
@@ -279,7 +279,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={styles.smallOptiontxt}>Website</Text>
+            <ScaleText style={styles.smallOptiontxt}>Website</ScaleText>
           </View>
           <View style={{ alignItems: "center", marginTop: 10 }}>
             <TouchableOpacity style={styles.smallOptionVw}>
@@ -290,21 +290,21 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={styles.smallOptiontxt}>Save</Text>
+            <ScaleText style={styles.smallOptiontxt}>Save</ScaleText>
           </View>
         </View>
       </View>
       {/* <View style={styles.mainContainer}>
-        <Text style={styles.longTxt}>Do You Recommend this businesss?</Text>
+        <ScaleText style={styles.longTxt}>Do You Recommend this businesss?</ScaleText>
         <View style={[CommonStyles.straightCon, { justifyContent: "center" }]}>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={[styles.titletxt, { fontSize: 16 }]}>YES</Text>
+            <ScaleText style={[styles.titletxt, { fontSize: 16 }]}>YES</ScaleText>
           </TouchableOpacity>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={[styles.titletxt, { fontSize: 16 }]}>NO</Text>
+            <ScaleText style={[styles.titletxt, { fontSize: 16 }]}>NO</ScaleText>
           </TouchableOpacity>
           <TouchableOpacity style={styles.smallCon}>
-            <Text style={[styles.titletxt, { fontSize: 16 }]}>MAYBE</Text>
+            <ScaleText style={[styles.titletxt, { fontSize: 16 }]}>MAYBE</ScaleText>
           </TouchableOpacity>
         </View>
       </View> */}
@@ -322,7 +322,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>Add Review</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>Add Review</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity style={styles.smallOptionVw}>
@@ -333,7 +333,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>Add Photo</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>Add Photo</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity style={styles.smallOptionVw}>
@@ -344,7 +344,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>View Gallery</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>View Gallery</ScaleText>
           </View>
         </View>
         {/* <SliderImages
@@ -359,7 +359,7 @@ const BusinessPageDetailsView = (props) => {
           source={{ uri: imagePreviewUrl }}
           style={{ width: "100%", height: 150 }}
         />
-        <Text
+        <ScaleText
           style={[
             styles.smallOptiontxt2,
             {
@@ -368,7 +368,7 @@ const BusinessPageDetailsView = (props) => {
           ]}
         >
           {props?.detailData?.address}
-        </Text>
+        </ScaleText>
         <TouchableOpacity
           style={styles.buttonsVw}
           onPress={() => {
@@ -378,7 +378,7 @@ const BusinessPageDetailsView = (props) => {
             );
           }}
         >
-          <Text style={styles.buttonsTxt}>{"Get Directions"}</Text>
+          <ScaleText style={styles.buttonsTxt}>{"Get Directions"}</ScaleText>
           <IconX
             origin={ICON_TYPE.MATERIAL_ICONS}
             name={"directions"}
@@ -394,12 +394,12 @@ const BusinessPageDetailsView = (props) => {
             }}
           >
             <View>
-              <Text style={styles.buttonsTxt}>{"Call"}</Text>
-              <Text style={styles.smallTxt}>
+              <ScaleText style={styles.buttonsTxt}>{"Call"}</ScaleText>
+              <ScaleText style={styles.smallTxt}>
                 {props?.detailData?.mobileno
                   ? props?.detailData?.mobileno
                   : "Mobile no. Not Found"}
-              </Text>
+              </ScaleText>
             </View>
             <IconX
               origin={ICON_TYPE.FEATHER_ICONS}
@@ -411,7 +411,7 @@ const BusinessPageDetailsView = (props) => {
         ) : null}
       </View>
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>About the Business</Text>
+        <ScaleText style={styles.sectionTxt}>About the Business</ScaleText>
         <TouchableOpacity
           style={[
             CommonStyles.straightCon,
@@ -419,10 +419,10 @@ const BusinessPageDetailsView = (props) => {
           ]}
         >
           <View>
-            <Text style={styles.titletxt}>Services</Text>
-            <Text style={styles.smallTxt}>
+            <ScaleText style={styles.titletxt}>Services</ScaleText>
+            <ScaleText style={styles.smallTxt}>
               {props?.detailData?.service_offered}
-            </Text>
+            </ScaleText>
           </View>
           <IconX
             origin={ICON_TYPE.ENTYPO}
@@ -445,7 +445,7 @@ const BusinessPageDetailsView = (props) => {
               }
             }}
           >
-            <Text
+            <ScaleText
               numberOfLines={2}
               style={[
                 styles.titletxt,
@@ -455,7 +455,7 @@ const BusinessPageDetailsView = (props) => {
               ]}
             >
               {props?.detailData?.websites}
-            </Text>
+            </ScaleText>
             <IconX
               origin={ICON_TYPE.FONT_AWESOME}
               name={"share-square-o"}
@@ -474,13 +474,13 @@ const BusinessPageDetailsView = (props) => {
           }
           style={styles.tapButtonsVw}
         >
-          <Text style={styles.titletxt}>More Info</Text>
+          <ScaleText style={styles.titletxt}>More Info</ScaleText>
         </TouchableOpacity>
       </View>
       <View style={styles.mainContainer}>
         {props?.detailData?.business_review?.length > 0 ? (
           <View>
-            <Text style={styles.sectionTxt}>News feeds</Text>
+            <ScaleText style={styles.sectionTxt}>News feeds</ScaleText>
 
             <TouchableOpacity style={styles.rowVw}>
               <Image
@@ -499,31 +499,31 @@ const BusinessPageDetailsView = (props) => {
                   ]}
                 >
                   <View style={{ width: "70%" }}>
-                    <Text
-                      style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
+                    <ScaleText
+                      style={[styles.ratingTxt, { color: COLORS.BLACK }]}
                     >
                       New post from the business
-                    </Text>
+                    </ScaleText>
                     <View style={styles.rowVw}>
-                      <Text style={styles.lightTxt}>By Owner | </Text>
-                      <Text style={styles.lightTxt}>a month ago</Text>
+                      <ScaleText style={styles.lightTxt}>By Owner | </ScaleText>
+                      <ScaleText style={styles.lightTxt}>a month ago</ScaleText>
                     </View>
                   </View>
                   <View style={styles.straightVw}>
                     <View style={styles.ratingVw}>
-                      <Text style={styles.ratingTxt}>12 likes</Text>
+                      <ScaleText style={styles.ratingTxt}>12 likes</ScaleText>
                     </View>
-                    {/* <Text
+                    {/* <ScaleText
                       style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
                     >
                       rating
-                    </Text> */}
+                    </ScaleText> */}
                   </View>
                 </View>
-                <Text>
+                <ScaleText>
                   abhwdbrg derh rtj rtj sr tjsrtk t cvuk ctyictuo, cou,.tidgrgr
                   th rth rthrtjy jttuk
-                </Text>
+                </ScaleText>
               </View>
             </TouchableOpacity>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -541,14 +541,14 @@ const BusinessPageDetailsView = (props) => {
               }}
               style={styles.tapButtonsVw}
             >
-              <Text style={styles.titletxt}>See More</Text>
+              <ScaleText style={styles.titletxt}>See More</ScaleText>
             </TouchableOpacity>
           </View>
         ) : null}
       </View>
       {props?.detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
-          <Text style={styles.sectionTxt}>Popular Dishes</Text>
+          <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
           <FlatList
             data={props?.detailData?.popular_dish}
             renderItem={({ item }) => renderPopularDish(item)}
@@ -557,7 +557,9 @@ const BusinessPageDetailsView = (props) => {
         </View>
       ) : null}
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>Highlights from the Business</Text>
+        <ScaleText style={styles.sectionTxt}>
+          Highlights from the Business
+        </ScaleText>
 
         <FlatList
           data={props?.detailData?.highlights}
@@ -569,8 +571,10 @@ const BusinessPageDetailsView = (props) => {
 
       {props?.detailData?.recommended_business?.length > 0 ? (
         <View style={styles.mainContainer}>
-          <Text style={styles.sectionTxt}>You might also consider</Text>
-          <Text
+          <ScaleText style={styles.sectionTxt}>
+            You might also consider
+          </ScaleText>
+          <ScaleText
             style={[
               styles.smallTxt,
               {
@@ -579,14 +583,14 @@ const BusinessPageDetailsView = (props) => {
             ]}
           >
             Sponsored
-          </Text>
+          </ScaleText>
           <>
             {props?.detailData?.recommended_business?.map((considr) => {
               return (
                 <TouchableOpacity activeOpacity={1} style={styles.considrVw}>
-                  <Text style={styles.considrTxt}>
+                  <ScaleText style={styles.considrTxt}>
                     {considr?.business_name}
-                  </Text>
+                  </ScaleText>
                   {considr?.rating ? (
                     <View>
                       <StarShower
@@ -601,10 +605,10 @@ const BusinessPageDetailsView = (props) => {
                   ) : null}
                   <View style={CommonStyles.straightCon}>
                     <Image source={considr?.logo} style={styles.considrImgVw} />
-                    <Text style={styles.considrTxtVw}>
+                    <ScaleText style={styles.considrTxtVw}>
                       {considr?.about_business?.substring(0, 60)}
                       {"..."}
-                      <Text
+                      <ScaleText
                         onPress={() =>
                           props.setMoreInfoModal({
                             open: true,
@@ -615,8 +619,8 @@ const BusinessPageDetailsView = (props) => {
                         style={styles.blueColorTxt}
                       >
                         Read More
-                      </Text>
-                    </Text>
+                      </ScaleText>
+                    </ScaleText>
                   </View>
                 </TouchableOpacity>
               );
@@ -625,18 +629,18 @@ const BusinessPageDetailsView = (props) => {
         </View>
       ) : null}
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>From this business</Text>
-        <Text style={[styles.smallTxt, { marginTop: 20 }]}>
+        <ScaleText style={styles.sectionTxt}>From this business</ScaleText>
+        <ScaleText style={[styles.smallTxt, { marginTop: 20 }]}>
           {props?.detailData?.about_business?.substring(0, 40)}
           {"..."}
-        </Text>
+        </ScaleText>
         <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
           <Image source={considerd[0].profile} style={styles.considrImgVw} />
           <View>
-            <Text style={styles.smallOptiontxt2}>
+            <ScaleText style={styles.smallOptiontxt2}>
               {props?.detailData?.business_user_name}
-            </Text>
-            <Text style={styles.smallTxt}>Business Owner</Text>
+            </ScaleText>
+            <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
           </View>
         </View>
         <TouchableOpacity
@@ -649,7 +653,7 @@ const BusinessPageDetailsView = (props) => {
           }
           style={styles.tapButtonsVw}
         >
-          <Text style={styles.titletxt}>Read More</Text>
+          <ScaleText style={styles.titletxt}>Read More</ScaleText>
         </TouchableOpacity>
       </View>
       <View style={styles.mainContainer}>
@@ -659,7 +663,7 @@ const BusinessPageDetailsView = (props) => {
             { justifyContent: "space-between" },
           ]}
         >
-          <Text style={styles.sectionTxt}>Photos</Text>
+          <ScaleText style={styles.sectionTxt}>Photos</ScaleText>
           <IconX
             color={COLORS.BLACK}
             origin={ICON_TYPE.ANT_ICON}
@@ -687,7 +691,7 @@ const BusinessPageDetailsView = (props) => {
         ) : null}
       </View>
       <View style={styles.mainContainer}>
-        <Text style={styles.sectionTxt}>Share this Business</Text>
+        <ScaleText style={styles.sectionTxt}>Share this Business</ScaleText>
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
@@ -703,7 +707,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>Message</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>Message</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
@@ -719,7 +723,7 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>Copy Link</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>Copy Link</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity style={styles.smallOptionVw}>
@@ -730,14 +734,14 @@ const BusinessPageDetailsView = (props) => {
                 color={COLORS.BLACK}
               />
             </TouchableOpacity>
-            <Text style={[styles.smallOptiontxt2]}>More</Text>
+            <ScaleText style={[styles.smallOptiontxt2]}>More</ScaleText>
           </View>
         </View>
       </View>
       <View style={styles.mainContainer}>
         {props?.detailData?.business_review?.length > 0 ? (
           <View>
-            <Text style={styles.sectionTxt}>Reviews and Ratings</Text>
+            <ScaleText style={styles.sectionTxt}>Reviews and Ratings</ScaleText>
 
             {props?.detailData?.business_review.map((item, index) => {
               return (
@@ -762,9 +766,11 @@ const BusinessPageDetailsView = (props) => {
           </View>
         ) : (
           <View>
-            <Text style={styles.sectionTxt}>No reviews yet</Text>
+            <ScaleText style={styles.sectionTxt}>No reviews yet</ScaleText>
             <TouchableOpacity style={styles.tapRowButtonsVw}>
-              <Text style={styles.titletxt}>Be the first to review</Text>
+              <ScaleText style={styles.titletxt}>
+                Be the first to review
+              </ScaleText>
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 color={COLORS.LIGHT_RED}
@@ -782,7 +788,7 @@ const BusinessPageDetailsView = (props) => {
                 starHeight={18}
                 marginLeft={14}
               />
-              <Text
+              <ScaleText
                 style={[
                   styles.smallOptiontxt2,
                   {
@@ -792,7 +798,7 @@ const BusinessPageDetailsView = (props) => {
                 ]}
               >
                 Tap to review....
-              </Text>
+              </ScaleText>
             </TouchableOpacity>
           </View>
         )}
@@ -812,7 +818,7 @@ const BusinessPageDetailsView = (props) => {
               size={29}
               color={COLORS.BLACK}
             />
-            <Text
+            <ScaleText
               style={[
                 styles.titletxt,
                 {
@@ -821,7 +827,7 @@ const BusinessPageDetailsView = (props) => {
               ]}
             >
               Add Photos
-            </Text>
+            </ScaleText>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tapRowButtonsVw}>
             <IconX
@@ -830,7 +836,7 @@ const BusinessPageDetailsView = (props) => {
               size={29}
               color={COLORS.BLACK}
             />
-            <Text
+            <ScaleText
               style={[
                 styles.titletxt,
                 {
@@ -839,7 +845,7 @@ const BusinessPageDetailsView = (props) => {
               ]}
             >
               Check
-            </Text>
+            </ScaleText>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import {
-  BLACK_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../Utils/Constant";
+import React from "react";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { COLORS } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 
 const StarShower = (props) => {
   const {
     marginLeft = 0,
-    ActiveStarColor = YELLOW_COLOR_CODE,
-    UnActiveStarColor = BLACK_COLOR_CODE,
+    ActiveStarColor = COLORS.YELLOW,
+    UnActiveStarColor = COLORS.BLACK,
     starHeight = 12,
     starWidth = 12,
     marginTop = 7,
@@ -20,13 +16,6 @@ const StarShower = (props) => {
     starPaddingH = 3,
   } = props;
   const oneStart = { star: Images.STAR_FILLED_IMG };
-  // const [stars, setStars] = useState([oneStart]);
-  // useEffect(() => {
-  //   for (let index = 0; index < props?.counts - 1; index++) {
-  //     const countedStar = stars[index];
-  //     stars.push(countedStar);
-  //   }
-  // }, [props.counts]);
 
   return (
     <View

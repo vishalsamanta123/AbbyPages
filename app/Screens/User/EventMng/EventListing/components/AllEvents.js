@@ -18,6 +18,7 @@ import {
   YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -51,7 +52,7 @@ const EventListingScreen = (props) => {
         ListEmptyComponent={() => {
           return (
             <View style={[styles.emptyEventVw, { height: 200 }]}>
-              <Text style={styles.emptyEventTxt}>No Data Found</Text>
+              <ScaleText style={styles.emptyEventTxt}>No Data Found</ScaleText>
             </View>
           );
         }}
@@ -80,25 +81,27 @@ const EventListingScreen = (props) => {
                 onPress={() => props.navToEventDetail(item)}
                 style={styles.allTxtVw}
               >
-                <Text style={styles.nameTxt}>{item?.event_name}</Text>
+                <ScaleText style={styles.nameTxt}>{item?.event_name}</ScaleText>
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
                     source={Images.CALENDER_IMG}
                   />
-                  <Text style={styles.straightTxt}>
+                  <ScaleText style={styles.straightTxt}>
                     {moment.unix(item?.event_date).format("MM/DD/YYYY")}
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
                     source={Images.LOCATION_IMG}
                   />
-                  <Text style={styles.straightTxt}>{item?.event_location}</Text>
+                  <ScaleText style={styles.straightTxt}>
+                    {item?.event_location}
+                  </ScaleText>
                 </View>
                 <View style={styles.straightVw}>
-                  <Text
+                  <ScaleText
                     style={[
                       styles.straightTxt,
                       { color: SMALL_TEXT_COLOR_CODE },
@@ -106,15 +109,15 @@ const EventListingScreen = (props) => {
                   >
                     {" "}
                     {item?.interested}{" "}
-                  </Text>
-                  <Text
+                  </ScaleText>
+                  <ScaleText
                     style={[
                       styles.straightTxt,
                       { color: SMALL_TEXT_COLOR_CODE },
                     ]}
                   >
                     Interested
-                  </Text>
+                  </ScaleText>
                 </View>
               </TouchableOpacity>
             </View>

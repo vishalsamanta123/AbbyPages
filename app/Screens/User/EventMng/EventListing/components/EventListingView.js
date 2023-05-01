@@ -26,6 +26,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Images } from "../../../../../Utils/images";
 import Video from "react-native-video";
 import { videos } from "../../../../../Utils/videos";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -37,9 +38,9 @@ const EventListingView = (props) => {
         onPress={() => props._handleDaySelected(item.id, index)}
         style={styles.lablestyle}
       >
-        <Text style={[styles.txtTimeCat, { color: selectedColor }]}>
+        <ScaleText style={[styles.txtTimeCat, { color: selectedColor }]}>
           {item.name}
-        </Text>
+        </ScaleText>
         <Image
           style={[styles.timeDataImg, { tintColor: selectedColor }]}
           source={Images.PROCEED_IMG}
@@ -79,19 +80,19 @@ const EventListingView = (props) => {
             resizeMode={"stretch"}
           />
           <View style={styles.bannerView}>
-            <Text style={styles.bannerHeading}>
+            <ScaleText style={styles.bannerHeading}>
               Sell Event Tickets on ABBYPAGES
-            </Text>
-            <Text style={styles.bannerHeadingDesc}>
+            </ScaleText>
+            <ScaleText style={styles.bannerHeadingDesc}>
               Online ticket sales and the creation of fantastic events just got
               a whole lot simpler. Create
-            </Text>
+            </ScaleText>
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
               onPress={() => {}}
               buttonText={"Create Event"}
-              width={'50%'}
+              width={"50%"}
               paddingHeight={12}
             />
           </View>
@@ -99,10 +100,13 @@ const EventListingView = (props) => {
         {/* </ImageBackground> */}
         {props?.events?.upcoming_events && (
           <View style={styles.containers}>
-            <Text style={styles.eventTitlesTxt}>
+            <ScaleText style={styles.eventTitlesTxt}>
               Abbypages Events
-              <Text style={{ color: SMALL_TEXT_COLOR_CODE }}> (Latest) </Text>
-            </Text>
+              <ScaleText style={{ color: SMALL_TEXT_COLOR_CODE }}>
+                {" "}
+                (Latest){" "}
+              </ScaleText>
+            </ScaleText>
             <View style={styles.containerVw}>
               <Image
                 resizeMode={"contain"}
@@ -115,31 +119,31 @@ const EventListingView = (props) => {
                 }
                 style={styles.allTxtVw}
               >
-                <Text style={styles.nameTxt}>
+                <ScaleText style={styles.nameTxt}>
                   {props?.events?.upcoming_events?.event_name}
-                </Text>
+                </ScaleText>
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
                     source={Images.CALENDER_IMG}
                   />
-                  <Text style={styles.straightTxt}>
+                  <ScaleText style={styles.straightTxt}>
                     {moment
                       .unix(props?.events?.upcoming_events?.event_date)
                       .format("MM/DD/YYYY")}
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={styles.straightVw}>
                   <Image
                     style={styles.straightImg}
                     source={Images.LOCATION_IMG}
                   />
-                  <Text style={styles.straightTxt}>
+                  <ScaleText style={styles.straightTxt}>
                     {props?.events?.upcoming_events?.event_location}
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={styles.straightVw}>
-                  <Text
+                  <ScaleText
                     style={[
                       styles.straightTxt,
                       { color: SMALL_TEXT_COLOR_CODE },
@@ -148,14 +152,14 @@ const EventListingView = (props) => {
                     {" "}
                     {props?.events?.upcoming_events?.interested}
                     {" Interested "}
-                  </Text>
+                  </ScaleText>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
         )}
         <View style={styles.containers}>
-          <Text style={styles.eventTitlesTxt}>Events</Text>
+          <ScaleText style={styles.eventTitlesTxt}>Events</ScaleText>
           <View
             style={[styles.straightVw, { justifyContent: "space-between" }]}
           >
@@ -170,7 +174,7 @@ const EventListingView = (props) => {
               }}
               style={[styles.straightVw, styles.seeOnVw]}
             >
-              <Text style={styles.seeOnTxt}>See Events For</Text>
+              <ScaleText style={styles.seeOnTxt}>See Events For</ScaleText>
               <Image
                 style={styles.seeForImg}
                 source={
@@ -182,7 +186,7 @@ const EventListingView = (props) => {
               style={styles.seeOnVw}
               onPress={() => handleSeeAll()}
             >
-              <Text style={styles.seeOnTxt}>See All</Text>
+              <ScaleText style={styles.seeOnTxt}>See All</ScaleText>
             </TouchableOpacity>
           </View>
           {alsoSeeFor && (
@@ -220,27 +224,29 @@ const EventListingView = (props) => {
                         onPress={() => props.navToEventDetail(item)}
                         style={styles.allTxtVw}
                       >
-                        <Text style={styles.nameTxt}>{item?.event_name}</Text>
+                        <ScaleText style={styles.nameTxt}>
+                          {item?.event_name}
+                        </ScaleText>
                         <View style={styles.straightVw}>
                           <Image
                             style={styles.straightImg}
                             source={Images.CALENDER_IMG}
                           />
-                          <Text style={styles.straightTxt}>
+                          <ScaleText style={styles.straightTxt}>
                             {moment.unix(item?.event_date).format("MM/DD/YYYY")}
-                          </Text>
+                          </ScaleText>
                         </View>
                         <View style={styles.straightVw}>
                           <Image
                             style={styles.straightImg}
                             source={Images.LOCATION_IMG}
                           />
-                          <Text style={styles.straightTxt}>
+                          <ScaleText style={styles.straightTxt}>
                             {item?.event_location}
-                          </Text>
+                          </ScaleText>
                         </View>
                         <View style={styles.straightVw}>
-                          <Text
+                          <ScaleText
                             style={[
                               styles.straightTxt,
                               { color: SMALL_TEXT_COLOR_CODE },
@@ -248,15 +254,15 @@ const EventListingView = (props) => {
                           >
                             {" "}
                             {item?.interested}{" "}
-                          </Text>
-                          <Text
+                          </ScaleText>
+                          <ScaleText
                             style={[
                               styles.straightTxt,
                               { color: SMALL_TEXT_COLOR_CODE },
                             ]}
                           >
                             Interested
-                          </Text>
+                          </ScaleText>
                         </View>
                       </TouchableOpacity>
                     </View>
@@ -265,13 +271,17 @@ const EventListingView = (props) => {
               </>
             ) : (
               <View style={styles.emptyEventVw}>
-                <Text style={styles.emptyEventTxt}>No Data Found for this</Text>
+                <ScaleText style={styles.emptyEventTxt}>
+                  No Data Found for this
+                </ScaleText>
               </View>
             )}
           </ScrollView>
         </View>
         <View style={styles.containers}>
-          <Text style={styles.eventTitlesTxt}>Recently Added Events</Text>
+          <ScaleText style={styles.eventTitlesTxt}>
+            Recently Added Events
+          </ScaleText>
           <ScrollView>
             {props?.events?.recently_added?.map((item) => {
               return (
@@ -287,27 +297,29 @@ const EventListingView = (props) => {
                     onPress={() => props.navToEventDetail(item)}
                     style={styles.allTxtVw}
                   >
-                    <Text style={styles.nameTxt}>{item?.event_name}</Text>
+                    <ScaleText style={styles.nameTxt}>
+                      {item?.event_name}
+                    </ScaleText>
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
                         source={Images.CALENDER_IMG}
                       />
-                      <Text style={styles.straightTxt}>
+                      <ScaleText style={styles.straightTxt}>
                         {moment.unix(item?.event_date).format("MM/DD/YYYY")}
-                      </Text>
+                      </ScaleText>
                     </View>
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
                         source={Images.LOCATION_IMG}
                       />
-                      <Text style={styles.straightTxt}>
+                      <ScaleText style={styles.straightTxt}>
                         {item?.event_location}
-                      </Text>
+                      </ScaleText>
                     </View>
                     <View style={styles.straightVw}>
-                      <Text
+                      <ScaleText
                         style={[
                           styles.straightTxt,
                           { color: SMALL_TEXT_COLOR_CODE },
@@ -315,15 +327,15 @@ const EventListingView = (props) => {
                       >
                         {" "}
                         {item?.interested}{" "}
-                      </Text>
-                      <Text
+                      </ScaleText>
+                      <ScaleText
                         style={[
                           styles.straightTxt,
                           { color: SMALL_TEXT_COLOR_CODE },
                         ]}
                       >
                         Interested
-                      </Text>
+                      </ScaleText>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -332,7 +344,7 @@ const EventListingView = (props) => {
           </ScrollView>
         </View>
         <View style={styles.containers}>
-          <Text style={styles.eventTitlesTxt}>Popular Events</Text>
+          <ScaleText style={styles.eventTitlesTxt}>Popular Events</ScaleText>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {props?.events?.popular_events?.map((item) => {
               return (
@@ -348,29 +360,29 @@ const EventListingView = (props) => {
                     onPress={() => props.navToEventDetail(item)}
                     style={styles.allTxtVw}
                   >
-                    <Text style={[styles.nameTxt, { fontSize: 16 }]}>
+                    <ScaleText style={[styles.nameTxt, { fontSize: 16 }]}>
                       {item?.event_name}
-                    </Text>
+                    </ScaleText>
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
                         source={Images.CALENDER_IMG}
                       />
-                      <Text style={styles.straightTxt}>
+                      <ScaleText style={styles.straightTxt}>
                         {moment.unix(item?.event_date).format("MM/DD/YYYY")}
-                      </Text>
+                      </ScaleText>
                     </View>
                     <View style={styles.straightVw}>
                       <Image
                         style={styles.straightImg}
                         source={Images.LOCATION_IMG}
                       />
-                      <Text style={styles.straightTxt}>
+                      <ScaleText style={styles.straightTxt}>
                         {item?.event_location}
-                      </Text>
+                      </ScaleText>
                     </View>
                     <View style={styles.straightVw}>
-                      <Text
+                      <ScaleText
                         style={[
                           styles.straightTxt,
                           { color: SMALL_TEXT_COLOR_CODE },
@@ -378,15 +390,15 @@ const EventListingView = (props) => {
                       >
                         {" "}
                         {item?.interested}{" "}
-                      </Text>
-                      <Text
+                      </ScaleText>
+                      <ScaleText
                         style={[
                           styles.straightTxt,
                           { color: SMALL_TEXT_COLOR_CODE },
                         ]}
                       >
                         Interested
-                      </Text>
+                      </ScaleText>
                     </View>
                   </TouchableOpacity>
                 </View>

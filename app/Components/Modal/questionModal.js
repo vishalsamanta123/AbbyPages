@@ -1,21 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Modal, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Button from "../Button";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  LIGHT_BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  GREY_COLOR_CODE,
-} from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
+import ScaleText from "../ScaleText";
 
 const QuestionModal = (props) => {
   const {
@@ -45,9 +33,11 @@ const QuestionModal = (props) => {
             ) : null}
             <View style={styles.normalModalVw}>
               {topMessage ? (
-                <Text style={styles.normalTopMssgTxt}>{topMessage}</Text>
+                <ScaleText style={styles.normalTopMssgTxt}>
+                  {topMessage}
+                </ScaleText>
               ) : null}
-              <Text style={styles.normalConfrTxt}>{message}</Text>
+              <ScaleText style={styles.normalConfrTxt}>{message}</ScaleText>
               <View style={styles.normalModalBttnVw}>
                 <Button
                   style={styles.modalBttn}
@@ -83,17 +73,17 @@ const QuestionModal = (props) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.topMssgTxt}>{topMessage}</Text>
-              <Text style={styles.confrTxt}>{message}</Text>
+              <ScaleText style={styles.topMssgTxt}>{topMessage}</ScaleText>
+              <ScaleText style={styles.confrTxt}>{message}</ScaleText>
               <Button
                 style={[styles.modalBttnVw, { marginTop: 20 }]}
-                buttonLabelStyle={{ color: GREY_COLOR_CODE }}
+                buttonLabelStyle={{ color: COLORS.GREY }}
                 buttonText={positiveTxt}
                 onPress={positiveResponse}
               />
               <Button
                 style={styles.modalBttnVw}
-                buttonLabelStyle={{ color: GREY_COLOR_CODE }}
+                buttonLabelStyle={{ color: COLORS.GREY }}
                 buttonText={negativeTxt}
                 onPress={negativeResponse}
               />
@@ -117,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   normalModalVw: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 20,
     alignItems: "center",
     marginHorizontal: 30,
@@ -126,14 +116,14 @@ const styles = StyleSheet.create({
   },
   normalTopMssgTxt: {
     fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
   },
   normalConfrTxt: {
     fontSize: 16,
     textAlign: "center",
-    fontFamily: FONT_FAMILY_BOLD,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.LIGHT_BLACK,
   },
   normalModalBttnVw: {
     flexDirection: "row",
@@ -148,7 +138,7 @@ const styles = StyleSheet.create({
 
   //for second modal
   modalVw: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 20,
     marginHorizontal: 30,
     paddingVertical: 16,
@@ -156,21 +146,21 @@ const styles = StyleSheet.create({
   },
   topMssgTxt: {
     fontSize: 18,
-    fontFamily: FONT_FAMILY_BOLD,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.LIGHT_BLACK,
     textAlign: "center",
   },
   confrTxt: {
     fontSize: 16,
     textAlign: "center",
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
     marginTop: 8,
   },
   modalBttnVw: {
     backgroundColor: "transparent",
     borderWidth: 0.8,
-    borderColor: GREY_COLOR_CODE,
+    borderColor: COLORS.GREY,
     borderRadius: 2,
     marginVertical: 10,
   },

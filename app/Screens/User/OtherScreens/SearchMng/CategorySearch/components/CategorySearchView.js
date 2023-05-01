@@ -15,6 +15,7 @@ import CommonStyles from "../../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import SearchView from "../../../../../../Components/SearchView";
 import MainHeader from "../../../../../../Components/MainHeader";
+import ScaleText from "../../../../../../Components/ScaleText";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
@@ -30,7 +31,7 @@ const CategorySearchView = (props) => {
                     source={{uri: item.image}}
                     style={styles.iconStyle}               
                 /> */}
-        <Text style={styles.listText}>{item.category_name}</Text>
+        <ScaleText style={styles.listText}>{item.category_name}</ScaleText>
         <IconX
           color={COLORS.BLACK}
           origin={ICON_TYPE.ANT_ICON}

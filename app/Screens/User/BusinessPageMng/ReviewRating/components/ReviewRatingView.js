@@ -1,77 +1,29 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  SafeAreaView,
-} from "react-native";
-import Header from "../../../../../Components/Header";
+import { View, Text, ScrollView, TextInput, SafeAreaView } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import StarShower from "../../../../../Components/StarShower";
-import { Images } from "../../../../../Utils/images";
 import Button from "../../../../../Components/Button";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const ReviewRatingView = (props) => {
   return (
     <SafeAreaView style={CommonStyles.container}>
-      {/* <View
-        style={[
-          styles.headerVw,
-          {
-            justifyContent: props?.userData?.login_type
-              ? "center"
-              : "space-between",
-          },
-        ]}
-      >
-        {props?.userData?.login_type ? (
-          <Image
-            source={Images.LOGO}
-            style={styles.topLogoVw2}
-            resizeMode={"contain"}
-          />
-        ) : (
-          <Image source={Images.ABBYLOGO_TRNSP} style={styles.topLogoVw} />
-        )}
-        {props?.userData?.login_type ? null : (
-          <View style={CommonStyles.straightCon}>
-            <TouchableOpacity
-              style={[styles.topButtonVw, styles.topButtonVwNon]}
-            >
-              <Text
-                style={[
-                  styles.topButtonTxt,
-                  {
-                    color: COLORS.BLACK,
-                  },
-                ]}
-              >
-                Log In
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.topButtonVw}>
-              <Text style={styles.topButtonTxt}>To Register</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View> */}
       <MainHeader headerText={"Review"} />
       <ScrollView contentContainerStyle={styles.mainContainer}>
-        <Text style={styles.headTxt}>
+        <ScaleText style={styles.headTxt}>
           {props?.recntRVwsData?.business_name}
-        </Text>
-        <Text style={styles.subHeadTxt}>
+        </ScaleText>
+        <ScaleText style={styles.subHeadTxt}>
           {props?.recntRVwsData?.business_review?.length} Reviews for{" "}
           {props?.recntRVwsData?.business_name}
-        </Text>
+        </ScaleText>
         <View style={styles.reViewCont}>
-          <Text style={styles.subHeadTxtNon}>Rate Us & Write A Review</Text>
+          <ScaleText style={styles.subHeadTxtNon}>
+            Rate Us & Write A Review
+          </ScaleText>
           <StarShower
             UnActiveStarColor={COLORS.WHITE}
             starWidth={20}
@@ -80,9 +32,9 @@ const ReviewRatingView = (props) => {
             counts={props?.ratingData?.business_rating}
             onPressStar={(star) => props.onPressRating(star)}
           />
-          <Text style={styles.smallTxt}>Choose Number of stars</Text>
+          <ScaleText style={styles.smallTxt}>Choose Number of stars</ScaleText>
           <View style={styles.descriptVw}>
-            <TextInput
+            <ScaleTextInput
               placeholderTextColor={COLORS.GREY}
               placeholder={"Type your review here..."}
               style={styles.descriptInput}

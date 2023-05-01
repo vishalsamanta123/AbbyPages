@@ -9,6 +9,7 @@ import MainHeader from "../../../../../../Components/MainHeader";
 import EmptyList from "../../../../../../Components/EmptyList";
 import { Images } from "../../../../../../Utils/images";
 import { COLORS, Constants } from "../../../../../../Utils/Constant";
+import ScaleText from "../../../../../../Components/ScaleText";
 
 const MenuPageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(3);
@@ -35,11 +36,11 @@ const MenuPageView = (props) => {
                     resizeMode={"cover"}
                   />
                   <View>
-                    <Text style={styles.profileTxt}>
+                    <ScaleText style={styles.profileTxt}>
                       {props?.userData?.first_name +
                         " " +
                         props?.userData?.last_name}
-                    </Text>
+                    </ScaleText>
                   </View>
                 </View>
                 <TouchableOpacity onPress={() => props.setLogoutVw(true)}>
@@ -51,7 +52,7 @@ const MenuPageView = (props) => {
                 </TouchableOpacity>
               </View>
               <View style={styles.seeAllVw}>
-                <Text style={styles.seeAllTxt}>See Profile</Text>
+                <ScaleText style={styles.seeAllTxt}>See Profile</ScaleText>
               </View>
             </View>
           ) : (
@@ -59,12 +60,14 @@ const MenuPageView = (props) => {
               onPress={() => props.handleSignupLogin()}
               style={styles.centerButton}
             >
-              <Text style={styles.centerButtonTxt}>Sign Up or Log In</Text>
+              <ScaleText style={styles.centerButtonTxt}>
+                Sign Up or Log In
+              </ScaleText>
             </TouchableOpacity>
           )}
-          <Text style={[styles.headTxt, { right: 5, textAlign: "left" }]}>
+          <ScaleText style={[styles.headTxt, { right: 5, textAlign: "left" }]}>
             Recently Viewed
-          </Text>
+          </ScaleText>
           {props?.recent_view?.length > 0 ? (
             <>
               {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
@@ -79,10 +82,12 @@ const MenuPageView = (props) => {
                       resizeMode={"cover"}
                     />
                     <View style={{ width: "92%" }}>
-                      <Text style={styles.listTxt}>{item.business_name}</Text>
-                      <Text numberOfLines={2} style={styles.listSmallTxt}>
+                      <ScaleText style={styles.listTxt}>
+                        {item.business_name}
+                      </ScaleText>
+                      <ScaleText numberOfLines={2} style={styles.listSmallTxt}>
                         {item.address}
-                      </Text>
+                      </ScaleText>
                     </View>
                   </TouchableOpacity>
                 );
@@ -99,7 +104,7 @@ const MenuPageView = (props) => {
                   }}
                   style={styles.seeMoreBttn}
                 >
-                  <Text style={styles.seeMoreBttnTxt}>See More</Text>
+                  <ScaleText style={styles.seeMoreBttnTxt}>See More</ScaleText>
                 </TouchableOpacity>
               ) : null}
             </>
@@ -112,7 +117,7 @@ const MenuPageView = (props) => {
             />
           )}
           <View style={{ marginTop: 20 }}>
-            <Text style={[styles.headTxt, {}]}>Menu</Text>
+            <ScaleText style={[styles.headTxt, {}]}>Menu</ScaleText>
             {businessTypes?.map((item) => {
               return (
                 <TouchableOpacity
@@ -125,7 +130,9 @@ const MenuPageView = (props) => {
                     size={23}
                     color={item.color}
                   />
-                  <Text style={styles.subCatTxt}>{item.optionName}</Text>
+                  <ScaleText style={styles.subCatTxt}>
+                    {item.optionName}
+                  </ScaleText>
                 </TouchableOpacity>
               );
             })}

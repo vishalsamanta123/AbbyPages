@@ -11,16 +11,13 @@ import {
 import React, { useEffect, useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
-import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import {
-  createEventSteps,
-  ticketPricingPros,
-} from "../../../../../Utils/staticData";
-import DropDownApp from "../../../../../Components/DropDownApp";
+import { IconX } from "../../../../../Components/Icons/Icon";
+import { ticketPricingPros } from "../../../../../Utils/staticData";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const PricingView = () => {
   const [ticketPrice, setTicketPrice] = useState(0.0);
@@ -85,8 +82,8 @@ const PricingView = () => {
           />
         </View>
         <View style={{ flex: 1, alignItems: "center" }}>
-          <Text style={styles.cardheading}>{item.heading}</Text>
-          <Text style={styles.cardDesc}>{item.description}</Text>
+          <ScaleText style={styles.cardheading}>{item.heading}</ScaleText>
+          <ScaleText style={styles.cardDesc}>{item.description}</ScaleText>
         </View>
       </View>
     );
@@ -118,10 +115,10 @@ const PricingView = () => {
           opacity={0.5}
         >
           <View style={styles.imgInnerVw}>
-            <Text style={[CommonStyles.bigTxtVw, { color: COLORS.WHITE }]}>
+            <ScaleText style={[CommonStyles.bigTxtVw, { color: COLORS.WHITE }]}>
               Easy and direct pricing
-            </Text>
-            <Text
+            </ScaleText>
+            <ScaleText
               style={[
                 CommonStyles.mediumTxt,
                 { marginTop: 16, paddingHorizontal: 10, color: COLORS.WHITE },
@@ -130,7 +127,7 @@ const PricingView = () => {
               There are no commitments necessary, and our system is absolutely
               free for all event planners. Pass the fees on to your ticket
               buyers and reinvest the savings in your event.
-            </Text>
+            </ScaleText>
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
@@ -143,53 +140,57 @@ const PricingView = () => {
         </ImageBackground>
         <View style={styles.priceCalWrap}>
           <View style={styles.priceCalView}>
-            <Text style={styles.txtWithYellow}>$1 + 2%</Text>
-            <Text style={styles.txtLight}>
+            <ScaleText style={styles.txtWithYellow}>$1 + 2%</ScaleText>
+            <ScaleText style={styles.txtLight}>
               {"("}Per ticket{")"}
-            </Text>
+            </ScaleText>
             <View>
-              <Text style={styles.plus}>+</Text>
+              <ScaleText style={styles.plus}>+</ScaleText>
             </View>
-            <Text style={styles.txtWithYellow}>3%</Text>
-            <Text style={styles.txtLight}>
+            <ScaleText style={styles.txtWithYellow}>3%</ScaleText>
+            <ScaleText style={styles.txtLight}>
               {"("}Credit card processing{")"}
-            </Text>
+            </ScaleText>
           </View>
           <View style={styles.priceDescView}>
-            <Text style={styles.priceDescHeadingTxt}>
+            <ScaleText style={styles.priceDescHeadingTxt}>
               Daily, unlimited, free ticketing.
-            </Text>
-            <Text style={styles.priceDescTxt}>
+            </ScaleText>
+            <ScaleText style={styles.priceDescTxt}>
               Our incredibly straightforward system keeps ticketing fees to a
               minimum of $1 plus 2% of the cost per ticket. Pass on those costs
               to your customers to make it totally free for you! The cost of
               using our or another credit card processor is only 3%.
-            </Text>
+            </ScaleText>
           </View>
         </View>
         <View style={styles.priceCalWrap}>
           <View style={styles.priceDescView}>
-            <Text style={styles.priceDescHeadingTxt}>
+            <ScaleText style={styles.priceDescHeadingTxt}>
               Everything just got a lot simpler for you to understand your
               ticket prices.
-            </Text>
-            <Text style={styles.priceDescTxt}>
+            </ScaleText>
+            <ScaleText style={styles.priceDescTxt}>
               Take aside the pen and paper and use our online calculator to
               determine your accurate ticket price. Simply enter your ticket
               price, choose whether or not to pass on the price to your
               customers, and we'll take care of the rest!
-            </Text>
+            </ScaleText>
           </View>
         </View>
         <View style={styles.priceCalWrap}>
           <View style={styles.priceDescView}>
-            <Text style={[styles.priceDescHeadingTxt, { marginBottom: 20 }]}>
+            <ScaleText
+              style={[styles.priceDescHeadingTxt, { marginBottom: 20 }]}
+            >
               Estimate Your Abbypages Fees
-            </Text>
+            </ScaleText>
             <View style={styles.feesCalWrap}>
               <View style={styles.feesInputView}>
-                <Text style={styles.inputHeading}>Ticket Price ($)</Text>
-                <TextInput
+                <ScaleText style={styles.inputHeading}>
+                  Ticket Price ($)
+                </ScaleText>
+                <ScaleTextInput
                   style={styles.textinputStyle}
                   placeholder="20.00"
                   keyboardType="number-pad"
@@ -201,38 +202,52 @@ const PricingView = () => {
               <View style={styles.partition} />
               <View style={styles.secondWrap}>
                 <View style={styles.sectionView}>
-                  <Text style={[styles.txtWithYellow, { textAlign: "left" }]}>
+                  <ScaleText
+                    style={[styles.txtWithYellow, { textAlign: "left" }]}
+                  >
                     ${abbyPages_carges}
-                  </Text>
-                  <Text style={[styles.inputHeading, { textAlign: "left" }]}>
+                  </ScaleText>
+                  <ScaleText
+                    style={[styles.inputHeading, { textAlign: "left" }]}
+                  >
                     AbbyPages Fee
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={styles.sectionView}>
-                  <Text style={[styles.txtWithYellow, { textAlign: "right" }]}>
+                  <ScaleText
+                    style={[styles.txtWithYellow, { textAlign: "right" }]}
+                  >
                     ${cardProcessing_carges}
-                  </Text>
-                  <Text style={[styles.inputHeading, { textAlign: "right" }]}>
+                  </ScaleText>
+                  <ScaleText
+                    style={[styles.inputHeading, { textAlign: "right" }]}
+                  >
                     Credit Card Processing
-                  </Text>
+                  </ScaleText>
                 </View>
               </View>
               <View style={styles.partition} />
               <View style={styles.thirdWrap}>
-                <Text style={[styles.inputHeading]}>Your Buyers Pay:</Text>
-                <Text style={styles.txtWithYellow}>${buyerPay}</Text>
+                <ScaleText style={[styles.inputHeading]}>
+                  Your Buyers Pay:
+                </ScaleText>
+                <ScaleText style={styles.txtWithYellow}>${buyerPay}</ScaleText>
               </View>
               <View style={styles.partition} />
               <View style={styles.thirdWrap}>
-                <Text style={[styles.inputHeading]}>You Receive:</Text>
-                <Text style={styles.txtWithYellow}>${youReceive}</Text>
+                <ScaleText style={[styles.inputHeading]}>
+                  You Receive:
+                </ScaleText>
+                <ScaleText style={styles.txtWithYellow}>
+                  ${youReceive}
+                </ScaleText>
               </View>
               <View style={styles.partition} />
               {/* <TouchableOpacity onPress={() => setPaymentCondition(1)}>
-                <Text>i want buyers to pay all fees {paymentCondition === 1 && 'current'}</Text>
+                <ScaleText>i want buyers to pay all fees {paymentCondition === 1 && 'current'}</ScaleText>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setPaymentCondition(2)}>
-                <Text>I wish to pay all fees.{paymentCondition === 2 && 'current'}</Text>
+                <ScaleText>I wish to pay all fees.{paymentCondition === 2 && 'current'}</ScaleText>
               </TouchableOpacity> */}
               {/* <DropDownApp /> */}
               <View style={styles.createnowBtnview}>
@@ -250,9 +265,11 @@ const PricingView = () => {
         </View>
         <View style={[styles.priceCalWrap, { backgroundColor: COLORS.BLACK }]}>
           <View style={styles.priceDescView}>
-            <Text style={[styles.priceDescHeadingTxt, { color: COLORS.WHITE }]}>
+            <ScaleText
+              style={[styles.priceDescHeadingTxt, { color: COLORS.WHITE }]}
+            >
               All of your ticketing requires at no additional cost.
-            </Text>
+            </ScaleText>
             <FlatList
               data={ticketPricingPros}
               renderItem={({ item }) => renderSteps(item)}
@@ -261,15 +278,15 @@ const PricingView = () => {
         </View>
         <View style={styles.priceCalWrap}>
           <View style={styles.priceDescView}>
-            <Text style={styles.priceDescHeadingTxt}>
+            <ScaleText style={styles.priceDescHeadingTxt}>
               Quickly collect your payments.
-            </Text>
-            <Text style={styles.priceDescTxt}>
+            </ScaleText>
+            <ScaleText style={styles.priceDescTxt}>
               You will always receive payment via direct deposit or check 3–5
               business days after your event. If you feel that's not quick
               enough for your requirements, you can apply for our FastPay option
               to start collecting money a week before your event.
-            </Text>
+            </ScaleText>
           </View>
         </View>
       </ScrollView>

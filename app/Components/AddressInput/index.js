@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Constants, GREY_COLOR_CODE, MAP_KEY } from "../../Utils/Constant";
+import { COLORS, Constants } from "../../Utils/Constant";
 import CommonStyles from "../../Utils/CommonStyles";
 
 const AddressInput = (props) => {
@@ -21,7 +21,7 @@ const AddressInput = (props) => {
       textInputProps={{
         onFocus: () => setOnfocus(true),
         onBlur: () => setOnfocus(false),
-        placeholderTextColor: GREY_COLOR_CODE,
+        placeholderTextColor: COLORS.GREY,
         onChangeText: (txt) => {
           if (onfocus) {
             if (txt == "") {

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   View,
   Image,
-  Text,
   TouchableOpacity,
   ScrollView,
   Modal,
@@ -13,13 +12,10 @@ import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
-import {
-  SliderImages,
-  RenderSlideItem,
-} from "../../../../../Components/SliderImages";
 import moment from "moment";
 import MainHeader from "../../../../../Components/MainHeader";
 import { Images } from "../../../../../Utils/images";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const MoreInfo = (props) => {
   const {
@@ -80,7 +76,7 @@ const MoreInfo = (props) => {
       <View style={styles.availJobsView}>
         <View style={styles.jobHeadingView}>
           <View style={{ flex: 5 }}>
-            <Text style={styles.availJobstxt}>{item.job_title}</Text>
+            <ScaleText style={styles.availJobstxt}>{item.job_title}</ScaleText>
             <View style={[CommonStyles.straightCon, { alignItems: "center" }]}>
               <IconX
                 origin={ICON_TYPE.FONT_AWESOME}
@@ -88,9 +84,9 @@ const MoreInfo = (props) => {
                 size={20}
                 color={COLORS.BLACK}
               />
-              <Text style={styles.availJobsExptxt}>
+              <ScaleText style={styles.availJobsExptxt}>
                 {getJobType(item?.job_type)}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.locationView}>
               <IconX
@@ -99,7 +95,9 @@ const MoreInfo = (props) => {
                 size={20}
                 color={COLORS.BLACK}
               />
-              <Text style={styles.availJobslocationTxt}>{item.name}</Text>
+              <ScaleText style={styles.availJobslocationTxt}>
+                {item.name}
+              </ScaleText>
             </View>
           </View>
           <View style={{ flex: 1 }}>
@@ -114,20 +112,22 @@ const MoreInfo = (props) => {
   };
 
   const renderEvents = (item) => {
-    console.log('item renderEvents', item)
+    console.log("item renderEvents", item);
     return (
       <View style={styles.eventsView}>
         <ImageBackground
-          source={{uri: item?.event_images}}
+          source={{ uri: item?.event_images }}
           style={styles.eventsImage}
           borderRadius={10}
           opacity={0.6}
         >
           <View style={styles.eventheadingView}>
-            <Text style={styles.eventsheadignTxt}>{item?.event_name}</Text>
+            <ScaleText style={styles.eventsheadignTxt}>
+              {item?.event_name}
+            </ScaleText>
           </View>
           <TouchableOpacity style={styles.eventknowTouch}>
-            <Text style={styles.knowTxt}>Know more</Text>
+            <ScaleText style={styles.knowTxt}>Know more</ScaleText>
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -153,8 +153,8 @@ const MoreInfo = (props) => {
           {type == "info" ? (
             <>
               <View style={styles.mainContainer}>
-                <Text style={styles.sectionTxt}>Business Hours</Text>
-                <Text
+                <ScaleText style={styles.sectionTxt}>Business Hours</ScaleText>
+                <ScaleText
                   style={[
                     styles.subTitleTxt,
                     {
@@ -163,25 +163,31 @@ const MoreInfo = (props) => {
                   ]}
                 >
                   Closed now
-                </Text>
+                </ScaleText>
                 {props.detailData?.business_service_time?.map((time) => {
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
                       <View style={{ flex: 1 }}>
-                        <Text style={styles.titletxt}>{time.day}</Text>
+                        <ScaleText style={styles.titletxt}>
+                          {time.day}
+                        </ScaleText>
                       </View>
                       <View style={{ flex: 2, alignItems: "flex-end" }}>
-                        <Text style={styles.titletxt}>{time.timeline}</Text>
+                        <ScaleText style={styles.titletxt}>
+                          {time.timeline}
+                        </ScaleText>
                       </View>
                     </View>
                   );
                 })}
                 <TouchableOpacity style={styles.tapButtonsVw}>
-                  <Text style={styles.titletxt}>Suggest an edit</Text>
+                  <ScaleText style={styles.titletxt}>Suggest an edit</ScaleText>
                 </TouchableOpacity>
               </View>
               <View style={styles.mainContainer}>
-                <Text style={styles.sectionTxt}>Amenities and more</Text>
+                <ScaleText style={styles.sectionTxt}>
+                  Amenities and more
+                </ScaleText>
                 {amenities?.map((amenty) => {
                   return (
                     <View style={[CommonStyles.straightCon, styles.timingVw]}>
@@ -192,7 +198,7 @@ const MoreInfo = (props) => {
                         size={20}
                         paddingRight={5}
                       />
-                      <Text style={styles.titletxt}>{amenty}</Text>
+                      <ScaleText style={styles.titletxt}>{amenty}</ScaleText>
                     </View>
                   );
                 })}
@@ -201,40 +207,42 @@ const MoreInfo = (props) => {
           ) : null}
 
           {/* <View style={styles.mainContainer}>
-            <Text style={styles.sectionTxt}>Specialist</Text>
-            <Text style={[styles.smallTxt, { marginTop: 20 }]}>
+            <ScaleText style={styles.sectionTxt}>Specialist</ScaleText>
+            <ScaleText style={[styles.smallTxt, { marginTop: 20 }]}>
               Our BarberShop specilised in cutting hair and cleanong face make
               up for both male and female
-            </Text>
+            </ScaleText>
           </View> */}
           <View style={styles.mainContainer}>
-            <Text style={styles.sectionTxt}>History</Text>
-            <Text style={[styles.smallTxt, { marginTop: 8 }]}>
+            <ScaleText style={styles.sectionTxt}>History</ScaleText>
+            <ScaleText style={[styles.smallTxt, { marginTop: 8 }]}>
               Established in {moment(detailData?.create_date).format("YYYY")}
-            </Text>
+            </ScaleText>
           </View>
           <View style={styles.mainContainer}>
-            <Text style={styles.sectionTxt}>Meet the business owner</Text>
+            <ScaleText style={styles.sectionTxt}>
+              Meet the business owner
+            </ScaleText>
             <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
               <Image
                 source={require("../../../../../Assets/extraImages/demo-profile-image.png")}
                 style={styles.considrImgVw}
               />
               <View>
-                <Text style={styles.smallOptiontxt2}>
+                <ScaleText style={styles.smallOptiontxt2}>
                   {detailData?.business_user_name}
-                </Text>
-                <Text style={styles.smallTxt}>Business Owner</Text>
+                </ScaleText>
+                <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
               </View>
             </View>
-            <Text style={[styles.smallTxt, { marginTop: 8 }]}>
+            <ScaleText style={[styles.smallTxt, { marginTop: 8 }]}>
               {detailData?.about_business}
-            </Text>
+            </ScaleText>
           </View>
           {type === "read" ? (
             <View>
               <View style={styles.mainContainer}>
-                <Text style={styles.sectionTxt}>Available Jobs</Text>
+                <ScaleText style={styles.sectionTxt}>Available Jobs</ScaleText>
                 <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
                   <FlatList
                     data={detailData?.business_job_details}
@@ -243,7 +251,7 @@ const MoreInfo = (props) => {
                 </View>
               </View>
               <View style={styles.mainContainer}>
-                <Text style={styles.sectionTxt}>Events</Text>
+                <ScaleText style={styles.sectionTxt}>Events</ScaleText>
                 <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
                   <FlatList
                     data={detailData?.business_event_details}

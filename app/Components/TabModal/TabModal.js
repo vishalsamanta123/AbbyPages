@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import React from "react";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS } from "../../Utils/Constant";
 import styles from "./styles";
+import ScaleText from "../ScaleText";
 
 const TabModal = (props) => {
   const {
@@ -46,7 +47,7 @@ const TabModal = (props) => {
             }
           />
         </View>
-        <Text
+        <ScaleText
           style={[
             styles.iconTxt,
             {
@@ -56,7 +57,7 @@ const TabModal = (props) => {
           ]}
         >
           Events
-        </Text>
+        </ScaleText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.tapVws}
@@ -87,7 +88,7 @@ const TabModal = (props) => {
             color={isFocused === "JobManagement" ? COLORS.YELLOW : COLORS.BLACK}
           />
         </View>
-        <Text
+        <ScaleText
           style={[
             styles.iconTxt,
             {
@@ -97,7 +98,7 @@ const TabModal = (props) => {
           ]}
         >
           Jobs
-        </Text>
+        </ScaleText>
       </TouchableOpacity>
     </>
   );

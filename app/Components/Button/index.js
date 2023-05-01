@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
-import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import {
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-} from "../../Utils/Constant";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
+import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
+
 const Button = (props) => {
   const {
     style,
@@ -17,7 +15,7 @@ const Button = (props) => {
     tintColor,
     iconName,
     width = "90%",
-    buttonTxtColor = BLACK_COLOR_CODE,
+    buttonTxtColor = COLORS.BLACK,
     fontSize = 18,
     paddingHeight = 17,
   } = props;
@@ -43,7 +41,7 @@ const Button = (props) => {
           />
         ) : null}
         <Image source={LeftBtnImage} />
-        <Text
+        <ScaleText
           style={[
             buttonLabel,
             buttonLabelStyle,
@@ -54,28 +52,17 @@ const Button = (props) => {
           ]}
         >
           {buttonText}
-        </Text>
+        </ScaleText>
         <Image source={RightBtnImage} />
       </TouchableOpacity>
     </Fragment>
   );
 };
 Button.Button = { buttonText: "Submit" };
-// {buttonText == "Continue with Facebook" ? (
-//   <Image
-//     style={{ width: 30, height: 30, right: 8 }}
-//     source={require("../../Assets/facebook_icon.png")}
-//   />
-// ) : null}
-// {buttonText == "Continue with Google" ? (
-//   <Image
-//     style={{ width: 30, height: 31, right: 8 }}
-//     source={require("../../Assets/google_icon.png")}
-//   />
-// ) : null}
+
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "center",
@@ -86,8 +73,8 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   iconsVw: {
     width: 18,

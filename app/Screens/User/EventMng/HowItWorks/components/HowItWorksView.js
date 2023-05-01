@@ -15,6 +15,7 @@ import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import { createEventSteps } from "../../../../../Utils/staticData";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const HowItWorksView = (props) => {
   const renderSteps = (item) => {
@@ -29,8 +30,8 @@ const HowItWorksView = (props) => {
           />
         </View>
         <View style={{ flex: 1, alignItems: "center" }}>
-          <Text style={styles.cardheading}>{item.heading}</Text>
-          <Text style={styles.cardDesc}>{item.description}</Text>
+          <ScaleText style={styles.cardheading}>{item.heading}</ScaleText>
+          <ScaleText style={styles.cardDesc}>{item.description}</ScaleText>
         </View>
       </View>
     );
@@ -61,10 +62,10 @@ const HowItWorksView = (props) => {
           opacity={0.5}
         >
           <View style={styles.imgInnerVw}>
-            <Text style={[CommonStyles.bigTxtVw, { color: COLORS.WHITE }]}>
+            <ScaleText style={[CommonStyles.bigTxtVw, { color: COLORS.WHITE }]}>
               How AbbyPages Events Works
-            </Text>
-            <Text
+            </ScaleText>
+            <ScaleText
               style={[
                 CommonStyles.mediumTxt,
                 { marginTop: 16, paddingHorizontal: 10, color: COLORS.WHITE },
@@ -73,7 +74,7 @@ const HowItWorksView = (props) => {
               Create a free account, modify the event page, and begin selling
               tickets in a few minutes. It really is that simple with our
               user-friendly event ticketing system!
-            </Text>
+            </ScaleText>
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
@@ -86,9 +87,9 @@ const HowItWorksView = (props) => {
         </ImageBackground>
         <View style={styles.stepsWrap}>
           <View style={styles.createHeadingView}>
-            <Text style={styles.createHeadingtxt}>
+            <ScaleText style={styles.createHeadingtxt}>
               Create an Event by following 5 Simple Steps.
-            </Text>
+            </ScaleText>
           </View>
           <FlatList
             data={createEventSteps}

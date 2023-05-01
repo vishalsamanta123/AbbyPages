@@ -12,9 +12,7 @@ import moment from "moment";
 import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
+  COLORS,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -26,6 +24,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import CountDown from "react-native-countdown-component";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
+import ScaleText from "../../../../../Components/ScaleText";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 
 const BuyerInfoScreen = (props) => {
   useEffect(() => {
@@ -76,11 +76,13 @@ const BuyerInfoScreen = (props) => {
         />
         <ScrollView keyboardShouldPersistTaps={"handled"}>
           <View style={styles.modalsVw}>
-            <Text style={styles.eventNameTx}>
+            <ScaleText style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
-            </Text>
-            <Text style={styles.startDateTxt}>Event Starts : {eventDate}</Text>
-            <Text style={styles.selectTxt}>Buyers Information</Text>
+            </ScaleText>
+            <ScaleText style={styles.startDateTxt}>
+              Event Starts : {eventDate}
+            </ScaleText>
+            <ScaleText style={styles.selectTxt}>Buyers Information</ScaleText>
             <View style={styles.straightVw}>
               <View style={styles.timeShownVw}>
                 <CountDown
@@ -92,16 +94,16 @@ const BuyerInfoScreen = (props) => {
                   }}
                   digitStyle={styles.digitStyle}
                   digitTxtStyle={styles.subTitleTxt}
-                  separatorStyle={{ color: BLACK_COLOR_CODE }}
+                  separatorStyle={{ color: COLORS.BLACK }}
                   timeToShow={["M", "S"]}
                   timeLabels={{}}
                   showSeparator
                 />
-                <Text style={styles.timeTxt}>time remains</Text>
+                <ScaleText style={styles.timeTxt}>time remains</ScaleText>
               </View>
-              <Text style={styles.percentTxt}>
-                {100 -Number(props?.couts).toFixed(0)}%
-              </Text>
+              <ScaleText style={styles.percentTxt}>
+                {100 - Number(props?.couts).toFixed(0)}%
+              </ScaleText>
             </View>
             <View style={styles.timeCon}>
               <View
@@ -113,18 +115,20 @@ const BuyerInfoScreen = (props) => {
                   },
                 ]}
               >
-                <Text />
+                <ScaleText />
               </View>
             </View>
-            <Text style={styles.timeTxt}>to complete the purchase</Text>
+            <ScaleText style={styles.timeTxt}>
+              to complete the purchase
+            </ScaleText>
             <View style={styles.ticketDetailVw}>
-              <Text
+              <ScaleText
                 style={[styles.selectTxt, { marginTop: 0, textAlign: "left" }]}
               >
                 Event Ticket Details
-              </Text>
+              </ScaleText>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>First name</Text>
+                <ScaleText style={styles.subTitleTxt}>First name</ScaleText>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -140,7 +144,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Last name</Text>
+                <ScaleText style={styles.subTitleTxt}>Last name</ScaleText>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -156,7 +160,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Email</Text>
+                <ScaleText style={styles.subTitleTxt}>Email</ScaleText>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -172,7 +176,7 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Address</Text>
+                <ScaleText style={styles.subTitleTxt}>Address</ScaleText>
                 <View style={[styles.ticketsInputVw, styles.secInputVw]}>
                   <GooglePlacesAutocomplete
                     placeholder=""
@@ -191,7 +195,7 @@ const BuyerInfoScreen = (props) => {
                       language: "en",
                     }}
                     textInputProps={{
-                      placeholderTextColor: BLACK_COLOR_CODE,
+                      placeholderTextColor: COLORS.BLACK,
                       onChangeText: (text) => {
                         props.setBuyerInfo({
                           ...props.buyerInfo,
@@ -202,13 +206,13 @@ const BuyerInfoScreen = (props) => {
                     }}
                     styles={{
                       textInputContainer: {
-                        fontFamily: FONT_FAMILY_REGULAR,
-                        color: BLACK_COLOR_CODE,
+                        fontFamily: FONT_FAMILY.REGULAR,
+                        color: COLORS.BLACK,
                       },
                       textInput: {
                         fontSize: 20,
-                        color: LIGHT_BLACK_COLOR_CODE,
-                        fontFamily: FONT_FAMILY_REGULAR,
+                        color: COLORS.BLACK,
+                        fontFamily: FONT_FAMILFONT_FAMILY.REGULARY_REGULAR,
                       },
                       listView: {
                         backgroundColor: WHITE_COLOR_CODE,
@@ -222,7 +226,7 @@ const BuyerInfoScreen = (props) => {
                 </View>
               </View>
               <View style={{ marginLeft: 5, marginTop: 8 }}>
-                <Text style={styles.subTitleTxt}>Phone number</Text>
+                <ScaleText style={styles.subTitleTxt}>Phone number</ScaleText>
                 <Input
                   placeholder=""
                   InputType={null}
@@ -240,40 +244,42 @@ const BuyerInfoScreen = (props) => {
                 />
               </View>
             </View>
-            <Text style={[styles.titleTxt, { marginLeft: 0 }]}>
+            <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
               Ticket Total
-            </Text>
+            </ScaleText>
             {props?.ticketsData?.map((item) => {
               return (
                 <View style={styles.straightVw}>
-                  <Text style={styles.ticketsNameTxt}>
+                  <ScaleText style={styles.ticketsNameTxt}>
                     ({item.quantity}) {item.name}
-                  </Text>
-                  <Text style={styles.smallTxt}>${item.total_amount}</Text>
+                  </ScaleText>
+                  <ScaleText style={styles.smallTxt}>
+                    ${item.total_amount}
+                  </ScaleText>
                 </View>
               );
             })}
             <View style={styles.straightVw}>
-              <Text style={styles.subTitleTxt}>Service fee</Text>
-              <Text style={styles.subTitleTxt}>
+              <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
                 {props?.eventDetails?.serviceAmount
                   ? props?.eventDetails?.serviceAmount
                   : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
-              <Text style={styles.subTitleTxt}>Taxes</Text>
-              <Text style={[styles.subTitleTxt]}>
+              <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
+              <ScaleText style={[styles.subTitleTxt]}>
                 {props?.eventDetails?.taxesAmount
                   ? props?.eventDetails?.taxesAmount
                   : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.straightVw}>
-              <Text style={styles.subTitleTxt}>Total</Text>
-              <Text style={styles.subTitleTxt}>
+              <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
                 {props?.totalAmount ? props?.totalAmount : "0.00"}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.modalBttnVw}>
               <Button

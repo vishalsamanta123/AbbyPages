@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import {
-  BLACK_COLOR_CODE,
-  Constants,
-  YELLOW_COLOR_CODE,
-} from "../../Utils/Constant";
+import { COLORS, Constants } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const imagess = [
   {
@@ -28,7 +25,7 @@ const RenderSlideItem = (props) => {
           style={{ height: 200 }}
           resizeMode={"cover"}
         />
-        <Text style={styles.posterTitleTxt}>{props.posterTxt}</Text>
+        <ScaleText style={styles.posterTitleTxt}>{props.posterTxt}</ScaleText>
       </View>
       {pagination ? (
         <Pagination
@@ -98,13 +95,13 @@ export { SliderImages, RenderSlideItem };
 const styles = StyleSheet.create({
   dotActiveVw: {
     borderRadius: 100,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     width: 16,
     height: 16,
   },
   dotInActiveVw: {
     borderRadius: 100,
-    backgroundColor: BLACK_COLOR_CODE,
+    backgroundColor: COLORS.BLACK,
     width: 20,
     height: 20,
   },
