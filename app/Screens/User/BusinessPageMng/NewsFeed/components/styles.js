@@ -1,14 +1,9 @@
 import { StyleSheet } from "react-native";
 import {
-  BLACK_COLOR_CODE,
   COLORS,
   Constants,
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_REGULAR,
+  FONT_FAMILY,
   FONT_SIZE,
-  GREY_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
@@ -34,7 +29,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   ratingVw: {
-    backgroundColor: "#a3d74e",
+    backgroundColor: COLORS.LIGHT_GREEN,
     paddingHorizontal: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -42,8 +37,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   ratingTxt: {
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_BOLD,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.BOLD,
     fontSize: FONT_SIZE.medium,
   },
   innContainer: {
@@ -56,15 +51,15 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   largeNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily:  FONT_FAMILY.REGULAR,
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
     textTransform: "capitalize",
   },
   smallTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily:  FONT_FAMILY.REGULAR,
     fontSize: 13.5,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   emptyConVw: {
     height: 200,
@@ -73,13 +68,13 @@ const styles = StyleSheet.create({
   },
   emptyConTxt: {
     fontSize: 18,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.BLACK,
+    fontFamily:  FONT_FAMILY.REGULAR,
   },
   lightTxt: {
     fontSize: 14,
     color: COLORS.SMALL_TEXT,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily:  FONT_FAMILY.REGULAR,
   },
   smallImgVw: {
     width: 35,
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
   likeSectionText: {
     textAlign: "center",
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY_BOLD,
+    fontFamily: FONT_FAMILY.BOLD,
     fontSize: FONT_SIZE.medium,
   },
   postBreakView: {

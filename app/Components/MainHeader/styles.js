@@ -4,7 +4,6 @@ import {
   Constants,
   FONT_FAMILY,
   FONT_SIZE,
-  WHITE_COLOR_CODE,
 } from "../../Utils/Constant";
 
 const styles = StyleSheet.create({
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
   },
   leftIconVw: {
     marginHorizontal: 6,
-    backgroundColor: "#efefef",
+    backgroundColor: COLORS.LIGHT_WHITE,
     borderRadius: 100,
     padding: 8,
   },
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   topButtonVwNon: {
     backgroundColor: COLORS.WHITE,
     elevation: 10,
-    shadowColor: "#000",
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 1,
