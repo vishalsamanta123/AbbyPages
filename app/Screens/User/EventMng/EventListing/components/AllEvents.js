@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
-  ScrollView,
   BackHandler,
   FlatList,
 } from "react-native";
@@ -12,11 +10,7 @@ import moment from "moment";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../../../Components/Header";
-import {
-  SMALL_TEXT_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 
@@ -41,8 +35,8 @@ const EventListingScreen = (props) => {
       <Header
         HeaderText="All Events"
         onPressBackFun={() => handleBack()}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+        tintColor={COLORS.WHITE}
+        mncontainer={{ backgroundColor: COLORS.YELLOW }}
         // onPress={() => props.handleCreateEvent()}
         RightImg={null}
       />
@@ -102,19 +96,13 @@ const EventListingScreen = (props) => {
                 </View>
                 <View style={styles.straightVw}>
                   <ScaleText
-                    style={[
-                      styles.straightTxt,
-                      { color: SMALL_TEXT_COLOR_CODE },
-                    ]}
+                    style={[styles.straightTxt, { color: COLORS.SMALL_TEXT }]}
                   >
                     {" "}
                     {item?.interested}{" "}
                   </ScaleText>
                   <ScaleText
-                    style={[
-                      styles.straightTxt,
-                      { color: SMALL_TEXT_COLOR_CODE },
-                    ]}
+                    style={[styles.straightTxt, { color: COLORS.SMALL_TEXT }]}
                   >
                     Interested
                   </ScaleText>
