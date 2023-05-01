@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   leftIconVw: {
     marginHorizontal: 6,
-    backgroundColor: COLORS.LIGHT_WHITE,
+    backgroundColor: COLORS.BORDER_LINE,
     borderRadius: 100,
     padding: 8,
   },

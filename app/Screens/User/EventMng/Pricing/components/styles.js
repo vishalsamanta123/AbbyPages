@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     borderRadius: 10,
     height: 40,
-    width: 200,
+    width: "40%",
     paddingRight: 10,
     textAlign: "right",
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
   },
   partition: {
     backgroundColor: COLORS.WHITE,
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flex :1
   },
   sectionView: {
     flex: 1,

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import { COLORS, Constants, FONT_FAMILY } from "../../../../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import BoxContainer from "../../../../Components/BoxContainer";
@@ -60,7 +60,7 @@ const DashBoardScreen = (props) => {
         >
           <View style={styles.imgInnerVw}>
             <ScaleText style={CommonStyles.bigTxtVw}>
-              <ScaleText style={{ fontFamily: FONT_FAMILY.REGULAR }}>
+              <ScaleText style={styles.supportTxt}>
                 Support{" "}
               </ScaleText>
               Black Excellence!

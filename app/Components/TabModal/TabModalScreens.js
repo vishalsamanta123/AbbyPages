@@ -118,7 +118,7 @@ const TabModalScreens = (props) => {
               <>
                 <TouchableOpacity
                   onPress={() => {
-                    modalNavigation("JobListing", "JobManagement");
+                    // modalNavigation("JobListing", "JobManagement");
                   }}
                   style={styles.subCatVw}
                 >
