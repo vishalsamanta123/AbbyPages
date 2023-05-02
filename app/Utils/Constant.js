@@ -56,6 +56,7 @@ export const COLORS = {
   LIGHT_GREY: "#858484",
   LIGHT_WHITE: "#C7CBCB",
   DARK_PURPLE: "#140423",
+  LIGHT_COMMON: "#f3f2f1",
   shimmerColors: ['#E1E9EE', '#F2F8FC', '#F2F8FC'],
 };
 
@@ -65,6 +66,7 @@ export const FONT_FAMILY = {
   THIN: "WorkSans-Thin",
   BLACK: "WorkSans-Black",
   LIGHT: "WorkSans-Light",
+  NORMAL_BOLD: "WorkSans-SemiBold",
 };
 export const FONT_SIZE = {
   verysmall: normalize(11),
@@ -81,6 +83,7 @@ export const FONT_SIZE = {
 
 export const Constants = {
   normalBW: 0.3,
+  standardBW: 0.5,
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
