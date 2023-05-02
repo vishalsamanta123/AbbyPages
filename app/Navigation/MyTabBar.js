@@ -1,24 +1,12 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  Pressable,
-  Image,
-} from "react-native";
+import React, { useState } from "react";
+import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import ScaleText from "../Components/ScaleText";
 import TabModal from "../Components/TabModal/TabModal";
 import TabModalScreens from "../Components/TabModal/TabModalScreens";
-import {
-  COLORS,
-  Constants,
-  FONT_FAMILY_REGULAR,
-  FONT_SIZE,
-} from "../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 
 function MyTabBar({ state, navigation }) {
   const [isFocused, setIsFocused] = useState("DashBoard");
@@ -31,10 +19,10 @@ function MyTabBar({ state, navigation }) {
   useFocusEffect(
     React.useCallback(() => {
       getLoginDetail();
-      if (state?.index === 0) {
-        setIsFocused("DashBoard");
+      if (state?.index === 0 || state?.index === 1) {
+        setIsFocused(state?.index === 1 ? "MenuPage" : "DashBoard");
       }
-    }, [navigation, state])
+    }, [navigation, state?.index])
   );
 
   const getLoginDetail = async () => {
@@ -174,7 +162,7 @@ const styles = StyleSheet.create({
   },
   iconTxt: {
     fontSize: FONT_SIZE.verysmall,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
   },
   profileVw: {

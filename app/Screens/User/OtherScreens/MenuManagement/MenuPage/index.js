@@ -56,7 +56,7 @@ const MenuPage = ({ navigation, route }) => {
   };
   const onPressOptions = async (options) => {
     if (options.type === "2") {
-      navigation.navigate("ShopList");
+      // navigation.navigate("ShopList");
     } else if (options.type === "1" || options.type === "3") {
       const newObj = { ...businessPageObj, business_type: options.type };
       navigation.navigate("BusinessPageListing", {

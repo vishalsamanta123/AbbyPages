@@ -1,30 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { ToastAndroid, View } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import JobListingView from "./components/JobListingView";
+import { useFocusEffect } from "@react-navigation/native";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import FilterPopUp from "./components/FilterPopUp";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
-import Error from "../../../../Components/Modal/error";
 import Loader from "../../../../Utils/Loader";
 import _ from "lodash";
-import { AuthContext } from "../../../../Utils/UserContext";
 import QuestionModal from "../../../../Components/Modal/questionModal";
 
-const JobListing = ({ navigation }) => {
-  useEffect(() => {
-    if (!search) {
-      handleJobFilter(0);
-    }
-  }, []);
-  const [loader, setLoader] = useState();
-  const [visible, setVisible] = useState(false);
-  const [search, setSearch] = useState(false);
-  const [jobList, setJobList] = useState();
-  const [postjob, setPostjob] = useState(false);
-  const [offset, setoffset] = useState(0);
-  const [filterData, setFilterData] = useState({
-    title: "",
+const JobListing = ({ navigation, route }) => {
+  const nullObj = {
+    job_title: "",
     city_name: "",
     category: "",
     country: "",
@@ -33,7 +20,21 @@ const JobListing = ({ navigation }) => {
     job_type: "",
     latitude: "",
     longitude: "",
-  });
+  };
+  const [loader, setLoader] = useState();
+  const [visible, setVisible] = useState(false);
+  const [jobList, setJobList] = useState();
+  const [postjob, setPostjob] = useState(false);
+  const [offset, setoffset] = useState(0);
+  const [moreData, setMoreData] = useState(0);
+  const [filterData, setFilterData] = useState(nullObj);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      handleJobFilter(0, nullObj);
+    }, [navigation, route])
+  );
+
   const goBack = () => {
     navigation.goBack(null);
   };
@@ -44,34 +45,39 @@ const JobListing = ({ navigation }) => {
     });
   };
   const handleSearch = () => {
-    setSearch(true);
     setVisible(true);
   };
   const handleFilter = () => {
-    setSearch(false);
     setVisible(true);
   };
- 
-  const handleJobFilter = async (offSet) => {
+
+  const handleJobFilter = async (offSet, otherItem) => {
     setoffset(offSet);
+    setFilterData(otherItem);
     try {
-      // setLoader(true);
+      setLoader(true);
       const params = {
-        job_title: filterData?.title ? filterData?.title : null,
-        city_name: filterData?.city_name ? filterData?.city_name : null,
-        category: filterData?.category ? filterData?.category : null,
-        country: filterData?.country ? filterData?.country : null,
-        state: filterData?.state ? filterData?.state : null,
-        city: filterData?.city ? filterData?.city : null,
-        job_type: filterData?.job_type ? filterData?.job_type : null,
-        latitude: filterData?.latitude ? filterData?.latitude : null,
-        longitude: filterData?.longitude ? filterData?.longitude : null,
+        job_title: otherItem?.job_title ? otherItem?.job_title : null,
+        city_name: otherItem?.city_name ? otherItem?.city_name : null,
+        category: otherItem?.category ? otherItem?.category : null,
+        country: otherItem?.country ? otherItem?.country : null,
+        state: otherItem?.state ? otherItem?.state : null,
+        city: otherItem?.city ? otherItem?.city : null,
+        job_type: otherItem?.job_type ? otherItem?.job_type : null,
+        latitude: otherItem?.latitude ? otherItem?.latitude : null,
+        longitude: otherItem?.longitude ? otherItem?.longitude : null,
         offset: offSet,
-        limit: 10 + offSet,
+        limit: 10,
       };
+      // console.log('params: ', params);
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
-        setJobList(data.data);
+        if (offSet === 0) {
+          setJobList(data.data);
+        } else {
+          setJobList([...jobList, ...data.data]);
+        }
+        setMoreData(data?.total_count);
         setLoader(false);
         setVisible(false);
       } else {
@@ -109,12 +115,12 @@ const JobListing = ({ navigation }) => {
       <JobListingView
         jobList={jobList}
         filterData={filterData}
+        nullObj={nullObj}
+        setFilterData={setFilterData}
         onPressJob={onPressJob}
         goBack={goBack}
         setVisible={setVisible}
         onPressMap={onPressMap}
-        search={search}
-        setSearch={setSearch}
         handleJobFilter={handleJobFilter}
         handleSearch={handleSearch}
         offset={offset}
@@ -122,18 +128,7 @@ const JobListing = ({ navigation }) => {
         handleFilter={handleFilter}
         postjob={postjob}
         setPostjob={setPostjob}
-      />
-      <FilterPopUp
-        visible={visible}
-        search={search}
-        closeModel={() => setVisible(false)}
-        setVisible={setVisible}
-        goBack={goBack}
-        setFilterData={setFilterData}
-        handleJobFilter={handleJobFilter}
-        filterData={filterData}
-        setLoader={setLoader}
-        loader={loader}
+        moreData={moreData}
       />
       {/* <QuestionModal
         surringVisible={postjob}
