@@ -37,17 +37,17 @@ const Styles = StyleSheet.create({
     marginVertical: 4,
   },
   titletxt: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   subTitleTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.smallL,
     color: COLORS.LIGHT_RED,
     fontFamily: FONT_FAMILY.BOLD,
   },
   smallTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.smallL,
     color: COLORS.GREY,
     fontFamily: FONT_FAMILY.BOLD,
     top: 1,
@@ -63,7 +63,7 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.normal,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    width: 80,
+    // width: 80,
     textAlign: "center",
   },
   longTxt: {
@@ -91,12 +91,12 @@ const Styles = StyleSheet.create({
     borderColor: COLORS.BORDER_LINE,
     borderBottomWidth: Constants.normalBW,
     paddingVertical: 8,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     justifyContent: "space-between",
-    marginVertical: 10,
+    // marginVertical: 10,
   },
   buttonsTxt: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     marginLeft: 8,
@@ -126,8 +126,8 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
   },
   considrImgVw: {
-    width: 34,
-    height: 34,
+    width: 40,
+    height: 40,
     borderRadius: 100,
     backgroundColor: COLORS.COMMON,
     marginRight: 12,
@@ -201,7 +201,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   popularPrice: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -218,7 +218,7 @@ const Styles = StyleSheet.create({
   },
   highlightsText: {
     textAlign: "center",
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -235,13 +235,13 @@ const Styles = StyleSheet.create({
     borderRadius: 7,
   },
   availJobstxt: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginBottom: 10,
   },
   availJobsExptxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginLeft: 10,
@@ -255,7 +255,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   availJobslocationTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginLeft: 10,
@@ -277,10 +277,12 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   eventsheadignTxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.large,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
     // marginLeft: 10,
+    textAlign: 'center'
+
   },
   eventknowTouch: {
     alignItems: 'center',
@@ -292,10 +294,11 @@ const Styles = StyleSheet.create({
     borderRadius: 10
   },
   knowTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
     // marginLeft: 10,
+    textAlign: 'center'
   },
   mainConatiner: {
     paddingHorizontal: 16,
@@ -333,6 +336,11 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     fontSize: FONT_SIZE.medium,
   },
+  businessNameInDetailTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.BOLD,
+    fontSize: FONT_SIZE.mediumL,
+  },
   innContainer: {
     flex: 1,
     paddingHorizontal: 10,
@@ -347,11 +355,6 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     color: COLORS.BLACK,
     textTransform: "capitalize",
-  },
-  smallTxt: {
-    fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: 13.5,
-    color: COLORS.LIGHT_BLACK,
   },
   emptyConVw: {
     height: 200,
@@ -384,5 +387,10 @@ const Styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
+  businessCategoryTxt:{
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
+  }
 });
 export default Styles;

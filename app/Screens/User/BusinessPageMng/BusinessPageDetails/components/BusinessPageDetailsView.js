@@ -12,7 +12,7 @@ import {
 import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import { COLORS, Constants } from "../../../../../Utils/Constant";
+import { COLORS, Constants, FONT_SIZE } from "../../../../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
@@ -176,6 +176,7 @@ const BusinessPageDetailsView = (props) => {
                   styles.smallTxt,
                   {
                     color: COLORS.LIGHT_GREEN,
+                    fontSize: FONT_SIZE.medium,
                   },
                 ]}
               >
@@ -188,7 +189,7 @@ const BusinessPageDetailsView = (props) => {
         </View>
       </ImageBackground>
       <View style={styles.mainContainer}>
-        <ScaleText style={styles.titletxt}>
+        <ScaleText style={styles.businessCategoryTxt}>
           {props?.detailData?.business_service_category}
         </ScaleText>
         {props?.detailData?.business_open_time ? (
@@ -242,55 +243,57 @@ const BusinessPageDetailsView = (props) => {
               <ScaleText style={styles.smallOptiontxt}>Call</ScaleText>
             </View>
           ) : null}
-          <View style={{ alignItems: "center", marginTop: 10 }}>
-            <TouchableOpacity
-              style={styles.smallOptionVw}
-              onPress={() => {
-                handleGetDirections(
-                  props?.detailData?.latitude,
-                  props?.detailData?.longitude
-                );
-              }}
-            >
-              <IconX
-                origin={ICON_TYPE.ENTYPO}
-                name={"location"}
-                size={20}
-                color={COLORS.BLACK}
-              />
-            </TouchableOpacity>
-            <ScaleText style={styles.smallOptiontxt}>View Map</ScaleText>
-          </View>
-          <View style={{ alignItems: "center", marginTop: 10 }}>
-            <TouchableOpacity
-              style={styles.smallOptionVw}
-              onPress={() => {
-                if (props?.detailData?.websites) {
-                  Linking.openURL(props?.detailData?.websites);
-                } else {
-                  alert(`Can't open website`);
-                }
-              }}
-            >
-              <IconX
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                name={"web"}
-                size={22}
-                color={COLORS.BLACK}
-              />
-            </TouchableOpacity>
-            <ScaleText style={styles.smallOptiontxt}>Website</ScaleText>
-          </View>
-          <View style={{ alignItems: "center", marginTop: 10 }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
-              <IconX
-                origin={ICON_TYPE.ICONICONS}
-                name={"bookmarks-outline"}
-                size={20}
-                color={COLORS.BLACK}
-              />
-            </TouchableOpacity>
-            <ScaleText style={styles.smallOptiontxt}>Save</ScaleText>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={{ alignItems: "center", marginTop: 10, flex: 1 }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() => {
+                  handleGetDirections(
+                    props?.detailData?.latitude,
+                    props?.detailData?.longitude
+                  );
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.ENTYPO}
+                  name={"location"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={styles.smallOptiontxt}>View Map</ScaleText>
+            </View>
+            <View style={{ alignItems: "center", marginTop: 10, flex: 1 }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() => {
+                  if (props?.detailData?.websites) {
+                    Linking.openURL(props?.detailData?.websites);
+                  } else {
+                    alert(`Can't open website`);
+                  }
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                  name={"web"}
+                  size={22}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={styles.smallOptiontxt}>Website</ScaleText>
+            </View>
+            <View style={{ alignItems: "center", marginTop: 10, flex: 1 }}>
+              <TouchableOpacity style={styles.smallOptionVw}>
+                <IconX
+                  origin={ICON_TYPE.ICONICONS}
+                  name={"bookmarks-outline"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={styles.smallOptiontxt}>Save</ScaleText>
+            </View>
           </View>
         </View>
       </View>
@@ -361,9 +364,9 @@ const BusinessPageDetailsView = (props) => {
         />
         <ScaleText
           style={[
-            styles.smallOptiontxt2,
+            styles.buttonsTxt,
             {
-              marginLeft: 10,
+              marginLeft: 20,
             },
           ]}
         >
@@ -450,7 +453,7 @@ const BusinessPageDetailsView = (props) => {
               style={[
                 styles.titletxt,
                 {
-                  width: "80%",
+                  width: "95%",
                 },
               ]}
             >
@@ -474,7 +477,7 @@ const BusinessPageDetailsView = (props) => {
           }
           style={styles.tapButtonsVw}
         >
-          <ScaleText style={styles.titletxt}>More Info</ScaleText>
+          <ScaleText style={styles.blueColorTxt}>More Info</ScaleText>
         </TouchableOpacity>
       </View>
       <View style={styles.mainContainer}>
@@ -541,7 +544,7 @@ const BusinessPageDetailsView = (props) => {
               }}
               style={styles.tapButtonsVw}
             >
-              <ScaleText style={styles.titletxt}>See More</ScaleText>
+              <ScaleText style={styles.blueColorTxt}>See More</ScaleText>
             </TouchableOpacity>
           </View>
         ) : null}
@@ -637,7 +640,7 @@ const BusinessPageDetailsView = (props) => {
         <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
           <Image source={considerd[0].profile} style={styles.considrImgVw} />
           <View>
-            <ScaleText style={styles.smallOptiontxt2}>
+            <ScaleText style={styles.businessNameInDetailTxt}>
               {props?.detailData?.business_user_name}
             </ScaleText>
             <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
@@ -653,7 +656,7 @@ const BusinessPageDetailsView = (props) => {
           }
           style={styles.tapButtonsVw}
         >
-          <ScaleText style={styles.titletxt}>Read More</ScaleText>
+          <ScaleText style={styles.blueColorTxt}>Read More</ScaleText>
         </TouchableOpacity>
       </View>
       <View style={styles.mainContainer}>
@@ -802,7 +805,7 @@ const BusinessPageDetailsView = (props) => {
             </TouchableOpacity>
           </View>
         )}
-        <View
+        {/* <View
           style={[
             CommonStyles.straightCon,
             {
@@ -847,7 +850,7 @@ const BusinessPageDetailsView = (props) => {
               Check
             </ScaleText>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
       <MoreInfo
         visible={props?.moreInfoModal?.open}
