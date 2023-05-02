@@ -137,11 +137,13 @@ const MoreInfo = (props) => {
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
+        
         <MainHeader
-          notify={props?.userData?.login_type ? true : false}
-          isBack
-          TxtMarginRight={25}
+          notify={false}
+          isSearch={false}
           headerText={type === "read" ? "Read More" : "More Info"}
+          loginButton={false}
+          TxtMarginRight={70}
           onPressBack={() => {
             setVisible({
               open: false,

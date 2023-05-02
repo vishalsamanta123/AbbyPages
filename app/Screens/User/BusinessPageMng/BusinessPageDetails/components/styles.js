@@ -279,24 +279,23 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.large,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
-    textAlign: 'center'
-
+    textAlign: "center",
   },
   eventknowTouch: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     margin: 10,
     padding: 10,
     borderWidth: 2,
     borderColor: COLORS.WHITE,
-    borderRadius: 10
+    borderRadius: 10,
   },
   knowTxt: {
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
     // marginLeft: 10,
-    textAlign: 'center'
+    textAlign: "center",
   },
   mainConatiner: {
     paddingHorizontal: 16,
@@ -385,10 +384,25 @@ const Styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
-  businessCategoryTxt:{
+  businessCategoryTxt: {
     fontSize: FONT_SIZE.medium,
     color: COLORS.SMALL_TEXT,
     fontFamily: FONT_FAMILY.REGULAR,
+  },
+  uploadBtn:{
+    marginBottom: 20,
+    borderRadius: 10,
+    width: '50%'
+  },
+  uploadBtnTxt:{
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.BOLD,
+  },
+  previewImage:{
+    flex: 1,
+    margin: 50,
+    borderRadius: 10,
   }
 });
 export default Styles;

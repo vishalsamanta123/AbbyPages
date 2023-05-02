@@ -142,4 +142,6 @@ export default {
   CATEGORIES_AT_HOME_LIST: "api/masterTableData/getCategoryAtHomePage",
   RECENT_VIEWED: "api/masterTableData/getAllRecentlyViewedBusiness",
   USER_BUSINESS_DETAIL:"api/business/businessDetailsForGoogle",
+  USER_BUSINESS_GALLERY:"api/masterTableData/getUserBusinessImage",
+  USER_BUSINESS_UPLOAD_IMAGE:"api/masterTableData/userBusinessImageUpload",
 };
