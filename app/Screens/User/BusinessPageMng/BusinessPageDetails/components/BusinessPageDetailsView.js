@@ -153,7 +153,7 @@ const BusinessPageDetailsView = (props) => {
             <StarShower
               counts={
                 props?.detailData?.rating
-                  ? Number(props?.detailData?.rating)
+                  ? props?.detailData?.rating?.toString()
                   : 0
               }
               starHeight={18}
@@ -773,7 +773,7 @@ const BusinessPageDetailsView = (props) => {
                   largeImg={item?.profile_image}
                   largeName={item?.first_name + " " + item?.last_name}
                   smallTxt={item?.address}
-                  rating={item?.business_rating}
+                  rating={item?.business_rating?.toString()}
                   rowImgTxt1={item?.business_service_category}
                   rowImgTxt2={item?.create_date}
                   rowImgTxt3={item?.about_business}
