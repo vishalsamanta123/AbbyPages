@@ -23,6 +23,8 @@ target 'AbbyPages' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'AbbyPagesTests' do
     inherit! :complete
     # Pods for testing

@@ -39,7 +39,7 @@ import JobListing from "../Screens/User/JobMng/JobListing";
 import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 import Pricing from "../Screens/User/EventMng/Pricing";
 import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
-import { COLORS, Constants, FONT_FAMILY } from "../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -467,7 +467,7 @@ const Styles = StyleSheet.create({
     width: Constants.windowWidth / 1.5,
   },
   splashText: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.large,
     color: COLORS.LIGHT_YELLOW,
     fontFamily: FONT_FAMILY.REGULAR,
   },

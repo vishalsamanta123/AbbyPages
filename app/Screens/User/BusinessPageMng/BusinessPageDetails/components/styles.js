@@ -273,14 +273,12 @@ const Styles = StyleSheet.create({
   eventheadingView: {
     flex: 1,
     alignItems: "center",
-    // justifyContent: 'center',
     marginTop: 10,
   },
   eventsheadignTxt: {
     fontSize: FONT_SIZE.large,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.WHITE,
-    // marginLeft: 10,
     textAlign: 'center'
 
   },
