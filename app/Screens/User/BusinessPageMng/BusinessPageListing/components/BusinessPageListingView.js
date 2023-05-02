@@ -99,7 +99,6 @@ const BusinessPageListingView = (props) => {
               rating={item?.rating}
               rowImgTxt1={item?.business_service_category}
               rowImgTxt2={item?.create_date}
-              rowImgTxt4={item?.create_date}
               rowImgTxt3={item?.about_business}
             />
           );

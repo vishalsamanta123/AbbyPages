@@ -1,6 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../Utils/Constant";
 import moment from "moment";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import ScaleText from "../ScaleText";
@@ -24,35 +29,47 @@ const ListItemsView = (props) => {
     title = "",
     profile_image,
     description = "Scooping and hapiness every single child have to do other ",
+    iconType = "",
+    iconColor = COLORS.YELLOW,
   } = props;
   return (
     <>
       {listType === "" ? (
         <TouchableOpacity
           onPress={() => onPressView(item)}
-          style={styles.mainConatiner}
+          style={[styles.mainConatiner]}
         >
-          <Image
-            style={styles.largeImgVw}
-            resizeMode="cover"
-            source={{ uri: largeImg }}
-          />
+          {largeImg === "" ? null : (
+            <Image
+              style={styles.largeImgVw}
+              resizeMode="cover"
+              source={{ uri: largeImg }}
+            />
+          )}
           <View style={styles.innContainer}>
             <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
             <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
-            <View style={styles.straightVw}>
-              <View style={styles.ratingVw}>
-                <ScaleText style={styles.ratingTxt}>{rating}</ScaleText>
+            {rating === "" ? null : (
+              <View style={styles.straightVw}>
+                <View style={styles.ratingVw}>
+                  <ScaleText style={styles.ratingTxt}>
+                    {rating.substring(0, 3)}
+                  </ScaleText>
+                </View>
+                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
+                  rating
+                </ScaleText>
               </View>
-              <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
-                rating
-              </ScaleText>
-            </View>
+            )}
             <View style={styles.straightVw}>
               <IconX
-                color={COLORS.YELLOW}
-                origin={ICON_TYPE.FEATHER_ICONS}
-                name={"thumbs-up"}
+                color={iconColor}
+                origin={
+                  iconType === "job"
+                    ? ICON_TYPE.SIMPLELINE
+                    : ICON_TYPE.FEATHER_ICONS
+                }
+                name={iconType === "job" ? "location-pin" : "thumbs-up"}
                 size={20}
                 paddingRight={5}
               />
@@ -60,9 +77,13 @@ const ListItemsView = (props) => {
             </View>
             <View style={styles.straightVw}>
               <IconX
-                color={COLORS.YELLOW}
-                origin={ICON_TYPE.SIMPLELINE}
-                name={"fire"}
+                color={iconColor}
+                origin={
+                  iconType === "job"
+                    ? ICON_TYPE.ICONICONS
+                    : ICON_TYPE.SIMPLELINE
+                }
+                name={iconType === "job" ? "time-outline" : "fire"}
                 size={20}
                 paddingRight={5}
               />
@@ -70,20 +91,34 @@ const ListItemsView = (props) => {
                 {moment(rowImgTxt2).startOf("hour").fromNow()}
               </ScaleText>
             </View>
-            {rowImgTxt3 ? (
+            {rowImgTxt3 === "" || rowImgTxt3 === null ? null : (
               <View style={styles.straightVw}>
                 <IconX
-                  color={COLORS.YELLOW}
+                  color={iconColor}
                   origin={ICON_TYPE.SIMPLELINE}
                   name={"briefcase"}
-                  size={20}
+                  size={19}
                   paddingRight={5}
                 />
                 <ScaleText numberOfLines={2} style={styles.smallTxt}>
                   {rowImgTxt3}
                 </ScaleText>
               </View>
-            ) : null}
+            )}
+            {rowImgTxt4 === "" || rowImgTxt4 === null ? null : (
+              <View style={styles.straightVw}>
+                <IconX
+                  color={iconColor}
+                  origin={ICON_TYPE.FEATHER_ICONS}
+                  name={"dollar-sign"}
+                  size={20}
+                  paddingRight={5}
+                />
+                <ScaleText numberOfLines={2} style={styles.smallTxt}>
+                  {rowImgTxt4}
+                </ScaleText>
+              </View>
+            )}
           </View>
         </TouchableOpacity>
       ) : (
@@ -118,7 +153,9 @@ const ListItemsView = (props) => {
               </View>
               <View style={styles.straightVw}>
                 <View style={styles.ratingVw}>
-                  <ScaleText style={styles.ratingTxt}>{rating}</ScaleText>
+                  <ScaleText style={styles.ratingTxt}>
+                    {rating.substring(0, 3)}
+                  </ScaleText>
                 </View>
                 <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
                   rating
@@ -141,8 +178,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
-    borderBottomWidth: 0.5,
-    borderColor: COLORS.GREY,
+    borderBottomWidth: 1,
+    borderColor: COLORS.BORDER_LINE,
   },
   largeImgVw: {
     width: 110,
@@ -160,8 +197,8 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   ratingVw: {
-    backgroundColor: "#a3d74e",
-    paddingHorizontal: 5,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    paddingHorizontal: 6,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 3,
@@ -169,12 +206,13 @@ const styles = StyleSheet.create({
   },
   ratingTxt: {
     color: COLORS.WHITE,
-    fontFamily: FONT_FAMILY.BOLD,
-    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    fontSize: FONT_SIZE.small,
+    lineHeight: 18,
   },
   innContainer: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
   },
   infoView: {
     flexDirection: "row",
