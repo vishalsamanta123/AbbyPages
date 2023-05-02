@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
@@ -11,6 +11,11 @@ const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
   const [visible, setVisible] = useState(false);
   const [moreInfoModal, setMoreInfoModal] = useState({
+    open: false,
+    type: "",
+    moreData: {},
+  });
+  const [galleryModal, setGalleryModal] = useState({
     open: false,
     type: "",
     moreData: {},
@@ -66,6 +71,8 @@ const BusinessPageDetails = ({ navigation, route }) => {
         handleBack={handleBack}
         moreInfoModal={moreInfoModal}
         setMoreInfoModal={setMoreInfoModal}
+        galleryModal={galleryModal}
+        setGalleryModal={setGalleryModal}
         detailData={detailData}
         handleNavigation={handleNavigation}
         visible={visible}

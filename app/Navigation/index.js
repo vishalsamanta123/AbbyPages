@@ -40,6 +40,7 @@ import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 import Pricing from "../Screens/User/EventMng/Pricing";
 import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
+import BusinessGallery from "../Screens/User/BusinessPageMng/BusinessPageDetails/components/BusinessGallery";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -67,6 +68,8 @@ function TabNavigation() {
       <Tab.Screen name="EventListings" component={EventListing} />
       <Tab.Screen name="JobListing" component={JobListing} />
       <Tab.Screen name="Pricing" component={Pricing} />
+      <Tab.Screen name="NewsFeed" component={NewsFeed} />
+
     </Tab.Navigator>
   );
 }
@@ -284,7 +287,7 @@ function AppStack() {
       <Stack.Screen name="EventListings" component={TabNavigation} />
       <Stack.Screen name="JobListing" component={TabNavigation} />
       <Stack.Screen name="Pricing" component={TabNavigation} />
-      <Stack.Screen name="NewsFeed" component={NewsFeed} />
+      <Stack.Screen name="NewsFeed" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

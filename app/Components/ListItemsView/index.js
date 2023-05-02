@@ -53,7 +53,7 @@ const ListItemsView = (props) => {
               <View style={styles.straightVw}>
                 <View style={styles.ratingVw}>
                   <ScaleText style={styles.ratingTxt}>
-                    {rating.substring(0, 3)}
+                    {rating?.substring(0, 3)}
                   </ScaleText>
                 </View>
                 <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
@@ -154,7 +154,7 @@ const ListItemsView = (props) => {
               <View style={styles.straightVw}>
                 <View style={styles.ratingVw}>
                   <ScaleText style={styles.ratingTxt}>
-                    {rating.substring(0, 3)}
+                    {rating?.substring(0, 3)}
                   </ScaleText>
                 </View>
                 <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>

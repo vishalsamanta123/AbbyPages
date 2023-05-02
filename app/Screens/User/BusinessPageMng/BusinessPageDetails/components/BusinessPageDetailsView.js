@@ -20,6 +20,8 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ListItemsView from "../../../../../Components/ListItemsView";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
+import BusinessGallery from "./BusinessGallery";
+import PicturePickerModal from "../../../../../Components/Modal/PicturePicker";
 
 const BusinessPageDetailsView = (props) => {
   const considerd = [
@@ -151,7 +153,7 @@ const BusinessPageDetailsView = (props) => {
             <StarShower
               counts={
                 props?.detailData?.rating
-                  ? Number(props?.detailData?.rating)
+                  ? props?.detailData?.rating?.toString()
                   : 0
               }
               starHeight={18}
@@ -328,7 +330,14 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>Add Review</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity style={styles.smallOptionVw}
+            onPress={() =>
+              props.setGalleryModal({
+                ...props?.moreInfoModal,
+                open: true,
+                type: "add",
+              })
+            }>
               <IconX
                 origin={ICON_TYPE.MATERIAL_ICONS}
                 name={"add-a-photo"}
@@ -339,7 +348,16 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>Add Photo</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() =>
+                props.setGalleryModal({
+                  ...props?.moreInfoModal,
+                  open: true,
+                  type: "view",
+                })
+              }
+            >
               <IconX
                 origin={ICON_TYPE.FONT_AWESOME}
                 name={"check-circle-o"}
@@ -755,7 +773,7 @@ const BusinessPageDetailsView = (props) => {
                   largeImg={item?.profile_image}
                   largeName={item?.first_name + " " + item?.last_name}
                   smallTxt={item?.address}
-                  rating={item?.business_rating}
+                  rating={item?.business_rating?.toString()}
                   rowImgTxt1={item?.business_service_category}
                   rowImgTxt2={item?.create_date}
                   rowImgTxt3={item?.about_business}
@@ -859,6 +877,20 @@ const BusinessPageDetailsView = (props) => {
         detailData={props?.detailData}
         moreData={props?.moreInfoModal?.moreData}
       />
+      <BusinessGallery
+        visible={props?.galleryModal?.open}
+        setVisible={props.setGalleryModal}
+        type={props?.galleryModal?.type}
+        detailData={props?.detailData}
+        moreData={props?.galleryModal?.moreData}
+      />
+      {/* <PicturePickerModal
+        Visible={false}
+        setVisible={() => {}}
+        imageData={(data) => {
+          console.log("data", data);
+        }}
+      /> */}
     </ScrollView>
   );
 };

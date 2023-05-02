@@ -140,19 +140,19 @@ const MainHeader = (props) => {
               </View>
             )}
           </TouchableOpacity>
-          {isLogin ? (
+          {(
             <ScaleText
               style={[
                 styles.topHeaderTxt,
                 {
                   fontSize: fontSize,
-                  marginRight: !isSearch && !notify ? 18 : TxtMarginRight,
+                  marginRight: !isSearch && !notify ? TxtMarginRight : TxtMarginRight,
                 },
               ]}
             >
               {headerText}
             </ScaleText>
-          ) : null}
+          ) }
           {isLogin ? (
             <View style={CommonStyles.straightCon}>
               {notify ? (
