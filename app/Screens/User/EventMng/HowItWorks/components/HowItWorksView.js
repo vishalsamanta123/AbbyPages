@@ -1,19 +1,12 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  ImageBackground,
-  RefreshControl,
-  FlatList,
-} from "react-native";
+import { View, ScrollView, ImageBackground, FlatList } from "react-native";
 import React from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
-import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
+import { IconX } from "../../../../../Components/Icons/Icon";
 import { createEventSteps } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
 

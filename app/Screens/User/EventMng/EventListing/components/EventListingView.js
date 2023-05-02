@@ -1,38 +1,29 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   FlatList,
-  ImageBackground,
   TouchableOpacity,
   ScrollView,
-  Modal,
 } from "react-native";
 import moment from "moment";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../../../Components/Header";
-import {
-  YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  SMALL_TEXT_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY,
-} from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import Button from "../../../../../Components/Button";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Images } from "../../../../../Utils/images";
 import Video from "react-native-video";
 import { videos } from "../../../../../Utils/videos";
 import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
   const _renderTime = (item, index) => {
     const selectedColor =
-      index === props.isSelectedDay ? YELLOW_COLOR_CODE : BLACK_COLOR_CODE;
+      index === props.isSelectedDay ? COLORS.YELLOW : COLORS.BLACK;
     return (
       <TouchableOpacity
         onPress={() => props._handleDaySelected(item.id, index)}
@@ -60,18 +51,8 @@ const EventListingView = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Events"
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        // onPress={() => props.handleCreateEvent()}
-        RightImg={null}
-      />
+      <MainHeader headerText={"Events"} loginButton={false} isLogin={true} />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
-        {/* <ImageBackground
-          source={Images.EMPLOYESS_IMG}
-          style={styles.backgroundImgVw}
-        > */}
         <View style={styles.videoBannerView}>
           <Video
             source={videos.FIND_EVENT_BANNER_VIDEO}
@@ -102,7 +83,7 @@ const EventListingView = (props) => {
           <View style={styles.containers}>
             <ScaleText style={styles.eventTitlesTxt}>
               Abbypages Events
-              <ScaleText style={{ color: SMALL_TEXT_COLOR_CODE }}>
+              <ScaleText style={{ color: COLORS.SMALL_TEXT }}>
                 {" "}
                 (Latest){" "}
               </ScaleText>
@@ -144,10 +125,7 @@ const EventListingView = (props) => {
                 </View>
                 <View style={styles.straightVw}>
                   <ScaleText
-                    style={[
-                      styles.straightTxt,
-                      { color: SMALL_TEXT_COLOR_CODE },
-                    ]}
+                    style={[styles.straightTxt, { color: COLORS.SMALL_TEXT }]}
                   >
                     {" "}
                     {props?.events?.upcoming_events?.interested}
@@ -249,7 +227,7 @@ const EventListingView = (props) => {
                           <ScaleText
                             style={[
                               styles.straightTxt,
-                              { color: SMALL_TEXT_COLOR_CODE },
+                              { color: COLORS.SMALL_TEXT },
                             ]}
                           >
                             {" "}
@@ -258,7 +236,7 @@ const EventListingView = (props) => {
                           <ScaleText
                             style={[
                               styles.straightTxt,
-                              { color: SMALL_TEXT_COLOR_CODE },
+                              { color: COLORS.SMALL_TEXT },
                             ]}
                           >
                             Interested
@@ -322,7 +300,7 @@ const EventListingView = (props) => {
                       <ScaleText
                         style={[
                           styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
+                          { color: COLORS.SMALL_TEXT },
                         ]}
                       >
                         {" "}
@@ -331,7 +309,7 @@ const EventListingView = (props) => {
                       <ScaleText
                         style={[
                           styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
+                          { color: COLORS.SMALL_TEXT },
                         ]}
                       >
                         Interested
@@ -385,7 +363,7 @@ const EventListingView = (props) => {
                       <ScaleText
                         style={[
                           styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
+                          { color: COLORS.SMALL_TEXT },
                         ]}
                       >
                         {" "}
@@ -394,7 +372,7 @@ const EventListingView = (props) => {
                       <ScaleText
                         style={[
                           styles.straightTxt,
-                          { color: SMALL_TEXT_COLOR_CODE },
+                          { color: COLORS.SMALL_TEXT },
                         ]}
                       >
                         Interested

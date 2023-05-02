@@ -1,9 +1,5 @@
 import { StyleSheet } from "react-native";
-import {
-  COLORS,
-  FONT_FAMILY,
-  FONT_SIZE,
-} from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 
 const styles = StyleSheet.create({
   searchVw: {

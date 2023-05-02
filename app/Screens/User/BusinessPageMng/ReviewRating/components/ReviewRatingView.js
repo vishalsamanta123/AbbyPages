@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, TextInput, SafeAreaView } from "react-native";
+import { View, ScrollView, TextInput, SafeAreaView } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
@@ -34,7 +34,7 @@ const ReviewRatingView = (props) => {
           />
           <ScaleText style={styles.smallTxt}>Choose Number of stars</ScaleText>
           <View style={styles.descriptVw}>
-            <ScaleTextInput
+            <TextInput
               placeholderTextColor={COLORS.GREY}
               placeholder={"Type your review here..."}
               style={styles.descriptInput}
