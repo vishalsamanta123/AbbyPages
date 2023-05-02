@@ -57,6 +57,7 @@ export const COLORS = {
   LIGHT_WHITE: "#C7CBCB",
   DARK_PURPLE: "#140423",
   LIGHT_COMMON: "#f3f2f1",
+  shimmerColors: ['#E1E9EE', '#F2F8FC', '#F2F8FC'],
 };
 
 export const FONT_FAMILY = {

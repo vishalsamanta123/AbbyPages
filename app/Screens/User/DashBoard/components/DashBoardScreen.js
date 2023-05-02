@@ -16,6 +16,8 @@ import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
+import ShimmerEffect from "../../../../Components/ShimmerEffect/ListShimmer";
+import ListShimmer from "../../../../Components/ShimmerEffect/ListShimmer";
 
 const DashBoardScreen = (props) => {
   const renderSlideItem = ({ item }) => {
@@ -74,6 +76,11 @@ const DashBoardScreen = (props) => {
         <View style={styles.mainVw}>
           <View style={styles.containersVw}>
             <ScaleText style={styles.titlesTxt}>Recent Activities</ScaleText>
+            
+            {props.visible ? 
+            <View>
+              <ListShimmer />
+            </View>:
             <View style={styles.activityConVw}>
               {props?.recent_activity?.length > 0 ? (
                 <>
@@ -182,7 +189,7 @@ const DashBoardScreen = (props) => {
                   })}
                 </>
               ) : null}
-            </View>
+            </View>}
             {/* {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )} */}

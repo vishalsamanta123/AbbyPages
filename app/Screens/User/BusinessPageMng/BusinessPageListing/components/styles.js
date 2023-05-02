@@ -3,9 +3,9 @@ import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
   headText: {
-    fontFamily: FONT_FAMILY.FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.BLACK,
-    fontSize: FONT_SIZE.largeM,
+    fontSize: FONT_SIZE.large,
     marginLeft: 12,
     marginBottom: 5,
   },
@@ -22,7 +22,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
   },
   topContainerTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.FONT_FAMILY_REGULAR,
     color: COLORS.BLACK,
     lineHeight: 22,

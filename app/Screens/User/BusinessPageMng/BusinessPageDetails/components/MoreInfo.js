@@ -180,9 +180,9 @@ const MoreInfo = (props) => {
                     </View>
                   );
                 })}
-                <TouchableOpacity style={styles.tapButtonsVw}>
+                {/* <TouchableOpacity style={styles.tapButtonsVw}>
                   <ScaleText style={styles.titletxt}>Suggest an edit</ScaleText>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
               <View style={styles.mainContainer}>
                 <ScaleText style={styles.sectionTxt}>
@@ -229,7 +229,7 @@ const MoreInfo = (props) => {
                 style={styles.considrImgVw}
               />
               <View>
-                <ScaleText style={styles.smallOptiontxt2}>
+                <ScaleText style={styles.businessNameInDetailTxt}>
                   {detailData?.business_user_name}
                 </ScaleText>
                 <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
