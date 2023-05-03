@@ -144,4 +144,5 @@ export default {
   USER_BUSINESS_DETAIL:"api/business/businessDetailsForGoogle",
   USER_BUSINESS_GALLERY:"api/masterTableData/getUserBusinessImage",
   USER_BUSINESS_UPLOAD_IMAGE:"api/masterTableData/userBusinessImageUpload",
+  USERCOMMONLIKES:"api/masterTableData/userCommonLikes",
 };
