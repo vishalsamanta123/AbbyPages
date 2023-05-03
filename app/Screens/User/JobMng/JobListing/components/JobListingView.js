@@ -17,10 +17,9 @@ const JobListingView = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader
         headerText={"Jobs"}
-        loginButton={true}
-        TxtMarginRight={20}
         isSearch={false}
-        isLogin={true}
+        loginButton={false}
+        TxtMarginRight={"17%"}
       />
       <View style={styles.topInfoVw}>
         <TouchableOpacity

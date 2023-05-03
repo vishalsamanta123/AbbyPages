@@ -11,7 +11,8 @@ import ScaleText from "../../../../../Components/ScaleText";
 const ReviewRatingView = (props) => {
   return (
     <SafeAreaView style={CommonStyles.container}>
-      <MainHeader headerText={"Review"} />
+      <MainHeader headerText={"Review"} loginButton={true} 
+      backText={false} />
       <ScrollView contentContainerStyle={styles.mainContainer}>
         <ScaleText style={styles.headTxt}>
           {props?.recntRVwsData?.business_name}

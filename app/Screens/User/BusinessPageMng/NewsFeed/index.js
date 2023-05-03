@@ -7,12 +7,9 @@ import apiEndPoints from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { apiCall } from "../../../../Utils/httpClient";
 
-
 const NewsFeed = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
-
   const [newsfeedData, setNewsfeedData] = useState({});
-
   const objData = route.params;
 
   useFocusEffect(
@@ -22,7 +19,6 @@ const NewsFeed = ({ navigation, route }) => {
     }, [navigation, route])
   );
   const getNewsFeedDetails = async () => {
-    console.log('getNewsFeedDetails')
     try {
       setVisible(true);
       const params = {
@@ -38,7 +34,7 @@ const NewsFeed = ({ navigation, route }) => {
         setNewsfeedData(data?.data);
       } else {
         if (data.status === 201) {
-            setNewsfeedData({});
+          setNewsfeedData({});
           setVisible(false);
         } else {
           setVisible(false);
@@ -52,7 +48,7 @@ const NewsFeed = ({ navigation, route }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <NewsFeedView newsfeedData={newsfeedData}/>
+      <NewsFeedView newsfeedData={newsfeedData} />
     </View>
   );
 };
