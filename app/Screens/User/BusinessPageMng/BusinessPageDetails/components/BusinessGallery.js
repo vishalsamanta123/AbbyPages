@@ -17,6 +17,7 @@ import MediaPicker from "../../../../../Components/MediaPicker";
 import Button from "../../../../../Components/Button";
 import styles from "./styles";
 import ScaleText from "../../../../../Components/ScaleText";
+import { Constants } from "../../../../../Utils/Constant";
 
 const BusinessGallery = (props) => {
   const {
@@ -77,8 +78,8 @@ const BusinessGallery = (props) => {
         <Image
           source={{ uri: item.image }}
           style={{
-            height: 120,
-            width: 120,
+            height: 100,
+            width: Constants.windowWidth/3.8,
             margin: 10,
           }}
         />

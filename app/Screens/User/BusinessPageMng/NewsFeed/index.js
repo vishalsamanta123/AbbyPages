@@ -13,7 +13,7 @@ const NewsFeed = ({ navigation, route }) => {
 
   const [newsfeedData, setNewsfeedData] = useState({});
 
-  const { business_id } = route.params;
+  const objData = route.params;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -26,7 +26,7 @@ const NewsFeed = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        business_id: business_id,
+        business_name: objData?.business_name,
       };
       const { data } = await apiCall(
         "POST",
