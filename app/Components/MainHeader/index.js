@@ -36,15 +36,16 @@ const MainHeader = (props) => {
     isSearch = true,
     notify = userData?.login_type ? true : false,
     isLogin = userData?.login_type ? true : false,
-    loginButton = true,
+    loginButton = false,
     headerType = "",
     justifyContent = "space-between",
     fontSize = FONT_SIZE.large,
     backgroundColor = COLORS.WHITE,
     onPressBack = false,
-    TxtMarginRight = 0,
+    TxtMarginRight = TxtMarginRight,
     backIconColor = COLORS.BLACK,
     backTxtColor = COLORS.BLACK,
+    backText = true,
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -106,14 +107,14 @@ const MainHeader = (props) => {
             onPress={() => (onPressBack ? onPressBack() : handleGoBack())}
             activeOpacity={1}
           >
-            {isLogin || !loginButton ? (
-              <View style={CommonStyles.straightCon}>
-                <IconX
-                  origin={ICON_TYPE.ANT_ICON}
-                  name={"left"}
-                  size={25}
-                  color={backIconColor}
-                />
+            <View style={CommonStyles.straightCon}>
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={"left"}
+                size={25}
+                color={backIconColor}
+              />
+              {backText || isLogin ? (
                 <ScaleText
                   style={[
                     styles.backtxt,
@@ -124,38 +125,50 @@ const MainHeader = (props) => {
                 >
                   Back
                 </ScaleText>
-              </View>
-            ) : (
-              <View style={CommonStyles.straightCon}>
-                <IconX
-                  origin={ICON_TYPE.ANT_ICON}
-                  name={"left"}
-                  size={25}
-                  color={COLORS.BLACK}
-                />
+              ) : (
                 <Image
                   source={Images.ABBYLOGO_TRNSP}
                   style={styles.topLogoVw}
                 />
-              </View>
-            )}
+              )}
+            </View>
           </TouchableOpacity>
-          {(
+          {loginButton && !isLogin ? null : (
             <ScaleText
               style={[
                 styles.topHeaderTxt,
                 {
                   fontSize: fontSize,
-                  marginRight: !isSearch && !notify ? TxtMarginRight : TxtMarginRight,
+                  marginRight: isLogin && notify ? 0 : TxtMarginRight,
                 },
               ]}
             >
               {headerText}
             </ScaleText>
-          ) }
-          {isLogin ? (
+          )}
+          {loginButton && !isLogin ? (
             <View style={CommonStyles.straightCon}>
-              {notify ? (
+              <TouchableOpacity
+                style={[styles.topButtonVw, styles.topButtonVwNon]}
+              >
+                <ScaleText
+                  style={[
+                    styles.topButtonTxt,
+                    {
+                      color: COLORS.BLACK,
+                    },
+                  ]}
+                >
+                  Log In
+                </ScaleText>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.topButtonVw}>
+                <ScaleText style={styles.topButtonTxt}>To Register</ScaleText>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={CommonStyles.straightCon}>
+              {isLogin && notify ? (
                 <TouchableOpacity style={styles.leftIconVw}>
                   <IconX
                     origin={ICON_TYPE.FONT_AWESOME}
@@ -183,62 +196,6 @@ const MainHeader = (props) => {
                 </TouchableOpacity>
               ) : null}
             </View>
-          ) : (
-            <>
-              {loginButton ? (
-                <View style={CommonStyles.straightCon}>
-                  <TouchableOpacity
-                    style={[styles.topButtonVw, styles.topButtonVwNon]}
-                  >
-                    <ScaleText
-                      style={[
-                        styles.topButtonTxt,
-                        {
-                          color: COLORS.BLACK,
-                        },
-                      ]}
-                    >
-                      Log In
-                    </ScaleText>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.topButtonVw}>
-                    <ScaleText style={styles.topButtonTxt}>
-                      To Register
-                    </ScaleText>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View style={CommonStyles.straightCon}>
-                  {notify ? (
-                    <TouchableOpacity style={styles.leftIconVw}>
-                      <IconX
-                        origin={ICON_TYPE.FONT_AWESOME}
-                        name={"bell-o"}
-                        size={21}
-                        color={COLORS.BLACK}
-                      />
-                      <View style={styles.notifyVw}>
-                        <ScaleText style={styles.notifyTxt}>1</ScaleText>
-                      </View>
-                    </TouchableOpacity>
-                  ) : null}
-                  {isSearch ? (
-                    <TouchableOpacity
-                      disabled={!isSearch}
-                      onPress={() => handleSearchPress()}
-                      style={[styles.leftIconVw, { marginHorizontal: 0 }]}
-                    >
-                      <IconX
-                        origin={ICON_TYPE.ICONICONS}
-                        name={"search-outline"}
-                        size={22}
-                        color={COLORS.BLACK}
-                      />
-                    </TouchableOpacity>
-                  ) : null}
-                </View>
-              )}
-            </>
           )}
         </View>
       )}
