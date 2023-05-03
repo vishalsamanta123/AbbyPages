@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -10,6 +10,7 @@ import Loader from "../../../../Utils/Loader";
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
   const [visible, setVisible] = useState(false);
+  const [isSaved, setIsSaved] = useState(0);
   const [moreInfoModal, setMoreInfoModal] = useState({
     open: false,
     type: "",
@@ -43,6 +44,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
       if (data.status == 200) {
         setVisible(false);
         setDetailData(data?.data);
+        setIsSaved(data?.data?.user_like);
       } else {
         if (data.status === 201) {
           setDetailData({});
@@ -58,6 +60,36 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
   const handleNavigation = (screenName, data) => {
     navigation.navigate(screenName, data);
+  };
+
+  const handleSavepress = async () => {
+    try {
+      setVisible(true);
+      const params = {
+        item_id: detail?.business_id,
+        like: isSaved ? 0 : 1,
+        favorite: isSaved ? 0 : 1,
+        item_type: detail?.business_type,
+      };
+      console.log("params", params);
+
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      console.log("data", data);
+      if (data.status == 200) {
+        setVisible(false);
+        setIsSaved(!isSaved);
+      } else {
+        if (data.status === 201) {
+          setVisible(false);
+        } else if (data.status === 401) {
+          Alert.alert(data.message);
+        } else {
+          setVisible(false);
+        }
+      }
+    } catch (error) {
+      setVisible(false);
+    }
   };
 
   const handleBack = () => {
@@ -76,6 +108,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
         detailData={detailData}
         handleNavigation={handleNavigation}
         visible={visible}
+        isSaved={isSaved}
+        setIsSaved={setIsSaved}
+        handleSavepress={handleSavepress}
       />
     </View>
   );

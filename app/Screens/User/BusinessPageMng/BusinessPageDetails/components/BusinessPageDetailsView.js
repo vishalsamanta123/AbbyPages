@@ -101,17 +101,18 @@ const BusinessPageDetailsView = (props) => {
   const renderBusinessHighlights = (item) => {
     return (
       <View style={styles.highlightsView}>
-        {/* <Image source={{ uri: item.icon }} style={styles.highlightsImage} /> */}
-        <IconX
+        <Image source={{ uri: item.icon }} style={styles.highlightsImage} />
+        {/* <IconX
           origin={ICON_TYPE.FEATHER_ICONS}
           name={"phone-call"}
           size={40}
           color={COLORS.BLACK}
-        />
+        /> */}
         <ScaleText style={styles.highlightsText}>{item.highlights}</ScaleText>
       </View>
     );
   };
+
   return (
     <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
       <ImageBackground
@@ -286,15 +287,28 @@ const BusinessPageDetailsView = (props) => {
               <ScaleText style={styles.smallOptiontxt}>Website</ScaleText>
             </View>
             <View style={{ alignItems: "center", marginTop: 10, flex: 1 }}>
-              <TouchableOpacity style={styles.smallOptionVw}>
+              <TouchableOpacity
+                style={[
+                  styles.smallOptionVw,
+                  props.isSaved ? styles.onSaved : {},
+                ]}
+                onPress={() => props.handleSavepress()}
+              >
                 <IconX
                   origin={ICON_TYPE.ICONICONS}
                   name={"bookmarks-outline"}
                   size={20}
-                  color={COLORS.BLACK}
+                  color={props.isSaved ? COLORS.YELLOW : COLORS.BLACK}
                 />
               </TouchableOpacity>
-              <ScaleText style={styles.smallOptiontxt}>Save</ScaleText>
+              <ScaleText
+                style={[
+                  styles.smallOptiontxt,
+                  { color: props.isSaved ? COLORS.YELLOW : null },
+                ]}
+              >
+                {props.isSaved ? "Saved" : "Save"}
+              </ScaleText>
             </View>
           </View>
         </View>
@@ -330,14 +344,16 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>Add Review</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}
-            onPress={() =>
-              props.setGalleryModal({
-                ...props?.moreInfoModal,
-                open: true,
-                type: "add",
-              })
-            }>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() =>
+                props.setGalleryModal({
+                  ...props?.moreInfoModal,
+                  open: true,
+                  type: "add",
+                })
+              }
+            >
               <IconX
                 origin={ICON_TYPE.MATERIAL_ICONS}
                 name={"add-a-photo"}
@@ -556,9 +572,7 @@ const BusinessPageDetailsView = (props) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                props.handleNavigation("NewsFeed", {
-                  business_id: props?.detailData?.business_id,
-                });
+                props.handleNavigation("NewsFeed", props?.detailData);
               }}
               style={styles.tapButtonsVw}
             >
@@ -578,7 +592,7 @@ const BusinessPageDetailsView = (props) => {
         </View>
       ) : null}
       <View style={styles.mainContainer}>
-        <ScaleText style={styles.sectionTxt}>
+        <ScaleText style={[styles.sectionTxt, { marginBottom: 20 }]}>
           Highlights from the Business
         </ScaleText>
 
@@ -685,11 +699,21 @@ const BusinessPageDetailsView = (props) => {
           ]}
         >
           <ScaleText style={styles.sectionTxt}>Photos</ScaleText>
-          <IconX
-            color={COLORS.BLACK}
-            origin={ICON_TYPE.ANT_ICON}
-            name={"arrowright"}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              props.setGalleryModal({
+                ...props?.moreInfoModal,
+                open: true,
+                type: "view",
+              })
+            }
+          >
+            <IconX
+              color={COLORS.BLACK}
+              origin={ICON_TYPE.ANT_ICON}
+              name={"arrowright"}
+            />
+          </TouchableOpacity>
         </View>
         {props?.detailData?.image?.length > 0 ? (
           <ScrollView

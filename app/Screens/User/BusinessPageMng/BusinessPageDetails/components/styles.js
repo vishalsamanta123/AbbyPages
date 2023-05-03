@@ -59,6 +59,11 @@ const Styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 5,
   },
+  onSaved: {
+    borderColor: COLORS.YELLOW,
+    borderWidth: 1,
+    backgroundColor: COLORS.WHITE,
+  },
   smallOptiontxt: {
     fontSize: FONT_SIZE.normal,
     fontFamily: FONT_FAMILY.REGULAR,
@@ -102,7 +107,7 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
   },
   sectionTxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.large,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.BOLD,
   },
@@ -206,21 +211,22 @@ const Styles = StyleSheet.create({
     color: COLORS.BLACK,
   },
   highlightsView: {
-    // backgroundColor: 'red',
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 10,
   },
   highlightsImage: {
-    height: 30,
-    width: 30,
+    height: 50,
+    width: 50,
   },
   highlightsText: {
     textAlign: "center",
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
+    width: '100%',
+    // backgroundColor: 'red',
   },
   availJobsView: {
     margin: 5,
@@ -389,20 +395,20 @@ const Styles = StyleSheet.create({
     color: COLORS.SMALL_TEXT,
     fontFamily: FONT_FAMILY.REGULAR,
   },
-  uploadBtn:{
+  uploadBtn: {
     marginBottom: 20,
     borderRadius: 10,
-    width: '50%'
+    width: "50%",
   },
-  uploadBtnTxt:{
+  uploadBtnTxt: {
     fontSize: FONT_SIZE.medium,
     color: COLORS.SMALL_TEXT,
     fontFamily: FONT_FAMILY.BOLD,
   },
-  previewImage:{
+  previewImage: {
     flex: 1,
     margin: 50,
     borderRadius: 10,
-  }
+  },
 });
 export default Styles;
