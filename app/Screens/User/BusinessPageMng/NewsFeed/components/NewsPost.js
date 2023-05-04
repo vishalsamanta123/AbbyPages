@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
 import { Images } from "../../../../../Utils/images";
@@ -7,6 +7,7 @@ import ScaleText from "../../../../../Components/ScaleText";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import CommentsModal from "./Comments";
 import moment from "moment";
+import Collage from "../../../../../Components/Collage";
 
 const NewsPost = (props) => {
   const {
@@ -32,7 +33,6 @@ const NewsPost = (props) => {
               style={[
                 styles.rowVw,
                 {
-                  justifyContent: "space-between",
                   paddingHorizontal: 10,
                 },
               ]}
@@ -45,43 +45,36 @@ const NewsPost = (props) => {
                   {/* <ScaleText style={styles.lightTxt}>By Owner | </ScaleText> */}
                   <ScaleText style={styles.lightTxt}>
                     {moment(newsData?.post_created_date)
-                      .startOf("hour")
+                      .startOf("seconds")
                       .fromNow()}
                   </ScaleText>
                 </View>
               </View>
-              <View style={styles.straightVw}>
-                {/* <View style={styles.ratingVw}>
-                  <ScaleText style={styles.ratingTxt}>12 likes</ScaleText>
-                </View> */}
-                {/* <ScaleText
-                      style={[styles.ratingTxt, { color: COLORS.BLACK }]}
-                    >
-                      rating
-                    </ScaleText> */}
-              </View>
             </View>
-            <ScaleText style={styles.headlineTxt}>
-              {newsData?.headline ? newsData?.headline : null}
-            </ScaleText>
-            <ScaleText style={styles.descriptionTxt}>
-              {newsData?.description ? newsData?.description : null}
-            </ScaleText>
           </View>
         </TouchableOpacity>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Image
-            style={styles.postImageStyle}
-            resizeMode="cover"
-            source={Images.DEMO1}
-          />
-        </View>
+        <ScaleText style={styles.headlineTxt}>
+          {newsData?.headline ? newsData?.headline : null}
+        </ScaleText>
+        <ScaleText style={styles.descriptionTxt}>
+          {newsData?.description ? newsData?.description : null}
+        </ScaleText>
+        {newsData?.link ? <TouchableOpacity onPress={() => Linking.openURL(newsData?.link)}>
+          <ScaleText style={styles.nullTxt}>
+            {newsData?.link ? newsData?.link : null}
+          </ScaleText>
+        </TouchableOpacity> : null}
+        <Collage imagesData={newsData?.photo} />
         <View style={styles.likeCountView}>
           <ScaleText style={styles.likeSectionText}>
-            {newsData?.postLikeData?.likeCount} Likes
+            {newsData?.postLikeData?.likeCount > 0
+              ? `${newsData?.postLikeData?.likeCount} likes`
+              : "No likes yet"}
           </ScaleText>
           <ScaleText style={styles.likeSectionText}>
-            {newsData?.commentData.length} Comments
+            {newsData?.commentData?.length > 0
+              ? `${newsData?.commentData?.length} Comments`
+              : "No Comments yet"}
           </ScaleText>
         </View>
         <View style={styles.likeSection}>
