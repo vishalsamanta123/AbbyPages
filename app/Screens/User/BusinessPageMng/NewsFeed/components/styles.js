@@ -157,8 +157,9 @@ const styles = StyleSheet.create({
   commnentSideView: {
     backgroundColor: COLORS.LIGHT_WHITE,
     borderRadius: 20,
-    padding: 10,
-    paddingHorizontal: 20,
+    padding: Constants.Ios ? 10 : 6,
+    paddingHorizontal: Constants.Ios ? 20 : 10,
+    marginLeft: 10,
   },
   userNameTxt: {
     fontSize: FONT_SIZE.medium,
@@ -243,15 +244,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   emptyCommentView: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 100,
   },
   noCommentTxt: {
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.mediumL,
-    marginBottom: 20
+    marginBottom: 20,
   },
   beFirstTxt: {
     color: COLORS.LIGHT_BLACK,

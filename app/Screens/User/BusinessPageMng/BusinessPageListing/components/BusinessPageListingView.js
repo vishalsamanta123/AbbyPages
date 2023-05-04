@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import EmptyList from "../../../../../Components/EmptyList";
-import ListItemsView from "../../../../../Components/ListItemsView";
+import { MainItemsView } from "../../../../../Components/ListItemsView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import styles from "./styles";
@@ -88,7 +88,7 @@ const BusinessPageListingView = (props) => {
         }}
         renderItem={({ item, index }) => {
           return (
-            <ListItemsView
+            <MainItemsView
               onPressView={props.onPressView}
               item={item}
               index={index}
