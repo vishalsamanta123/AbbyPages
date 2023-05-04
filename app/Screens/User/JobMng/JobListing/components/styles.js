@@ -24,7 +24,7 @@ const Styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   hdngtxt: {
-    fontSize: FONT_SIZE.smallL,
+    fontSize: FONT_SIZE.normal,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -327,6 +327,12 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.mediumL,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
+  },
+
+  ////
+  filterDropVw: {
+    marginVertical: 8,
+    marginHorizontal: 12,
   },
 });
 export default Styles;

@@ -1,24 +1,13 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import { ICON_TYPE, IconX } from "../../../../../../Components/Icons/Icon";
-import { COLORS, FONT_SIZE } from "../../../../../../Utils/Constant";
+import { View, FlatList } from "react-native";
+import React, { useState } from "react";
+import { FONT_SIZE } from "../../../../../../Utils/Constant";
 import CommonStyles from "../../../../../../Utils/CommonStyles";
-
-import styles from "./styles";
 import Loader from "../../../../../../Utils/Loader";
 import { apiCall } from "../../../../../../Utils/httpClient";
 import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 import MainHeader from "../../../../../../Components/MainHeader";
 import { useFocusEffect } from "@react-navigation/native";
-import ScaleText from "../../../../../../Components/ScaleText";
+import OnlyTextList from "../../../../../../Components/ListItemsView/OnlyTextList";
 
 const SubCategorySearchView = ({ navigation, route }) => {
   const allItems = route?.params || {};
@@ -42,7 +31,6 @@ const SubCategorySearchView = ({ navigation, route }) => {
     const params = {
       category_id: item?.category_id ? item?.category_id : "",
     };
-    console.log("params: ", params);
     try {
       const { data } = await apiCall(
         "POST",
@@ -73,28 +61,6 @@ const SubCategorySearchView = ({ navigation, route }) => {
     }
   };
 
-  const renderItem = (item) => {
-    return (
-      <TouchableOpacity
-        style={styles.listTouch}
-        onPress={() => getSubCategoryList(item, {})}
-      >
-        {/* <Image
-                    source={{uri: item.image}}
-                    style={styles.iconStyle}               
-                /> */}
-        <ScaleText style={styles.listText}>{item.category_name}</ScaleText>
-        <IconX
-          color={COLORS.BLACK}
-          origin={ICON_TYPE.ANT_ICON}
-          name={"right"}
-          size={18}
-          paddingRight={5}
-        />
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <View style={CommonStyles.container}>
       <MainHeader
@@ -106,17 +72,21 @@ const SubCategorySearchView = ({ navigation, route }) => {
         }
         fontSize={FONT_SIZE.mediumL}
         loginButton={false}
-        isLogin={true}
+        TxtMarginRight={50}
       />
       {visible && <Loader state={visible} />}
-      <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
-        <View style={{ flex: 1, marginVertical: 10 }}>
-          <FlatList
-            data={categoryList}
-            renderItem={({ item }) => renderItem(item)}
-          />
-        </View>
-      </ScrollView>
+      <View style={{ flex: 1, marginVertical: 10 }}>
+        <FlatList
+          data={categoryList}
+          renderItem={({ item }) => (
+            <OnlyTextList
+              onPressTxt={() => getSubCategoryList(item, {})}
+              txtName={item?.category_name}
+              item={item}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 };

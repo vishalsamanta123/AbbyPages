@@ -114,7 +114,7 @@ const MainHeader = (props) => {
                 size={25}
                 color={backIconColor}
               />
-              {backText || isLogin ? (
+              {backText ? (
                 <ScaleText
                   style={[
                     styles.backtxt,

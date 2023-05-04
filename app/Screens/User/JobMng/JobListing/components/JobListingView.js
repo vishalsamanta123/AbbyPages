@@ -10,9 +10,11 @@ import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
 import NoImageList from "../../../../../Components/ListItemsView/noImageList";
+import FilterView from "./FilterView";
 
 const JobListingView = (props) => {
   const [categoryModal, setCategoryModal] = useState(false);
+  const [filterModal, setFilterModal] = useState(false);
   return (
     <View style={CommonStyles.container}>
       <MainHeader
@@ -20,6 +22,7 @@ const JobListingView = (props) => {
         isSearch={false}
         loginButton={false}
         TxtMarginRight={"17%"}
+        backText={false}
       />
       <View style={styles.topInfoVw}>
         <TouchableOpacity
@@ -27,15 +30,18 @@ const JobListingView = (props) => {
           style={styles.topStraightVw}
         >
           <IconX
-            origin={ICON_TYPE.MATERIAL_COMMUNITY}
+            origin={ICON_TYPE.ENTYPO}
             size={20}
-            name={"briefcase-search-outline"}
+            name={"list"}
             paddingRight={5}
             color={COLORS.BLACK}
           />
           <ScaleText style={[styles.hdngtxt]}>Category</ScaleText>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.topStraightVw]}>
+        <TouchableOpacity
+          onPress={() => setFilterModal(true)}
+          style={[styles.topStraightVw]}
+        >
           <IconX
             origin={ICON_TYPE.ANT_ICON}
             size={20}
@@ -60,7 +66,7 @@ const JobListingView = (props) => {
         />
         <MainInput
           placeholder={"Search here..."}
-          headTxt={"City,Postalcode..."}
+          headTxt={"City..."}
           onChangeText={(txt) => {
             props.setFilterData({
               ...props.filterData,
@@ -142,6 +148,13 @@ const JobListingView = (props) => {
             category: item?.id,
           });
         }}
+      />
+      <FilterView
+        filterData={props?.filterData}
+        setFilterData={props.setFilterData}
+        setFilterModal={setFilterModal}
+        filterModal={filterModal}
+        handleFilter={() => props.handleJobFilter(0, props?.filterData)}
       />
     </View>
   );
