@@ -125,7 +125,6 @@ const BusinessPageDetailsView = (props) => {
       >
         <MainHeader
           backgroundColor={COLORS.TRANSPARENT}
-          notify={false}
           isSearch={false}
           backIconColor={COLORS.WHITE}
           backTxtColor={COLORS.WHITE}

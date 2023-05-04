@@ -115,7 +115,6 @@ const FilterView = (props) => {
         headerText={"Filter Jobs"}
         loginButton={false}
         onPressBack={() => setFilterModal(false)}
-        notify={false}
         TxtMarginRight={"17%"}
       />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>

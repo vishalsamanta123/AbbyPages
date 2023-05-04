@@ -81,15 +81,14 @@ const DropDownApp = (props) => {
       <Modal visible={dropDown}>
         <View style={CommonStyles.container}>
           <MainHeader
-            notify={false}
             isSearch={false}
-            headerText={searchHeader}
+            headerText={"Search" + " " + headTxt}
             loginButton={false}
-            TxtMarginRight={70}
             onPressBack={() => {
               setDropDown(false);
               setSearchData([]);
             }}
+            notifyIcon={false}
           />
           <View style={CommonStyles.straightCon}>
             <View style={{ flex: 1 }}>
@@ -119,6 +118,9 @@ const DropDownApp = (props) => {
                   <ScaleText style={styles.listItemTxt}>{item.name}</ScaleText>
                 </TouchableOpacity>
               );
+            }}
+            ListEmptyComponent={() => {
+              return <EmptyList />;
             }}
             // renderItem={({ item, index }) => {
             //   return renderList(item, index);

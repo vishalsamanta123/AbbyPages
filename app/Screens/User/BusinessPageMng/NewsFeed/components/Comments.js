@@ -145,7 +145,6 @@ const CommentsModal = (props) => {
         style={{ flex: 1, backgroundColor: "red" }}
       >
         <MainHeader
-          notify={false}
           isSearch={false}
           headerText={"Comments"}
           loginButton={false}
