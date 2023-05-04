@@ -21,7 +21,7 @@ const JobListingView = (props) => {
         headerText={"Jobs"}
         isSearch={false}
         loginButton={false}
-        TxtMarginRight={"17%"}
+        TxtMarginRight={"5%"}
         backText={false}
       />
       <View style={styles.topInfoVw}>

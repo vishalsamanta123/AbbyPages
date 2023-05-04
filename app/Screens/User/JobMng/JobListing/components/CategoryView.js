@@ -39,8 +39,8 @@ const CategoryView = (props) => {
         headerText={"Categories"}
         loginButton={false}
         onPressBack={() => setCategoryModal(false)}
-        notify={false}
-        TxtMarginRight={"17%"}
+        notifyIcon={false}
+        TxtMarginRight={"16%"}
       />
       <FlatList
         data={categories}

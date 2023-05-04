@@ -107,8 +107,7 @@ const DropDownApp = (props) => {
             data={searchData}
             style={{ paddingHorizontal: 10 }}
             renderItem={({ item, index }) => {
-              // const getLabelField = item.find(({labelField}) => {
-              // });
+              const label = item?.hasOwnProperty(labelField);
               return (
                 <TouchableOpacity
                   style={styles.listItemVw}

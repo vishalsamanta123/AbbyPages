@@ -47,17 +47,19 @@ const styles = StyleSheet.create({
   },
   notifyVw: {
     position: "absolute",
-    right: -7,
+    right: 1.2,
     top: -8,
+  },
+  notifyConVw: {
     backgroundColor: COLORS.YELLOW,
     borderRadius: 200,
     height: 20,
-    width: 20,
-    alignItems: "center",
+    minWidth: 19,
     justifyContent: "center",
+    alignItems: "center",
   },
   notifyTxt: {
-    fontSize: FONT_SIZE.small,
+    fontSize: FONT_SIZE.verysmall,
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.BOLD,
   },
