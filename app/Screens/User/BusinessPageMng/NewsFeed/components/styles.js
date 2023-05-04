@@ -134,16 +134,21 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
   },
+  nullTxt: {
+    color: COLORS.BLUE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+    marginTop: 10
+  },
   headlineTxt: {
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     fontSize: FONT_SIZE.medium,
   },
   commentWrap: {
     flex: 1,
     flexDirection: "row",
     margin: 10,
-    // marginRight: 20
   },
   profileView: {
     flex: 1,
