@@ -5,7 +5,6 @@ import CommonStyles from "../../Utils/CommonStyles";
 import { COLORS } from "../../Utils/Constant";
 import EmptyList from "../EmptyList";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
-import OnlyTextList from "../ListItemsView/OnlyTextList";
 import MainHeader from "../MainHeader";
 import MainInput from "../MainInput";
 import ScaleText from "../ScaleText";

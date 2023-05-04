@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, Modal } from "react-native";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
-import OnlyTextList from "../../../../../Components/ListItemsView/OnlyTextList";
+import { OnlyTextList } from "../../../../../Components/ListItemsView";
 import MainHeader from "../../../../../Components/MainHeader";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";

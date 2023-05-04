@@ -17,7 +17,7 @@ import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 import MainHeader from "../../../../../Components/MainHeader";
-import ListItemsView from "../../../../../Components/ListItemsView";
+import { MainItemsView } from "../../../../../Components/ListItemsView";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import BusinessGallery from "./BusinessGallery";
@@ -790,7 +790,7 @@ const BusinessPageDetailsView = (props) => {
 
             {props?.detailData?.business_review.map((item, index) => {
               return (
-                <ListItemsView
+                <MainItemsView
                   onPressView={props.onPressView}
                   item={item}
                   index={index}

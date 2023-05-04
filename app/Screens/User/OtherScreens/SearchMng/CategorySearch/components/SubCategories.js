@@ -7,7 +7,7 @@ import { apiCall } from "../../../../../../Utils/httpClient";
 import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 import MainHeader from "../../../../../../Components/MainHeader";
 import { useFocusEffect } from "@react-navigation/native";
-import OnlyTextList from "../../../../../../Components/ListItemsView/OnlyTextList";
+import { OnlyTextList } from "../../../../../../Components/ListItemsView";
 
 const SubCategorySearchView = ({ navigation, route }) => {
   const allItems = route?.params || {};

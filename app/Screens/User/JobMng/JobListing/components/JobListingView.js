@@ -9,7 +9,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
-import NoImageList from "../../../../../Components/ListItemsView/noImageList";
+import { NoImageList } from "../../../../../Components/ListItemsView";
 import FilterView from "./FilterView";
 
 const JobListingView = (props) => {
