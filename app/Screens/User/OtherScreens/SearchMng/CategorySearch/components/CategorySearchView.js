@@ -16,6 +16,7 @@ import styles from "./styles";
 import SearchView from "../../../../../../Components/SearchView";
 import MainHeader from "../../../../../../Components/MainHeader";
 import ScaleText from "../../../../../../Components/ScaleText";
+import OnlyTextList from "../../../../../../Components/ListItemsView/OnlyTextList";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
@@ -51,12 +52,18 @@ const CategorySearchView = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
+      <ScrollView>
         <SearchView />
         <View style={{ flex: 1, marginVertical: 10 }}>
           <FlatList
             data={props.categoryList}
-            renderItem={({ item }) => renderItem(item)}
+            renderItem={({ item }) => (
+              <OnlyTextList
+                onPressTxt={() => handleNavigation(item)}
+                txtName={item?.category_name}
+                item={item}
+              />
+            )}
           />
         </View>
       </ScrollView>

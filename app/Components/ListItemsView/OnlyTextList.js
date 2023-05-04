@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   listText: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     flex: 1,
   },
 });

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   catgSearchVw: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.LIGHT_COMMON,
     borderRadius: 10,
     marginTop: 10,
   },

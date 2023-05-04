@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import {
   COLORS,
@@ -6,6 +6,7 @@ import {
   FONT_FAMILY,
   FONT_SIZE,
 } from "../../Utils/Constant";
+import ScaleText from "../ScaleText";
 
 const MainInput = (props) => {
   const {
@@ -17,20 +18,27 @@ const MainInput = (props) => {
     placeholderTextColor = COLORS.COMMON,
     onChangeText = () => {},
     value = "",
+    header = true,
+    flex = 0,
+    borderRadius = 18,
   } = props;
   return (
     <View
       style={[
         styles.mainCont,
         {
+          flex: flex,
           paddingVertical: paddingVertical,
           backgroundColor: backgroundColor,
+          borderRadius: borderRadius,
         },
       ]}
     >
-      <View style={styles.headTxtVw}>
-        <Text style={styles.headTxt}>{headTxt}</Text>
-      </View>
+      {header && (
+        <View style={styles.headTxtVw}>
+          <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
+        </View>
+      )}
       <TextInput
         style={[
           styles.inputCon,
@@ -55,7 +63,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     borderWidth: Constants.standardBW,
     borderColor: COLORS.DARK_PURPLE,
-    borderRadius: 18,
     paddingHorizontal: 10,
   },
   headTxtVw: {

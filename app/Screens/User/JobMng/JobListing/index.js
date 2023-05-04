@@ -20,6 +20,10 @@ const JobListing = ({ navigation, route }) => {
     job_type: "",
     latitude: "",
     longitude: "",
+    country_name_d: "",
+    state_name_d: "",
+    city_name_d: "",
+    hire_name_d: "",
   };
   const [loader, setLoader] = useState();
   const [visible, setVisible] = useState(false);
@@ -147,10 +151,3 @@ const JobListing = ({ navigation, route }) => {
   );
 };
 export default JobListing;
-// posterimg: require('../../Assets/extraImages/salooonimg.jpg'),
-// companyname: 'MME Studio',
-// postingtime: '11 hours ago',
-// title: "3D Animation Designer",
-// address: "92 Halsey St,Brooklyn,New York",
-// worktype: 'Abby Pages',
-// req_amount: "$500.00 - $1,000.00"
