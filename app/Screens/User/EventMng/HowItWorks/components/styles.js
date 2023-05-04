@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   createHeadingtxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.BOLD,
     marginBottom: 10,
     textAlign: "center",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
   },
   cardheading: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.BOLD,
     marginBottom: 10,
     color: COLORS.DARK_PURPLE,

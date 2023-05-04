@@ -33,7 +33,7 @@ const HowItWorksView = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader
         headerText={"How it work"}
-        fontSize={FONT_SIZE.large}
+        // fontSize={FONT_SIZE.large}
         loginButton={false}
         isLogin={true}
       />

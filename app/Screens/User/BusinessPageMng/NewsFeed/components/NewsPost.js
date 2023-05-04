@@ -1,20 +1,31 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles";
 import { Images } from "../../../../../Utils/images";
 import { COLORS } from "../../../../../Utils/Constant";
 import ScaleText from "../../../../../Components/ScaleText";
+import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
+import CommentsModal from "./Comments";
+import moment from "moment";
 
 const NewsPost = (props) => {
-  const { newsData } = props;
+  const {
+    newsData,
+    setComment,
+    handleOnCommentPress,
+    setCommentParams,
+    commentParams,
+  } = props;
+  const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+  const isPostLiked = newsData?.postLikeData?.likeStatus === 0 ? false : true;
   return (
     <View style={styles.mainConatiner}>
-      <View>
+      <View style={{ flex: 1 }}>
         <TouchableOpacity style={styles.rowVw}>
           <Image
             style={styles.smallImgVw}
             resizeMode="cover"
-            source={Images.DEMO1}
+            source={{ uri: newsData?.logo_url }}
           />
           <View style={{ flex: 1 }}>
             <View
@@ -28,11 +39,15 @@ const NewsPost = (props) => {
             >
               <View style={{ width: "70%" }}>
                 <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
-                  Here goes the usernme
+                  {newsData?.business_name}
                 </ScaleText>
                 <View style={styles.rowVw}>
-                  <ScaleText style={styles.lightTxt}>By Owner | </ScaleText>
-                  <ScaleText style={styles.lightTxt}>a month ago</ScaleText>
+                  {/* <ScaleText style={styles.lightTxt}>By Owner | </ScaleText> */}
+                  <ScaleText style={styles.lightTxt}>
+                    {moment(newsData?.post_created_date)
+                      .startOf("hour")
+                      .fromNow()}
+                  </ScaleText>
                 </View>
               </View>
               <View style={styles.straightVw}>
@@ -46,7 +61,12 @@ const NewsPost = (props) => {
                     </ScaleText> */}
               </View>
             </View>
-            <ScaleText>{newsData?.description}</ScaleText>
+            <ScaleText style={styles.headlineTxt}>
+              {newsData?.headline ? newsData?.headline : null}
+            </ScaleText>
+            <ScaleText style={styles.descriptionTxt}>
+              {newsData?.description ? newsData?.description : null}
+            </ScaleText>
           </View>
         </TouchableOpacity>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -65,18 +85,59 @@ const NewsPost = (props) => {
           </ScaleText>
         </View>
         <View style={styles.likeSection}>
-          <View style={styles.likeView}>
-            <ScaleText style={styles.likeSectionText}>Like</ScaleText>
-          </View>
-          <View style={styles.likeView}>
+          <TouchableOpacity
+            onPress={() =>
+              props.handleOnPressLike(
+                newsData?.post_id,
+                isPostLiked ? 0 : 1,
+                newsData?.business_id
+              )
+            }
+            style={[
+              styles.likeView,
+              isPostLiked ? { borderColor: COLORS.YELLOW } : {},
+            ]}
+          >
+            <View style={{ marginRight: 5 }}>
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                color={isPostLiked ? COLORS.YELLOW : COLORS.BLACK}
+                name={isPostLiked ? "like1" : "like2"}
+                size={20}
+              />
+            </View>
+            <ScaleText
+              style={[
+                styles.likeSectionText,
+                isPostLiked && { color: COLORS.YELLOW },
+              ]}
+            >
+              {isPostLiked ? "Liked" : "Like"}
+            </ScaleText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setIsCommentsVisible(true)}
+            style={styles.likeView}
+          >
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
-          </View>
+          </TouchableOpacity>
           <View style={styles.likeView}>
             <ScaleText style={styles.likeSectionText}>Subscribe</ScaleText>
           </View>
         </View>
         <View style={styles.postBreakView}></View>
       </View>
+      <CommentsModal
+        isVisible={isCommentsVisible}
+        setIsCommentsVisible={setIsCommentsVisible}
+        commentData={newsData?.commentData}
+        setComment={setComment}
+        handleOnCommentPress={handleOnCommentPress}
+        setCommentParams={setCommentParams}
+        commentParams={commentParams}
+        post_id={newsData?.post_id}
+        business_id={newsData?.business_id}
+      />
     </View>
   );
 };

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   priceDescHeadingTxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.BOLD,
     marginBottom: 10,
     textAlign: "center",

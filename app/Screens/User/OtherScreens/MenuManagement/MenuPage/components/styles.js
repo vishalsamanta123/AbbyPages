@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.large,
   },
   headTxt: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.mediumL,
     color: COLORS.LIGHT_BLACK,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     marginHorizontal: 20,
     marginTop: 10,
     textAlign: "left",
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   subCatTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     textAlign: "center",
     marginLeft: 8,
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   listTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     width: "95%",
