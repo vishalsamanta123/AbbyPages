@@ -137,9 +137,7 @@ const MoreInfo = (props) => {
   return (
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
-        
         <MainHeader
-          notify={false}
           isSearch={false}
           headerText={type === "read" ? "Read More" : "More Info"}
           loginButton={false}

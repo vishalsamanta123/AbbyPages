@@ -42,7 +42,6 @@ const DashBoardScreen = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader
         headerType={"logo"}
-        notify={props?.userData?.login_type ? true : false}
       />
       <ScrollView
         refreshControl={

@@ -132,7 +132,6 @@ const BusinessGallery = (props) => {
     <Modal visible={visible}>
       <View style={CommonStyles.container}>
         <MainHeader
-          notify={false}
           isSearch={false}
           headerText={type === "view" ? "Business Gallery" : "Upload photo"}
           loginButton={false}
