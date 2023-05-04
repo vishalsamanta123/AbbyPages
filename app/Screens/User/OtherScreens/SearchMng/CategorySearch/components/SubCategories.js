@@ -67,7 +67,9 @@ const SubCategorySearchView = ({ navigation, route }) => {
         isSearch={false}
         headerText={
           subCategoryData?.category_name
-            ? subCategoryData?.category_name
+            ? subCategoryData?.category_name?.length > 15
+              ? subCategoryData?.category_name?.substring(0, 15) + "..."
+              : subCategoryData?.category_name
             : "Categories"
         }
         fontSize={FONT_SIZE.mediumL}

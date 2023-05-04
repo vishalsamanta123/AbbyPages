@@ -51,7 +51,12 @@ const EventListingView = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader headerText={"Events"} loginButton={false} isLogin={true} />
+      <MainHeader
+        headerText={"Events"}
+        loginButton={false}
+        TxtMarginRight={"5%"}
+        backText={false}
+      />
       <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.videoBannerView}>
           <Video

@@ -5,7 +5,7 @@ import {
   Image,
   SafeAreaView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { Images } from "../../Utils/images";
@@ -14,27 +14,24 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import CommonStyles from "../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import ScaleText from "../ScaleText";
+import { UserContext } from "../../Utils/UserContext";
 
 const MainHeader = (props) => {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useContext(UserContext);
   useFocusEffect(
     React.useCallback(() => {
-      getUserDetails();
-      return () => {};
-    }, [props])
+      return () => {
+        setUserData(userData);
+      };
+    }, [userData, props])
   );
 
-  const getUserDetails = async () => {
-    const getUserData = await AsyncStorage.getItem("localuserdata");
-    if (JSON?.parse(getUserData)?.login_type) {
-      setUserData(JSON?.parse(getUserData));
-    }
-  };
   const {
     isBack,
     headerText,
     isSearch = true,
     notify = userData?.login_type ? true : false,
+    notifyIcon = true,
     isLogin = userData?.login_type ? true : false,
     loginButton = false,
     headerType = "",
@@ -69,18 +66,24 @@ const MainHeader = (props) => {
             />
           </TouchableOpacity>
           <View style={CommonStyles.straightCon}>
-            {notify ? (
-              <TouchableOpacity style={styles.leftIconVw}>
-                <IconX
-                  origin={ICON_TYPE.FONT_AWESOME}
-                  name={"bell-o"}
-                  size={21}
-                  color={COLORS.BLACK}
-                />
-                <View style={styles.notifyVw}>
-                  <ScaleText style={styles.notifyTxt}>1</ScaleText>
-                </View>
-              </TouchableOpacity>
+            {notifyIcon ? (
+              <View>
+                <TouchableOpacity style={styles.leftIconVw}>
+                  <IconX
+                    origin={ICON_TYPE.FONT_AWESOME}
+                    name={"bell-o"}
+                    size={21}
+                    color={COLORS.BLACK}
+                  />
+                </TouchableOpacity>
+                {notify ? (
+                  <View style={styles.notifyVw}>
+                    <View style={styles.notifyConVw}>
+                      <ScaleText style={styles.notifyTxt}>1</ScaleText>
+                    </View>
+                  </View>
+                ) : null}
+              </View>
             ) : null}
             {isSearch ? (
               <TouchableOpacity
@@ -168,20 +171,26 @@ const MainHeader = (props) => {
             </View>
           ) : (
             <View style={CommonStyles.straightCon}>
-              {isLogin && notify ? (
-                <TouchableOpacity style={styles.leftIconVw}>
-                  <IconX
-                    origin={ICON_TYPE.FONT_AWESOME}
-                    name={"bell-o"}
-                    size={21}
-                    color={COLORS.BLACK}
-                  />
-                  <View style={styles.notifyVw}>
-                    <ScaleText style={styles.notifyTxt}>1</ScaleText>
-                  </View>
-                </TouchableOpacity>
+              {notifyIcon ? (
+                <View>
+                  <TouchableOpacity style={styles.leftIconVw}>
+                    <IconX
+                      origin={ICON_TYPE.FONT_AWESOME}
+                      name={"bell-o"}
+                      size={21}
+                      color={COLORS.BLACK}
+                    />
+                  </TouchableOpacity>
+                  {notify && isLogin ? (
+                    <View style={styles.notifyVw}>
+                      <View style={styles.notifyConVw}>
+                        <ScaleText style={styles.notifyTxt}>1</ScaleText>
+                      </View>
+                    </View>
+                  ) : null}
+                </View>
               ) : null}
-              {isSearch ? (
+              {/* {isSearch ? (
                 <TouchableOpacity
                   disabled={!isSearch}
                   onPress={() => handleSearchPress()}
@@ -194,7 +203,7 @@ const MainHeader = (props) => {
                     color={COLORS.BLACK}
                   />
                 </TouchableOpacity>
-              ) : null}
+              ) : null} */}
             </View>
           )}
         </View>

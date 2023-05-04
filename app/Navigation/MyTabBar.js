@@ -1,12 +1,13 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import ScaleText from "../Components/ScaleText";
 import TabModal from "../Components/TabModal/TabModal";
 import TabModalScreens from "../Components/TabModal/TabModalScreens";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
+import { UserContext } from "../Utils/UserContext";
 
 function MyTabBar({ state, navigation }) {
   const [isFocused, setIsFocused] = useState("DashBoard");
@@ -14,23 +15,16 @@ function MyTabBar({ state, navigation }) {
     modal: "DashBoard",
     navigate: "",
   });
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useContext(UserContext);
 
   useFocusEffect(
     React.useCallback(() => {
-      getLoginDetail();
       if (state?.index === 0 || state?.index === 1) {
         setIsFocused(state?.index === 1 ? "MenuPage" : "DashBoard");
       }
-    }, [navigation, state?.index])
+      setUserData(userData);
+    }, [navigation, state?.index, userData])
   );
-
-  const getLoginDetail = async () => {
-    const getUserData = await AsyncStorage.getItem("localuserdata");
-    if (JSON?.parse(getUserData)?.login_type) {
-      setUserData(JSON?.parse(getUserData));
-    }
-  };
 
   const handleNavigation = (type, index) => {
     navigation.navigate(type);

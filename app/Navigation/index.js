@@ -69,7 +69,6 @@ function TabNavigation() {
       <Tab.Screen name="JobListing" component={JobListing} />
       <Tab.Screen name="Pricing" component={Pricing} />
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
-
     </Tab.Navigator>
   );
 }
@@ -308,16 +307,7 @@ function AppStack() {
 }
 
 function AuthLoading({ navigation }) {
-  const [loginType, setLoginType] = useState("");
-  useEffect(() => {
-    getLoginType();
-  }, []);
-  const getLoginType = async () => {
-    const localuserdata = await AsyncStorage.getItem("localuserdata");
-    if (localuserdata !== "") {
-      setLoginType(JSON.parse(localuserdata).login_type);
-    }
-  };
+  const [userData, setUserData] = useContext(UserContext);
   const initialLoginState = {
     isLoading: true,
     userName: null,
@@ -379,6 +369,7 @@ function AuthLoading({ navigation }) {
           await AsyncStorage.removeItem("localuserdata");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
+          setUserData({});
         } catch (error) {
           console.log(error.message);
         }
@@ -388,6 +379,7 @@ function AuthLoading({ navigation }) {
     }),
     []
   );
+
   React.useEffect(() => {
     setTimeout(async () => {
       let userToken;
@@ -425,11 +417,7 @@ function AuthLoading({ navigation }) {
   return (
     <AuthContext.Provider value={authContext}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {loginType === 2 ? (
-          <Stack.Screen name="Business" component={BusinessStack} />
-        ) : (
-          <Stack.Screen name="App" component={AppStack} />
-        )}
+        <Stack.Screen name="App" component={AppStack} />
       </Stack.Navigator>
     </AuthContext.Provider>
   );

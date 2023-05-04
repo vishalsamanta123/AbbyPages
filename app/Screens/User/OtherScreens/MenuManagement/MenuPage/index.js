@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Linking, View } from "react-native";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
@@ -6,14 +6,14 @@ import MenuPageView from "./components/MenuPageView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import { businessPageObj } from "../../../../../Utils/staticData";
-import { AuthContext } from "../../../../../Utils/UserContext";
+import { AuthContext, UserContext } from "../../../../../Utils/UserContext";
 import QuestionModal from "../../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
 
 const MenuPage = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
+  const [userData, setUserData] = useContext(UserContext);
   const [recent_view, setRecent_view] = useState([]);
-  const [userData, setUserData] = useState({});
   const { signOut } = React.useContext(AuthContext);
   const [logoutVw, setLogoutVw] = useState(false);
 
@@ -26,15 +26,9 @@ const MenuPage = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getRecentView();
-      getLoginDetail();
-    }, [navigation, route])
+      setUserData(userData);
+    }, [navigation, route, userData])
   );
-  const getLoginDetail = async () => {
-    const getUserData = await AsyncStorage.getItem("localuserdata");
-    if (JSON?.parse(getUserData)?.login_type) {
-      setUserData(JSON?.parse(getUserData));
-    }
-  };
 
   const getRecentView = async () => {
     setVisible(true);

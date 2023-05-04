@@ -90,20 +90,8 @@ const PricingView = () => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader
-        headerText={"Pricing"}
-        fontSize={FONT_SIZE.large}
-        loginButton={false}
-        isLogin={true}
-      />
+      <MainHeader headerText={"Pricing"} loginButton={false} isLogin={true} />
       <ScrollView
-        // refreshControl={
-        //   <RefreshControl
-        //     colors={[COLORS.YELLOW]}
-        //     refreshing={props.refreshing}
-        //     onRefresh={props.onRefresh}
-        //   />
-        // }
         keyboardShouldPersistTaps={"handled"}
         automaticallyAdjustKeyboardInsets
         contentContainerStyle={{ flexGrow: 1 }}
@@ -235,7 +223,9 @@ const PricingView = () => {
                   </ScaleText>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <ScaleText style={[styles.txtWithYellow, {textAlign: "right"}]}>
+                  <ScaleText
+                    style={[styles.txtWithYellow, { textAlign: "right" }]}
+                  >
                     ${buyerPay}
                   </ScaleText>
                 </View>
@@ -248,7 +238,9 @@ const PricingView = () => {
                   </ScaleText>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <ScaleText style={[styles.txtWithYellow, {textAlign: "right"}]}>
+                  <ScaleText
+                    style={[styles.txtWithYellow, { textAlign: "right" }]}
+                  >
                     ${youReceive}
                   </ScaleText>
                 </View>

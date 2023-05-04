@@ -13,6 +13,7 @@ import Header from "../../../../../Components/Header";
 import { COLORS } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -32,13 +33,12 @@ const EventListingScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="All Events"
-        onPressBackFun={() => handleBack()}
-        tintColor={COLORS.WHITE}
-        mncontainer={{ backgroundColor: COLORS.YELLOW }}
-        // onPress={() => props.handleCreateEvent()}
-        RightImg={null}
+       <MainHeader
+        headerText={"All Events"}
+        loginButton={false}
+        TxtMarginRight={"5%"}
+        backText={false}
+        onPressBack={() => handleBack()}
       />
       <FlatList
         data={props?.eventsList}
