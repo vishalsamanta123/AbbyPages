@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   ratingTxt: {
     color: COLORS.WHITE,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.medium,
   },
   innContainer: {
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
   likeSection: {
     flexDirection: "row",
     flex: 1,
-    padding: 20,
+    marginVertical: 15,
+    paddingHorizontal: 5,
     justifyContent: "space-between",
   },
   likeView: {
@@ -119,8 +120,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.smallL,
   },
   postBreakView: {
-    height: 0.5,
-    backgroundColor: COLORS.BORDER_LINE,
+    borderWidth: Constants.standardBW,
+    borderColor: COLORS.BORDER_LINE,
     width: "100%",
   },
   likeCountView: {

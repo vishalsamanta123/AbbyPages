@@ -115,7 +115,7 @@ const NewsPost = (props) => {
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
           <View style={styles.likeView}>
-            <ScaleText style={styles.likeSectionText}>Subscribe</ScaleText>
+            <ScaleText style={styles.likeSectionText}>Share</ScaleText>
           </View>
         </View>
         <View style={styles.postBreakView}></View>
