@@ -29,7 +29,7 @@ const Styles = StyleSheet.create({
   },
   otherScrollCon: {
     flexGrow: 1,
-    backgroundColor: "#efefef",
+    backgroundColor: COLORS.LIGHT_WHITE,
   },
   editPencilVw: {
     backgroundColor: COLORS.YELLOW,

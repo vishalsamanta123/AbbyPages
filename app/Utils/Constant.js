@@ -54,7 +54,7 @@ export const COLORS = {
   LIGHT_RED: "#f32c2c",
   BLUE: "#00838f",
   LIGHT_GREY: "#858484",
-  LIGHT_WHITE: "#C7CBCB",
+  LIGHT_WHITE: "#efefef",
   DARK_PURPLE: "#140423",
   LIGHT_COMMON: "#f3f2f1",
   shimmerColors: ['#E1E9EE', '#F2F8FC', '#F2F8FC'],

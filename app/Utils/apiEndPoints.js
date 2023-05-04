@@ -145,4 +145,6 @@ export default {
   USER_BUSINESS_GALLERY:"api/masterTableData/getUserBusinessImage",
   USER_BUSINESS_UPLOAD_IMAGE:"api/masterTableData/userBusinessImageUpload",
   USERCOMMONLIKES:"api/masterTableData/userCommonLikes",
+  LIKE_UNLIKE_ABBY_CONNECT_POST:"api/abbyConnect/likeUnlikeAbbyConnectPost",
+  COMMENT_ON_ABBY_CONNECT_POST:"api/abbyConnect/commentOnAbbyConnectPost",
 };
