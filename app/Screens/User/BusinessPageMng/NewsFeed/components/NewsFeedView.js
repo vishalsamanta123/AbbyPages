@@ -6,7 +6,13 @@ import MainHeader from "../../../../../Components/MainHeader";
 import NewsPost from "./NewsPost";
 
 const NewsFeedView = (props) => {
-  const { newsfeedData } = props;
+  const {
+    newsfeedData,
+    setComment,
+    handleOnCommentPress,
+    setCommentParams,
+    commentParams,
+  } = props;
   return (
     <View style={CommonStyles.container}>
       <MainHeader
@@ -18,7 +24,16 @@ const NewsFeedView = (props) => {
       <FlatList
         data={newsfeedData}
         renderItem={({ item, index }) => {
-          return <NewsPost newsData={item} />;
+          return (
+            <NewsPost
+              newsData={item}
+              handleOnPressLike={props.handleOnPressLike}
+              setComment={setComment}
+              handleOnCommentPress={handleOnCommentPress}
+              setCommentParams={setCommentParams}
+              commentParams={commentParams}
+            />
+          );
         }}
         showsVerticalScrollIndicator={false}
       />
