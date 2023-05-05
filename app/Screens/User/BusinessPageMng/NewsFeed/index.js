@@ -7,7 +7,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { apiCall } from "../../../../Utils/httpClient";
-import { NewsFeedListShimmer } from "../../../../Components/ShimmerEffect";
 
 const NewsFeed = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);

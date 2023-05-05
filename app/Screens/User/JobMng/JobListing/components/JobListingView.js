@@ -36,11 +36,11 @@ const JobListingView = (props) => {
             paddingRight={5}
             color={COLORS.BLACK}
           />
-          <ScaleText style={[styles.hdngtxt]}>Category</ScaleText>
+          <ScaleText style={styles.hdngtxt}>Category</ScaleText>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setFilterModal(true)}
-          style={[styles.topStraightVw]}
+          style={styles.topStraightVw}
         >
           <IconX
             origin={ICON_TYPE.ANT_ICON}
@@ -49,7 +49,7 @@ const JobListingView = (props) => {
             paddingRight={5}
             color={COLORS.BLACK}
           />
-          <ScaleText style={[styles.hdngtxt]}>Filter</ScaleText>
+          <ScaleText style={styles.hdngtxt}>Filter</ScaleText>
         </TouchableOpacity>
       </View>
       <View style={{ marginTop: 6 }}>
@@ -100,6 +100,7 @@ const JobListingView = (props) => {
           return (
             <NoImageList
               item={item}
+              onPressView={() => props.onPressJob(item)}
               title={item?.job_title}
               subTitle={item?.company_name}
               smallTxt={item?.city_name + "-" + item?.job_address}
@@ -120,7 +121,6 @@ const JobListingView = (props) => {
                   : "Not Found"
               }
               rowIconTxt2={`$${item?.monthly_in_hand_salary_from} - $${item?.monthly_in_hand_salary_to}`}
-              onPressView={() => {}}
             />
           );
         }}

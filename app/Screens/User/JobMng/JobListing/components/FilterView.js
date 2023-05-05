@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, Modal, ScrollView } from "react-native";
+import { View, Modal } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import { WHITE_COLOR_CODE } from "../../../../../Utils/Constant";
 import Button from "../../../../../Components/Button";
 import { apiCall } from "../../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../../Utils/apiEndPoints";
-import Loader from "../../../../../Utils/Loader";
-import { Images } from "../../../../../Utils/images";
-import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
-import DropDownApp from "../../../../../Components/DropDownApp";
+import SelectButton from "../../../../../Components/SelectButton";
 
 const FilterView = (props) => {
   const {
@@ -23,7 +19,6 @@ const FilterView = (props) => {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [hireType, setHireType] = useState([]);
-  const [selection, setSelection] = useState(false);
 
   const getPlaces = async (type) => {
     try {
@@ -78,36 +73,6 @@ const FilterView = (props) => {
     ]);
   };
 
-  const PickerComponent = ({ title, name, handleData, data, properWidth }) => {
-    return (
-      <View style={styles.filterCon}>
-        <ScaleText
-          style={[
-            styles.filterTxt,
-            {
-              top: name ? -16 : 10,
-              backgroundColor: name ? WHITE_COLOR_CODE : null,
-              lineHeight: 20,
-              width: properWidth,
-              textAlign: "center",
-            },
-          ]}
-        >
-          {title}
-        </ScaleText>
-        <View style={styles.filterVw}>
-          <ScaleText style={styles.filterTxt}>{name}</ScaleText>
-          <TouchableOpacity onPress={(type) => handleData(type)}>
-            <Image
-              resizeMode={"contain"}
-              style={{ bottom: 10 }}
-              source={Images.QTY_MINUS_IMG}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
   return (
     <Modal visible={filterModal} onRequestClose={() => setFilterModal(false)}>
       <MainHeader
@@ -115,15 +80,30 @@ const FilterView = (props) => {
         headerText={"Filter Jobs"}
         loginButton={false}
         onPressBack={() => setFilterModal(false)}
-        TxtMarginRight={"17%"}
+        notifyIcon={false}
+        resetButton={true}
+        onPressReset={() => {
+          props.setFilterData({
+            ...props.filterData,
+            country: "",
+            state: "",
+            city: "",
+            job_type: "",
+            country_name_d: "",
+            state_name_d: "",
+            city_name_d: "",
+            hire_name_d: "",
+          });
+        }}
       />
-      <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
+      <View style={CommonStyles.container}>
         <View style={{ flex: 1 }}>
           <View style={styles.filterDropVw}>
-            <DropDownApp
+            <SelectButton
               headTxt={"Country"}
               data={country}
               value={props?.filterData?.country_name_d}
+              searchHeader={"Country"}
               labelField={"name"}
               valueField={"country_id"}
               onPressDropDown={() => getPlaces(0)}
@@ -137,9 +117,14 @@ const FilterView = (props) => {
             />
           </View>
           <View style={styles.filterDropVw}>
-            <DropDownApp
+            <SelectButton
               headTxt={"State/Province"}
               data={state}
+              searchHeader={
+                props?.filterData?.country_name_d === ""
+                  ? ""
+                  : " " + props?.filterData?.country_name_d?.substring(0, 12)
+              }
               value={props?.filterData?.state_name_d}
               labelField={"name"}
               valueField={"state_id"}
@@ -154,9 +139,14 @@ const FilterView = (props) => {
             />
           </View>
           <View style={styles.filterDropVw}>
-            <DropDownApp
+            <SelectButton
               headTxt={"City"}
               data={city}
+              searchHeader={
+                props?.filterData?.state_name_d === ""
+                  ? ""
+                  : " " + props?.filterData?.state_name_d?.substring(0, 12)
+              }
               value={props?.filterData?.city_name_d}
               labelField={"name"}
               valueField={"city_id"}
@@ -171,8 +161,9 @@ const FilterView = (props) => {
             />
           </View>
           <View style={styles.filterDropVw}>
-            <DropDownApp
+            <SelectButton
               headTxt={"Hire Type"}
+              searchHeader={"Hire Type"}
               data={hireType}
               value={props?.filterData?.hire_name_d}
               labelField={"name"}
@@ -188,16 +179,19 @@ const FilterView = (props) => {
             />
           </View>
         </View>
-        <View style={{ flex: 1, alignItems: "flex-end" }}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <Button
             buttonText={"Filter"}
             onPress={() => {
               setFilterModal(false);
               handleFilter();
             }}
+            width={"92%"}
+            paddingHeight={10}
+            borderRadius={20}
           />
         </View>
-      </ScrollView>
+      </View>
     </Modal>
   );
 };

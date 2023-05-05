@@ -42,12 +42,6 @@ const JobListing = ({ navigation, route }) => {
   const goBack = () => {
     navigation.goBack(null);
   };
-  const onPressMap = () => {
-    navigation.navigate("ListingMap", {
-      businessList: jobList,
-      business_type: 5,
-    });
-  };
   const handleSearch = () => {
     setVisible(true);
   };
@@ -99,7 +93,7 @@ const JobListing = ({ navigation, route }) => {
   };
 
   const onPressJob = (item) => {
-    navigation.navigate("JobDetails", { detail: item });
+    navigation.navigate("JobDetail", { detail: item });
   };
   const handlePostJob = (type) => {
     if (type === 1) {
@@ -124,7 +118,6 @@ const JobListing = ({ navigation, route }) => {
         onPressJob={onPressJob}
         goBack={goBack}
         setVisible={setVisible}
-        onPressMap={onPressMap}
         handleJobFilter={handleJobFilter}
         handleSearch={handleSearch}
         offset={offset}

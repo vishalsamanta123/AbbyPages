@@ -13,6 +13,7 @@ import { apiCall, setDefaultHeader } from "../Utils/httpClient";
 import ENDPOINTS from "../Utils/apiEndPoints";
 import { UserContext, AuthContext } from "../Utils/UserContext";
 import Loader from "../Utils/Loader";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 
 // ==================Auth Screens=========================
 import LoginScreen from "../Screens/Authentication/Login";
@@ -39,8 +40,7 @@ import JobListing from "../Screens/User/JobMng/JobListing";
 import HowItWorks from "../Screens/User/EventMng/HowItWorks";
 import Pricing from "../Screens/User/EventMng/Pricing";
 import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
-import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
-import BusinessGallery from "../Screens/User/BusinessPageMng/BusinessPageDetails/components/BusinessGallery";
+import JobDetail from "../Screens/User/JobMng/JobDetail";
 import NeweFeedDetails from "../Screens/User/BusinessPageMng/NewsFeedDetails";
 
 const BusinessDrawer = createDrawerNavigator();
@@ -68,6 +68,7 @@ function TabNavigation() {
       />
       <Tab.Screen name="EventListings" component={EventListing} />
       <Tab.Screen name="JobListing" component={JobListing} />
+      <Tab.Screen name="JobDetail" component={JobDetail} />
       <Tab.Screen name="Pricing" component={Pricing} />
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
     </Tab.Navigator>
@@ -286,6 +287,7 @@ function AppStack() {
       <Stack.Screen name="SubCategorySearchView" component={TabNavigation} />
       <Stack.Screen name="EventListings" component={TabNavigation} />
       <Stack.Screen name="JobListing" component={TabNavigation} />
+      <Stack.Screen name="JobDetail" component={TabNavigation} />
       <Stack.Screen name="Pricing" component={TabNavigation} />
       <Stack.Screen name="NewsFeed" component={TabNavigation} />
       {/* <Stack.Screen name="NeweFeedDetails" component={TabNavigation} /> */}

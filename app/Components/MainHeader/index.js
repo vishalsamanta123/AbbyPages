@@ -43,6 +43,8 @@ const MainHeader = (props) => {
     backIconColor = COLORS.BLACK,
     backTxtColor = COLORS.BLACK,
     backText = true,
+    resetButton = false,
+    onPressReset = () => {},
   } = props;
   const navigation = useNavigation();
   const OnpressBack = () => {
@@ -154,19 +156,19 @@ const MainHeader = (props) => {
               <TouchableOpacity
                 style={[styles.topButtonVw, styles.topButtonVwNon]}
               >
+                <ScaleText style={styles.topButtonTxt}>Log In</ScaleText>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.topButtonVw}>
                 <ScaleText
                   style={[
                     styles.topButtonTxt,
                     {
-                      color: COLORS.BLACK,
+                      color: COLORS.WHITE,
                     },
                   ]}
                 >
-                  Log In
+                  To Register
                 </ScaleText>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.topButtonVw}>
-                <ScaleText style={styles.topButtonTxt}>To Register</ScaleText>
               </TouchableOpacity>
             </View>
           ) : (
@@ -189,6 +191,20 @@ const MainHeader = (props) => {
                     </View>
                   ) : null}
                 </View>
+              ) : null}
+              {resetButton ? (
+                <TouchableOpacity
+                  onPress={() => onPressReset()}
+                  style={[
+                    styles.topButtonVw,
+                    styles.topButtonVwNon,
+                    {
+                      paddingVertical: 2,
+                    },
+                  ]}
+                >
+                  <ScaleText style={styles.topButtonTxt}>Reset</ScaleText>
+                </TouchableOpacity>
               ) : null}
               {/* {isSearch ? (
                 <TouchableOpacity

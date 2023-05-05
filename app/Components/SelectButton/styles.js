@@ -8,7 +8,6 @@ import {
 
 const styles = StyleSheet.create({
   mainCon: {
-    flex: 1,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: Constants.standardBW,
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   dropDownTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.DARK_PURPLE,
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
   },
   listVw: {
     marginBottom: 5,

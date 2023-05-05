@@ -18,6 +18,7 @@ const Button = (props) => {
     buttonTxtColor = COLORS.BLACK,
     fontSize = 18,
     paddingHeight = 17,
+    borderRadius = 0,
   } = props;
   const { button, buttonLabel, iconsVw } = styles;
   return (
@@ -31,6 +32,7 @@ const Button = (props) => {
           {
             width: width,
             paddingVertical: paddingHeight,
+            borderRadius:borderRadius
           },
         ]}
       >
