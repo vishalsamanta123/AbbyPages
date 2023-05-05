@@ -241,25 +241,31 @@ const MoreInfo = (props) => {
           </View>
           {type === "read" ? (
             <View>
-              <View style={styles.mainContainer}>
-                <ScaleText style={styles.sectionTxt}>Available Jobs</ScaleText>
-                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-                  <FlatList
-                    data={detailData?.business_job_details}
-                    renderItem={({ item }) => renderJobs(item)}
-                  />
+              {detailData?.business_job_details.length > 0 ? (
+                <View style={styles.mainContainer}>
+                  <ScaleText style={styles.sectionTxt}>
+                    Available Jobs
+                  </ScaleText>
+                  <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                    <FlatList
+                      data={detailData?.business_job_details}
+                      renderItem={({ item }) => renderJobs(item)}
+                    />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.mainContainer}>
-                <ScaleText style={styles.sectionTxt}>Events</ScaleText>
-                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-                  <FlatList
-                    data={detailData?.business_event_details}
-                    renderItem={({ item }) => renderEvents(item)}
-                    horizontal
-                  />
+              ) : null}
+              {detailData?.business_event_details.length > 0 ? (
+                <View style={styles.mainContainer}>
+                  <ScaleText style={styles.sectionTxt}>Events</ScaleText>
+                  <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                    <FlatList
+                      data={detailData?.business_event_details}
+                      renderItem={({ item }) => renderEvents(item)}
+                      horizontal
+                    />
+                  </View>
                 </View>
-              </View>
+              ) : null}
             </View>
           ) : null}
         </ScrollView>

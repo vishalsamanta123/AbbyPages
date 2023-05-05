@@ -22,8 +22,11 @@ import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import BusinessGallery from "./BusinessGallery";
 import PicturePickerModal from "../../../../../Components/Modal/PicturePicker";
+import moment from "moment";
+import Collage from "../../../../../Components/Collage";
 
 const BusinessPageDetailsView = (props) => {
+  console.log("props recentFeedData", props.recentFeedData);
   const considerd = [
     {
       businees_name: "Sandeepan da san",
@@ -102,12 +105,6 @@ const BusinessPageDetailsView = (props) => {
     return (
       <View style={styles.highlightsView}>
         <Image source={{ uri: item.icon }} style={styles.highlightsImage} />
-        {/* <IconX
-          origin={ICON_TYPE.FEATHER_ICONS}
-          name={"phone-call"}
-          size={40}
-          color={COLORS.BLACK}
-        /> */}
         <ScaleText style={styles.highlightsText}>{item.highlights}</ScaleText>
       </View>
     );
@@ -130,21 +127,6 @@ const BusinessPageDetailsView = (props) => {
           backTxtColor={COLORS.WHITE}
           loginButton={false}
         />
-        {/* <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-          <TouchableOpacity
-            onPress={() => props.handleBack()}
-            style={CommonStyles.straightCon}
-          >
-            <IconX
-              origin={ICON_TYPE.ICONICONS}
-              color={COLORS.WHITE}
-              size={30}
-              name={"chevron-back"}
-            />
-            <ScaleText style={styles.topHeaderTxt}>Back</ScaleText>
-          </TouchableOpacity>
-        </View> */}
-
         <View style={styles.backImgVw}>
           <ScaleText style={styles.mainTxt}>
             {props?.detailData?.business_name}
@@ -513,16 +495,25 @@ const BusinessPageDetailsView = (props) => {
           <ScaleText style={styles.blueColorTxt}>More Info</ScaleText>
         </TouchableOpacity>
       </View>
-      <View style={styles.mainContainer}>
-        {props?.detailData?.business_review?.length > 0 ? (
-          <View>
+      {Object.keys(props.recentFeedData).length !== 0 ? (
+        <View style={styles.mainContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              props.handleNavigation("NewsFeed", props?.detailData);
+            }}
+          >
             <ScaleText style={styles.sectionTxt}>News feeds</ScaleText>
 
-            <TouchableOpacity style={styles.rowVw}>
+            <TouchableOpacity
+              style={styles.rowVw}
+              onPress={() => {
+                props.handleNavigation("NewsFeed", props?.detailData);
+              }}
+            >
               <Image
                 style={styles.smallImgVw}
                 resizeMode="cover"
-                source={Images.DEMO1}
+                source={{ uri: props.recentFeedData?.logo_url }}
               />
               <View style={{ flex: 1 }}>
                 <View
@@ -538,36 +529,42 @@ const BusinessPageDetailsView = (props) => {
                     <ScaleText
                       style={[styles.ratingTxt, { color: COLORS.BLACK }]}
                     >
-                      New post from the business
+                      {props.recentFeedData?.business_name}
                     </ScaleText>
                     <View style={styles.rowVw}>
-                      <ScaleText style={styles.lightTxt}>By Owner | </ScaleText>
-                      <ScaleText style={styles.lightTxt}>a month ago</ScaleText>
+                      <ScaleText style={styles.lightTxt}>
+                        {moment(props.recentFeedData?.post_created_date)
+                          .startOf("seconds")
+                          .fromNow()}
+                      </ScaleText>
                     </View>
-                  </View>
-                  <View style={styles.straightVw}>
-                    <View style={styles.ratingVw}>
-                      <ScaleText style={styles.ratingTxt}>12 likes</ScaleText>
-                    </View>
-                    {/* <ScaleText
-                      style={[styles.ratingTxt, { color: BLACK_COLOR_CODE }]}
-                    >
-                      rating
-                    </ScaleText> */}
                   </View>
                 </View>
-                <ScaleText>
-                  abhwdbrg derh rtj rtj sr tjsrtk t cvuk ctyictuo, cou,.tidgrgr
-                  th rth rthrtjy jttuk
+                <ScaleText style={styles.headlineTxt}>
+                  {props.recentFeedData?.headline
+                    ? props.recentFeedData?.headline
+                    : null}
                 </ScaleText>
+                <ScaleText style={styles.descriptionTxt}>
+                  {props.recentFeedData?.description
+                    ? props.recentFeedData?.description
+                    : null}
+                </ScaleText>
+                {props.recentFeedData?.link ? (
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL(props.recentFeedData?.link)}
+                  >
+                    <ScaleText style={styles.nullTxt}>
+                      {props.recentFeedData?.link
+                        ? props.recentFeedData?.link
+                        : null}
+                    </ScaleText>
+                  </TouchableOpacity>
+                ) : null}
               </View>
             </TouchableOpacity>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Image
-                style={styles.postImageStyle}
-                resizeMode="cover"
-                source={Images.DEMO1}
-              />
+              <Collage imagesData={[props.recentFeedData?.photo?.[0]]} />
             </View>
             <TouchableOpacity
               onPress={() => {
@@ -577,9 +574,9 @@ const BusinessPageDetailsView = (props) => {
             >
               <ScaleText style={styles.blueColorTxt}>See More</ScaleText>
             </TouchableOpacity>
-          </View>
-        ) : null}
-      </View>
+          </TouchableOpacity>
+        </View>
+      ) : null}
       {props?.detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
           <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
@@ -590,18 +587,20 @@ const BusinessPageDetailsView = (props) => {
           />
         </View>
       ) : null}
-      <View style={styles.mainContainer}>
-        <ScaleText style={[styles.sectionTxt, { marginBottom: 20 }]}>
-          Highlights from the Business
-        </ScaleText>
+      {props?.detailData?.highlights?.length > 0 ? (
+        <View style={styles.mainContainer}>
+          <ScaleText style={[styles.sectionTxt, { marginBottom: 20 }]}>
+            Highlights from the Business
+          </ScaleText>
 
-        <FlatList
-          data={props?.detailData?.highlights}
-          renderItem={({ item }) => renderBusinessHighlights(item)}
-          // horizontal
-          numColumns={2}
-        />
-      </View>
+          <FlatList
+            data={props?.detailData?.highlights}
+            renderItem={({ item }) => renderBusinessHighlights(item)}
+            // horizontal
+            numColumns={2}
+          />
+        </View>
+      ) : null}
 
       {props?.detailData?.recommended_business?.length > 0 ? (
         <View style={styles.mainContainer}>
@@ -907,13 +906,6 @@ const BusinessPageDetailsView = (props) => {
         detailData={props?.detailData}
         moreData={props?.galleryModal?.moreData}
       />
-      {/* <PicturePickerModal
-        Visible={false}
-        setVisible={() => {}}
-        imageData={(data) => {
-          console.log("data", data);
-        }}
-      /> */}
     </ScrollView>
   );
 };

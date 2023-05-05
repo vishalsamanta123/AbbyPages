@@ -22,12 +22,17 @@ const BusinessPageDetails = ({ navigation, route }) => {
     moreData: {},
   });
   const [detailData, setDetailData] = useState({});
+  const [recentFeedData, setRecentFeedData] = useState({});
 
   useFocusEffect(
     React.useCallback(() => {
-      getDetails();
+      if (detailData?.business_name) {
+        getRecentFeedDetails();
+      } else {
+        getDetails();
+      }
       return () => {};
-    }, [navigation, route])
+    }, [navigation, route, detailData])
   );
   const getDetails = async () => {
     try {
@@ -44,6 +49,8 @@ const BusinessPageDetails = ({ navigation, route }) => {
       if (data.status == 200) {
         setVisible(false);
         setDetailData(data?.data);
+        getRecentFeedDetails();
+
         setIsSaved(data?.data?.user_like);
       } else {
         if (data.status === 201) {
@@ -51,6 +58,35 @@ const BusinessPageDetails = ({ navigation, route }) => {
           setVisible(false);
         } else {
           setVisible(false);
+        }
+      }
+    } catch (error) {
+      setVisible(false);
+    }
+  };
+
+  const getRecentFeedDetails = async () => {
+    try {
+      // setVisible(true);
+      const params = {
+        business_name: detailData?.business_name,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.GETABBYCONNECTPOST,
+        params
+      );
+      console.log("data?.data", data?.data);
+
+      if (data.status == 200) {
+        // setVisible(false);
+        setRecentFeedData(data?.data[0]);
+      } else {
+        if (data.status === 201) {
+          setRecentFeedData({});
+          // setVisible(false);
+        } else {
+          // setVisible(false);
         }
       }
     } catch (error) {
@@ -111,6 +147,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         isSaved={isSaved}
         setIsSaved={setIsSaved}
         handleSavepress={handleSavepress}
+        recentFeedData={recentFeedData}
       />
     </View>
   );
