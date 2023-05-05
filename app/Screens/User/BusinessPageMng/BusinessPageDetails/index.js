@@ -76,7 +76,6 @@ const BusinessPageDetails = ({ navigation, route }) => {
         ENDPOINTS.GETABBYCONNECTPOST,
         params
       );
-      console.log("data?.data", data?.data);
 
       if (data.status == 200) {
         // setVisible(false);
@@ -107,10 +106,8 @@ const BusinessPageDetails = ({ navigation, route }) => {
         favorite: isSaved ? 0 : 1,
         item_type: detail?.business_type,
       };
-      console.log("params", params);
 
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      console.log("data", data);
       if (data.status == 200) {
         setVisible(false);
         setIsSaved(!isSaved);

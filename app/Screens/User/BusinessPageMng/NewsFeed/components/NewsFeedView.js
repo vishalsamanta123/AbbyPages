@@ -4,6 +4,7 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import { FONT_SIZE } from "../../../../../Utils/Constant";
 import MainHeader from "../../../../../Components/MainHeader";
 import NewsPost from "./NewsPost";
+import { NewsFeedListShimmer } from "../../../../../Components/ShimmerEffect";
 
 const NewsFeedView = (props) => {
   const {
@@ -12,6 +13,9 @@ const NewsFeedView = (props) => {
     handleOnCommentPress,
     setCommentParams,
     commentParams,
+    handelOnPressPost,
+    visible,
+    handleSharePress
   } = props;
   return (
     <View style={CommonStyles.container}>
@@ -21,22 +25,28 @@ const NewsFeedView = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <FlatList
-        data={newsfeedData}
-        renderItem={({ item, index }) => {
-          return (
-            <NewsPost
-              newsData={item}
-              handleOnPressLike={props.handleOnPressLike}
-              setComment={setComment}
-              handleOnCommentPress={handleOnCommentPress}
-              setCommentParams={setCommentParams}
-              commentParams={commentParams}
-            />
-          );
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+      {visible ? (
+        <NewsFeedListShimmer />
+      ) : (
+        <FlatList
+          data={newsfeedData}
+          renderItem={({ item, index }) => {
+            return (
+              <NewsPost
+                newsData={item}
+                handleOnPressLike={props.handleOnPressLike}
+                setComment={setComment}
+                handleOnCommentPress={handleOnCommentPress}
+                setCommentParams={setCommentParams}
+                commentParams={commentParams}
+                handelOnPressPost={handelOnPressPost}
+                handleSharePress={handleSharePress}
+              />
+            );
+          }}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 };

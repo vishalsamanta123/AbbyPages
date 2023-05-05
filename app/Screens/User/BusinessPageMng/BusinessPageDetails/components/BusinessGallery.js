@@ -12,7 +12,6 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
 import { OpenDoc } from "../../../../../Utils/Globalfunctions";
-import PicturePickerModal from "../../../../../Components/Modal/PicturePicker";
 import MediaPicker from "../../../../../Components/MediaPicker";
 import Button from "../../../../../Components/Button";
 import styles from "./styles";
