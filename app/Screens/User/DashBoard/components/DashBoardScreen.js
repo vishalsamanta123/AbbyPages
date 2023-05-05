@@ -16,7 +16,7 @@ import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
-import ListShimmer from "../../../../Components/ShimmerEffect/ListShimmer";
+import { ListShimmer } from "../../../../Components/ShimmerEffect";
 
 const DashBoardScreen = (props) => {
   const renderSlideItem = ({ item }) => {

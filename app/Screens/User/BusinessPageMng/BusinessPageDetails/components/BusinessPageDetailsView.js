@@ -21,12 +21,10 @@ import { MainItemsView } from "../../../../../Components/ListItemsView";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import BusinessGallery from "./BusinessGallery";
-import PicturePickerModal from "../../../../../Components/Modal/PicturePicker";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
 
 const BusinessPageDetailsView = (props) => {
-  console.log("props recentFeedData", props.recentFeedData);
   const considerd = [
     {
       businees_name: "Sandeepan da san",

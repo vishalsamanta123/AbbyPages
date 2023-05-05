@@ -1,65 +1,61 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
-import Share from "react-native-share";
-import NewsFeedView from "./components/NewsFeedView";
-import CommonStyles from "../../../../Utils/CommonStyles";
-import { useFocusEffect } from "@react-navigation/native";
-import apiEndPoints from "../../../../Utils/apiEndPoints";
-import Loader from "../../../../Utils/Loader";
+import NewsFeedViewDetails from "./components/NewsFeedViewDetails";
 import { apiCall } from "../../../../Utils/httpClient";
+import apiEndPoints from "../../../../Utils/apiEndPoints";
+import { useFocusEffect } from "@react-navigation/native";
+import Share from "react-native-share";
 
-const NewsFeed = ({ navigation, route }) => {
+
+const NeweFeedDetails = ({ navigation, route }) => {
+  const { post } = route?.params;
+  console.log('post', post)
   const [visible, setVisible] = useState(false);
-  const [newsfeedData, setNewsfeedData] = useState({});
+  const [likeUnlikeData, setLikeUnlikeData] = useState({});
+  const [commentResp, setCommentResp] = useState({});
+  const [postData, setPostData] = useState({});
+
   const [commentParams, setCommentParams] = useState({
     business_id: "",
     comment: "",
     comment_id: "",
     post_id: "",
   });
-  const [likeUnlikeData, setLikeUnlikeData] = useState({});
-  const [commentResp, setCommentResp] = useState({});
-  const objData = route.params;
 
   useFocusEffect(
     React.useCallback(() => {
-      getNewsFeedDetails();
+      getPostDetail();
       return () => {};
     }, [navigation, route, likeUnlikeData, commentResp])
   );
-  const getNewsFeedDetails = async () => {
+  const getPostDetail = async () => {
     try {
-      setVisible(true);
+       setVisible(true);
       const params = {
-        business_name: objData?.business_name,
+        post_id: post?.post_id,
+        business_name: post?.business_name,
       };
       const { data } = await apiCall(
         "POST",
-        apiEndPoints.GETABBYCONNECTPOST,
+        apiEndPoints.GET_ABBY_CONNET_POST_DETAILS,
         params
       );
       if (data.status == 200) {
-        setVisible(false);
-        setNewsfeedData(data?.data);
-        setCommentParams({
-          business_id: "",
-          comment: "",
-          comment_id: "",
-          post_id: "",
-        });
+         setVisible(false);
+        setPostData(data?.data);
       } else {
         if (data.status === 201) {
-          setNewsfeedData({});
-          setVisible(false);
+           setVisible(false);
+          setPostData({});
         } else {
-          setVisible(false);
+           setVisible(false);
+          setPostData({});
         }
       }
     } catch (error) {
       setVisible(false);
     }
   };
-
   const handleOnPressLike = async (post_id, like_status, business_id) => {
     try {
       // setVisible(true);
@@ -116,33 +112,31 @@ const NewsFeed = ({ navigation, route }) => {
     }
   };
 
-  const handelOnPressPost = (data) => {
-    navigation.navigate("NeweFeedDetails", { post: data });
-  };
-
-  const handleSharePress = async (post_id) => {
-    const finalName = objData?.business_name.split(" ").join("-")
+  const handleSharePress = async () => {
+    const finalName = post?.business_name.split(" ").join("-")
     const options = {
-      message: `https://itinformatix.org/news-feeds/${finalName}/${post_id}`,
+      message: `https://itinformatix.org/news-feeds/${finalName}/${post?.post_id}`,
     };
     console.log('options', options)
 
     const shareResponse = await Share.open(options);
   }
+
   return (
-    <View style={CommonStyles.container}>
-      <NewsFeedView
-        newsfeedData={newsfeedData}
-        handleOnPressLike={handleOnPressLike}
-        setCommentParams={setCommentParams}
-        handleOnCommentPress={handleOnCommentPress}
-        commentParams={commentParams}
-        handelOnPressPost={handelOnPressPost}
-        visible={visible}
-        handleSharePress={handleSharePress}
+    <>
+    {/* <NewsFeedListShimmer /> */}
+    
+    <NewsFeedViewDetails
+      postData={postData}
+      commentParams={commentParams}
+      setCommentParams={setCommentParams}
+      handleOnCommentPress={handleOnCommentPress}
+      handleOnPressLike={handleOnPressLike}
+      visible={visible}
+      handleSharePress={handleSharePress}
       />
-    </View>
+    </>
   );
 };
 
-export default NewsFeed;
+export default NeweFeedDetails;
