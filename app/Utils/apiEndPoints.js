@@ -147,4 +147,5 @@ export default {
   USERCOMMONLIKES:"api/masterTableData/userCommonLikes",
   LIKE_UNLIKE_ABBY_CONNECT_POST:"api/abbyConnect/likeUnlikeAbbyConnectPost",
   COMMENT_ON_ABBY_CONNECT_POST:"api/abbyConnect/commentOnAbbyConnectPost",
+  GET_ABBY_CONNET_POST_DETAILS:"api/abbyConnect/getAbbyConnectPostDetail",
 };

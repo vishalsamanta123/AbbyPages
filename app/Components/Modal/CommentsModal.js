@@ -8,16 +8,14 @@ import {
   TextInput,
   ScrollView,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import React, { useEffect } from "react";
-import MainHeader from "../../../../../Components/MainHeader";
-import ScaleText from "../../../../../Components/ScaleText";
-import styles from "./styles";
 import moment from "moment";
-import MainInput from "../../../../../Components/MainInput";
-import Button from "../../../../../Components/Button";
-import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import { COLORS } from "../../../../../Utils/Constant";
+import MainHeader from "../MainHeader";
+import ScaleText from "../ScaleText";
+import { ICON_TYPE, IconX } from "../Icons/Icon";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 
 const CommentsModal = (props) => {
   const inputRef = React.useRef();
@@ -35,8 +33,6 @@ const CommentsModal = (props) => {
   useEffect(() => {
     setCommentParams({
       ...commentParams,
-      // post_id: post_id,
-      // business_id: business_id
     });
   }, []);
 
@@ -130,7 +126,9 @@ const CommentsModal = (props) => {
           size={100}
         />
         <ScaleText style={styles.noCommentTxt}>No comments yet</ScaleText>
-        <ScaleText style={styles.beFirstTxt}>Be the first one to comment</ScaleText>
+        <ScaleText style={styles.beFirstTxt}>
+          Be the first one to comment
+        </ScaleText>
       </View>
     );
   };
@@ -197,5 +195,127 @@ const CommentsModal = (props) => {
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  commentWrap: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 10,
+  },
+  profileView: {
+    flex: 1,
+  },
+  profileImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    marginTop: 5,
+  },
+  commnentSideView: {
+    backgroundColor: COLORS.LIGHT_WHITE,
+    borderRadius: 20,
+    padding: Constants.Ios ? 10 : 6,
+    paddingHorizontal: Constants.Ios ? 20 : 10,
+    marginLeft: 10,
+  },
+  userNameTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.BOLD,
+  },
+  commentTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  replyBtnView: {},
+  commentBottonSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginTop: 5,
+  },
+  timeTxt: {
+    color: COLORS.LIGHT_BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+  },
+  replyBtnTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+  },
+  replyView: {
+    marginTop: 15,
+    flexDirection: "row",
+  },
+  replyProfileImage: {
+    height: 35,
+    width: 35,
+    borderRadius: 35,
+    marginTop: 5,
+  },
+  replycommnentSideView: {
+    backgroundColor: COLORS.LIGHT_WHITE,
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 20,
+  },
+  replyuserNameTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.BOLD,
+    fontSize: FONT_SIZE.smallL,
+  },
+  replycommentTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.small,
+  },
+  inputStyle: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.small,
+    margin: 5,
+    padding: 10,
+    // backgroundColor: 'red',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: COLORS.BORDER_LINE,
+    flex: 5,
+    height: 50,
+  },
+  inputView: {
+    marginBottom: 10,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  inputBtnStyle: {
+    flex: 1,
+    margin: 5,
+    height: 50,
+    // backgroundColor: COLORS.YELLOW,
+    borderWidth: 2,
+    borderColor: COLORS.BORDER_LINE,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  emptyCommentView: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 100,
+  },
+  noCommentTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
+    marginBottom: 20,
+  },
+  beFirstTxt: {
+    color: COLORS.LIGHT_BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+  },
+});
 
 export default CommentsModal;

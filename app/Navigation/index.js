@@ -41,6 +41,7 @@ import Pricing from "../Screens/User/EventMng/Pricing";
 import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 import BusinessGallery from "../Screens/User/BusinessPageMng/BusinessPageDetails/components/BusinessGallery";
+import NeweFeedDetails from "../Screens/User/BusinessPageMng/NewsFeedDetails";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -287,6 +288,9 @@ function AppStack() {
       <Stack.Screen name="JobListing" component={TabNavigation} />
       <Stack.Screen name="Pricing" component={TabNavigation} />
       <Stack.Screen name="NewsFeed" component={TabNavigation} />
+      {/* <Stack.Screen name="NeweFeedDetails" component={TabNavigation} /> */}
+
+      <Stack.Screen name="NeweFeedDetails" component={NeweFeedDetails} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

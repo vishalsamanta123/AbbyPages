@@ -6806,6 +6806,11 @@ react-native-screens@^2.11.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.18.1.tgz#47b9991c6f762d00d0ed3233e5283d523e859885"
   integrity sha512-r5WZLpmx2hHjC1RgMdPq5YpSU9tEhBpUaZ5M1SUtNIONyiLqQVxabhRCINdebIk4depJiIl7yw2Q85zJyeX6fw==
 
+react-native-share@^8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-8.2.2.tgz#987d6f164afe57b089950dca42e0555f19045d27"
+  integrity sha512-kVCI/cT0GnuYUTXe6mAimrjrnt4VWoRfrWqJZjFeoYFqAyOEfos84RC4eZlZnOT5eVtmTXRIkor5vgSkKOlZhw==
+
 react-native-shimmer-placeholder@^2.0.9:
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/react-native-shimmer-placeholder/-/react-native-shimmer-placeholder-2.0.9.tgz#0096932289bd9ec5747cd4f1c9d15f91ba02157a"

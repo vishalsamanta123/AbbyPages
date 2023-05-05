@@ -5,24 +5,25 @@ import { Images } from "../../../../../Utils/images";
 import { COLORS } from "../../../../../Utils/Constant";
 import ScaleText from "../../../../../Components/ScaleText";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
-import CommentsModal from "./Comments";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
+import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 
 const NewsPost = (props) => {
   const {
     newsData,
-    setComment,
     handleOnCommentPress,
     setCommentParams,
     commentParams,
+    handelOnPressPost,
+    handleSharePress
   } = props;
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
   const isPostLiked = newsData?.postLikeData?.likeStatus === 0 ? false : true;
   return (
-    <View style={styles.mainConatiner}>
+    <TouchableOpacity  style={styles.mainConatiner} onPress={() => handelOnPressPost(newsData)}>
       <View style={{ flex: 1 }}>
-        <TouchableOpacity style={styles.rowVw}>
+        <View style={styles.rowVw}>
           <Image
             style={styles.smallImgVw}
             resizeMode="cover"
@@ -52,7 +53,7 @@ const NewsPost = (props) => {
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
         <ScaleText style={styles.headlineTxt}>
           {newsData?.headline ? newsData?.headline : null}
         </ScaleText>
@@ -114,9 +115,9 @@ const NewsPost = (props) => {
           >
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
-          <View style={styles.likeView}>
+          <TouchableOpacity style={styles.likeView} onPress={() => handleSharePress(newsData?.post_id)}>
             <ScaleText style={styles.likeSectionText}>Share</ScaleText>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.postBreakView}></View>
       </View>
@@ -124,14 +125,13 @@ const NewsPost = (props) => {
         isVisible={isCommentsVisible}
         setIsCommentsVisible={setIsCommentsVisible}
         commentData={newsData?.commentData}
-        setComment={setComment}
         handleOnCommentPress={handleOnCommentPress}
         setCommentParams={setCommentParams}
         commentParams={commentParams}
         post_id={newsData?.post_id}
         business_id={newsData?.business_id}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
