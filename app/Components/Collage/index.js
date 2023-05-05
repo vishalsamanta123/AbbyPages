@@ -17,18 +17,18 @@ const Collage = (props) => {
       {imageLength === 1 ? (
         <View style={styles.oneImageView}>
           <Image
-            source={{ uri: imagesData[0].photo_url }}
+            source={{ uri: imagesData[0]?.photo_url }}
             style={styles.oneImageStyle}
           />
         </View>
       ) : imageLength === 2 ? (
         <View style={styles.twoImageView}>
           <Image
-            source={{ uri: imagesData[0].photo_url }}
+            source={{ uri: imagesData[0]?.photo_url }}
             style={styles.twoImageStyle}
           />
           <Image
-            source={{ uri: imagesData[1].photo_url }}
+            source={{ uri: imagesData[1]?.photo_url }}
             style={styles.twoImageStyle}
           />
         </View>
@@ -36,16 +36,16 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={{ uri: imagesData[0].photo_url }}
+              source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
             <Image
-              source={{ uri: imagesData[1].photo_url }}
+              source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <Image
-            source={{ uri: imagesData[2].photo_url }}
+            source={{ uri: imagesData[2]?.photo_url }}
             style={styles.thirdImageStyle}
           />
         </View>
@@ -53,21 +53,21 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={{ uri: imagesData[0].photo_url }}
+              source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
             <Image
-              source={{ uri: imagesData[1].photo_url }}
+              source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={{ uri: imagesData[2].photo_url }}
+              source={{ uri: imagesData[2]?.photo_url }}
               style={styles.twoImageStyle}
             />
             <Image
-              source={{ uri: imagesData[3].photo_url }}
+              source={{ uri: imagesData[3]?.photo_url }}
               style={styles.twoImageStyle}
             />
             {/* <ImageBackground
@@ -81,21 +81,21 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={{ uri: imagesData[0].photo_url }}
+              source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
             <Image
-              source={{ uri: imagesData[1].photo_url }}
+              source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={{ uri: imagesData[2].photo_url }}
+              source={{ uri: imagesData[2]?.photo_url }}
               style={styles.twoImageStyle}
             />
             <ImageBackground
-              source={{ uri: imagesData[3].photo_url }}
+              source={{ uri: imagesData[3]?.photo_url }}
               style={styles.fourthImageStyle}
               opacity={0.5}
             >

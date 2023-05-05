@@ -410,5 +410,21 @@ const Styles = StyleSheet.create({
     margin: 50,
     borderRadius: 10,
   },
+  headlineTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    fontSize: FONT_SIZE.medium,
+  },
+  descriptionTxt: {
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+  },
+  nullTxt: {
+    color: COLORS.BLUE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+    marginTop: 10
+  },
 });
 export default Styles;
