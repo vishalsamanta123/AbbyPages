@@ -1,4 +1,4 @@
-import { filter } from "lodash";
+import _, { filter } from "lodash";
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Modal, FlatList } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";
@@ -10,35 +10,29 @@ import MainInput from "../MainInput";
 import ScaleText from "../ScaleText";
 import styles from "./styles";
 
-const DropDownApp = (props) => {
+const SelectButton = (props) => {
+  const [searchValue, setSearchValue] = useState("");
   const {
     DropDownText = "DropDown",
     headTxt = "DropDown",
     value = "",
     onPressDropDown = () => {},
-    onLongPress = () => {},
-    DropDownImg,
-    onPressArrow = () => {},
     onPressItem = () => {},
-    arrowShow = false,
     searchHeader = "Search",
     valueField = "",
     labelField = "",
   } = props;
   const [dropDown, setDropDown] = useState(false);
-  const [searchData, setSearchData] = useState([]);
+  const [constListData, setConstListData] = useState([]);
+  const [listData, setListData] = useState([]);
 
   useEffect(() => {
     if (props?.data?.length > 0 && Array.isArray(props?.data)) {
-      // const newArray = props?.data?.map((itm) => {
-      //   return { data: itm?.name };
-      // });
-      //   props?.data.forEach(function (item, i) {
-      //     item["key"] = i + 1;
-      // });
-      setSearchData(props?.data);
+      setListData(props?.data);
+      setConstListData(props?.data);
     } else {
-      setSearchData([]);
+      setConstListData([]);
+      setListData([]);
     }
   }, [props]);
 
@@ -47,8 +41,19 @@ const DropDownApp = (props) => {
   };
 
   const handleSearchList = (text) => {
-    const searchKey = text?.toLowerCase();
-    const searchFilter = filter(searchData, (user) => {});
+    if (text === "") {
+      setListData(constListData);
+      setSearchValue("");
+    } else {
+      const searchKey = text?.toLowerCase();
+      setSearchValue(text);
+      const searchArray = [...listData];
+      const list = searchArray.filter((item) => {
+        const label = item[labelField];
+        return label?.toLowerCase().match(searchKey);
+      });
+      setListData(list);
+    }
   };
 
   return (
@@ -69,7 +74,9 @@ const DropDownApp = (props) => {
           ]}
         >
           <ScaleText style={styles.dropDownTxt}>
-            {value === "" ? "Select Item" : value}
+            {value === "" || value === null || value === undefined
+              ? "Select Item"
+              : value}
           </ScaleText>
           <IconX
             origin={ICON_TYPE.MATERIAL_ICONS}
@@ -82,11 +89,12 @@ const DropDownApp = (props) => {
         <View style={CommonStyles.container}>
           <MainHeader
             isSearch={false}
-            headerText={"Search" + " " + headTxt}
+            headerText={searchHeader}
             loginButton={false}
+            TxtMarginRight={"12%"}
             onPressBack={() => {
               setDropDown(false);
-              setSearchData([]);
+              setListData([]);
             }}
             notifyIcon={false}
           />
@@ -98,15 +106,16 @@ const DropDownApp = (props) => {
                 onChangeText={(txt) => {
                   handleSearchList(txt);
                 }}
-                value={value}
+                value={searchValue}
               />
             </View>
           </View>
           <FlatList
-            data={searchData}
+            data={listData}
             style={{ paddingHorizontal: 10 }}
             renderItem={({ item, index }) => {
-              const label = item?.hasOwnProperty(labelField);
+              const label = item[labelField];
+              const value = item[valueField];
               return (
                 <TouchableOpacity
                   style={styles.listItemVw}
@@ -115,16 +124,13 @@ const DropDownApp = (props) => {
                     setDropDown(false);
                   }}
                 >
-                  <ScaleText style={styles.listItemTxt}>{item.name}</ScaleText>
+                  <ScaleText style={styles.listItemTxt}>{label}</ScaleText>
                 </TouchableOpacity>
               );
             }}
             ListEmptyComponent={() => {
               return <EmptyList />;
             }}
-            // renderItem={({ item, index }) => {
-            //   return renderList(item, index);
-            // }}
           />
         </View>
       </Modal>
@@ -132,24 +138,4 @@ const DropDownApp = (props) => {
   );
 };
 
-export default DropDownApp;
-
-// export const DropDownList = (props) => {
-//   const {
-//     itemText = "",
-//     itemData = {},
-//     onPressItem = () => {},
-//     setDropDown = () => {},
-//   } = props;
-//   return (
-//     <TouchableOpacity
-//       style={styles.listItemVw}
-//       onPress={() => {
-//         onPressItem(itemData);
-//         setDropDown(false);
-//       }}
-//     >
-//       <ScaleText style={styles.listItemTxt}>{itemText}</ScaleText>
-//     </TouchableOpacity>
-//   );
-// };
+export default SelectButton;

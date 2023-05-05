@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
   },
   topButtonTxt: {
-    color: COLORS.WHITE,
+    color: COLORS.BLACK,
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
   },

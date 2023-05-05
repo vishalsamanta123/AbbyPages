@@ -45,7 +45,6 @@ export const COLORS = {
   RGBA: "rgba(0,0,0,0.8)",
   COMMON: "#dadada",
   LIGHT_BLACK: "#262626",
-  LIGHT_WHITE: "#E1E1D9",
   GOLDEN: "#DAA520",
   LIGHT_YELLOW: "#ffc426",
   SMALL_TEXT: "#868282",
@@ -69,6 +68,7 @@ export const FONT_FAMILY = {
   NORMAL_BOLD: "WorkSans-SemiBold",
 };
 export const FONT_SIZE = {
+  light: normalize(9),
   verysmall: normalize(11),
   small: normalize(12),
   smallL: normalize(14),

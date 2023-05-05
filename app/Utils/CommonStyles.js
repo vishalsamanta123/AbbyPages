@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY } from "./Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "./Constant";
 
 const CommonStyles = StyleSheet.create({
   container: {
@@ -55,9 +55,9 @@ const CommonStyles = StyleSheet.create({
     tintColor: COLORS.LIGHT_BLACK,
   },
   dotTxt: {
-    fontSize: 10,
-    bottom: 1,
-    marginHorizontal: 5,
+    fontSize: FONT_SIZE.light,
+    color: COLORS.DARK_PURPLE,
+    marginHorizontal: 3,
   },
   middleLogoVw: {
     width: 190,

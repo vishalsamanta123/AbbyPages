@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Image,
@@ -9,14 +9,13 @@ import {
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../../../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import BoxContainer from "../../../../Components/BoxContainer";
 import StarShower from "../../../../Components/StarShower";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
-import ShimmerEffect from "../../../../Components/ShimmerEffect/ListShimmer";
 import ListShimmer from "../../../../Components/ShimmerEffect/ListShimmer";
 
 const DashBoardScreen = (props) => {
@@ -40,9 +39,7 @@ const DashBoardScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <MainHeader
-        headerType={"logo"}
-      />
+      <MainHeader headerType={"logo"} />
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -61,9 +58,7 @@ const DashBoardScreen = (props) => {
         >
           <View style={styles.imgInnerVw}>
             <ScaleText style={CommonStyles.bigTxtVw}>
-              <ScaleText style={styles.supportTxt}>
-                Support{" "}
-              </ScaleText>
+              <ScaleText style={styles.supportTxt}>Support </ScaleText>
               Black Excellence!
             </ScaleText>
             <ScaleText style={[CommonStyles.mediumTxt, { marginTop: 16 }]}>
@@ -75,120 +70,124 @@ const DashBoardScreen = (props) => {
         <View style={styles.mainVw}>
           <View style={styles.containersVw}>
             <ScaleText style={styles.titlesTxt}>Recent Activities</ScaleText>
-            
-            {props.visible ? 
-            <View>
-              <ListShimmer />
-            </View>:
-            <View style={styles.activityConVw}>
-              {props?.recent_activity?.length > 0 ? (
-                <>
-                  {props?.recent_activity?.map((activity) => {
-                    return (
-                      <TouchableOpacity
-                        activeOpacity={1}
-                        style={styles.activityCon}
-                        onPress={() => props.handleOnActivity(activity)}
-                      >
-                        <View style={styles.rowVw}>
-                          <Image
-                            source={{ uri: activity?.user?.profile }}
-                            style={styles.activityProfileVw}
-                          />
-                          <View style={styles.textVw}>
-                            <ScaleText style={styles.activityNameTxt}>
-                              {activity?.user?.first_name +
-                                " " +
-                                activity?.user?.last_name}
-                            </ScaleText>
-                            <ScaleText style={styles.activityRvwTxt}>
-                              {activity?.review
-                                ? "Wrote a Review"
-                                : activity?.image?.length > 0
-                                ? `${
-                                    "Added " +
-                                    activity?.image?.length +
-                                    " Photos"
-                                  }`
-                                : null}
-                            </ScaleText>
+
+            {props.visible ? (
+              <View>
+                <ListShimmer />
+              </View>
+            ) : (
+              <View style={styles.activityConVw}>
+                {props?.recent_activity?.length > 0 ? (
+                  <>
+                    {props?.recent_activity?.map((activity) => {
+                      return (
+                        <TouchableOpacity
+                          activeOpacity={1}
+                          style={styles.activityCon}
+                          onPress={() => props.handleOnActivity(activity)}
+                        >
+                          <View style={styles.rowVw}>
+                            <Image
+                              source={{ uri: activity?.user?.profile }}
+                              style={styles.activityProfileVw}
+                            />
+                            <View style={styles.textVw}>
+                              <ScaleText style={styles.activityNameTxt}>
+                                {activity?.user?.first_name +
+                                  " " +
+                                  activity?.user?.last_name}
+                              </ScaleText>
+                              <ScaleText style={styles.activityRvwTxt}>
+                                {activity?.review
+                                  ? "Wrote a Review"
+                                  : activity?.image?.length > 0
+                                  ? `${
+                                      "Added " +
+                                      activity?.image?.length +
+                                      " Photos"
+                                    }`
+                                  : null}
+                              </ScaleText>
+                            </View>
                           </View>
-                        </View>
-                        {activity?.image?.length > 0 ? (
-                          <ScaleText style={styles.activityMainTxt}>
-                            {activity?.business_name}
-                          </ScaleText>
-                        ) : null}
-                        {activity?.review ? (
-                          <Image
-                            source={{ uri: activity?.business_logo }}
-                            style={[
-                              styles.activityBnnrVw,
-                              {
-                                marginBottom: 0,
-                              },
-                            ]}
-                            resizeMode={"cover"}
-                          />
-                        ) : (
-                          <>
-                            {activity?.image?.length > 0 ? (
-                              <ScrollView
-                                nestedScrollEnabled
-                                contentContainerStyle={styles.photosVw}
-                              >
-                                {activity?.image?.slice(0, 5)?.map((photos) => {
-                                  return (
-                                    <Image
-                                      source={{ uri: photos }}
-                                      resizeMode={"cover"}
-                                      style={[
-                                        styles.activityBnnrVw,
-                                        {
-                                          marginHorizontal: 5,
-                                          marginBottom: 10,
-                                          width:
-                                            activity?.image?.length === 1
-                                              ? Constants.windowWidth / 1.2
-                                              : Constants.windowWidth / 2.4,
-                                        },
-                                      ]}
-                                    />
-                                  );
-                                })}
-                              </ScrollView>
-                            ) : null}
-                            {/* {activity?.image?.length > 2 ? (
+                          {activity?.image?.length > 0 ? (
+                            <ScaleText style={styles.activityMainTxt}>
+                              {activity?.business_name}
+                            </ScaleText>
+                          ) : null}
+                          {activity?.review ? (
+                            <Image
+                              source={{ uri: activity?.business_logo }}
+                              style={[
+                                styles.activityBnnrVw,
+                                {
+                                  marginBottom: 0,
+                                },
+                              ]}
+                              resizeMode={"cover"}
+                            />
+                          ) : (
+                            <>
+                              {activity?.image?.length > 0 ? (
+                                <ScrollView
+                                  nestedScrollEnabled
+                                  contentContainerStyle={styles.photosVw}
+                                >
+                                  {activity?.image
+                                    ?.slice(0, 5)
+                                    ?.map((photos) => {
+                                      return (
+                                        <Image
+                                          source={{ uri: photos }}
+                                          resizeMode={"cover"}
+                                          style={[
+                                            styles.activityBnnrVw,
+                                            {
+                                              marginHorizontal: 5,
+                                              marginBottom: 10,
+                                              width:
+                                                activity?.image?.length === 1
+                                                  ? Constants.windowWidth / 1.2
+                                                  : Constants.windowWidth / 2.4,
+                                            },
+                                          ]}
+                                        />
+                                      );
+                                    })}
+                                </ScrollView>
+                              ) : null}
+                              {/* {activity?.image?.length > 2 ? (
                               <TouchableOpacity onPress={() => setViewPhotos()}>
                                 <ScaleText style={styles.seeAllTxt}>
                                   See All {activity?.image?.length} Photos
                                 </ScaleText>
                               </TouchableOpacity>
                             ) : null} */}
-                          </>
-                        )}
-                        {activity?.review ? (
-                          <ScaleText style={styles.activityMainTxt}>
-                            {activity?.business_name}
-                          </ScaleText>
-                        ) : null}
-                        {activity?.review ? (
-                          <>
-                            <StarShower
-                              marginLeft={8}
-                              counts={activity?.review?.business_rating}
-                            />
-                            <ScaleText style={styles.activityCmntTxt}>
-                              {activity?.review?.description}
+                            </>
+                          )}
+                          {activity?.review ? (
+                            <ScaleText style={styles.activityMainTxt}>
+                              {activity?.business_name}
                             </ScaleText>
-                          </>
-                        ) : null}
-                      </TouchableOpacity>
-                    );
-                  })}
-                </>
-              ) : null}
-            </View>}
+                          ) : null}
+                          {activity?.review ? (
+                            <>
+                              <StarShower
+                                marginLeft={8}
+                                counts={activity?.review?.business_rating}
+                              />
+                              <ScaleText style={styles.activityCmntTxt}>
+                                {activity?.review?.description}
+                              </ScaleText>
+                            </>
+                          ) : null}
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </>
+                ) : null}
+              </View>
+            )}
             {/* {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )} */}
