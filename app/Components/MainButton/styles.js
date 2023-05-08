@@ -7,10 +7,8 @@ const style = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     borderWidth: 1,
-    borderColor: COLORS.LIGHT_GREY,
     borderRadius: 20,
     paddingHorizontal: 15,
-    paddingVertical: 6,
   },
   buttonTxt: {
     textAlign: "center",

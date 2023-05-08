@@ -102,10 +102,10 @@ const FilterView = (props) => {
             <SelectButton
               headTxt={"Country"}
               data={country}
-              value={props?.filterData?.country_name_d}
+              value={props?.filterData?.country}
               searchHeader={"Country"}
               labelField={"name"}
-              valueField={"country_id"}
+              valueField={"name"}
               onPressDropDown={() => getPlaces(0)}
               onPressItem={(item) => {
                 props.setFilterData({
@@ -125,9 +125,9 @@ const FilterView = (props) => {
                   ? ""
                   : " " + props?.filterData?.country_name_d?.substring(0, 12)
               }
-              value={props?.filterData?.state_name_d}
+              value={props?.filterData?.state}
               labelField={"name"}
-              valueField={"state_id"}
+              valueField={"name"}
               onPressDropDown={() => getPlaces(1)}
               onPressItem={(item) => {
                 props.setFilterData({
@@ -147,9 +147,9 @@ const FilterView = (props) => {
                   ? ""
                   : " " + props?.filterData?.state_name_d?.substring(0, 12)
               }
-              value={props?.filterData?.city_name_d}
+              value={props?.filterData?.city}
               labelField={"name"}
-              valueField={"city_id"}
+              valueField={"name"}
               onPressDropDown={() => getPlaces(2)}
               onPressItem={(item) => {
                 props.setFilterData({
@@ -165,9 +165,9 @@ const FilterView = (props) => {
               headTxt={"Hire Type"}
               searchHeader={"Hire Type"}
               data={hireType}
-              value={props?.filterData?.hire_name_d}
+              value={props?.filterData?.job_type}
               labelField={"name"}
-              valueField={"type"}
+              valueField={"name"}
               onPressDropDown={() => handleJobType()}
               onPressItem={(item) => {
                 props.setFilterData({

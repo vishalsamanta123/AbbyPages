@@ -121,14 +121,14 @@ const NewsFeed = ({ navigation, route }) => {
   };
 
   const handleSharePress = async (post_id) => {
-    const finalName = objData?.business_name.split(" ").join("-")
+    const finalName = objData?.business_name.split(" ").join("-");
     const options = {
-      message: `https://itinformatix.org/news-feeds/${finalName}/${post_id}`,
+      message: `https://abbypages.com/news-feeds/${finalName}/${post_id}`,
     };
-    console.log('options', options)
+    console.log("options", options);
 
     const shareResponse = await Share.open(options);
-  }
+  };
   return (
     <View style={CommonStyles.container}>
       <NewsFeedView

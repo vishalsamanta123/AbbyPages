@@ -12,6 +12,7 @@ import styles from "./styles";
 
 const SelectButton = (props) => {
   const [searchValue, setSearchValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
   const {
     DropDownText = "DropDown",
     headTxt = "DropDown",
@@ -19,8 +20,11 @@ const SelectButton = (props) => {
     onPressDropDown = () => {},
     onPressItem = () => {},
     searchHeader = "Search",
+    listType = "modal",
     valueField = "",
     labelField = "",
+    searchInput = true,
+    listHeight = 100,
   } = props;
   const [dropDown, setDropDown] = useState(false);
   const [constListData, setConstListData] = useState([]);
@@ -74,9 +78,13 @@ const SelectButton = (props) => {
           ]}
         >
           <ScaleText style={styles.dropDownTxt}>
-            {value === "" || value === null || value === undefined
-              ? "Select Item"
-              : value}
+            {selectValue === "" ||
+            selectValue === null ||
+            selectValue === undefined
+              ? value === "" || value === null || value === undefined
+                ? "Select Item"
+                : value
+              : selectValue}
           </ScaleText>
           <IconX
             origin={ICON_TYPE.MATERIAL_ICONS}
@@ -85,55 +93,105 @@ const SelectButton = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <Modal visible={dropDown}>
-        <View style={CommonStyles.container}>
-          <MainHeader
-            isSearch={false}
-            headerText={searchHeader}
-            loginButton={false}
-            TxtMarginRight={"12%"}
-            onPressBack={() => {
-              setDropDown(false);
-              setListData([]);
-            }}
-            notifyIcon={false}
-          />
-          <View style={CommonStyles.straightCon}>
-            <View style={{ flex: 1, marginHorizontal: 12 }}>
-              <MainInput
-                header={false}
-                placeholder={"Search" + " " + headTxt}
-                onChangeText={(txt) => {
-                  handleSearchList(txt);
-                }}
-                value={searchValue}
-              />
-            </View>
-          </View>
-          <FlatList
-            data={listData}
-            style={{ paddingHorizontal: 10 }}
-            renderItem={({ item, index }) => {
-              const label = item[labelField];
-              const value = item[valueField];
-              return (
-                <TouchableOpacity
-                  style={styles.listItemVw}
-                  onPress={() => {
-                    onPressItem(item);
-                    setDropDown(false);
+      {listType === "modal" ? (
+        <Modal visible={dropDown}>
+          <View style={CommonStyles.container}>
+            <MainHeader
+              isSearch={false}
+              headerText={searchHeader}
+              loginButton={false}
+              TxtMarginRight={"12%"}
+              onPressBack={() => {
+                setDropDown(false);
+                setListData([]);
+              }}
+              notifyIcon={false}
+            />
+            {searchInput ? (
+              <View style={{ marginHorizontal: 12 }}>
+                <MainInput
+                  header={false}
+                  placeholder={"Search" + " " + headTxt}
+                  onChangeText={(txt) => {
+                    handleSearchList(txt);
                   }}
-                >
-                  <ScaleText style={styles.listItemTxt}>{label}</ScaleText>
-                </TouchableOpacity>
-              );
-            }}
-            ListEmptyComponent={() => {
-              return <EmptyList />;
-            }}
-          />
-        </View>
-      </Modal>
+                  value={searchValue}
+                />
+              </View>
+            ) : null}
+            <FlatList
+              data={listData}
+              style={{ paddingHorizontal: 10 }}
+              renderItem={({ item, index }) => {
+                const label = item[labelField];
+                const value = item[valueField];
+                return (
+                  <TouchableOpacity
+                    style={styles.listItemVw}
+                    onPress={() => {
+                      onPressItem(item);
+                      setDropDown(false);
+                      setSelectValue(value);
+                    }}
+                  >
+                    <ScaleText style={styles.listItemTxt}>{label}</ScaleText>
+                  </TouchableOpacity>
+                );
+              }}
+              ListEmptyComponent={() => {
+                return <EmptyList />;
+              }}
+            />
+          </View>
+        </Modal>
+      ) : (
+        <>
+          {dropDown ? (
+            <View style={{ minHeight: listHeight }}>
+              <View style={CommonStyles.container}>
+                {searchInput ? (
+                  <View style={{ marginHorizontal: 5 }}>
+                    <MainInput
+                      header={false}
+                      placeholder={"Search" + " " + headTxt}
+                      onChangeText={(txt) => {
+                        handleSearchList(txt);
+                      }}
+                      value={searchValue}
+                      height={40}
+                    />
+                  </View>
+                ) : null}
+                <FlatList
+                  data={listData}
+                  style={{ paddingHorizontal: 10 }}
+                  renderItem={({ item, index }) => {
+                    const label = item[labelField];
+                    const value = item[valueField];
+                    return (
+                      <TouchableOpacity
+                        style={styles.listItemVw}
+                        onPress={() => {
+                          onPressItem(item);
+                          setDropDown(false);
+                          setSelectValue(value);
+                        }}
+                      >
+                        <ScaleText style={styles.listItemTxt}>
+                          {label}
+                        </ScaleText>
+                      </TouchableOpacity>
+                    );
+                  }}
+                  ListEmptyComponent={() => {
+                    return <EmptyList height={80} />;
+                  }}
+                />
+              </View>
+            </View>
+          ) : null}
+        </>
+      )}
     </View>
   );
 };

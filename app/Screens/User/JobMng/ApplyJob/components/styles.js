@@ -13,6 +13,8 @@ const Styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 2,
+    paddingHorizontal: 7,
+    paddingLeft: 12,
   },
   container: {
     height: 60,
@@ -67,11 +69,12 @@ const Styles = StyleSheet.create({
     color: COLORS.BLACK,
     marginHorizontal: 5,
   },
-  coverLetterDescrptn: {
+  subTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: 13,
-    lineHeight: 20,
+    fontSize: FONT_SIZE.verysmall,
+    lineHeight: 19,
     color: COLORS.LIGHT_GREY,
+    marginLeft: 5,
   },
   willYouNowText: {
     fontFamily: FONT_FAMILY.REGULAR,

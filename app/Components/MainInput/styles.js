@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: Constants.standardBW,
     borderColor: COLORS.DARK_PURPLE,
-    paddingHorizontal: 10,
     flex: 0,
     paddingVertical: 0,
     backgroundColor: COLORS.WHITE,
@@ -35,6 +34,12 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.normal,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
+    flex: 1,
+  },
+  iconVw: {
+    paddingHorizontal: 5,
+    alignItems: "center",
+    flex: 0.1,
   },
 });
 export default styles;
