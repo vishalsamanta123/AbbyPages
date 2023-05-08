@@ -6,10 +6,9 @@ import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { useFocusEffect } from "@react-navigation/native";
 import Share from "react-native-share";
 
-
 const NeweFeedDetails = ({ navigation, route }) => {
   const { post } = route?.params;
-  console.log('post', post)
+  console.log("post", post);
   const [visible, setVisible] = useState(false);
   const [likeUnlikeData, setLikeUnlikeData] = useState({});
   const [commentResp, setCommentResp] = useState({});
@@ -30,7 +29,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
   );
   const getPostDetail = async () => {
     try {
-       setVisible(true);
+      setVisible(true);
       const params = {
         post_id: post?.post_id,
         business_name: post?.business_name,
@@ -41,14 +40,14 @@ const NeweFeedDetails = ({ navigation, route }) => {
         params
       );
       if (data.status == 200) {
-         setVisible(false);
+        setVisible(false);
         setPostData(data?.data);
       } else {
         if (data.status === 201) {
-           setVisible(false);
+          setVisible(false);
           setPostData({});
         } else {
-           setVisible(false);
+          setVisible(false);
           setPostData({});
         }
       }
@@ -113,27 +112,27 @@ const NeweFeedDetails = ({ navigation, route }) => {
   };
 
   const handleSharePress = async () => {
-    const finalName = post?.business_name.split(" ").join("-")
+    const finalName = post?.business_name.split(" ").join("-");
     const options = {
-      message: `https://itinformatix.org/news-feeds/${finalName}/${post?.post_id}`,
+      message: `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`,
     };
-    console.log('options', options)
+    console.log("options", options);
 
     const shareResponse = await Share.open(options);
-  }
+  };
 
   return (
     <>
-    {/* <NewsFeedListShimmer /> */}
-    
-    <NewsFeedViewDetails
-      postData={postData}
-      commentParams={commentParams}
-      setCommentParams={setCommentParams}
-      handleOnCommentPress={handleOnCommentPress}
-      handleOnPressLike={handleOnPressLike}
-      visible={visible}
-      handleSharePress={handleSharePress}
+      {/* <NewsFeedListShimmer /> */}
+
+      <NewsFeedViewDetails
+        postData={postData}
+        commentParams={commentParams}
+        setCommentParams={setCommentParams}
+        handleOnCommentPress={handleOnCommentPress}
+        handleOnPressLike={handleOnPressLike}
+        visible={visible}
+        handleSharePress={handleSharePress}
       />
     </>
   );

@@ -22,6 +22,12 @@ const MainInput = (props) => {
     rightImgSize = 22,
     rightImgOrigin = "",
     rightImgColor = COLORS.DARK_PURPLE,
+    leftImgName = "",
+    leftImgSize = 22,
+    leftImgOrigin = "",
+    leftImgColor = COLORS.DARK_PURPLE,
+    keyboardType = "default",
+    maxLength = 200,
   } = props;
   return (
     <View
@@ -40,12 +46,22 @@ const MainInput = (props) => {
           <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
         </View>
       )}
+      {leftImgName != "" && leftImgOrigin != "" ? (
+        <View style={styles.iconVw}>
+          <IconX
+            origin={leftImgOrigin}
+            name={leftImgName}
+            size={leftImgSize}
+            color={leftImgColor}
+          />
+        </View>
+      ) : null}
       <TextInput
         style={[
           styles.inputCon,
           {
             height: height,
-            width: rightImgName != "" && rightImgOrigin != "" ? "92%" : null,
+            marginLeft: leftImgName != "" && leftImgOrigin != "" ? 0 : 8,
           },
         ]}
         placeholder={placeholder}
@@ -53,9 +69,11 @@ const MainInput = (props) => {
         selectionColor={COLORS.BLACK}
         onChangeText={(txt) => onChangeText(txt)}
         value={value}
+        maxLength={maxLength}
+        keyboardType={keyboardType}
       />
       {rightImgName != "" && rightImgOrigin != "" ? (
-        <View style={{ paddingHorizontal: 5 }}>
+        <View style={styles.iconVw}>
           <IconX
             origin={rightImgOrigin}
             name={rightImgName}

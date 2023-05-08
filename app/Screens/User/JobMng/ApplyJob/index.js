@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
 import ApplyJobView from "./components/ApplyJobView";
@@ -6,6 +6,7 @@ import DocumentPicker from "react-native-document-picker";
 import Loader from "../../../../Utils/Loader";
 import Error from "../../../../Components/Modal/error";
 import Success from "../../../../Components/Modal/success";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ApplyJob = ({ navigation, route }) => {
   const itemData = route.params || {};
@@ -36,60 +37,67 @@ const ApplyJob = ({ navigation, route }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [requires, setRequires] = useState(false);
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getProfile();
+    }, [navigation, route])
+  );
 
   const getProfile = async () => {
     try {
-      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-      if (data.status === 200) {
+      setVisible(true);
+      const { data } = await apiCall("GET", ENDPOINTS.USERLASTJOBDTL);
+      if (data?.status === 200) {
+        setVisible(false);
+        const getData = { ...data?.data };
         setApplyJob({
           ...applyJob,
-          fullName: data.data.first_name
-            ? data.data.first_name + " " + data.data.last_name
+          resume:
+            getData?.resume_url === "" || getData?.resume_url === null
+              ? ""
+              : getData?.resume_url,
+          fullName: getData?.user_name ? getData?.user_name : "",
+          email: getData?.email ? getData?.email : "",
+          phone: getData?.phone ? getData?.phone : "",
+          abby_profile_url: getData?.business_logo
+            ? getData?.business_logo
             : "",
-          email: data.data.email ? data.data.email : "",
-          phone: data.data.phone ? data.data.phone : "",
-          abby_profile_url: data.business_logo ? data.business_logo : "",
-          other_website: data.data.blog_website ? data.data.blog_website : "",
-          gender: data.data.gender ? data.data.gender : "",
+          other_website: getData?.blog_website ? getData?.blog_website : "",
+          gender: getData?.gender ? getData?.gender : "",
+          current_Company: getData?.current_company
+            ? getData?.current_company
+            : "",
+          abby_profile_url: getData?.abbypages_profile_url
+            ? getData?.abbypages_profile_url
+            : "",
+          linkedinUrl: getData?.linkedin_url ? getData?.linkedin_url : "",
+          twitterUrl: getData?.twitter_url ? getData?.twitter_url : "",
+          githubUrl: getData?.github_url ? getData?.github_url : "",
+          portfolioUrl: getData?.portfolio_url ? getData?.portfolio_url : "",
+          other_website: getData?.other_website ? getData?.other_website : "",
+          cover_letter:
+            getData?.cover_letter === "" || getData?.cover_letter === null
+              ? ""
+              : getData?.cover_letter,
+          workStatus: getData?.you_legally_authorized_to_work_status
+            ? getData?.you_legally_authorized_to_work_status
+            : "",
+          visaStatus: getData?.future_require_sponsorship_for_employment_visa
+            ? getData?.future_require_sponsorship_for_employment_visa
+            : "",
+          additional_Info: getData?.additional_information
+            ? getData?.additional_information
+            : "",
+          gender: getData?.gender ? getData?.gender : "",
+          race: getData?.race ? getData?.race : "",
+          veteran_status: getData?.veteran_status
+            ? getData?.veteran_status
+            : "",
         });
       }
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
-  const onPressYesBtn = (type, resp) => {
-    if (type == 1) {
-      setApplyJob({
-        ...applyJob,
-        workStatus: resp,
-      });
-    }
-    if (type == 2) {
-      setApplyJob({
-        ...applyJob,
-        visaStatus: resp,
-      });
-    }
+    } catch (error) {}
   };
 
-  const onPressNoBtn = (type, resp) => {
-    if (type == 1) {
-      setApplyJob({
-        ...applyJob,
-        workStatus: resp,
-      });
-    }
-    if (type == 2) {
-      setApplyJob({
-        ...applyJob,
-        visaStatus: resp,
-      });
-    }
-  };
   const openUpload = async (resq) => {
     DocumentPicker.pick({
       presentationStyle: "fullScreen",
@@ -222,8 +230,6 @@ const ApplyJob = ({ navigation, route }) => {
       {visible && <Loader state={visible} />}
       <ApplyJobView
         itemData={itemData}
-        onPressYesBtn={onPressYesBtn}
-        onPressNoBtn={onPressNoBtn}
         onSubmit={onSubmit}
         openUpload={openUpload}
         applyJob={applyJob}
