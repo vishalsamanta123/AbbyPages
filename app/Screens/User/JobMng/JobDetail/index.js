@@ -34,8 +34,8 @@ const JobDetail = ({ route, navigation }) => {
       setVisible(false);
     }
   };
-  const applyNow = async () => {
-    navigation.navigate("ApplyJob", { details });
+  const applyNowPress = async () => {
+    navigation.navigate("ApplyJob", jobDetail);
   };
   const onPressJob = (item) => {
     getJobDetails(item);
@@ -76,7 +76,7 @@ const JobDetail = ({ route, navigation }) => {
       {visible && <Loader state={visible} />}
       <JobDetailView
         jobDetail={jobDetail}
-        applyNow={applyNow}
+        applyNowPress={applyNowPress}
         compareFun={compareFun}
         saveJob={saveJob}
         shareTo={shareTo}

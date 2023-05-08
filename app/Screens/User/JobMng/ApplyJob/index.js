@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import { apiCall } from "../../Utils/httpClient";
-import ApplyJob from "./components/ApplyJob";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../Utils/httpClient";
+import ApplyJobView from "./components/ApplyJobView";
 import DocumentPicker from "react-native-document-picker";
-import Loader from "../../Utils/Loader";
-import Error from "../../Components/Modal/error";
-import Success from "../../Components/Modal/success";
+import Loader from "../../../../Utils/Loader";
+import Error from "../../../../Components/Modal/error";
+import Success from "../../../../Components/Modal/success";
 
-const ApplyJobView = ({ navigation, route }) => {
+const ApplyJob = ({ navigation, route }) => {
+  const itemData = route.params || {};
   const [applyJob, setApplyJob] = useState({
     resume: "",
     fullName: "",
@@ -161,12 +162,11 @@ const ApplyJobView = ({ navigation, route }) => {
   const onSubmit = async () => {
     const valid = validations();
     if (valid) {
-      const { details } = route.params;
       try {
         setVisible(true);
         let formData = new FormData();
-        formData.append("job_id", details.job_id);
-        formData.append("business_id", details.business_id);
+        formData.append("job_id", itemData.job_id);
+        formData.append("business_id", itemData.business_id);
         formData.append("user_name", applyJob.fullName);
         formData.append("email", applyJob.email);
         formData.append("phone", applyJob.phone);
@@ -220,7 +220,8 @@ const ApplyJobView = ({ navigation, route }) => {
   return (
     <>
       {visible && <Loader state={visible} />}
-      <ApplyJob
+      <ApplyJobView
+        itemData={itemData}
         onPressYesBtn={onPressYesBtn}
         onPressNoBtn={onPressNoBtn}
         onSubmit={onSubmit}
@@ -229,17 +230,7 @@ const ApplyJobView = ({ navigation, route }) => {
         setApplyJob={setApplyJob}
         requires={requires}
       />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      />
     </>
   );
 };
-export default ApplyJobView;
+export default ApplyJob;

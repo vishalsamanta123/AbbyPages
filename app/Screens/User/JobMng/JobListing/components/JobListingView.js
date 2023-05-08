@@ -52,7 +52,7 @@ const JobListingView = (props) => {
           <ScaleText style={styles.hdngtxt}>Filter</ScaleText>
         </TouchableOpacity>
       </View>
-      <View style={{ marginTop: 6 }}>
+      <View style={{ marginTop: 6, marginHorizontal: 12 }}>
         <MainInput
           headTxt={"Any KeyWord..."}
           placeholder={"Search here..."}

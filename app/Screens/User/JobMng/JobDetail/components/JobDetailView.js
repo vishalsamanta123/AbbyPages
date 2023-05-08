@@ -42,7 +42,10 @@ const JobDetailView = (props) => {
             />
           </View>
           <View style={[CommonStyles.straightCon, styles.topBttnVw]}>
-            <MainButton buttonTxt={"Apply Now"} onPressButton={() => {}} />
+            <MainButton
+              buttonTxt={"Apply Now"}
+              // onPressButton={() => props.applyNowPress()}
+            />
           </View>
           <View style={{ marginTop: "6%" }}>
             <ScaleText style={styles.tileTxt}>

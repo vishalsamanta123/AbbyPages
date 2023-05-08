@@ -42,7 +42,7 @@ export const handlePermission = async (
       break;
   }
   let res = false;
-  console.log('result', result)
+  console.log("result", result);
   switch (await result) {
     case RESULTS.UNAVAILABLE:
       res = requestPermission(permission, msgHeading, message);
@@ -79,7 +79,6 @@ export const permissionWrite = async (type = "request") => {
   return res;
 };
 export const checkPermissions = async (permission) => {
-
   let result = "";
   switch (permission) {
     case "camera":
@@ -148,7 +147,7 @@ export const requestPermission = async (permission, msgHeading, message) => {
       break;
   }
   let res = false;
-  console.log('reqRes', reqRes)
+  console.log("reqRes", reqRes);
   switch (await reqRes) {
     case RESULTS.UNAVAILABLE:
       openPermissionSetting(msgHeading, message);
@@ -240,6 +239,7 @@ export const OpenDoc = async (url) => {
     fromUrl: url,
     toFile: localFile,
   };
+  console.log('options: ', options);
   RNFS.downloadFile(options)
     .promise.then(() => FileViewer.open(localFile))
     .then((r) => {
@@ -247,10 +247,7 @@ export const OpenDoc = async (url) => {
       // success
     })
     .catch((error) => {
-      console.log("error", error);
-      ErrorMessage({
-        msg: error?.message,
-        backgroundColor: RED_COLOR,
-      });
+    console.log('error: ', error);
+      
     });
 };
