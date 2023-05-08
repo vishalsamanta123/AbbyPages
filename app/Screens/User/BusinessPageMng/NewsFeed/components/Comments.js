@@ -14,7 +14,6 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import styles from "./styles";
 import moment from "moment";
-import MainInput from "../../../../../Components/MainInput";
 import Button from "../../../../../Components/Button";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import { COLORS } from "../../../../../Utils/Constant";

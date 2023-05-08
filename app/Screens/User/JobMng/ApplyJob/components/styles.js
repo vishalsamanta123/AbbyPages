@@ -1,17 +1,18 @@
 import { Platform, StyleSheet } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
-  LIGHT_RED_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+
 const Styles = StyleSheet.create({
-  ContainerStyle: {
-    padding: 15,
-    paddingTop: 20,
-    paddingBottom: 20,
-    backgroundColor: WHITE_COLOR_CODE,
+  containerStyl: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: 12,
+  },
+  inputCon: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 2,
   },
   container: {
     height: 60,
@@ -30,23 +31,21 @@ const Styles = StyleSheet.create({
   checkImgs: {
     width: 38,
     height: 38,
-    marginRight: 5
+    marginRight: 5,
   },
   AddPhotosTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
     paddingLeft: 2,
   },
-  BckArrowBack: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 5,
+  rightImgVw: {
+    marginLeft: 8,
+    paddingVertical: 10,
   },
   dropDownImg: {
     width: 20,
     height: 20,
-    tintColor: LIGHT_BLACK_COLOR_CODE
+    tintColor: COLORS.LIGHT_BLACK,
   },
   TextinputContain: {
     marginLeft: 0,
@@ -54,29 +53,31 @@ const Styles = StyleSheet.create({
     marginTop: 15,
   },
   CommntyAmbsdorTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 20,
   },
   ColumbiaText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 12,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
   },
-  HeadingTextStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 18,
+  headTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.BLACK,
+    marginHorizontal: 5,
   },
   coverLetterDescrptn: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13,
     lineHeight: 20,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
   },
   willYouNowText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13,
     lineHeight: 20,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
   },
   SubmitBtnMain: {
     marginBottom: 15,
@@ -84,16 +85,16 @@ const Styles = StyleSheet.create({
   },
   pickerVw: {
     width: Platform.OS == "ios" ? "85%" : "80%",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     marginLeft: 8,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
   },
   requireTxt: {
     fontSize: 16,
     marginVertical: 10,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_RED_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_RED,
     marginHorizontal: 10,
   },
 });

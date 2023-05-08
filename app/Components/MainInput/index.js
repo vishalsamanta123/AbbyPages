@@ -1,16 +1,13 @@
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput } from "react-native";
 import React from "react";
-import {
-  COLORS,
-  Constants,
-  FONT_FAMILY,
-  FONT_SIZE,
-} from "../../Utils/Constant";
+import { COLORS } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
+import styles from "./styles";
+import { IconX } from "../Icons/Icon";
 
 const MainInput = (props) => {
   const {
-    height = 45,
+    height = 48,
     paddingVertical = 0,
     backgroundColor = COLORS.WHITE,
     placeholder = "Input",
@@ -21,6 +18,10 @@ const MainInput = (props) => {
     header = true,
     flex = 0,
     borderRadius = 18,
+    rightImgName = "",
+    rightImgSize = 22,
+    rightImgOrigin = "",
+    rightImgColor = COLORS.DARK_PURPLE,
   } = props;
   return (
     <View
@@ -44,6 +45,7 @@ const MainInput = (props) => {
           styles.inputCon,
           {
             height: height,
+            width: rightImgName != "" && rightImgOrigin != "" ? "92%" : null,
           },
         ]}
         placeholder={placeholder}
@@ -52,34 +54,18 @@ const MainInput = (props) => {
         onChangeText={(txt) => onChangeText(txt)}
         value={value}
       />
+      {rightImgName != "" && rightImgOrigin != "" ? (
+        <View style={{ paddingHorizontal: 5 }}>
+          <IconX
+            origin={rightImgOrigin}
+            name={rightImgName}
+            size={rightImgSize}
+            color={rightImgColor}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };
 
 export default MainInput;
-const styles = StyleSheet.create({
-  mainCont: {
-    marginVertical: 10,
-    marginHorizontal: 12,
-    borderWidth: Constants.standardBW,
-    borderColor: COLORS.DARK_PURPLE,
-    paddingHorizontal: 10,
-  },
-  headTxtVw: {
-    position: "absolute",
-    top: -12,
-    marginLeft: 16,
-    backgroundColor: COLORS.WHITE,
-    paddingHorizontal: 2,
-  },
-  headTxt: {
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.DARK_PURPLE,
-    fontSize: FONT_SIZE.smallL,
-  },
-  inputCon: {
-    fontSize: FONT_SIZE.normal,
-    color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.REGULAR,
-  },
-});

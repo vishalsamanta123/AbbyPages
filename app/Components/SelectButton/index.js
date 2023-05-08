@@ -99,7 +99,7 @@ const SelectButton = (props) => {
             notifyIcon={false}
           />
           <View style={CommonStyles.straightCon}>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginHorizontal: 12 }}>
               <MainInput
                 header={false}
                 placeholder={"Search" + " " + headTxt}
