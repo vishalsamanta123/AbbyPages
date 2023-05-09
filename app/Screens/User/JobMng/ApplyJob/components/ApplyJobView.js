@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import inputStyle from "../../../../../Components/MainInput/styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -11,6 +11,7 @@ import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import MainPoll from "../../../../../Components/MainPoll";
 import SelectButton from "../../../../../Components/SelectButton";
 import MainButton from "../../../../../Components/MainButton";
+import { OpenDoc } from "../../../../../Utils/Globalfunctions";
 
 const ApplyJobView = (props) => {
   return (
@@ -55,7 +56,21 @@ const ApplyJobView = (props) => {
                     props?.applyJob?.resume?.lastIndexOf("/") + 1
                   )}
             </ScaleText>
-            <View style={styles.rightImgVw}>
+            <TouchableOpacity
+              onPress={() => {
+                if (
+                  props?.applyJob?.open_resume != "" ||
+                  props?.applyJob?.open_resume != null
+                ) {
+                  OpenDoc(
+                    props?.applyJob?.open_resume?.fileCopyUri
+                      ? props?.applyJob?.open_resume?.fileCopyUri
+                      : props?.applyJob?.open_resume
+                  );
+                }
+              }}
+              style={styles.rightImgVw}
+            >
               <IconX
                 origin={ICON_TYPE.ICONICONS}
                 size={22}
@@ -67,7 +82,7 @@ const ApplyJobView = (props) => {
                 }
                 color={COLORS.RGBA}
               />
-            </View>
+            </TouchableOpacity>
           </View>
           <MainInput
             onChangeText={(val) =>
@@ -208,7 +223,21 @@ const ApplyJobView = (props) => {
                     props?.applyJob?.cover_letter?.lastIndexOf("/") + 1
                   )}
             </ScaleText>
-            <View style={styles.rightImgVw}>
+            <TouchableOpacity
+              onPress={() => {
+                if (
+                  props?.applyJob?.open_cover_letter !== "" ||
+                  props?.applyJob?.open_cover_letter !== null
+                ) {
+                  OpenDoc(
+                    props?.applyJob?.open_cover_letter?.fileCopyUri
+                      ? props?.applyJob?.open_cover_letter?.fileCopyUri
+                      : props?.applyJob?.open_cover_letter
+                  );
+                }
+              }}
+              style={styles.rightImgVw}
+            >
               <IconX
                 origin={ICON_TYPE.ICONICONS}
                 size={22}
@@ -221,7 +250,7 @@ const ApplyJobView = (props) => {
                 }
                 color={COLORS.RGBA}
               />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={[styles.containerStyl, { marginTop: 10 }]}>

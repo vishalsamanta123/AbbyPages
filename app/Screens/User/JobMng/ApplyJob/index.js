@@ -57,6 +57,10 @@ const ApplyJob = ({ navigation, route }) => {
             getData?.resume_url === "" || getData?.resume_url === null
               ? ""
               : getData?.resume_url,
+          open_resume:
+            getData?.resume_url === "" || getData?.resume_url === null
+              ? ""
+              : getData?.resume_url,
           fullName: getData?.user_name ? getData?.user_name : "",
           email: getData?.email ? getData?.email : "",
           phone: getData?.phone ? getData?.phone : "",
@@ -77,6 +81,10 @@ const ApplyJob = ({ navigation, route }) => {
           portfolioUrl: getData?.portfolio_url ? getData?.portfolio_url : "",
           other_website: getData?.other_website ? getData?.other_website : "",
           cover_letter:
+            getData?.cover_letter === "" || getData?.cover_letter === null
+              ? ""
+              : getData?.cover_letter,
+          open_cover_letter:
             getData?.cover_letter === "" || getData?.cover_letter === null
               ? ""
               : getData?.cover_letter,
@@ -113,12 +121,25 @@ const ApplyJob = ({ navigation, route }) => {
           setApplyJob({
             ...applyJob,
             resume: pdfFile,
+            open_resume: pdfFile,
           });
         }
+        // if (pdfFile?.uri?.length) {
+        //   props.setResume(files);
+        //   for (var i = 0; i < files.length; i++) {
+        //     props.setResumeBlobURL([
+        //       {
+        //         preview: URL.createObjectURL(files[i]),
+        //         raw: files[i],
+        //       },
+        //     ]);
+        //   }
+        // }
         if (resq === 2) {
           setApplyJob({
             ...applyJob,
             cover_letter: pdfFile,
+            open_cover_letter: pdfFile,
           });
         }
       });

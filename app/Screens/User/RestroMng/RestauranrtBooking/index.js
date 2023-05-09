@@ -15,8 +15,6 @@ import moment from "moment";
 import styles from "./components/styles";
 import RestauranrtBookingScreen from "./components/RestauranrtBookingScreen";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/error";
 import { MainItemsView } from "../../../../Components/ListItemsView";
 
 const RestroBooking = ({ route, navigation }) => {
@@ -310,16 +308,6 @@ const RestroBooking = ({ route, navigation }) => {
         peopleWith={peopleWith}
         peoplePicker={peoplePicker}
         setPeoplePicker={setPeoplePicker}
-      />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
       />
     </View>
   );
