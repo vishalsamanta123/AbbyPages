@@ -43,6 +43,7 @@ import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
 import JobDetail from "../Screens/User/JobMng/JobDetail";
 import NeweFeedDetails from "../Screens/User/BusinessPageMng/NewsFeedDetails";
 import ApplyJob from "../Screens/User/JobMng/ApplyJob";
+import RestroBooking from "../Screens/User/RestroMng/RestauranrtBooking";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -73,6 +74,7 @@ function TabNavigation() {
       <Tab.Screen name="Pricing" component={Pricing} />
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
       <Tab.Screen name="ApplyJob" component={ApplyJob} />
+      <Tab.Screen name="RestroBooking" component={RestroBooking} />
     </Tab.Navigator>
   );
 }
@@ -294,6 +296,7 @@ function AppStack() {
       <Stack.Screen name="NewsFeed" component={TabNavigation} />
       <Stack.Screen name="NeweFeedDetails" component={NeweFeedDetails} />
       <Stack.Screen name="ApplyJob" component={TabNavigation} />
+      <Stack.Screen name="RestroBooking" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

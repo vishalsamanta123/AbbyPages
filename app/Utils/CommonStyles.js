@@ -67,6 +67,10 @@ const CommonStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  justifyCenter: {
+    flexDirection: "row",
+    justifyContent: 'center'
+  },
   locSearchVw: {
     textInputContainer: {
       fontSize: 16,

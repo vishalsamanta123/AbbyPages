@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Alert, View } from "react-native";
+import Share from "react-native-share";
 import { useFocusEffect } from "@react-navigation/native";
 import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -26,13 +27,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      if (detailData?.business_name) {
-        getRecentFeedDetails();
-      } else {
-        getDetails();
-      }
+      getDetails();
       return () => {};
-    }, [navigation, route, detailData])
+    }, [navigation, route])
   );
   const getDetails = async () => {
     try {
@@ -49,7 +46,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
       if (data.status == 200) {
         setVisible(false);
         setDetailData(data?.data);
-        getRecentFeedDetails();
+        getRecentFeedDetails(data?.data);
 
         setIsSaved(data?.data?.user_like);
       } else {
@@ -65,11 +62,11 @@ const BusinessPageDetails = ({ navigation, route }) => {
     }
   };
 
-  const getRecentFeedDetails = async () => {
+  const getRecentFeedDetails = async (item) => {
     try {
       // setVisible(true);
       const params = {
-        business_name: detailData?.business_name,
+        business_name: item?.business_name,
       };
       const { data } = await apiCall(
         "POST",
@@ -129,6 +126,18 @@ const BusinessPageDetails = ({ navigation, route }) => {
     navigation.goBack();
   };
 
+  const handleSharePress = async () => {
+    const finalName = detailData?.business_name.split(" ").join("-");
+    const options = {
+      message: `https://abbypages.com/business/${finalName}`,
+    };
+    const shareResponse = await Share.open(options);
+  };
+
+  const handleReservationPress = () => {
+    navigation.navigate('RestroBooking', {detail : detailData})
+  }
+ 
   return (
     <View style={CommonStyles.container}>
       {/* {visible && <Loader state={visible} />} */}
@@ -145,6 +154,8 @@ const BusinessPageDetails = ({ navigation, route }) => {
         setIsSaved={setIsSaved}
         handleSavepress={handleSavepress}
         recentFeedData={recentFeedData}
+        handleSharePress={handleSharePress}
+        handleReservationPress={handleReservationPress}
       />
     </View>
   );
