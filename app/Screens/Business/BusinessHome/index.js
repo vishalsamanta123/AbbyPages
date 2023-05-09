@@ -6,7 +6,7 @@ import { useFocusEffect, useLinkProps } from "@react-navigation/native";
 import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import styles from "./components/styles";
 const BusinessHomeView = ({ navigation }) => {

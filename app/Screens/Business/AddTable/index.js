@@ -8,7 +8,7 @@ import ImageResizer from "react-native-image-resizer";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 const AddTable = ({ route, navigation }) => {
   const HedarType = route.params ? route.params.type : null;

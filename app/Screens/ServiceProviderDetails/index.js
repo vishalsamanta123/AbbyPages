@@ -16,7 +16,7 @@ import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import ImagePicker from "react-native-image-crop-picker";
 import _ from "lodash";
 import { windowWidth } from "../../Utils/Constant";

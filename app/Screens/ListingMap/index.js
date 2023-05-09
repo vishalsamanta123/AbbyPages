@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ListingMapScreen from "./components/ListingMapScreen";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 
 const ListingMapView = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");

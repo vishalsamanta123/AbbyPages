@@ -7,7 +7,7 @@ import ImagePicker from "react-native-image-crop-picker";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import { FONT_FAMILY_REGULAR, WHITE_COLOR_CODE } from "../../../Utils/Constant";

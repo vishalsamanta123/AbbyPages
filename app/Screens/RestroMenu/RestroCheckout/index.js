@@ -12,7 +12,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { CartContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import { Images } from "../../../Utils/images";
 

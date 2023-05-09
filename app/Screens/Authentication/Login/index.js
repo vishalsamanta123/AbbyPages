@@ -16,7 +16,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import DeviceInfo from "react-native-device-info";
 import { UserContext, AuthContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 
 GoogleSignin.configure({
   scopes: ["https://www.googleapis.com/auth/drive.readonly"],

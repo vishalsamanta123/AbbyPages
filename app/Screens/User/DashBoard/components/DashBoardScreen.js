@@ -128,7 +128,8 @@ const DashBoardScreen = (props) => {
                             />
                           ) : (
                             <>
-                              {activity?.image?.length > 0 ? (
+                              {Array.isArray(activity?.image) &&
+                              activity?.image?.length > 0 ? (
                                 <ScrollView
                                   nestedScrollEnabled
                                   contentContainerStyle={styles.photosVw}

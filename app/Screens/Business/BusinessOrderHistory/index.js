@@ -14,7 +14,7 @@ import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { OrderCategorySelect } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import moment from "moment";
 import {

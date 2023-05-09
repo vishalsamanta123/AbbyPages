@@ -5,7 +5,7 @@ import CheckoutDetail from "./components/CheckoutDetail";
 import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { apiCall } from "../../../Utils/httpClient";
 

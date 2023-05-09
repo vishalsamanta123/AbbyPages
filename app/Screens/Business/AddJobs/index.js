@@ -4,7 +4,7 @@ import styles from "./components/styles";
 import Loader from "../../../Utils/Loader";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import AddJobsScreen from "./components/AddJobsScreen";
 import { View, Text, TouchableOpacity } from "react-native";

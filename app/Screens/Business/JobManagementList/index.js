@@ -7,7 +7,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import CommonStyles from "../../../Utils/CommonStyles";
 import moment from "moment";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import { DrawerActions } from "@react-navigation/native";

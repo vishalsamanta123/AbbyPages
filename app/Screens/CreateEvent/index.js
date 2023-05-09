@@ -19,7 +19,7 @@ import ImagePicker from "react-native-image-crop-picker";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import Success from "../../Components/Modal/success";
 import Loader from "../../Utils/Loader";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import styles from "./components/styles";
 import { Images } from "../../Utils/images";
 

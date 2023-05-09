@@ -4,7 +4,7 @@ import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import { View } from "react-native";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 const ForgotPasswordView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

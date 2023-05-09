@@ -11,7 +11,11 @@ import MyTabBar from "./MyTabBar";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiCall, setDefaultHeader } from "../Utils/httpClient";
 import ENDPOINTS from "../Utils/apiEndPoints";
-import { UserContext, AuthContext } from "../Utils/UserContext";
+import {
+  UserContext,
+  AuthContext,
+  MessageShowModal,
+} from "../Utils/UserContext";
 import Loader from "../Utils/Loader";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 
@@ -43,6 +47,7 @@ import NewsFeed from "../Screens/User/BusinessPageMng/NewsFeed";
 import JobDetail from "../Screens/User/JobMng/JobDetail";
 import NeweFeedDetails from "../Screens/User/BusinessPageMng/NewsFeedDetails";
 import ApplyJob from "../Screens/User/JobMng/ApplyJob";
+import ShowMessage from "../Components/Modal/showMessage";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();

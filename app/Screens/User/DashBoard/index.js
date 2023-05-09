@@ -135,7 +135,7 @@ const DashBoardView = ({ navigation }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {/* {visible && <Loader state={visible} />} */}
+      {visible && <Loader state={visible} />}
       <DashBoardScreen
         setSliderPage={setSliderPage}
         recent_activity={recent_activity}

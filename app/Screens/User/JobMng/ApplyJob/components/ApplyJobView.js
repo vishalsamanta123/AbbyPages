@@ -291,7 +291,13 @@ const ApplyJobView = (props) => {
                 { label: "Female", value: 2 },
               ]}
               headTxt={"Gender"}
-              value={props.applyJob.gender === 1 ? "Male" : "Female"}
+              value={
+                props.applyJob.gender === "1"
+                  ? "Male"
+                  : props.applyJob.gender === "2"
+                  ? "Female"
+                  : ""
+              }
               labelField={"label"}
               valueField={"label"}
               onPressItem={(item) => {
@@ -340,7 +346,13 @@ const ApplyJobView = (props) => {
               { label: "No", value: "2" },
             ]}
             headTxt={"Veteran Status"}
-            value={props.applyJob.veteran_status === "1" ? "Yes" : "No"}
+            value={
+              props.applyJob.veteran_status === "1"
+                ? "Yes"
+                : props.applyJob.veteran_status === "2"
+                ? "No"
+                : ""
+            }
             labelField={"label"}
             valueField={"label"}
             onPressItem={(item) => {
@@ -351,18 +363,13 @@ const ApplyJobView = (props) => {
             }}
             searchInput={false}
           />
-          {props.requires ? (
-            <ScaleText style={styles.requireTxt}>
-              All this fields are required :- Résumé, Full Name, Email, Phone
-              Number, Current Company, Work Status, Visa Status
-            </ScaleText>
-          ) : null}
         </View>
         <View style={{ marginHorizontal: 18, marginVertical: 10 }}>
           <MainButton
             buttonTxt="Submit Application"
             paddingHeight={12}
             borderColor={COLORS.YELLOW}
+            txtColor={COLORS.YELLOW}
             onPressButton={() => props.onSubmit()}
           />
         </View>

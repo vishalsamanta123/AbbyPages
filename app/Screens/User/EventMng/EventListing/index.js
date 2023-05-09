@@ -6,7 +6,7 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Error from "../../../../Components/Modal/error";
+import Error from "../../../../Components/Modal/showMessage";
 import AllEvents from "./components/AllEvents";
 import moment from "moment";
 

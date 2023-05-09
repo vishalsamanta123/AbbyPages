@@ -9,7 +9,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import QuestionModal from "../../Components/Modal/questionModal";
 
 const NotificationSettingsView = ({ navigation }) => {

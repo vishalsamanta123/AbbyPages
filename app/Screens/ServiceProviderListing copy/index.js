@@ -15,7 +15,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import _ from "lodash";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 
 const ServiceProviderListingView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

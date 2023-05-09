@@ -8,7 +8,7 @@ import styles from "./components/styles";
 import { UserContext } from "../../Utils/UserContext";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 

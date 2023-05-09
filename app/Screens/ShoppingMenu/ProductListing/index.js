@@ -10,7 +10,7 @@ import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import InputSpinner from "react-native-input-spinner";
 import Button from "../../../Components/Button";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import styles from "./components/styles";
 import {
   YELLOW_COLOR_CODE,
