@@ -15,8 +15,8 @@ import moment from "moment";
 import styles from "./components/styles";
 import RestauranrtBookingScreen from "./components/RestauranrtBookingScreen";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/error";
+// import Success from "../../../../Components/Modal/success";
+// import Error from "../../../../Components/Modal/error";
 import { MainItemsView } from "../../../../Components/ListItemsView";
 
 const RestroBooking = ({ route, navigation }) => {
@@ -192,7 +192,7 @@ const RestroBooking = ({ route, navigation }) => {
       try {
         setVisible(true);
         const params = {
-          business_id: restroDetail.business_id.toString(),
+          business_id: restroDetail?.business_id.toString(),
           booking_date: date,
         };
         console.log("params: ", params);
@@ -230,11 +230,13 @@ const RestroBooking = ({ route, navigation }) => {
         } else {
           setVisible(false);
           setErrorMessage(data.message);
+          console.log('data.message: ', data.message);
           setVisibleErr(true);
         }
       } catch (error) {
         setVisible(false);
         setErrorMessage(error.message);
+        console.log('catch error.message: ', error.message);
         setVisibleErr(true);
       }
     }
@@ -311,7 +313,7 @@ const RestroBooking = ({ route, navigation }) => {
         peoplePicker={peoplePicker}
         setPeoplePicker={setPeoplePicker}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -320,7 +322,7 @@ const RestroBooking = ({ route, navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      />
+      /> */}
     </View>
   );
 };

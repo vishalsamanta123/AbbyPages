@@ -265,6 +265,6 @@ const styles = StyleSheet.create({
     borderWidth: Constants.standardBW,
     borderColor: COLORS.BORDER_LINE,
     width: "100%",
-    marginTop: 10
+    marginTop: 10,
   },
 });
