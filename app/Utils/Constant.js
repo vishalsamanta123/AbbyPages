@@ -43,6 +43,7 @@ export const COLORS = {
   BORDER_LINE: "#e5e4e4",
   YELLOW: "#ffba00",
   RGBA: "rgba(0,0,0,0.8)",
+  RGBA1: "rgba(0,0,0,0.4)",
   COMMON: "#dadada",
   LIGHT_BLACK: "#262626",
   GOLDEN: "#DAA520",
