@@ -12,7 +12,7 @@ import { YELLOW_COLOR_CODE, GREY_COLOR_CODE } from "../../../Utils/Constant";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import { AddItemCategory } from "../../../Utils/UserContext";

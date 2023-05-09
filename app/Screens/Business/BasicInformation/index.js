@@ -4,7 +4,7 @@ import BasicInformationScreen from "./component/BasicInformationScreen";
 import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { _ } from "lodash";
 

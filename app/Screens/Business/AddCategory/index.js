@@ -11,7 +11,7 @@ import CommonStyles from "../../../Utils/CommonStyles";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import { useFocusEffect } from "@react-navigation/native";
 import Success from "../../../Components/Modal/success";
 import styles from "./components/styles";

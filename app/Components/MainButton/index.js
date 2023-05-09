@@ -10,6 +10,7 @@ const MainButton = (props) => {
     onPressButton = () => {},
     paddingHeight = 6,
     borderColor = COLORS.LIGHT_GREY,
+    txtColor = COLORS.BLACK,
   } = props;
   return (
     <TouchableOpacity
@@ -22,7 +23,16 @@ const MainButton = (props) => {
         },
       ]}
     >
-      <ScaleText style={styles.buttonTxt}>{buttonTxt}</ScaleText>
+      <ScaleText
+        style={[
+          styles.buttonTxt,
+          {
+            color: txtColor,
+          },
+        ]}
+      >
+        {buttonTxt}
+      </ScaleText>
     </TouchableOpacity>
   );
 };

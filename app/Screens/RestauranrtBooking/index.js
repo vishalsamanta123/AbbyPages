@@ -18,7 +18,7 @@ import styles from "./components/styles";
 import RestauranrtBookingScreen from "./components/RestauranrtBookingScreen";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 
 const RestauranrtBookingView = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

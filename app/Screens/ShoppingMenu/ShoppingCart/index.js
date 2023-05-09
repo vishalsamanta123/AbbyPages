@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import { ShoppingCartContext } from "../../../Utils/UserContext";
 import QuestionModal from "../../../Components/Modal/questionModal";
 

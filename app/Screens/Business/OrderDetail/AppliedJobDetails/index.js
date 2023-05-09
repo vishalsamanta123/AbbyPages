@@ -4,7 +4,7 @@ import AppliedJobDetails from "./components/AppliedJobDetails";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Error from "../../../../Components/Modal/error";
+import Error from "../../../../Components/Modal/showMessage";
 import Success from "../../../../Components/Modal/success";
 import moment from "moment";
 import FileViewer from "react-native-file-viewer";

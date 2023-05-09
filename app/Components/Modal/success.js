@@ -8,7 +8,7 @@ export default function success({ message, visible, closeModel }) {
     return (
         <View>
             <Dialog
-                visible={visible}
+                visible={true}
                 width={0.8}
                 useNativeDriver={true}
                 dialogAnimation={new SlideAnimation({ slideFrom: 'bottom' })}

@@ -12,7 +12,6 @@ const style = StyleSheet.create({
   },
   buttonTxt: {
     textAlign: "center",
-    color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.normal,
     bottom: 1.5,

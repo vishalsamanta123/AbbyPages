@@ -4,7 +4,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { AddItemCategory } from "../../../Utils/UserContext";
 

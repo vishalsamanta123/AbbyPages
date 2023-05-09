@@ -4,13 +4,12 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ApplyJobView from "./components/ApplyJobView";
 import DocumentPicker from "react-native-document-picker";
 import Loader from "../../../../Utils/Loader";
-import Error from "../../../../Components/Modal/error";
-import Success from "../../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
+import { COLORS } from "../../../../Utils/Constant";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const ApplyJob = ({ navigation, route }) => {
-  const itemData = route.params || {};
-  const [applyJob, setApplyJob] = useState({
+  const nullObj = {
     resume: "",
     fullName: "",
     email: "",
@@ -29,21 +28,23 @@ const ApplyJob = ({ navigation, route }) => {
     gender: "",
     race: "",
     veteran_status: "",
-  });
+  };
+  const itemData = route.params || {};
+  const [applyJob, setApplyJob] = useState(nullObj);
   const [visible, setVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [requires, setRequires] = useState(false);
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
   useFocusEffect(
     React.useCallback(() => {
-      getProfile();
+      getFormDetail();
     }, [navigation, route])
   );
 
-  const getProfile = async () => {
+  const getFormDetail = async () => {
     try {
       setVisible(true);
       const { data } = await apiCall("GET", ENDPOINTS.USERLASTJOBDTL);
@@ -94,6 +95,8 @@ const ApplyJob = ({ navigation, route }) => {
             ? getData?.veteran_status
             : "",
         });
+      } else {
+        setApplyJob(nullObj);
       }
     } catch (error) {}
   };
@@ -122,49 +125,64 @@ const ApplyJob = ({ navigation, route }) => {
     });
   };
   const validations = () => {
-    setRequires(true);
-    if (applyJob.resume == "") {
-      setErrorMessage("Please select Résumé");
-      setVisibleErr(true);
-      return false;
-    }
-    if (applyJob.fullName == "") {
-      setErrorMessage("Please fill fullname");
-      setVisibleErr(true);
-      return false;
-    }
-    if (applyJob.email == "") {
-      setErrorMessage("Please fill email");
-      setVisibleErr(true);
-      return false;
-    }
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(applyJob.email) === false) {
-      setErrorMessage("Please fill proper email");
-      setVisibleErr(true);
+    if (applyJob.resume == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please select Résumé",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.fullName == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter fullname",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.email == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter email",
+        type: "error",
+      });
+      return false;
+    } else if (reg.test(applyJob.email) === false) {
+      setMessageShow({
+        visible: true,
+        message: "Please enter correct email",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.phone == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter phone number",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.current_Company == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter current company name",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.workStatus == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please select work status",
+        type: "error",
+      });
+      return false;
+    } else if (applyJob.visaStatus == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please select visa status",
+        type: "error",
+      });
       return false;
     }
-    if (applyJob.phone == "") {
-      setErrorMessage("Please fill phone number");
-      setVisibleErr(true);
-      return false;
-    }
-    if (applyJob.current_Company == "") {
-      setErrorMessage("Please fill current company name");
-      setVisibleErr(true);
-      return false;
-    }
-    if (applyJob.workStatus == "") {
-      setErrorMessage("Please fill work status");
-      setVisibleErr(true);
-      return false;
-    }
-    if (applyJob.visaStatus == "") {
-      setErrorMessage("Please fill visa status");
-      setVisibleErr(true);
-      return false;
-    }
-    setRequires(false);
     return true;
   };
   const onSubmit = async () => {
@@ -211,30 +229,64 @@ const ApplyJob = ({ navigation, route }) => {
           });
         const { data } = await apiCall("POST", ENDPOINTS.APPLY_JOB, formData);
         if (data.status === 200) {
-          setSuccessMessage(data.message);
-          setVisibleSuccess(true);
           setVisible(false);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "success",
+          });
+        } else if (data.status === 201) {
+          setVisible(false);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "",
+          });
         } else {
           setVisible(false);
-          setErrorMessage(data.message);
-          setVisibleErr(true);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
         }
       } catch (error) {
-        setErrorMessage(error.message);
-        setVisibleErr(true);
+        setMessageShow({
+          visible: true,
+          message: error?.message,
+          type: "error",
+        });
       }
     }
   };
   return (
     <>
-      {visible && <Loader state={visible} />}
+      {visible ? <Loader state={true} /> : null}
+      <ShowMessage
+        visible={messageShow?.visible}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
+        message={messageShow?.message}
+        backgroundColor={
+          messageShow?.type === "success"
+            ? COLORS.LIGHT_GREEN
+            : messageShow?.type === "error"
+            ? COLORS.LIGHT_RED
+            : ""
+        }
+        position={messageShow?.type === "success" ? "center" : "top"}
+      />
       <ApplyJobView
         itemData={itemData}
         onSubmit={onSubmit}
         openUpload={openUpload}
         applyJob={applyJob}
         setApplyJob={setApplyJob}
-        requires={requires}
       />
     </>
   );

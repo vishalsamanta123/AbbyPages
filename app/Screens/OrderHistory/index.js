@@ -14,7 +14,7 @@ import { apiCall } from "../../Utils/httpClient";
 import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 
 const OrderHistoryView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

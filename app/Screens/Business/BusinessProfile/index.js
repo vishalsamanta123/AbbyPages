@@ -8,7 +8,7 @@ import Loader from "../../../Utils/Loader";
 import styles from "./components/styles";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";

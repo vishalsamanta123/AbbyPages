@@ -4,7 +4,7 @@ import ForgotPasswordField from "./components/ForgotPasswordField";
 import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 const ForgotPasswordFieldView = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

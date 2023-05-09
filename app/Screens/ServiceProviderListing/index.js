@@ -15,7 +15,7 @@ import ENDPOINTS from "../../Utils/apiEndPoints";
 import Loader from "../../Utils/Loader";
 import Success from "../../Components/Modal/success";
 import _ from "lodash";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import { Images } from "../../Utils/images";
 import { LINE_COMMON_COLOR_CODE, WHITE_COLOR_CODE } from "../../Utils/Constant";
 

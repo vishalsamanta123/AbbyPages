@@ -4,7 +4,7 @@ import { apiCall } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import GetStartedScreen from "./component/GetStartedScreen";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
 import { _ } from "lodash";
 const GetStarted = ({ navigation, route }) => {

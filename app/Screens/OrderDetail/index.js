@@ -8,7 +8,7 @@ import Loader from "../../Utils/Loader";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
 import FileViewer from "react-native-file-viewer";
 import Success from "../../Components/Modal/success";
-import Error from "../../Components/Modal/error";
+import Error from "../../Components/Modal/showMessage";
 import QuestionModal from "../../Components/Modal/questionModal";
 const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);

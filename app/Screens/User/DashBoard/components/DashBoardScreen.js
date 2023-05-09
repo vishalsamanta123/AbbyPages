@@ -19,7 +19,6 @@ import ScaleText from "../../../../Components/ScaleText";
 import { ListShimmer } from "../../../../Components/ShimmerEffect";
 
 const DashBoardScreen = (props) => {
-
   const renderSlideItem = ({ item }) => {
     return (
       <View style={{ flex: 1, marginHorizontal: 4 }}>
@@ -129,7 +128,8 @@ const DashBoardScreen = (props) => {
                             />
                           ) : (
                             <>
-                              {Array.isArray(activity?.image) && activity?.image?.length > 0 ? (
+                              {Array.isArray(activity?.image) &&
+                              activity?.image?.length > 0 ? (
                                 <ScrollView
                                   nestedScrollEnabled
                                   contentContainerStyle={styles.photosVw}

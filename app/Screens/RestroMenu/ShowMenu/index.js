@@ -18,7 +18,7 @@ import { CartContext } from "../../../Utils/UserContext";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import { Images } from "../../../Utils/images";
 
 const ShowMenuView = ({ route, navigation }) => {

@@ -10,7 +10,7 @@ import { BLACK_COLOR_CODE } from "../../../Utils/Constant";
 import moment from "moment";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import { Images } from "../../../Utils/images";
 
 const EventManagement = () => {

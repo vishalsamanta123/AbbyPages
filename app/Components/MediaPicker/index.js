@@ -129,7 +129,6 @@ const MediaPicker = (props) => {
               "Abby Pages Would Like to Access Your Photos",
               "To allow, tap on Settings and turn on Photos."
             );
-            console.log("res", res);
             if (res == "setting1") {
               openPermissionSetting(
                 "Abby Pages Would Like to Access Your Photos",

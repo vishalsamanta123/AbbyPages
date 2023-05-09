@@ -9,7 +9,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import { Platform, View } from "react-native";
 import Loader from "../../../Utils/Loader";
 import { UserContext, AuthContext } from "../../../Utils/UserContext";
-import Error from "../../../Components/Modal/error";
+import Error from "../../../Components/Modal/showMessage";
 import {
   LoginManager,
   AccessToken,
