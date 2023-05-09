@@ -23,6 +23,7 @@ import ScaleText from "../../../../../Components/ScaleText";
 import BusinessGallery from "./BusinessGallery";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
+import Button from "../../../../../Components/Button";
 
 const BusinessPageDetailsView = (props) => {
   const considerd = [
@@ -48,18 +49,17 @@ const BusinessPageDetailsView = (props) => {
   ];
   function handleGetDirections(lattitude, longitude) {
     if (Platform.OS === "android") {
-      const url = `${
-        "http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
-      }`;
+      const url = `${"http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
+        }`;
       Linking.canOpenURL(url)
         .then((supported) => {
           if (supported) {
             Linking.openURL(
               "http://maps.google.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
+              lattitude +
+              "," +
+              longitude +
+              ""
             );
           } else {
             alert("Don't know how to go");
@@ -74,10 +74,10 @@ const BusinessPageDetailsView = (props) => {
           if (supported) {
             Linking.openURL(
               "http://maps.apple.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
+              lattitude +
+              "," +
+              longitude +
+              ""
             );
           } else {
             alert("Don't know how to go");
@@ -182,23 +182,23 @@ const BusinessPageDetailsView = (props) => {
                 {
                   color:
                     props?.detailData?.business_open_time?.closing_day === 1 &&
-                    props?.detailData?.business_open_time?.temporary_close ===
+                      props?.detailData?.business_open_time?.temporary_close ===
                       1 &&
-                    props?.detailData?.business_open_time?.permanent_close === 1
+                      props?.detailData?.business_open_time?.permanent_close === 1
                       ? COLORS.LIGHT_GREEN
                       : COLORS.LIGHT_RED,
                 },
               ]}
             >
               {props?.detailData?.business_open_time?.closing_day === 1 &&
-              props?.detailData?.business_open_time?.temporary_close === 1 &&
-              props?.detailData?.business_open_time?.permanent_close === 1
+                props?.detailData?.business_open_time?.temporary_close === 1 &&
+                props?.detailData?.business_open_time?.permanent_close === 1
                 ? "Open Now"
                 : "Closed Now"}
             </ScaleText>
             {props?.detailData?.business_open_time?.closing_day === 1 &&
-            props?.detailData?.business_open_time?.temporary_close === 1 &&
-            props?.detailData?.business_open_time?.permanent_close === 1 ? (
+              props?.detailData?.business_open_time?.temporary_close === 1 &&
+              props?.detailData?.business_open_time?.permanent_close === 1 ? (
               <ScaleText style={styles.smallTxt}>
                 {" "}
                 - {props?.detailData?.business_open_time?.timeline}
@@ -370,6 +370,36 @@ const BusinessPageDetailsView = (props) => {
           }}
         /> */}
       </View>
+      <View style={styles.mainContainer}>
+        <View style={styles.reservationView}>
+          <ScaleText style={styles.sectionTxt}>Make a Reservation</ScaleText>
+          <Button
+            style={[{ marginTop: 20 }]}
+            buttonLabelStyle={styles.btnTextCenter}
+            buttonText={'Find a Table'}
+            onPress={() => props.handleReservationPress()}
+          />
+        </View>
+      </View>
+      <View style={styles.mainContainer}>
+        <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
+        <View style={CommonStyles.justifyCenter}>
+          <Button
+            style={[{ margin: 10 }]}
+            buttonLabelStyle={styles.btnTextCenter}
+            buttonText={'Start Order Delivery'}
+            onPress={() => props.handleReservationPress()}
+            width={'45%'}
+          />
+          <Button
+            style={[{ margin: 10 }]}
+            buttonLabelStyle={styles.btnTextCenter}
+            buttonText={'Start Order Takeout'}
+            onPress={() => props.handleReservationPress()}
+            width={'45%'}
+          />
+        </View>
+      </View>
       <View style={[styles.mainContainer, { paddingHorizontal: 0 }]}>
         <Image
           source={{ uri: imagePreviewUrl }}
@@ -462,11 +492,11 @@ const BusinessPageDetailsView = (props) => {
             }}
           >
             <ScaleText
-              numberOfLines={2}
+              numberOfLines={1}
               style={[
                 styles.titletxt,
                 {
-                  width: "95%",
+                  width: "90%",
                 },
               ]}
             >
@@ -767,7 +797,7 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>Copy Link</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw}>
+            <TouchableOpacity style={styles.smallOptionVw} onPress={() => props.handleSharePress()}>
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"dots-horizontal"}

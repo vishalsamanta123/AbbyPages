@@ -122,7 +122,8 @@ const MainItemsView = (props) => {
           </View>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.rowVw}>
+        <>
+        <TouchableOpacity style={[styles.rowVw, {marginTop: 10}]}>
           <Image
             style={styles.smallImgVw}
             resizeMode="cover"
@@ -139,7 +140,7 @@ const MainItemsView = (props) => {
               ]}
             >
               <View style={{ width: "70%" }}>
-                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
+                <ScaleText style={[styles.largeNameTxt, { color: COLORS.BLACK }]}>
                   {title}
                 </ScaleText>
                 <View style={styles.rowVw}>
@@ -162,9 +163,12 @@ const MainItemsView = (props) => {
                 </ScaleText>
               </View>
             </View>
-            <ScaleText>{description}</ScaleText>
+            <ScaleText style={styles.descTxt}>{description}</ScaleText>
           </View>
         </TouchableOpacity>
+        <View style={styles.postBreakView}></View>
+        </>
+
       )}
     </>
   );
@@ -252,5 +256,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginLeft: 10,
     marginTop: 10,
+  },
+  descTxt:{
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  postBreakView: {
+    borderWidth: Constants.standardBW,
+    borderColor: COLORS.BORDER_LINE,
+    width: "100%",
+    marginTop: 10
   },
 });

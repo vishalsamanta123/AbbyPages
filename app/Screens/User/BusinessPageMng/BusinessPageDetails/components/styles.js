@@ -426,5 +426,10 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.smallL,
     marginTop: 10
   },
+  reservTxt:{
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+  },
+  btnTextCenter:{ color: COLORS.GREY, textAlign: 'center' }
 });
 export default Styles;
