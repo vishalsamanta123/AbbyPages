@@ -230,13 +230,13 @@ const RestroBooking = ({ route, navigation }) => {
         } else {
           setVisible(false);
           setErrorMessage(data.message);
-          console.log('data.message: ', data.message);
+          console.log("data.message: ", data.message);
           setVisibleErr(true);
         }
       } catch (error) {
         setVisible(false);
         setErrorMessage(error.message);
-        console.log('catch error.message: ', error.message);
+        console.log("catch error.message: ", error.message);
         setVisibleErr(true);
       }
     }

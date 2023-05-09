@@ -228,26 +228,23 @@ export const openPermissionSetting = (
 };
 
 export const OpenDoc = async (url) => {
+  console.log("url: ", url);
   function getUrlExtension(url) {
     return url.split(/[#?]/)[0].split(".").pop().trim();
   }
   const extension = getUrlExtension(url);
-
   const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
-
   const options = {
     fromUrl: url,
     toFile: localFile,
   };
-  console.log('options: ', options);
   RNFS.downloadFile(options)
     .promise.then(() => FileViewer.open(localFile))
     .then((r) => {
-      console.log("r", r);
+      // console.log("r", r);
       // success
     })
     .catch((error) => {
-    console.log('error: ', error);
-      
+      console.log("error: ", error);
     });
 };
