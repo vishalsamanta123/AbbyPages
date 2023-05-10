@@ -19,6 +19,7 @@ const Button = (props) => {
     fontSize = 18,
     paddingHeight = 17,
     borderRadius = 0,
+    alignSelf = "center",
   } = props;
   const { button, buttonLabel, iconsVw } = styles;
   return (
@@ -32,7 +33,8 @@ const Button = (props) => {
           {
             width: width,
             paddingVertical: paddingHeight,
-            borderRadius:borderRadius
+            borderRadius: borderRadius,
+            alignSelf: alignSelf,
           },
         ]}
       >
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.YELLOW,
     alignItems: "center",
     flexDirection: "row",
-    alignSelf: "center",
     padding: 17,
     borderRadius: 5,
     justifyContent: "center",

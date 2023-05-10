@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useFocusEffect, useLinkProps } from "@react-navigation/native";
-import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useContext } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { Image, View, Text, TouchableOpacity } from "react-native";
 import InputSpinner from "react-native-input-spinner";
 import AsyncStorage from "@react-native-community/async-storage";
-import ShowMenu from "./component/ShowMenu";
+import RestroMenuView from "./component/RestroMenuView";
 import _ from "lodash";
 import styles from "./component/styles";
 import {
@@ -11,17 +11,17 @@ import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LIGHT_WHITE_COLOR,
-} from "../../../Utils/Constant";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { apiCall } from "../../../Utils/httpClient";
-import { CartContext } from "../../../Utils/UserContext";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import Loader from "../../../Utils/Loader";
-import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/showMessage";
-import { Images } from "../../../Utils/images";
+} from "../../../../Utils/Constant";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import { CartContext } from "../../../../Utils/UserContext";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Loader from "../../../../Utils/Loader";
+import Success from "../../../../Components/Modal/success";
+import Error from "../../../../Components/Modal/showMessage";
+import { Images } from "../../../../Utils/images";
 
-const ShowMenuView = ({ route, navigation }) => {
+const RestroMenu = ({ route, navigation }) => {
   const [cartData, setCartData] = useContext(CartContext);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -298,9 +298,7 @@ const ShowMenuView = ({ route, navigation }) => {
                 <Image source={Images.STAR_FILLED_IMG} />
                 <Text style={styles.ReviewText}> {item.rating} Review</Text>
                 {cartData &&
-                  cartData.some(({ item_id }) => item_id === item.item_id) ? (
-                  // {addBtn === index ? selected_row ?
-                  // <Text>true1</Text>
+                cartData.some(({ item_id }) => item_id === item.item_id) ? (
                   <InputSpinner
                     value={getqty(item)}
                     onIncrease={(value) => addToCart(item, value)}
@@ -348,11 +346,11 @@ const ShowMenuView = ({ route, navigation }) => {
       setVisibleErr(true);
     }
   };
+
   const searchItem = (searchKey) => {
     setSearch(searchKey);
     if (searchKey.length == 0) {
       if (dataType === "allData") {
-        // handleRestroItemList(route?.params?.detail);
         setRestroItemList(restroItemParentList);
       } else {
         const filterData = _.filter(restroItemParentList, {
@@ -367,10 +365,13 @@ const ShowMenuView = ({ route, navigation }) => {
       setRestroItemList([...searchedData]);
     }
   };
+  const onPressItem = (item) => {
+    navigation.navigate("AddToCart", { itemDetail: item });
+  };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <ShowMenu
+      <RestroMenuView
         searchItem={searchItem}
         totalAmount={totalAmount}
         onPressCheckOut={onPressCheckOut}
@@ -381,8 +382,12 @@ const ShowMenuView = ({ route, navigation }) => {
         _handleSandwichDish={_handleSandwichDish}
         dataType={dataType}
         search={search}
+        isSelectedCatgory={isSelectedCatgory}
+        onPressItem={onPressItem}
+        addToCart={addToCart}
+        cartData={cartData}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -391,8 +396,8 @@ const ShowMenuView = ({ route, navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      />
+      /> */}
     </View>
   );
 };
-export default ShowMenuView;
+export default RestroMenu;

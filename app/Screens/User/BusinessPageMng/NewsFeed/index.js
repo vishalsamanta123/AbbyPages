@@ -19,7 +19,7 @@ const NewsFeed = ({ navigation, route }) => {
   });
   const [likeUnlikeData, setLikeUnlikeData] = useState({});
   const [commentResp, setCommentResp] = useState({});
-  const {business_name = ""} = route.params;
+  const { business_name = "" } = route.params;
   useFocusEffect(
     React.useCallback(() => {
       getNewsFeedDetails();
@@ -30,9 +30,9 @@ const NewsFeed = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        business_name: business_name ? business_name : '',
+        business_name: business_name ? business_name : "",
         limit: 10,
-        offset:0,
+        offset: 0,
       };
       const { data } = await apiCall(
         "POST",
@@ -41,7 +41,7 @@ const NewsFeed = ({ navigation, route }) => {
       );
       if (data.status == 200) {
         setVisible(false);
-        setNewsfeedData(data?.data);
+        setNewsfeedData(data?.data?.abbyConnectData);
         setCommentParams({
           business_id: "",
           comment: "",

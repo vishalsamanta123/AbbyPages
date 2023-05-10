@@ -1,14 +1,12 @@
 import { Platform, StyleSheet } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  GREY_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY } from "../../../../../Utils/Constant";
+
 const styles = StyleSheet.create({
+  listVw: {
+    alignItems: "center",
+    borderBottomWidth: Constants.standardBW,
+    borderColor: COLORS.BORDER_LINE,
+  },
   lablestyle: {
     flexDirection: "row",
     margin: 15,
@@ -16,28 +14,27 @@ const styles = StyleSheet.create({
   txtCat: {
     fontSize: 15,
     lineHeight: 18,
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
-  FlatlistContain: {
-    width: "100%",
-    borderTopColor: WHITE_COLOR_CODE,
-    borderTopWidth: 0.3,
+  toplistCon: {
     flexDirection: "row",
-    backgroundColor: YELLOW_COLOR_CODE,
+    alignItems: "center",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderBottomColor: COLORS.BORDER_LINE,
+    borderBottomWidth: Constants.normalBW,
   },
-  MainContainer: {
-    padding: 15,
-  },
+  MainContainer: {},
   searchVw: {
     width: "100%",
     height: 50,
     flexDirection: "row",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 10,
     marginBottom: 10,
     borderWidth: 0.9,
-    borderColor: GREY_COLOR_CODE,
+    borderColor: COLORS.GREY,
   },
   searchInputVw: {
     flex: 1,
@@ -46,13 +43,13 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     fontSize: 16,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     borderRadius: 5,
     flex: 1,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   MainHeadText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 24,
   },
   ConatinView: {
@@ -60,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 3,
     marginBottom: 15,
-    borderColor: LIGHT_GREY_COLOR_CODE,
+    borderColor: COLORS.LIGHT_GREY,
   },
   DishImgeStyle: {
     width: "40%",
@@ -70,35 +67,35 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   DishNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: BLACK_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
     fontSize: 17,
     width: "60%",
   },
   DiscrptnTxtStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     lineHeight: 18,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
     fontSize: 12,
     width: "45%",
   },
   PriceOfDishTxt: {
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
     fontSize: 19,
     lineHeight: 24,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   ReviewView: {
     flexDirection: "row",
     alignItems: "center",
   },
   ReviewText: {
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
     fontSize: 12,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   AddBtnTouchable: {
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     width: 90,
     height: 30,
     marginLeft: 18,
@@ -107,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   spinnerVw: {
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     marginLeft: 20,
     borderRadius: 6,
     justifyContent: "center",
@@ -122,8 +119,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   AddBtnTxt: {
-    color: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 16,
   },
   spinnerInput: {

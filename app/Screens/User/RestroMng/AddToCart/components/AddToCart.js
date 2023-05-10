@@ -11,17 +11,17 @@ import {
 } from "react-native";
 import InputSpinner from "react-native-input-spinner";
 import styles from "./styles";
-import Input from "../../../../Components/Input";
-import Button from "../../../../Components/Button";
-import Header from "../../../../Components/Header";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Input from "../../../../../Components/Input";
+import Button from "../../../../../Components/Button";
+import Header from "../../../../../Components/Header";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
-} from "../../../../Utils/Constant";
-import { Images } from "../../../../Utils/images";
+} from "../../../../../Utils/Constant";
+import { Images } from "../../../../../Utils/images";
 const AddToCartScreen = (props) => {
   return (
     <KeyboardAvoidingView

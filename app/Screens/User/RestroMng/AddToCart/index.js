@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View } from 'react-native';
 import _ from 'lodash';
-import { CartContext } from '../../../Utils/UserContext';
+import { CartContext } from '../../../../Utils/UserContext';
 import AddToCart from './components/AddToCart';
-import CommonStyles from '../../../Utils/CommonStyles';
-import { apiCall } from '../../../Utils/httpClient';
-import ENDPOINTS from '../../../Utils/apiEndPoints';
-import Loader from '../../../Utils/Loader';
-import Success from '../../../Components/Modal/success';
-import Error from '../../../Components/Modal/showMessage';
+import CommonStyles from '../../../../Utils/CommonStyles';
+import { apiCall } from '../../../../Utils/httpClient';
+import ENDPOINTS from '../../../../Utils/apiEndPoints';
+import Loader from '../../../../Utils/Loader';
+import Success from '../../../../Components/Modal/success';
+import Error from '../../../../Components/Modal/showMessage';
 const AddToCartView = ({ navigation, route }) => {
     const [visibleSuccess, setVisibleSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');

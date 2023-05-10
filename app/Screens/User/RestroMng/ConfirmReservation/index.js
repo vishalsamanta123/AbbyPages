@@ -130,9 +130,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
           params
         );
         if (data.status === 200) {
-          navigation.navigate("OrderHistory", {
-            navigateBackTo: "BusinessPageDetails",
-          });
+          navigation.navigate("OrderHistory");
           setSuccessMessage(data.message);
           setVisibleSuccess(true);
           setVisible(false);
@@ -160,18 +158,6 @@ const ConfirmReservationView = ({ navigation, route }) => {
         onPressEditDetails={onPressEditDetails}
         onPressCheckBox={onPressCheckBox}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() =>
-          navigation.navigate("OrderHistory", setVisibleSuccess(false))
-        }
-      /> */}
       <ShowMessage
         visible={visibleSuccess}
         message={successMessage}

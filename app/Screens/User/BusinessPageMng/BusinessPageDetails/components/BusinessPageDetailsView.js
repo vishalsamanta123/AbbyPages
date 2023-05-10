@@ -26,40 +26,20 @@ import Collage from "../../../../../Components/Collage";
 import Button from "../../../../../Components/Button";
 
 const BusinessPageDetailsView = (props) => {
-  const considerd = [
-    {
-      businees_name: "Sandeepan da san",
-      description:
-        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
-      profile: require("../../../../../Assets/extraImages/demo-profile-image.png"),
-      review: { businees_review: 3 },
-    },
-    {
-      businees_name: "Sunshine glamour",
-      description:
-        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
-      profile: require("../../../../../Assets/extraImages/demo-profile-image.png"),
-    },
-    {
-      businees_name: "First Impression",
-      description:
-        "Hair and cut solution and more for you and lorem upseum dolor sit amet",
-      profile: require("../../../../../Assets/extraImages/cap.png"),
-    },
-  ];
   function handleGetDirections(lattitude, longitude) {
     if (Platform.OS === "android") {
-      const url = `${"http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
-        }`;
+      const url = `${
+        "http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
+      }`;
       Linking.canOpenURL(url)
         .then((supported) => {
           if (supported) {
             Linking.openURL(
               "http://maps.google.com/maps?daddr=" +
-              lattitude +
-              "," +
-              longitude +
-              ""
+                lattitude +
+                "," +
+                longitude +
+                ""
             );
           } else {
             alert("Don't know how to go");
@@ -74,10 +54,10 @@ const BusinessPageDetailsView = (props) => {
           if (supported) {
             Linking.openURL(
               "http://maps.apple.com/maps?daddr=" +
-              lattitude +
-              "," +
-              longitude +
-              ""
+                lattitude +
+                "," +
+                longitude +
+                ""
             );
           } else {
             alert("Don't know how to go");
@@ -87,7 +67,6 @@ const BusinessPageDetailsView = (props) => {
     }
   }
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props?.detailData?.latitude},${props?.detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
-
   const renderPopularDish = (item) => {
     return (
       <TouchableOpacity style={styles.popularCardTouch}>
@@ -182,23 +161,23 @@ const BusinessPageDetailsView = (props) => {
                 {
                   color:
                     props?.detailData?.business_open_time?.closing_day === 1 &&
-                      props?.detailData?.business_open_time?.temporary_close ===
+                    props?.detailData?.business_open_time?.temporary_close ===
                       1 &&
-                      props?.detailData?.business_open_time?.permanent_close === 1
+                    props?.detailData?.business_open_time?.permanent_close === 1
                       ? COLORS.LIGHT_GREEN
                       : COLORS.LIGHT_RED,
                 },
               ]}
             >
               {props?.detailData?.business_open_time?.closing_day === 1 &&
-                props?.detailData?.business_open_time?.temporary_close === 1 &&
-                props?.detailData?.business_open_time?.permanent_close === 1
+              props?.detailData?.business_open_time?.temporary_close === 1 &&
+              props?.detailData?.business_open_time?.permanent_close === 1
                 ? "Open Now"
                 : "Closed Now"}
             </ScaleText>
             {props?.detailData?.business_open_time?.closing_day === 1 &&
-              props?.detailData?.business_open_time?.temporary_close === 1 &&
-              props?.detailData?.business_open_time?.permanent_close === 1 ? (
+            props?.detailData?.business_open_time?.temporary_close === 1 &&
+            props?.detailData?.business_open_time?.permanent_close === 1 ? (
               <ScaleText style={styles.smallTxt}>
                 {" "}
                 - {props?.detailData?.business_open_time?.timeline}
@@ -376,7 +355,7 @@ const BusinessPageDetailsView = (props) => {
           <Button
             style={[{ marginTop: 20 }]}
             buttonLabelStyle={styles.btnTextCenter}
-            buttonText={'Find a Table'}
+            buttonText={"Find a Table"}
             onPress={() => props.handleReservationPress()}
           />
         </View>
@@ -387,16 +366,16 @@ const BusinessPageDetailsView = (props) => {
           <Button
             style={[{ margin: 10 }]}
             buttonLabelStyle={styles.btnTextCenter}
-            buttonText={'Start Order Delivery'}
-            onPress={() => props.handleOrderPress()}
-            width={'45%'}
+            buttonText={"Start Order Delivery"}
+            onPress={() => props.onPressOrder(1)}
+            width={"45%"}
           />
           <Button
             style={[{ margin: 10 }]}
             buttonLabelStyle={styles.btnTextCenter}
-            buttonText={'Start Order Takeout'}
-            onPress={() => props.handleOrderPress()}
-            width={'45%'}
+            buttonText={"Start Order Takeout"}
+            onPress={() => props.onPressOrder(2)}
+            width={"45%"}
           />
         </View>
       </View>
@@ -527,7 +506,9 @@ const BusinessPageDetailsView = (props) => {
         <View style={styles.mainContainer}>
           <TouchableOpacity
             onPress={() => {
-              props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
+              props.handleNavigation("NewsFeed", {
+                business_name: props?.detailData?.business_name,
+              });
             }}
           >
             <ScaleText style={styles.sectionTxt}>News feeds</ScaleText>
@@ -535,7 +516,9 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.rowVw}
               onPress={() => {
-                props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
+                props.handleNavigation("NewsFeed", {
+                  business_name: props?.detailData?.business_name,
+                });
               }}
             >
               <Image
@@ -596,7 +579,9 @@ const BusinessPageDetailsView = (props) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
+                props.handleNavigation("NewsFeed", {
+                  business_name: props?.detailData?.business_name,
+                });
               }}
               style={styles.tapButtonsVw}
             >
@@ -665,7 +650,6 @@ const BusinessPageDetailsView = (props) => {
                     </View>
                   ) : null}
                   <View style={CommonStyles.straightCon}>
-                    <Image source={considr?.logo} style={styles.considrImgVw} />
                     <ScaleText style={styles.considrTxtVw}>
                       {considr?.about_business?.substring(0, 60)}
                       {"..."}
@@ -696,7 +680,10 @@ const BusinessPageDetailsView = (props) => {
           {"..."}
         </ScaleText>
         <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-          <Image source={considerd[0].profile} style={styles.considrImgVw} />
+          <Image
+            source={{ uri: props?.detailData?.owner_image }}
+            style={styles.considrImgVw}
+          />
           <View>
             <ScaleText style={styles.businessNameInDetailTxt}>
               {props?.detailData?.business_user_name}
@@ -797,7 +784,10 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>Copy Link</ScaleText>
           </View>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={styles.smallOptionVw} onPress={() => props.handleSharePress()}>
+            <TouchableOpacity
+              style={styles.smallOptionVw}
+              onPress={() => props.handleSharePress()}
+            >
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"dots-horizontal"}

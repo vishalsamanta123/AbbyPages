@@ -27,31 +27,9 @@ const MoreInfo = (props) => {
   } = props;
   const amenities = detailData?.amenities?.split(",");
 
-  const DUMMY_DATA = [
-    {
-      jobRole: "Full stack developer",
-      location: "mumbai, indore, hyderabad, gurgaon",
-      experience: 2.5,
-      createdDate: "9d ago",
-    },
-    {
-      jobRole: "Full stack developer",
-      location: "mumbai, indore, hyderabad, gurgaon",
-      experience: 2.5,
-      createdDate: "9d ago",
-    },
-    {
-      jobRole: "Full stack developer",
-      location: "mumbai, indore, hyderabad, gurgaon",
-      experience: 2.5,
-      createdDate: "9d ago",
-    },
-  ];
-
   const getJobType = (jobType) => {
     // 1 = Fixed Term Freelance ,2= Paid Freelance , 3= Unpaid Full Time ,
     // 4 = Paid Internship , 5 = Part Time Temporary , 6 = Unpaid Internship
-    console.log(typeof jobType);
     let val = "";
     val =
       jobType === "1"
@@ -67,7 +45,6 @@ const MoreInfo = (props) => {
         : jobType === "6"
         ? "Unpaid Internship"
         : "Not Found";
-
     return val;
   };
 
@@ -112,7 +89,6 @@ const MoreInfo = (props) => {
   };
 
   const renderEvents = (item) => {
-    console.log("item renderEvents", item);
     return (
       <View style={styles.eventsView}>
         <ImageBackground
@@ -225,7 +201,7 @@ const MoreInfo = (props) => {
             </ScaleText>
             <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
               <Image
-                source={require("../../../../../Assets/extraImages/demo-profile-image.png")}
+                source={{ uri: props.detailData?.owner_image }}
                 style={styles.considrImgVw}
               />
               <View>

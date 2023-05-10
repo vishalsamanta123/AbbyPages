@@ -4,7 +4,7 @@ import {
   FONT_FAMILY_REGULAR,
   LIGHT_GREY_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   ADDBtnTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
