@@ -228,7 +228,6 @@ export const openPermissionSetting = (
 };
 
 export const OpenDoc = async (url) => {
-  console.log("url: ", url);
   function getUrlExtension(url) {
     return url.split(/[#?]/)[0].split(".").pop().trim();
   }
@@ -241,8 +240,7 @@ export const OpenDoc = async (url) => {
   RNFS.downloadFile(options)
     .promise.then(() => FileViewer.open(localFile))
     .then((r) => {
-      // console.log("r", r);
-      // success
+      console.log("r", r);
     })
     .catch((error) => {
       console.log("error: ", error);

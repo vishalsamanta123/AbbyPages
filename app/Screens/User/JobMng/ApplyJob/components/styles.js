@@ -43,6 +43,7 @@ const Styles = StyleSheet.create({
   rightImgVw: {
     marginLeft: 8,
     paddingVertical: 10,
+    alignItems: "center",
   },
   dropDownImg: {
     width: 20,
