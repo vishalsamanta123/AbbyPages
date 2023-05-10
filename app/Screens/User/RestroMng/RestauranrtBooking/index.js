@@ -18,6 +18,7 @@ import Loader from "../../../../Utils/Loader";
 // import Success from "../../../../Components/Modal/success";
 // import Error from "../../../../Components/Modal/error";
 import { MainItemsView } from "../../../../Components/ListItemsView";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const RestroBooking = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -323,6 +324,14 @@ const RestroBooking = ({ route, navigation }) => {
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
       /> */}
+      <ShowMessage
+        visible={visibleErr}
+        message={errorMessage}
+        onEndVisible={() => {
+          setVisibleErr(false);
+          setErrorMessage("");
+        }}
+      />
     </View>
   );
 };

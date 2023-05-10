@@ -47,9 +47,6 @@ const MainHeader = (props) => {
     onPressReset = () => {},
   } = props;
   const navigation = useNavigation();
-  const OnpressBack = () => {
-    navigation.goBack(null);
-  };
   const handleSearchPress = () => {
     navigation.navigate("CategorySearch");
   };

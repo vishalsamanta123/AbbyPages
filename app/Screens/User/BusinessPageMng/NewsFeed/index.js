@@ -19,8 +19,7 @@ const NewsFeed = ({ navigation, route }) => {
   });
   const [likeUnlikeData, setLikeUnlikeData] = useState({});
   const [commentResp, setCommentResp] = useState({});
-  const objData = route.params;
-
+  const {business_name = ""} = route.params;
   useFocusEffect(
     React.useCallback(() => {
       getNewsFeedDetails();
@@ -31,7 +30,9 @@ const NewsFeed = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        business_name: objData?.business_name,
+        business_name: business_name ? business_name : '',
+        limit: 10,
+        offset:0,
       };
       const { data } = await apiCall(
         "POST",
@@ -120,8 +121,8 @@ const NewsFeed = ({ navigation, route }) => {
     navigation.navigate("NeweFeedDetails", { post: data });
   };
 
-  const handleSharePress = async (post_id) => {
-    const finalName = objData?.business_name.split(" ").join("-");
+  const handleSharePress = async (post_id, business_name) => {
+    const finalName = business_name.split(" ").join("-");
     const options = {
       message: `https://abbypages.com/news-feeds/${finalName}/${post_id}`,
     };

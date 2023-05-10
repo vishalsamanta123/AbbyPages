@@ -58,6 +58,8 @@ const MenuPage = ({ navigation, route }) => {
       });
     } else if (options.type === "") {
       navigation.navigate("Login");
+    } else if (options.type === "feed") {
+      navigation.navigate("NewsFeed", { business_name: "" });
     } else if (options?.type?.includes("Business")) {
       const supported = await Linking.canOpenURL(options.url);
       if (supported) {

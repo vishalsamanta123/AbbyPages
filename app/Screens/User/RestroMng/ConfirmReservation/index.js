@@ -44,7 +44,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
   };
 
   const onPressEditDetails = () => {
-    navigation.navigate("RestauranrtBooking", { detail: restroDetail });
+    navigation.navigate("RestroBooking", { detail: restroDetail });
   };
 
   const getRestroData = async () => {
@@ -105,6 +105,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
   };
   const onPressConfirm = async () => {
     const valid = validationForm();
+    console.log("valid: ", valid);
     if (valid) {
       try {
         setVisible(true);
@@ -128,9 +129,10 @@ const ConfirmReservationView = ({ navigation, route }) => {
           apiEndPoints.RESTAURANTS_TABLE_BOOKING,
           params
         );
-        console.log('data: ', data);
-
         if (data.status === 200) {
+          navigation.navigate("OrderHistory", {
+            navigateBackTo: "BusinessPageDetails",
+          });
           setSuccessMessage(data.message);
           setVisibleSuccess(true);
           setVisible(false);
@@ -173,8 +175,17 @@ const ConfirmReservationView = ({ navigation, route }) => {
       <ShowMessage
         visible={visibleSuccess}
         message={successMessage}
-        onEndVisible={() => {setVisibleSuccess(false)
-          setSuccessMessage("")
+        onEndVisible={() => {
+          setVisibleSuccess(false);
+          setSuccessMessage("");
+        }}
+      />
+      <ShowMessage
+        visible={visibleErr}
+        message={errorMessage}
+        onEndVisible={() => {
+          setVisibleErr(false);
+          setErrorMessage("");
         }}
       />
     </View>
