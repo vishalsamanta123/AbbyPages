@@ -50,6 +50,7 @@ import ApplyJob from "../Screens/User/JobMng/ApplyJob";
 import RestroBooking from "../Screens/User/RestroMng/RestauranrtBooking";
 import ConfirmReservationView from "../Screens/User/RestroMng/ConfirmReservation";
 import OrderHistoryView from "../Screens/User/RestroMng/OrderHistory";
+import RestroMenu from "../Screens/User/RestroMng/RestroMenu";
 
 const BusinessDrawer = createDrawerNavigator();
 const CustomDrawer = createDrawerNavigator();
@@ -83,6 +84,8 @@ function TabNavigation() {
       <Tab.Screen name="RestroBooking" component={RestroBooking} />
       <Tab.Screen name="ConfirmReservation" component={ConfirmReservationView} />
       <Tab.Screen name="OrderHistory" component={OrderHistoryView} />
+      <Tab.Screen name="RestroMenu" component={RestroMenu} />
+
     </Tab.Navigator>
   );
 }
@@ -307,6 +310,7 @@ function AppStack() {
       <Stack.Screen name="RestroBooking" component={TabNavigation} />
       <Stack.Screen name="ConfirmReservation" component={TabNavigation} />
       <Stack.Screen name="OrderHistory" component={TabNavigation} />
+      <Stack.Screen name="RestroMenu" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

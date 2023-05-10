@@ -17,8 +17,6 @@ import Success from "../../../../Components/Modal/success";
 import Error from "../../../../Components/Modal/showMessage";
 
 const OrderHistoryView = ({ navigation }) => {
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
@@ -133,18 +131,6 @@ const OrderHistoryView = ({ navigation }) => {
         handleOrderedItemList={handleOrderedItemList}
         setIsSelectedCatgory={setIsSelectedCatgory}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() =>
-          navigation.navigate("NotificationSettings", setVisibleSuccess(false))
-        }
-      /> */}
     </View>
   );
 };

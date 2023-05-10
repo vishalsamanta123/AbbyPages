@@ -135,9 +135,13 @@ const BusinessPageDetails = ({ navigation, route }) => {
   };
 
   const handleReservationPress = () => {
-    navigation.navigate('RestroBooking', {detail : detailData})
-  }
- 
+    navigation.navigate("RestroBooking", { detail: detailData });
+  };
+  const onPressOrder = (type) => {
+    const getData = { ...detailData, delivery_type: type };
+    navigation.navigate("RestroMenu", { detail: getData });
+  };
+
   return (
     <View style={CommonStyles.container}>
       {/* {visible && <Loader state={visible} />} */}
@@ -156,6 +160,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         recentFeedData={recentFeedData}
         handleSharePress={handleSharePress}
         handleReservationPress={handleReservationPress}
+        onPressOrder={onPressOrder}
       />
     </View>
   );
