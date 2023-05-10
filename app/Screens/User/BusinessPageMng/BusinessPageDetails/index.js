@@ -137,6 +137,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
   const handleReservationPress = () => {
     navigation.navigate('RestroBooking', {detail : detailData})
   }
+  const handleOrderPress = () => {
+    // navigation.navigate('RestroBooking', {detail : detailData})
+  }
  
   return (
     <View style={CommonStyles.container}>
@@ -156,6 +159,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         recentFeedData={recentFeedData}
         handleSharePress={handleSharePress}
         handleReservationPress={handleReservationPress}
+        handleOrderPress={handleOrderPress}
       />
     </View>
   );

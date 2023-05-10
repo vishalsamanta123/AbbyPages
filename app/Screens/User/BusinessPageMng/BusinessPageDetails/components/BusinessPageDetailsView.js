@@ -388,14 +388,14 @@ const BusinessPageDetailsView = (props) => {
             style={[{ margin: 10 }]}
             buttonLabelStyle={styles.btnTextCenter}
             buttonText={'Start Order Delivery'}
-            onPress={() => props.handleReservationPress()}
+            onPress={() => props.handleOrderPress()}
             width={'45%'}
           />
           <Button
             style={[{ margin: 10 }]}
             buttonLabelStyle={styles.btnTextCenter}
             buttonText={'Start Order Takeout'}
-            onPress={() => props.handleReservationPress()}
+            onPress={() => props.handleOrderPress()}
             width={'45%'}
           />
         </View>
