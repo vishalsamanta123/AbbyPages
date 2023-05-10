@@ -115,7 +115,7 @@ const NewsPost = (props) => {
           >
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.likeView} onPress={() => handleSharePress(newsData?.post_id)}>
+          <TouchableOpacity style={styles.likeView} onPress={() => handleSharePress(newsData?.post_id, newsData?.business_name)}>
             <ScaleText style={styles.likeSectionText}>Share</ScaleText>
           </TouchableOpacity>
         </View>

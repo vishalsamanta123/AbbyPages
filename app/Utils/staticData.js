@@ -12,6 +12,14 @@ export const businessTypes = [
     url: "https://business.abbypages.com/login",
   },
   {
+    type: "feed",
+    optionName: "News Feed",
+    origin: ICON_TYPE.OCTICONS,
+    name: "checklist",
+    size: 24,
+    color: LIGHT_BLACK_COLOR_CODE,
+  },
+  {
     type: "3",
     optionName: "Directory",
     origin: ICON_TYPE.ICONICONS,

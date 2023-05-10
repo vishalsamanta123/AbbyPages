@@ -1,24 +1,23 @@
 import { StyleSheet } from "react-native";
 import {
-  LINE_COMMON_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  GREY_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
+  COLORS,
+  FONT_FAMILY,
+  FONT_SIZE,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   ConfirmationContain: {
     padding: 15,
   },
   HaedingParatTXT: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
-    fontSize: 14,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
+    fontSize: FONT_SIZE.smallL,
     paddingLeft: 10,
   },
   notesTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: YELLOW_COLOR_CODE,
-    fontSize: 14,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.YELLOW,
+    fontSize: FONT_SIZE.smallL,
   },
   specialOffrVw: {
     flexDirection: "row",
@@ -31,7 +30,7 @@ const Styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     marginTop: 15,
-    borderColor: LINE_COMMON_COLOR_CODE,
+    borderColor: COLORS.COMMON,
     padding: 15,
   },
   RestroProfile: {
@@ -44,8 +43,8 @@ const Styles = StyleSheet.create({
     paddingLeft: 10,
   },
   RestroNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 19,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
   },
   DateViewContain: {
     flexDirection: "row",
@@ -58,9 +57,9 @@ const Styles = StyleSheet.create({
     resizeMode: "contain",
   },
   DateMainTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
-    fontSize: 13,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
+    fontSize: FONT_SIZE.smallL,
     paddingLeft: 5,
   },
   GuestsView: {
@@ -76,9 +75,9 @@ const Styles = StyleSheet.create({
   },
   EditDetailTxt: {
     textDecorationLine: "underline",
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: YELLOW_COLOR_CODE,
-    fontSize: 12,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.YELLOW,
+    fontSize: FONT_SIZE.small,
   },
 });
 export default Styles;
