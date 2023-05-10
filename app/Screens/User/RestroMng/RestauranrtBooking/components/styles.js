@@ -42,7 +42,7 @@ const Styles = StyleSheet.create({
   RatingStylesTxt: {
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.BOLD,
-    fontSize: 11,
+    fontSize: FONT_SIZE.verysmall,
   },
   RatingTextMain: {
     paddingLeft: 5,
@@ -58,7 +58,7 @@ const Styles = StyleSheet.create({
   },
   RestroNameTxt: {
     fontFamily: FONT_FAMILY.BOLD,
-    fontSize: 23,
+    fontSize: FONT_SIZE.largeM,
   },
   RateTextStyle: {
     fontFamily: FONT_FAMILY.REGULAR,
@@ -114,7 +114,7 @@ const Styles = StyleSheet.create({
   },
   WriteReviewTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: 17,
+    fontSize: FONT_SIZE.mediumL,
     color: COLORS.YELLOW,
   },
   UserContainer: {
@@ -132,7 +132,7 @@ const Styles = StyleSheet.create({
   ReviewFullView: {
     color: COLORS.GREY,
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: 13,
+    fontSize: FONT_SIZE.smallL,
   },
   ReviewFullList: {
     marginTop: 10,
@@ -143,7 +143,7 @@ const Styles = StyleSheet.create({
   },
   ImgeDetailTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: 10,
+    fontSize: FONT_SIZE.small,
     color: COLORS.GREY,
   },
   DishNameTxt: {
@@ -247,7 +247,7 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.medium,
   },
   noTableTxt: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.YELLOW,
     fontFamily: FONT_FAMILY.BLACK,
   },
@@ -275,7 +275,7 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.mediumL,
   },
   availableTimeTxt: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.medium,
     marginHorizontal: 10,
     fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
@@ -300,7 +300,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
   },
   peopleWithTxt: {
-    fontSize: 20,
+    fontSize: FONT_SIZE.large,
     fontFamily: FONT_FAMILY.REGULAR,
     color:   COLORS.BLACK,
   },

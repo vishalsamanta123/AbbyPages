@@ -527,7 +527,7 @@ const BusinessPageDetailsView = (props) => {
         <View style={styles.mainContainer}>
           <TouchableOpacity
             onPress={() => {
-              props.handleNavigation("NewsFeed", props?.detailData);
+              props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
             }}
           >
             <ScaleText style={styles.sectionTxt}>News feeds</ScaleText>
@@ -535,7 +535,7 @@ const BusinessPageDetailsView = (props) => {
             <TouchableOpacity
               style={styles.rowVw}
               onPress={() => {
-                props.handleNavigation("NewsFeed", props?.detailData);
+                props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
               }}
             >
               <Image
@@ -596,7 +596,7 @@ const BusinessPageDetailsView = (props) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                props.handleNavigation("NewsFeed", props?.detailData);
+                props.handleNavigation("NewsFeed", {business_name : props?.detailData?.business_name});
               }}
               style={styles.tapButtonsVw}
             >

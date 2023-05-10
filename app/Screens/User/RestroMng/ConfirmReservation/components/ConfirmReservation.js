@@ -1,46 +1,39 @@
 import React from "react";
 import {
   View,
-  Text,
-  StatusBar,
   Image,
   KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
-// import Header from "../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import Input from "../../../../../Components/Input";
 import Button from "../../../../../Components/Button";
 import styles from "./styles";
-import {
-  WHITE_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { FONT_SIZE, COLORS } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
-import Header from "../../../../../Components/Header";
+import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 const ConfirmReservation = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={[CommonStyles.container]}>
-      <Header
-        RightImg={null}
-        HeaderText={"Confirm Reservation"}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
+      <MainHeader
+        headerText={"Confirm Reservation"}
+        fontSize={FONT_SIZE.medium}
+        loginButton={false}
+        isLogin={true}
       />
-      <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
+      <View style={[CommonStyles.body, { backgroundColor: COLORS.WHITE }]}>
         <ScrollView>
           <View style={styles.ConfirmationContain}>
-            <Text style={styles.HaedingParatTXT}>
+            <ScaleText style={styles.HaedingParatTXT}>
               You 'll get response through Abby here. Businesses will not see
               your contact information.
-            </Text>
+            </ScaleText>
             <View style={styles.RestroInfoView}>
               <Image
                 style={styles.RestroProfile}
@@ -49,18 +42,18 @@ const ConfirmReservation = (props) => {
                 }}
               />
               <View style={styles.RestroNameView}>
-                <Text style={styles.RestroNameTxt}>
+                <ScaleText style={styles.RestroNameTxt}>
                   {props?.restroDetail?.business_name}
-                </Text>
+                </ScaleText>
                 <View style={styles.GuestsView}>
                   <Image
                     style={styles.UserImgeStyle}
                     resizeMode="contain"
                     source={Images.PROFILE_IMG}
                   />
-                  <Text style={styles.DateMainTxt}>
+                  <ScaleText style={styles.DateMainTxt}>
                     {props?.reservationData?.people} guests
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={styles.GuestsView}>
                   <Image
@@ -68,16 +61,18 @@ const ConfirmReservation = (props) => {
                     resizeMode="contain"
                     source={Images.CALENDER_IMG}
                   />
-                  <Text style={styles.DateMainTxt}>
+                  <ScaleText style={styles.DateMainTxt}>
                     {props?.reservationData?.date} , time{"- "}
                     {props?.reservationData?.time}
-                  </Text>
+                  </ScaleText>
                 </View>
                 <TouchableOpacity
                   onPress={() => props.onPressEditDetails()}
                   style={styles.GuestsView}
                 >
-                  <Text style={styles.EditDetailTxt}>Edit Details</Text>
+                  <ScaleText style={styles.EditDetailTxt}>
+                    Edit Details
+                  </ScaleText>
                 </TouchableOpacity>
               </View>
             </View>
@@ -141,13 +136,13 @@ const ConfirmReservation = (props) => {
             multiLine={true}
           />
           <View style={styles.ConfirmationContain}>
-            <Text style={[styles.HaedingParatTXT, { lineHeight: 21 }]}>
+            <ScaleText style={[styles.HaedingParatTXT, { lineHeight: 21 }]}>
               You'll receive texts about your restaurant visit. By continuing
               below, you agree to AbbyPage's Terms of
-              <Text style={styles.notesTxt}>Service</Text> and{" "}
-              <Text style={styles.notesTxt}>Privacy Policy</Text>
+              <ScaleText style={styles.notesTxt}>Service</ScaleText> and{" "}
+              <ScaleText style={styles.notesTxt}>Privacy Policy</ScaleText>
               .We'll send your name, mobile number, and notes to the restaurant.
-            </Text>
+            </ScaleText>
             <View style={styles.specialOffrVw}>
               <TouchableOpacity
                 onPress={() =>
@@ -165,9 +160,9 @@ const ConfirmReservation = (props) => {
                   }
                 />
               </TouchableOpacity>
-              <Text style={[styles.HaedingParatTXT, { lineHeight: 19 }]}>
+              <ScaleText style={[styles.HaedingParatTXT, { lineHeight: 19 }]}>
                 Receive special offers and updates from Osteria Toscana
-              </Text>
+              </ScaleText>
             </View>
           </View>
           <View style={{ marginBottom: 10 }}>

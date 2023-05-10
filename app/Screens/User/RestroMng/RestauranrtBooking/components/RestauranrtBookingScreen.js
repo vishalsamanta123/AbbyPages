@@ -4,14 +4,11 @@ import {
   Image,
   ScrollView,
   FlatList,
-  Text,
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
   ImageBackground,
 } from "react-native";
-import _ from "lodash";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -94,12 +91,12 @@ const RestauranrtBookingScreen = (props) => {
                     ? "Claimed"
                     : "UnClaimed"}
                 </ScaleText>
-                <Text style={styles.RatingTextMain}>
+                <ScaleText style={styles.RatingTextMain}>
                   {": " +
                     props?.restroDetail?.business_open_time?.open_time +
                     " - "}
                   {props?.restroDetail?.business_open_time?.close_time}
-                </Text>
+                </ScaleText>
               </View>
             ) : null}
           </View>
@@ -111,9 +108,9 @@ const RestauranrtBookingScreen = (props) => {
             }
             style={styles.CalenderSelect}
           >
-            <Text style={styles.DateSTyles}>
+            <ScaleText style={styles.DateSTyles}>
               {props?.date ? props.date : "Date"}
-            </Text>
+            </ScaleText>
             <View style={styles.TextInputImg}>
               <IconX
                 origin={ICON_TYPE.ANT_ICON}
@@ -138,9 +135,9 @@ const RestauranrtBookingScreen = (props) => {
               { marginBottom: props.peoplePicker ? 2 : 10 },
             ]}
           >
-            <Text style={styles.DateSTyles}>
+            <ScaleText style={styles.DateSTyles}>
               {props.SelectPeople ? props.SelectPeople : "People"}
-            </Text>
+            </ScaleText>
             <View style={styles.TextInputImg}>
               <IconX
                 origin={ICON_TYPE.ICONICONS}
@@ -168,7 +165,7 @@ const RestauranrtBookingScreen = (props) => {
                     props.setPeoplePicker(!props.peoplePicker);
                   }}
                 >
-                  <Text style={styles.peopleWithTxt}>{item.people}</Text>
+                  <ScaleText style={styles.peopleWithTxt}>{item.people}</ScaleText>
                 </TouchableOpacity>
               );
             })}
@@ -188,9 +185,9 @@ const RestauranrtBookingScreen = (props) => {
               ListEmptyComponent={() => {
                 return (
                   <View style={{ alignItems: "center" }}>
-                    <Text style={styles.availableTimeTxt}>
+                    <ScaleText style={styles.availableTimeTxt}>
                       No time slot available for this
-                    </Text>
+                    </ScaleText>
                   </View>
                 );
               }}
@@ -201,7 +198,7 @@ const RestauranrtBookingScreen = (props) => {
                   key={index}
                   style={styles.timePickVw}
                 >
-                  <Text style={styles.timeTxt}>{item.startTime}</Text>
+                  <ScaleText style={styles.timeTxt}>{item.startTime}</ScaleText>
                 </TouchableOpacity>
               )}
               ListFooterComponent={() => {
@@ -214,9 +211,9 @@ const RestauranrtBookingScreen = (props) => {
                       style={styles.ArrowImge}
                       source={Images.ARROW_UP_IMG}
                     />
-                    <Text style={styles.SeereservatnTxt}>
+                    <ScaleText style={styles.SeereservatnTxt}>
                       See reservations on other dates
-                    </Text>
+                    </ScaleText>
                   </TouchableOpacity>
                 );
               }}
@@ -230,10 +227,10 @@ const RestauranrtBookingScreen = (props) => {
               ListHeaderComponent={() => {
                 return (
                   <View style={{ alignItems: "center" }}>
-                    <Text style={styles.availableTimeTxt}>
+                    <ScaleText style={styles.availableTimeTxt}>
                       This time slot is upto 7 days from{" "}
                       {moment(props.date).format("YYYY-MM-DD")}
-                    </Text>
+                    </ScaleText>
                   </View>
                 );
               }}
@@ -254,7 +251,7 @@ const RestauranrtBookingScreen = (props) => {
                       ]}
                     >
                       <View style={{ flex: 5 }}>
-                        <Text style={styles.timeTxtHead}>{item.date}</Text>
+                        <ScaleText style={styles.timeTxtHead}>{item.date}</ScaleText>
                       </View>
                       <View style={{ justifyContent: "center" }}>
                         <IconX
@@ -274,14 +271,14 @@ const RestauranrtBookingScreen = (props) => {
                           ListEmptyComponent={() => {
                             return (
                               <View style={{ alignItems: "center" }}>
-                                <Text
+                                <ScaleText
                                   style={[
                                     styles.availableTimeTxt,
                                     { paddingVertical: 3 },
                                   ]}
                                 >
                                   No time slot available for this
-                                </Text>
+                                </ScaleText>
                               </View>
                             );
                           }}
@@ -296,9 +293,9 @@ const RestauranrtBookingScreen = (props) => {
                                 },
                               ]}
                             >
-                              <Text style={styles.timeTxt}>
+                              <ScaleText style={styles.timeTxt}>
                                 {item.startTime}
-                              </Text>
+                              </ScaleText>
                             </TouchableOpacity>
                           )}
                         />
@@ -311,9 +308,9 @@ const RestauranrtBookingScreen = (props) => {
           )}
         </View>
         <View style={styles.MainUpdateContainer}>
-          <Text style={styles.CovidMainTxt}>Notes from the Business</Text>
+          <ScaleText style={styles.CovidMainTxt}>Notes from the Business</ScaleText>
           <View style={styles.CovidParaView}>
-            <Text
+            <ScaleText
               style={[
                 styles.MainCovidPara,
                 {
@@ -324,17 +321,17 @@ const RestauranrtBookingScreen = (props) => {
             >
               Please call us if your reservation request is not available
               online. We will help you book your reservation. Thanks!
-            </Text>
+            </ScaleText>
           </View>
         </View>
         <View style={styles.LocationContainer}>
           <View style={styles.LocationTxtView}>
-            <Text style={styles.CovidMainTxt}>About</Text>
-            <Text
+            <ScaleText style={styles.CovidMainTxt}>About</ScaleText>
+            <ScaleText
               style={[styles.MainCovidPara, { lineHeight: 21, paddingTop: 10 }]}
             >
               {props?.restroDetail?.about_business}
-            </Text>
+            </ScaleText>
             <Image
               source={{ uri: imagePreviewUrl }}
               style={{ width: "100%", height: 150, marginTop: 10 }}
@@ -342,7 +339,7 @@ const RestauranrtBookingScreen = (props) => {
           </View>
         </View>
         <View style={styles.PopularDishContain}>
-          <Text style={styles.CovidMainTxt}>Photos</Text>
+          <ScaleText style={styles.CovidMainTxt}>Photos</ScaleText>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={props?.restroDetail?.image}
@@ -355,7 +352,7 @@ const RestauranrtBookingScreen = (props) => {
         {props?.restroDetail?.business_review?.length > 0 && (
           <View style={styles.AboutBusinessContain}>
             <View style={styles.FlexDirectnStyle}>
-              <Text style={styles.CovidMainTxt}>What are people saying?</Text>
+              <ScaleText style={styles.CovidMainTxt}>What are people saying?</ScaleText>
             </View>
             <FlatList
               keyExtractor={(item, index) => index.toString()}
@@ -367,7 +364,7 @@ const RestauranrtBookingScreen = (props) => {
           </View>
         )}
         <View style={styles.ReviewFullList}>
-          <Text style={[styles.CovidMainTxt]}>Recommended Business</Text>
+          <ScaleText style={[styles.CovidMainTxt]}>Recommended Business</ScaleText>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={props?.restroDetail?.recommended_business}
