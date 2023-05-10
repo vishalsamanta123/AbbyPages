@@ -149,4 +149,8 @@ export default {
   COMMENT_ON_ABBY_CONNECT_POST: "api/abbyConnect/commentOnAbbyConnectPost",
   GET_ABBY_CONNET_POST_DETAILS: "api/abbyConnect/getAbbyConnectPostDetail",
   USERLASTJOBDTL: "api/jobs/userLastJobDetail",
+  
+  // MarketPlace
+  PRODUCT_CATEGORY_LIST: "api/product/productCategoryList",
+  PRODUCT_FILTER_DATA: "api/product/getProductFlterData",
 };
