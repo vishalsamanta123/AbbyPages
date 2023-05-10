@@ -3,7 +3,7 @@ import { View, ScrollView, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import inputStyle from "../../../../../Components/MainInput/styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import { COLORS } from "../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import MainInput from "../../../../../Components/MainInput";
@@ -12,6 +12,7 @@ import MainPoll from "../../../../../Components/MainPoll";
 import SelectButton from "../../../../../Components/SelectButton";
 import MainButton from "../../../../../Components/MainButton";
 import { OpenDoc } from "../../../../../Utils/Globalfunctions";
+import MediaPicker from "../../../../../Components/MediaPicker";
 
 const ApplyJobView = (props) => {
   return (
@@ -43,7 +44,12 @@ const ApplyJobView = (props) => {
           <ScaleText style={styles.headTxt}>Submit your application</ScaleText>
           <View style={[inputStyle.mainCont, styles.inputCon]}>
             <ScaleText
-              onPress={() => props.openUpload(1)}
+              onPress={() =>
+                props.setDocUpload({
+                  type: "resume",
+                  open: true,
+                })
+              }
               numberOfLines={1}
               style={inputStyle.inputCon}
             >
@@ -63,8 +69,8 @@ const ApplyJobView = (props) => {
                   props?.applyJob?.open_resume != null
                 ) {
                   OpenDoc(
-                    props?.applyJob?.open_resume?.fileCopyUri
-                      ? props?.applyJob?.open_resume?.fileCopyUri
+                    props?.applyJob?.open_resume?.uri
+                      ? props?.applyJob?.open_resume?.uri
                       : props?.applyJob?.open_resume
                   );
                 }
@@ -82,6 +88,12 @@ const ApplyJobView = (props) => {
                 }
                 color={COLORS.RGBA}
               />
+              {props?.applyJob?.resume === "" ||
+              props?.applyJob?.resume === null ? null : (
+                <ScaleText style={{ fontSize: FONT_SIZE.light }}>
+                  View
+                </ScaleText>
+              )}
             </TouchableOpacity>
           </View>
           <MainInput
@@ -210,7 +222,12 @@ const ApplyJobView = (props) => {
           </ScaleText>
           <View style={[inputStyle.mainCont, styles.inputCon]}>
             <ScaleText
-              onPress={() => props.openUpload(2)}
+              onPress={() =>
+                props.setDocUpload({
+                  type: "letter",
+                  open: true,
+                })
+              }
               numberOfLines={1}
               style={inputStyle.inputCon}
             >
@@ -250,6 +267,12 @@ const ApplyJobView = (props) => {
                 }
                 color={COLORS.RGBA}
               />
+              {props?.applyJob?.cover_letter === "" ||
+              props?.applyJob?.cover_letter === null ? null : (
+                <ScaleText style={{ fontSize: FONT_SIZE.light }}>
+                  View
+                </ScaleText>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -403,6 +426,31 @@ const ApplyJobView = (props) => {
           />
         </View>
       </ScrollView>
+      <MediaPicker
+        Visible={props?.docUpload?.open}
+        setVisible={() =>
+          props.setDocUpload({
+            type: "",
+            open: false,
+          })
+        }
+        docType={"doc"}
+        imageData={(data) => {
+          if (props?.docUpload?.type === "resume") {
+            props.setApplyJob({
+              ...props.applyJob,
+              resume: data,
+              open_resume: data,
+            });
+          } else if (props?.docUpload?.type === "letter") {
+            props.setApplyJob({
+              ...props.applyJob,
+              cover_letter: data,
+              open_cover_letter: data,
+            });
+          }
+        }}
+      />
     </View>
   );
 };

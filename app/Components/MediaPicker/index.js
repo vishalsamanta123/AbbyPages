@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { Modal, TouchableOpacity, View } from "react-native";
 import React from "react";
 import ScaleText from "../ScaleText";
 import ImagePicker from "react-native-image-crop-picker";
@@ -14,8 +14,6 @@ import { COLORS } from "../../Utils/Constant";
 const MediaPicker = (props) => {
   const handleCameraPress = () => {
     ImagePicker.openCamera({
-      // width: 100,
-      // height: 100,
       cropping: true,
       multiple: props.multiple ? props.multiple : false,
       compressImageQuality: 1,
@@ -74,8 +72,6 @@ const MediaPicker = (props) => {
   };
   const handleGalleryPress = () => {
     ImagePicker.openPicker({
-      // width: 100,
-      // height: 100,
       cropping: true,
       multiple: props.multiple ? props.multiple : false,
       compressImageQuality: 1,
@@ -118,71 +114,213 @@ const MediaPicker = (props) => {
         name: result[0]?.name,
       });
     }
+    // DocumentPicker.pick({
+    //   presentationStyle: "fullScreen",
+    //   type: DocumentPicker.types.pdf,
+    //   copyTo: "cachesDirectory",
+    //   allowMultiSelection: false,
+    // }).then((pdf) => {
   };
   return (
-    <View style={styles.pickerContainer}>
-      <View style={styles.straightVw}>
-        <TouchableOpacity
-          onPress={async () => {
-            const res = await handlePermission(
-              "gallery",
-              "Abby Pages Would Like to Access Your Photos",
-              "To allow, tap on Settings and turn on Photos."
-            );
-            if (res == "setting1") {
-              openPermissionSetting(
-                "Abby Pages Would Like to Access Your Photos",
-                "To allow, tap on Settings and turn on Photos."
-              );
-            } else if (res) {
-              if (props.docType === "all") {
-                handleBrowsePress();
-              } else {
-                handleGalleryPress();
-              }
-            }
-          }}
-          style={styles.componentsVw}
-        >
-          <IconX
-            origin={ICON_TYPE.ENTYPO}
-            name={"images"}
-            size={50}
-            // color={COLORS.BLACK}
-          />
-          <ScaleText style={styles.componentsTxt}>
-            {"Choose from Gallery"}
-          </ScaleText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.componentsVw}
-          onPress={async () => {
-            const res = await handlePermission(
-              "camera",
-              "Justo Would Like to Access the Camera",
-              "To allow, tap on Settings and turn on Camera"
-            );
+    <>
+      {props.modalType === "opened" ? (
+        <View style={styles.pickerContainer}>
+          <View style={styles.straightVw}>
+            <TouchableOpacity
+              onPress={async () => {
+                const res = await handlePermission(
+                  "gallery",
+                  "Abby Pages Would Like to Access Your Photos",
+                  "To allow, tap on Settings and turn on Photos."
+                );
+                if (res == "setting1") {
+                  openPermissionSetting(
+                    "Abby Pages Would Like to Access Your Photos",
+                    "To allow, tap on Settings and turn on Photos."
+                  );
+                } else if (res) {
+                  if (props.docType === "doc") {
+                    handleBrowsePress();
+                  } else {
+                    handleGalleryPress();
+                  }
+                }
+              }}
+              style={styles.componentsVw}
+            >
+              <IconX
+                origin={ICON_TYPE.ENTYPO}
+                name={"images"}
+                size={50}
+                color={COLORS.RGBA1}
+              />
+              <ScaleText style={styles.componentsTxt}>
+                {"Open Gallery"}
+              </ScaleText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.componentsVw}
+              onPress={async () => {
+                const res = await handlePermission(
+                  "camera",
+                  "Justo Would Like to Access the Camera",
+                  "To allow, tap on Settings and turn on Camera"
+                );
 
-            if (res == "setting1") {
-              openPermissionSetting(
-                "Justo Would Like to Access the Camera",
-                "To allow, tap on Settings and turn on Camera"
-              );
-            } else if (res) {
-              handleCameraPress();
-            }
-          }}
-        >
-          <IconX
-            origin={ICON_TYPE.ANT_ICON}
-            name={"camerao"}
-            size={50}
-            // color={COLORS.BLACK}
-          />
-          <ScaleText style={styles.componentsTxt}>{"Open Camera"}</ScaleText>
-        </TouchableOpacity>
-      </View>
-    </View>
+                if (res == "setting1") {
+                  openPermissionSetting(
+                    "Justo Would Like to Access the Camera",
+                    "To allow, tap on Settings and turn on Camera"
+                  );
+                } else if (res) {
+                  handleCameraPress();
+                }
+              }}
+            >
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={"camerao"}
+                size={50}
+                color={COLORS.RGBA1}
+              />
+              <ScaleText style={styles.componentsTxt}>
+                {"Open Camera"}
+              </ScaleText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <Modal transparent={true} visible={props.Visible}>
+          <View style={styles.pickerContainer}>
+            <View style={styles.pickerModalCon}>
+              <View style={styles.cancelModalVw}>
+                <TouchableOpacity onPress={() => props.setVisible(false)}>
+                  <IconX
+                    origin={ICON_TYPE.ENTYPO}
+                    name={"circle-with-cross"}
+                    size={24}
+                    color={COLORS.WHITE}
+                  />
+                </TouchableOpacity>
+              </View>
+              {props.docType === "doc" ? (
+                <View style={styles.straightVw}>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      const res = await handlePermission(
+                        "gallery",
+                        "Abby Pages Would Like to Access Your Photos",
+                        "To allow, tap on Settings and turn on Photos."
+                      );
+                      if (res == "setting1") {
+                        openPermissionSetting(
+                          "Abby Pages Would Like to Access Your Photos",
+                          "To allow, tap on Settings and turn on Photos."
+                        );
+                      } else if (res) {
+                        handleBrowsePress();
+                      }
+                    }}
+                    style={styles.componentsVw}
+                  >
+                    <IconX
+                      origin={ICON_TYPE.ICONICONS}
+                      name={"document-outline"}
+                      size={28}
+                      color={COLORS.WHITE}
+                    />
+                    <ScaleText
+                      style={[
+                        styles.componentsTxt,
+                        {
+                          color: COLORS.WHITE,
+                        },
+                      ]}
+                    >
+                      {"Open Document"}
+                    </ScaleText>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={styles.straightVw}>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      const res = await handlePermission(
+                        "gallery",
+                        "Abby Pages Would Like to Access Your Photos",
+                        "To allow, tap on Settings and turn on Photos."
+                      );
+                      if (res == "setting1") {
+                        openPermissionSetting(
+                          "Abby Pages Would Like to Access Your Photos",
+                          "To allow, tap on Settings and turn on Photos."
+                        );
+                      } else if (res) {
+                        handleGalleryPress();
+                      }
+                    }}
+                    style={styles.componentsVw}
+                  >
+                    <IconX
+                      origin={ICON_TYPE.ENTYPO}
+                      name={"images"}
+                      size={28}
+                      color={COLORS.WHITE}
+                    />
+                    <ScaleText
+                      style={[
+                        styles.componentsTxt,
+                        {
+                          color: COLORS.WHITE,
+                        },
+                      ]}
+                    >
+                      {"Open Gallery"}
+                    </ScaleText>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.componentsVw}
+                    onPress={async () => {
+                      const res = await handlePermission(
+                        "camera",
+                        "Justo Would Like to Access the Camera",
+                        "To allow, tap on Settings and turn on Camera"
+                      );
+
+                      if (res == "setting1") {
+                        openPermissionSetting(
+                          "Justo Would Like to Access the Camera",
+                          "To allow, tap on Settings and turn on Camera"
+                        );
+                      } else if (res) {
+                        handleCameraPress();
+                      }
+                    }}
+                  >
+                    <IconX
+                      origin={ICON_TYPE.ANT_ICON}
+                      name={"camerao"}
+                      size={28}
+                      color={COLORS.WHITE}
+                    />
+                    <ScaleText
+                      style={[
+                        styles.componentsTxt,
+                        {
+                          color: COLORS.WHITE,
+                        },
+                      ]}
+                    >
+                      {"Open Camera"}
+                    </ScaleText>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </View>
+        </Modal>
+      )}
+    </>
   );
 };
 

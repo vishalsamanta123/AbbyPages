@@ -78,7 +78,7 @@ const BusinessGallery = (props) => {
           source={{ uri: item.image }}
           style={{
             height: 100,
-            width: Constants.windowWidth/3.8,
+            width: Constants.windowWidth / 3.8,
             margin: 10,
           }}
         />
@@ -134,7 +134,7 @@ const BusinessGallery = (props) => {
           isSearch={false}
           headerText={type === "view" ? "Business Gallery" : "Upload photo"}
           loginButton={false}
-          TxtMarginRight={70}
+          TxtMarginRight={"5%"}
           onPressBack={() => {
             setVisible({
               open: false,
@@ -171,8 +171,8 @@ const BusinessGallery = (props) => {
             </View>
             <View style={{ flex: 2 }}>
               <MediaPicker
-                Visible={isPickerVisible}
-                setVisible={setIsPickerVisible}
+                modalType={"opened"}
+                setVisible={false}
                 imageData={(data) => {
                   setImageData(data);
                 }}

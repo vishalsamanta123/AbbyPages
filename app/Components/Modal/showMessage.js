@@ -26,7 +26,7 @@ const ShowMessage = (props) => {
     if (messageType !== "press" && visible) {
       setTimeout(async () => {
         onEndVisible(false);
-      }, 3000);
+      }, 2500);
     }
   }, [visible, messageType]);
   return (

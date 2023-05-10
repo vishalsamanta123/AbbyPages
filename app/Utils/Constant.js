@@ -57,6 +57,7 @@ export const COLORS = {
   LIGHT_WHITE: "#efefef",
   DARK_PURPLE: "#140423",
   LIGHT_COMMON: "#f3f2f1",
+  THEME: "#E8AC41",
   shimmerColors: ['#E1E9EE', '#F2F8FC', '#F2F8FC'],
 };
 

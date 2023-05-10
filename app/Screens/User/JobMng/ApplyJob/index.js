@@ -32,6 +32,10 @@ const ApplyJob = ({ navigation, route }) => {
   const itemData = route.params || {};
   const [applyJob, setApplyJob] = useState(nullObj);
   const [visible, setVisible] = useState(false);
+  const [docUpload, setDocUpload] = useState({
+    type: "",
+    open: false,
+  });
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -109,42 +113,6 @@ const ApplyJob = ({ navigation, route }) => {
     } catch (error) {}
   };
 
-  const openUpload = async (resq) => {
-    DocumentPicker.pick({
-      presentationStyle: "fullScreen",
-      type: DocumentPicker.types.pdf,
-      copyTo: "cachesDirectory",
-      allowMultiSelection: false,
-    }).then((pdf) => {
-      pdf.map((pdfFile) => {
-        if (resq === 1) {
-          setApplyJob({
-            ...applyJob,
-            resume: pdfFile,
-            open_resume: pdfFile,
-          });
-        }
-        // if (pdfFile?.uri?.length) {
-        //   props.setResume(files);
-        //   for (var i = 0; i < files.length; i++) {
-        //     props.setResumeBlobURL([
-        //       {
-        //         preview: URL.createObjectURL(files[i]),
-        //         raw: files[i],
-        //       },
-        //     ]);
-        //   }
-        // }
-        if (resq === 2) {
-          setApplyJob({
-            ...applyJob,
-            cover_letter: pdfFile,
-            open_cover_letter: pdfFile,
-          });
-        }
-      });
-    });
-  };
   const validations = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (applyJob.resume == "") {
@@ -305,9 +273,10 @@ const ApplyJob = ({ navigation, route }) => {
       <ApplyJobView
         itemData={itemData}
         onSubmit={onSubmit}
-        openUpload={openUpload}
         applyJob={applyJob}
         setApplyJob={setApplyJob}
+        docUpload={docUpload}
+        setDocUpload={setDocUpload}
       />
     </>
   );
