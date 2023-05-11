@@ -51,7 +51,7 @@ const MenuPage = ({ navigation, route }) => {
   const onPressOptions = async (options) => {
     if (options.type === "2") {
     console.log('options: ', options);
-      // navigation.navigate("MarketplaceScreen");
+      navigation.navigate("MarketplaceScreen");
     } else if (options.type === "1" || options.type === "3") {
       const newObj = { ...businessPageObj, business_type: options.type };
       navigation.navigate("BusinessPageListing", {

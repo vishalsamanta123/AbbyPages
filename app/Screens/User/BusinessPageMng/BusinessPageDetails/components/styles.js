@@ -165,22 +165,22 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 20,
     marginBottom: 10,
-    backgroundColor: COLORS.LIGHT_WHITE
+    backgroundColor: COLORS.LIGHT_WHITE,
   },
   msgTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   inputView: {
-    flexDirection :'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginHorizontal: 10,
     borderRadius: 10,
     borderWidth: Constants.standardBW,
   },
   inputstyle: {
-    width: '80%',
+    width: "80%",
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
   },
@@ -487,6 +487,31 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
   },
-  btnTextCenter: { color: COLORS.GREY, textAlign: "center" },
+  btnTextCenter: {
+    color: COLORS.GREY,
+    textAlign: "center",
+  },
+  orderTouch: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.LIGHT_YELLOW,
+    margin: 3,
+    borderRadius: 5,
+    paddingVertical: 5
+  },
+  orderTouchSecond: {
+    paddingVertical: 5,
+    marginTop: 10
+  },
+  orderTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.smallL,
+    textAlign: "center",
+    marginVertical: 5,
+  },
+  orderTxtSecond: {
+    fontSize: FONT_SIZE.mediumL,
+  },
 });
 export default Styles;
