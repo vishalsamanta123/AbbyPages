@@ -11,6 +11,7 @@ import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
 import { NoImageList } from "../../../../../Components/ListItemsView";
 import FilterView from "./FilterView";
+import { getAmount } from "../../../../../Utils/Globalfunctions";
 
 const JobListingView = (props) => {
   const [categoryModal, setCategoryModal] = useState(false);
@@ -105,6 +106,8 @@ const JobListingView = (props) => {
               subTitle={item?.company_name}
               smallTxt={item?.city_name + "-" + item?.job_address}
               dateIconTxt={item?.create_date}
+              heartDark={item.user_like === 1 ? true : false}
+              onPressHeart={() => props.onPressLike(item, index)}
               rowIconTxt1={
                 item?.job_type === "1"
                   ? "Fixed Term Freelance"
@@ -120,7 +123,9 @@ const JobListingView = (props) => {
                   ? "Unpaid Internship"
                   : "Not Found"
               }
-              rowIconTxt2={`$${item?.monthly_in_hand_salary_from} - $${item?.monthly_in_hand_salary_to}`}
+              rowIconTxt2={`$${getAmount(
+                item?.monthly_in_hand_salary_from
+              )} - $${getAmount(item?.monthly_in_hand_salary_to)}`}
             />
           );
         }}

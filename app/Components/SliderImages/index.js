@@ -1,60 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import { COLORS, Constants } from "../../Utils/Constant";
+import { View, Image, StyleSheet, FlatList, Dimensions } from "react-native";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
 
-const imagess = [
-  {
-    image: require("../../Assets/extraImages/bob-marley-profile.jpg"),
-  },
-  {
-    image: require("../../Assets/extraImages/bob-marley-cover.jpg"),
-  },
-  {
-    image: require("../../Assets/extraImages/building.jpg"),
-  },
-];
-const RenderSlideItem = (props) => {
-  const { posterImg = "", pageIndex = 0, pagination = false } = props;
-  return (
-    <View>
-      <View>
-        <Image
-          source={props.data ? { uri: posterImg } : posterImg}
-          style={{ height: 200 }}
-          resizeMode={"cover"}
-        />
-        <ScaleText style={styles.posterTitleTxt}>{props.posterTxt}</ScaleText>
-      </View>
-      {pagination ? (
-        <Pagination
-          dotsLength={props.data ? props?.data?.length : imagess.length}
-          activeDotIndex={pageIndex}
-          containerStyle={{
-            paddingVertical: 0,
-          }}
-          inactiveDotStyle={styles.dotInActiveVw}
-          dotStyle={styles.dotActiveVw}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.6}
-        />
-      ) : null}
-    </View>
-  );
-};
 const SliderImages = (props) => {
-  const {
-    renderItem = () => {},
-    imgWidth = Constants.windowWidth,
-    sliderWidth = Constants.windowWidth,
-  } = props;
+  const { data = [], posterImg = "", titleTxt = "", subTitleTxt = "" } = props;
+  const { width } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
-  const setSliderPage = (event) => {
+
+  const handleSrolling = (event) => {
     const { currentPage } = sliderState;
     const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / Constants.windowWidth);
+    const indexOfNextScreen = Math.ceil(x / width);
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
@@ -64,45 +22,90 @@ const SliderImages = (props) => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <Carousel
-        data={props?.data ? props?.data : imagess}
-        renderItem={({ item }) =>
-          props?.data ? (
-            renderItem(item)
-          ) : (
-            <RenderSlideItem
-              pageIndex={pageIndex}
-              setSliderState={setSliderState}
-              setSliderPage={setSliderPage}
-              sliderState={sliderState}
-              posterImg={item.image}
-            />
-          )
-        }
-        layout={"default"}
-        sliderWidth={sliderWidth}
-        activeDotIndex={1}
-        itemWidth={imgWidth}
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={data}
+        scrollEventThrottle={16}
+        pagingEnabled={true}
+        contentContainerStyle={{ alignItems: "center" }}
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
         onScroll={(event) => {
-          setSliderPage(event);
+          handleSrolling(event);
+        }}
+        renderItem={({ item }) => {
+          const image = item[posterImg];
+          const title = item[titleTxt];
+          const subTitle = item[subTitleTxt];
+          return (
+            <View style={[{ width }, styles.mainCon]}>
+              <Image
+                resizeMode="cover"
+                source={{ uri: image }}
+                style={styles.imageVw}
+              />
+              <View style={styles.paginationWrapper}>
+                {Array?.from(
+                  Array(data?.length > 5 ? 5 : data?.length).keys()
+                ).map((key, index) => (
+                  <View
+                    style={[
+                      styles.paginationDots,
+                      { opacity: pageIndex === index ? 1 : 0.2 },
+                    ]}
+                    key={index}
+                  />
+                ))}
+              </View>
+              <ScaleText style={styles.titleTxt}>{title}</ScaleText>
+              <ScaleText style={styles.posterTxt}>
+                {subTitle + " " + "Listing"}
+              </ScaleText>
+            </View>
+          );
         }}
       />
     </View>
   );
 };
 
-export { SliderImages, RenderSlideItem };
+export default SliderImages;
+
 const styles = StyleSheet.create({
-  dotActiveVw: {
-    borderRadius: 100,
-    backgroundColor: COLORS.YELLOW,
-    width: 16,
-    height: 16,
+  mainCon: {
+    marginVertical: 5,
+    borderColor: COLORS.BLACK,
+    paddingVertical: 5,
   },
-  dotInActiveVw: {
-    borderRadius: 100,
-    backgroundColor: COLORS.BLACK,
-    width: 20,
-    height: 20,
+  imageVw: {
+    height: 200,
+    width: "100%",
+    alignSelf: "center",
+  },
+  paginationWrapper: {
+    bottom: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    flex: 1,
+  },
+  paginationDots: {
+    height: 10,
+    width: 10,
+    borderRadius: 10 / 2,
+    backgroundColor: COLORS.WHITE,
+    marginLeft: 10,
+  },
+  titleTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    marginLeft: 5,
+  },
+  posterTxt: {
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
+    marginLeft: 5,
   },
 });
