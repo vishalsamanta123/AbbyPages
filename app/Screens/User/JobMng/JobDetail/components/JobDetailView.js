@@ -14,7 +14,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
-import { getAmount } from "../../../../../Utils/Globalfunctions";
+import { getAmount, removeHttp } from "../../../../../Utils/Globalfunctions";
 
 const JobDetailView = (props) => {
   return (
@@ -135,8 +135,8 @@ const JobDetailView = (props) => {
               <ScaleText style={styles.subTitleTxt}>Website:</ScaleText>
             </View>
             <View style={{ flex: 1 }}>
-              <ScaleText style={styles.subSmallTxt}>
-                {props?.jobDetail?.website}
+              <ScaleText numberOfLines={1} style={styles.subSmallTxt}>
+                {removeHttp(props?.jobDetail?.website)}
               </ScaleText>
             </View>
           </View>

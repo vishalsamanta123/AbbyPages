@@ -11,13 +11,14 @@ import React, { useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import ScaleText from "../../../../../Components/ScaleText";
-import { COLORS } from "../../../../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import moment from "moment";
 import styles from "./styles";
 import { OpenDoc } from "../../../../../Utils/Globalfunctions";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 import { NewsFeedDetailShimmer } from "../../../../../Components/ShimmerEffect";
+import MainHeader from "../../../../../Components/MainHeader";
 
 const NewsFeedView = (props) => {
   const {
@@ -49,6 +50,12 @@ const NewsFeedView = (props) => {
         <NewsFeedDetailShimmer />
       ) : (
         <>
+          <MainHeader
+            headerText={"News Feed"}
+            fontSize={FONT_SIZE.large}
+            loginButton={false}
+            isLogin={true}
+          />
           <ScrollView contentContainerStyle={{ padding: 20 }}>
             <View style={styles.rowVw}>
               <Image
