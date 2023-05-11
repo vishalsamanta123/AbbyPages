@@ -24,6 +24,7 @@ import BusinessGallery from "./BusinessGallery";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
 import Button from "../../../../../Components/Button";
+import { removeHttp } from "../../../../../Utils/Globalfunctions";
 
 const BusinessPageDetailsView = (props) => {
   function handleGetDirections(lattitude, longitude) {
@@ -437,10 +438,26 @@ const BusinessPageDetailsView = (props) => {
       </View>
       <View style={styles.mainContainer}>
         <ScaleText style={styles.sectionTxt}>About the Business</ScaleText>
+        <View style={[CommonStyles.straightCon, { marginTop: 0 }]}>
+          <Image
+            source={{ uri: props?.detailData?.owner_image }}
+            style={styles.considrImgVw}
+          />
+          <View>
+            <ScaleText style={styles.businessNameInDetailTxt}>
+              {props?.detailData?.business_user_name}
+            </ScaleText>
+            <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
+          </View>
+        </View>
+        <ScaleText style={[styles.smallTxt, { marginTop: 10 }]}>
+          {props?.detailData?.about_business?.substring(0, 60)}
+          {"..."}
+        </ScaleText>
         <TouchableOpacity
           style={[
             CommonStyles.straightCon,
-            { justifyContent: "space-between" },
+            { justifyContent: "space-between",marginTop: 10  },
           ]}
         >
           <View>
@@ -479,7 +496,7 @@ const BusinessPageDetailsView = (props) => {
                 },
               ]}
             >
-              {props?.detailData?.websites}
+              {removeHttp(props?.detailData?.websites)}
             </ScaleText>
             <IconX
               origin={ICON_TYPE.FONT_AWESOME}
@@ -632,6 +649,7 @@ const BusinessPageDetailsView = (props) => {
           </ScaleText>
           <>
             {props?.detailData?.recommended_business?.map((considr) => {
+              console.log("🚀 ~ file: BusinessPageDetailsView.js:652 ~ {props?.detailData?.recommended_business?.map ~ considr:", considr)
               return (
                 <TouchableOpacity activeOpacity={1} style={styles.considrVw}>
                   <ScaleText style={styles.considrTxt}>
@@ -650,16 +668,21 @@ const BusinessPageDetailsView = (props) => {
                     </View>
                   ) : null}
                   <View style={CommonStyles.straightCon}>
+                  <Image
+                    source={{uri: considr?.logo}}
+                    style={{height: 100, width: 100}}
+                  />
                     <ScaleText style={styles.considrTxtVw}>
-                      {considr?.about_business?.substring(0, 60)}
+                      {considr?.text?.substring(0, 60)}
                       {"..."}
                       <ScaleText
                         onPress={() =>
-                          props.setMoreInfoModal({
-                            open: true,
-                            type: "read",
-                            moreData: considr,
-                          })
+                          // props.setMoreInfoModal({
+                          //   open: true,
+                          //   type: "read",
+                          //   moreData: considr,
+                          // })
+                          props.handleConsiderPress(considr)
                         }
                         style={styles.blueColorTxt}
                       >
@@ -673,37 +696,6 @@ const BusinessPageDetailsView = (props) => {
           </>
         </View>
       ) : null}
-      <View style={styles.mainContainer}>
-        <ScaleText style={styles.sectionTxt}>From this business</ScaleText>
-        <ScaleText style={[styles.smallTxt, { marginTop: 20 }]}>
-          {props?.detailData?.about_business?.substring(0, 40)}
-          {"..."}
-        </ScaleText>
-        <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-          <Image
-            source={{ uri: props?.detailData?.owner_image }}
-            style={styles.considrImgVw}
-          />
-          <View>
-            <ScaleText style={styles.businessNameInDetailTxt}>
-              {props?.detailData?.business_user_name}
-            </ScaleText>
-            <ScaleText style={styles.smallTxt}>Business Owner</ScaleText>
-          </View>
-        </View>
-        <TouchableOpacity
-          onPress={() =>
-            props.setMoreInfoModal({
-              ...props?.moreInfoModal,
-              open: true,
-              type: "read",
-            })
-          }
-          style={styles.tapButtonsVw}
-        >
-          <ScaleText style={styles.blueColorTxt}>Read More</ScaleText>
-        </TouchableOpacity>
-      </View>
       <View style={styles.mainContainer}>
         <View
           style={[

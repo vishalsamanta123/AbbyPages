@@ -117,7 +117,7 @@ const MoreInfo = (props) => {
           isSearch={false}
           headerText={type === "read" ? "Read More" : "More Info"}
           loginButton={false}
-          TxtMarginRight={70}
+          TxtMarginRight={"10%"}
           onPressBack={() => {
             setVisible({
               open: false,
@@ -126,69 +126,54 @@ const MoreInfo = (props) => {
           }}
         />
         <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
-          {type == "info" ? (
-            <>
-              <View style={styles.mainContainer}>
-                <ScaleText style={styles.sectionTxt}>Business Hours</ScaleText>
-                <ScaleText
-                  style={[
-                    styles.subTitleTxt,
-                    {
-                      marginTop: 16,
-                    },
-                  ]}
-                >
-                  Closed now
-                </ScaleText>
-                {props.detailData?.business_service_time?.map((time) => {
-                  return (
-                    <View style={[CommonStyles.straightCon, styles.timingVw]}>
-                      <View style={{ flex: 1 }}>
-                        <ScaleText style={styles.titletxt}>
-                          {time.day}
-                        </ScaleText>
-                      </View>
-                      <View style={{ flex: 2, alignItems: "flex-end" }}>
-                        <ScaleText style={styles.titletxt}>
-                          {time.timeline}
-                        </ScaleText>
-                      </View>
+          <>
+            <View style={styles.mainContainer}>
+              <ScaleText style={styles.sectionTxt}>Business Hours</ScaleText>
+              <ScaleText
+                style={[
+                  styles.subTitleTxt,
+                  {
+                    marginTop: 16,
+                  },
+                ]}
+              >
+                Closed now
+              </ScaleText>
+              {props.detailData?.business_service_time?.map((time) => {
+                return (
+                  <View style={[CommonStyles.straightCon, styles.timingVw]}>
+                    <View style={{ flex: 1 }}>
+                      <ScaleText style={styles.titletxt}>{time.day}</ScaleText>
                     </View>
-                  );
-                })}
-                {/* <TouchableOpacity style={styles.tapButtonsVw}>
-                  <ScaleText style={styles.titletxt}>Suggest an edit</ScaleText>
-                </TouchableOpacity> */}
-              </View>
-              <View style={styles.mainContainer}>
-                <ScaleText style={styles.sectionTxt}>
-                  Amenities and more
-                </ScaleText>
-                {amenities?.map((amenty) => {
-                  return (
-                    <View style={[CommonStyles.straightCon, styles.timingVw]}>
-                      <IconX
-                        color={COLORS.BLACK}
-                        origin={ICON_TYPE.FONT_AWESOME}
-                        name={"dot-circle-o"}
-                        size={20}
-                        paddingRight={5}
-                      />
-                      <ScaleText style={styles.titletxt}>{amenty}</ScaleText>
+                    <View style={{ flex: 2, alignItems: "flex-end" }}>
+                      <ScaleText style={styles.titletxt}>
+                        {time.timeline}
+                      </ScaleText>
                     </View>
-                  );
-                })}
-              </View>
-            </>
-          ) : null}
-
-          {/* <View style={styles.mainContainer}>
-            <ScaleText style={styles.sectionTxt}>Specialist</ScaleText>
-            <ScaleText style={[styles.smallTxt, { marginTop: 20 }]}>
-              Our BarberShop specilised in cutting hair and cleanong face make
-              up for both male and female
-            </ScaleText>
-          </View> */}
+                  </View>
+                );
+              })}
+            </View>
+            <View style={styles.mainContainer}>
+              <ScaleText style={styles.sectionTxt}>
+                Amenities and more
+              </ScaleText>
+              {amenities?.map((amenty) => {
+                return (
+                  <View style={[CommonStyles.straightCon, styles.timingVw]}>
+                    <IconX
+                      color={COLORS.BLACK}
+                      origin={ICON_TYPE.FONT_AWESOME}
+                      name={"dot-circle-o"}
+                      size={20}
+                      paddingRight={5}
+                    />
+                    <ScaleText style={styles.titletxt}>{amenty}</ScaleText>
+                  </View>
+                );
+              })}
+            </View>
+          </>
           <View style={styles.mainContainer}>
             <ScaleText style={styles.sectionTxt}>History</ScaleText>
             <ScaleText style={[styles.smallTxt, { marginTop: 8 }]}>
@@ -215,35 +200,31 @@ const MoreInfo = (props) => {
               {detailData?.about_business}
             </ScaleText>
           </View>
-          {type === "read" ? (
-            <View>
-              {detailData?.business_job_details.length > 0 ? (
-                <View style={styles.mainContainer}>
-                  <ScaleText style={styles.sectionTxt}>
-                    Available Jobs
-                  </ScaleText>
-                  <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-                    <FlatList
-                      data={detailData?.business_job_details}
-                      renderItem={({ item }) => renderJobs(item)}
-                    />
-                  </View>
+          <View>
+            {detailData?.business_job_details?.length > 0 ? (
+              <View style={styles.mainContainer}>
+                <ScaleText style={styles.sectionTxt}>Available Jobs</ScaleText>
+                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                  <FlatList
+                    data={detailData?.business_job_details}
+                    renderItem={({ item }) => renderJobs(item)}
+                  />
                 </View>
-              ) : null}
-              {detailData?.business_event_details.length > 0 ? (
-                <View style={styles.mainContainer}>
-                  <ScaleText style={styles.sectionTxt}>Events</ScaleText>
-                  <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-                    <FlatList
-                      data={detailData?.business_event_details}
-                      renderItem={({ item }) => renderEvents(item)}
-                      horizontal
-                    />
-                  </View>
+              </View>
+            ) : null}
+            {detailData?.business_event_details?.length > 0 ? (
+              <View style={styles.mainContainer}>
+                <ScaleText style={styles.sectionTxt}>Events</ScaleText>
+                <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+                  <FlatList
+                    data={detailData?.business_event_details}
+                    renderItem={({ item }) => renderEvents(item)}
+                    horizontal
+                  />
                 </View>
-              ) : null}
-            </View>
-          ) : null}
+              </View>
+            ) : null}
+          </View>
         </ScrollView>
       </View>
     </Modal>
