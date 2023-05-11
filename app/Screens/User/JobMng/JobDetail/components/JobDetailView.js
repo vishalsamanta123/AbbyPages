@@ -13,6 +13,8 @@ import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
+import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
+import { getAmount } from "../../../../../Utils/Globalfunctions";
 
 const JobDetailView = (props) => {
   return (
@@ -46,6 +48,17 @@ const JobDetailView = (props) => {
               buttonTxt={"Apply Now"}
               onPressButton={() => props.applyNowPress()}
             />
+            <TouchableOpacity
+              onPress={() => props.onPressLike(props?.jobDetail)}
+            >
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={props?.jobDetail?.user_like === 1 ? "heart" : "hearto"}
+                paddingLeft={10}
+                size={28}
+                color={props?.jobDetail?.user_like === 1 ? COLORS.YELLOW : null}
+              />
+            </TouchableOpacity>
           </View>
           <View style={{ marginTop: "6%" }}>
             <ScaleText style={styles.tileTxt}>
@@ -149,7 +162,11 @@ const JobDetailView = (props) => {
             </View>
             <View style={{ flex: 1 }}>
               <ScaleText style={styles.subSmallTxt}>
-                {`$${props?.jobDetail?.monthly_in_hand_salary_from} - $${props?.jobDetail?.monthly_in_hand_salary_to}`}
+                {`$${getAmount(
+                  props?.jobDetail?.monthly_in_hand_salary_from
+                )} - $${getAmount(
+                  props?.jobDetail?.monthly_in_hand_salary_to
+                )}`}
               </ScaleText>
             </View>
           </View>
@@ -182,7 +199,7 @@ const JobDetailView = (props) => {
         </View>
         <View style={styles.containerVw}>
           <ScaleText style={styles.headTxt}>Job Description</ScaleText>
-          <View style={{ right: 20 }}>
+          <View style={{ marginHorizontal: 10 }}>
             <HTML
               contentWidth={50}
               source={{
@@ -193,21 +210,25 @@ const JobDetailView = (props) => {
         </View>
         <View style={styles.containerVw}>
           <ScaleText style={styles.headTxt}>Job Requirement</ScaleText>
-          <HTML
-            contentWidth={50}
-            source={{
-              html: props?.jobDetail?.job_requirements,
-            }}
-          />
+          <View style={{ marginHorizontal: 10 }}>
+            <HTML
+              contentWidth={50}
+              source={{
+                html: props?.jobDetail?.job_requirements,
+              }}
+            />
+          </View>
         </View>
         <View style={styles.containerVw}>
           <ScaleText style={styles.headTxt}>Benefits</ScaleText>
-          <HTML
-            contentWidth={50}
-            source={{
-              html: props?.jobDetail?.job_benefits,
-            }}
-          />
+          <View style={{ marginHorizontal: 10 }}>
+            <HTML
+              contentWidth={50}
+              source={{
+                html: props?.jobDetail?.job_benefits,
+              }}
+            />
+          </View>
         </View>
         <View style={styles.containerVw}>
           <ScaleText style={styles.headTxt}>Business Hours</ScaleText>

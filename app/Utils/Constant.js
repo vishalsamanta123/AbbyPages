@@ -50,7 +50,7 @@ export const COLORS = {
   LIGHT_YELLOW: "#ffc426",
   SMALL_TEXT: "#868282",
   LIGHT_GREEN: "#a3d74e",
-  GREEN: "#00FF00",
+  GREEN: "#00A300",
   LIGHT_RED: "#f32c2c",
   BLUE: "#00838f",
   LIGHT_GREY: "#858484",

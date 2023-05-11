@@ -408,7 +408,6 @@ function AuthLoading({ navigation }) {
     }),
     []
   );
-
   React.useEffect(() => {
     setTimeout(async () => {
       let userToken;
@@ -436,8 +435,8 @@ function AuthLoading({ navigation }) {
             source={Images.LOGO}
           />
           <View>
-            <Text style={Styles.splashText}>Loading...</Text>
             <Loader type={"small"} />
+            {/* <Text style={Styles.splashText}>Loading...</Text> */}
           </View>
         </View>
       </>

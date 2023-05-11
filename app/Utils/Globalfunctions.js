@@ -246,3 +246,8 @@ export const OpenDoc = async (url) => {
       console.log("error: ", error);
     });
 };
+export const getAmount = (amount) => {
+  return Number(parseFloat(amount).toFixed(2)).toLocaleString("en", {
+    minimumFractionDigits: 0,
+  });
+};

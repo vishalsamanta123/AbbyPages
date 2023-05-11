@@ -53,7 +53,6 @@ const Styles = StyleSheet.create({
     marginLeft: 13,
   },
   activityConVw: {
-    marginHorizontal: 6,
     marginTop: 3,
   },
   activityCon: {
@@ -265,7 +264,7 @@ const Styles = StyleSheet.create({
   supportTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.mediumL,
-    color: COLORS.WHITE
+    color: COLORS.WHITE,
   },
 });
 export default Styles;

@@ -17,6 +17,7 @@ import StarShower from "../../../../Components/StarShower";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
 import { ListShimmer } from "../../../../Components/ShimmerEffect";
+import SliderImages from "../../../../Components/SliderImages";
 
 const DashBoardScreen = (props) => {
   const renderSlideItem = ({ item }) => {
@@ -144,11 +145,10 @@ const DashBoardScreen = (props) => {
                                           style={[
                                             styles.activityBnnrVw,
                                             {
-                                              marginHorizontal: 5,
                                               marginBottom: 10,
                                               width:
                                                 activity?.image?.length === 1
-                                                  ? Constants.windowWidth / 1.2
+                                                  ? "100%"
                                                   : Constants.windowWidth / 2.4,
                                             },
                                           ]}
@@ -215,6 +215,14 @@ const DashBoardScreen = (props) => {
                 Town
               </ScaleText>
             </ScaleText>
+            {/* <View style={styles.posterVw}>
+              <SliderImages
+                data={props.businessTypes}
+                posterImg={"business_type_image"}
+                titleTxt={"business_type_name"}
+                subTitleTxt={"total_business_count"}
+              />
+            </View> */}
             <View style={styles.posterVw}>
               <Carousel
                 data={props.businessTypes}

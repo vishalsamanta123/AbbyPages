@@ -4,6 +4,7 @@ import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import moment from "moment";
+import CommonStyles from "../../Utils/CommonStyles";
 
 const NoImageList = (props) => {
   const {
@@ -14,14 +15,29 @@ const NoImageList = (props) => {
     rowIconTxt1 = "",
     rowIconTxt2 = "",
     onPressView = () => {},
+    heartIcon = true,
     item = {},
+    heartDark = false,
+    onPressHeart = () => {},
   } = props;
   return (
     <TouchableOpacity
       onPress={() => onPressView(item)}
       style={styles.mainConatiner}
     >
-      <ScaleText style={styles.largeNameTxt}>{title}</ScaleText>
+      <View style={CommonStyles.straightCon}>
+        <ScaleText style={styles.largeNameTxt}>{title}</ScaleText>
+        {heartIcon ? (
+          <TouchableOpacity onPress={() => onPressHeart()}>
+            <IconX
+              origin={ICON_TYPE.ANT_ICON}
+              name={heartDark ? "heart" : "hearto"}
+              paddingLeft={16}
+              color={heartDark ? COLORS.YELLOW : null}
+            />
+          </TouchableOpacity>
+        ) : null}
+      </View>
       <ScaleText style={styles.smallTxt}>{subTitle}</ScaleText>
       <View style={[styles.rowVw]}>
         <IconX
@@ -132,6 +148,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.large,
     color: COLORS.BLACK,
     textTransform: "capitalize",
+    width: "86%",
   },
   smallTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
