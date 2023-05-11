@@ -63,9 +63,17 @@ const HowItWorksView = (props) => {
                 { marginTop: 16, paddingHorizontal: 10, color: COLORS.WHITE },
               ]}
             >
-              Create a free account, modify the event page, and begin selling
-              tickets in a few minutes. It really is that simple with our
-              user-friendly event ticketing system!
+              Create & claim your business account, modify the event page, and
+              begin selling tickets in a few minutes.
+            </ScaleText>
+            <ScaleText
+              style={[
+                CommonStyles.mediumTxt,
+                { marginTop: 5, paddingHorizontal: 10, color: COLORS.WHITE },
+              ]}
+            >
+              It really is that simple with our user-friendly event ticketing
+              system!
             </ScaleText>
             <Button
               style={styles.createbtn}

@@ -42,6 +42,7 @@ const CommonStyles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.BOLD,
     textAlign: "center",
+    paddingHorizontal: 5,
   },
   mediumTxt: {
     fontSize: 19,
@@ -69,7 +70,7 @@ const CommonStyles = StyleSheet.create({
   },
   justifyCenter: {
     flexDirection: "row",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   locSearchVw: {
     textInputContainer: {
