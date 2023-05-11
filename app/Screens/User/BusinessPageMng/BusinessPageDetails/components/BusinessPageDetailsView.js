@@ -26,6 +26,7 @@ import moment from "moment";
 import Collage from "../../../../../Components/Collage";
 import Button from "../../../../../Components/Button";
 import { removeHttp } from "../../../../../Utils/Globalfunctions";
+import MainButton from "../../../../../Components/MainButton";
 
 const BusinessPageDetailsView = (props) => {
   function handleGetDirections(lattitude, longitude) {
@@ -109,6 +110,13 @@ const BusinessPageDetailsView = (props) => {
     props?.detailData?.amenities
       ?.split(",")
       ?.some((amn) => amn == "Offers Delivery");
+
+  const outdoor_seating =
+    props?.detailData?.amenities &&
+    props?.detailData?.amenities?.length > 0 &&
+    props?.detailData?.amenities
+      ?.split(",")
+      ?.some((amn) => amn == "Outdoor Seating");
 
   const renderYouMayConsider = (considr) => {
     const pressAction = () => {
@@ -479,46 +487,56 @@ const BusinessPageDetailsView = (props) => {
             <ScaleText style={[styles.smallOptiontxt2]}>View Gallery</ScaleText>
           </View>
         </View>
-        {/* <SliderImages
-          data={imagess}
-          renderItem={({ item }) => {
-            return <RenderSlideItem posterImg={item.image} />;
-          }}
-        /> */}
       </View>
       {take_reservation && (
         <View style={styles.mainContainer}>
           <View style={styles.reservationView}>
             <ScaleText style={styles.sectionTxt}>Make a Reservation</ScaleText>
-            <Button
+            {/* <Button
               style={[{ marginTop: 20 }]}
               buttonLabelStyle={styles.btnTextCenter}
               buttonText={"Find a Table"}
               onPress={() => props.handleReservationPress()}
-            />
+            /> */}
+            <TouchableOpacity
+              style={[styles.orderTouch, styles.orderTouchSecond]}
+              onPress={() => props.handleReservationPress()}
+            >
+              <ScaleText style={[styles.orderTxt, styles.orderTxtSecond]}>
+                Find a Table
+              </ScaleText>
+            </TouchableOpacity>
           </View>
         </View>
       )}
       <View style={styles.mainContainer}>
         <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
-        <View style={CommonStyles.justifyCenter}>
+        <View style={[CommonStyles.justifyCenter, { flex: 1 }]}>
           {offer_takeout ? (
-            <Button
-              style={[{ margin: 10 }]}
-              buttonLabelStyle={styles.btnTextCenter}
-              buttonText={"Start Order Delivery"}
+            <TouchableOpacity
+              style={styles.orderTouch}
               onPress={() => props.onPressOrder(1)}
-              width={"45%"}
-            />
+            >
+              <ScaleText style={styles.orderTxt}>
+                Start Order Delivery
+              </ScaleText>
+            </TouchableOpacity>
           ) : null}
           {offers_delivery ? (
-            <Button
-              style={[{ margin: 10 }]}
-              buttonLabelStyle={styles.btnTextCenter}
-              buttonText={"Start Order Takeout"}
+            <TouchableOpacity
+              style={styles.orderTouch}
               onPress={() => props.onPressOrder(2)}
-              width={"45%"}
-            />
+            >
+              <ScaleText style={styles.orderTxt}>Start Order Takeout</ScaleText>
+            </TouchableOpacity>
+          ) : null}
+          {outdoor_seating ? (
+            <TouchableOpacity
+              style={styles.orderTouch}
+              onPress={() => props.handleReservationPress()}
+            >
+              <ScaleText style={styles.orderTxt}>Outdoor Seating</ScaleText>
+            </TouchableOpacity>
           ) : null}
         </View>
       </View>

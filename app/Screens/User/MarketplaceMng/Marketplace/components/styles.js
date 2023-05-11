@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
   topInfoVw: {
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.GREY,
     borderWidth: 1,
     padding: 10,
-    marginVertical: 10
+    marginVertical: 10,
   },
   subCatTxt: {
     fontSize: FONT_SIZE.small,
@@ -52,16 +57,31 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
   },
   emptyView: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 50,
   },
   emtyTxt: {
     fontSize: FONT_SIZE.medium,
     color: COLORS.DARK_PURPLE,
     fontFamily: FONT_FAMILY.REGULAR,
-    marginTop: 20
+    marginTop: 20,
   },
+  productTouch: {
+    backgroundColor: COLORS.LIGHT_WHITE,
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: 'center',
+    marginTop: 10,
+    marginHorizontal: 5,
+  },
+  productImage: {
+    height: 150,
+    width: 150,
+    borderRadius: 10
+  },
+  productTxt: {},
+  productPriceTxt: {},
 });
 
 export default styles;

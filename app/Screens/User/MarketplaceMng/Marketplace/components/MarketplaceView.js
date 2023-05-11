@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  Image,
+} from "react-native";
 import React, { useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -9,6 +16,7 @@ import styles from "./styles";
 import FilterField from "./FilterField";
 import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
+import { getAmount } from "../../../../../Utils/Globalfunctions";
 
 const MarketplaceView = (props) => {
   const {
@@ -17,24 +25,38 @@ const MarketplaceView = (props) => {
     subCategories,
     handleCategoryPress,
     productList,
-    onBackPress
-  } = props
+    onBackPress,
+  } = props;
   const [categoryModal, setCategoryModal] = useState(false);
 
   const renderSubcategory = (item, index) => {
     return (
-      <TouchableOpacity style={styles.subCatView} onPress={() => handleCategoryPress(item?.category_name)}>
+      <TouchableOpacity
+        style={styles.subCatView}
+        onPress={() => handleCategoryPress(item?.category_name)}
+      >
         <ScaleText style={styles.subCatTxt}>{item?.category_name}</ScaleText>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
   const renderProductList = (item, index) => {
+    console.log(
+      "🚀 ~ file: MarketplaceView.js:32 ~ renderProductList ~ item:",
+      item
+    );
     return (
-      <TouchableOpacity style={styles.productTouch} onPress={() => { }}>
-        <ScaleText style={styles.subCatTxt}>{item.product_name}</ScaleText>
+      <TouchableOpacity style={styles.productTouch} onPress={() => {}}>
+        <Image
+          source={{ uri: item.product_image }}
+          style={styles.productImage}
+        />
+        <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
+        <ScaleText style={styles.productPriceTxt}>
+          ${getAmount(item.final_price)}
+        </ScaleText>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
   const renderEmptyView = () => {
     return (
       <View style={styles.emptyView}>
@@ -47,8 +69,8 @@ const MarketplaceView = (props) => {
         />
         <ScaleText style={styles.emtyTxt}>Oops! Item Not found</ScaleText>
       </View>
-    )
-  }
+    );
+  };
   return (
     <View style={[CommonStyles.container, { paddingHorizontal: 10 }]}>
       <MainHeader
@@ -92,26 +114,32 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
-      <ScrollView>
+      <ScrollView >
         <FlatList
           data={subCategories}
           renderItem={({ item, index }) => renderSubcategory(item, index)}
           horizontal
           showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+
         />
-        <FlatList
-          data={productList}
-          renderItem={({ item, index }) => renderProductList(item, index)}
-          showsHorizontalScrollIndicator={false}
-          ListEmptyComponent={() => renderEmptyView()}
-        />
+        <View style={{alignItems: 'center'}}>
+          <FlatList
+            data={productList}
+            renderItem={({ item, index }) => renderProductList(item, index)}
+            // showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={() => renderEmptyView()}
+            numColumns={2}
+          />
+        </View>
         <CategoryView
           categoryModal={categoryModal}
           setCategoryModal={setCategoryModal}
           onPressCatgry={(item) => {
-            console.log('item: ', item);
+            console.log("item: ", item);
             setCategoryModal(false);
-            handleCategoryPress(item?.category_name)
+            handleCategoryPress(item?.category_name);
             // props.handleJobFilter(0, {
             //   ...props?.filterData,
             //   category: item?.id,
