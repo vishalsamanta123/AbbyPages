@@ -251,25 +251,6 @@ const ApplyJob = ({ navigation, route }) => {
   return (
     <>
       {visible ? <Loader state={true} /> : null}
-      <ShowMessage
-        visible={messageShow?.visible}
-        onEndVisible={() =>
-          setMessageShow({
-            visible: false,
-            type: "",
-            message: "",
-          })
-        }
-        message={messageShow?.message}
-        backgroundColor={
-          messageShow?.type === "success"
-            ? COLORS.LIGHT_GREEN
-            : messageShow?.type === "error"
-            ? COLORS.LIGHT_RED
-            : ""
-        }
-        position={messageShow?.type === "success" ? "center" : "top"}
-      />
       <ApplyJobView
         itemData={itemData}
         onSubmit={onSubmit}
@@ -277,6 +258,19 @@ const ApplyJob = ({ navigation, route }) => {
         setApplyJob={setApplyJob}
         docUpload={docUpload}
         setDocUpload={setDocUpload}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={messageShow?.type === "success" ? "bottom" : "top"}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
       />
     </>
   );

@@ -17,7 +17,8 @@ const ShowMessage = (props) => {
     onPressOK = () => {},
     onEndVisible = () => {},
     visible = false,
-    iconType = "warning",
+    iconType = "",
+    messageViewType = "warning",
     iconOrigin = "",
     iconName = "",
     iconColor = "",
@@ -55,7 +56,13 @@ const ShowMessage = (props) => {
                   backgroundColor === "" ||
                   backgroundColor === null ||
                   backgroundColor === undefined
-                    ? COLORS.YELLOW
+                    ? messageViewType === ""
+                      ? COLORS.YELLOW
+                      : messageViewType === "success"
+                      ? COLORS.GREEN
+                      : messageViewType === "error"
+                      ? COLORS.LIGHT_RED
+                      : null
                     : backgroundColor,
                 borderRadius: borderRadius,
               },
@@ -70,7 +77,7 @@ const ShowMessage = (props) => {
             ]}
           >
             <View style={CommonStyles.straightCon}>
-              {iconType === "warning" ? (
+              {messageViewType === "" || messageViewType === "error" ? (
                 <IconX
                   origin={ICON_TYPE.ANT_ICON}
                   name={"warning"}
@@ -79,7 +86,7 @@ const ShowMessage = (props) => {
                 />
               ) : (
                 <>
-                  {iconType === "success" ? (
+                  {messageViewType === "success" ? (
                     <IconX
                       origin={ICON_TYPE.FEATHER_ICONS}
                       name={"check-circle"}

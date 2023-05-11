@@ -8,6 +8,7 @@ import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import _ from "lodash";
 import QuestionModal from "../../../../Components/Modal/questionModal";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const JobListing = ({ navigation, route }) => {
   const nullObj = {
@@ -26,7 +27,11 @@ const JobListing = ({ navigation, route }) => {
     hire_name_d: "",
   };
   const [loader, setLoader] = useState();
-  const [visible, setVisible] = useState(false);
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   const [jobList, setJobList] = useState();
   const [postjob, setPostjob] = useState(false);
   const [offset, setoffset] = useState(0);
@@ -41,12 +46,6 @@ const JobListing = ({ navigation, route }) => {
 
   const goBack = () => {
     navigation.goBack(null);
-  };
-  const handleSearch = () => {
-    setVisible(true);
-  };
-  const handleFilter = () => {
-    setVisible(true);
   };
 
   const handleJobFilter = async (offSet, otherItem) => {
@@ -67,7 +66,6 @@ const JobListing = ({ navigation, route }) => {
         offset: offSet,
         limit: 10,
       };
-      // console.log('params: ', params);
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
         if (offSet === 0) {
@@ -77,12 +75,10 @@ const JobListing = ({ navigation, route }) => {
         }
         setMoreData(data?.total_count);
         setLoader(false);
-        setVisible(false);
       } else {
         if (data.status == 201) {
           setJobList([]);
           setLoader(false);
-          setVisible(false);
         } else {
           setLoader(false);
         }
@@ -92,6 +88,42 @@ const JobListing = ({ navigation, route }) => {
     }
   };
 
+  const onPressLike = async (item, index) => {
+    try {
+      const params = {
+        favorite: 0,
+        interest: 0,
+        item_id: item?.job_id,
+        item_type: 3,
+        like: item?.user_like === 0 ? 1 : 0,
+        views: item?.user_view,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      if (data.status === 200) {
+        const newObj = { ...item, user_like: item?.user_like === 0 ? 1 : 0 };
+        const newArray = [...jobList];
+        newArray[index] = newObj;
+        setJobList(newArray);
+        // setMessageShow({
+        //   visible: true,
+        //   type: "success",
+        //   message: data?.message,
+        // });
+      } else {
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (error) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
+    }
+  };
   const onPressJob = (item) => {
     navigation.navigate("JobDetail", { detail: item });
   };
@@ -117,15 +149,13 @@ const JobListing = ({ navigation, route }) => {
         setFilterData={setFilterData}
         onPressJob={onPressJob}
         goBack={goBack}
-        setVisible={setVisible}
         handleJobFilter={handleJobFilter}
-        handleSearch={handleSearch}
         offset={offset}
         handlePostJob={handlePostJob}
-        handleFilter={handleFilter}
         postjob={postjob}
         setPostjob={setPostjob}
         moreData={moreData}
+        onPressLike={onPressLike}
       />
       {/* <QuestionModal
         surringVisible={postjob}
@@ -140,6 +170,18 @@ const JobListing = ({ navigation, route }) => {
         positiveResponse={() => handlePostJob(1)}
         negativeResponse={() => handlePostJob(2)}
       /> */}
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
+      />
     </View>
   );
 };

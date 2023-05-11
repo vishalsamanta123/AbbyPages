@@ -6,11 +6,17 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const JobDetail = ({ route, navigation }) => {
   const { detail = {} } = route.params;
   const [jobDetail, setJobDetail] = useState();
   const [visible, setVisible] = useState(false);
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -40,29 +46,39 @@ const JobDetail = ({ route, navigation }) => {
   const onPressJob = (item) => {
     getJobDetails(item);
   };
-  const compareFun = () => {
-    alert("Coming Soon");
-  };
-  const saveJob = async () => {
+  const onPressLike = async (item) => {
     try {
-      setVisible(true);
       const params = {
-        item_type: jobDetail.job_type,
-        item_id: jobDetail?.job_id,
-        like: jobDetail?.user_like ? (jobDetail?.user_like === 1 ? 0 : 1) : 1,
-        favorite: jobDetail?.favorite,
-        interest: jobDetail?.interest,
-        views: jobDetail?.job_views,
+        favorite: item?.favorite,
+        interest: item?.interest,
+        item_id: item?.job_id,
+        item_type: 3,
+        like: item?.user_like === 0 ? 1 : 0,
+        views: item?.job_views,
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
-        setVisible(false);
-        getJobDetails(detail);
+        const newObj = { ...item, user_like: item?.user_like === 0 ? 1 : 0 };
+        console.log('newObj: ', newObj);
+        setJobDetail(newObj);
+        // setMessageShow({
+        //   visible: true,
+        //   type: "success",
+        //   message: data?.message,
+        // });
       } else {
-        setVisible(false);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
       }
     } catch (error) {
-      setVisible(false);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
     }
   };
   const shareTo = async () => {
@@ -77,10 +93,21 @@ const JobDetail = ({ route, navigation }) => {
       <JobDetailView
         jobDetail={jobDetail}
         applyNowPress={applyNowPress}
-        compareFun={compareFun}
-        saveJob={saveJob}
         shareTo={shareTo}
         onPressJob={onPressJob}
+        onPressLike={onPressLike}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
     </View>
   );
