@@ -8,6 +8,7 @@ import {
   FlatList,
   Linking,
   Platform,
+  TextInput,
 } from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
@@ -85,6 +86,141 @@ const BusinessPageDetailsView = (props) => {
         <Image source={{ uri: item.icon }} style={styles.highlightsImage} />
         <ScaleText style={styles.highlightsText}>{item.highlights}</ScaleText>
       </View>
+    );
+  };
+
+  const take_reservation =
+    props?.detailData?.amenities &&
+    props?.detailData?.amenities?.length > 0 &&
+    props?.detailData?.amenities
+      ?.split(",")
+      ?.some((amn) => amn == "Takes Reservations");
+
+  const offer_takeout =
+    props?.detailData?.amenities &&
+    props?.detailData?.amenities?.length > 0 &&
+    props?.detailData?.amenities
+      ?.split(",")
+      ?.some((amn) => amn == "Offers Takeout");
+
+  const offers_delivery =
+    props?.detailData?.amenities &&
+    props?.detailData?.amenities?.length > 0 &&
+    props?.detailData?.amenities
+      ?.split(",")
+      ?.some((amn) => amn == "Offers Delivery");
+
+  const renderYouMayConsider = (considr) => {
+    const pressAction = () => {
+      if (considr.ad_button && considr.ad_website) {
+        Linking.canOpenURL(considr.ad_website)
+          .then((supported) => {
+            if (supported) {
+              Linking.openURL(considr.ad_website);
+            } else {
+              alert("Can't open url");
+            }
+          })
+          .catch((err) => console.error("An error occurred", err));
+      } else if (considr.ad_button && considr.ad_phone) {
+        Linking.openURL(`tel:${considr.ad_phone}`);
+      } else if (considr.ad_button && considr.ad_email) {
+        Linking.openURL(`mailto:${considr.ad_email}`);
+      }
+    };
+    return (
+      <>
+        {considr?.goal !== "3" ? (
+          <TouchableOpacity
+            style={styles.considrVw}
+            // onPress={() => props.handleConsiderPress(considr)}
+          >
+            <View style={CommonStyles.straightCon}>
+              <Image
+                source={{ uri: considr?.logo }}
+                style={styles.considerImage}
+              />
+              <View style={styles.considerView}>
+                <ScaleText style={styles.considrHeadingTxt}>
+                  {considr?.business_name}
+                </ScaleText>
+                <ScaleText style={styles.businessCategoryTxt}>
+                  {considr?.business_category}
+                </ScaleText>
+                <ScaleText style={styles.businessAddressTxt}>
+                  {considr?.address}
+                </ScaleText>
+              </View>
+            </View>
+            {considr?.text ? (
+              <ScaleText style={[styles.businessCategoryTxt, { margin: 5 }]}>
+                {considr?.text?.substring(0, 60)}
+                {"..."}
+              </ScaleText>
+            ) : null}
+            <TouchableOpacity
+              style={styles.considerTouch}
+              onPress={() => pressAction()}
+            >
+              <ScaleText style={styles.considerBtnTxt}>
+                {JSON.parse(considr.ad_button)?.name}
+              </ScaleText>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ) : (
+          <View>
+            <TouchableOpacity
+              style={styles.considrVw}
+              // onPress={() => props.handleConsiderPress(considr)}
+            >
+              <View style={CommonStyles.straightCon}>
+                <Image
+                  source={{ uri: considr?.logo }}
+                  style={styles.considerImage}
+                />
+                <View style={styles.considerView}>
+                  <ScaleText style={styles.considrHeadingTxt}>
+                    {considr?.business_name}
+                  </ScaleText>
+                  <ScaleText style={styles.businessCategoryTxt}>
+                    {considr?.business_category}
+                  </ScaleText>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.msgWrap}>
+              <View style={styles.msgView}>
+                <ScaleText style={styles.msgTxt}>
+                  Here goes the question text and for now dummy Text
+                </ScaleText>
+              </View>
+              <View style={styles.msgView}>
+                <ScaleText style={styles.msgTxt}>
+                  Here goes the question text and for now dummy Text
+                </ScaleText>
+              </View>
+              <View style={styles.msgView}>
+                <ScaleText style={styles.msgTxt}>
+                  Here goes the question text and for now dummy Text
+                </ScaleText>
+              </View>
+              <View style={styles.inputView}>
+                <IconX
+                  origin={ICON_TYPE.ENTYPO}
+                  name={"chat"}
+                  paddingRight={6}
+                  size={25}
+                />
+                <TextInput
+                  onChangeText={(e) => console.log(e)}
+                  style={styles.inputstyle}
+                  placeholder={`message ${considr?.business_name}`}
+                />
+              </View>
+            </View>
+          </View>
+        )}
+      </>
     );
   };
 
@@ -350,34 +486,40 @@ const BusinessPageDetailsView = (props) => {
           }}
         /> */}
       </View>
-      <View style={styles.mainContainer}>
-        <View style={styles.reservationView}>
-          <ScaleText style={styles.sectionTxt}>Make a Reservation</ScaleText>
-          <Button
-            style={[{ marginTop: 20 }]}
-            buttonLabelStyle={styles.btnTextCenter}
-            buttonText={"Find a Table"}
-            onPress={() => props.handleReservationPress()}
-          />
+      {take_reservation && (
+        <View style={styles.mainContainer}>
+          <View style={styles.reservationView}>
+            <ScaleText style={styles.sectionTxt}>Make a Reservation</ScaleText>
+            <Button
+              style={[{ marginTop: 20 }]}
+              buttonLabelStyle={styles.btnTextCenter}
+              buttonText={"Find a Table"}
+              onPress={() => props.handleReservationPress()}
+            />
+          </View>
         </View>
-      </View>
+      )}
       <View style={styles.mainContainer}>
         <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
         <View style={CommonStyles.justifyCenter}>
-          <Button
-            style={[{ margin: 10 }]}
-            buttonLabelStyle={styles.btnTextCenter}
-            buttonText={"Start Order Delivery"}
-            onPress={() => props.onPressOrder(1)}
-            width={"45%"}
-          />
-          <Button
-            style={[{ margin: 10 }]}
-            buttonLabelStyle={styles.btnTextCenter}
-            buttonText={"Start Order Takeout"}
-            onPress={() => props.onPressOrder(2)}
-            width={"45%"}
-          />
+          {offer_takeout ? (
+            <Button
+              style={[{ margin: 10 }]}
+              buttonLabelStyle={styles.btnTextCenter}
+              buttonText={"Start Order Delivery"}
+              onPress={() => props.onPressOrder(1)}
+              width={"45%"}
+            />
+          ) : null}
+          {offers_delivery ? (
+            <Button
+              style={[{ margin: 10 }]}
+              buttonLabelStyle={styles.btnTextCenter}
+              buttonText={"Start Order Takeout"}
+              onPress={() => props.onPressOrder(2)}
+              width={"45%"}
+            />
+          ) : null}
         </View>
       </View>
       <View style={[styles.mainContainer, { paddingHorizontal: 0 }]}>
@@ -457,7 +599,7 @@ const BusinessPageDetailsView = (props) => {
         <TouchableOpacity
           style={[
             CommonStyles.straightCon,
-            { justifyContent: "space-between",marginTop: 10  },
+            { justifyContent: "space-between", marginTop: 10 },
           ]}
         >
           <View>
@@ -649,49 +791,11 @@ const BusinessPageDetailsView = (props) => {
           </ScaleText>
           <>
             {props?.detailData?.recommended_business?.map((considr) => {
-              console.log("🚀 ~ file: BusinessPageDetailsView.js:652 ~ {props?.detailData?.recommended_business?.map ~ considr:", considr)
-              return (
-                <TouchableOpacity activeOpacity={1} style={styles.considrVw}>
-                  <ScaleText style={styles.considrTxt}>
-                    {considr?.business_name}
-                  </ScaleText>
-                  {considr?.rating ? (
-                    <View>
-                      <StarShower
-                        counts={considr?.rating}
-                        marginTop={5}
-                        starHeight={16}
-                        starWidth={16}
-                        ActiveStarColor={COLORS.LIGHT_RED}
-                        UnActiveStarColor={COLORS.COMMON}
-                      />
-                    </View>
-                  ) : null}
-                  <View style={CommonStyles.straightCon}>
-                  <Image
-                    source={{uri: considr?.logo}}
-                    style={{height: 100, width: 100}}
-                  />
-                    <ScaleText style={styles.considrTxtVw}>
-                      {considr?.text?.substring(0, 60)}
-                      {"..."}
-                      <ScaleText
-                        onPress={() =>
-                          // props.setMoreInfoModal({
-                          //   open: true,
-                          //   type: "read",
-                          //   moreData: considr,
-                          // })
-                          props.handleConsiderPress(considr)
-                        }
-                        style={styles.blueColorTxt}
-                      >
-                        Read More
-                      </ScaleText>
-                    </ScaleText>
-                  </View>
-                </TouchableOpacity>
+              console.log(
+                "🚀 ~ file: BusinessPageDetailsView.js:652 ~ {props?.detailData?.recommended_business?.map ~ considr:",
+                considr
               );
+              return renderYouMayConsider(considr);
             })}
           </>
         </View>
