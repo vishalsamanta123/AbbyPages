@@ -246,3 +246,23 @@ export const OpenDoc = async (url) => {
       console.log("error: ", error);
     });
 };
+
+export const removeHttp = (url) => {
+  let finalUrl = url
+  if(finalUrl.includes('https://www.')){
+    return finalUrl.replace(/^https?:\/\/www./, '');
+  } 
+  if(finalUrl.includes('http://www.')){
+    return finalUrl.replace(/^http?:\/\/www./, '');
+  } 
+  if(finalUrl.includes('https://')){
+    return finalUrl.replace(/^https?:\/\//, '');
+  } 
+  if(finalUrl.includes('http://')){
+    return finalUrl.replace(/^http?:\/\//, '');
+  } 
+  if(finalUrl.includes('www.')){
+    return finalUrl.replace(/^www./, '');
+  } 
+  return finalUrl
+}

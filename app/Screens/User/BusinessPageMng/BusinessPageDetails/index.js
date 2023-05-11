@@ -36,7 +36,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
       setVisible(true);
       const params = {
         business_id: detail?.business_id,
-        business_type: detail?.search_business_type,
+        business_type: detail?.business_type,
       };
       const { data } = await apiCall(
         "POST",
@@ -142,6 +142,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
     navigation.navigate("RestroMenu", { detail: getData });
   };
 
+  const handleConsiderPress = (item) => {
+    navigation.navigate("BusinessPageDetails", { detail: item });
+  }
   return (
     <View style={CommonStyles.container}>
       {/* {visible && <Loader state={visible} />} */}
@@ -161,6 +164,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         handleSharePress={handleSharePress}
         handleReservationPress={handleReservationPress}
         onPressOrder={onPressOrder}
+        handleConsiderPress={handleConsiderPress}
       />
     </View>
   );
