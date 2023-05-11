@@ -23,7 +23,7 @@ const NewsFeedView = (props) => {
         headerText={"News Feed"}
         fontSize={FONT_SIZE.large}
         loginButton={false}
-        isLogin={true}
+        backText={false}
       />
       {visible ? (
         <NewsFeedListShimmer />

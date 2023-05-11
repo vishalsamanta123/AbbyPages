@@ -130,6 +130,14 @@ const Styles = StyleSheet.create({
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.BOLD,
   },
+  considerView: {
+    flex: 1,
+  },
+  considrHeadingTxt: {
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.BOLD,
+  },
   considrImgVw: {
     width: 40,
     height: 40,
@@ -142,6 +150,39 @@ const Styles = StyleSheet.create({
     color: COLORS.SMALL_TEXT,
     lineHeight: 20,
     width: "90%",
+  },
+  considerImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  msgWrap: {},
+  msgView: {
+    borderWidth: Constants.standardBW,
+    borderColor: COLORS.GREY,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    marginBottom: 10,
+    backgroundColor: COLORS.LIGHT_WHITE
+  },
+  msgTxt: {
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  inputView: {
+    flexDirection :'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    borderRadius: 10,
+    borderWidth: Constants.standardBW,
+  },
+  inputstyle: {
+    width: '80%',
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   blueColorTxt: {
     fontSize: FONT_SIZE.medium,
@@ -224,7 +265,7 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    width: '100%',
+    width: "100%",
     // backgroundColor: 'red',
   },
   availJobsView: {
@@ -390,7 +431,24 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   businessCategoryTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.smallL,
+    // color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  considerTouch: {
+    width: "100%",
+    backgroundColor: COLORS.YELLOW,
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  considerBtnTxt: {
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  businessAddressTxt: {
+    fontSize: FONT_SIZE.small,
     color: COLORS.SMALL_TEXT,
     fontFamily: FONT_FAMILY.REGULAR,
   },
@@ -423,12 +481,12 @@ const Styles = StyleSheet.create({
     color: COLORS.BLUE,
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
-    marginTop: 10
+    marginTop: 10,
   },
-  reservTxt:{
+  reservTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
   },
-  btnTextCenter:{ color: COLORS.GREY, textAlign: 'center' }
+  btnTextCenter: { color: COLORS.GREY, textAlign: "center" },
 });
 export default Styles;
