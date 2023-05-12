@@ -10,6 +10,7 @@ const FilterField = (props) => {
       <MainInput
         headTxt={"Any Keyword..."}
         placeholder={"Search here..."}
+        height={50}
         // onChangeText={(txt) => {
         //   props.setFilterData({
         //     ...props.filterData,
@@ -21,6 +22,7 @@ const FilterField = (props) => {
       <MainInput
         placeholder={"Search here..."}
         headTxt={"City..."}
+        height={50}
         // onChangeText={(txt) => {
         //   props.setFilterData({
         //     ...props.filterData,

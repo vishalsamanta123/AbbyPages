@@ -72,6 +72,7 @@ const RestroMenuView = (props) => {
           placeholder={"Search"}
           placeholderTextColor={COLORS.LIGHT_BLACK}
           value={props.search}
+          height={50}
         />
       </View>
       <FlatList

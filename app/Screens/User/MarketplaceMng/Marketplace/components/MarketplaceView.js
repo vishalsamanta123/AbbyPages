@@ -15,7 +15,6 @@ import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import ScaleText from "../../../../../Components/ScaleText";
 import styles from "./styles";
 import FilterField from "./FilterField";
-import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
 
