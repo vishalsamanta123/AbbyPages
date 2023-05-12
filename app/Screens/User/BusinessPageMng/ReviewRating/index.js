@@ -23,7 +23,7 @@ const ReviewRating = ({ navigation, route }) => {
   }, [navigation]);
   const getReviewsAndRating = async () => {
     setVisible(true);
-    const getUserData = await AsyncStorage.getItem("localuserdata");
+    const getUserData = await AsyncStorage.getItem("userData");
     if (JSON?.parse(getUserData)?.login_type) {
       setUserData(JSON?.parse(getUserData));
     }

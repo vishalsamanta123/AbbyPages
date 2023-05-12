@@ -108,6 +108,7 @@ const ApplyJob = ({ navigation, route }) => {
             : "",
         });
       } else {
+        setVisible(false);
         setApplyJob(nullObj);
       }
     } catch (error) {}

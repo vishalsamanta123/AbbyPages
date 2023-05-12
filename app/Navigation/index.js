@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useLayoutEffect } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -53,11 +53,7 @@ import OrderHistoryView from "../Screens/User/RestroMng/OrderHistory";
 import RestroMenu from "../Screens/User/RestroMng/RestroMenu";
 import MarketplaceScreen from "../Screens/User/MarketplaceMng/Marketplace";
 
-const BusinessDrawer = createDrawerNavigator();
-const CustomDrawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-const Auth = createStackNavigator();
-const Business = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
@@ -91,201 +87,6 @@ function TabNavigation() {
       <Tab.Screen name="RestroMenu" component={RestroMenu} />
       <Tab.Screen name="MarketplaceScreen" component={MarketplaceScreen} />
     </Tab.Navigator>
-  );
-}
-
-function CustomBusinessNavigation() {
-  return (
-    <BusinessDrawer.Navigator
-      drawerContent={(props) => <MyCustomDrawer {...props} />}
-      drawerContentOptions={{ activeBackgroundColor: "#fff" }}
-    >
-      {/* <BusinessDrawer.Screen
-        name="BusinessHome"
-        component={BusinessHomeScreen}
-      /> */}
-      {/* <BusinessDrawer.Screen
-        name="BusinessProfile"
-        component={BusinessProfileScreen}
-      />
-      <BusinessDrawer.Screen
-        name="BussinessInfo"
-        component={BussinessInfoScreen}
-      />
-      <BusinessDrawer.Screen
-        name="OpeningHours"
-        component={OpeningHoursScreen}
-      />
-      <BusinessDrawer.Screen
-        name="JobManagementList"
-        component={JobManagementListScreen}
-      />
-      <BusinessDrawer.Screen name="AddJobs" component={AddJobsScreen} />
-      <BusinessDrawer.Screen name="EditJobs" component={EditJob} />
-      <BusinessDrawer.Screen name="AppliedJob" component={AppliedJobScreen} />
-      <BusinessDrawer.Screen
-        name="RestaurantManagement"
-        component={RestaurantManagementScreen}
-      />
-      <BusinessDrawer.Screen
-        name="BusinessOrderHistory"
-        component={BusinessOrderHistoryScreen}
-      />
-      <BusinessDrawer.Screen
-        name="MyProductList"
-        component={MyProductListScreen}
-      />
-      <BusinessDrawer.Screen
-        name="EventManagement"
-        component={EventManagement}
-      />
-      <BusinessDrawer.Screen name="EventView" component={EventViewScreen} /> */}
-    </BusinessDrawer.Navigator>
-  );
-}
-
-function CustomDrawerNavigation() {
-  return (
-    <CustomDrawer.Navigator
-      drawerContent={(props) => <MyCustomDrawer {...props} />}
-      drawerContentOptions={{ activeBackgroundColor: "#fff" }}
-    >
-      <CustomDrawer.Screen name="DashBoard" component={DashBoardScreen} />
-      <CustomDrawer.Screen name="HowItWorks" component={HowItWorks} />
-      <CustomDrawer.Screen name="ProfileSetting" component={ProfileSetting} />
-    </CustomDrawer.Navigator>
-  );
-}
-
-function AuthStack() {
-  return (
-    <Auth.Navigator
-      initialRouteName="Login"
-      screenOptions={{ headerShown: false }}
-    >
-      <Auth.Screen name="Login" component={LoginScreen} />
-      <Auth.Screen name="SignUp" component={SignUpScreen} />
-      <Auth.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />
-      <Auth.Screen name="UserVerify" component={UserVerifyScreen} />
-      <Auth.Screen
-        name="BusinessUserVerify"
-        component={BusinessUserVerifyScreen}
-      />
-      <Auth.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-      <Auth.Screen
-        name="ForgotPasswordField"
-        component={ForgotPasswordFieldScreen}
-      />
-    </Auth.Navigator>
-  );
-}
-
-function BusinessStack() {
-  return (
-    <Business.Navigator
-      initialRouteName={"BusinessHome"}
-      screenOptions={{ headerShown: false }}
-    >
-      {/* <Business.Screen
-        name="BusinessHome"
-        component={CustomBusinessNavigation}
-      />
-      <Business.Screen
-        name="MyRestaurantItem"
-        component={MyRestaurantItemScreen}
-      />
-      <Business.Screen
-        name="AddBusinessProduct"
-        component={AddBusinessProductScreen}
-      />
-      <Business.Screen
-        name="BusinessProductDetails"
-        component={BusinessProductDetailsScreen}
-      />
-      <Business.Screen name="GoalPreview" component={GoalPreviewScreen} />
-      <Business.Screen name="AddCategory" component={AddCategoryScreen} />
-      <Business.Screen name="AddItem" component={AddItemScreen} />
-      <Business.Screen name="AddJobs" component={AddJobsScreen} />
-      <Business.Screen name="EditJobs" component={EditJob} />
-      <Business.Screen name="AddTextPreview" component={AddTextPreviewScreen} />
-      <Business.Screen name="AppliedJob" component={AppliedJobScreen} />
-      <Business.Screen
-        name="AppliedJobDetails"
-        component={AppliedJobDetailsScreen}
-      />
-      <Business.Screen
-        name="BasicInformation"
-        component={BasicInformationScreen}
-      />
-      <Business.Screen
-        name="BusinessOrderHistory"
-        component={BusinessOrderHistoryScreen}
-      />
-      <Business.Screen
-        name="BusinessProfile"
-        component={BusinessProfileScreen}
-      />
-      <Business.Screen name="BussinessInfo" component={BussinessInfoScreen} />
-      <Business.Screen name="Confirm" component={ConfirmScreen} />
-      <Business.Screen
-        name="JobManagementList"
-        component={JobManagementListScreen}
-      />
-      <Business.Screen name="OpeningHours" component={OpeningHoursScreen} />
-      <Business.Screen name="PhotosVideo" component={PhotosVideoScreen} />
-      <Business.Screen
-        name="TableManagement"
-        component={TableManagementScreen}
-      />
-      <Business.Screen name="AddTable" component={AddTableScreen} /> */}
-      {/* <Business.Screen
-        name="RestaurantManagement"
-        component={RestaurantManagementScreen}
-      /> */}
-      {/* <Business.Screen name="UpdatePages" component={UpdatePagesScreen} /> */}
-
-      {/* <Business.Screen name="Goals" component={GoalsScreen} />
-      <Business.Screen name="AddKeybord" component={AddKeybordScreen} />
-      <Business.Screen name="AddText" component={AddTextScreen} />
-      <Business.Screen
-        name="BusinessLocation"
-        component={BusinessLocationScreen}
-      />
-      <Business.Screen name="Budgets" component={BudgetsScreen} />
-      <Business.Screen
-        name="BusinessChangePassword"
-        component={BusinessChangePasswordScreen}
-      />
-
-      <Business.Screen
-        name="FoodOrderDetails"
-        component={FoodOrderDetailsScreen}
-      />
-      <Business.Screen
-        name="TableBookingDetails"
-        component={TableBookingDetailsScreen}
-      />
-      <Business.Screen
-        name="ServiceOrderDetails"
-        component={ServiceOrderDetailsScreen}
-      />
-      <Business.Screen
-        name="OutSideBookingOrderDetails"
-        component={OutSideBookingOrderDetailsScreen}
-      />
-      <Business.Screen
-        name="ShoppingOrderDetails"
-        component={ShoppingOrderDetailsScreen}
-      />
-
-      <Business.Screen
-        name="AddEditBusinessCategory"
-        component={AddEditBusinessCategoryScreen}
-      />
-      <Business.Screen name="EventManagement" component={EventManagement} />
-      <Business.Screen name="EventView" component={EventViewScreen} />
-      <Business.Screen name="CreateEvent" component={CreateEventScreen} /> */}
-    </Business.Navigator>
   );
 }
 
@@ -384,10 +185,7 @@ function AuthLoading({ navigation }) {
         const userToken = data.token;
         try {
           await AsyncStorage.setItem("userToken", userToken);
-          await AsyncStorage.setItem(
-            "localuserdata",
-            JSON.stringify(data.data)
-          );
+          await AsyncStorage.setItem("userData", JSON.stringify(data.data));
         } catch (error) {
           console.log(error.message);
         }
@@ -395,7 +193,7 @@ function AuthLoading({ navigation }) {
       },
       signOut: async () => {
         try {
-          await AsyncStorage.removeItem("localuserdata");
+          await AsyncStorage.removeItem("userData");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
           setUserData({});
@@ -450,11 +248,13 @@ function AuthLoading({ navigation }) {
     </AuthContext.Provider>
   );
 }
-function Route() {
-  useEffect(() => {
+const Route = () => {
+  const [userData, setUserData] = useContext(UserContext);
+  useLayoutEffect(() => {
     getToken();
   }, []);
-  async function getToken() {
+
+  const getToken = async () => {
     let userToken = await AsyncStorage.getItem("userToken");
     if (userToken === null) {
       const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
@@ -462,10 +262,11 @@ function Route() {
         await setDefaultHeader("token", data.token);
       }
     } else {
-      const userToken = await AsyncStorage.getItem("userToken");
+      const getUserData = JSON?.parse(await AsyncStorage.getItem("userData"));
+      setUserData({ ...getUserData });
       setDefaultHeader("token", userToken);
     }
-  }
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -473,7 +274,7 @@ function Route() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 export default Route;
 const Styles = StyleSheet.create({
   container: {

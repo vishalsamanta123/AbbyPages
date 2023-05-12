@@ -3,7 +3,7 @@ export const AuthContext = React.createContext();
 
 export const UserContext = React.createContext();
 export const UserProvider = (props) => {
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   return (
     <UserContext.Provider value={[userData, setUserData]}>
       {props.children}
