@@ -18,6 +18,7 @@ import FilterField from "./FilterField";
 import MainInput from "../../../../../Components/MainInput";
 import CategoryView from "./CategoryView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
+import EmptyList from "../../../../../Components/EmptyList";
 
 const MarketplaceView = (props) => {
   const {
@@ -47,33 +48,19 @@ const MarketplaceView = (props) => {
           source={{ uri: item.product_image }}
           style={styles.productImage}
         >
-          <IconX
+          {/* <IconX
             origin={ICON_TYPE.ENTYPO}
             size={90}
             name={"emoji-sad"}
             paddingRight={5}
             // color={COLORS.BLACK}
-          />
+          /> */}
         </ImageBackground>
         <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
         <ScaleText style={styles.productPriceTxt}>
           ${getAmount(item.final_price)}
         </ScaleText>
       </TouchableOpacity>
-    );
-  };
-  const renderEmptyView = () => {
-    return (
-      <View style={styles.emptyView}>
-        <IconX
-          origin={ICON_TYPE.ENTYPO}
-          size={90}
-          name={"emoji-sad"}
-          paddingRight={5}
-          // color={COLORS.BLACK}
-        />
-        <ScaleText style={styles.emtyTxt}>Oops! Item Not found</ScaleText>
-      </View>
     );
   };
   return (
@@ -133,7 +120,7 @@ const MarketplaceView = (props) => {
             renderItem={({ item, index }) => renderProductList(item, index)}
             // showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={() => renderEmptyView()}
+            ListEmptyComponent={() => <EmptyList message={"Product"}/>}
             numColumns={2}
           />
         </View>
@@ -141,7 +128,6 @@ const MarketplaceView = (props) => {
           categoryModal={categoryModal}
           setCategoryModal={setCategoryModal}
           onPressCatgry={(item) => {
-            console.log("item: ", item);
             setCategoryModal(false);
             handleCategoryPress(item?.category_name);
             // props.handleJobFilter(0, {
