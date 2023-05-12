@@ -27,6 +27,7 @@ import Collage from "../../../../../Components/Collage";
 import Button from "../../../../../Components/Button";
 import { removeHttp } from "../../../../../Utils/Globalfunctions";
 import MainButton from "../../../../../Components/MainButton";
+import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 
 const BusinessPageDetailsView = (props) => {
   function handleGetDirections(lattitude, longitude) {
@@ -233,103 +234,119 @@ const BusinessPageDetailsView = (props) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
-      <ImageBackground
-        source={{ uri: props?.detailData.header_image }}
-        style={{
-          width: Constants.windowWidth,
-          height: Constants.Ios ? 280 : 220,
-        }}
-        resizeMode={"cover"}
-      >
-        <MainHeader
-          backgroundColor={COLORS.TRANSPARENT}
-          isSearch={false}
-          backIconColor={COLORS.WHITE}
-          backTxtColor={COLORS.WHITE}
-          loginButton={false}
-        />
-        <View style={styles.backImgVw}>
-          <ScaleText style={styles.mainTxt}>
-            {props?.detailData?.business_name}
-          </ScaleText>
-          <View style={{ width: 132 }}>
-            <StarShower
-              counts={
-                props?.detailData?.rating
-                  ? props?.detailData?.rating?.toString()
-                  : 0
-              }
-              starHeight={18}
-              starWidth={18}
-              starsBackColor={COLORS.RGBA}
-              ActiveStarColor={COLORS.YELLOW}
-              UnActiveStarColor={COLORS.WHITE}
-            />
-          </View>
-          {props?.detailData?.claimed ? (
-            <View style={CommonStyles.straightCon}>
-              {props?.detailData?.claimed?.toString() === "1" && (
-                <IconX
-                  origin={ICON_TYPE.ANT_ICON}
-                  name={"checkcircle"}
-                  color={COLORS.LIGHT_GREEN}
-                  paddingRight={6}
-                />
-              )}
-              <ScaleText
-                style={[
-                  styles.smallTxt,
-                  {
-                    color: COLORS.LIGHT_GREEN,
-                    fontSize: FONT_SIZE.medium,
-                  },
-                ]}
-              >
-                {props?.detailData?.claimed?.toString() === "1"
-                  ? "Claimed"
-                  : "UnClaimed"}
-              </ScaleText>
-            </View>
-          ) : null}
-        </View>
-      </ImageBackground>
-      <View style={styles.mainContainer}>
-        <ScaleText style={styles.businessCategoryTxt}>
-          {props?.detailData?.business_service_category}
-        </ScaleText>
-        {props?.detailData?.business_open_time ? (
-          <View style={CommonStyles.straightCon}>
-            <ScaleText
-              style={[
-                styles.subTitleTxt,
-                {
-                  color:
-                    props?.detailData?.business_open_time?.closing_day === 1 &&
-                    props?.detailData?.business_open_time?.temporary_close ===
-                      1 &&
-                    props?.detailData?.business_open_time?.permanent_close === 1
-                      ? COLORS.LIGHT_GREEN
-                      : COLORS.LIGHT_RED,
-                },
-              ]}
-            >
-              {props?.detailData?.business_open_time?.closing_day === 1 &&
-              props?.detailData?.business_open_time?.temporary_close === 1 &&
-              props?.detailData?.business_open_time?.permanent_close === 1
-                ? "Open Now"
-                : "Closed Now"}
+    <ScrollView
+      scrollEnabled={!props?.visible}
+      contentContainerStyle={[CommonStyles.otherScrollCon]}
+    >
+      {props?.visible ? (
+        <BusinessDetail type="image" />
+      ) : (
+        <ImageBackground
+          source={{ uri: props?.detailData.header_image }}
+          style={{
+            width: Constants.windowWidth,
+            height: Constants.Ios ? 280 : 220,
+          }}
+          resizeMode={"cover"}
+        >
+          <MainHeader
+            backgroundColor={COLORS.TRANSPARENT}
+            isSearch={false}
+            backIconColor={COLORS.WHITE}
+            backTxtColor={COLORS.WHITE}
+            loginButton={false}
+          />
+          <View style={styles.backImgVw}>
+            <ScaleText style={styles.mainTxt}>
+              {props?.detailData?.business_name}
             </ScaleText>
-            {props?.detailData?.business_open_time?.closing_day === 1 &&
-            props?.detailData?.business_open_time?.temporary_close === 1 &&
-            props?.detailData?.business_open_time?.permanent_close === 1 ? (
-              <ScaleText style={styles.smallTxt}>
-                {" "}
-                - {props?.detailData?.business_open_time?.timeline}
-              </ScaleText>
+            <View style={{ width: 132 }}>
+              <StarShower
+                counts={
+                  props?.detailData?.rating
+                    ? props?.detailData?.rating?.toString()
+                    : 0
+                }
+                starHeight={18}
+                starWidth={18}
+                starsBackColor={COLORS.RGBA}
+                ActiveStarColor={COLORS.YELLOW}
+                UnActiveStarColor={COLORS.WHITE}
+              />
+            </View>
+            {props?.detailData?.claimed ? (
+              <View style={CommonStyles.straightCon}>
+                {props?.detailData?.claimed?.toString() === "1" && (
+                  <IconX
+                    origin={ICON_TYPE.ANT_ICON}
+                    name={"checkcircle"}
+                    color={COLORS.LIGHT_GREEN}
+                    paddingRight={6}
+                  />
+                )}
+                <ScaleText
+                  style={[
+                    styles.smallTxt,
+                    {
+                      color: COLORS.LIGHT_GREEN,
+                      fontSize: FONT_SIZE.medium,
+                    },
+                  ]}
+                >
+                  {props?.detailData?.claimed?.toString() === "1"
+                    ? "Claimed"
+                    : "UnClaimed"}
+                </ScaleText>
+              </View>
             ) : null}
           </View>
-        ) : null}
+        </ImageBackground>
+      )}
+      <View style={styles.mainContainer}>
+        {props?.visible ? (
+          <BusinessDetail type="category" />
+        ) : (
+          <>
+            <ScaleText style={styles.businessCategoryTxt}>
+              {props?.detailData?.business_service_category}
+            </ScaleText>
+            {props?.detailData?.business_open_time ? (
+              <View style={CommonStyles.straightCon}>
+                <ScaleText
+                  style={[
+                    styles.subTitleTxt,
+                    {
+                      color:
+                        props?.detailData?.business_open_time?.closing_day ===
+                          1 &&
+                        props?.detailData?.business_open_time
+                          ?.temporary_close === 1 &&
+                        props?.detailData?.business_open_time
+                          ?.permanent_close === 1
+                          ? COLORS.LIGHT_GREEN
+                          : COLORS.LIGHT_RED,
+                    },
+                  ]}
+                >
+                  {props?.detailData?.business_open_time?.closing_day === 1 &&
+                  props?.detailData?.business_open_time?.temporary_close ===
+                    1 &&
+                  props?.detailData?.business_open_time?.permanent_close === 1
+                    ? "Open Now"
+                    : "Closed Now"}
+                </ScaleText>
+                {props?.detailData?.business_open_time?.closing_day === 1 &&
+                props?.detailData?.business_open_time?.temporary_close === 1 &&
+                props?.detailData?.business_open_time?.permanent_close === 1 ? (
+                  <ScaleText style={styles.smallTxt}>
+                    {" "}
+                    - {props?.detailData?.business_open_time?.timeline}
+                  </ScaleText>
+                ) : null}
+              </View>
+            ) : null}
+          </>
+        )}
         <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
           {props?.detailData?.mobileno ? (
             <View style={{ alignItems: "center", marginTop: 10 }}>
@@ -488,58 +505,70 @@ const BusinessPageDetailsView = (props) => {
           </View>
         </View>
       </View>
-      {take_reservation && (
-        <View style={styles.mainContainer}>
-          <View style={styles.reservationView}>
-            <ScaleText style={styles.sectionTxt}>Make a Reservation</ScaleText>
-            {/* <Button
+      {props?.visible ? (
+        <BusinessDetail type="image" />
+      ) : (
+        <>
+          {take_reservation && (
+            <View style={styles.mainContainer}>
+              <View style={styles.reservationView}>
+                <ScaleText style={styles.sectionTxt}>
+                  Make a Reservation
+                </ScaleText>
+                {/* <Button
               style={[{ marginTop: 20 }]}
               buttonLabelStyle={styles.btnTextCenter}
               buttonText={"Find a Table"}
               onPress={() => props.handleReservationPress()}
             /> */}
-            <TouchableOpacity
-              style={[styles.orderTouch, styles.orderTouchSecond]}
-              onPress={() => props.handleReservationPress()}
-            >
-              <ScaleText style={[styles.orderTxt, styles.orderTxtSecond]}>
-                Find a Table
-              </ScaleText>
-            </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.orderTouch, styles.orderTouchSecond]}
+                  onPress={() => props.handleReservationPress()}
+                >
+                  <ScaleText style={[styles.orderTxt, styles.orderTxtSecond]}>
+                    Find a Table
+                  </ScaleText>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        </>
+      )}
+      {offer_takeout || offers_delivery || outdoor_seating ? (
+        <View style={styles.mainContainer}>
+          <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
+          <View style={[CommonStyles.justifyCenter, { flex: 1 }]}>
+            {offer_takeout ? (
+              <TouchableOpacity
+                style={styles.orderTouch}
+                onPress={() => props.onPressOrder(1)}
+              >
+                <ScaleText style={styles.orderTxt}>
+                  Start Order Delivery
+                </ScaleText>
+              </TouchableOpacity>
+            ) : null}
+            {offers_delivery ? (
+              <TouchableOpacity
+                style={styles.orderTouch}
+                onPress={() => props.onPressOrder(2)}
+              >
+                <ScaleText style={styles.orderTxt}>
+                  Start Order Takeout
+                </ScaleText>
+              </TouchableOpacity>
+            ) : null}
+            {outdoor_seating ? (
+              <TouchableOpacity
+                style={styles.orderTouch}
+                onPress={() => props.handleReservationPress()}
+              >
+                <ScaleText style={styles.orderTxt}>Outdoor Seating</ScaleText>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </View>
-      )}
-      <View style={styles.mainContainer}>
-        <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
-        <View style={[CommonStyles.justifyCenter, { flex: 1 }]}>
-          {offer_takeout ? (
-            <TouchableOpacity
-              style={styles.orderTouch}
-              onPress={() => props.onPressOrder(1)}
-            >
-              <ScaleText style={styles.orderTxt}>
-                Start Order Delivery
-              </ScaleText>
-            </TouchableOpacity>
-          ) : null}
-          {offers_delivery ? (
-            <TouchableOpacity
-              style={styles.orderTouch}
-              onPress={() => props.onPressOrder(2)}
-            >
-              <ScaleText style={styles.orderTxt}>Start Order Takeout</ScaleText>
-            </TouchableOpacity>
-          ) : null}
-          {outdoor_seating ? (
-            <TouchableOpacity
-              style={styles.orderTouch}
-              onPress={() => props.handleReservationPress()}
-            >
-              <ScaleText style={styles.orderTxt}>Outdoor Seating</ScaleText>
-            </TouchableOpacity>
-          ) : null}
-        </View>
-      </View>
+      ) : null}
       <View style={[styles.mainContainer, { paddingHorizontal: 0 }]}>
         <Image
           source={{ uri: imagePreviewUrl }}
@@ -679,7 +708,7 @@ const BusinessPageDetailsView = (props) => {
           <ScaleText style={styles.blueColorTxt}>More Info</ScaleText>
         </TouchableOpacity>
       </View>
-      {Object.keys(props.recentFeedData).length !== 0 ? (
+      {Object.keys(props.recentFeedData)?.length !== 0 ? (
         <View style={styles.mainContainer}>
           <TouchableOpacity
             onPress={() => {
