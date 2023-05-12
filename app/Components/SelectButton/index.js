@@ -63,9 +63,9 @@ const SelectButton = (props) => {
   return (
     <View style={{ marginVertical: 10 }}>
       <View style={styles.mainCon}>
-        <View style={styles.headTxtVw}>
+        {headTxt ? <View style={styles.headTxtVw}>
           <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
-        </View>
+        </View> : null}
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => {

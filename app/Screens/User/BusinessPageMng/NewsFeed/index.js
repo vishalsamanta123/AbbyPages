@@ -7,6 +7,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { apiCall } from "../../../../Utils/httpClient";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const NewsFeed = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
@@ -16,6 +17,11 @@ const NewsFeed = ({ navigation, route }) => {
     comment: "",
     comment_id: "",
     post_id: "",
+  });
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
   });
   const [likeUnlikeData, setLikeUnlikeData] = useState({});
   const [commentResp, setCommentResp] = useState({});
@@ -83,8 +89,18 @@ const NewsFeed = ({ navigation, route }) => {
         if (data.status === 201) {
           // setVisible(false);
           setLikeUnlikeData({});
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
         } else {
           // setVisible(false);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
         }
       }
     } catch (error) {
@@ -126,7 +142,6 @@ const NewsFeed = ({ navigation, route }) => {
     const options = {
       message: `https://abbypages.com/news-feeds/${finalName}/${post_id}`,
     };
-    console.log("options", options);
 
     const shareResponse = await Share.open(options);
   };
@@ -141,6 +156,19 @@ const NewsFeed = ({ navigation, route }) => {
         handelOnPressPost={handelOnPressPost}
         visible={visible}
         handleSharePress={handleSharePress}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={"bottom"}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
       />
     </View>
   );

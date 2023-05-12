@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { TouchableOpacity, StyleSheet, Image } from "react-native";
-import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
 
 const Button = (props) => {
@@ -18,7 +18,7 @@ const Button = (props) => {
     buttonTxtColor = COLORS.BLACK,
     fontSize = 18,
     paddingHeight = 17,
-    borderRadius = 0,
+    borderRadius = 10,
     alignSelf = "center",
   } = props;
   const { button, buttonLabel, iconsVw } = styles;
@@ -75,9 +75,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonLabel: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
+    textAlign: 'center'
   },
   iconsVw: {
     width: 18,
