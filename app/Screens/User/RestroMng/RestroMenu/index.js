@@ -258,9 +258,9 @@ const RestroMenu = ({ route, navigation }) => {
             />
             <View style={styles.DishDiscptnView}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("AddToCart", { itemDetail: item })
-                }
+                // onPress={() =>
+                //   navigation.navigate("AddToCart", { itemDetail: item })
+                // }
               >
                 <Text style={styles.DishNameTxt}>{item.item_name}</Text>
                 <Text numberOfLines={2} style={styles.DiscrptnTxtStyle}>
@@ -339,12 +339,12 @@ const RestroMenu = ({ route, navigation }) => {
     );
   };
   const onPressCheckOut = () => {
-    if (totalAmount !== "" && cartData !== "") {
-      navigation.navigate("RestroCheckout");
-    } else {
-      setErrorMessage("Add Item To Cart");
-      setVisibleErr(true);
-    }
+    // if (totalAmount !== "" && cartData !== "") {
+    //   navigation.navigate("RestroCheckout");
+    // } else {
+    //   setErrorMessage("Add Item To Cart");
+    //   setVisibleErr(true);
+    // }
   };
 
   const searchItem = (searchKey) => {
