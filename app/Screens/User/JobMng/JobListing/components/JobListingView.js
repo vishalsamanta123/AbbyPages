@@ -63,11 +63,13 @@ const JobListingView = (props) => {
               job_title: txt,
             });
           }}
+          height={50}
           value={props?.filterData?.job_title}
         />
         <MainInput
           placeholder={"Search here..."}
           headTxt={"City..."}
+          height={50}
           onChangeText={(txt) => {
             props.setFilterData({
               ...props.filterData,
