@@ -67,7 +67,7 @@ const PageScroll = ({
           >
             <IconX
               origin={ICON_TYPE.ANT_ICON}
-              name={"upcircle"}
+              name={"upcircleo"}
               size={32}
               color={COLORS.YELLOW}
             />
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    marginRight: 6,
+    marginRight: 10,
+    marginBottom: 10
   },
 });

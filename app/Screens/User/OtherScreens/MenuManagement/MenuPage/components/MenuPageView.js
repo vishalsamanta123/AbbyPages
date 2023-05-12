@@ -11,13 +11,14 @@ import { Images } from "../../../../../../Utils/images";
 import { COLORS, Constants } from "../../../../../../Utils/Constant";
 import ScaleText from "../../../../../../Components/ScaleText";
 import { MenuRecent } from "../../../../../../Components/ShimmerEffect";
+import PageScroll from "../../../../../../Components/PageScroll";
 
 const MenuPageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(3);
   return (
     <>
       <MainHeader headerType={"logo"} />
-      <ScrollView contentContainerStyle={CommonStyles.otherScrollCon}>
+      <PageScroll contentContainerStyle={CommonStyles.otherScrollCon}>
         <View style={styles.mainContainer}>
           {props?.userData?.login_type ? (
             <View style={styles.profileVw}>
@@ -150,7 +151,7 @@ const MenuPageView = (props) => {
             })}
           </View>
         </View>
-      </ScrollView>
+      </PageScroll>
     </>
   );
 };

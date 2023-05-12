@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   imagesView: { marginTop: 20, alignItems: "center" },
   likeSection: {
     flexDirection: "row",
-    flex: 1,
+    // flex: 1,
     marginVertical: 15,
     paddingHorizontal: 5,
     justifyContent: "space-between",

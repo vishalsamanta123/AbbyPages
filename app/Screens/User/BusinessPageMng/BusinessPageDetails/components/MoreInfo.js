@@ -16,6 +16,7 @@ import moment from "moment";
 import MainHeader from "../../../../../Components/MainHeader";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const MoreInfo = (props) => {
   const {
@@ -125,7 +126,7 @@ const MoreInfo = (props) => {
             });
           }}
         />
-        <ScrollView contentContainerStyle={[CommonStyles.otherScrollCon]}>
+        <PageScroll contentContainerStyle={[CommonStyles.otherScrollCon]}>
           <>
             <View style={styles.mainContainer}>
               <ScaleText style={styles.sectionTxt}>Business Hours</ScaleText>
@@ -225,7 +226,7 @@ const MoreInfo = (props) => {
               </View>
             ) : null}
           </View>
-        </ScrollView>
+        </PageScroll>
       </View>
     </Modal>
   );

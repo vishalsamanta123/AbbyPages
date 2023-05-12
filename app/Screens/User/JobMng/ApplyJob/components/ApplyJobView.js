@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import inputStyle from "../../../../../Components/MainInput/styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -13,12 +13,13 @@ import SelectButton from "../../../../../Components/SelectButton";
 import MainButton from "../../../../../Components/MainButton";
 import { OpenDoc } from "../../../../../Utils/Globalfunctions";
 import MediaPicker from "../../../../../Components/MediaPicker";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const ApplyJobView = (props) => {
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText={"Apply Job"} loginButton={false} />
-      <ScrollView style={CommonStyles.scrollCon}>
+      <PageScroll style={CommonStyles.scrollCon}>
         <View style={styles.containerStyl}>
           <ScaleText style={styles.CommntyAmbsdorTxt}>
             {props.itemData?.job_title}
@@ -425,7 +426,7 @@ const ApplyJobView = (props) => {
             onPressButton={() => props.onSubmit()}
           />
         </View>
-      </ScrollView>
+      </PageScroll>
       <MediaPicker
         Visible={props?.docUpload?.open}
         setVisible={() =>

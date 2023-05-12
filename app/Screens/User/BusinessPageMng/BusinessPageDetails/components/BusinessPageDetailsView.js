@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   Image,
@@ -28,6 +28,7 @@ import Button from "../../../../../Components/Button";
 import { removeHttp } from "../../../../../Utils/Globalfunctions";
 import MainButton from "../../../../../Components/MainButton";
 import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const BusinessPageDetailsView = (props) => {
   function handleGetDirections(lattitude, longitude) {
@@ -234,7 +235,7 @@ const BusinessPageDetailsView = (props) => {
   };
 
   return (
-    <ScrollView
+    <PageScroll
       scrollEnabled={!props?.visible}
       contentContainerStyle={[CommonStyles.otherScrollCon]}
     >
@@ -1063,7 +1064,7 @@ const BusinessPageDetailsView = (props) => {
         detailData={props?.detailData}
         moreData={props?.galleryModal?.moreData}
       />
-    </ScrollView>
+    </PageScroll>
   );
 };
 export default BusinessPageDetailsView;
