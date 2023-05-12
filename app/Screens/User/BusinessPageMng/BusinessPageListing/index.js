@@ -80,7 +80,15 @@ const BusinessPageListing = ({ navigation, route }) => {
     }
   };
   const onPressView = (item) => {
-    navigation.navigate("BusinessPageDetails", { detail: item });
+    const getObj = {
+      ...item,
+      business_type: item?.search_business_type
+        ? item?.search_business_type
+        : item?.business_type,
+    };
+    navigation.navigate("BusinessPageDetails", {
+      detail: getObj,
+    });
   };
 
   const handleOptions = (item) => {

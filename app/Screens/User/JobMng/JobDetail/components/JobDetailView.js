@@ -15,11 +15,14 @@ import { COLORS, Constants } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import { getAmount, removeHttp } from "../../../../../Utils/Globalfunctions";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const JobDetailView = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
+      <PageScroll
+      scrollToTop={true}
+      contentContainerStyle={CommonStyles.scrollCon}>
         <ImageBackground
           style={{
             width: Constants.windowWidth,
@@ -250,7 +253,7 @@ const JobDetailView = (props) => {
             );
           })}
         </View>
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };
