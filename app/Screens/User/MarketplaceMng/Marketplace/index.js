@@ -1,15 +1,22 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MarketplaceView from "./components/MarketplaceView";
 import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { useFocusEffect } from "@react-navigation/native";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const MarketplaceScreen = ({ navigation, route }) => {
   const [isVisibleFilters, setIsVisibleFilters] = useState(false);
   const [subCategories, setSubCategories] = useState([])
   const [productList, setProductList] = useState([])
   const [canGoBack, setCanGoBack] = useState(true)
+  const [likeData, setLikedata] = useState({})
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -17,6 +24,10 @@ const MarketplaceScreen = ({ navigation, route }) => {
       getProductList({})
     }, [navigation, route])
   );
+
+  useEffect(() => {
+    getProductList({})
+  }, [likeData])
 
   const handleCategoryPress = async (cat_name) => {
     getProductList({
@@ -63,6 +74,35 @@ const MarketplaceScreen = ({ navigation, route }) => {
     } catch (error) { }
   }
 
+  const onPressLike = async (item) => {
+    try {
+      const params = {
+        favorite: item?.product_user_favorite === 0 ? 1 : 0,
+        interest: 0,
+        item_id: item?.product_id,
+        item_type: 2,
+        like: item?.product_user_favorite === 0 ? 1 : 0,
+        views: 0,
+      };
+      const { data } = await apiCall("POST", apiEndPoints.USERCOMMONLIKES, params);
+      if (data.status === 200) {
+        setLikedata(data)
+      } else {
+        setLikedata({})
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (error) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
+    }
+  };
   const onBackPress = () => {
     if(canGoBack) {
       navigation.goBack()
@@ -72,6 +112,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
     }
   }
   return (
+    <>
     <MarketplaceView
       isVisibleFilters={isVisibleFilters}
       setIsVisibleFilters={setIsVisibleFilters}
@@ -79,7 +120,21 @@ const MarketplaceScreen = ({ navigation, route }) => {
       handleCategoryPress={handleCategoryPress}
       productList={productList}
       onBackPress={onBackPress}
-    />
+      onPressLike={onPressLike}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
+      />
+    </>
   );
 };
 
