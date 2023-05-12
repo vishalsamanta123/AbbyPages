@@ -27,6 +27,7 @@ const MarketplaceView = (props) => {
     handleCategoryPress,
     productList,
     onBackPress,
+    onPressLike
   } = props;
   const [categoryModal, setCategoryModal] = useState(false);
 
@@ -42,18 +43,20 @@ const MarketplaceView = (props) => {
   };
   const renderProductList = (item, index) => {
     return (
-      <TouchableOpacity style={styles.productTouch} onPress={() => {}}>
+      <TouchableOpacity style={styles.productTouch} >
         <ImageBackground
           source={{ uri: item.product_image }}
           style={styles.productImage}
         >
-          {/* <IconX
-            origin={ICON_TYPE.ENTYPO}
-            size={90}
-            name={"emoji-sad"}
-            paddingRight={5}
-            // color={COLORS.BLACK}
-          /> */}
+          <TouchableOpacity style={{margin: 5}} onPress={() => onPressLike(item)}>
+            <IconX
+              origin={ICON_TYPE.ENTYPO}
+              size={30}
+              name={"heart"}
+              paddingRight={5}
+              color={item?.product_user_favorite === 1 ? COLORS.YELLOW : COLORS.GREY}
+            />
+          </TouchableOpacity>
         </ImageBackground>
         <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
         <ScaleText style={styles.productPriceTxt}>
@@ -119,7 +122,7 @@ const MarketplaceView = (props) => {
             renderItem={({ item, index }) => renderProductList(item, index)}
             // showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={() => <EmptyList message={"Product"}/>}
+            ListEmptyComponent={() => <EmptyList message={"Product"} />}
             numColumns={2}
           />
         </View>
