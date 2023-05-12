@@ -18,6 +18,7 @@ import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
 import { ListShimmer } from "../../../../Components/ShimmerEffect";
 import SliderImages from "../../../../Components/SliderImages";
+import PageScroll from "../../../../Components/PageScroll";
 
 const DashBoardScreen = (props) => {
   const renderSlideItem = ({ item }) => {
@@ -41,7 +42,7 @@ const DashBoardScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerType={"logo"} />
-      <ScrollView
+      <PageScroll
         refreshControl={
           <RefreshControl
             colors={[COLORS.YELLOW]}
@@ -307,7 +308,7 @@ const DashBoardScreen = (props) => {
             </ImageBackground>
           </View>
         </View>
-      </ScrollView>
+      </PageScroll>
       {/* <ByCategory
         navigation={props.navigation}
         searchModal={searchModal}

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   FlatList,
   Image,
   ImageBackground,
@@ -18,6 +17,7 @@ import FilterField from "./FilterField";
 import CategoryView from "./CategoryView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
 import EmptyList from "../../../../../Components/EmptyList";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const MarketplaceView = (props) => {
   const {
@@ -105,7 +105,7 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
-      <ScrollView>
+      <PageScroll>
         <FlatList
           data={subCategories}
           renderItem={({ item, index }) => renderSubcategory(item, index)}
@@ -135,7 +135,7 @@ const MarketplaceView = (props) => {
             // });
           }}
         />
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };

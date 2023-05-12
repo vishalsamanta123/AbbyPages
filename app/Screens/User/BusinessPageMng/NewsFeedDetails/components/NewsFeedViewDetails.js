@@ -19,6 +19,7 @@ import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 import { NewsFeedDetailShimmer } from "../../../../../Components/ShimmerEffect";
 import MainHeader from "../../../../../Components/MainHeader";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const NewsFeedView = (props) => {
   const {
@@ -56,7 +57,7 @@ const NewsFeedView = (props) => {
             loginButton={false}
             isLogin={true}
           />
-          <ScrollView contentContainerStyle={{ padding: 20 }}>
+          <PageScroll contentContainerStyle={{ padding: 20 }}>
             <View style={styles.rowVw}>
               <Image
                 style={styles.smallImgVw}
@@ -163,7 +164,7 @@ const NewsFeedView = (props) => {
             <View style={styles.imagesView}>
               {postData?.photo?.map((item) => renderImages(item))}
             </View>
-          </ScrollView>
+          </PageScroll>
           <CommentsModal
             isVisible={isCommentsVisible}
             setIsCommentsVisible={setIsCommentsVisible}
