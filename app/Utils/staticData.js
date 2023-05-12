@@ -247,3 +247,8 @@ export const ticketPricingPros = [
     color: COLORS.WHITE,
   },
 ];
+
+export const whoPayOptions = [
+  { id: 1, value: 1, title: "I want buyers to pay all fees" },
+  { id: 2, value: 2, title: "I wish to pay all fees." },
+];

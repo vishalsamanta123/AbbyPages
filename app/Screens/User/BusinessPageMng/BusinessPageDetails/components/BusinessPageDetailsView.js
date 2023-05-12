@@ -809,10 +809,6 @@ const BusinessPageDetailsView = (props) => {
           </ScaleText>
           <>
             {props?.detailData?.recommended_business?.map((considr) => {
-              console.log(
-                "🚀 ~ file: BusinessPageDetailsView.js:652 ~ {props?.detailData?.recommended_business?.map ~ considr:",
-                considr
-              );
               return renderYouMayConsider(considr);
             })}
           </>

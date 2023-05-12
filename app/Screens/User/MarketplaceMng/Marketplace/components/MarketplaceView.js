@@ -5,6 +5,7 @@ import {
   ScrollView,
   FlatList,
   Image,
+  ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -40,16 +41,20 @@ const MarketplaceView = (props) => {
     );
   };
   const renderProductList = (item, index) => {
-    console.log(
-      "🚀 ~ file: MarketplaceView.js:32 ~ renderProductList ~ item:",
-      item
-    );
     return (
       <TouchableOpacity style={styles.productTouch} onPress={() => {}}>
-        <Image
+        <ImageBackground
           source={{ uri: item.product_image }}
           style={styles.productImage}
-        />
+        >
+          <IconX
+            origin={ICON_TYPE.ENTYPO}
+            size={90}
+            name={"emoji-sad"}
+            paddingRight={5}
+            // color={COLORS.BLACK}
+          />
+        </ImageBackground>
         <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
         <ScaleText style={styles.productPriceTxt}>
           ${getAmount(item.final_price)}
@@ -114,16 +119,15 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
-      <ScrollView >
+      <ScrollView>
         <FlatList
           data={subCategories}
           renderItem={({ item, index }) => renderSubcategory(item, index)}
           horizontal
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-
         />
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: "center" }}>
           <FlatList
             data={productList}
             renderItem={({ item, index }) => renderProductList(item, index)}

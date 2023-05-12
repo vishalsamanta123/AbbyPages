@@ -16,14 +16,16 @@ import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import { IconX } from "../../../../../Components/Icons/Icon";
-import { ticketPricingPros } from "../../../../../Utils/staticData";
+import { ticketPricingPros, whoPayOptions } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
+import SelectButton from "../../../../../Components/SelectButton";
 
 const PricingView = () => {
   const [ticketPrice, setTicketPrice] = useState(0.0);
   const [abbyPages_carges, setAbbyPages_carges] = useState(0.0);
   const [cardProcessing_carges, setCardProcessing_carges] = useState(0.0);
-  const [paymentCondition, setPaymentCondition] = useState(1);
+  const [paymentCondition, setPaymentCondition] = useState(whoPayOptions[0]?.value);
+  const [paymentConditionLabel, setPaymentConditionLabel] = useState(whoPayOptions[0]?.title);
   const [buyerPay, setBuyerPay] = useState(0.0);
   const [youReceive, setYouReceive] = useState(0.0);
 
@@ -246,6 +248,20 @@ const PricingView = () => {
                 </View>
               </View>
               <View style={styles.partition} />
+              <SelectButton
+                headTxt={""}
+                data={whoPayOptions}
+                listType={''}
+                searchInput={false}
+                value={paymentConditionLabel}
+                labelField={"title"}
+                valueField={"title"}
+                onPressItem={(item) => {
+                  console.log("🚀 ~ file: PricingView.js:311 ~ item:", item)
+                  setPaymentCondition(item?.value)
+                  setPaymentConditionLabel(item?.title)
+                }}
+              />
               {/* <TouchableOpacity onPress={() => setPaymentCondition(1)}>
                 <ScaleText>i want buyers to pay all fees {paymentCondition === 1 && 'current'}</ScaleText>
               </TouchableOpacity>
@@ -259,8 +275,8 @@ const PricingView = () => {
                   buttonLabelStyle={styles.createBtnTxt}
                   onPress={() => {}}
                   buttonText={"Create Event Now"}
-                  width={"60%"}
-                  paddingHeight={12}
+                  width={"70%"}
+                  paddingHeight={10}
                 />
               </View>
             </View>
