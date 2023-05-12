@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     bottom: 55,
     height: Constants.windowHeight,
     width: Constants.windowWidth,
-    backgroundColor: "rgba(0,0,0,0.1)",
+    backgroundColor:COLORS.RGBA2,
     flex: 1,
   },
   popupVw: {
