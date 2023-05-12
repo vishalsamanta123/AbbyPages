@@ -8,7 +8,7 @@ const HowItWorks = () => {
     getUserDetail();
   }, []);
   const getUserDetail = async () => {
-    const getUserData = await AsyncStorage.getItem("localuserdata");
+    const getUserData = await AsyncStorage.getItem("userData");
     if (JSON?.parse(getUserData)?.login_type) {
       setUserData(JSON?.parse(getUserData));
     }
