@@ -141,7 +141,7 @@ const JobListing = ({ navigation, route }) => {
 
   return (
     <View style={CommonStyles.container}>
-      {loader && <Loader state={loader} />}
+      {/* {loader && <Loader state={loader} />} */}
       <JobListingView
         jobList={jobList}
         filterData={filterData}
@@ -156,6 +156,7 @@ const JobListing = ({ navigation, route }) => {
         setPostjob={setPostjob}
         moreData={moreData}
         onPressLike={onPressLike}
+        loader={loader}
       />
       {/* <QuestionModal
         surringVisible={postjob}

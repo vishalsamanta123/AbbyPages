@@ -10,6 +10,7 @@ import EmptyList from "../../../../../../Components/EmptyList";
 import { Images } from "../../../../../../Utils/images";
 import { COLORS, Constants } from "../../../../../../Utils/Constant";
 import ScaleText from "../../../../../../Components/ScaleText";
+import { MenuRecent } from "../../../../../../Components/ShimmerEffect";
 
 const MenuPageView = (props) => {
   const [recentViewNo, setRecentViewNo] = useState(3);
@@ -68,53 +69,64 @@ const MenuPageView = (props) => {
           <ScaleText style={[styles.headTxt, { right: 5, textAlign: "left" }]}>
             Recently Viewed
           </ScaleText>
-          {props?.recent_view?.length > 0 ? (
-            <>
-              {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
-                return (
-                  <TouchableOpacity
-                    style={[CommonStyles.straightCon, styles.listVew]}
-                    onPress={() => props.onPressView(item)}
-                  >
-                    <Image
-                      source={{ uri: item.logo }}
-                      style={styles.listImgVw}
-                      resizeMode={"cover"}
-                    />
-                    <View style={{ width: "92%" }}>
-                      <ScaleText style={styles.listTxt}>
-                        {item.business_name}
-                      </ScaleText>
-                      <ScaleText numberOfLines={2} style={styles.listSmallTxt}>
-                        {item.address}
-                      </ScaleText>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-              {props?.visible ? (
-                <>
-                  <Loader state={props?.visible} type={"small"} />
-                </>
-              ) : null}
-              {recentViewNo <= 3 ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    setRecentViewNo(10);
-                  }}
-                  style={styles.seeMoreBttn}
-                >
-                  <ScaleText style={styles.seeMoreBttnTxt}>See More</ScaleText>
-                </TouchableOpacity>
-              ) : null}
-            </>
+          {props?.visible ? (
+            <MenuRecent />
           ) : (
-            <EmptyList
-              alignItems={"flex-start"}
-              height={24}
-              marginLeft={16}
-              message={"Views"}
-            />
+            <>
+              {props?.recent_view?.length > 0 ? (
+                <>
+                  {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
+                    return (
+                      <TouchableOpacity
+                        style={[CommonStyles.straightCon, styles.listVew]}
+                        onPress={() => props.onPressView(item)}
+                      >
+                        <Image
+                          source={{ uri: item.logo }}
+                          style={styles.listImgVw}
+                          resizeMode={"cover"}
+                        />
+                        <View style={{ width: "92%" }}>
+                          <ScaleText style={styles.listTxt}>
+                            {item.business_name}
+                          </ScaleText>
+                          <ScaleText
+                            numberOfLines={2}
+                            style={styles.listSmallTxt}
+                          >
+                            {item.address}
+                          </ScaleText>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                  {props?.visible ? (
+                    <>
+                      <Loader state={props?.visible} type={"small"} />
+                    </>
+                  ) : null}
+                  {recentViewNo <= 3 ? (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setRecentViewNo(10);
+                      }}
+                      style={styles.seeMoreBttn}
+                    >
+                      <ScaleText style={styles.seeMoreBttnTxt}>
+                        See More
+                      </ScaleText>
+                    </TouchableOpacity>
+                  ) : null}
+                </>
+              ) : (
+                <EmptyList
+                  alignItems={"flex-start"}
+                  height={24}
+                  marginLeft={16}
+                  message={"Views"}
+                />
+              )}
+            </>
           )}
           <View style={{ marginTop: 20 }}>
             <ScaleText style={[styles.headTxt, {}]}>Menu</ScaleText>
