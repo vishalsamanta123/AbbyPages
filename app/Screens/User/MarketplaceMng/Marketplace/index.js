@@ -49,8 +49,6 @@ const MarketplaceScreen = ({ navigation, route }) => {
         product_tags: null,
         status: 1
       }
-      console.log('params: ', params);
-      console.log('typeof info.cat_name: ', typeof info.cat_name);
       if(typeof info.cat_name === 'undefined'){
         setCanGoBack(true)
       } else {
