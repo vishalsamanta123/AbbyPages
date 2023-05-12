@@ -7,11 +7,17 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
   const [visible, setVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(0);
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   const [moreInfoModal, setMoreInfoModal] = useState({
     open: false,
     type: "",
@@ -73,10 +79,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
         ENDPOINTS.GETABBYCONNECTPOST,
         params
       );
-
       if (data.status == 200) {
         // setVisible(false);
-        setRecentFeedData(data?.data[0]);
+        setRecentFeedData(data?.data?.abbyConnectData[0]);
       } else {
         if (data.status === 201) {
           setRecentFeedData({});
@@ -96,7 +101,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
   const handleSavepress = async () => {
     try {
-      setVisible(true);
+      // setVisible(true);
       const params = {
         item_id: detail?.business_id,
         like: isSaved ? 0 : 1,
@@ -106,19 +111,23 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status == 200) {
-        setVisible(false);
+        // setVisible(false);
         setIsSaved(!isSaved);
       } else {
         if (data.status === 201) {
-          setVisible(false);
+          // setVisible(false);
         } else if (data.status === 401) {
-          Alert.alert(data.message);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
         } else {
-          setVisible(false);
+          // setVisible(false);
         }
       }
     } catch (error) {
-      setVisible(false);
+      // setVisible(false);
     }
   };
 
@@ -165,6 +174,19 @@ const BusinessPageDetails = ({ navigation, route }) => {
         handleReservationPress={handleReservationPress}
         onPressOrder={onPressOrder}
         handleConsiderPress={handleConsiderPress}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={"bottom"}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
       />
     </View>
   );

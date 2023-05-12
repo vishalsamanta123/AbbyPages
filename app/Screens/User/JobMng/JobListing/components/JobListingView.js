@@ -12,6 +12,7 @@ import CategoryView from "./CategoryView";
 import { NoImageList } from "../../../../../Components/ListItemsView";
 import FilterView from "./FilterView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
+import { JobList } from "../../../../../Components/ShimmerEffect";
 
 const JobListingView = (props) => {
   const [categoryModal, setCategoryModal] = useState(false);
@@ -93,56 +94,60 @@ const JobListingView = (props) => {
       >
         <ScaleText style={styles.searchBttnTxt}>Search</ScaleText>
       </TouchableOpacity>
-      <FlatList
-        data={props.jobList}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => index}
-        renderItem={({ item, index }) => {
-          return (
-            <NoImageList
-              item={item}
-              onPressView={() => props.onPressJob(item)}
-              title={item?.job_title}
-              subTitle={item?.company_name}
-              smallTxt={item?.city_name + "-" + item?.job_address}
-              dateIconTxt={item?.create_date}
-              heartDark={item.user_like === 1 ? true : false}
-              onPressHeart={() => props.onPressLike(item, index)}
-              rowIconTxt1={
-                item?.job_type === "1"
-                  ? "Fixed Term Freelance"
-                  : item?.job_type === "2"
-                  ? "Paid Freelance"
-                  : item?.job_type === "3"
-                  ? "Unpaid Full Time"
-                  : item?.job_type === "4"
-                  ? "Paid Internship"
-                  : item?.job_type === "5"
-                  ? "Part Time Temporary"
-                  : item?.job_type === "6"
-                  ? "Unpaid Internship"
-                  : "Not Found"
-              }
-              rowIconTxt2={`$${getAmount(
-                item?.monthly_in_hand_salary_from
-              )} - $${getAmount(item?.monthly_in_hand_salary_to)}`}
-            />
-          );
-        }}
-        ListEmptyComponent={() => {
-          return <EmptyList message={"Job"} />;
-        }}
-        onEndReached={() => {
-          if (props?.jobList?.length < props?.moreData) {
-            props?.handleJobFilter(
-              props?.jobList?.length > 4 ? props.offset + 10 : 0,
-              props.filterData
+      {props.loader ? (
+        <JobList />
+      ) : (
+        <FlatList
+          data={props.jobList}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => {
+            return (
+              <NoImageList
+                item={item}
+                onPressView={() => props.onPressJob(item)}
+                title={item?.job_title}
+                subTitle={item?.company_name}
+                smallTxt={item?.city_name + "-" + item?.job_address}
+                dateIconTxt={item?.create_date}
+                heartDark={item.user_like === 1 ? true : false}
+                onPressHeart={() => props.onPressLike(item, index)}
+                rowIconTxt1={
+                  item?.job_type === "1"
+                    ? "Fixed Term Freelance"
+                    : item?.job_type === "2"
+                    ? "Paid Freelance"
+                    : item?.job_type === "3"
+                    ? "Unpaid Full Time"
+                    : item?.job_type === "4"
+                    ? "Paid Internship"
+                    : item?.job_type === "5"
+                    ? "Part Time Temporary"
+                    : item?.job_type === "6"
+                    ? "Unpaid Internship"
+                    : "Not Found"
+                }
+                rowIconTxt2={`$${getAmount(
+                  item?.monthly_in_hand_salary_from
+                )} - $${getAmount(item?.monthly_in_hand_salary_to)}`}
+              />
             );
-          }
-        }}
-        refreshing={false}
-        onRefresh={() => props.handleJobFilter(0, props.nullObj)}
-      />
+          }}
+          ListEmptyComponent={() => {
+            return <EmptyList message={"Job"} />;
+          }}
+          onEndReached={() => {
+            if (props?.jobList?.length < props?.moreData) {
+              props?.handleJobFilter(
+                props?.jobList?.length > 4 ? props.offset + 10 : 0,
+                props.filterData
+              );
+            }
+          }}
+          refreshing={false}
+          onRefresh={() => props.handleJobFilter(0, props.nullObj)}
+        />
+      )}
       <CategoryView
         categoryModal={categoryModal}
         setCategoryModal={setCategoryModal}
