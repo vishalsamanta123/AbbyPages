@@ -1,16 +1,18 @@
-import { View, TextInput } from "react-native";
-import React from "react";
+import { View, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { COLORS } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
 import styles from "./styles";
-import { IconX } from "../Icons/Icon";
+import { IconX, ICON_TYPE } from "../Icons/Icon";
 
 const MainInput = (props) => {
+  const [secure, setSecure] = useState(true);
   const {
-    height = 48,
+    height = 56,
     paddingVertical = 0,
     backgroundColor = COLORS.WHITE,
     placeholder = "Input",
+    headTxtBackColor = COLORS.WHITE,
     headTxt = placeholder,
     placeholderTextColor = COLORS.COMMON,
     onChangeText = () => {},
@@ -28,6 +30,7 @@ const MainInput = (props) => {
     leftImgColor = COLORS.DARK_PURPLE,
     keyboardType = "default",
     maxLength = 200,
+    secureTextEntry = false,
   } = props;
   return (
     <View
@@ -42,7 +45,14 @@ const MainInput = (props) => {
       ]}
     >
       {header && (
-        <View style={styles.headTxtVw}>
+        <View
+          style={[
+            styles.headTxtVw,
+            {
+              backgroundColor: headTxtBackColor,
+            },
+          ]}
+        >
           <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
         </View>
       )}
@@ -71,6 +81,7 @@ const MainInput = (props) => {
         value={value}
         maxLength={maxLength}
         keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry && secure ? secure : false}
       />
       {rightImgName != "" && rightImgOrigin != "" ? (
         <View style={styles.iconVw}>
@@ -81,6 +92,19 @@ const MainInput = (props) => {
             color={rightImgColor}
           />
         </View>
+      ) : null}
+      {secureTextEntry ? (
+        <TouchableOpacity
+          onPress={() => setSecure(secure ? false : true)}
+          style={styles.iconVw}
+        >
+          <IconX
+            origin={ICON_TYPE.FEATHER_ICONS}
+            name={!secure ? "eye" : "eye-off"}
+            size={22}
+            color={COLORS.DARK_PURPLE}
+          />
+        </TouchableOpacity>
       ) : null}
     </View>
   );

@@ -41,21 +41,21 @@ const App = () => {
 
   return (
     // <View style={{ flex: 1 }}>
-    <UserProvider>
-      <CartProvider>
-        <ServiceProvider>
-          <ServiceProviderQueAns>
-            <ShoppingCartProvider>
-              <OrderCategorySelectProvider>
-                <AddItemCategortyProvider>
+    <CartProvider>
+      <ServiceProvider>
+        <ServiceProviderQueAns>
+          <ShoppingCartProvider>
+            <OrderCategorySelectProvider>
+              <AddItemCategortyProvider>
+                <UserProvider>
                   <Navigation />
-                </AddItemCategortyProvider>
-              </OrderCategorySelectProvider>
-            </ShoppingCartProvider>
-          </ServiceProviderQueAns>
-        </ServiceProvider>
-      </CartProvider>
-    </UserProvider>
+                </UserProvider>
+              </AddItemCategortyProvider>
+            </OrderCategorySelectProvider>
+          </ShoppingCartProvider>
+        </ServiceProviderQueAns>
+      </ServiceProvider>
+    </CartProvider>
     // </View>
   );
 };

@@ -384,10 +384,7 @@ function AuthLoading({ navigation }) {
         const userToken = data.token;
         try {
           await AsyncStorage.setItem("userToken", userToken);
-          await AsyncStorage.setItem(
-            "localuserdata",
-            JSON.stringify(data.data)
-          );
+          await AsyncStorage.setItem("userData", JSON.stringify(data.data));
         } catch (error) {
           console.log(error.message);
         }
@@ -395,7 +392,7 @@ function AuthLoading({ navigation }) {
       },
       signOut: async () => {
         try {
-          await AsyncStorage.removeItem("localuserdata");
+          await AsyncStorage.removeItem("userData");
           await AsyncStorage.removeItem("userToken");
           await AsyncStorage.removeItem("fcmToken");
           setUserData({});

@@ -353,7 +353,7 @@ const SignUpView = ({ navigation }) => {
         setVisible(false);
         setUserData(data.data);
         await setDefaultHeader("token", data.token);
-        await AsyncStorage.setItem("localuserdata", JSON.stringify(data));
+        await AsyncStorage.setItem("userData", JSON.stringify(data));
         signIn();
       } else {
         setVisible(false);

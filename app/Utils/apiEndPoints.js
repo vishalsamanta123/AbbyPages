@@ -5,7 +5,7 @@ export default {
   BUSINEES_SIGN_UP: "/api/userAuth/businessSignUp",
   RESENT_OTP: "/api/userAuth/resentotp",
   USER_VERIFY: "/api/userAuth/userVerify",
-  USER_SIGN_IN: "/api/userAuth/userLogin",
+  USERLOGIN: "/api/userAuth/userLogin",
   SOCIAL_LOGIN: "/api/userAuth/socialSiteLogin",
   FORGOT_PASSWORD: "/api/userAuth/forgotPassword",
   PASSWORD_UPDATE: "/api/userAuth/passwordUpdate",

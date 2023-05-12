@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   mainCont: {
     marginVertical: 10,
     borderWidth: Constants.standardBW,
-    borderColor: COLORS.DARK_PURPLE,
+    borderColor: COLORS.GREY,
     flex: 0,
     paddingVertical: 0,
     backgroundColor: COLORS.WHITE,
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -12,
     marginLeft: 16,
-    backgroundColor: COLORS.WHITE,
     paddingHorizontal: 2,
   },
   headTxt: {

@@ -23,7 +23,6 @@ const UserVerify = ({ route, navigation }) => {
     // }
   }, []);
   const _handleOtpVerify = async () => {
-    // navigation.navigate('DashBoard')
     setVisible(true);
     if (otp !== "") {
       const params = {
@@ -34,7 +33,7 @@ const UserVerify = ({ route, navigation }) => {
         if (data.status === 200) {
           setVisible(false);
           setUserData(data.data);
-          await AsyncStorage.setItem("localuserdata", JSON.stringify(data));
+          await AsyncStorage.setItem("userData", JSON.stringify(data?.data));
           signIn(data);
         } else {
           setVisible(false);
