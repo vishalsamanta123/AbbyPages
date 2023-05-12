@@ -72,128 +72,128 @@ const DashBoardScreen = (props) => {
         <View style={styles.mainVw}>
           <View style={styles.containersVw}>
             <ScaleText style={styles.titlesTxt}>Recent Activities</ScaleText>
-
             {props.visible ? (
               <View>
                 <ListShimmer />
               </View>
             ) : (
-              <View style={styles.activityConVw}>
-                {props?.recent_activity?.length > 0 ? (
-                  <>
-                    {props?.recent_activity?.map((activity) => {
-                      return (
-                        <TouchableOpacity
-                          activeOpacity={1}
-                          style={styles.activityCon}
-                          onPress={() => props.handleOnActivity(activity)}
-                        >
-                          <View style={styles.rowVw}>
-                            <Image
-                              source={{ uri: activity?.user?.profile }}
-                              style={styles.activityProfileVw}
-                            />
-                            <View style={styles.textVw}>
-                              <ScaleText style={styles.activityNameTxt}>
-                                {activity?.user?.first_name +
-                                  " " +
-                                  activity?.user?.last_name}
-                              </ScaleText>
-                              <ScaleText style={styles.activityRvwTxt}>
-                                {activity?.review
-                                  ? "Wrote a Review"
-                                  : activity?.image?.length > 0
-                                  ? `${
-                                      "Added " +
-                                      activity?.image?.length +
-                                      " Photos"
-                                    }`
-                                  : null}
-                              </ScaleText>
-                            </View>
-                          </View>
-                          {activity?.image?.length > 0 ? (
-                            <ScaleText style={styles.activityMainTxt}>
-                              {activity?.business_name}
-                            </ScaleText>
-                          ) : null}
-                          {activity?.review ? (
-                            <Image
-                              source={{ uri: activity?.business_logo }}
-                              style={[
-                                styles.activityBnnrVw,
-                                {
-                                  marginBottom: 0,
-                                },
-                              ]}
-                              resizeMode={"cover"}
-                            />
-                          ) : (
-                            <>
-                              {Array.isArray(activity?.image) &&
-                              activity?.image?.length > 0 ? (
-                                <ScrollView
-                                  nestedScrollEnabled
-                                  contentContainerStyle={styles.photosVw}
-                                >
-                                  {activity?.image
-                                    ?.slice(0, 5)
-                                    ?.map((photos) => {
-                                      return (
-                                        <Image
-                                          source={{ uri: photos }}
-                                          resizeMode={"cover"}
-                                          style={[
-                                            styles.activityBnnrVw,
-                                            {
-                                              marginBottom: 10,
-                                              width:
-                                                activity?.image?.length === 1
-                                                  ? "100%"
-                                                  : Constants.windowWidth / 2.4,
-                                            },
-                                          ]}
-                                        />
-                                      );
-                                    })}
-                                </ScrollView>
-                              ) : null}
-                              {/* {activity?.image?.length > 2 ? (
-                              <TouchableOpacity onPress={() => setViewPhotos()}>
-                                <ScaleText style={styles.seeAllTxt}>
-                                  See All {activity?.image?.length} Photos
-                                </ScaleText>
-                              </TouchableOpacity>
-                            ) : null} */}
-                            </>
-                          )}
-                          {activity?.review ? (
-                            <ScaleText style={styles.activityMainTxt}>
-                              {activity?.business_name}
-                            </ScaleText>
-                          ) : null}
-                          {activity?.review ? (
-                            <>
-                              <StarShower
-                                marginLeft={8}
-                                counts={activity?.review?.business_rating}
-                              />
-                              <ScaleText style={styles.activityCmntTxt}>
-                                {activity?.review?.description}
-                              </ScaleText>
-                            </>
-                          ) : null}
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </>
-                ) : null}
-              </View>
+              // <View style={styles.activityConVw}>
+              //   {props?.recent_activity?.length > 0 ? (
+              //     <>
+              //       {props?.recent_activity?.map((activity) => {
+              //         return (
+              //           <TouchableOpacity
+              //             activeOpacity={1}
+              //             style={styles.activityCon}
+              //             onPress={() => props.handleOnActivity(activity)}
+              //           >
+              //             <View style={styles.rowVw}>
+              //               <Image
+              //                 source={{ uri: activity?.user?.profile }}
+              //                 style={styles.activityProfileVw}
+              //               />
+              //               <View style={styles.textVw}>
+              //                 <ScaleText style={styles.activityNameTxt}>
+              //                   {activity?.user?.first_name +
+              //                     " " +
+              //                     activity?.user?.last_name}
+              //                 </ScaleText>
+              //                 <ScaleText style={styles.activityRvwTxt}>
+              //                   {activity?.review
+              //                     ? "Wrote a Review"
+              //                     : activity?.image?.length > 0
+              //                     ? `${
+              //                         "Added " +
+              //                         activity?.image?.length +
+              //                         " Photos"
+              //                       }`
+              //                     : null}
+              //                 </ScaleText>
+              //               </View>
+              //             </View>
+              //             {activity?.image?.length > 0 ? (
+              //               <ScaleText style={styles.activityMainTxt}>
+              //                 {activity?.business_name}
+              //               </ScaleText>
+              //             ) : null}
+              //             {activity?.review ? (
+              //               <Image
+              //                 source={{ uri: activity?.business_logo }}
+              //                 style={[
+              //                   styles.activityBnnrVw,
+              //                   {
+              //                     marginBottom: 0,
+              //                   },
+              //                 ]}
+              //                 resizeMode={"cover"}
+              //               />
+              //             ) : (
+              //               <>
+              //                 {Array.isArray(activity?.image) &&
+              //                 activity?.image?.length > 0 ? (
+              //                   <ScrollView
+              //                     nestedScrollEnabled
+              //                     contentContainerStyle={styles.photosVw}
+              //                   >
+              //                     {activity?.image
+              //                       ?.slice(0, 5)
+              //                       ?.map((photos) => {
+              //                         return (
+              //                           <Image
+              //                             source={{ uri: photos }}
+              //                             resizeMode={"cover"}
+              //                             style={[
+              //                               styles.activityBnnrVw,
+              //                               {
+              //                                 marginBottom: 10,
+              //                                 width:
+              //                                   activity?.image?.length === 1
+              //                                     ? "100%"
+              //                                     : Constants.windowWidth / 2.4,
+              //                               },
+              //                             ]}
+              //                           />
+              //                         );
+              //                       })}
+              //                   </ScrollView>
+              //                 ) : null}
+              //                 {/* {activity?.image?.length > 2 ? (
+              //                 <TouchableOpacity onPress={() => setViewPhotos()}>
+              //                   <ScaleText style={styles.seeAllTxt}>
+              //                     See All {activity?.image?.length} Photos
+              //                   </ScaleText>
+              //                 </TouchableOpacity>
+              //               ) : null} */}
+              //               </>
+              //             )}
+              //             {activity?.review ? (
+              //               <ScaleText style={styles.activityMainTxt}>
+              //                 {activity?.business_name}
+              //               </ScaleText>
+              //             ) : null}
+              //             {activity?.review ? (
+              //               <>
+              //                 <StarShower
+              //                   marginLeft={8}
+              //                   counts={activity?.review?.business_rating}
+              //                 />
+              //                 <ScaleText style={styles.activityCmntTxt}>
+              //                   {activity?.review?.description}
+              //                 </ScaleText>
+              //               </>
+              //             ) : null}
+              //           </TouchableOpacity>
+              //         );
+              //       })}
+              //     </>
+              //   ) : null}
+              // </View>
+              null
             )}
             {/* {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )} */}
-            {props?.recent_activity?.length > 2 && !props.recentLoader ? (
+            {/* {props?.recent_activity?.length > 2 && !props.recentLoader ? (
               <TouchableOpacity
                 onPress={() => {
                   if (props?.recent_activity?.length < props?.moreData) {
@@ -206,7 +206,7 @@ const DashBoardScreen = (props) => {
                   Show More Activity
                 </ScaleText>
               </TouchableOpacity>
-            ) : null}
+            ) : null} */}
           </View>
           <View style={styles.containersVw}>
             <ScaleText style={styles.titlesTxt}>
