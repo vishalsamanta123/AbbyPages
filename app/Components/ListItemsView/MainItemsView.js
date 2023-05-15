@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   mainConatiner: {
     paddingHorizontal: 16,
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: COLORS.BORDER_LINE,

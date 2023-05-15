@@ -111,7 +111,7 @@ const PricingView = () => {
             <ScaleText
               style={[
                 CommonStyles.mediumTxt,
-                { marginTop: 16, paddingHorizontal: 10, color: COLORS.WHITE },
+                { marginTop: 16, paddingHorizontal: 10, color: COLORS.WHITE, marginBottom: 16, },
               ]}
             >
               There are no commitments necessary, and our system is absolutely

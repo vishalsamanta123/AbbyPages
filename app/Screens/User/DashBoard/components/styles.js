@@ -46,7 +46,7 @@ const Styles = StyleSheet.create({
   },
   titlesTxt: {
     //on Dashboard and ByCategory
-    fontSize: FONT_SIZE.largeM,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 12,

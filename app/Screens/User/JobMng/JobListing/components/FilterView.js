@@ -178,18 +178,18 @@ const FilterView = (props) => {
               }}
             />
           </View>
-        </View>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Button
-            buttonText={"Filter"}
-            onPress={() => {
-              setFilterModal(false);
-              handleFilter();
-            }}
-            width={"92%"}
-            paddingHeight={10}
-            borderRadius={20}
-          />
+          <View style={styles.filterDropVw}>
+            <Button
+              buttonText={"Filter"}
+              onPress={() => {
+                setFilterModal(false);
+                handleFilter();
+              }}
+              width={"100%"}
+              paddingHeight={10}
+              borderRadius={20}
+            />
+          </View>
         </View>
       </View>
     </Modal>

@@ -18,6 +18,8 @@ import Video from "react-native-video";
 import { videos } from "../../../../../Utils/videos";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
+import EmptyList from "../../../../../Components/EmptyList";
+import MainButton from "../../../../../Components/MainButton";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -66,10 +68,15 @@ const EventListingView = (props) => {
             resizeMode={"stretch"}
           />
           <View style={styles.bannerView}>
-            <ScaleText style={styles.bannerHeading}>
+            <ScaleText style={CommonStyles.bigTxtVw}>
               Sell Event Tickets on ABBYPAGES
             </ScaleText>
-            <ScaleText style={styles.bannerHeadingDesc}>
+            <ScaleText
+              style={[
+                CommonStyles.mediumTxt,
+                { marginTop: 12, marginBottom: 12 },
+              ]}
+            >
               Online ticket sales and the creation of fantastic events just got
               a whole lot simpler. Create
             </ScaleText>
@@ -79,7 +86,7 @@ const EventListingView = (props) => {
               onPress={() => {}}
               buttonText={"Create Event"}
               width={"50%"}
-              paddingHeight={12}
+              paddingHeight={10}
             />
           </View>
         </View>
@@ -254,9 +261,10 @@ const EventListingView = (props) => {
               </>
             ) : (
               <View style={styles.emptyEventVw}>
-                <ScaleText style={styles.emptyEventTxt}>
-                  No Data Found for this
-                </ScaleText>
+                {/* <ScaleText style={styles.emptyEventTxt}>
+                  No Event Found
+                </ScaleText> */}
+                <EmptyList message={"Event"} />
               </View>
             )}
           </ScrollView>
@@ -388,12 +396,22 @@ const EventListingView = (props) => {
               );
             })}
           </ScrollView>
-          <Button
+          {/* <Button
             style={styles.seeAllBttn}
             buttonLabelStyle={styles.seeAllBttnTxt}
             onPress={() => handleSeeAll()}
             buttonText={"See All"}
-          />
+            paddingHeight={10}
+          /> */}
+          <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
+            <MainButton
+              buttonTxt="See All"
+              paddingHeight={12}
+              borderColor={COLORS.YELLOW}
+              txtColor={COLORS.YELLOW}
+              onPressButton={() => handleSeeAll()}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
