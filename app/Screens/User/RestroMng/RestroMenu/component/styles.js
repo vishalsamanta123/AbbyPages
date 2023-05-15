@@ -3,7 +3,6 @@ import { COLORS, Constants, FONT_FAMILY } from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
   listVw: {
-    alignItems: "center",
     borderBottomWidth: Constants.standardBW,
     borderColor: COLORS.BORDER_LINE,
   },

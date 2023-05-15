@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderWidth: Constants.standardBW,
     borderWidth: Constants.standardBW,
-    borderColor: COLORS.DARK_PURPLE,
     borderRadius: 12,
   },
   headTxtVw: {

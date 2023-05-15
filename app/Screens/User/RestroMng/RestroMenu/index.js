@@ -1,73 +1,49 @@
 import React, { useState, useContext } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Image, View, Text, TouchableOpacity } from "react-native";
-import InputSpinner from "react-native-input-spinner";
-import AsyncStorage from "@react-native-community/async-storage";
+import { Image, View } from "react-native";
 import RestroMenuView from "./component/RestroMenuView";
 import _ from "lodash";
-import styles from "./component/styles";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_WHITE_COLOR,
-} from "../../../../Utils/Constant";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
-import { CartContext } from "../../../../Utils/UserContext";
+import { CartContext, UserContext } from "../../../../Utils/UserContext";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
-import { Images } from "../../../../Utils/images";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const RestroMenu = ({ route, navigation }) => {
+  const { detail = {} } = route?.params;
+  const [userData, setUserData] = useContext(UserContext);
   const [cartData, setCartData] = useContext(CartContext);
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   const [visible, setVisible] = useState(false);
   const [dataType, setDataType] = useState("allData");
   const [totalAmount, setTotalAmount] = useState("");
-  const [restroItemCategoryList, setRestroItemCategoryList] = useState([]);
-  const [restroItemList, setRestroItemList] = useState([]);
-  const [restroItemParentList, setRestroItemParentList] = useState([]);
-  const [isSelectedCatgory, setIsSelectedCatgory] = useState(null);
+  console.log("totalAmount: ", totalAmount);
+  const [categoryList, setCategoryList] = useState([]);
+  const [itemsList, setItemsList] = useState([]);
+  const [itemsListFxd, setItemsListFxd] = useState([]);
+  const [selectedCatgory, setSelectedCatgory] = useState(null);
   const [search, setSearch] = useState("");
 
   useFocusEffect(
     React.useCallback(() => {
-      if (route.params) {
-        const { detail } = route.params;
-        setbusinessId(detail);
-        handleRestroItemCategoryList(detail);
-        handleRestroItemList(detail);
+      if (route?.params) {
+        handleItemCategoryList(detail);
+        handleItemList(detail);
       }
-      return () => handleRestroItemList(route?.params?.detail);
+      return () => handleItemList(route?.params?.detail);
     }, [])
   );
-  const handleRestroOrderDatas = async () => {
-    setCartData("");
-    await AsyncStorage.removeItem("orderData");
-  };
-  const setbusinessId = async (data) => {
-    try {
-      const params = {
-        business_id: data.business_id,
-        business_name: data.business_name,
-      };
-      await AsyncStorage.setItem("orderData", JSON.stringify(params));
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
-    }
-  };
-  const handleRestroItemCategoryList = async (data) => {
+
+  const handleItemCategoryList = async (data) => {
     setVisible(true);
     const params = {
       business_type: 1,
-      business_id: data.business_id,
+      business_id: data?.business_id,
     };
     try {
       const { data } = await apiCall(
@@ -75,24 +51,31 @@ const RestroMenu = ({ route, navigation }) => {
         ENDPOINTS.BUSINESS_ITEM_CATEGORY_LIST,
         params
       );
-      if (data.status === 200) {
-        setRestroItemCategoryList(data.data);
+      if (data?.status === 200) {
+        setCategoryList(data?.data);
         setVisible(false);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
         setVisible(false);
       }
     } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
+      setVisible(false);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
     }
   };
-  const handleRestroItemList = async (data) => {
+  const handleItemList = async (data) => {
     setVisible(true);
     const params = {
       business_type: 1,
-      business_id: data.business_id,
+      business_id: data?.business_id,
     };
     try {
       const { data } = await apiCall(
@@ -100,63 +83,41 @@ const RestroMenu = ({ route, navigation }) => {
         ENDPOINTS.BUSINESS_ITEM_LIST,
         params
       );
-      if (data.status === 200) {
-        setRestroItemList(data.data);
-        setRestroItemParentList(data.data); //use like a parent for filter
+      if (data?.status === 200) {
+        setItemsList(data?.data);
+        setItemsListFxd(data?.data);
         setVisible(false);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
         setVisible(false);
       }
     } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
+      setVisible(false);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
     }
   };
-  const _handleDataTypeSelected = (type, itemSelected, index) => {
+  const handleTypeSelect = (type, itemSelected, index) => {
     setDataType(type);
     if (type === "allData") {
-      setIsSelectedCatgory(null);
-      handleRestroItemList(route?.params?.detail);
+      setSelectedCatgory(null);
+      handleItemList(detail);
     } else {
-      setIsSelectedCatgory(itemSelected.business_item_category_id);
-      const filterData = _.filter(restroItemParentList, {
+      setSelectedCatgory(itemSelected);
+      const filterData = _.filter(itemsListFxd, {
         business_item_category_id: itemSelected.business_item_category_id,
       });
-      setRestroItemList(filterData);
+      setItemsList(filterData);
     }
   };
-  const _renderCategory = (item, index) => {
-    const selectedColor =
-      item.business_item_category_id === isSelectedCatgory
-        ? WHITE_COLOR_CODE
-        : LIGHT_WHITE_COLOR;
-    return (
-      <>
-        {item.status === 1 && (
-          <TouchableOpacity
-            onPress={() => _handleDataTypeSelected("catg", item, index)}
-            style={styles.lablestyle}
-          >
-            <Text
-              style={[
-                styles.txtCat,
-                {
-                  color: selectedColor,
-                },
-              ]}
-            >
-              {item.category_name}
-            </Text>
-          </TouchableOpacity>
-        )}
-      </>
-    );
-  };
-  const onPressAddItem = (item, index) => {
-    addToCart(item, 1); //value dalna h 1 ki jagah
-  };
+
   const getqty = (item) => {
     var getIndex = _.findIndex(cartData, { item_id: item.item_id });
     const FinalAmount = cartData.reduce(
@@ -165,7 +126,7 @@ const RestroMenu = ({ route, navigation }) => {
     );
     setTotalAmount(FinalAmount);
     if (getIndex >= 0) {
-      return cartData[getIndex].quantity;
+      return cartData[getIndex]?.quantity ? cartData[getIndex]?.quantity : 0;
     }
   };
   const removeFromCart = (item, value) => {
@@ -193,22 +154,17 @@ const RestroMenu = ({ route, navigation }) => {
           );
           setTotalAmount(FinalAmount);
           setCartData(cartData);
-          cartData.length == 0;
         }
       }
     }
   };
   const addToCart = async (item, value) => {
     try {
-      const cartItem = {
-        item_id: item.item_id,
-        item_name: item.item_name,
-        price: item.price,
-        quantity: value,
+      const items = {
+        ...item,
         discounted_price: item.discounted_price,
         total_item_price: item.discounted_price * value,
         item_discount: item.item_discount === null ? 0 : item.item_discount,
-        // item_discount: 0
       };
       if (cartData.length > 0) {
         var getIndex = _.findIndex(cartData, { item_id: item.item_id });
@@ -224,7 +180,7 @@ const RestroMenu = ({ route, navigation }) => {
           setTotalAmount(FinalAmount);
           setCartData(cartData);
         } else {
-          setCartData((curr) => [...curr, cartItem]);
+          setCartData((curr) => [...curr, items]);
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
               accumulatedTotal + (curr.total_item_price - curr.item_discount),
@@ -233,170 +189,89 @@ const RestroMenu = ({ route, navigation }) => {
           setTotalAmount(FinalAmount);
         }
       } else {
-        setCartData((curr) => [...curr, cartItem]);
+        setCartData((curr) => [...curr, items]);
         const FinalAmount = cartData.reduce(
           (accumulatedTotal, curr) =>
             accumulatedTotal + (curr.total_item_price - curr.item_discount),
           0
         );
         setTotalAmount(FinalAmount);
-        await AsyncStorage.setItem("localCartData", JSON.stringify(cartData));
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
     }
-  };
-  const _handleSandwichDish = (item, index) => {
-    return (
-      <>
-        {item.status == 1 && (
-          <View key={index} style={styles.ConatinView}>
-            <Image
-              style={styles.DishImgeStyle}
-              source={{ uri: item.item_image }}
-            />
-            <View style={styles.DishDiscptnView}>
-              <TouchableOpacity
-                // onPress={() =>
-                //   navigation.navigate("AddToCart", { itemDetail: item })
-                // }
-              >
-                <Text style={styles.DishNameTxt}>{item.item_name}</Text>
-                <Text numberOfLines={2} style={styles.DiscrptnTxtStyle}>
-                  {item.description}
-                </Text>
-                {item.discounted_price ? (
-                  <Text style={styles.PriceOfDishTxt}>
-                    $
-                    {Number(
-                      parseFloat(item.discounted_price).toFixed(2)
-                    ).toLocaleString("en", {
-                      minimumFractionDigits: 2,
-                    })}
-                  </Text>
-                ) : null}
-                <Text
-                  style={[
-                    styles.PriceOfDishTxt,
-                    {
-                      textDecorationLine: item?.discounted_price
-                        ? "line-through"
-                        : "none",
-                    },
-                  ]}
-                >
-                  {Number(parseFloat(item.price).toFixed(2)).toLocaleString(
-                    "en",
-                    {
-                      minimumFractionDigits: 2,
-                    }
-                  )}
-                </Text>
-              </TouchableOpacity>
-              <View style={styles.ReviewView}>
-                <Image source={Images.STAR_FILLED_IMG} />
-                <Text style={styles.ReviewText}> {item.rating} Review</Text>
-                {cartData &&
-                cartData.some(({ item_id }) => item_id === item.item_id) ? (
-                  <InputSpinner
-                    value={getqty(item)}
-                    onIncrease={(value) => addToCart(item, value)}
-                    onDecrease={(value) => removeFromCart(item, value)}
-                    max={10}
-                    step={1}
-                    // min={1}
-                    editable={false}
-                    rounded={false}
-                    height={30}
-                    width={85}
-                    textColor={WHITE_COLOR_CODE}
-                    colorMax={YELLOW_COLOR_CODE}
-                    colorMin={YELLOW_COLOR_CODE}
-                    colorPress={YELLOW_COLOR_CODE}
-                    buttonPressTextColor={YELLOW_COLOR_CODE}
-                    buttonFontSize={25}
-                    inputStyle={styles.spinnerInput}
-                    buttonStyle={styles.addItemBttn}
-                    buttonFontFamily={FONT_FAMILY_REGULAR}
-                    style={styles.spinnerVw}
-                  />
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => {
-                      addToCart(item, 1);
-                    }}
-                    style={styles.AddBtnTouchable}
-                  >
-                    <Text style={styles.AddBtnTxt}>Add</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            </View>
-          </View>
-        )}
-      </>
-    );
   };
   const onPressCheckOut = () => {
     // if (totalAmount !== "" && cartData !== "") {
     //   navigation.navigate("RestroCheckout");
     // } else {
-    //   setErrorMessage("Add Item To Cart");
-    //   setVisibleErr(true);
+    //   setMessageShow({
+    //     visible: true,
+    //     type: "",
+    //     message: "Add Item To Cart",
+    //   });
     // }
   };
 
-  const searchItem = (searchKey) => {
+  const searchItemData = (searchKey) => {
     setSearch(searchKey);
-    if (searchKey.length == 0) {
+    if (searchKey === "") {
       if (dataType === "allData") {
-        setRestroItemList(restroItemParentList);
+        setItemsList(itemsListFxd);
       } else {
-        const filterData = _.filter(restroItemParentList, {
-          business_item_category_id: isSelectedCatgory,
+        const filterData = _.filter(itemsListFxd, {
+          business_item_category_id: selectedCatgory,
         });
-        setRestroItemList(filterData);
+        setItemsList(filterData);
       }
     } else {
-      const searchedData = restroItemParentList.filter((x) => {
+      const searchedData = itemsList.filter((x) => {
         return x.item_name.toLowerCase().includes(searchKey.toLowerCase());
       });
-      setRestroItemList([...searchedData]);
+      setItemsList([...searchedData]);
     }
   };
   const onPressItem = (item) => {
-    navigation.navigate("AddToCart", { itemDetail: item });
+    navigation.navigate("RestroItemDetail", { itemDetail: item });
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <RestroMenuView
-        searchItem={searchItem}
+        searchItemData={searchItemData}
         totalAmount={totalAmount}
         onPressCheckOut={onPressCheckOut}
-        restroItemList={restroItemList}
-        restroItemCategoryList={restroItemCategoryList}
-        _renderCategory={_renderCategory}
-        _handleDataTypeSelected={_handleDataTypeSelected}
-        _handleSandwichDish={_handleSandwichDish}
+        itemsList={itemsList}
+        categoryList={categoryList}
+        handleTypeSelect={handleTypeSelect}
         dataType={dataType}
         search={search}
-        isSelectedCatgory={isSelectedCatgory}
+        selectedCatgory={selectedCatgory}
         onPressItem={onPressItem}
         addToCart={addToCart}
+        getqty={getqty}
         cartData={cartData}
+        removeFromCart={removeFromCart}
+        userData={userData}
+        setCartData={setCartData}
+        navigation={navigation}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      /> */}
     </View>
   );
 };

@@ -25,7 +25,6 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? nearbySearch?.selectOption?.toString()
             : "",
         };
-        setSearch(filterSearch);
         handleSearchData(offSet, filterSearch);
       }
       return () => {};
@@ -54,6 +53,7 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? getObj?.selectOption?.toString()
             : "",
       };
+      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,

@@ -215,10 +215,9 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
   popularCardTouch: {
-    // backgroundColor: "red",
     padding: 10,
     margin: 5,
-    width: 130,
+    minWidth: 60,
     height: 180,
     shadowColor: "#000",
     shadowOffset: {
@@ -230,7 +229,6 @@ const Styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 5,
     borderColor: COLORS.BORDER_LINE,
-    // backgroundColor: BORDER_LINE_CODE,
     borderWidth: Constants.normalBW,
   },
   popularimage: {
@@ -240,13 +238,13 @@ const Styles = StyleSheet.create({
     resizeMode: "cover",
   },
   popularNameTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.normal,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 10,
   },
   popularPrice: {
-    fontSize: FONT_SIZE.smallL,
+    fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -498,11 +496,11 @@ const Styles = StyleSheet.create({
     backgroundColor: COLORS.LIGHT_YELLOW,
     margin: 3,
     borderRadius: 5,
-    paddingVertical: 5
+    paddingVertical: 5,
   },
   orderTouchSecond: {
     paddingVertical: 5,
-    marginTop: 10
+    marginTop: 10,
   },
   orderTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
