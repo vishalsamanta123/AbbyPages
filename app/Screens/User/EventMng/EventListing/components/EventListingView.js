@@ -407,8 +407,6 @@ const EventListingView = (props) => {
             <MainButton
               buttonTxt="See All"
               paddingHeight={12}
-              borderColor={COLORS.YELLOW}
-              txtColor={COLORS.YELLOW}
               onPressButton={() => handleSeeAll()}
             />
           </View>

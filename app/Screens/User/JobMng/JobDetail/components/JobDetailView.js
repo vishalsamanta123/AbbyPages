@@ -21,8 +21,9 @@ const JobDetailView = (props) => {
   return (
     <View style={CommonStyles.container}>
       <PageScroll
-      scrollToTop={true}
-      contentContainerStyle={CommonStyles.scrollCon}>
+        scrollToTop={true}
+        contentContainerStyle={CommonStyles.scrollCon}
+      >
         <ImageBackground
           style={{
             width: Constants.windowWidth,
@@ -50,6 +51,8 @@ const JobDetailView = (props) => {
             <MainButton
               buttonTxt={"Apply Now"}
               onPressButton={() => props.applyNowPress()}
+              borderColor={COLORS.LIGHT_GREY}
+              txtColor={COLORS.BLACK}
             />
             <TouchableOpacity
               onPress={() => props.onPressLike(props?.jobDetail)}

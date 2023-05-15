@@ -8,7 +8,6 @@ import {
 
 const styles = StyleSheet.create({
   mainCon: {
-    paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: Constants.standardBW,
     borderWidth: Constants.standardBW,

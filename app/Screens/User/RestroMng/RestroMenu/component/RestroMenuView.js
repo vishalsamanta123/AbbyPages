@@ -141,7 +141,7 @@ const RestroMenuView = (props) => {
           );
         }}
       />
-      <View style={{ marginHorizontal: 10, marginVertical: 12 }}>
+      <View style={{ marginHorizontal: 16, marginVertical: 12 }}>
         <MainButton
           buttonTxt={
             props.totalAmount === "" || props.totalAmount === null
@@ -156,6 +156,8 @@ const RestroMenuView = (props) => {
           }
           onPressButton={() => props.onPressCheckOut()}
           paddingHeight={15}
+          borderColor={COLORS.LIGHT_GREY}
+          txtColor={COLORS.BLACK}
         />
       </View>
     </View>

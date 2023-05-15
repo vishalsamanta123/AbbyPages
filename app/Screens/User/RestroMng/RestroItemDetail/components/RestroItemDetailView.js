@@ -13,6 +13,7 @@ import SelectButton from "../../../../../Components/SelectButton";
 import { levels } from "../../../../../Utils/staticData";
 import MainInput from "../../../../../Components/MainInput";
 import { COLORS } from "../../../../../Utils/Constant";
+import MainButton from "../../../../../Components/MainButton";
 
 const RestroItemDetailView = (props) => {
   return (
@@ -49,55 +50,12 @@ const RestroItemDetailView = (props) => {
             onPressMinus={(val) => props.removeFromCart(props?.itemDetail, val)}
           />
         </View>
-        {/* <TouchableOpacity
-          onPress={() => props.onPressSpiceLevel()}
-          style={[
-            styles.levelsCon,
-            {
-              borderBottomWidth: props.ShowSpiceLevel ? 0 : 1,
-              marginVertical: props.ShowSpiceLevel ? 0 : 10,
-            },
-          ]}
-        >
-          <ScaleText style={styles.otherTxts}>
-            {props?.spiceLevel ? props?.spiceLevel : "Choose a Spice Level"}
-          </ScaleText>
-          <Image
-            style={{ width: 20, height: 20 }}
-            source={
-              props?.ShowSpiceLevel
-                ? Images.ARROW_UP_IMG
-                : Images.ARROW_DOWN_IMG
-            }
-          />
-        </TouchableOpacity>
-        {props?.ShowSpiceLevel ? (
-          <View style={{ paddingHorizontal: 20 }}>
-            <TouchableOpacity
-              onPress={() => props.onPressSpiceLevelValue("Low")}
-              style={{ paddingHorizontal: 5 }}
-            >
-              <ScaleText style={styles.levelsVwTxt}>Low</ScaleText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => props.onPressSpiceLevelValue("Medium")}
-              style={{ paddingHorizontal: 5 }}
-            >
-              <ScaleText style={styles.levelsVwTxt}>Medium</ScaleText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => props.onPressSpiceLevelValue("High")}
-              style={{ paddingHorizontal: 5 }}
-            >
-              <ScaleText style={styles.levelsVwTxt}>High</ScaleText>
-            </TouchableOpacity>
-          </View>
-        ) : null} */}
         <View style={{ marginHorizontal: 24, marginVertical: 16 }}>
           <SelectButton
             headTxt={""}
             data={levels}
             listType={""}
+            paddingHeight={9}
             borderColor={COLORS.GREY}
             searchInput={false}
             value={props?.cartValData?.spice_level}
@@ -118,20 +76,25 @@ const RestroItemDetailView = (props) => {
                 special_instruct: txt,
               })
             }
-            height={50}
+            placeholderTextColor={COLORS.BLACK}
+            height={45}
             value={props?.cartValData?.special_instruct}
             placeholder="Special Instruction"
           />
+          <View style={{ marginVertical: 20 }}>
+            <MainButton
+              buttonTxt={
+                props?.totalItemPrice === "" || props?.totalItemPrice === null
+                  ? "Add To Cart"
+                  : "Add To Cart - $" + props?.totalItemPrice
+              }
+              paddingHeight={12}
+              borderColor={COLORS.YELLOW}
+              txtColor={COLORS.YELLOW}
+              onPressButton={() => props.onPressAddToCart(props?.itemDetail)}
+            />
+          </View>
         </View>
-        <Button
-          buttonText={
-            props?.totalItemPrice === "" || props?.totalItemPrice === null
-              ? "Add To Cart"
-              : "Add To Cart - $" + props?.totalItemPrice
-          }
-          onPress={() => props.onPressAddToCart(props?.itemDetail)}
-          style={{ marginBottom: 15 }}
-        />
       </ScrollView>
     </View>
   );
