@@ -27,7 +27,8 @@ const MarketplaceView = (props) => {
     handleCategoryPress,
     productList,
     onBackPress,
-    onPressLike
+    onPressLike,
+    handleProductPress
   } = props;
   const [categoryModal, setCategoryModal] = useState(false);
 
@@ -43,7 +44,7 @@ const MarketplaceView = (props) => {
   };
   const renderProductList = (item, index) => {
     return (
-      <TouchableOpacity style={styles.productTouch} >
+      <TouchableOpacity style={styles.productTouch} onPress={() => handleProductPress(item)}>
         <ImageBackground
           source={{ uri: item.product_image }}
           style={styles.productImage}

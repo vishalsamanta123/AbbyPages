@@ -52,6 +52,8 @@ import ConfirmReservationView from "../Screens/User/RestroMng/ConfirmReservation
 import OrderHistoryView from "../Screens/User/RestroMng/OrderHistory";
 import RestroMenu from "../Screens/User/RestroMng/RestroMenu";
 import MarketplaceScreen from "../Screens/User/MarketplaceMng/Marketplace";
+import Features from "../Screens/User/EventMng/Features";
+import MarketplaceDetail from "../Screens/User/MarketplaceMng/MarketplaceDetail";
 import RestroItemDetail from "../Screens/User/RestroMng/RestroItemDetail";
 
 const Stack = createStackNavigator();
@@ -63,6 +65,7 @@ function TabNavigation() {
       <Tab.Screen name="DashBoard" component={DashBoardScreen} />
       <Tab.Screen name="MenuPage" component={MenuPage} />
       <Tab.Screen name="HowItWorks" component={HowItWorks} />
+      <Tab.Screen name="Features" component={Features} />
       <Tab.Screen name="BusinessPageListing" component={BusinessPageListing} />
       <Tab.Screen name="BusinessPageDetails" component={BusinessPageDetails} />
       <Tab.Screen name="ReviewRating" component={ReviewRating} />
@@ -87,6 +90,7 @@ function TabNavigation() {
       <Tab.Screen name="OrderHistory" component={OrderHistoryView} />
       <Tab.Screen name="RestroMenu" component={RestroMenu} />
       <Tab.Screen name="MarketplaceScreen" component={MarketplaceScreen} />
+      <Tab.Screen name="MarketplaceDetail" component={MarketplaceDetail} />
       <Tab.Screen name="RestroItemDetail" component={RestroItemDetail} />
     </Tab.Navigator>
   );
@@ -119,6 +123,7 @@ function AppStack() {
       <Stack.Screen name="OrderHistory" component={TabNavigation} />
       <Stack.Screen name="RestroMenu" component={TabNavigation} />
       <Stack.Screen name="MarketplaceScreen" component={TabNavigation} />
+      <Stack.Screen name="MarketplaceDetail" component={TabNavigation} />
       <Stack.Screen name="RestroItemDetail" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}

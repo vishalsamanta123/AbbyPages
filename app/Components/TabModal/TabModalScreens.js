@@ -27,12 +27,15 @@ const TabModalScreens = (props) => {
       {onPressmodal.modal === "EventManagement" ||
       onPressmodal.modal === "JobManagement" ||
       onPressmodal.modal === "PlusManagement" ? (
-        <Pressable 
-        onPress={()=> setOnPressmodal({
-          ...onPressmodal,
-          modal: "",
-        })}
-        style={styles.customPopupVw}>
+        <Pressable
+          onPress={() =>
+            setOnPressmodal({
+              ...onPressmodal,
+              modal: "",
+            })
+          }
+          style={styles.customPopupVw}
+        >
           <View
             style={[
               styles.popupVw,
@@ -64,8 +67,13 @@ const TabModalScreens = (props) => {
                 >
                   <ScaleText style={styles.subCatTxt}>{"Find Event"}</ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
-                  <ScaleText style={styles.subCatTxt}>{"Featured"}</ScaleText>
+                <TouchableOpacity
+                  style={styles.subCatVw}
+                  onPress={() => {
+                    modalNavigation("Features", "EventManagement");
+                  }}
+                >
+                  <ScaleText style={styles.subCatTxt}>{"Features"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.subCatVw}

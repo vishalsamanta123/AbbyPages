@@ -46,6 +46,7 @@ export const COLORS = {
   RGBA1: "rgba(0,0,0,0.4)",
   RGBA2: "rgba(0,0,0,0.2)",
   COMMON: "#dadada",
+  COMMON2: "#f2f2f2",
   LIGHT_BLACK: "#262626",
   GOLDEN: "#DAA520",
   LIGHT_YELLOW: "#ffc426",
