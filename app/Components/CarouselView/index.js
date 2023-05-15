@@ -9,13 +9,12 @@ const CarouselView = (props) => {
     // console.log("🚀 ~ file: index.js:8 ~ media:", media);
     const temp = media?.product_image.split(".");
     const type = temp[temp.length - 1];
-    console.log("🚀 ~ file: index.js:11 ~ type:", type);
     return (
       <View>
         {type === "jpg" || type === "png" ? (
           <Image
             source={{ uri: media?.product_image }}
-            style={{ height: 300, width: Constants.windowWidth/ 1.1 }}
+            style={{ height: 300, width: Constants.windowWidth }}
           />
         ) : type === "mp4" ? (
           <Video
