@@ -8,10 +8,10 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const MarketplaceScreen = ({ navigation, route }) => {
   const [isVisibleFilters, setIsVisibleFilters] = useState(false);
-  const [subCategories, setSubCategories] = useState([])
-  const [productList, setProductList] = useState([])
-  const [canGoBack, setCanGoBack] = useState(true)
-  const [likeData, setLikedata] = useState({})
+  const [subCategories, setSubCategories] = useState([]);
+  const [productList, setProductList] = useState([]);
+  const [canGoBack, setCanGoBack] = useState(true);
+  const [likeData, setLikedata] = useState({});
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -21,31 +21,35 @@ const MarketplaceScreen = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       setSubCategories([]);
-      getProductList({})
+      getProductList({});
     }, [navigation, route])
   );
 
   useEffect(() => {
-    getProductList({})
-  }, [likeData])
+    getProductList({});
+  }, [likeData]);
 
   const handleCategoryPress = async (cat_name) => {
     getProductList({
-      cat_name: cat_name
-    })
+      cat_name: cat_name,
+    });
     try {
       const params = {
         business_type: 2,
-        parents_name: cat_name
-      }
-      const { data } = await apiCall("POST", apiEndPoints.PRODUCT_CATEGORY_LIST, params);
+        parents_name: cat_name,
+      };
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.PRODUCT_CATEGORY_LIST,
+        params
+      );
       if (data.status === 200) {
         setSubCategories(data.data);
       } else {
         setSubCategories([]);
       }
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
   const getProductList = async (info) => {
     try {
       const params = {
@@ -58,21 +62,25 @@ const MarketplaceScreen = ({ navigation, route }) => {
         min_price: 0,
         max_price: null,
         product_tags: null,
-        status: 1
-      }
-      if(typeof info.cat_name === 'undefined'){
-        setCanGoBack(true)
+        status: 1,
+      };
+      if (typeof info.cat_name === "undefined") {
+        setCanGoBack(true);
       } else {
-        setCanGoBack(false)
+        setCanGoBack(false);
       }
-      const { data } = await apiCall("POST", apiEndPoints.PRODUCT_FILTER_DATA, params);
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.PRODUCT_FILTER_DATA,
+        params
+      );
       if (data.status === 200) {
         setProductList(data.data);
       } else {
         setProductList([]);
       }
-    } catch (error) { }
-  }
+    } catch (error) {}
+  };
 
   const onPressLike = async (item) => {
     try {
@@ -84,11 +92,15 @@ const MarketplaceScreen = ({ navigation, route }) => {
         like: item?.product_user_favorite === 0 ? 1 : 0,
         views: 0,
       };
-      const { data } = await apiCall("POST", apiEndPoints.USERCOMMONLIKES, params);
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.USERCOMMONLIKES,
+        params
+      );
       if (data.status === 200) {
-        setLikedata(data)
+        setLikedata(data);
       } else {
-        setLikedata({})
+        setLikedata({});
         setMessageShow({
           visible: true,
           type: "error",
@@ -103,24 +115,31 @@ const MarketplaceScreen = ({ navigation, route }) => {
       });
     }
   };
+  const handleProductPress = (data) => {
+    navigation.navigate("MarketplaceDetail", {
+      product_id: data.product_id,
+      business_id: data.business_id,
+    });
+  };
   const onBackPress = () => {
-    if(canGoBack) {
-      navigation.goBack()
+    if (canGoBack) {
+      navigation.goBack();
     } else {
       setSubCategories([]);
-      getProductList({})
+      getProductList({});
     }
-  }
+  };
   return (
     <>
-    <MarketplaceView
-      isVisibleFilters={isVisibleFilters}
-      setIsVisibleFilters={setIsVisibleFilters}
-      subCategories={subCategories}
-      handleCategoryPress={handleCategoryPress}
-      productList={productList}
-      onBackPress={onBackPress}
-      onPressLike={onPressLike}
+      <MarketplaceView
+        isVisibleFilters={isVisibleFilters}
+        setIsVisibleFilters={setIsVisibleFilters}
+        subCategories={subCategories}
+        handleCategoryPress={handleCategoryPress}
+        productList={productList}
+        onBackPress={onBackPress}
+        onPressLike={onPressLike}
+        handleProductPress={handleProductPress}
       />
       <ShowMessage
         visible={messageShow?.visible}

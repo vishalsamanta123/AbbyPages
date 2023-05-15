@@ -252,3 +252,125 @@ export const whoPayOptions = [
   { id: 1, value: 1, title: "I want buyers to pay all fees" },
   { id: 2, value: 2, title: "I wish to pay all fees." },
 ];
+
+export const event_page = [
+  {
+    title: "Create your own page",
+    description:
+      "Modern browsers and mobile devices are taken into consideration while designing our template layouts. The creation of a stunning event page straight out of the box simply requires a few clicks.",
+  },
+  {
+    title: "Make a theme.",
+    description:
+      "A carefully designed event page that is prepared for the masses can be created by adding a logo and tagline. Increase the number of photographs in your built-in photo gallery to improve the aesthetics.",
+  },
+  {
+    title: "Handle everything ourselves.",
+    description:
+      "Events that people who utilise AbbyPages have range widely in size and scope. Don't be concerned about needing to purchase more tickets or seats since we'll expand with your event. It is easy and straightforward to scale up.",
+  },
+  {
+    title: "Event calendar",
+    description:
+      "Include a logo and tagline for your event calendar page, which will list and display all of your forthcoming events. This will appear to buyers as your event's 'homepage.'",
+  },
+  {
+    title: "AbbyPages offers simple pricing",
+    description:
+      "The AbbyPages price for events that charge admission is 2% + $1, plus a 3% credit card fee. You have two options for paying the fees: either you or your buyers. Free events are always free and will never cost anything.",
+  },
+  {
+    title: "Built-in mobile event pages",
+    description:
+      "Make a single event page that looks fantastic on a tablet, desktop, and mobile device. According to our analysis, 20% or so of ticket buyers will do it using a mobile device. I guarantee they'll be impressed.",
+  },
+  {
+    title: "Numerous payment alternatives",
+    description:
+      "Use PayPal, your own merchant account, or AbbyPages's merchant account to accept credit cards. We guarantee safe and simple payment methods no matter what you decide.",
+  },
+  {
+    title: "Check out questionnaire",
+    description:
+      "I'm curious how your audience learned about your event. Perhaps all you need is their t-shirt size. By selecting from a list of frequently asked questions or coming up with your own, learn crucial details about your ticket purchaser.",
+  },
+];
+
+export const promoting_selling = [
+  {
+    title: "Tracking Codes",
+    description:
+      "Pre-sale? Student discount? Group rates? No problem. AbbyPages makes it easy to completely customize multiple ticket types for your events.",
+  },
+
+  {
+    title: "An Ticket-purchase message",
+    description:
+      "With a post-purchase message that will show up on their order review form, thank your ticket buyers, remind them to 'Like' your group on Facebook, share links, or send dress code information.",
+  },
+  {
+    title: "Discount coupons",
+    description:
+      "One of our preferred marketing strategies is the use of discount coupons. Make any number of fixed-price or percentage reductions available, then watch online ticket sales rise.",
+  },
+
+  {
+    title: "Email in bulk",
+    description:
+      "Have essential event information that your customers need to be aware of? Before the big day, send your ticket buyers personalised emails.",
+  },
+  {
+    title: "Buttons and Widgets",
+    description:
+      "While widgets enable customers to purchase tickets straight from your website, embeddable buttons will drive traffic to your AbbyPages event page.",
+  },
+  {
+    title: "Social sharing",
+    description:
+      "Invite people to your event using Twitter and Facebook. Encourage your ticket buyers to post on the social feed of your event page so they can help you promote the event.",
+  },
+];
+
+export const admin_deshboard = [
+  {
+    title: "Multiple ticket types",
+    description:
+      "If you want to know exactly where your clicks (and inevitably, ticket sales) are coming from, add tracking codes to buttons, widgets, and direct links. From your AbbyPages dashboard, keep an eye on this information.",
+  },
+  {
+    title: "Services that are connected",
+    description:
+      "We make it simple to incorporate social media sites like Facebook, Twitter, and Instagram. Connect Dropbox, Google Analytics, and Adwords to advance data management even further.",
+  },
+
+  {
+    title: "Multiple event shopping cart",
+    description:
+      "Customers can purchase tickets for any number of your events in one go.",
+  },
+  {
+    title: "Event disclaimers",
+    description:
+      "To make sure attendees are aware of the terms and limitations of your event, provide an event disclaimers with each ticket. The Ticketing Service Agreement of AbbyPages governs all ticket sales.",
+  },
+  {
+    title: "Events with password protection",
+    description:
+      " Want to keep your event under wraps for the time being? Use a password to secure your event so that only certain individuals (such as close friends and relatives) may view and purchase tickets.",
+  },
+  {
+    title: "Multiple user accounts",
+    description:
+      "Allocate user accounts depending on various positions within your organisation, then observe how well your team collaborates.",
+  },
+  {
+    title: "Event clone",
+    description:
+      "Organize a yearly or weekly event? Reduce the time it takes to set up your event by using the clone tool on a previous one.",
+  },
+  {
+    title: "Customizable price tickets",
+    description:
+      "You can put up 'name your price' tickets for individuals who are looking to offer a little extra, which are ideal for organising charity donations. Additionally, we've seen musicians make use of this tool to include any fans who might not otherwise be able to purchase a ticket at the going rate.",
+  },
+];
