@@ -3,7 +3,7 @@ import { COLORS, Constants } from "../../Utils/Constant";
 
 const styles = StyleSheet.create({
   spinnerVw: {
-    backgroundColor: COLORS.YELLOW,
+    backgroundColor: COLORS.TRANSPARENT,
     borderRadius: 6,
     justifyContent: "center",
     alignItems: "center",
@@ -11,16 +11,19 @@ const styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: COLORS.TRANSPARENT,
     fontSize: 20,
-    top: Constants.Ios ? 0 : 8,
-    paddingTop: 0,
+    paddingTop: 5,
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.YELLOW,
+    marginHorizontal: 6,
+    borderRadius: 5,
+    color: COLORS.BLACK,
   },
   addItemBttn: {
-    height: 25,
-    width: 25,
+    width: 40,
     paddingTop: 0,
-    bottom: 2,
-    backgroundColor: COLORS.TRANSPARENT,
+    backgroundColor: COLORS.YELLOW,
     paddingHorizontal: 5,
+    borderRadius: 5,
   },
 });
 

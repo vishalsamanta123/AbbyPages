@@ -252,3 +252,8 @@ export const whoPayOptions = [
   { id: 1, value: 1, title: "I want buyers to pay all fees" },
   { id: 2, value: 2, title: "I wish to pay all fees." },
 ];
+export const levels = [
+  { id: 1, value: 1, title: "Low" },
+  { id: 2, value: 2, title: "Medium" },
+  { id: 2, value: 3, title: "High" },
+];

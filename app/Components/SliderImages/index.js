@@ -25,7 +25,7 @@ const SliderImages = (props) => {
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={data}
-        scrollEventThrottle={16}
+        scrollEventThrottle={10}
         pagingEnabled={true}
         contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}

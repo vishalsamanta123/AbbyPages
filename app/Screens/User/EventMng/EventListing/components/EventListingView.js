@@ -132,7 +132,7 @@ const EventListingView = (props) => {
                     source={Images.LOCATION_IMG}
                   />
                   <ScaleText style={styles.straightTxt}>
-                    {props?.events?.upcoming_events?.event_location}
+                    {props?.events?.upcoming_events?.event_location?.trim()}
                   </ScaleText>
                 </View>
                 <View style={styles.straightVw}>
@@ -232,7 +232,7 @@ const EventListingView = (props) => {
                             source={Images.LOCATION_IMG}
                           />
                           <ScaleText style={styles.straightTxt}>
-                            {item?.event_location}
+                            {item?.event_location?.trim()}
                           </ScaleText>
                         </View>
                         <View style={styles.straightVw}>
@@ -306,7 +306,7 @@ const EventListingView = (props) => {
                         source={Images.LOCATION_IMG}
                       />
                       <ScaleText style={styles.straightTxt}>
-                        {item?.event_location}
+                        {item?.event_location?.trim()}
                       </ScaleText>
                     </View>
                     <View style={styles.straightVw}>
@@ -369,7 +369,7 @@ const EventListingView = (props) => {
                         source={Images.LOCATION_IMG}
                       />
                       <ScaleText style={styles.straightTxt}>
-                        {item?.event_location}
+                        {item?.event_location?.trim()}
                       </ScaleText>
                     </View>
                     <View style={styles.straightVw}>

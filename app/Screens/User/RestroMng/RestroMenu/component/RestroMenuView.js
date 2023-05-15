@@ -21,19 +21,21 @@ const RestroMenuView = (props) => {
         loginButton={false}
         TxtMarginRight={"5%"}
         backText={false}
+        onPressBack={() => {
+          props.navigation.goBack(null);
+          props.setCartData([]);
+        }}
       />
       <View style={styles.toplistCon}>
         <RowSingleTxtList
           text={"All"}
           txtColor={props.dataType === "allData" ? COLORS.YELLOW : null}
           borderColor={props.dataType === "allData" ? COLORS.YELLOW : null}
-          onPressItem={() =>
-            props._handleDataTypeSelected("allData", null, null)
-          }
+          onPressItem={() => props.handleTypeSelect("allData", null, null)}
           borderBottomWidth={props.dataType === "allData" ? 1 : 0}
         />
         <FlatList
-          data={props.restroItemCategoryList}
+          data={props.categoryList}
           horizontal
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
@@ -43,23 +45,24 @@ const RestroMenuView = (props) => {
               <RowSingleTxtList
                 text={item?.category_name}
                 txtColor={
-                  item.business_item_category_id === props.isSelectedCatgory
+                  item.business_item_category_id ===
+                  props.selectedCatgory?.business_item_category_id
                     ? COLORS.YELLOW
                     : COLORS.BLACK
                 }
                 borderBottomWidth={
-                  item.business_item_category_id === props.isSelectedCatgory
+                  item.business_item_category_id ===
+                  props.selectedCatgory?.business_item_category_id
                     ? 1
                     : 0
                 }
                 borderColor={
-                  item.business_item_category_id === props.isSelectedCatgory
+                  item.business_item_category_id ===
+                  props.selectedCatgory?.business_item_category_id
                     ? COLORS.YELLOW
                     : null
                 }
-                onPressItem={() =>
-                  props._handleDataTypeSelected("catg", item, index)
-                }
+                onPressItem={() => props.handleTypeSelect("catg", item, index)}
               />
             );
           }}
@@ -68,7 +71,7 @@ const RestroMenuView = (props) => {
       <View style={{ marginHorizontal: 10 }}>
         <MainInput
           header={false}
-          onChangeText={(searchKey) => props.searchItem(searchKey)}
+          onChangeText={(txt) => props.searchItemData(txt)}
           placeholder={"Search"}
           placeholderTextColor={COLORS.LIGHT_BLACK}
           value={props.search}
@@ -76,7 +79,7 @@ const RestroMenuView = (props) => {
         />
       </View>
       <FlatList
-        data={props.restroItemList}
+        data={props.itemsList}
         keyExtractor={(item, index) => index}
         renderItem={({ item, index }) => {
           return (
@@ -105,10 +108,16 @@ const RestroMenuView = (props) => {
                 })}
                 rowTxt2ML={10}
                 lineThrough={true}
-                onPressSmllBttn={() => props.addToCart(item, 1)}
+                onPressSmllBttn={() => {
+                  if (props?.userData?.login_type) {
+                    props.addToCart(item, 1);
+                  } else {
+                    props?.navigation?.navigate("Login");
+                  }
+                }}
                 bootomButton={
                   props?.cartData &&
-                  props?.cartData.some(
+                  props?.cartData?.some(
                     ({ item_id }) => item_id === item.item_id
                   )
                     ? false
@@ -119,7 +128,14 @@ const RestroMenuView = (props) => {
               props?.cartData.some(
                 ({ item_id }) => item_id === item.item_id
               ) ? (
-                <AddMinusView />
+                <View style={{ alignItems: "center", left: "12%" }}>
+                  <AddMinusView
+                    value={props.getqty(item)}
+                    minVal={1}
+                    onPressAdd={(val) => props.addToCart(item, val)}
+                    onPressMinus={(val) => props.removeFromCart(item, val)}
+                  />
+                </View>
               ) : null}
             </View>
           );
@@ -128,15 +144,15 @@ const RestroMenuView = (props) => {
       <View style={{ marginHorizontal: 10, marginVertical: 12 }}>
         <MainButton
           buttonTxt={
-            props.totalAmount
-              ? "Checkout - $" +
+            props.totalAmount === "" || props.totalAmount === null
+              ? "Checkout"
+              : "Checkout - $" +
                 Number(parseFloat(props.totalAmount).toFixed(2)).toLocaleString(
                   "en",
                   {
                     minimumFractionDigits: 2,
                   }
                 )
-              : "Checkout"
           }
           onPressButton={() => props.onPressCheckOut()}
           paddingHeight={15}

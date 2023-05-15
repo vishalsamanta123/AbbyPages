@@ -14,12 +14,12 @@ const AddMinusView = (props) => {
     colorMin = COLORS.YELLOW,
     colorPress = COLORS.YELLOW,
     buttonPressTextColor = COLORS.YELLOW,
-    buttonFontSize = 25,
+    buttonFontSize = 26,
     buttonFontFamily = FONT_FAMILY.REGULAR,
     minVal = 0,
     getMaxVal = 10,
-    height = 30,
-    width = "80%",
+    height = 42,
+    width = "50%",
     steps = 1,
   } = props;
   return (
@@ -42,6 +42,9 @@ const AddMinusView = (props) => {
         buttonPressTextColor={buttonPressTextColor}
         buttonFontSize={buttonFontSize}
         buttonTextColor={COLORS.WHITE}
+        buttonTextProps={{
+          buttonTextColor: COLORS.WHITE,
+        }}
         inputStyle={styles.spinnerInput}
         buttonStyle={styles.addItemBttn}
         buttonFontFamily={buttonFontFamily}
