@@ -25,6 +25,7 @@ const SelectButton = (props) => {
     labelField = "",
     searchInput = true,
     listHeight = 100,
+    borderColor = COLORS.DARK_PURPLE,
   } = props;
   const [dropDown, setDropDown] = useState(false);
   const [constListData, setConstListData] = useState([]);
@@ -62,10 +63,19 @@ const SelectButton = (props) => {
 
   return (
     <View style={{ marginVertical: 10 }}>
-      <View style={styles.mainCon}>
-        {headTxt ? <View style={styles.headTxtVw}>
-          <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
-        </View> : null}
+      <View
+        style={[
+          styles.mainCon,
+          {
+            borderColor: borderColor,
+          },
+        ]}
+      >
+        {headTxt ? (
+          <View style={styles.headTxtVw}>
+            <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
+          </View>
+        ) : null}
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => {

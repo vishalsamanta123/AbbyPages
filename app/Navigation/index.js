@@ -54,6 +54,7 @@ import RestroMenu from "../Screens/User/RestroMng/RestroMenu";
 import MarketplaceScreen from "../Screens/User/MarketplaceMng/Marketplace";
 import Features from "../Screens/User/EventMng/Features";
 import MarketplaceDetail from "../Screens/User/MarketplaceMng/MarketplaceDetail";
+import RestroItemDetail from "../Screens/User/RestroMng/RestroItemDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -90,6 +91,7 @@ function TabNavigation() {
       <Tab.Screen name="RestroMenu" component={RestroMenu} />
       <Tab.Screen name="MarketplaceScreen" component={MarketplaceScreen} />
       <Tab.Screen name="MarketplaceDetail" component={MarketplaceDetail} />
+      <Tab.Screen name="RestroItemDetail" component={RestroItemDetail} />
     </Tab.Navigator>
   );
 }
@@ -122,6 +124,7 @@ function AppStack() {
       <Stack.Screen name="RestroMenu" component={TabNavigation} />
       <Stack.Screen name="MarketplaceScreen" component={TabNavigation} />
       <Stack.Screen name="MarketplaceDetail" component={TabNavigation} />
+      <Stack.Screen name="RestroItemDetail" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

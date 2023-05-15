@@ -374,3 +374,8 @@ export const admin_deshboard = [
       "You can put up 'name your price' tickets for individuals who are looking to offer a little extra, which are ideal for organising charity donations. Additionally, we've seen musicians make use of this tool to include any fans who might not otherwise be able to purchase a ticket at the going rate.",
   },
 ];
+export const levels = [
+  { id: 1, value: 1, title: "Low" },
+  { id: 2, value: 2, title: "Medium" },
+  { id: 2, value: 3, title: "High" },
+];

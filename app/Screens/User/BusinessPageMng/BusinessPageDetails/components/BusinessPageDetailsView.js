@@ -804,6 +804,7 @@ const BusinessPageDetailsView = (props) => {
             data={props?.detailData?.popular_dish}
             renderItem={({ item }) => renderPopularDish(item)}
             horizontal
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       ) : null}

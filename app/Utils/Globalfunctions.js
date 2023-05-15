@@ -247,9 +247,13 @@ export const OpenDoc = async (url) => {
     });
 };
 export const getAmount = (amount) => {
-  return Number(parseFloat(amount).toFixed(2)).toLocaleString("en", {
-    minimumFractionDigits: 0,
-  });
+  if (amount === "" || amount === null) {
+    return 0;
+  } else {
+    return Number(parseFloat(amount).toFixed(2)).toLocaleString("en", {
+      minimumFractionDigits: 0,
+    });
+  }
 };
 
 export const removeHttp = (url) => {

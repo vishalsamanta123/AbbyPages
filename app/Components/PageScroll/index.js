@@ -41,7 +41,7 @@ const PageScroll = ({
           },
         ]}
         onScroll={(event) => {
-          onScroll();
+          onScroll(event);
           setScreenOffSet(event.nativeEvent.contentOffset.y);
         }}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}

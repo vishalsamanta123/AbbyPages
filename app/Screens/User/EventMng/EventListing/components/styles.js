@@ -1,9 +1,5 @@
 import { StyleSheet } from "react-native";
-import {
-  COLORS,
-  FONT_FAMILY,
-  FONT_SIZE,
-} from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
     marginHorizontal: 18,
@@ -42,7 +38,6 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     textAlign: "center",
     paddingHorizontal: 5,
-    
   },
   bannerHeadingDesc: {
     fontSize: FONT_SIZE.mediumL,
@@ -52,10 +47,10 @@ const Styles = StyleSheet.create({
   },
   createbtn: {
     borderRadius: 30,
-    marginTop: 10
+    marginTop: 10,
   },
   createBtnTxt: {
-    color: COLORS.WHITE
+    color: COLORS.WHITE,
   },
   seeOnVw: {
     borderColor: COLORS.GREY,
@@ -95,12 +90,10 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    // marginTop: 10,
-    // marginLeft: 13,
   },
   straightVw: {
     flexDirection: "row",
-    // alignItems: "center",
+    alignItems: "center",
     paddingVertical: 2,
   },
   straightTxt: {
@@ -115,7 +108,6 @@ const Styles = StyleSheet.create({
     resizeMode: "contain",
     marginRight: 5,
     // marginTop: 3
-
   },
   seeAllBttn: {
     marginBottom: 12,
