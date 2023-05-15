@@ -25,6 +25,7 @@ const SelectButton = (props) => {
     labelField = "",
     searchInput = true,
     listHeight = 100,
+    paddingHeight = 12,
     borderColor = COLORS.DARK_PURPLE,
   } = props;
   const [dropDown, setDropDown] = useState(false);
@@ -68,6 +69,7 @@ const SelectButton = (props) => {
           styles.mainCon,
           {
             borderColor: borderColor,
+            paddingVertical: paddingHeight,
           },
         ]}
       >

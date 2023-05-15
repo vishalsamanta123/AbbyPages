@@ -9,6 +9,7 @@ import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import Success from "../../../../Components/Modal/success";
 import Error from "../../../../Components/Modal/showMessage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const RestroItemDetail = ({ navigation, route }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -30,13 +31,16 @@ const RestroItemDetail = ({ navigation, route }) => {
 
   const [Quantity, setQuantity] = useState("");
   const [Special, setSpecial] = useState("");
-  useEffect(() => {
-    if (route.params) {
-      const { itemDetail } = route.params;
-      setItemDetail(itemDetail);
-      handleFinalAmount(itemDetail);
-    }
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route?.params) {
+        const { itemDetail } = route.params;
+        setItemDetail(itemDetail);
+        handleFinalAmount(itemDetail);
+      }
+    }, [route?.params, navigation])
+  );
   const onPressSave = () => {
     // navigation.navigate('Searching')
   };

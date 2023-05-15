@@ -421,8 +421,6 @@ const ApplyJobView = (props) => {
           <MainButton
             buttonTxt="Submit Application"
             paddingHeight={12}
-            borderColor={COLORS.YELLOW}
-            txtColor={COLORS.YELLOW}
             onPressButton={() => props.onSubmit()}
           />
         </View>
