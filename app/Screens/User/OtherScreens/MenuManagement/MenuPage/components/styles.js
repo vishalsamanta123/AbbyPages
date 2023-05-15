@@ -15,16 +15,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.YELLOW,
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 9,
+    paddingVertical: 10,
     marginHorizontal: 10,
-    marginHorizontal: 20,
     // elevation: 2,
     borderRadius: 20,
   },
   centerButtonTxt: {
     color: COLORS.WHITE,
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.medium,
   },
   headTxt: {
     fontSize: FONT_SIZE.mediumL,

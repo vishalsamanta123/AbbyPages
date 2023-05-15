@@ -254,7 +254,7 @@ const DashBoardScreen = (props) => {
           <View style={styles.containersVw}>
             <ImageBackground style={{ flex: 1 }} source={Images.COVER_IMG}>
               <ScaleText
-                style={[styles.titlesTxt, { fontFamily: FONT_FAMILY.BOLD }]}
+                style={[styles.titlesTxt, { fontFamily: FONT_FAMILY.BOLD, marginBottom: 10 }]}
               >
                 Browse Businesses by Category
               </ScaleText>

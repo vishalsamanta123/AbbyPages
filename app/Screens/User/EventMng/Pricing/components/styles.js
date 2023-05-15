@@ -75,8 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   inputHeading: {
-    fontSize: FONT_SIZE.mediumL,
+    // fontSize: FONT_SIZE.mediumL,
+    // fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
+    marginBottom: 10,
+    textAlign: "center",
   },
   textinputStyle: {
     backgroundColor: COLORS.WHITE,

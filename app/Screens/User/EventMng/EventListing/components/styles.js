@@ -10,12 +10,14 @@ const Styles = StyleSheet.create({
     marginTop: 8,
   },
   eventTitlesTxt: {
-    fontSize: FONT_SIZE.large,
-    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    marginTop: 12,
+    // marginLeft: 13,
   },
   bannervideoStyle: {
-    height: 260,
+    height: 300,
   },
   videoBannerView: {},
   bannerView: {
@@ -30,11 +32,17 @@ const Styles = StyleSheet.create({
     // opacity: 0.5
   },
   bannerHeading: {
-    fontSize: FONT_SIZE.veryLarge,
-    fontFamily: FONT_FAMILY.BOLD,
+    // fontSize: FONT_SIZE.veryLarge,
+    // fontFamily: FONT_FAMILY.BOLD,
+    // color: COLORS.WHITE,
+    // marginBottom: 10,
+    // textAlign: "center",
+    fontSize: 24,
     color: COLORS.WHITE,
-    marginBottom: 10,
+    fontFamily: FONT_FAMILY.BOLD,
     textAlign: "center",
+    paddingHorizontal: 5,
+    
   },
   bannerHeadingDesc: {
     fontSize: FONT_SIZE.mediumL,
@@ -50,11 +58,11 @@ const Styles = StyleSheet.create({
     color: COLORS.WHITE
   },
   seeOnVw: {
-    borderColor: COLORS.BLACK,
+    borderColor: COLORS.GREY,
     borderWidth: 0.3,
     paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 2,
+    paddingVertical: 5,
+    borderRadius: 20,
   },
   seeOnTxt: {
     fontSize: FONT_SIZE.smallL,
@@ -84,13 +92,15 @@ const Styles = StyleSheet.create({
     paddingVertical: 10,
   },
   nameTxt: {
-    fontSize: FONT_SIZE.large,
-    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    // marginTop: 10,
+    // marginLeft: 13,
   },
   straightVw: {
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
     paddingVertical: 2,
   },
   straightTxt: {
@@ -104,6 +114,8 @@ const Styles = StyleSheet.create({
     height: 16,
     resizeMode: "contain",
     marginRight: 5,
+    // marginTop: 3
+
   },
   seeAllBttn: {
     marginBottom: 12,
@@ -125,7 +137,7 @@ const Styles = StyleSheet.create({
   },
   lablestyle: {
     flexDirection: "row",
-    marginTop: 5,
+    marginTop: 15,
     paddingHorizontal: 5,
   },
   txtTimeCat: {
