@@ -8,6 +8,7 @@ import { useFocusEffect } from "@react-navigation/native";
 const MarketplaceDetail = ({ navigation, route }) => {
   const { product_id, business_id } = route.params;
   const [productDetail, setProductDetail] = useState({});
+  const [productSpecification, setProductSpecification] = useState({});
   useFocusEffect(
     React.useCallback(() => {
       getProductList({});
@@ -17,7 +18,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
     try {
       const params = {
         product_id: product_id,
-        business_id: business_id
+        business_id: business_id,
       };
       const { data } = await apiCall(
         "POST",
@@ -25,13 +26,16 @@ const MarketplaceDetail = ({ navigation, route }) => {
         params
       );
       if (data.status === 200) {
-        setProductDetail(data.data);
+        setProductDetail({
+          ...data.data,
+          product_specification: JSON?.parse(data?.data?.product_specification),
+        });
       } else {
         setProductDetail([]);
       }
     } catch (error) {}
   };
-  return <MarkteplaceDetailView productDetail={productDetail}/>;
+  return <MarkteplaceDetailView productDetail={productDetail} />;
 };
 
 export default MarketplaceDetail;
