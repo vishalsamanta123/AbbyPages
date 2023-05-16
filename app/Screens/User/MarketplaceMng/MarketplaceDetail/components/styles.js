@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
   nameView: {},
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     marginRight: 10,
+    paddingVertical: Constants.Ios ? 10 : 0
   },
   inputBtnStyle: {},
   detailView: {

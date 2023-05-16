@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
   },
   productImage: {
     height: 150,
-    width: 150,
+    // width: 150,
+    width: Constants.windowWidth / 2.5,
     borderRadius: 10
   },
   productTxt: {},
