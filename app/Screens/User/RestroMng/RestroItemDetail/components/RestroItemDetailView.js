@@ -1,10 +1,7 @@
 import React from "react";
-import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import styles from "./styles";
-import Input from "../../../../../Components/Input";
-import Button from "../../../../../Components/Button";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import ScaleText from "../../../../../Components/ScaleText";
@@ -27,35 +24,35 @@ const RestroItemDetailView = (props) => {
         <Image
           resizeMode={"cover"}
           style={[styles.mainImgStyle]}
-          source={{ uri: props?.itemDetail?.item_image }}
+          source={{ uri: props?.itemData?.item_image }}
         />
         <View style={styles.container}>
           <ScaleText style={styles.titleTxt}>
-            {props?.itemDetail?.item_name}
+            {props?.itemData?.item_name}
           </ScaleText>
           <ScaleText style={styles.dsrcptnText}>
-            {props?.itemDetail?.description}
+            {props?.itemData?.description}
           </ScaleText>
           <ScaleText style={styles.priceTxtSty}>
-            ${getAmount(props?.itemDetail?.price)}
+            ${getAmount(props?.itemData?.discounted_price)}
           </ScaleText>
         </View>
         <View style={{ alignItems: "center" }}>
           <AddMinusView
-            value={props.getqty(props?.itemDetail)}
-            minVal={1}
+            value={props.cartValData?.quantity}
             width={"85%"}
             height={50}
-            onPressAdd={(val) => props.addToCart(props?.itemDetail, val)}
-            onPressMinus={(val) => props.removeFromCart(props?.itemDetail, val)}
+            minVal={1}
+            onPressAdd={(val) => props.addToCart(props?.itemData, val)}
+            onPressMinus={(val) => props.removeFromCart(props?.itemData, val)}
           />
         </View>
         <View style={{ marginHorizontal: 24, marginVertical: 16 }}>
           <SelectButton
-            headTxt={""}
+            headTxt={"Choose a spice level"}
             data={levels}
             listType={""}
-            paddingHeight={9}
+            paddingHeight={17}
             borderColor={COLORS.GREY}
             searchInput={false}
             value={props?.cartValData?.spice_level}
@@ -69,29 +66,30 @@ const RestroItemDetailView = (props) => {
             }}
           />
           <MainInput
-            header={false}
             onChangeText={(txt) =>
               props.setCartValData({
                 ...props.cartValData,
                 special_instruct: txt,
               })
             }
+            headTxt={"Description"}
             placeholderTextColor={COLORS.BLACK}
-            height={45}
+            height={60}
             value={props?.cartValData?.special_instruct}
             placeholder="Special Instruction"
           />
           <View style={{ marginVertical: 20 }}>
             <MainButton
               buttonTxt={
-                props?.totalItemPrice === "" || props?.totalItemPrice === null
+                props.cartValData?.total_item_price === "" ||
+                props.cartValData?.total_item_price === null
                   ? "Add To Cart"
-                  : "Add To Cart - $" + props?.totalItemPrice
+                  : "Add To Cart - $" + props.cartValData?.total_item_price
               }
               paddingHeight={12}
               borderColor={COLORS.YELLOW}
               txtColor={COLORS.YELLOW}
-              onPressButton={() => props.onPressAddToCart(props?.itemDetail)}
+              onPressButton={() => props.onPressAddToCart(props?.itemData)}
             />
           </View>
         </View>

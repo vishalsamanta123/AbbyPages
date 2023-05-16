@@ -5,6 +5,7 @@ import { FONT_SIZE } from "../../../../../Utils/Constant";
 import MainHeader from "../../../../../Components/MainHeader";
 import NewsPost from "./NewsPost";
 import { NewsFeedListShimmer } from "../../../../../Components/ShimmerEffect";
+import ListingView from "../../../../../Components/ListingView";
 
 const NewsFeedView = (props) => {
   const {
@@ -15,7 +16,7 @@ const NewsFeedView = (props) => {
     commentParams,
     handelOnPressPost,
     visible,
-    handleSharePress
+    handleSharePress,
   } = props;
   return (
     <View style={CommonStyles.container}>
@@ -28,7 +29,7 @@ const NewsFeedView = (props) => {
       {visible ? (
         <NewsFeedListShimmer />
       ) : (
-        <FlatList
+        <ListingView
           data={newsfeedData}
           renderItem={({ item, index }) => {
             return (

@@ -1,281 +1,271 @@
-import React, { useState, useContext } from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import RestroCheckoutView from "./components/RestroCheckoutView";
 import AsyncStorage from "@react-native-community/async-storage";
-import RestroCheckout from "./component/RestroCheckout";
-import styles from "./component/styles";
-import moment from "moment";
-import _ from "lodash";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import { CartContext } from "../../../Utils/UserContext";
-import Loader from "../../../Utils/Loader";
-import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/showMessage";
-import QuestionModal from "../../../Components/Modal/questionModal";
-import { Images } from "../../../Utils/images";
+import Loader from "../../../../Utils/Loader";
+import Success from "../../../../Components/Modal/success";
+import Error from "../../../../Components/Modal/showMessage";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../Utils/httpClient";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
-const RestroCheckoutView = ({ navigation }) => {
-  const [isDateTimePickerVisible, setDateTimePickerVisibility] =
-    useState(false);
-  const [dateTime, setDateTime] = useState("");
-
-  const [removeItem, setRemoveItem] = useState(false);
-  const [removeIndex, setRemoveIndex] = useState("");
-  const [delivery_type, setDeliveryType] = useState(true);
-  const [cartData, setCartData] = useContext(CartContext);
-  const [cartLocalData, setCartLocalData] = useState("");
-  const [totalAmount, setTotalAmount] = useState("");
-  const [location, setLocation] = useState([]);
-  const [locationList, setLocationList] = useState([]);
-
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const RestroCheckout = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
-  const [timeChange, setTimeChange] = useState("");
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
-  const [AddressVisible, setAddressVisible] = useState(false);
-  const [Address, setAddress] = useState("");
+  const [localUserData, setLocalUserData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    mobile: "",
+    order_payment_type: "",
+    order_description: "",
+  });
+  const [location, setLocation] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [delivery_type, setDeliveryType] = useState("");
+  const [onlineDetail, setOnlineDetail] = useState({
+    brand: "",
+    expiryMonth: "",
+    expiryYear: "",
+    last4: "",
+    postalCode: "",
+    validCVC: "",
+    validExpiryDate: "",
+    validNumber: "",
+  });
 
-  const hideDateTimePicker = () => {
-    setDateTimePickerVisibility(false);
-  };
-  const handleDateTimeConfirm = (date) => {
-    const DateTime = moment(date).format("MM/DD/YYYY");
-    setDateTime(DateTime);
-    hideDateTimePicker();
-    setTimeChange("change");
-  };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      _handleDetails();
-      setCartLocalData(cartData);
-      handleFinalAmount();
-      if (timeChange === "") {
-        const DateTime = moment().format("MM/DD/YYYY");
-        setDateTime(DateTime);
+  useEffect(() => {
+    AsyncStoragefunction();
+  }, []);
+  const AsyncStoragefunction = async () => {
+    const orderData = await AsyncStorage.getItem("orderData");
+    if (orderData !== "") {
+      setDateTime(JSON.parse(orderData).order_schedule_time);
+      if (orderData?.address !== null) {
+        setLocation(JSON.parse(orderData)?.address);
       }
-      return () => {
-        _handleDetails();
-        setCartLocalData(cartData);
-      };
-    }, [removeIndex, timeChange, cartData])
-  );
-  const _handleDetails = async () => {
+      setDeliveryType(JSON.parse(orderData).delivery_type);
+    }
     try {
       setVisible(true);
-      const { data } = await apiCall("POST", ENDPOINTS.DASHBOARD_DETAILS);
+      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
       if (data.status === 200) {
-        setLocationList(data.data.user_location);
-        if (data.data.user_location) {
-          var getLocation = _.filter(data.data.user_location, {
-            primary_status: 1,
-          });
-          setLocation(getLocation);
-        }
-        setVisible(false);
-      } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
+        setLocalUserData({
+          ...localUserData,
+          first_name: data?.data?.first_name ? data?.data.first_name : "",
+          last_name: data?.data?.last_name ? data?.data.last_name : "",
+          email: data?.data?.email ? data?.data?.email : "",
+          mobile: data?.data?.phone ? data?.data?.phone : "",
+          order_payment_type: 1,
+        });
         setVisible(false);
       }
-    } catch (error) {
-      setVisible(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-    }
+    } catch (error) {}
   };
-  // useEffect(() => {
-  //     BackHandler.addEventListener(
-  //         'hardwareBackPress',
-  //         onBackPress
-  //     );
-  //     return () => {
-  //         BackHandler.removeEventListener(
-  //             'hardwareBackPress',
-  //             onBackPress
-  //         );
-  //     };
-  // }, []);
-
-  // const onBackPress = () => {
-  //     setAddressVisible(false)
-  //     return true;
-  // };
-
-  const handleSetAddress = (item, index) => {
-    setLocation([item]);
-    setAddressVisible(false);
-  };
-  const DeleteItem = (index) => {
-    try {
-      setVisible(true);
-      setRemoveItem(false);
-      const cartLocalFunctionData = [...cartLocalData];
-      const newItems = cartLocalFunctionData?.filter(
-        (ele, key) => key != index
-      );
-      setCartLocalData(newItems);
-      setCartData(newItems);
-      setRemoveIndex("");
-      const FinalAmount = cartLocalFunctionData.reduce(
-        (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
-        0
-      );
-      setTotalAmount(FinalAmount);
-      setVisible(false);
-    } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(false);
-      setVisible(false);
-    }
-  };
-  const handleFinalAmount = (item, index) => {
-    const FinalAmount = cartData.reduce(
-      (accumulatedTotal, curr) => accumulatedTotal + curr.total_item_price,
-      0
-    );
-    setTotalAmount(FinalAmount);
-  };
-  const _handleLocationList = (item, index) => {
-    return (
-      <TouchableOpacity
-        onPress={() => handleSetAddress(item)}
-        style={styles.addressTxtCon}
-      >
-        <View style={{ padding: 5 }}>
-          <Image source={Images.QTY_PLUS_IMG} />
-        </View>
-        <Text style={[styles.commonTxtStyle]}>
-          {item.location && item.location}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-  const _handleDishItem = (item, index) => {
-    return (
-      <View style={styles.DishMainView}>
-        <View style={styles.DishTextCOntain}>
-          <TouchableOpacity
-            onPress={() => {
-              setRemoveItem(true);
-              setRemoveIndex(index);
-            }}
-          >
-            <Image source={Images.MINUS_IMG} />
-          </TouchableOpacity>
-          <Text style={styles.DishTextStyle}>{item.quantity}</Text>
-          <Text style={styles.DishTextStyle}>{item.item_name}</Text>
-        </View>
-        <Text style={styles.PriceDishText}>
-          {"$" +
-            Number(parseFloat(item.total_item_price).toFixed(2)).toLocaleString(
-              "en",
-              {
-                minimumFractionDigits: 2,
-              }
-            )}
-        </Text>
-      </View>
-    );
-  };
-  const onPressAddNewAddress = () => {
-    setAddressVisible(false);
-    navigation.navigate("AddLocation");
+  const onPressPaymentMethod = (resp) => {
+    setLocalUserData({
+      ...localUserData,
+      order_payment_type: resp == 2 ? 1 : 2,
+    });
   };
   function validationFrom() {
-    if (location.length === 0) {
-      setErrorMessage("Please enter address");
-      setVisibleErr(true);
+    if (localUserData.first_name == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter name",
+        type: "error",
+      });
       return false;
     }
-    if (dateTime == "") {
-      setErrorMessage("Please enter date & time");
-      setVisibleErr(true);
+    if (localUserData.last_name == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter lastname",
+        type: "error",
+      });
       return false;
     }
-    if (cartLocalData.length === 0) {
-      setErrorMessage("Please add items");
-      setVisibleErr(true);
+    if (localUserData.email == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter email",
+        type: "error",
+      });
       return false;
+    }
+    if (localUserData.mobile == "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter phone number",
+        type: "error",
+      });
+      return false;
+    }
+    if (localUserData.order_payment_type === "") {
+      setMessageShow({
+        visible: true,
+        message: "Please Select Payment Method",
+        type: "error",
+      });
+      return false;
+    }
+    if (localUserData.order_description === "") {
+      setMessageShow({
+        visible: true,
+        message: "Please enter order description",
+        type: "error",
+      });
+      return false;
+    }
+    if (delivery_type === 1) {
+      if (location?.location == "") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter address for delievery address",
+          type: "error",
+        });
+        return false;
+      }
+    }
+    if (localUserData.order_payment_type === 2) {
+      if (onlineDetail.validNumber !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter card number correctly",
+          type: "error",
+        });
+        return false;
+      }
+      if (onlineDetail.brand !== "Visa") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter card number starts from 42",
+          type: "error",
+        });
+        return false;
+      }
+      if (onlineDetail.validExpiryDate !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter correct expiry date",
+          type: "error",
+        });
+        return false;
+      }
+      if (onlineDetail.validCVC !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter correct cvc number",
+          type: "error",
+        });
+        return false;
+      }
+      if (onlineDetail.postalCode === "" || null) {
+        setMessageShow({
+          visible: true,
+          message: "Please enter postal code card details",
+          type: "error",
+        });
+        return false;
+      }
     }
     return true;
   }
-  const onPressCheckOut = async () => {
+  const onPressContinue = async () => {
     const valid = validationFrom();
     if (valid) {
-      setVisible(true);
       try {
         const orderData = await AsyncStorage.getItem("orderData");
         if (orderData !== "") {
+          const {
+            brand = "",
+            expiryMonth = "",
+            expiryYear = "",
+            last4 = "",
+            postalCode = "",
+            validCVC = "",
+            validExpiryDate = "",
+            validNumber = "",
+          } = onlineDetail || {};
+          const {
+            first_name = "",
+            last_name = "",
+            mobile = "",
+            email = "",
+            order_payment_type = "",
+            order_description = "",
+          } = localUserData || {};
+          const {
+            business_id = "",
+            address = "",
+            order_schedule_time = "",
+            business_name = "",
+            delivery_type = "",
+          } = JSON.parse(orderData) || {};
+
+          setVisible(true);
           const params = {
-            address: location.length > 0 ? location[0] : null,
-            order_schedule_time: dateTime,
-            business_id: JSON.parse(orderData).business_id,
-            business_name: JSON.parse(orderData).business_name,
-            delivery_type: delivery_type == true ? 1 : 2,
+            business_id,
+            address,
+            order_schedule_time,
+            business_name,
+            delivery_type,
+            first_name,
+            last_name,
+            email,
+            mobile,
+            order_payment_type,
+            order_description,
+            brand,
+            expiryMonth,
+            expiryYear,
+            last4,
+            postalCode,
+            validCVC,
+            validExpiryDate,
+            validNumber,
           };
           await AsyncStorage.setItem("orderData", JSON.stringify(params));
-          navigation.navigate("CheckoutDetail");
           setVisible(false);
+          navigation.navigate("PlaceOrder");
         }
-      } catch (erorr) {
-        setVisible(false);
-        setErrorMessage(erorr.message);
-        setVisibleErr(true);
-      }
+      } catch (error) {}
     }
-  };
-  const onPressChangeAdd = () => {
-    setAddressVisible(true);
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <RestroCheckout
+      <RestroCheckoutView
         delivery_type={delivery_type}
-        setDeliveryType={setDeliveryType}
         dateTime={dateTime}
-        isDateTimePickerVisible={isDateTimePickerVisible}
-        setDateTimePickerVisibility={setDateTimePickerVisibility}
-        hideDateTimePicker={hideDateTimePicker}
-        handleDateTimeConfirm={handleDateTimeConfirm}
-        onPressAddNewAddress={onPressAddNewAddress}
         location={location}
-        cartLocalData={cartLocalData}
-        totalAmount={totalAmount}
-        locationList={locationList}
-        _handleLocationList={_handleLocationList}
-        _handleDishItem={_handleDishItem}
-        onPressCheckOut={onPressCheckOut}
-        onPressChangeAdd={onPressChangeAdd}
-        AddressVisible={AddressVisible}
-        setAddressVisible={setAddressVisible}
-        setAddress={setAddress}
-        Address={Address}
+        localUserData={localUserData}
+        setLocalUserData={setLocalUserData}
+        onPressPaymentMethod={onPressPaymentMethod}
+        onPressContinue={onPressContinue}
+        onlineDetail={onlineDetail}
+        setOnlineDetail={setOnlineDetail}
       />
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      />
-      <QuestionModal
-        surringVisible={removeItem}
-        topMessage={"Delete Item From Cart"}
-        message={"Are you sure want to delete this item from Your cart ?"}
-        positiveResponse={() => DeleteItem(removeIndex)}
-        negativeResponse={() => setRemoveItem(false)}
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={messageShow?.type === "success" ? "bottom" : "top"}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
       />
     </View>
   );
 };
-export default RestroCheckoutView;
+export default RestroCheckout;

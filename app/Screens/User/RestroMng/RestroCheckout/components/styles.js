@@ -4,7 +4,7 @@ import {
   YELLOW_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
-} from "../../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   CheckOutView: {
     flexDirection: "row",

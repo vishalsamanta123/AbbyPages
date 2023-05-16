@@ -12,163 +12,144 @@ import Error from "../../../../Components/Modal/showMessage";
 import { useFocusEffect } from "@react-navigation/native";
 
 const RestroItemDetail = ({ navigation, route }) => {
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [visible, setVisible] = useState(false);
-
+  const { itemDetail = {} } = route.params;
   const [cartValData, setCartValData] = useState({
     spice_level: "",
     special_instruct: "",
+    quantity: 0,
+    total_item_price: "",
   });
-  const [totalItemPrice, setTotalItemPrice] = useState("");
   const [cartData, setCartData] = useContext(CartContext);
-  const [spiceLevel, setspiceLevel] = useState("");
-  const [ShowSpiceLevel, setShowSpiceLevel] = useState("");
-  const [ShowSpiceDigit, setShowSpiceDigit] = useState("");
-  const [itemDetail, setItemDetail] = useState("");
-
-  const [Quantity, setQuantity] = useState("");
-  const [Special, setSpecial] = useState("");
+  const [itemData, setItemData] = useState({});
 
   useFocusEffect(
     React.useCallback(() => {
       if (route?.params) {
-        const { itemDetail } = route.params;
-        setItemDetail(itemDetail);
-        handleFinalAmount(itemDetail);
+        setItemData(itemDetail);
+      }
+      var getData = _.find(cartData, { item_id: itemDetail.item_id });
+      if (getData?.business_item_category_id) {
+        setCartValData({
+          spice_level: getData?.spice_level,
+          special_instruct: getData?.item_description,
+          quantity: getData?.quantity,
+          total_item_price: getData?.total_item_price,
+        });
+      } else {
+        setCartValData({
+          spice_level: "",
+          special_instruct: "",
+          quantity: 0,
+          total_item_price: itemDetail?.discounted_price,
+        });
       }
     }, [route?.params, navigation])
   );
-  const onPressSave = () => {
-    // navigation.navigate('Searching')
-  };
-  const onPressSpiceLevel = () => {
-    setShowSpiceLevel(!ShowSpiceLevel);
-  };
-  const onPressSpiceLevelValue = (value) => {
-    setspiceLevel(value);
-    setShowSpiceLevel(!ShowSpiceLevel);
-    if (value === -"Low") {
-      setShowSpiceDigit(1);
-    }
-    if (value === "Medium") {
-      setShowSpiceDigit(2);
-    }
-    if (value === "High") {
-      setShowSpiceDigit(3);
-    }
-  };
   const onPressAddToCart = (item) => {
-    if (cartData.length > 0) {
+    if (cartData?.length > 0) {
       var getIndex = _.findIndex(cartData, { item_id: item.item_id });
       if (getIndex >= 0) {
-        setVisible(true);
-        cartData[getIndex].spice_level = ShowSpiceDigit;
-        cartData[getIndex].item_description = Special;
+        cartData[getIndex].spice_level = cartValData?.spice_level;
+        cartData[getIndex].item_description = cartValData?.special_instruct;
         setCartData(cartData);
-        navigation.navigate("RestroMenu", { orderDetail: item });
-        setVisible(false);
+        navigation.navigate("RestroMenu", { detail: item });
+      } else {
+        const items = {
+          ...item,
+          discounted_price: item.discounted_price,
+          total_item_price: item.discounted_price * cartValData?.quantity,
+          item_discount: item.item_discount,
+          quantity: cartValData?.quantity,
+          spice_level: cartValData?.spice_level,
+          item_description: cartValData?.special_instruct,
+        };
+        setCartData((curr) => [...curr, items]);
+        setCartValData({
+          ...cartValData,
+          total_item_price: items.discounted_price * cartValData?.quantity,
+        });
+        navigation.navigate("RestroMenu", { detail: item });
       }
+    } else {
+      const items = {
+        ...item,
+        discounted_price: item.discounted_price,
+        total_item_price: item.discounted_price * cartValData?.quantity,
+        item_discount: item.item_discount === null ? 0 : item.item_discount,
+        quantity: cartValData?.quantity,
+        spice_level: cartValData?.spice_level,
+        item_description: cartValData?.special_instruct,
+      };
+      setCartData((curr) => [...curr, items]);
+      setCartValData({
+        ...cartValData,
+        total_item_price: items.discounted_price * cartValData?.quantity,
+      });
+      navigation.navigate("RestroMenu", { detail: item });
     }
   };
-  const handleFinalAmount = (item) => {
-    var getIndex = _.findIndex(cartData, { item_id: item.item_id });
-    if (getIndex >= 0) {
-      if (cartData[getIndex].total_item_price) {
-        setTotalItemPrice(cartData[getIndex].total_item_price);
-      }
-      if (cartData[getIndex].special_instruction) {
-        setSpecial(cartData[getIndex].special_instruction);
-      }
-      if (cartData[getIndex].spice_level) {
-        cartData[getIndex].spice_level == 1 && setspiceLevel("Low");
-        cartData[getIndex].spice_level == 2 && setspiceLevel("Medium");
-        cartData[getIndex].spice_level == 3 && setspiceLevel("High");
-      }
-    }
-  };
-  const getqty = (item) => {
-    var getIndex = _.findIndex(cartData, { item_id: item.item_id });
-    if (getIndex >= 0) {
-      setTotalItemPrice(cartData[getIndex].total_item_price); //not permanent hatana h sahi nahi h yaha pr
-      return cartData[getIndex].quantity;
-    }
-  };
-  const removeFromCart = (item) => {
+  const removeFromCart = (item, value) => {
+    setCartValData({
+      ...cartValData,
+      quantity: value,
+    });
     if (cartData.length > 0) {
       var getIndex = _.findIndex(cartData, { item_id: item.item_id });
       if (getIndex >= 0) {
-        if (cartData[getIndex].quantity > 0) {
-          cartData[getIndex].quantity = cartData[getIndex].quantity - 1;
-          cartData[getIndex].total_item_price =
-            cartData[getIndex].total_item_price - cartData[getIndex].price;
-          // setTotalPrice(totalPrice - cartData[getIndex].price)
-          setCartData(cartData);
-        }
-        if (cartData[getIndex].quantity === 0) {
-          // setTotalPrice(totalPrice - cartData[getIndex].price)
+        if (cartData[getIndex].quantity > 0 && value > 0) {
+          const newObj = { ...cartData[getIndex] };
+          newObj.quantity = newObj.quantity - 1;
+          newObj.total_item_price =
+            newObj.total_item_price - newObj.discounted_price;
+          const newArray = [...cartData];
+          newArray[getIndex] = newObj;
+          setCartData(newArray);
+        } else if (value === 0) {
           cartData.splice(getIndex, 1);
           setCartData(cartData);
-          cartData.length == 0;
         }
       }
     }
   };
   const addToCart = async (item, value) => {
-    try {
-      const cartItem = {
-        item_id: item.item_id,
-        item_name: item.item_name,
-        price: item.price,
-        quantity: value,
-        total_item_price: item.price * value,
-        item_discount: item.item_discount,
-      };
-      if (cartData.length > 0) {
-        var getIndex = _.findIndex(cartData, { item_id: item.item_id });
-        if (getIndex >= 0) {
-          cartData[getIndex].quantity = cartData[getIndex].quantity + 1;
-          cartData[getIndex].total_item_price =
-            cartData[getIndex].price * value;
-          setCartData(cartData);
-        } else {
-          setCartData((curr) => [...curr, cartItem]);
-          // setTotalPrice(totalPrice + item.price);
-        }
+    setCartValData({
+      ...cartValData,
+      quantity: value,
+    });
+    const items = {
+      ...item,
+      discounted_price: item.discounted_price,
+      total_item_price: item.discounted_price * value,
+      item_discount: item.item_discount === null ? 0 : item.item_discount,
+      quantity: value,
+      spice_level: "",
+      item_description: "",
+    };
+    if (cartData.length > 0) {
+      var getIndex = _.findIndex(cartData, { item_id: item.item_id });
+      if (getIndex >= 0) {
+        const newObj = { ...cartData[getIndex] };
+        newObj.quantity = newObj.quantity + 1;
+        newObj.total_item_price = newObj.discounted_price * value;
+        const newArray = [...cartData];
+        newArray[getIndex] = newObj;
+        setCartData(newArray);
       } else {
-        setCartData((curr) => [...curr, cartItem]);
+        setCartData((curr) => [...curr, items]);
       }
-    } catch (e) {
-      setErrorMessage(e);
-      setVisibleErr(true);
+    } else {
+      setCartData((curr) => [...curr, items]);
     }
   };
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
       <RestroItemDetailView
-        totalItemPrice={totalItemPrice}
-        handleFinalAmount={handleFinalAmount}
-        getqty={getqty}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
-        itemDetail={itemDetail}
-        ShowSpiceLevel={ShowSpiceLevel}
-        setShowSpiceLevel={setShowSpiceLevel}
-        spiceLevel={spiceLevel}
-        setspiceLevel={setspiceLevel}
-        onPressSpiceLevel={onPressSpiceLevel}
-        onPressSpiceLevelValue={onPressSpiceLevelValue}
-        Quantity={Quantity}
-        Special={Special}
-        setQuantity={setQuantity}
-        setSpecial={setSpecial}
-        onPressSave={onPressSave}
         onPressAddToCart={onPressAddToCart}
-        setCartValData={setCartValData}
+        itemData={itemData}
         cartValData={cartValData}
+        setCartValData={setCartValData}
       />
     </View>
   );

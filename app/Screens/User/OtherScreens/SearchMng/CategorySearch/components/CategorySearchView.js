@@ -8,12 +8,13 @@ import SearchView from "../../../../../../Components/SearchView";
 import MainHeader from "../../../../../../Components/MainHeader";
 import ScaleText from "../../../../../../Components/ScaleText";
 import { OnlyTextList } from "../../../../../../Components/ListItemsView";
+import PageScroll from "../../../../../../Components/PageScroll";
 
 const CategorySearchView = (props) => {
   const handleNavigation = (item) => {
     props.navigation.navigate("SubCategorySearchView", item);
   };
- 
+
   return (
     <>
       <MainHeader
@@ -23,7 +24,7 @@ const CategorySearchView = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView>
+      <PageScroll>
         <SearchView />
         <View style={{ flex: 1, marginVertical: 10 }}>
           <FlatList
@@ -37,7 +38,7 @@ const CategorySearchView = (props) => {
             )}
           />
         </View>
-      </ScrollView>
+      </PageScroll>
     </>
   );
 };

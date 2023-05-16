@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, FlatList, TouchableOpacity, Keyboard } from "react-native";
+import { View, TouchableOpacity, Keyboard } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import { COLORS } from "../../../../../Utils/Constant";
@@ -13,6 +13,7 @@ import { NoImageList } from "../../../../../Components/ListItemsView";
 import FilterView from "./FilterView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
 import { JobList } from "../../../../../Components/ShimmerEffect";
+import ListingView from "../../../../../Components/ListingView";
 
 const JobListingView = (props) => {
   const [categoryModal, setCategoryModal] = useState(false);
@@ -99,10 +100,10 @@ const JobListingView = (props) => {
       {props.loader ? (
         <JobList />
       ) : (
-        <FlatList
+        <ListingView
           data={props.jobList}
           showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
               <NoImageList
@@ -146,7 +147,6 @@ const JobListingView = (props) => {
               );
             }
           }}
-          refreshing={false}
           onRefresh={() => props.handleJobFilter(0, props.nullObj)}
         />
       )}
