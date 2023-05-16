@@ -17,7 +17,7 @@ const AddMinusView = (props) => {
     buttonFontSize = 26,
     buttonFontFamily = FONT_FAMILY.REGULAR,
     minVal = 0,
-    getMaxVal = 10,
+    getMaxVal = 100,
     height = 42,
     width = "50%",
     steps = 1,
@@ -49,6 +49,9 @@ const AddMinusView = (props) => {
         buttonStyle={styles.addItemBttn}
         buttonFontFamily={buttonFontFamily}
         style={styles.spinnerVw}
+        inputProps={{
+          fontSize: 15,
+        }}
       />
     </View>
   );

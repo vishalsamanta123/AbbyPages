@@ -109,7 +109,9 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
-      <PageScroll>
+      <PageScroll
+        showsVerticalScrollIndicator={false}
+      >
         <FlatList
           data={subCategories}
           renderItem={({ item, index }) => renderSubcategory(item, index)}
