@@ -32,7 +32,7 @@ const JobListing = ({ navigation, route }) => {
     message: "",
     type: "",
   });
-  const [jobList, setJobList] = useState();
+  const [jobList, setJobList] = useState([]);
   const [postjob, setPostjob] = useState(false);
   const [offset, setoffset] = useState(0);
   const [moreData, setMoreData] = useState(0);
@@ -69,7 +69,7 @@ const JobListing = ({ navigation, route }) => {
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
         if (offSet === 0) {
-          setJobList(data.data);
+          setJobList(data?.data);
         } else {
           setJobList([...jobList, ...data.data]);
         }

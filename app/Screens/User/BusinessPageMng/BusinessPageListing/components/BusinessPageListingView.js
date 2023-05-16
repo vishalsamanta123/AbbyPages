@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import EmptyList from "../../../../../Components/EmptyList";
 import { MainItemsView } from "../../../../../Components/ListItemsView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -8,7 +8,7 @@ import styles from "./styles";
 import MainHeader from "../../../../../Components/MainHeader";
 import { businessTypeOptions } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
-import ViewLists from "../../../../../Components/ViewLists";
+import ListingView from "../../../../../Components/ListingView";
 
 const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
@@ -16,7 +16,7 @@ const BusinessPageListingView = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader headerType={"logo"} />
       <ScaleText style={styles.headText}>Business Listing</ScaleText>
-      <ViewLists
+      <ListingView
         keyExtractor={(item, index) => index.toString()}
         data={props.businessList}
         ListEmptyComponent={() => {
@@ -104,7 +104,6 @@ const BusinessPageListingView = (props) => {
             }
           }
         }}
-        refreshing={false}
         onRefresh={() =>
           props.handleSearchData(0, { ...props.search, selectOption: [] })
         }

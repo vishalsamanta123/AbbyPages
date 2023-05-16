@@ -5,36 +5,22 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  TextInput,
   ScrollView,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
-import Header from "../../../../Components/Header";
-import Button from "../../../../Components/Button";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Button from "../../../../../Components/Button";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
 import styles from "./styles";
-import {
-  WHITE_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
-import { Images } from "../../../../Utils/images";
+import { Images } from "../../../../../Utils/images";
+import { COLORS } from "../../../../../Utils/Constant";
+
 const RestroCheckout = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Checkout"
-        RightImg={null}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-      />
       <View style={[CommonStyles.body, { flex: 4.5 }]}>
         <ScrollView>
           <View style={styles.typesVw}>
@@ -103,10 +89,7 @@ const RestroCheckout = (props) => {
               </View>
             )}
             <View style={[styles.AddressCOntain, { paddingTop: 15 }]}>
-              <Image
-                style={{ top: 6 }}
-                source={Images.CLOCK_IMG}
-              />
+              <Image style={{ top: 6 }} source={Images.CLOCK_IMG} />
               <View style={styles.AddressTextView}>
                 <Text style={styles.commonTxtStyle}>
                   {props?.dateTime
@@ -174,10 +157,7 @@ const RestroCheckout = (props) => {
               onPress={() => props.setAddressVisible(false)}
               style={styles.ArrowTouchable}
             >
-              <Image
-                resizeMode={"contain"}
-                source={Images.CANCEL_IMG}
-              />
+              <Image resizeMode={"contain"} source={Images.CANCEL_IMG} />
             </TouchableOpacity>
             <Text style={styles.PleaseEnterTxt}>Change Address</Text>
             <FlatList

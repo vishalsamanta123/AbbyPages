@@ -22,7 +22,6 @@ const RestroMenu = ({ route, navigation }) => {
   const [visible, setVisible] = useState(false);
   const [dataType, setDataType] = useState("allData");
   const [totalAmount, setTotalAmount] = useState("");
-  console.log("totalAmount: ", totalAmount);
   const [categoryList, setCategoryList] = useState([]);
   const [itemsList, setItemsList] = useState([]);
   const [itemsListFxd, setItemsListFxd] = useState([]);
@@ -34,8 +33,9 @@ const RestroMenu = ({ route, navigation }) => {
       if (route?.params) {
         handleItemCategoryList(detail);
         handleItemList(detail);
+        // setCartData([])
       }
-      return () => handleItemList(route?.params?.detail);
+      return () => handleItemList(detail);
     }, [])
   );
 
@@ -133,23 +133,27 @@ const RestroMenu = ({ route, navigation }) => {
     if (cartData.length > 0) {
       var getIndex = _.findIndex(cartData, { item_id: item.item_id });
       if (getIndex >= 0) {
-        if (cartData[getIndex].quantity > 0) {
-          cartData[getIndex].quantity = cartData[getIndex].quantity - 1;
-          cartData[getIndex].total_item_price =
-            cartData[getIndex].total_item_price - cartData[getIndex].price;
+        if (cartData[getIndex].quantity > 0 && value > 0) {
+          const newObj = { ...cartData[getIndex] };
+          newObj.quantity = newObj.quantity - 1;
+          newObj.total_item_price =
+            newObj.total_item_price - newObj.discounted_price;
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + (curr.total_item_price - curr.item_discount),
+              accumulatedTotal +
+              (curr.total_item_price - curr.discounted_price),
             0
           );
+          const newArray = [...cartData];
+          newArray[getIndex] = newObj;
           setTotalAmount(FinalAmount);
-          setCartData(cartData);
-        }
-        if (cartData[getIndex].quantity === 0) {
+          setCartData(newArray);
+        } else if (value === 0) {
           cartData.splice(getIndex, 1);
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
-              accumulatedTotal + (curr.total_item_price - curr.item_discount),
+              accumulatedTotal +
+              (curr.total_item_price - curr.discounted_price),
             0
           );
           setTotalAmount(FinalAmount);
@@ -165,20 +169,25 @@ const RestroMenu = ({ route, navigation }) => {
         discounted_price: item.discounted_price,
         total_item_price: item.discounted_price * value,
         item_discount: item.item_discount === null ? 0 : item.item_discount,
+        quantity: value,
+        spice_level: "",
+        item_description: "",
       };
       if (cartData.length > 0) {
         var getIndex = _.findIndex(cartData, { item_id: item.item_id });
         if (getIndex >= 0) {
-          cartData[getIndex].quantity = cartData[getIndex].quantity + 1;
-          cartData[getIndex].total_item_price =
-            cartData[getIndex].discounted_price * value;
+          const newObj = { ...cartData[getIndex] };
+          newObj.quantity = newObj.quantity + 1;
+          newObj.total_item_price = newObj.discounted_price * value;
           const FinalAmount = cartData.reduce(
             (accumulatedTotal, curr) =>
               accumulatedTotal + (curr.total_item_price - curr.item_discount),
             0
           );
+          const newArray = [...cartData];
+          newArray[getIndex] = newObj;
           setTotalAmount(FinalAmount);
-          setCartData(cartData);
+          setCartData(newArray);
         } else {
           setCartData((curr) => [...curr, items]);
           const FinalAmount = cartData.reduce(
@@ -206,15 +215,15 @@ const RestroMenu = ({ route, navigation }) => {
     }
   };
   const onPressCheckOut = () => {
-    // if (totalAmount !== "" && cartData !== "") {
-    //   navigation.navigate("RestroCheckout");
-    // } else {
-    //   setMessageShow({
-    //     visible: true,
-    //     type: "",
-    //     message: "Add Item To Cart",
-    //   });
-    // }
+    if (totalAmount !== "" && cartData?.length > 0) {
+      navigation.navigate("RestroCheckout");
+    } else {
+      setMessageShow({
+        visible: true,
+        type: "",
+        message: "Add Item To Cart",
+      });
+    }
   };
 
   const searchItemData = (searchKey) => {

@@ -8,6 +8,7 @@ import apiEndPoints from "../../../../../../Utils/apiEndPoints";
 import MainHeader from "../../../../../../Components/MainHeader";
 import { useFocusEffect } from "@react-navigation/native";
 import { OnlyTextList } from "../../../../../../Components/ListItemsView";
+import ListingView from "../../../../../../Components/ListingView";
 
 const SubCategorySearchView = ({ navigation, route }) => {
   const allItems = route?.params || {};
@@ -78,7 +79,7 @@ const SubCategorySearchView = ({ navigation, route }) => {
       />
       {visible && <Loader state={visible} />}
       <View style={{ flex: 1, marginVertical: 10 }}>
-        <FlatList
+        <ListingView
           data={categoryList}
           renderItem={({ item }) => (
             <OnlyTextList

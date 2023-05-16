@@ -37,6 +37,7 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginRight: 20,
     paddingVertical: 1,
+    marginBottom: 10,
   },
   searchBttnTxt: {
     fontSize: FONT_SIZE.medium,

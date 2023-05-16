@@ -1,16 +1,10 @@
 import { StyleSheet } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
-} from "../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
+
 const styles = StyleSheet.create({
   MainContainer: {
     padding: 15,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   AddressTextView: {
     paddingLeft: 10,
@@ -18,7 +12,7 @@ const styles = StyleSheet.create({
   typesVw: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     marginBottom: 8,
     paddingVertical: 20,
   },
@@ -33,18 +27,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   notSelectTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
   },
   commonTxtStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
     fontSize: 17,
   },
   ChangeTextStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     lineHeight: 26,
-    color: YELLOW_COLOR_CODE,
+    color: COLORS.YELLOW,
     fontSize: 15,
   },
   addressTxtCon: {
@@ -53,7 +47,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.4,
     width: "100%",
     padding: 5,
-    borderColor: YELLOW_COLOR_CODE,
+    borderColor: COLORS.YELLOW,
     marginTop: 10,
   },
   AddressCOntain: {
@@ -62,7 +56,7 @@ const styles = StyleSheet.create({
   },
   CheckOutText: {
     fontSize: 18,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   DishMainView: {
     flexDirection: "row",
@@ -74,15 +68,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   DishTextStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 14,
     paddingLeft: 5,
-    color: YELLOW_COLOR_CODE,
+    color: COLORS.YELLOW,
   },
   PriceDishText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 14,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
   },
   SubTotalView: {
     flexDirection: "row",
@@ -92,12 +86,12 @@ const styles = StyleSheet.create({
     paddingLeft: 3,
   },
   SubTotalText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 15,
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
   },
   CheckOutVw: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     marginTop: 10,
     height: 100,
     justifyContent: "center",
@@ -106,10 +100,10 @@ const styles = StyleSheet.create({
   MainBtnTouchable: {
     borderRadius: 5,
     marginTop: 20,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
   },
   ButtonLabel: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 18,
   },
   MainContent: {
@@ -122,7 +116,7 @@ const styles = StyleSheet.create({
     top: -10,
   },
   PleaseEnterTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
     fontSize: 19,
     paddingTop: 8,
@@ -136,8 +130,8 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     borderWidth: 1.5,
-    fontFamily: FONT_FAMILY_REGULAR,
-    borderColor: LINE_COMMON_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    borderColor: COLORS.COMMON,
     borderRadius: 5,
     height: 50,
     paddingLeft: 10,
@@ -153,7 +147,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   ScheduleTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 16,
   },
 });

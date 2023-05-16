@@ -6,24 +6,28 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Platform
+  Platform,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import styles from "./styles";
-import Input from "../../../../Components/Input";
-import Header from "../../../../Components/Header";
-import Button from "../../../../Components/Button";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Input from "../../../../../Components/Input";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
+  COLORS,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
-import { Images } from "../../../../Utils/images";
+import { Images } from "../../../../../Utils/images";
+import MainHeader from "../../../../../Components/MainHeader";
+import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
+import PageScroll from "../../../../../Components/PageScroll";
+import MainInput from "../../../../../Components/MainInput";
 
-const CheckoutDetail = (props) => {
+const RestroCheckoutView = (props) => {
   const initialRegion = {
     latitude: props?.location?.latitude
       ? parseInt(props?.location?.latitude)
@@ -44,90 +48,94 @@ const CheckoutDetail = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={[CommonStyles.container]}>
-      <Header
-        HeaderText="Checkout"
-        RightImg={null}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-      />
-      <ScrollView>
-        <View style={[styles.CheckOutView, { alignItems: "center" }]}>
-          <Image
-            source={Images.CHECKOUT_USER_IMG}
+    <View style={CommonStyles.container}>
+      <MainHeader headerText={"Checkout"} />
+      <PageScroll contentContainerStyle={{ marginHorizontal: 12 }}>
+        <View style={CommonStyles.straightCon}>
+          <IconX
+            origin={ICON_TYPE.EVIL_ICONS}
+            name={"user"}
+            color={COLORS.BLACK}
+            size={35}
+            paddingLeft={6}
           />
           <Text style={styles.CheckoutText}>Checkout</Text>
         </View>
-        <Input
-          onChangeText={(FirstName) =>
-            props.setLocalUserData({
-              ...props.localUserData,
-              first_name: FirstName,
-            })
-          }
-          value={
-            props?.localUserData?.first_name && props.localUserData.first_name
-          }
-          secureTextEntry={false}
-          placeholder="First Name"
-          InputType="withScroll"
-        />
-        <Input
-          onChangeText={(last_name) =>
-            props.setLocalUserData({
-              ...props.localUserData,
-              last_name: last_name,
-            })
-          }
-          value={
-            props?.localUserData?.last_name && props.localUserData.last_name
-          }
-          secureTextEntry={false}
-          placeholder="Last Name"
-          InputType="withScroll"
-        />
-        <Input
-          onChangeText={(email) =>
-            props.setLocalUserData({
-              ...props.localUserData,
-              email: email,
-            })
-          }
-          value={props?.localUserData?.email && props.localUserData.email}
-          secureTextEntry={false}
-          placeholder="Email Address"
-          InputType="withScroll"
-        />
-        <Input
-          onChangeText={(mobile) =>
-            props.setLocalUserData({
-              ...props.localUserData,
-              mobile: mobile,
-            })
-          }
-          value={props?.localUserData?.mobile && props.localUserData.mobile}
-          secureTextEntry={false}
-          placeholder="Phone Number"
-          InputType="withScroll"
-          maxLength={10}
-          keyboardType={"phone-pad"}
-        />
-        <Input
-          onChangeText={(order_description) =>
-            props.setLocalUserData({
-              ...props.localUserData,
-              order_description: order_description,
-            })
-          }
-          value={props?.localUserData?.order_description}
-          secureTextEntry={false}
-          placeholder="Description"
-          InputType="withScroll"
-          multiline={true}
-        />
+        <View style={{ marginTop: 10, marginHorizontal: 5 }}>
+          <MainInput
+            borderRadius={20}
+            height={54}
+            borderColor={COLORS.BLACK}
+            marginTop={15}
+            onChangeText={(FirstName) =>
+              props.setLocalUserData({
+                ...props.localUserData,
+                first_name: FirstName,
+              })
+            }
+            value={props?.localUserData?.first_name}
+            placeholder="First Name"
+          />
+          <MainInput
+            borderRadius={20}
+            height={54}
+            borderColor={COLORS.BLACK}
+            marginTop={15}
+            onChangeText={(last_name) =>
+              props.setLocalUserData({
+                ...props.localUserData,
+                last_name: last_name,
+              })
+            }
+            value={props?.localUserData?.last_name}
+            placeholder="Last Name"
+          />
+          <MainInput
+            borderRadius={20}
+            height={54}
+            borderColor={COLORS.BLACK}
+            marginTop={15}
+            onChangeText={(email) =>
+              props.setLocalUserData({
+                ...props.localUserData,
+                email: email,
+              })
+            }
+            value={props?.localUserData?.email}
+            placeholder="Email Address"
+          />
+          <MainInput
+            borderRadius={20}
+            height={54}
+            borderColor={COLORS.BLACK}
+            marginTop={15}
+            onChangeText={(mobile) =>
+              props.setLocalUserData({
+                ...props.localUserData,
+                mobile: mobile,
+              })
+            }
+            value={props?.localUserData?.mobile}
+            placeholder="Phone Number"
+            maxLength={10}
+            keyboardType={"phone-pad"}
+          />
+          <MainInput
+            borderRadius={20}
+            height={54}
+            borderColor={COLORS.BLACK}
+            marginTop={15}
+            onChangeText={(order_description) =>
+              props.setLocalUserData({
+                ...props.localUserData,
+                order_description: order_description,
+              })
+            }
+            value={props?.localUserData?.order_description}
+            placeholder="Description"
+            multiline={true}
+          />
+        </View>
         <View style={styles.ParaViewStyle}>
           <Text style={styles.ParaViewText}>
             You'll receive text about your order. Contact info will be sent to
@@ -135,9 +143,7 @@ const CheckoutDetail = (props) => {
           </Text>
         </View>
         <View style={[styles.CheckOutView, { alignItems: "center" }]}>
-          <Image
-            source={Images.CHECKOUT_PAY_IMG}
-          />
+          <Image source={Images.CHECKOUT_PAY_IMG} />
           <Text style={styles.TakeOutText}>Payment-Method</Text>
         </View>
         <View style={styles.paymentMethodVw}>
@@ -252,10 +258,7 @@ const CheckoutDetail = (props) => {
             { paddingLeft: 15, top: 5, marginTop: 10 },
           ]}
         >
-          <Image
-            resizeMode="contain"
-            source={Images.CHECKOUT_SCHDULD_IMG}
-          />
+          <Image resizeMode="contain" source={Images.CHECKOUT_SCHDULD_IMG} />
           <View style={{ justifyContent: "center" }}>
             <Text style={[styles.TakeOutText, { paddingLeft: 10 }]}>
               Scheduled
@@ -275,8 +278,8 @@ const CheckoutDetail = (props) => {
           buttonText="Continue"
           onPress={() => props.onPressContinue()}
         />
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </PageScroll>
+    </View>
   );
 };
-export default CheckoutDetail;
+export default RestroCheckoutView;

@@ -31,6 +31,8 @@ const MainInput = (props) => {
     keyboardType = "default",
     maxLength = 200,
     secureTextEntry = false,
+    marginTop = 0,
+    borderColor = COLORS.GREY,
   } = props;
   return (
     <View
@@ -41,6 +43,8 @@ const MainInput = (props) => {
           paddingVertical: paddingVertical,
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
+          marginTop: marginTop,
+          borderColor: borderColor,
         },
       ]}
     >

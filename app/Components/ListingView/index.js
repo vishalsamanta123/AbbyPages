@@ -4,21 +4,18 @@ import EmptyList from "../EmptyList";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS, Constants } from "../../Utils/Constant";
 
-const ViewLists = ({
+const ListingView = ({
   data,
   horizontal = false,
   showsHorizontalScrollIndicator = false,
   showsVerticalScrollIndicator = false,
-  keyExtractor = (item, index) => index,
-  renderItem = ({ item, index }) => {
-    item, index;
-  },
-  ListEmptyComponent = () => {
-    return <EmptyList message={"List"} />;
-  },
-  ListHeaderComponent = () => {},
-  onEndReached = () => {},
-  onRefresh = () => {},
+  keyExtractor,
+  renderItem,
+  ListEmptyComponent,
+  ListHeaderComponent,
+  newRef,
+  onEndReached,
+  onRefresh,
   onPressScrollTop = () => {},
   onScroll = () => {},
   Content_offset,
@@ -32,6 +29,7 @@ const ViewLists = ({
     <>
       <FlatList
         data={data}
+        ref={newRef ? newRef : ref}
         horizontal={horizontal}
         showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
@@ -51,7 +49,7 @@ const ViewLists = ({
         <View style={styles.scrollPosVw}>
           <TouchableOpacity
             onPress={() => {
-              ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
+              ref?.current?.scrollToOffset({ x: 0, y: 0, animated: true });
               onPressScrollTop();
             }}
           >
@@ -68,7 +66,7 @@ const ViewLists = ({
   );
 };
 
-export default ViewLists;
+export default ListingView;
 const styles = StyleSheet.create({
   mainCon: {
     flexGrow: 1,

@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   mainCont: {
     marginVertical: 10,
     borderWidth: Constants.standardBW,
-    borderColor: COLORS.GREY,
     flex: 0,
     paddingVertical: 0,
     backgroundColor: COLORS.WHITE,
