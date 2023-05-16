@@ -24,6 +24,7 @@ const MarkteplaceDetailView = (props) => {
         loginButton={false}
         TxtMarginRight={"5%"}
         onPressCart={() => props.onPressCart()}
+        addToCartIcon={true}
         // onPressBack={() => onBackPress()}
       />
       <PageScroll

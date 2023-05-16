@@ -75,6 +75,7 @@ const RestroMenuView = (props) => {
           placeholderTextColor={COLORS.LIGHT_BLACK}
           value={props.search}
           height={50}
+          marginTop={10}
         />
       </View>
       <View style={{ flex: 1 }}>

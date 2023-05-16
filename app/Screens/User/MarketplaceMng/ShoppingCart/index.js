@@ -106,7 +106,7 @@ const ShoppingCart = ({ navigation, route }) => {
   const onPressContinue = () => {
     // if (shoppingCartData.length !== 0) {
     // console.log("Checkout");
-    // navigation.navigate("CheckOut");
+    navigation.navigate("CheckOut");
     // }
   };
   const addProductOnCart = async (item, value) => {

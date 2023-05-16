@@ -172,7 +172,7 @@ const MainHeader = (props) => {
             </View>
           ) : (
             <View style={CommonStyles.straightCon}>
-              {!addToCartIcon ? (
+              {addToCartIcon ? (
                 <View>
                   <TouchableOpacity
                     style={styles.leftIconVw}

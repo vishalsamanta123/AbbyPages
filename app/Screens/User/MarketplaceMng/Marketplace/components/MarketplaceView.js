@@ -28,7 +28,7 @@ const MarketplaceView = (props) => {
     productList,
     onBackPress,
     onPressLike,
-    handleProductPress
+    handleProductPress,
   } = props;
   const [categoryModal, setCategoryModal] = useState(false);
 
@@ -44,18 +44,26 @@ const MarketplaceView = (props) => {
   };
   const renderProductList = (item, index) => {
     return (
-      <TouchableOpacity style={styles.productTouch} onPress={() => handleProductPress(item)}>
+      <TouchableOpacity
+        style={styles.productTouch}
+        onPress={() => handleProductPress(item)}
+      >
         <ImageBackground
           source={{ uri: item.product_image }}
           style={styles.productImage}
         >
-          <TouchableOpacity style={{margin: 5}} onPress={() => onPressLike(item)}>
+          <TouchableOpacity
+            style={{ margin: 5 }}
+            onPress={() => onPressLike(item)}
+          >
             <IconX
               origin={ICON_TYPE.ENTYPO}
               size={30}
               name={"heart"}
               paddingRight={5}
-              color={item?.product_user_favorite === 1 ? COLORS.YELLOW : COLORS.GREY}
+              color={
+                item?.product_user_favorite === 1 ? COLORS.YELLOW : COLORS.GREY
+              }
             />
           </TouchableOpacity>
         </ImageBackground>
@@ -109,16 +117,16 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
-      <PageScroll
-        showsVerticalScrollIndicator={false}
-      >
-        <FlatList
-          data={subCategories}
-          renderItem={({ item, index }) => renderSubcategory(item, index)}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        />
+      <PageScroll showsVerticalScrollIndicator={false}>
+        <View>
+          <FlatList
+            data={subCategories}
+            renderItem={({ item, index }) => renderSubcategory(item, index)}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
         <View style={{ alignItems: "center" }}>
           <FlatList
             data={productList}

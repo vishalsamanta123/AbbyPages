@@ -66,6 +66,7 @@ const RestroItemDetailView = (props) => {
             }}
           />
           <MainInput
+            marginTop={10}
             onChangeText={(txt) =>
               props.setCartValData({
                 ...props.cartValData,
@@ -82,7 +83,7 @@ const RestroItemDetailView = (props) => {
             <MainButton
               buttonTxt={
                 props.cartValData?.total_item_price === "" ||
-                props.cartValData?.total_item_price === null
+                  props.cartValData?.total_item_price === null
                   ? "Add To Cart"
                   : "Add To Cart - $" + props.cartValData?.total_item_price
               }
