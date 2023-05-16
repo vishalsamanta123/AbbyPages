@@ -45,6 +45,8 @@ const MainHeader = (props) => {
     backText = true,
     resetButton = false,
     onPressReset = () => {},
+    addToCartIcon = false,
+    onPressCart = () => {},
   } = props;
   const navigation = useNavigation();
   const handleSearchPress = () => {
@@ -170,6 +172,26 @@ const MainHeader = (props) => {
             </View>
           ) : (
             <View style={CommonStyles.straightCon}>
+              {!addToCartIcon ? (
+                <View>
+                  <TouchableOpacity
+                    style={styles.leftIconVw}
+                    onPress={() => onPressCart()}
+                  >
+                    <IconX
+                      origin={ICON_TYPE.ANT_ICON}
+                      name={"shoppingcart"}
+                      size={21}
+                      color={COLORS.BLACK}
+                    />
+                  </TouchableOpacity>
+                  <View style={styles.notifyVw}>
+                    <View style={styles.notifyConVw}>
+                      <ScaleText style={styles.notifyTxt}>1</ScaleText>
+                    </View>
+                  </View>
+                </View>
+              ) : null}
               {notifyIcon ? (
                 <View>
                   <TouchableOpacity style={styles.leftIconVw}>

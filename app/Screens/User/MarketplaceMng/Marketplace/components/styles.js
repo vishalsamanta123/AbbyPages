@@ -81,7 +81,9 @@ const styles = StyleSheet.create({
     width: Constants.windowWidth / 2.5,
     borderRadius: 10
   },
-  productTxt: {},
+  productTxt: {
+    width: Constants.windowWidth / 2.5,
+  },
   productPriceTxt: {},
 });
 
