@@ -14,13 +14,8 @@ import MainButton from "../../../../../Components/MainButton";
 
 const MarkteplaceDetailView = (props) => {
   const { productDetail = {} } = props;
-  console.log(
-    "🚀 ~ file: MarkteplaceDetailView.js:17 ~ productDetail:",
-    productDetail
-  );
   const productSpecification = productDetail?.product_specification;
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${28.5384},${81.3789}&zoom=8&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
-
   return (
     <View style={[CommonStyles.container, {}]}>
       <MainHeader
@@ -28,6 +23,7 @@ const MarkteplaceDetailView = (props) => {
         isSearch={false}
         loginButton={false}
         TxtMarginRight={"5%"}
+        onPressCart={() => props.onPressCart()}
         // onPressBack={() => onBackPress()}
       />
       <PageScroll
@@ -528,23 +524,38 @@ const MarkteplaceDetailView = (props) => {
               <View style={styles.detailView}>
                 <ScaleText style={styles.descTxt}>
                   {productSpecification?.descriptions}
-                  sdhubvsbivils oaibugiobrgiub ijub iujboilaub vgluvb liuvbla
-                  kuivlkuiv lkiuvui
                 </ScaleText>
               </View>
             </>
           ) : null}
-          <View style={{ alignItems: "center", flexDirection: "row", justifyContent: 'space-around' }}>
+          <View>
+            <ScaleText>
+              Total Amount:{" "}
+              {getAmount(productDetail?.final_price * props?.cartData[0]?.quantity)}
+            </ScaleText>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
             <AddMinusView
-              // value={props.getqty(item)}
-              // minVal={1}
-              // onPressAdd={(val) => props.addToCart(item, val)}
-              // onPressMinus={(val) => props.removeFromCart(item, val)}
+              value={props.cartData[0]?.quantity}
+              minVal={1}
+              onPressAdd={(val) => props.addToCart(productDetail, val)}
+              onPressMinus={(val) => props.removeFromCart(productDetail, val)}
               width={"80%"}
             />
             <MainButton
               buttonTxt={"Add to Cart"}
-              // onPressButton={() => props.applyNowPress()}
+              onPressButton={() =>
+                props.addProductOnCart(
+                  productDetail,
+                  props.cartData[0]?.quantity
+                )
+              }
               width={"90%"}
               borderColor={COLORS.YELLOW}
               txtColor={COLORS.WHITE}

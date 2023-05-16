@@ -2,7 +2,7 @@ import { TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
-import { COLORS } from "../../Utils/Constant";
+import { COLORS, FONT_SIZE } from "../../Utils/Constant";
 
 const MainButton = (props) => {
   const {
@@ -14,6 +14,7 @@ const MainButton = (props) => {
     backgroundColor = null,
     borderRadius = 20,
     paddingHorizontal = 15,
+    txtFontsize = FONT_SIZE.medium
   } = props;
   return (
     <TouchableOpacity
@@ -34,6 +35,7 @@ const MainButton = (props) => {
           styles.buttonTxt,
           {
             color: txtColor,
+            fontSize: txtFontsize,
           },
         ]}
       >

@@ -153,4 +153,7 @@ export default {
   // MarketPlace
   PRODUCT_CATEGORY_LIST: "api/product/productCategoryList",
   PRODUCT_FILTER_DATA: "api/product/getProductFlterData",
+  ADD_TO_CART_PRODUCT: "api/product/addProductIntoCart",
+  GET_TO_CART_PRODUCT: "api/product/getProductFromCart",
 };
+    
