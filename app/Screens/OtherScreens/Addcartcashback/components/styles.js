@@ -5,7 +5,7 @@ import {
     FONT_FAMILY_REGULAR,
     LIGHT_GREY_COLOR_CODE,
     LINE_COMMON_COLOR_CODE,
-} from '../../../Utils/Constant';
+} from '../../../../Utils/Constant';
 const Styles = StyleSheet.create({
     ContainerView: {
         padding: 15

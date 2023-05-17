@@ -1,33 +1,19 @@
-import React from "react";
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  Platform,
-} from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import React, { useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import Input from "../../../../../Components/Input";
-import Header from "../../../../../Components/Header";
-import Button from "../../../../../Components/Button";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  COLORS,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
-import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import PageScroll from "../../../../../Components/PageScroll";
 import MainInput from "../../../../../Components/MainInput";
+import ScaleText from "../../../../../Components/ScaleText";
+import MainButton from "../../../../../Components/MainButton";
+import OrderSetting from "./OrderSetting";
 
 const RestroCheckoutView = (props) => {
+  const [restroCheckOut, setRestroCheckOut] = useState(false);
   const initialRegion = {
     latitude: props?.location?.latitude
       ? parseInt(props?.location?.latitude)
@@ -50,7 +36,10 @@ const RestroCheckoutView = (props) => {
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText={"Checkout"} />
-      <PageScroll contentContainerStyle={{ marginHorizontal: 12 }}>
+      <PageScroll
+        bottomButton={false}
+        contentContainerStyle={{ marginHorizontal: 12 }}
+      >
         <View style={CommonStyles.straightCon}>
           <IconX
             origin={ICON_TYPE.EVIL_ICONS}
@@ -59,7 +48,7 @@ const RestroCheckoutView = (props) => {
             size={35}
             paddingLeft={6}
           />
-          <Text style={styles.CheckoutText}>Checkout</Text>
+          <ScaleText style={styles.headTxt}>Checkout</ScaleText>
         </View>
         <View style={{ marginTop: 10, marginHorizontal: 5 }}>
           <MainInput
@@ -136,30 +125,36 @@ const RestroCheckoutView = (props) => {
             multiline={true}
           />
         </View>
-        <View style={styles.ParaViewStyle}>
-          <Text style={styles.ParaViewText}>
-            You'll receive text about your order. Contact info will be sent to
-            Grubhub for order fulfillment.
-          </Text>
-        </View>
-        <View style={[styles.CheckOutView, { alignItems: "center" }]}>
-          <Image source={Images.CHECKOUT_PAY_IMG} />
-          <Text style={styles.TakeOutText}>Payment-Method</Text>
+        <ScaleText style={styles.subTxt}>
+          You'll receive text about your order. Contact info will be sent to
+          Grubhub for order fulfillment.
+        </ScaleText>
+        <View style={styles.containerVw}>
+          <IconX
+            origin={ICON_TYPE.MATERIAL_ICONS}
+            name={"payment"}
+            size={28}
+            color={COLORS.BLACK}
+          />
+          <ScaleText style={styles.subheadTxt}>Payment-Method</ScaleText>
         </View>
         <View style={styles.paymentMethodVw}>
           <TouchableOpacity
             onPress={() => props.onPressPaymentMethod()}
-            style={[styles.CheckOutView, { paddingTop: 5 }]}
+            style={CommonStyles.straightCon}
           >
-            <Image
-              style={[{ marginRight: 5 }]}
-              source={
+            <IconX
+              origin={ICON_TYPE.MATERIAL_ICONS}
+              name={
                 props?.localUserData?.order_payment_type === 2
-                  ? Images.CHECK_IMG
-                  : Images.UNCHECK_IMG
+                  ? "radio-button-checked"
+                  : "radio-button-unchecked"
               }
+              color={COLORS.YELLOW}
+              size={24}
+              paddingRight={10}
             />
-            <Text>Online</Text>
+            <ScaleText style={styles.subHeadTxt}>Online</ScaleText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -167,24 +162,28 @@ const RestroCheckoutView = (props) => {
                 props?.localUserData?.order_payment_type
               )
             }
-            style={[styles.CheckOutView, { paddingTop: 5 }]}
+            style={CommonStyles.straightCon}
           >
-            <Image
-              style={[{ marginRight: 5 }]}
-              source={
+            <IconX
+              origin={ICON_TYPE.MATERIAL_ICONS}
+              name={
                 props?.localUserData?.order_payment_type === 1
-                  ? Images.CHECK_IMG
-                  : Images.UNCHECK_IMG
+                  ? "radio-button-checked"
+                  : "radio-button-unchecked"
               }
+              color={COLORS.YELLOW}
+              size={24}
+              paddingRight={10}
+              paddingLeft={10}
             />
-            <Text>Cash On Delievery</Text>
+            <ScaleText style={styles.subHeadTxt}>Cash On Delievery</ScaleText>
           </TouchableOpacity>
         </View>
         {props?.localUserData?.order_payment_type === 2 && (
           <View>
-            <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
+            <ScaleText style={[styles.subheadTxt, { marginVertical: 12 }]}>
               Enter Card Details
-            </Text>
+            </ScaleText>
             <CardField
               postalCodeEnabled={true}
               placeholders={{
@@ -211,74 +210,79 @@ const RestroCheckoutView = (props) => {
             />
           </View>
         )}
-        {props.delivery_type == 1 && (
-          <>
-            <View style={[styles.CheckOutView, { paddingLeft: 15 }]}>
-              <Image
-                style={{ top: 5, height: 32, width: 32 }}
-                tintColor={BLACK_COLOR_CODE}
-                resizeMode="contain"
-                source={Images.CIRCLE_LOCATION_IMG}
-              />
-              <View style={{ justifyContent: "center" }}>
-                <Text style={[styles.TakeOutText, { paddingLeft: 10 }]}>
-                  Order-Delievery Address
-                </Text>
-              </View>
-            </View>
-            <View style={[styles.CheckOutView, { paddingBottom: 12 }]}>
-              <View style={{ justifyContent: "center" }}>
-                <Text style={[styles.AddressText, { width: 280 }]}>
-                  {props?.location?.location}
-                </Text>
-              </View>
-            </View>
-            {props?.location?.location ? (
-              <MapView
-                showsUserLocation
-                style={{ width: "100%", height: 190 }}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={initialRegion}
-              >
-                <Marker coordinate={coordinate}>
-                  <Image
-                    source={Images.MAP_LOGO}
-                    style={{ height: 50, width: 50 }}
-                    resizeMode="contain"
-                    resizeMethod="auto"
-                  />
-                </Marker>
-              </MapView>
-            ) : null}
-          </>
-        )}
-        <View
-          style={[
-            styles.CheckOutView,
-            { paddingLeft: 15, top: 5, marginTop: 10 },
-          ]}
-        >
-          <Image resizeMode="contain" source={Images.CHECKOUT_SCHDULD_IMG} />
-          <View style={{ justifyContent: "center" }}>
-            <Text style={[styles.TakeOutText, { paddingLeft: 10 }]}>
-              Scheduled
-            </Text>
+        {/* {props.delivery_type === 1 && ( */}
+        <>
+          <View style={styles.containerVw}>
+            <IconX
+              origin={ICON_TYPE.ENTYPO}
+              name={"location-pin"}
+              size={26}
+              color={COLORS.BLACK}
+            />
+            <ScaleText style={styles.subheadTxt}>
+              Order-Delievery Address
+            </ScaleText>
           </View>
-        </View>
-        <View style={[styles.CheckOutView, { paddingBottom: 12 }]}>
-          <View style={{ top: 5, height: 32, width: 32 }} />
-          <View style={{ justifyContent: "center" }}>
-            <Text style={[styles.AddressText, { width: 280, paddingLeft: 0 }]}>
-              {props.dateTime}
-            </Text>
+          <View style={styles.smallTxtVw}>
+            <ScaleText style={styles.smallTxt}>
+              {props?.localUserData?.location}
+            </ScaleText>
+            <TouchableOpacity
+              onPress={() => setRestroCheckOut(true)}
+              style={{ marginTop: 4 }}
+            >
+              <ScaleText style={[styles.smallTxt, { color: COLORS.YELLOW }]}>
+                Change Address
+              </ScaleText>
+            </TouchableOpacity>
           </View>
+        </>
+        {/* )} */}
+        <View style={styles.containerVw}>
+          <IconX
+            origin={ICON_TYPE.MATERIAL_COMMUNITY}
+            name={"timelapse"}
+            size={24}
+            paddingLeft={6}
+            color={COLORS.BLACK}
+          />
+          <ScaleText style={styles.subheadTxt}>Scheduled</ScaleText>
         </View>
-        <Button
-          style={{ marginBottom: 10 }}
-          buttonText="Continue"
-          onPress={() => props.onPressContinue()}
-        />
+        <View style={styles.smallTxtVw}>
+          <ScaleText style={styles.smallTxt}>
+            {props?.localUserData?.date_time}
+          </ScaleText>
+          <TouchableOpacity
+            onPress={() => setRestroCheckOut(true)}
+            style={{ marginTop: 4 }}
+          >
+            <ScaleText style={[styles.smallTxt, { color: COLORS.YELLOW }]}>
+              Change Time
+            </ScaleText>
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginHorizontal: 16, marginVertical: 20 }}>
+          <MainButton
+            buttonTxt={"Continue"}
+            paddingHeight={16}
+            backgroundColor={COLORS.YELLOW}
+            txtColor={COLORS.WHITE}
+            onPressButton={() => props.onPressContinue()}
+          />
+        </View>
       </PageScroll>
+      <OrderSetting
+        visible={restroCheckOut}
+        endVisible={() => setRestroCheckOut(false)}
+        onPressAddress={(data) => {
+          props.setLocalUserData({
+            ...props.localUserData,
+            latitude: data?.latitude,
+            location: data?.location,
+            longitude: data?.longitude,
+          });
+        }}
+      />
     </View>
   );
 };

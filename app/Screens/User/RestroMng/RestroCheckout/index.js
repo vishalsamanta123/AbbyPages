@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import RestroCheckoutView from "./components/RestroCheckoutView";
@@ -9,15 +9,18 @@ import Error from "../../../../Components/Modal/showMessage";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import { UserContext } from "../../../../Utils/UserContext";
+import moment from "moment";
+import { Constants } from "../../../../Utils/Constant";
 
 const RestroCheckout = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
+  const [userData, setUserData] = useContext(UserContext);
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
     type: "",
   });
-
   const [localUserData, setLocalUserData] = useState({
     first_name: "",
     last_name: "",
@@ -25,9 +28,11 @@ const RestroCheckout = ({ navigation }) => {
     mobile: "",
     order_payment_type: "",
     order_description: "",
+    latitude: "28.5383832",
+    location: "Orlando, FL, USA",
+    longitude: "-81.3789269",
+    date_time: moment().format(Constants.TIME_DATE_FORMAT),
   });
-  const [location, setLocation] = useState("");
-  const [dateTime, setDateTime] = useState("");
   const [delivery_type, setDeliveryType] = useState("");
   const [onlineDetail, setOnlineDetail] = useState({
     brand: "",
@@ -41,37 +46,36 @@ const RestroCheckout = ({ navigation }) => {
   });
 
   useEffect(() => {
-    AsyncStoragefunction();
+    handleGetData();
   }, []);
-  const AsyncStoragefunction = async () => {
-    const orderData = await AsyncStorage.getItem("orderData");
-    if (orderData !== "") {
-      setDateTime(JSON.parse(orderData).order_schedule_time);
-      if (orderData?.address !== null) {
-        setLocation(JSON.parse(orderData)?.address);
-      }
-      setDeliveryType(JSON.parse(orderData).delivery_type);
-    }
-    try {
-      setVisible(true);
-      const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
-      if (data.status === 200) {
-        setLocalUserData({
-          ...localUserData,
-          first_name: data?.data?.first_name ? data?.data.first_name : "",
-          last_name: data?.data?.last_name ? data?.data.last_name : "",
-          email: data?.data?.email ? data?.data?.email : "",
-          mobile: data?.data?.phone ? data?.data?.phone : "",
-          order_payment_type: 1,
-        });
-        setVisible(false);
-      }
-    } catch (error) {}
+  const handleGetData = async () => {
+    setVisible(true);
+    // const orderData = await AsyncStorage.getItem("orderData");
+    // if (orderData !== "") {
+    //   setDateTime(JSON.parse(orderData).order_schedule_time);
+    //   if (orderData?.address !== null) {
+    //     setLocation(JSON.parse(orderData)?.address);
+    //   }
+    //   setDeliveryType(JSON.parse(orderData).delivery_type);
+    // }
+    setLocalUserData({
+      ...localUserData,
+      first_name: userData?.first_name ? userData.first_name : "",
+      last_name: userData?.last_name ? userData.last_name : "",
+      email: userData?.email ? userData?.email : "",
+      mobile: userData?.mobile ? userData?.mobile : "",
+      order_payment_type: 1,
+      latitude: "28.5383832",
+      location: "Orlando, FL, USA",
+      longitude: "-81.3789269",
+      date_time: moment().format(Constants.TIME_DATE_FORMAT),
+    });
+    setVisible(false);
   };
   const onPressPaymentMethod = (resp) => {
     setLocalUserData({
       ...localUserData,
-      order_payment_type: resp == 2 ? 1 : 2,
+      order_payment_type: resp === 2 ? 1 : 2,
     });
   };
   function validationFrom() {
@@ -82,40 +86,35 @@ const RestroCheckout = ({ navigation }) => {
         type: "error",
       });
       return false;
-    }
-    if (localUserData.last_name == "") {
+    } else if (localUserData.last_name == "") {
       setMessageShow({
         visible: true,
         message: "Please enter lastname",
         type: "error",
       });
       return false;
-    }
-    if (localUserData.email == "") {
+    } else if (localUserData.email == "") {
       setMessageShow({
         visible: true,
         message: "Please enter email",
         type: "error",
       });
       return false;
-    }
-    if (localUserData.mobile == "") {
+    } else if (localUserData.mobile == "") {
       setMessageShow({
         visible: true,
         message: "Please enter phone number",
         type: "error",
       });
       return false;
-    }
-    if (localUserData.order_payment_type === "") {
+    } else if (localUserData.order_payment_type === "") {
       setMessageShow({
         visible: true,
         message: "Please Select Payment Method",
         type: "error",
       });
       return false;
-    }
-    if (localUserData.order_description === "") {
+    } else if (localUserDatu.order_description === "") {
       setMessageShow({
         visible: true,
         message: "Please enter order description",
@@ -243,8 +242,6 @@ const RestroCheckout = ({ navigation }) => {
       {visible && <Loader state={visible} />}
       <RestroCheckoutView
         delivery_type={delivery_type}
-        dateTime={dateTime}
-        location={location}
         localUserData={localUserData}
         setLocalUserData={setLocalUserData}
         onPressPaymentMethod={onPressPaymentMethod}

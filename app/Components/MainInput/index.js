@@ -31,7 +31,7 @@ const MainInput = (props) => {
     keyboardType = "default",
     maxLength = 200,
     secureTextEntry = false,
-    marginTop = 0,
+    marginTop = 10,
     borderColor = COLORS.GREY,
   } = props;
   return (

@@ -1,10 +1,12 @@
 import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { COLORS, Constants } from "../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
+import { useIsFocused } from "@react-navigation/native";
 
 const PageScroll = ({
   contentContainerStyle: propStyle,
+  bottomButton = true,
   children,
   backgroundColor,
   keyboardShouldPersistTaps,
@@ -29,6 +31,13 @@ const PageScroll = ({
     : Constants.windowHeight / 1.9;
   const { mainCon } = styles;
   let defaultStyle = mainCon;
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
+    }
+  }, [isFocused]);
   return (
     <>
       <ScrollView
@@ -57,22 +66,26 @@ const PageScroll = ({
       >
         {children}
       </ScrollView>
-      {CONTENT_OFFSET <= screenOffSet ? (
-        <View style={styles.scrollPosVw}>
-          <TouchableOpacity
-            onPress={() => {
-              ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
-              onPressScrollTop();
-            }}
-          >
-            <IconX
-              origin={ICON_TYPE.ANT_ICON}
-              name={"upcircleo"}
-              size={32}
-              color={COLORS.YELLOW}
-            />
-          </TouchableOpacity>
-        </View>
+      {bottomButton ? (
+        <>
+          {CONTENT_OFFSET <= screenOffSet ? (
+            <View style={styles.scrollPosVw}>
+              <TouchableOpacity
+                onPress={() => {
+                  ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
+                  onPressScrollTop();
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"upcircleo"}
+                  size={32}
+                  color={COLORS.YELLOW}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </>
       ) : null}
     </>
   );
@@ -88,6 +101,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     marginRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
 });

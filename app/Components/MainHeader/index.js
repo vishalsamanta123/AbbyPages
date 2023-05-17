@@ -143,7 +143,7 @@ const MainHeader = (props) => {
                 styles.topHeaderTxt,
                 {
                   fontSize: fontSize,
-                  marginRight: isLogin && notify ? 0 : TxtMarginRight,
+                  marginRight: isLogin && notifyIcon ? 0 : TxtMarginRight,
                 },
               ]}
             >

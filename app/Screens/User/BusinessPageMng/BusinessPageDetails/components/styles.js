@@ -32,9 +32,9 @@ const Styles = StyleSheet.create({
   },
   mainContainer: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: COLORS.WHITE,
-    marginVertical: 4,
+    paddingVertical: 12,
+    backgroundColor: COLORS.LIGHT_WHITE,
+    marginVertical: 3,
   },
   titletxt: {
     fontSize: FONT_SIZE.medium,
@@ -56,7 +56,6 @@ const Styles = StyleSheet.create({
     backgroundColor: COLORS.COMMON,
     borderRadius: 100,
     padding: 8,
-    marginHorizontal: 20,
     marginVertical: 5,
   },
   onSaved: {
@@ -65,10 +64,9 @@ const Styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
   },
   smallOptiontxt: {
-    fontSize: FONT_SIZE.normal,
+    fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    // width: 80,
     textAlign: "center",
   },
   longTxt: {
@@ -86,7 +84,7 @@ const Styles = StyleSheet.create({
     borderRadius: 12,
   },
   smallOptiontxt2: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -107,9 +105,16 @@ const Styles = StyleSheet.create({
     marginLeft: 8,
   },
   sectionTxt: {
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+  },
+  triBttnVw: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+    right: 10,
   },
   tapButtonsVw: {
     backgroundColor: COLORS.WHITE,
@@ -250,21 +255,29 @@ const Styles = StyleSheet.create({
   },
   highlightsView: {
     flex: 1,
-    // justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 8,
+    margin: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   highlightsImage: {
     height: 50,
     width: 50,
+    marginVertical: 8,
   },
   highlightsText: {
     textAlign: "center",
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     width: "100%",
-    // backgroundColor: 'red',
   },
   availJobsView: {
     margin: 5,
@@ -490,26 +503,31 @@ const Styles = StyleSheet.create({
     textAlign: "center",
   },
   orderTouch: {
-    flex: 2,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: COLORS.LIGHT_YELLOW,
-    margin: 3,
+    borderColor: COLORS.YELLOW,
+    borderWidth: Constants.normalBW,
+    margin: 5,
     borderRadius: 5,
     paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   orderTouchSecond: {
     paddingVertical: 5,
     marginTop: 10,
+    backgroundColor: COLORS.YELLOW,
+    borderRadius: 12,
   },
   orderTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: FONT_SIZE.smallL,
+    fontSize: FONT_SIZE.small,
     textAlign: "center",
     marginVertical: 5,
+    color: COLORS.YELLOW,
   },
   orderTxtSecond: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.WHITE,
   },
 });
 export default Styles;
