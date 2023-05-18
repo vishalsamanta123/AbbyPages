@@ -536,9 +536,9 @@ const BusinessPageDetailsView = (props) => {
         </>
       )}
       {offer_takeout || offers_delivery || outdoor_seating ? (
-        <View style={styles.mainContainer}>
+        <View style={[styles.mainContainer, { paddingVertical: 8 }]}>
           <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
-          <View style={[CommonStyles.justifyCenter, { flex: 1 }]}>
+          <View style={styles.triBttnVw}>
             {offer_takeout ? (
               <TouchableOpacity
                 style={styles.orderTouch}

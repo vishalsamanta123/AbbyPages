@@ -24,7 +24,7 @@ const CategorySearchView = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <PageScroll>
+      <PageScroll keyboardShouldPersistTaps={"handled"}>
         <SearchView />
         <View style={{ flex: 1, marginVertical: 10 }}>
           <FlatList

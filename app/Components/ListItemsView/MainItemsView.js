@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import {
   COLORS,
   Constants,
@@ -9,8 +9,18 @@ import {
 import moment from "moment";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import ScaleText from "../ScaleText";
+import CommonStyles from "../../Utils/CommonStyles";
+import { BLACK_ACORN, OUTLINE_ACORN } from "../../Utils/svgImages";
 
 const MainItemsView = (props) => {
+  const [specialIcon, setSpecialIcon] = useState(false);
+  useEffect(() => {
+    if (specialIcon) {
+      setTimeout(async () => {
+        setSpecialIcon(false);
+      }, 2000);
+    }
+  }, [specialIcon]);
   const {
     item = {},
     index = "",
@@ -39,6 +49,13 @@ const MainItemsView = (props) => {
           onPress={() => onPressView(item)}
           style={[styles.mainConatiner]}
         >
+          {specialIcon ? (
+            <View style={styles.specialTxtVw}>
+              <ScaleText style={styles.specialTxt}>
+                {item?.acorn_type}
+              </ScaleText>
+            </View>
+          ) : null}
           {largeImg === "" ? null : (
             <Image
               style={styles.largeImgVw}
@@ -47,7 +64,18 @@ const MainItemsView = (props) => {
             />
           )}
           <View style={styles.innContainer}>
-            <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+              {item?.acorn_type === "Black Supported" ? (
+                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                  <OUTLINE_ACORN width={24} height={24} style={{ left: 16 }} />
+                </TouchableOpacity>
+              ) : item?.acorn_type === "Black Owned" ? (
+                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                  <BLACK_ACORN width={24} height={24} style={{ left: 16 }} />
+                </TouchableOpacity>
+              ) : null}
+            </View>
             <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
             {rating === "" ? null : (
               <View style={styles.straightVw}>
@@ -123,52 +151,55 @@ const MainItemsView = (props) => {
         </TouchableOpacity>
       ) : (
         <>
-        <TouchableOpacity style={[styles.rowVw, {marginTop: 10}]}>
-          <Image
-            style={styles.smallImgVw}
-            resizeMode="cover"
-            source={{ uri: profile_image }}
-          />
-          <View style={{ flex: 1 }}>
-            <View
-              style={[
-                styles.rowVw,
-                {
-                  justifyContent: "space-between",
-                  paddingHorizontal: 10,
-                },
-              ]}
-            >
-              <View style={{ width: "70%" }}>
-                <ScaleText style={[styles.largeNameTxt, { color: COLORS.BLACK }]}>
-                  {title}
-                </ScaleText>
-                <View style={styles.rowVw}>
-                  <ScaleText style={styles.lightTxt}>
-                    By {largeName} |{" "}
+          <TouchableOpacity style={[styles.rowVw, { marginTop: 10 }]}>
+            <Image
+              style={styles.smallImgVw}
+              resizeMode="cover"
+              source={{ uri: profile_image }}
+            />
+            <View style={{ flex: 1 }}>
+              <View
+                style={[
+                  styles.rowVw,
+                  {
+                    justifyContent: "space-between",
+                    paddingHorizontal: 10,
+                  },
+                ]}
+              >
+                <View style={{ width: "70%" }}>
+                  <ScaleText
+                    style={[styles.largeNameTxt, { color: COLORS.BLACK }]}
+                  >
+                    {title}
                   </ScaleText>
-                  <ScaleText style={styles.lightTxt}>
-                    {moment(rowImgTxt2).startOf("hour").fromNow()}
+                  <View style={styles.rowVw}>
+                    <ScaleText style={styles.lightTxt}>
+                      By {largeName} |{" "}
+                    </ScaleText>
+                    <ScaleText style={styles.lightTxt}>
+                      {moment(rowImgTxt2).startOf("hour").fromNow()}
+                    </ScaleText>
+                  </View>
+                </View>
+                <View style={styles.straightVw}>
+                  <View style={styles.ratingVw}>
+                    <ScaleText style={styles.ratingTxt}>
+                      {rating?.substring(0, 3)}
+                    </ScaleText>
+                  </View>
+                  <ScaleText
+                    style={[styles.ratingTxt, { color: COLORS.BLACK }]}
+                  >
+                    rating
                   </ScaleText>
                 </View>
               </View>
-              <View style={styles.straightVw}>
-                <View style={styles.ratingVw}>
-                  <ScaleText style={styles.ratingTxt}>
-                    {rating?.substring(0, 3)}
-                  </ScaleText>
-                </View>
-                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
-                  rating
-                </ScaleText>
-              </View>
+              <ScaleText style={styles.descTxt}>{description}</ScaleText>
             </View>
-            <ScaleText style={styles.descTxt}>{description}</ScaleText>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.postBreakView}></View>
+          </TouchableOpacity>
+          <View style={styles.postBreakView}></View>
         </>
-
       )}
     </>
   );
@@ -228,11 +259,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: COLORS.BLACK,
     textTransform: "capitalize",
+    width: "90%",
   },
   smallTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13.5,
     color: COLORS.BLACK,
+  },
+  specialTxtVw: {
+    position: "absolute",
+    right: 5,
+    backgroundColor: COLORS.YELLOW,
+    top: 40,
+    borderRadius: 20,
+    padding: 5,
+  },
+  specialTxt: {
+    fontSize: FONT_SIZE.verysmall,
   },
   emptyConVw: {
     height: 200,
@@ -257,7 +300,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
-  descTxt:{
+  descTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
   },

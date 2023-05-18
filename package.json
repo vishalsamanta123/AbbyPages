@@ -65,6 +65,9 @@
     "react-native-slider": "^0.11.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-speedometer": "^1.0.5",
+    "react-native-svg": "^13.9.0",
+    "react-native-svg-transformer": "^1.0.0",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^11.23.1"

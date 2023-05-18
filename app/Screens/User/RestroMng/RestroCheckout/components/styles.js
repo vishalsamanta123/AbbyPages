@@ -1,52 +1,45 @@
 import { StyleSheet } from "react-native";
 import {
-  LIGHT_GREY_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  BLACK_COLOR_CODE,
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
-  CheckOutView: {
+  containerVw: {
     flexDirection: "row",
-    paddingLeft: 20,
-    paddingTop: 10,
+    paddingTop: 15,
+    paddingLeft: 8,
+    alignItems: "center",
   },
-  CheckoutText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 20,
+  headTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
     paddingLeft: 10,
+    color: COLORS.BLACK,
   },
-  ParaViewStyle: {
-    padding: 15,
+  subTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
+    fontSize: FONT_SIZE.small,
+    marginHorizontal: 10,
+    lineHeight: 16,
   },
-  ParaViewText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
-    fontSize: 12,
-  },
-  ArrowDownImge: {
-    position: "absolute",
-    right: 0,
-    marginTop: 29,
-    marginRight: 28,
-  },
-  ImageView: {
-    margin: 15,
-  },
-  ImgeStyleMain: {
-    width: "100%",
-    height: 190,
-  },
-  TakeOutText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
+  subheadTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.normal,
     paddingLeft: 10,
   },
   paymentMethodVw: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 5,
+    paddingLeft: 10,
+  },
+  subHeadTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   cardDetailsTxt: {
     marginLeft: 10,
@@ -54,26 +47,30 @@ const Styles = StyleSheet.create({
     fontSize: 18,
   },
   cardStyleVw: {
-    paddingVertical: 30,
-    marginHorizontal: 14,
+    paddingVertical: 26,
+    marginHorizontal: 8,
   },
   cardStyle: {
-    borderColor: "#d8d8d8",
+    borderColor: COLORS.COMMON,
     borderWidth: 1,
     borderRadius: 9,
-    textColor: BLACK_COLOR_CODE,
+    textColor: COLORS.BLACK,
   },
-  AddressText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 14,
-    paddingLeft: 10,
-    color: LIGHT_GREY_COLOR_CODE,
+  smallTxtVw: {
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.BORDER_LINE,
+    borderRadius: 50,
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    marginBottom: 8,
+    marginTop: 3,
+    marginHorizontal: 20,
   },
-  ChangeText: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
+  smallTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.normal,
     paddingLeft: 10,
-    color: YELLOW_COLOR_CODE,
+    color: COLORS.DARK_PURPLE,
   },
 });
 export default Styles;

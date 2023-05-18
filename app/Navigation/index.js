@@ -30,11 +30,8 @@ import ForgotPasswordFieldScreen from "../Screens/Authentication/ForgotPasswordF
 
 // ==================App Screens=========================
 import BusinessPageDetails from "../Screens/User/BusinessPageMng/BusinessPageDetails";
-import ShopDetail from "../Screens/ShopDetail";
 import DashBoardScreen from "../Screens/User/DashBoard";
 import BusinessPageListing from "../Screens/User/BusinessPageMng/BusinessPageListing";
-import ShopListing from "../Screens/ShopList";
-import ProfileSetting from "../Screens/ProfileSetting";
 import MenuPage from "../Screens/User/OtherScreens/MenuManagement/MenuPage";
 import ReviewRating from "../Screens/User/BusinessPageMng/ReviewRating";
 import CategorySearch from "../Screens/User/OtherScreens/SearchMng/CategorySearch";
@@ -72,8 +69,6 @@ function TabNavigation() {
       <Tab.Screen name="BusinessPageListing" component={BusinessPageListing} />
       <Tab.Screen name="BusinessPageDetails" component={BusinessPageDetails} />
       <Tab.Screen name="ReviewRating" component={ReviewRating} />
-      <Tab.Screen name="ShopList" component={ShopListing} />
-      <Tab.Screen name="ShopDetail" component={ShopDetail} />
       <Tab.Screen name="CategorySearch" component={CategorySearch} />
       <Tab.Screen
         name="SubCategorySearchView"
@@ -114,7 +109,6 @@ function AppStack() {
       <Stack.Screen name="BusinessPageDetails" component={TabNavigation} />
       <Stack.Screen name="ReviewRating" component={TabNavigation} />
       <Stack.Screen name="ShopList" component={TabNavigation} />
-      <Stack.Screen name="ShopDetail" component={TabNavigation} />
       <Stack.Screen name="CategorySearch" component={TabNavigation} />
       <Stack.Screen name="SubCategorySearchView" component={TabNavigation} />
       <Stack.Screen name="EventListings" component={TabNavigation} />

@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import EmptyList from "../EmptyList";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS, Constants } from "../../Utils/Constant";
+import { useIsFocused } from "@react-navigation/native";
 
 const ListingView = ({
   data,
@@ -25,6 +26,14 @@ const ListingView = ({
   const CONTENT_OFFSET = Content_offset
     ? Content_offset
     : Constants.windowHeight / 1.9;
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      ref?.current?.scrollToOffset({ x: 0, y: 0, animated: true });
+    }
+  }, [isFocused]);
+
   return (
     <>
       <FlatList

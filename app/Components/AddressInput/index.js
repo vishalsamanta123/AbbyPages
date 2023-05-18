@@ -22,7 +22,7 @@ const AddressInput = (props) => {
         }}
         textInputProps={{
           onFocus: () => setOnfocus(true),
-          // onBlur: () => setOnfocus(false),
+          onBlur: () => setOnfocus(false),
           placeholderTextColor: COLORS.GREY,
           onChangeText: (txt) => {
             if (onfocus) {

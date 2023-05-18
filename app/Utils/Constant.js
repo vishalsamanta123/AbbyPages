@@ -60,7 +60,7 @@ export const COLORS = {
   DARK_PURPLE: "#140423",
   LIGHT_COMMON: "#f3f2f1",
   THEME: "#E8AC41",
-  shimmerColors: ['#E1E9EE', '#F2F8FC', '#F2F8FC'],
+  shimmerColors: ["#E1E9EE", "#F2F8FC", "#F2F8FC"],
 };
 
 export const FONT_FAMILY = {
@@ -90,6 +90,7 @@ export const Constants = {
   standardBW: 0.5,
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
+  TIME_DATE_FORMAT: "MMMM Do YYYY, h:mm:ss a",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
   windowWidth: Dimensions.get("screen").width,
   windowHeight: Dimensions.get("window").height,
