@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
-    marginHorizontal: 18,
     marginTop: 8,
   },
   eventTitlesTxt: {
@@ -10,10 +9,10 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 12,
-    // marginLeft: 13,
+    marginLeft: 16,
   },
   bannervideoStyle: {
-    height: 300,
+    height: 350,
   },
   videoBannerView: {},
   bannerView: {
@@ -95,6 +94,8 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 2,
+    paddingHorizontal: 10,
+    marginBottom: 7,
   },
   straightTxt: {
     fontSize: FONT_SIZE.small,
@@ -107,7 +108,6 @@ const Styles = StyleSheet.create({
     height: 16,
     resizeMode: "contain",
     marginRight: 5,
-    // marginTop: 3
   },
   seeAllBttn: {
     marginBottom: 12,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import { COLORS } from "../../../../../Utils/Constant";
+import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
 import MainHeader from "../../../../../Components/MainHeader";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
@@ -11,6 +11,7 @@ import MainInput from "../../../../../Components/MainInput";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainButton from "../../../../../Components/MainButton";
 import OrderSetting from "./OrderSetting";
+import moment from "moment";
 
 const RestroCheckoutView = (props) => {
   const [restroCheckOut, setRestroCheckOut] = useState(false);
@@ -210,34 +211,34 @@ const RestroCheckoutView = (props) => {
             />
           </View>
         )}
-        {/* {props.delivery_type === 1 && ( */}
-        <>
-          <View style={styles.containerVw}>
-            <IconX
-              origin={ICON_TYPE.ENTYPO}
-              name={"location-pin"}
-              size={26}
-              color={COLORS.BLACK}
-            />
-            <ScaleText style={styles.subheadTxt}>
-              Order-Delievery Address
-            </ScaleText>
-          </View>
-          <View style={styles.smallTxtVw}>
-            <ScaleText style={styles.smallTxt}>
-              {props?.localUserData?.location}
-            </ScaleText>
-            <TouchableOpacity
-              onPress={() => setRestroCheckOut(true)}
-              style={{ marginTop: 4 }}
-            >
-              <ScaleText style={[styles.smallTxt, { color: COLORS.YELLOW }]}>
-                Change Address
+        {props?.cartData[0]?.delivery_type === 1 && (
+          <>
+            <View style={styles.containerVw}>
+              <IconX
+                origin={ICON_TYPE.ENTYPO}
+                name={"location-pin"}
+                size={26}
+                color={COLORS.BLACK}
+              />
+              <ScaleText style={styles.subheadTxt}>
+                Order-Delievery Address
               </ScaleText>
-            </TouchableOpacity>
-          </View>
-        </>
-        {/* )} */}
+            </View>
+            <View style={styles.smallTxtVw}>
+              <ScaleText style={styles.smallTxt}>
+                {props?.localUserData?.location}
+              </ScaleText>
+              <TouchableOpacity
+                onPress={() => setRestroCheckOut(true)}
+                style={{ marginTop: 4 }}
+              >
+                <ScaleText style={[styles.smallTxt, { color: COLORS.YELLOW }]}>
+                  Change Address
+                </ScaleText>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
         <View style={styles.containerVw}>
           <IconX
             origin={ICON_TYPE.MATERIAL_COMMUNITY}
@@ -274,12 +275,13 @@ const RestroCheckoutView = (props) => {
       <OrderSetting
         visible={restroCheckOut}
         endVisible={() => setRestroCheckOut(false)}
-        onPressAddress={(data) => {
+        onPressApply={(data) => {
           props.setLocalUserData({
             ...props.localUserData,
             latitude: data?.latitude,
             location: data?.location,
             longitude: data?.longitude,
+            date_time: data?.date_time,
           });
         }}
       />

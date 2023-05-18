@@ -8,13 +8,14 @@ const MainButton = (props) => {
   const {
     buttonTxt = "Button",
     onPressButton = () => {},
-    paddingHeight = 6,
+    paddingHeight = 8,
     borderColor = COLORS.YELLOW,
     txtColor = COLORS.YELLOW,
     backgroundColor = null,
     borderRadius = 20,
     paddingHorizontal = 15,
-    txtFontsize = FONT_SIZE.medium
+    txtFontsize = FONT_SIZE.medium,
+    marginTop = 0,
   } = props;
   return (
     <TouchableOpacity
@@ -27,6 +28,7 @@ const MainButton = (props) => {
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
           paddingHorizontal: paddingHorizontal,
+          marginTop: marginTop,
         },
       ]}
     >

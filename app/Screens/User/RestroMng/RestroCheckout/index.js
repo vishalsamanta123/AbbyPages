@@ -9,13 +9,15 @@ import Error from "../../../../Components/Modal/showMessage";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
-import { UserContext } from "../../../../Utils/UserContext";
+import { CartContext, UserContext } from "../../../../Utils/UserContext";
 import moment from "moment";
 import { Constants } from "../../../../Utils/Constant";
 
 const RestroCheckout = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [userData, setUserData] = useContext(UserContext);
+  const [cartData, setCartData] = useContext(CartContext);
+
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -28,9 +30,9 @@ const RestroCheckout = ({ navigation }) => {
     mobile: "",
     order_payment_type: "",
     order_description: "",
-    latitude: "28.5383832",
-    location: "Orlando, FL, USA",
-    longitude: "-81.3789269",
+    latitude: "",
+    location: "",
+    longitude: "",
     date_time: moment().format(Constants.TIME_DATE_FORMAT),
   });
   const [delivery_type, setDeliveryType] = useState("");
@@ -50,14 +52,6 @@ const RestroCheckout = ({ navigation }) => {
   }, []);
   const handleGetData = async () => {
     setVisible(true);
-    // const orderData = await AsyncStorage.getItem("orderData");
-    // if (orderData !== "") {
-    //   setDateTime(JSON.parse(orderData).order_schedule_time);
-    //   if (orderData?.address !== null) {
-    //     setLocation(JSON.parse(orderData)?.address);
-    //   }
-    //   setDeliveryType(JSON.parse(orderData).delivery_type);
-    // }
     setLocalUserData({
       ...localUserData,
       first_name: userData?.first_name ? userData.first_name : "",
@@ -65,9 +59,9 @@ const RestroCheckout = ({ navigation }) => {
       email: userData?.email ? userData?.email : "",
       mobile: userData?.mobile ? userData?.mobile : "",
       order_payment_type: 1,
-      latitude: "28.5383832",
-      location: "Orlando, FL, USA",
-      longitude: "-81.3789269",
+      latitude: userData?.latitude ? userData.latitude : "",
+      location: userData?.location ? userData.location : "",
+      longitude: userData?.longitude ? userData.longitude : "",
       date_time: moment().format(Constants.TIME_DATE_FORMAT),
     });
     setVisible(false);
@@ -114,7 +108,7 @@ const RestroCheckout = ({ navigation }) => {
         type: "error",
       });
       return false;
-    } else if (localUserDatu.order_description === "") {
+    } else if (localUserData.order_description === "") {
       setMessageShow({
         visible: true,
         message: "Please enter order description",
@@ -199,22 +193,18 @@ const RestroCheckout = ({ navigation }) => {
             email = "",
             order_payment_type = "",
             order_description = "",
+            latitude = "",
+            location = "",
+            longitude = "",
+            date_time = "",
           } = localUserData || {};
-          const {
-            business_id = "",
-            address = "",
-            order_schedule_time = "",
-            business_name = "",
-            delivery_type = "",
-          } = JSON.parse(orderData) || {};
-
           setVisible(true);
           const params = {
-            business_id,
-            address,
-            order_schedule_time,
-            business_name,
-            delivery_type,
+            location,
+            latitude,
+            longitude,
+            date_time,
+            delivery_type: cartData[0]?.delivery_type,
             first_name,
             last_name,
             email,
@@ -230,9 +220,8 @@ const RestroCheckout = ({ navigation }) => {
             validExpiryDate,
             validNumber,
           };
-          await AsyncStorage.setItem("orderData", JSON.stringify(params));
           setVisible(false);
-          navigation.navigate("PlaceOrder");
+          navigation.navigate("RestroPlaceOrder", { orderData: params });
         }
       } catch (error) {}
     }
@@ -248,6 +237,7 @@ const RestroCheckout = ({ navigation }) => {
         onPressContinue={onPressContinue}
         onlineDetail={onlineDetail}
         setOnlineDetail={setOnlineDetail}
+        cartData={cartData}
       />
       <ShowMessage
         visible={messageShow?.visible}

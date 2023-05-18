@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "./Constant";
+import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "./Constant";
 
 const CommonStyles = StyleSheet.create({
   container: {
@@ -94,6 +94,23 @@ const CommonStyles = StyleSheet.create({
     position: "absolute",
     top: 12,
     left: 5,
+  },
+  specialTxtVw: {
+    position: "absolute",
+    right: 5,
+    backgroundColor: COLORS.COMMON,
+    top: 38,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    zIndex: 1,
+    paddingVertical: 5,
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.GREY,
+  },
+  specialTxt: {
+    fontSize: FONT_SIZE.verysmall,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
 export default CommonStyles;

@@ -215,6 +215,11 @@ const RestroMenu = ({ route, navigation }) => {
     }
   };
   const onPressCheckOut = () => {
+    const newCartData = [...cartData];
+    newCartData?.forEach(function (item, i) {
+      item["delivery_type"] = detail?.delivery_type;
+    });
+    setCartData(newCartData);
     if (totalAmount !== "" && cartData?.length > 0) {
       navigation.navigate("RestroCheckout");
     } else {
