@@ -43,6 +43,17 @@ const styles = StyleSheet.create({
     color: COLORS.DARK_PURPLE,
     fontFamily: FONT_FAMILY.REGULAR,
   },
+  setLocationView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 20,
+    marginTop: 10,
+  },
+  locationtxt: {
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLUE,
+  },
   subCatView: {
     margin: 5,
     borderRadius: 50,
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.LIGHT_WHITE,
     padding: 10,
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 10,
     marginHorizontal: 5,
   },
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
     height: 150,
     // width: 150,
     width: Constants.windowWidth / 2.5,
-    borderRadius: 10
+    borderRadius: 10,
   },
   productTxt: {
     width: Constants.windowWidth / 2.5,
