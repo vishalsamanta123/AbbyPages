@@ -28,6 +28,7 @@ const ShoppingCart = ({ navigation, route }) => {
   const [allDelete, setAllDelete] = useState(false);
   const [removeIndex, setRemoveIndex] = useState("");
   const [addToCartData, setAddToCartData] = useState({});
+  const [updateCartQuantityData, setUpdateCartQuantityData] = useState({});
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -41,13 +42,12 @@ const ShoppingCart = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getCartProducts({});
-    }, [navigation, route])
+    }, [navigation, route, updateCartQuantityData])
   );
 
   const getCartProducts = async (item, value) => {
     try {
       const { data } = await apiCall("GET", apiEndPoints.GET_TO_CART_PRODUCT);
-
 
       if (data.status === 200) {
         setShoppingCartData(data?.data?.allProduct);
@@ -81,6 +81,54 @@ const ShoppingCart = ({ navigation, route }) => {
         // });
       } else {
         setAddToCartData({});
+        setRemoveItem(false);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (e) {
+      console.log("🚀 ~ file: index.js:136 ~ e:", e);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: e?.message,
+      });
+    }
+  };
+  const handleUpdateQuantity = async (item, value) => {
+    try {
+      const params = {
+        product_id: item?.product_id,
+        work_status: value,
+      };
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.UPDATE_CART_QUANTITY,
+        params
+      );
+      console.log("🚀 ~ file: index.js:70 ~ params:", params);
+
+      console.log("🚀 ~ file: index.js:71 ~ data:", data);
+      if (data.status === 200) {
+        setUpdateCartQuantityData(data?.data);
+        setRemoveItem(false);
+        getCartProducts();
+        if (value === "clearAll") {
+          setShoppingCartData([]);
+          await AsyncStorage.removeItem("productOrderData");
+          setAllDelete(false);
+          navigation.goBack()
+        }
+        // setMessageShow({
+        //   visible: true,
+        //   type: "success",
+        //   message: data?.message,
+        // });
+      } else {
+        setUpdateCartQuantityData({});
+        setRemoveItem(false);
         setMessageShow({
           visible: true,
           type: "error",
@@ -125,7 +173,7 @@ const ShoppingCart = ({ navigation, route }) => {
         product_description: item.description,
         product_image: item.product_image,
       };
-      handleProductCount(item, value);
+      handleUpdateQuantity(item, "add");
       // if (shoppingCartData?.length > 0) {
       //   var getIndex = _.findIndex(shoppingCartData, {
       //     product_id: item.product_id,
@@ -152,7 +200,7 @@ const ShoppingCart = ({ navigation, route }) => {
     }
   };
   const removeFromCart = (item, value) => {
-    handleProductCount(item, value);
+    handleUpdateQuantity(item, "remove");
     // if (shoppingCartData.length > 0) {
     //   var getIndex = _.findIndex(shoppingCartData, {
     //     product_id: item.product_id,
@@ -178,6 +226,10 @@ const ShoppingCart = ({ navigation, route }) => {
     //   }
     // }
     handleFinalAmount();
+  };
+
+  const handleRemoveProductFromCart = (item) => {
+    handleUpdateQuantity(item, "clear");
   };
   const getqty = (item) => {
     var getIndex = _.findIndex(shoppingCartData, {
@@ -212,10 +264,11 @@ const ShoppingCart = ({ navigation, route }) => {
     }
   };
   const DeleteCart = async () => {
-    setShoppingCartData([]);
-    await AsyncStorage.removeItem("productOrderData");
-    setAllDelete(false);
-    navigation.navigate("ShopList");
+    handleUpdateQuantity({}, "clearAll");
+    // setShoppingCartData([]);
+    // await AsyncStorage.removeItem("productOrderData");
+    // setAllDelete(false);
+    // navigation.navigate("ShopList");
   };
 
   return (
@@ -231,6 +284,7 @@ const ShoppingCart = ({ navigation, route }) => {
         setRemoveItem={setRemoveItem}
         setRemoveIndex={setRemoveIndex}
         setAllDelete={setAllDelete}
+        handleRemoveProductFromCart={handleRemoveProductFromCart}
       />
       {/* <Error
         message={errorMessage}
@@ -258,7 +312,7 @@ const ShoppingCart = ({ navigation, route }) => {
         surringVisible={removeItem}
         topMessage={"Delete Product from Cart"}
         message={"Are you sure you want to delete product from cart ?"}
-        positiveResponse={() => DeleteItem(removeIndex)}
+        positiveResponse={() => handleRemoveProductFromCart(removeIndex)}
         negativeResponse={() => setRemoveItem(false)}
       />
       <QuestionModal

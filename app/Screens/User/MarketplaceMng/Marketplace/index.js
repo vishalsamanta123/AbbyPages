@@ -5,6 +5,7 @@ import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import { defaultLatitude, defaultLongitute } from "../../../../Utils/Constant";
 
 const MarketplaceScreen = ({ navigation, route }) => {
   const [isVisibleFilters, setIsVisibleFilters] = useState(false);
@@ -16,6 +17,14 @@ const MarketplaceScreen = ({ navigation, route }) => {
     visible: false,
     message: "",
     type: "",
+  });
+  const [locationModal, setLocationModal] = useState(false);
+  const [searchData, setSearchData] = useState({
+    address: "Orlando, FL, USA",
+    latitude: 28.5383832,
+    longitude: -81.3789269,
+    location: "Orlando, FL, USA",
+    radius: 1,
   });
 
   useFocusEffect(
@@ -55,6 +64,10 @@ const MarketplaceScreen = ({ navigation, route }) => {
       const params = {
         category_id: null,
         category_name: info?.cat_name,
+        latitude: info?.latitude,
+        longitude: info?.longitude,
+        location: info?.location,
+        radius: info?.radius ? Number(info?.radius).toFixed(0) : "",
         sub_category_id: null,
         product_color: null,
         company_brand: null,
@@ -74,8 +87,20 @@ const MarketplaceScreen = ({ navigation, route }) => {
         apiEndPoints.PRODUCT_FILTER_DATA,
         params
       );
+      console.log("🚀 ~ file: index.js:96 ~ params:", params);
+
+      console.log("🚀 ~ file: index.js:84 ~ data:", data);
+
       if (data.status === 200) {
         setProductList(data.data);
+        setLocationModal(false);
+        // setSearchData({
+        //   address: "Orlando, FL, USA",
+        //   latitude: defaultLatitude,
+        //   longitude: defaultLongitute,
+        //   location: "Orlando, FL, USA",
+        //   radius: 1,
+        // });
       } else {
         setProductList([]);
       }
@@ -140,6 +165,11 @@ const MarketplaceScreen = ({ navigation, route }) => {
         onBackPress={onBackPress}
         onPressLike={onPressLike}
         handleProductPress={handleProductPress}
+        searchData={searchData}
+        setSearchData={setSearchData}
+        getProductList={getProductList}
+        locationModal={locationModal}
+        setLocationModal={setLocationModal}
       />
       <ShowMessage
         visible={messageShow?.visible}
