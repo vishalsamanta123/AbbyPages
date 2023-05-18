@@ -279,7 +279,7 @@ const ShoppingCart = ({ navigation, route }) => {
         getqty={getqty}
         removeFromCart={removeFromCart}
         addProductOnCart={addProductOnCart}
-        shoppingCartData={shoppingCartData}
+        shoppingCartData={shoppingCartData?.length > 0 ? shoppingCartData : []}
         onPressContinue={onPressContinue}
         setRemoveItem={setRemoveItem}
         setRemoveIndex={setRemoveIndex}

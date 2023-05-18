@@ -136,7 +136,7 @@ const MarketplaceView = (props) => {
             paddingRight={5}
             color={COLORS.BLUE}
           />
-          <ScaleText style={styles.locationtxt}>{searchData?.address} within {searchData?.radius} miles</ScaleText>
+          <ScaleText style={styles.locationtxt}>{searchData?.address} within {searchData?.finalRadius} miles</ScaleText>
         </TouchableOpacity>
       </View>
       <PageScroll showsVerticalScrollIndicator={false}>

@@ -12,9 +12,9 @@ import { ShoppingCartContext } from "../../../../Utils/UserContext";
 import AsyncStorage from "@react-native-community/async-storage";
 import QuestionModal from "../../../../Components/Modal/questionModal";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
-const CheckOut = ({ navigation }) => {
-  const [shoppingCartData, setShoppingCartData] =
-    useContext(ShoppingCartContext);
+import ShowMessage from "../../../../Components/Modal/showMessage";
+const CheckOut = ({ navigation, route }) => {
+  const [shoppingCartData, setShoppingCartData] = useState([]);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -35,10 +35,15 @@ const CheckOut = ({ navigation }) => {
   const [finalAmount, setFinalAmount] = useState("");
   const [locationList, setLocationList] = useState([]);
   const [location, setLocation] = useState([]);
-  const [order_payment_type, setOrderPaymentType] = useState(true);
+  const [order_payment_type, setOrderPaymentType] = useState(1);
   const [removeItem, setRemoveItem] = useState(false);
   const [allDelete, setAllDelete] = useState(false);
   const [removeIndex, setRemoveIndex] = useState("");
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -46,18 +51,42 @@ const CheckOut = ({ navigation }) => {
       _handleDetails();
       return () => {
         handleFinalAmount();
-      _handleDetails();
+        _handleDetails();
       };
     }, [reload, removeIndex])
   );
+  useFocusEffect(
+    React.useCallback(() => {
+      getCartProducts({});
+    }, [navigation, route])
+  );
+  const getCartProducts = async (item, value) => {
+    try {
+      const { data } = await apiCall("GET", apiEndPoints.GET_TO_CART_PRODUCT);
 
+      if (data.status === 200) {
+        setShoppingCartData(data?.data?.allProduct);
+        setFinalAmount(data?.data?.total_amount);
+      } else {
+        setShoppingCartData({});
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (e) {
+      console.log("🚀 ~ file: index.js:136 ~ e:", e);
+    }
+  };
   const validationForContinue = () => {
     if (location === []) {
       setErrorMessage("Please Select Location");
       setVisibleErr(true);
       return false;
     }
-    if (order_payment_type === false) {
+    console.log("🚀 ~ file: index.js:79 ~ onlineDetail:", onlineDetail);
+    if (order_payment_type === 2) {
       if (onlineDetail.validNumber !== "Valid") {
         setErrorMessage("Please enter card number correctly");
         setVisibleErr(true);
@@ -89,19 +118,25 @@ const CheckOut = ({ navigation }) => {
   };
   const onPressContinue = async () => {
     const valid = validationForContinue();
+    navigation.navigate("ConfirmOrderView", {
+      order_payment_type: order_payment_type,
+      location: location
+    });
+
+    console.log("🚀 ~ file: index.js:109 ~ valid:", valid);
     if (valid) {
       try {
         const value = await AsyncStorage.getItem("productOrderData");
-        if (value !== null) {
-          const data = {
-            businessDetail: JSON.parse(value).businessDetail,
-            location: location,
-            order_payment_type: order_payment_type ? 1 : 2,
-            onlineDetail: onlineDetail,
-          };
-          await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
-          navigation.navigate("ConfirmOrder");
-        }
+        console.log("🚀 ~ file: index.js:115 ~ value:", value);
+        // if (value !== null) {
+        const data = {
+          businessDetail: JSON.parse(value).businessDetail,
+          location: location,
+          order_payment_type: order_payment_type,
+          onlineDetail: onlineDetail,
+        };
+        await AsyncStorage.setItem("productOrderData", JSON.stringify(data));
+        // }
       } catch (error) {
         setErrorMessage(error.message);
         setVisibleErr(true);
@@ -123,9 +158,14 @@ const CheckOut = ({ navigation }) => {
         }
         setVisible(false);
       } else {
-        setErrorMessage(data.message);
-        setVisibleErr(true);
-        setVisible(false);
+        // setErrorMessage(data.message);
+        // setVisibleErr(true);
+        // setVisible(false);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
       }
     } catch (error) {
       setVisibleErr(true);
@@ -196,6 +236,18 @@ const CheckOut = ({ navigation }) => {
         setAllDelete={setAllDelete}
         onlineDetail={onlineDetail}
         setOnlineDetail={setOnlineDetail}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
       {/* <Error
         message={errorMessage}

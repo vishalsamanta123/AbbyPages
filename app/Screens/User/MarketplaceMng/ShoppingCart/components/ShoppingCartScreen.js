@@ -106,12 +106,14 @@ const ShoppingCartScreen = (props) => {
       </View>
     );
   };
-  console.log(
-    "🚀 ~ file: ShoppingCartScreen.js:108 ~ props.finalAmount:",
-    props.finalAmount
-  );
-
+  console.log("🚀 ~ file: ShoppingCartScreen.js:213 ~ props.shoppingCartData:", props.shoppingCartData)
+ 
   const _renderCartItemList = ({ item, index }) => {
+    console.log(
+      "🚀 ~ file: ShoppingCartScreen.js:121 ~ item?.product_image:",
+      item
+    );
+
     return (
       <View style={styles.dataCon}>
         <View style={styles.itemsVw}>
@@ -143,7 +145,7 @@ const ShoppingCartScreen = (props) => {
               <AddMinusView
                 value={item?.quantity}
                 minVal={1}
-                onPressAdd={(val) => props.addProductOnCart(item, val)}
+                onPressAdd={(val) => item?.quantity < item?.available_quantity && props.addProductOnCart(item, val)}
                 onPressMinus={(val) => props.removeFromCart(item, val)}
                 width={"100%"}
                 height={35}
@@ -190,7 +192,7 @@ const ShoppingCartScreen = (props) => {
           marginVertical: 10,
           alignItems: "flex-end",
           justifyContent: "flex-end",
-          marginRight: 10
+          marginRight: 10,
         }}
       >
         <MainButton
