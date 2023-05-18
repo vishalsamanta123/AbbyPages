@@ -18,6 +18,7 @@ import Dialog, {
   SlideAnimation,
 } from "react-native-popup-dialog";
 import {
+  Constants,
   FONT_FAMILY_REGULAR,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
@@ -60,10 +61,10 @@ const CheckOutScreen = (props) => {
         </View>
         <View style={{ flex: 4 }}>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
+            <Text style={[styles.hdngtxt, { width: Constants.windowWidth / 2, fontSize: 15 }]}>
               {item.product_name}
             </Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 props.setRemoveItem(true);
                 props.setRemoveIndex(item);
@@ -73,7 +74,7 @@ const CheckOutScreen = (props) => {
                 style={styles.icon}
                 source={Images.CANCEL_IMG}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <Text style={[styles.text, { fontSize: 12 }]}>
             {item.product_description}
@@ -88,7 +89,7 @@ const CheckOutScreen = (props) => {
               <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
                 {"$ " +
                   Number(
-                    parseFloat(item.total_product_price).toFixed(2)
+                    parseFloat(item.price).toFixed(2) * item?.quantity
                   ).toLocaleString("en", {
                     minimumFractionDigits: 2,
                   })}
@@ -104,17 +105,8 @@ const CheckOutScreen = (props) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={CommonStyles.container}
     >
-      {/* <Header
-        HeaderText={"Confirm Order"}
-        logoImg={false}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        headerSecondText="confirm order with the following details"
-        RightImg={Images.TRASH_IMG}
-        onPress={() => props.setAllDelete(true)}
-      /> */}
       <MainHeader
-        headerText={"Confirm Order"}
+        headerText={"Checkout"}
         isSearch={false}
         loginButton={false}
         TxtMarginRight={"5%"}
@@ -169,14 +161,14 @@ const CheckOutScreen = (props) => {
             <View style={[styles.basiccon, styles.paymentCon]}>
               <TouchableOpacity
                 onPress={() =>
-                  props.setOrderPaymentType(!props.order_payment_type)
+                  props.setOrderPaymentType(1)
                 }
                 style={styles.basiccon}
               >
                 <Image
                   style={{ height: 20, width: 20 }}
                   source={
-                    props.order_payment_type
+                    props.order_payment_type === 1
                       ? Images.RADIO_CHECK_IMG
                       : Images.RADIO_UNCHECK_IMG
                   }
@@ -187,14 +179,14 @@ const CheckOutScreen = (props) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  props.setOrderPaymentType(!props.order_payment_type)
+                  props.setOrderPaymentType(2)
                 }
                 style={[styles.basiccon, { marginLeft: 10 }]}
               >
                 <Image
                   style={{ height: 20, width: 20 }}
                   source={
-                    !props.order_payment_type
+                    props.order_payment_type === 2
                       ? Images.RADIO_CHECK_IMG
                       : Images.RADIO_UNCHECK_IMG
                   }
@@ -204,7 +196,7 @@ const CheckOutScreen = (props) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {!props.order_payment_type && (
+            {/* {!props.order_payment_type && (
               <View>
                 <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
                   Enter Card Details
@@ -234,7 +226,7 @@ const CheckOutScreen = (props) => {
                   }}
                 />
               </View>
-            )}
+            )} */}
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
             <Text style={[styles.hdngtxt, styles.amountTxt]}>
