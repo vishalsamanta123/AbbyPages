@@ -24,13 +24,14 @@ const MarketplaceScreen = ({ navigation, route }) => {
     latitude: 28.5383832,
     longitude: -81.3789269,
     location: "Orlando, FL, USA",
-    radius: 1,
+    radius: 250,
+    finalRadius: 250,
   });
 
   useFocusEffect(
     React.useCallback(() => {
       setSubCategories([]);
-      getProductList({});
+      getProductList(searchData);
     }, [navigation, route])
   );
 
@@ -67,7 +68,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
         latitude: info?.latitude,
         longitude: info?.longitude,
         location: info?.location,
-        radius: info?.radius ? Number(info?.radius).toFixed(0) : "",
+        radius: info?.radius ? Number(info?.radius).toFixed(0) : "250",
         sub_category_id: null,
         product_color: null,
         company_brand: null,
@@ -94,13 +95,10 @@ const MarketplaceScreen = ({ navigation, route }) => {
       if (data.status === 200) {
         setProductList(data.data);
         setLocationModal(false);
-        // setSearchData({
-        //   address: "Orlando, FL, USA",
-        //   latitude: defaultLatitude,
-        //   longitude: defaultLongitute,
-        //   location: "Orlando, FL, USA",
-        //   radius: 1,
-        // });
+        setSearchData({
+          ...searchData,
+          finalRadius: searchData.radius,
+        });
       } else {
         setProductList([]);
       }
