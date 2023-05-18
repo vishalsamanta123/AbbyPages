@@ -20,6 +20,7 @@ import {
   SMALL_TEXT_COLOR_CODE,
   YELLOW_COLOR_CODE,
   COLORS,
+  FONT_SIZE,
 } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import Button from "../../../../../Components/Button";
@@ -91,7 +92,7 @@ const ShoppingCartScreen = (props) => {
             )}
           </Text>
         </View>
-        <View style={{marginVertical: 10}}>
+        <View style={{ marginVertical: 10 }}>
           <MainButton
             // style={{ marginTop: 15, marginBottom: 15 }}
             buttonTxt="Continue"
@@ -105,6 +106,11 @@ const ShoppingCartScreen = (props) => {
       </View>
     );
   };
+  console.log(
+    "🚀 ~ file: ShoppingCartScreen.js:108 ~ props.finalAmount:",
+    props.finalAmount
+  );
+
   const _renderCartItemList = ({ item, index }) => {
     return (
       <View style={styles.dataCon}>
@@ -116,13 +122,14 @@ const ShoppingCartScreen = (props) => {
         </View>
         <View style={{ flex: 4 }}>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, { width: '80%', fontSize: 15 }]}>
+            <Text style={[styles.hdngtxt, { width: "80%", fontSize: 15 }]}>
               {item.product_name}
             </Text>
             <TouchableOpacity
               onPress={() => {
                 props.setRemoveItem(true);
                 props.setRemoveIndex(item);
+                // props.handleRemoveProductFromCart(item)
               }}
             >
               <Image style={styles.icon} source={Images.CANCEL_IMG} />
@@ -178,9 +185,30 @@ const ShoppingCartScreen = (props) => {
         TxtMarginRight={"5%"}
         // onPressBack={() => onBackPress()}
       />
+      <View
+        style={{
+          marginVertical: 10,
+          alignItems: "flex-end",
+          justifyContent: "flex-end",
+          marginRight: 10
+        }}
+      >
+        <MainButton
+          // style={{ marginTop: 15, marginBottom: 15 }}
+          buttonTxt="Clear Cart"
+          backgroundColor={COLORS.YELLOW}
+          txtColor={COLORS.WHITE}
+          onPressButton={() => props.setAllDelete(true)}
+          paddingHeight={5}
+          borderRadius={10}
+          txtFontsize={FONT_SIZE.small}
+        />
+      </View>
       <View style={CommonStyles.body}>
         <FlatList
-          data={props?.shoppingCartData?.length > 0 ? props.shoppingCartData : []}
+          data={
+            props?.shoppingCartData?.length > 0 ? props.shoppingCartData : []
+          }
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => screenlowerdata()}
           keyExtractor={(item, index) => index}

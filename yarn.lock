@@ -1393,6 +1393,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.8.1.tgz#94f14f0aad98fa7592967b941be97deec95c3805"
   integrity sha512-Sj9DzX1CSnmYiuEQ5fQhExoo4XjSKoZkqLPAAybycq6RHtCuWppf+eJXRMCOJki25BlKSSt+qVqg0fIe//ujNQ==
 
+"@react-native-community/slider@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.4.2.tgz#1fea0eb3ae31841fe87bd6c4fc67569066e9cf4b"
+  integrity sha512-D9bv+3Vd2gairAhnRPAghwccgEmoM7g562pm8i4qB3Esrms5mggF81G3UvCyc0w3jjtFHh8dpQkfEoKiP0NW/Q==
+
 "@react-native-firebase/app@^11.5.0":
   version "11.5.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.5.0.tgz#cc7656d8bd580ddf63676774c5f4e73af3652c9c"
@@ -1647,6 +1652,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
+
+"@types/geojson@^7946.0.10":
+  version "7946.0.10"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.10.tgz#6dfbf5ea17142f7f9a043809f1cd4c448cb68249"
+  integrity sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.6"
@@ -6914,10 +6924,12 @@ react-native-linear-gradient@^2.6.2:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.6.2.tgz#56598a76832724b2afa7889747635b5c80948f38"
   integrity sha512-Z8Xxvupsex+9BBFoSYS87bilNPWcRfRsGC0cpJk72Nxb5p2nEkGSBv73xZbEHnW2mUFvP+huYxrVvjZkr/gRjQ==
 
-react-native-maps@^0.27.1:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
-  integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
+react-native-maps@^2.0.0-beta.13:
+  version "2.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-2.0.0-beta.13.tgz#8b3ff60e6a9f18d8a2be1f9171e2a6e905e3790e"
+  integrity sha512-y4msddKMEYBLx+rYqwkTdV5/dWdVWgVrosQFjExeOrOp53E9OufdzynhwRLFq5u50ZmauE8BlrAW1Fh5CxlOHA==
+  dependencies:
+    "@types/geojson" "^7946.0.10"
 
 react-native-modal-datetime-picker@^15.0.0:
   version "15.0.0"

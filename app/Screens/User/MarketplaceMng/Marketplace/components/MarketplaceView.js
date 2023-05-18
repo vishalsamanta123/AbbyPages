@@ -18,6 +18,7 @@ import CategoryView from "./CategoryView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
 import EmptyList from "../../../../../Components/EmptyList";
 import PageScroll from "../../../../../Components/PageScroll";
+import LocationModal from "../../../../../Components/LocationModal";
 
 const MarketplaceView = (props) => {
   const {
@@ -29,6 +30,11 @@ const MarketplaceView = (props) => {
     onBackPress,
     onPressLike,
     handleProductPress,
+    setSearchData,
+    searchData,
+    getProductList,
+    locationModal,
+    setLocationModal
   } = props;
   const [categoryModal, setCategoryModal] = useState(false);
 
@@ -74,6 +80,7 @@ const MarketplaceView = (props) => {
       </TouchableOpacity>
     );
   };
+  const onLocationValueChange = () => {};
   return (
     <View style={[CommonStyles.container, { paddingHorizontal: 10 }]}>
       <MainHeader
@@ -117,6 +124,21 @@ const MarketplaceView = (props) => {
           <FilterField />
         </View>
       )}
+      <View style={styles.setLocationView}>
+        <TouchableOpacity
+          style={{ flexDirection: "row" }}
+          onPress={() => setLocationModal(true)}
+        >
+          <IconX
+            origin={ICON_TYPE.ENTYPO}
+            size={20}
+            name={"location"}
+            paddingRight={5}
+            color={COLORS.BLUE}
+          />
+          <ScaleText style={styles.locationtxt}>{searchData?.address} within {searchData?.radius} miles</ScaleText>
+        </TouchableOpacity>
+      </View>
       <PageScroll showsVerticalScrollIndicator={false}>
         <View>
           <FlatList
@@ -148,6 +170,13 @@ const MarketplaceView = (props) => {
             //   category: item?.id,
             // });
           }}
+        />
+        <LocationModal
+          visible={locationModal}
+          setVisible={setLocationModal}
+          searchData={searchData}
+          setSearchData={setSearchData}
+          getProductList={getProductList}
         />
       </PageScroll>
     </View>
