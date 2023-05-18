@@ -91,6 +91,8 @@ export const Constants = {
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
   TIME_DATE_FORMAT: "MMMM Do YYYY, h:mm:ss a",
+  DATE_FORMAT: "LLL",
+  TIME_FORMAT: "LTS",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
   windowWidth: Dimensions.get("screen").width,
   windowHeight: Dimensions.get("window").height,
@@ -100,6 +102,6 @@ export const Constants = {
 export const BASEURL = "https://itinformatix.org:3040";
 // export const BASEURL = 'https://abbypages.com:8080';
 // export const BASEURL = 'http://199.241.139.254:8080';
-export const defaultLatitude ="28.5383832"
-export const defaultLongitute = "-81.3789269"
-export const defaultLocationName = "Orlando, FL, USA"
+export const defaultLatitude = "28.5383832";
+export const defaultLongitute = "-81.3789269";
+export const defaultLocationName = "Orlando, FL, USA";

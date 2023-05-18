@@ -379,3 +379,12 @@ export const levels = [
   { id: 2, value: 2, title: "Medium" },
   { id: 2, value: 3, title: "High" },
 ];
+
+export const dayData = [
+  { id: 1, name: "Today" },
+  { id: 2, name: "Tomorrow" },
+  { id: 3, name: "This Weekend" },
+  { id: 4, name: "This Week" },
+  { id: 5, name: "Next Week" },
+  { id: 6, name: "Jump to Date" },
+];

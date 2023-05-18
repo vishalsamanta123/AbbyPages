@@ -5,7 +5,8 @@ import {
   FONT_FAMILY_REGULAR,
   FONT_FAMILY_BOLD,
   BLACK_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
+
 const Styles = StyleSheet.create({
   addressVw: {
     textInputContainer: {

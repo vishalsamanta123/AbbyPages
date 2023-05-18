@@ -45,110 +45,118 @@ const MainItemsView = (props) => {
   return (
     <>
       {listType === "" ? (
-        <TouchableOpacity
-          onPress={() => onPressView(item)}
-          style={[styles.mainConatiner]}
-        >
+        <>
           {specialIcon ? (
-            <View style={styles.specialTxtVw}>
-              <ScaleText style={styles.specialTxt}>
+            <View style={CommonStyles.specialTxtVw}>
+              <ScaleText style={CommonStyles.specialTxt}>
                 {item?.acorn_type}
               </ScaleText>
             </View>
           ) : null}
-          {largeImg === "" ? null : (
-            <Image
-              style={styles.largeImgVw}
-              resizeMode="cover"
-              source={{ uri: largeImg }}
-            />
-          )}
-          <View style={styles.innContainer}>
-            <View style={CommonStyles.straightCon}>
-              <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
-              {item?.acorn_type === "Black Supported" ? (
-                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
-                  <OUTLINE_ACORN width={24} height={24} style={{ left: 16 }} />
-                </TouchableOpacity>
-              ) : item?.acorn_type === "Black Owned" ? (
-                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
-                  <BLACK_ACORN width={24} height={24} style={{ left: 16 }} />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-            <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
-            {rating === "" ? null : (
-              <View style={styles.straightVw}>
-                <View style={styles.ratingVw}>
-                  <ScaleText style={styles.ratingTxt}>
-                    {rating?.substring(0, 3)}
+          <TouchableOpacity
+            onPress={() => onPressView(item)}
+            style={[styles.mainConatiner]}
+          >
+            {largeImg === "" ? null : (
+              <Image
+                style={styles.largeImgVw}
+                resizeMode="cover"
+                source={{ uri: largeImg }}
+              />
+            )}
+            <View style={styles.innContainer}>
+              <View style={CommonStyles.straightCon}>
+                <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+                {item?.acorn_type === "Black Supported" ? (
+                  <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                    <OUTLINE_ACORN
+                      width={24}
+                      height={24}
+                      style={{ left: 16 }}
+                    />
+                  </TouchableOpacity>
+                ) : item?.acorn_type === "Black Owned" ? (
+                  <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                    <BLACK_ACORN width={24} height={24} style={{ left: 16 }} />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
+              {rating === "" ? null : (
+                <View style={styles.straightVw}>
+                  <View style={styles.ratingVw}>
+                    <ScaleText style={styles.ratingTxt}>
+                      {rating?.substring(0, 3)}
+                    </ScaleText>
+                  </View>
+                  <ScaleText
+                    style={[styles.ratingTxt, { color: COLORS.BLACK }]}
+                  >
+                    rating
                   </ScaleText>
                 </View>
-                <ScaleText style={[styles.ratingTxt, { color: COLORS.BLACK }]}>
-                  rating
-                </ScaleText>
-              </View>
-            )}
-            <View style={styles.straightVw}>
-              <IconX
-                color={iconColor}
-                origin={
-                  iconType === "job"
-                    ? ICON_TYPE.SIMPLELINE
-                    : ICON_TYPE.FEATHER_ICONS
-                }
-                name={iconType === "job" ? "location-pin" : "thumbs-up"}
-                size={20}
-                paddingRight={5}
-              />
-              <ScaleText style={styles.smallTxt}>{rowImgTxt1}</ScaleText>
-            </View>
-            <View style={styles.straightVw}>
-              <IconX
-                color={iconColor}
-                origin={
-                  iconType === "job"
-                    ? ICON_TYPE.ICONICONS
-                    : ICON_TYPE.SIMPLELINE
-                }
-                name={iconType === "job" ? "time-outline" : "fire"}
-                size={20}
-                paddingRight={5}
-              />
-              <ScaleText style={styles.smallTxt}>
-                {moment(rowImgTxt2).startOf("hour").fromNow()}
-              </ScaleText>
-            </View>
-            {rowImgTxt3 === "" || rowImgTxt3 === null ? null : (
+              )}
               <View style={styles.straightVw}>
                 <IconX
                   color={iconColor}
-                  origin={ICON_TYPE.SIMPLELINE}
-                  name={"briefcase"}
-                  size={19}
-                  paddingRight={5}
-                />
-                <ScaleText numberOfLines={2} style={styles.smallTxt}>
-                  {rowImgTxt3}
-                </ScaleText>
-              </View>
-            )}
-            {rowImgTxt4 === "" || rowImgTxt4 === null ? null : (
-              <View style={styles.straightVw}>
-                <IconX
-                  color={iconColor}
-                  origin={ICON_TYPE.FEATHER_ICONS}
-                  name={"dollar-sign"}
+                  origin={
+                    iconType === "job"
+                      ? ICON_TYPE.SIMPLELINE
+                      : ICON_TYPE.FEATHER_ICONS
+                  }
+                  name={iconType === "job" ? "location-pin" : "thumbs-up"}
                   size={20}
                   paddingRight={5}
                 />
-                <ScaleText numberOfLines={2} style={styles.smallTxt}>
-                  {rowImgTxt4}
+                <ScaleText style={styles.smallTxt}>{rowImgTxt1}</ScaleText>
+              </View>
+              <View style={styles.straightVw}>
+                <IconX
+                  color={iconColor}
+                  origin={
+                    iconType === "job"
+                      ? ICON_TYPE.ICONICONS
+                      : ICON_TYPE.SIMPLELINE
+                  }
+                  name={iconType === "job" ? "time-outline" : "fire"}
+                  size={20}
+                  paddingRight={5}
+                />
+                <ScaleText style={styles.smallTxt}>
+                  {moment(rowImgTxt2).startOf("hour").fromNow()}
                 </ScaleText>
               </View>
-            )}
-          </View>
-        </TouchableOpacity>
+              {rowImgTxt3 === "" || rowImgTxt3 === null ? null : (
+                <View style={styles.straightVw}>
+                  <IconX
+                    color={iconColor}
+                    origin={ICON_TYPE.SIMPLELINE}
+                    name={"briefcase"}
+                    size={19}
+                    paddingRight={5}
+                  />
+                  <ScaleText numberOfLines={2} style={styles.smallTxt}>
+                    {rowImgTxt3}
+                  </ScaleText>
+                </View>
+              )}
+              {rowImgTxt4 === "" || rowImgTxt4 === null ? null : (
+                <View style={styles.straightVw}>
+                  <IconX
+                    color={iconColor}
+                    origin={ICON_TYPE.FEATHER_ICONS}
+                    name={"dollar-sign"}
+                    size={20}
+                    paddingRight={5}
+                  />
+                  <ScaleText numberOfLines={2} style={styles.smallTxt}>
+                    {rowImgTxt4}
+                  </ScaleText>
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+        </>
       ) : (
         <>
           <TouchableOpacity style={[styles.rowVw, { marginTop: 10 }]}>
@@ -211,7 +219,7 @@ const styles = StyleSheet.create({
   mainConatiner: {
     paddingHorizontal: 16,
     flexDirection: "row",
-    // alignItems: "center",
+    alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: COLORS.BORDER_LINE,
@@ -265,17 +273,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 13.5,
     color: COLORS.BLACK,
-  },
-  specialTxtVw: {
-    position: "absolute",
-    right: 5,
-    backgroundColor: COLORS.YELLOW,
-    top: 40,
-    borderRadius: 20,
-    padding: 5,
-  },
-  specialTxt: {
-    fontSize: FONT_SIZE.verysmall,
   },
   emptyConVw: {
     height: 200,

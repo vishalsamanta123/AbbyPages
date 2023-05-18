@@ -3,9 +3,10 @@ import {
   WHITE_COLOR_CODE,
   FONT_FAMILY_REGULAR,
   LIGHT_GREY_COLOR_CODE,
-  BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
+} from "../../../../../Utils/Constant";
+
+
 const styles = StyleSheet.create({
   MainContainer: {
     padding: 15,

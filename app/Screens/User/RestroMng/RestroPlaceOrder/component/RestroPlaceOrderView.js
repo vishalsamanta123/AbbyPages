@@ -1,25 +1,18 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import Header from "../../../../Components/Header";
-import Button from "../../../../Components/Button";
-import CommonStyles from "../../../../Utils/CommonStyles";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
-  BLACK_COLOR_CODE,
-  LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../../Utils/Constant";
-const PlaceOrder = (props) => {
+} from "../../../../../Utils/Constant";
+import MainHeader from "../../../../../Components/MainHeader";
+const RestroPlaceOrderView = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Place Order"
-        RightImg={null}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-      />
+      <MainHeader headerText={"Place Order"} />
       <View
         style={[
           CommonStyles.body,
@@ -84,4 +77,4 @@ const PlaceOrder = (props) => {
     </View>
   );
 };
-export default PlaceOrder;
+export default RestroPlaceOrderView;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -29,8 +29,17 @@ import { removeHttp } from "../../../../../Utils/Globalfunctions";
 import MainButton from "../../../../../Components/MainButton";
 import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../Components/PageScroll";
+import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
 
 const BusinessPageDetailsView = (props) => {
+  const [specialIcon, setSpecialIcon] = useState(false);
+  useEffect(() => {
+    if (specialIcon) {
+      setTimeout(async () => {
+        setSpecialIcon(false);
+      }, 2000);
+    }
+  }, [specialIcon]);
   function handleGetDirections(lattitude, longitude) {
     if (Platform.OS === "android") {
       const url = `${
@@ -308,9 +317,35 @@ const BusinessPageDetailsView = (props) => {
           <BusinessDetail type="category" />
         ) : (
           <>
-            <ScaleText style={styles.businessCategoryTxt}>
-              {props?.detailData?.business_service_category}
-            </ScaleText>
+            {specialIcon ? (
+              <View style={[CommonStyles.specialTxtVw, { top: -28, right: 5 }]}>
+                <ScaleText style={CommonStyles.specialTxt}>
+                  {props?.detailData?.acorn_type}
+                </ScaleText>
+              </View>
+            ) : null}
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={[styles.businessCategoryTxt, { flex: 1 }]}>
+                {props?.detailData?.business_service_category}
+              </ScaleText>
+              {props?.detailData?.acorn_type === "Black Supported" ? (
+                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                  <OUTLINE_ACORN
+                    width={27}
+                    height={27}
+                    style={{ left: 8, bottom: 10 }}
+                  />
+                </TouchableOpacity>
+              ) : props?.detailData?.acorn_type === "Black Owned" ? (
+                <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                  <BLACK_ACORN
+                    width={27}
+                    height={27}
+                    style={{ left: 8, bottom: 10 }}
+                  />
+                </TouchableOpacity>
+              ) : null}
+            </View>
             {props?.detailData?.business_open_time ? (
               <View style={CommonStyles.straightCon}>
                 <ScaleText

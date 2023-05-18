@@ -1,26 +1,19 @@
 import React, { useState, useContext } from "react";
 import { Image, View, Text, TouchableOpacity, Alert } from "react-native";
-import PlaceOrder from "./component/PlaceOrder";
+import RestroPlaceOrderView from "./component/RestroPlaceOrderView";
 import styles from "./component/styles";
-import {
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
-} from "../../../Utils/Constant";
-
 import AsyncStorage from "@react-native-community/async-storage";
 import _ from "lodash";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
-import { CartContext } from "../../../Utils/UserContext";
-import Loader from "../../../Utils/Loader";
-import Success from "../../../Components/Modal/success";
-import Error from "../../../Components/Modal/showMessage";
-import QuestionModal from "../../../Components/Modal/questionModal";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import { CartContext } from "../../../../Utils/UserContext";
+import Loader from "../../../../Utils/Loader";
+import QuestionModal from "../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../Utils/images";
 
-const PlaceOrderView = ({ navigation }) => {
+const RestroPlaceOrder = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -188,7 +181,6 @@ const PlaceOrderView = ({ navigation }) => {
           ENDPOINTS.BUSINESS_ITEM_ORDER,
           params
         );
-        console.log("data: BUSINESS_ITEM_ORDER", data);
         if (data.status === 200) {
           setCartData([]);
           try {
@@ -216,7 +208,7 @@ const PlaceOrderView = ({ navigation }) => {
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
-      <PlaceOrder
+      <RestroPlaceOrderView
         totalAmount={totalAmount}
         setTotalAmount={setTotalAmount}
         cartLocalData={cartLocalData}
@@ -224,7 +216,7 @@ const PlaceOrderView = ({ navigation }) => {
         _handleDishItem={_handleDishItem}
         checkoutPress={checkoutPress}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -235,7 +227,7 @@ const PlaceOrderView = ({ navigation }) => {
         closeModel={() =>
           navigation.navigate("OrderHistory", setVisibleSuccess(false))
         }
-      />
+      /> */}
       <QuestionModal
         surringVisible={removeItem}
         topMessage={"Delete Item From Cart"}
@@ -246,4 +238,4 @@ const PlaceOrderView = ({ navigation }) => {
     </View>
   );
 };
-export default PlaceOrderView;
+export default RestroPlaceOrder;

@@ -10,6 +10,7 @@ import FileViewer from "react-native-file-viewer";
 import RNFS from "react-native-fs";
 import { Constants } from "./Constant";
 import { Alert } from "react-native";
+import moment from "moment";
 
 export const handlePermission = async (
   permission,
@@ -274,4 +275,12 @@ export const removeHttp = (url) => {
     return finalUrl?.replace(/^www./, "");
   }
   return finalUrl;
+};
+
+export const RECENT_TIME_FORMAT = (time) => {
+  if (time === "" || time === null || time === undefined) {
+    return "";
+  } else {
+    return moment.unix(time).subtract(6, "days").calendar();
+  }
 };

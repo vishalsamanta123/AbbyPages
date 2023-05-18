@@ -14,6 +14,8 @@ import { COLORS } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
+import { FullImageViewList } from "../../../../../Components/ListItemsView";
+import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -33,7 +35,7 @@ const EventListingScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-       <MainHeader
+      <MainHeader
         headerText={"All Events"}
         loginButton={false}
         TxtMarginRight={"5%"}
@@ -63,52 +65,14 @@ const EventListingScreen = (props) => {
         }}
         renderItem={({ item }) => {
           return (
-            <View style={styles.containerVw}>
-              <Image
-                resizeMode={"contain"}
-                style={styles.eventImg}
-                source={{
-                  uri: item?.events_image,
-                }}
-              />
-              <TouchableOpacity
-                onPress={() => props.navToEventDetail(item)}
-                style={styles.allTxtVw}
-              >
-                <ScaleText style={styles.nameTxt}>{item?.event_name}</ScaleText>
-                <View style={styles.straightVw}>
-                  <Image
-                    style={styles.straightImg}
-                    source={Images.CALENDER_IMG}
-                  />
-                  <ScaleText style={styles.straightTxt}>
-                    {moment.unix(item?.event_date).format("MM/DD/YYYY")}
-                  </ScaleText>
-                </View>
-                <View style={styles.straightVw}>
-                  <Image
-                    style={styles.straightImg}
-                    source={Images.LOCATION_IMG}
-                  />
-                  <ScaleText style={styles.straightTxt}>
-                    {item?.event_location}
-                  </ScaleText>
-                </View>
-                <View style={styles.straightVw}>
-                  <ScaleText
-                    style={[styles.straightTxt, { color: COLORS.SMALL_TEXT }]}
-                  >
-                    {" "}
-                    {item?.interested}{" "}
-                  </ScaleText>
-                  <ScaleText
-                    style={[styles.straightTxt, { color: COLORS.SMALL_TEXT }]}
-                  >
-                    Interested
-                  </ScaleText>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <FullImageViewList
+              fullImage={item?.events_image}
+              timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
+              headTxt={item?.event_name}
+              subHeadTxt={item?.event_location?.trim()}
+              smallTxt={`${item?.interested} Interested`}
+              subSmallTxt={""}
+            />
           );
         }}
       />

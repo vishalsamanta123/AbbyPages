@@ -38,29 +38,9 @@ const EventListing = ({ navigation }) => {
   const handleCategory = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_EVENT_CATEGORY_LIST);
-      if (data.status === 200) {
-        setDataType(data.data);
-      } else {
-        setVisibleErr(true);
-        setErrorMessage(data.message);
-        setstopOffset(true);
-      }
-    } catch (error) {
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-    }
+    } catch (error) {}
   };
-  const [dayData, setDayData] = useState(
-    [
-      { id: 1, name: "Today" },
-      { id: 2, name: "Tomorrow" },
-      { id: 3, name: "This Weekend" },
-      { id: 4, name: "This Week" },
-      { id: 5, name: "Next Week" },
-      { id: 6, name: "Jump to Date" },
-    ],
-    []
-  );
+
   const _handleDaySelected = (item, index) => {
     setIsSelectedDay(index);
     if (item === 6) {
@@ -164,10 +144,8 @@ const EventListing = ({ navigation }) => {
         />
       ) : (
         <EventListingScreen
-          dataType={dataType}
           isSelectedCatgory={isSelectedCatgory}
           handleEndTimeConfirm={handleEndTimeConfirm}
-          dayData={dayData}
           isSelectedDay={isSelectedDay}
           _handleDaySelected={_handleDaySelected}
           navToEventDetail={navToEventDetail}
@@ -189,11 +167,6 @@ const EventListing = ({ navigation }) => {
           setSearchDate={setSearchDate}
         />
       )}
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
     </View>
   );
 };

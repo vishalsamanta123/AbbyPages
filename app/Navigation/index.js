@@ -55,6 +55,8 @@ import RestroItemDetail from "../Screens/User/RestroMng/RestroItemDetail";
 import RestroCheckout from "../Screens/User/RestroMng/RestroCheckout";
 import ShoppingCart from "../Screens/User/MarketplaceMng/ShoppingCart";
 import CheckOut from "../Screens/User/MarketplaceMng/CheckOut";
+import AddNewLocation from "../Screens/Common/AddNewLocation";
+import RestroPlaceOrder from "../Screens/User/RestroMng/RestroPlaceOrder";
 import ConfirmOrderView from "../Screens/User/MarketplaceMng/ConfirmOrder";
 
 const Stack = createStackNavigator();
@@ -130,6 +132,8 @@ function AppStack() {
       <Stack.Screen name="RestroCheckout" component={RestroCheckout} />
       <Stack.Screen name="ShoppingCart" component={TabNavigation} />
       <Stack.Screen name="CheckOut" component={TabNavigation} />
+      <Stack.Screen name="AddNewLocation" component={AddNewLocation} />
+      <Stack.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
       <Stack.Screen name="ConfirmOrderView" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
