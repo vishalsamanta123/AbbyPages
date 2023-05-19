@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Share, View } from "react-native";
 import JobDetailView from "./components/JobDetailView";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -7,9 +7,12 @@ import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import { UserContext } from "../../../../Utils/UserContext";
 
 const JobDetail = ({ route, navigation }) => {
   const { detail = {} } = route.params;
+  const [userData, setUserData] = useContext(UserContext);
+
   const [jobDetail, setJobDetail] = useState();
   const [visible, setVisible] = useState(false);
   const [messageShow, setMessageShow] = useState({
@@ -41,7 +44,15 @@ const JobDetail = ({ route, navigation }) => {
     }
   };
   const applyNowPress = async () => {
-    navigation.navigate("ApplyJob", jobDetail);
+    if(userData?.login_type){
+      navigation.navigate("ApplyJob", jobDetail);
+    } else {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: "Please log in to application",
+      });
+    }
   };
   const onPressJob = (item) => {
     getJobDetails(item);

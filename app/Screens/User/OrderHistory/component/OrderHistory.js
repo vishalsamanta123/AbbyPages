@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Image, View, Text, FlatList, TouchableOpacity } from "react-native";
-import Header from "../../../../../Components/Header";
+import Header from "../../../../Components/Header";
 import moment from "moment";
-import CommonStyles from "../../../../../Utils/CommonStyles";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   YELLOW_COLOR_CODE,
@@ -10,9 +10,9 @@ import {
   LIGHT_WHITE_COLOR,
   SMALL_TEXT_COLOR_CODE,
   FONT_SIZE,
-} from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
-import MainHeader from "../../../../../Components/MainHeader";
+} from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
+import MainHeader from "../../../../Components/MainHeader";
 const OrderHistory = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   const _handleOrders = (item, index) => {

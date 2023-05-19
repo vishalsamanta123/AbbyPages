@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import {
   COLORS, FONT_FAMILY, FONT_SIZE,
-} from "../../../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 const styles = StyleSheet.create({
   cardCon: {
     paddingHorizontal: 20,

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   FlatList,
   Image,
-  Text,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -11,28 +10,17 @@ import {
 } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
 import Button from "../../../../../Components/Button";
 import Dialog, {
   DialogContent,
   SlideAnimation,
 } from "react-native-popup-dialog";
-import {
-  Constants,
-  FONT_FAMILY_REGULAR,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
-import Input from "../../../../../Components/Input";
+import { Constants } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const CheckOutScreen = (props) => {
-  const screenlowerdata = (item) => {
-    // return (
-    // );
-  };
   const _renderAddressList = (item) => {
     return (
       <TouchableOpacity
@@ -42,9 +30,7 @@ const CheckOutScreen = (props) => {
         }}
         style={styles.dataCon}
       >
-        <Text style={{ fontFamily: FONT_FAMILY_REGULAR, color: "#3a3838" }}>
-          {item.location}
-        </Text>
+        <ScaleText style={styles.locationTxt}>{item.location}</ScaleText>
       </TouchableOpacity>
     );
   };
@@ -61,39 +47,37 @@ const CheckOutScreen = (props) => {
         </View>
         <View style={{ flex: 4 }}>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, { width: Constants.windowWidth / 2, fontSize: 15 }]}>
-              {item.product_name}
-            </Text>
-            {/* <TouchableOpacity
-              onPress={() => {
-                props.setRemoveItem(true);
-                props.setRemoveIndex(item);
-              }}
+            <ScaleText
+              style={[
+                styles.hdngtxt,
+                { width: Constants.windowWidth / 2, fontSize: 15 },
+              ]}
             >
-              <Image
-                style={styles.icon}
-                source={Images.CANCEL_IMG}
-              />
-            </TouchableOpacity> */}
+              {item.product_name}
+            </ScaleText>
           </View>
-          <Text style={[styles.text, { fontSize: 12 }]}>
+          <ScaleText style={[styles.text, { fontSize: 12 }]}>
             {item.product_description}
-          </Text>
+          </ScaleText>
           <View style={{ flexDirection: "row" }}>
             <View style={[styles.basiccon, { flex: 1 }]}>
-              <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
+              <ScaleText
+                style={[styles.hdngtxt, { width: null, fontSize: 15 }]}
+              >
                 {"Qty : " + item.quantity}
-              </Text>
+              </ScaleText>
             </View>
             <View style={{ flex: 1, marginRight: 10 }}>
-              <Text style={[styles.hdngtxt, { width: null, fontSize: 15 }]}>
+              <ScaleText
+                style={[styles.hdngtxt, { width: null, fontSize: 15 }]}
+              >
                 {"$ " +
                   Number(
                     parseFloat(item.price).toFixed(2) * item?.quantity
                   ).toLocaleString("en", {
                     minimumFractionDigits: 2,
                   })}
-              </Text>
+              </ScaleText>
             </View>
           </View>
         </View>
@@ -110,7 +94,6 @@ const CheckOutScreen = (props) => {
         isSearch={false}
         loginButton={false}
         TxtMarginRight={"5%"}
-        // onPressBack={() => onBackPress()}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <FlatList
@@ -122,20 +105,22 @@ const CheckOutScreen = (props) => {
         />
         <View style={styles.footerVw}>
           <View>
-            <Text style={[styles.hdngtxt, styles.headingTxt]}>
+            <ScaleText style={[styles.hdngtxt, styles.headingTxt]}>
               Delievery Address
-            </Text>
+            </ScaleText>
             {props.location.length > 0 ? (
-              <Text style={styles.locationTxt}>
+              <ScaleText style={styles.locationTxt}>
                 {props?.location && props?.location[0]?.location}
-              </Text>
+              </ScaleText>
             ) : null}
             {props?.location.length > 0 ? (
               <TouchableOpacity
                 onPress={() => props.setAddressListVisible(true)}
                 style={styles.addressEditVw}
               >
-                <Text style={styles.addressEditTxt}>Change Address</Text>
+                <ScaleText style={styles.addressEditTxt}>
+                  Change Address
+                </ScaleText>
                 <Image
                   style={styles.addressEditImg}
                   resizeMode="contain"
@@ -147,7 +132,7 @@ const CheckOutScreen = (props) => {
                 onPress={() => props.onPressAddAddress(true)}
                 style={styles.addressEditVw}
               >
-                <Text style={styles.addressEditTxt}>Add Address</Text>
+                <ScaleText style={styles.addressEditTxt}>Add Address</ScaleText>
                 <Image
                   style={styles.addressEditImg}
                   resizeMode="contain"
@@ -155,14 +140,12 @@ const CheckOutScreen = (props) => {
                 />
               </TouchableOpacity>
             )}
-            <Text style={[styles.hdngtxt, styles.headingTxt]}>
+            <ScaleText style={[styles.hdngtxt, styles.headingTxt]}>
               Payment Method
-            </Text>
+            </ScaleText>
             <View style={[styles.basiccon, styles.paymentCon]}>
               <TouchableOpacity
-                onPress={() =>
-                  props.setOrderPaymentType(1)
-                }
+                onPress={() => props.setOrderPaymentType(1)}
                 style={styles.basiccon}
               >
                 <Image
@@ -173,14 +156,12 @@ const CheckOutScreen = (props) => {
                       : Images.RADIO_UNCHECK_IMG
                   }
                 />
-                <Text style={[styles.hdngtxt, styles.paymentTxt]}>
+                <ScaleText style={[styles.hdngtxt, styles.paymentTxt]}>
                   Cash-on Delievery
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  props.setOrderPaymentType(2)
-                }
+                onPress={() => props.setOrderPaymentType(2)}
                 style={[styles.basiccon, { marginLeft: 10 }]}
               >
                 <Image
@@ -191,48 +172,17 @@ const CheckOutScreen = (props) => {
                       : Images.RADIO_UNCHECK_IMG
                   }
                 />
-                <Text style={[styles.hdngtxt, styles.paymentTxt]}>
+                <ScaleText style={[styles.hdngtxt, styles.paymentTxt]}>
                   Pay Online
-                </Text>
+                </ScaleText>
               </TouchableOpacity>
             </View>
-            {/* {!props.order_payment_type && (
-              <View>
-                <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
-                  Enter Card Details
-                </Text>
-                <CardField
-                  postalCodeEnabled={true}
-                  placeholders={{
-                    number: "Number",
-                    expiration: "Expiry",
-                    cvc: "Cvv",
-                    postalCode: "ZipCode",
-                  }}
-                  style={styles.cardStyleVw}
-                  cardStyle={styles.cardStyle}
-                  onCardChange={(cardDetails) => {
-                    props.setOnlineDetail({
-                      ...props.onlineDetail,
-                      brand: cardDetails.brand,
-                      expiryMonth: cardDetails.expiryMonth,
-                      expiryYear: cardDetails.expiryYear,
-                      last4: cardDetails.last4,
-                      postalCode: cardDetails.postalCode,
-                      validCVC: cardDetails.validCVC,
-                      validExpiryDate: cardDetails.validExpiryDate,
-                      validNumber: cardDetails.validNumber,
-                    });
-                  }}
-                />
-              </View>
-            )} */}
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
               Original Price
-            </Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+            </ScaleText>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
               ${" "}
               {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
                 "en",
@@ -240,21 +190,29 @@ const CheckOutScreen = (props) => {
                   minimumFractionDigits: 2,
                 }
               )}
-            </Text>
+            </ScaleText>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>Offer</Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>0.00</Text>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
+              Offer
+            </ScaleText>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
+              0.00
+            </ScaleText>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>Promocode</Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>0.00</Text>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
+              Promocode
+            </ScaleText>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
+              0.00
+            </ScaleText>
           </View>
           <View style={[styles.basiccon, { justifyContent: "space-between" }]}>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
               Current Total Price
-            </Text>
-            <Text style={[styles.hdngtxt, styles.amountTxt]}>
+            </ScaleText>
+            <ScaleText style={[styles.hdngtxt, styles.amountTxt]}>
               ${" "}
               {Number(parseFloat(props.finalAmount).toFixed(2)).toLocaleString(
                 "en",
@@ -262,7 +220,7 @@ const CheckOutScreen = (props) => {
                   minimumFractionDigits: 2,
                 }
               )}
-            </Text>
+            </ScaleText>
           </View>
           <Button
             buttonLabelStyle

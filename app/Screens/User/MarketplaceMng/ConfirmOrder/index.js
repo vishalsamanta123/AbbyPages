@@ -1,25 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ConfirmOrder from "./components/ConfirmOrder";
 import styles from "./components/styles";
-import { View, Text, Image, Alert, ToastAndroid } from "react-native";
+import { View, Text, Image, ToastAndroid } from "react-native";
 import _ from "lodash";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
-import {
-  ShoppingCartContext,
-  UserContext,
-} from "../../../../Utils/UserContext";
-import AsyncStorage from "@react-native-community/async-storage";
-import QuestionModal from "../../../../Components/Modal/questionModal";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import { useFocusEffect } from "@react-navigation/native";
 const ConfirmOrderView = ({ navigation, route }) => {
   const { order_payment_type, location } = route?.params;
-  const [userData, setUserData] = useContext(UserContext);
   const [shoppingCartData, setShoppingCartData] = useState([]);
   const [localUserData, setLocalUserData] = useState({
     first_name: "",
@@ -28,16 +19,11 @@ const ConfirmOrderView = ({ navigation, route }) => {
     mobile: "",
     description: "",
   });
-  const [total_order_amount, setTotalOrderAmount] = useState("");
   const [finalAmount, setFinalAmount] = useState("");
 
-  const [orderData, setOrderData] = useState("");
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
-  const [allDelete, setAllDelete] = useState(false);
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -56,18 +42,17 @@ const ConfirmOrderView = ({ navigation, route }) => {
   });
 
   useEffect(() => {
-    handleFinalAmount();
+    getUserData();
   }, []);
   useFocusEffect(
     React.useCallback(() => {
       getCartProducts({});
     }, [navigation, route])
   );
-  const getCartProducts = async (item, value) => {
+  const getCartProducts = async () => {
     try {
       const { data } = await apiCall("GET", apiEndPoints.GET_TO_CART_PRODUCT);
-
-      if (data.status === 200) {
+      if (data?.status === 200) {
         setShoppingCartData(data?.data?.allProduct);
         setFinalAmount(data?.data?.total_amount);
       } else {
@@ -82,19 +67,10 @@ const ConfirmOrderView = ({ navigation, route }) => {
       console.log("🚀 ~ file: index.js:136 ~ e:", e);
     }
   };
-  const handleFinalAmount = async () => {
-    const productOrderData = await AsyncStorage.getItem("productOrderData");
-    console.log("🚀 ~ file: index.js:40 ~ productOrderData:", productOrderData);
-    setOrderData(JSON.parse(productOrderData));
-    const total_order_amount = shoppingCartData.reduce(
-      (accumulatedTotal, curr) => accumulatedTotal + curr.total_product_price,
-      0
-    );
-    setTotalOrderAmount(total_order_amount);
+  const getUserData = async () => {
     try {
       const { data } = await apiCall("POST", apiEndPoints.GET_USER_PROFILE);
-      console.log("🚀 ~ file: index.js:48 ~ data:", data);
-      if (data.status === 200) {
+      if (data?.status === 200) {
         setLocalUserData({
           ...localUserData,
           first_name: data?.data?.first_name ? data.data.first_name : "",
@@ -104,13 +80,11 @@ const ConfirmOrderView = ({ navigation, route }) => {
         });
       }
     } catch (error) {
-      // setErrorMessage(error.message);
-      // setVisibleErr(true);
-      // setVisible(false);
+      setVisible(false);
       setMessageShow({
         visible: true,
         type: "error",
-        message: data?.message,
+        message: error?.message,
       });
     }
   };
@@ -183,15 +157,9 @@ const ConfirmOrderView = ({ navigation, route }) => {
   };
   const confirmPress = async () => {
     const valid = validationForOrder();
-    console.log("🚀 ~ file: index.js:104 ~ valid:", valid);
-    console.log(
-      "🚀 ~ file: index.js:109 ~ orderData.order_payment_type:",
-      order_payment_type
-    );
     if (valid) {
       try {
         if (order_payment_type === 2) {
-          console.log("🚀 ~ file: index.js:194 ~ onlineDetails:", onlineDetail);
           setVisible(true);
           const onlineDetails = onlineDetail;
           const params = {
@@ -204,20 +172,15 @@ const ConfirmOrderView = ({ navigation, route }) => {
             exp_year: onlineDetails.expiryYear.toString(),
             zipcode: onlineDetails.postalCode,
           };
-          console.log("🚀 ~ file: index.js:204 ~ params:", params);
           const { data } = await apiCall(
             "POST",
             apiEndPoints.ORDERPAYMENT,
             params
           );
-          console.log("🚀 ~ file: index.js:205 ~ data: ORDERPAYMENT", data);
-
-          if (data.status === 200) {
+          if (data?.status === 200) {
             onPressConfirm();
-            ToastAndroid.show(data.message, ToastAndroid.SHORT);
+            ToastAndroid.show(data?.message, ToastAndroid.SHORT);
           } else {
-            // setErrorMessage(data.message);
-            // setVisibleErr(true);
             setVisible(false);
             setMessageShow({
               visible: true,
@@ -229,13 +192,11 @@ const ConfirmOrderView = ({ navigation, route }) => {
           onPressConfirm();
         }
       } catch (error) {
-        // setErrorMessage(error.message);
-        // setVisibleErr(true);
         setVisible(false);
         setMessageShow({
           visible: true,
           type: "error",
-          message: data?.message,
+          message: error?.message,
         });
       }
     }
@@ -244,31 +205,12 @@ const ConfirmOrderView = ({ navigation, route }) => {
     console.log("ON CONFIRM API CALLED");
     try {
       setVisible(true);
-      // product_items,
-      // total_amount,
-      // first_name,
-      // last_name,
-      // email,
-      // mobile,
-      // total_order_amount,
-      // order_description,
-      // order_discount,
-      // address,
-      // latitude,
-      // longitude,
-      // order_schedule_time,
-      // order_payment_type,
-      // order_booking_type,
-      // delivery_type
       const params = {
-        // product_items: JSON.stringify(shoppingCartData),
         product_items: shoppingCartData,
         first_name: localUserData.first_name,
         last_name: localUserData.last_name,
         email: localUserData.email,
         mobile: localUserData.mobile,
-        // business_type: orderData.businessDetail.business_type,
-        // business_id: orderData.businessDetail.business_id,
         address: location[0].location,
         latitude: Number(location[0].latitude),
         longitude: Number(location[0].longitude),
@@ -278,24 +220,25 @@ const ConfirmOrderView = ({ navigation, route }) => {
         order_discount: 0,
         delivery_type: 1, //takeaway or delievery
         order_booking_type: 2, //table ,outside,foodand item
-        order_description: 'd'
+        order_description: "",
       };
+      console.log("🚀 ~ file: index.js:267 ~ params:", params);
+      console.log("🚀 ~ file: index.js:269 ~ data:", data);
       const { data } = await apiCall(
         "POST",
         apiEndPoints.PRODUCT_ORDER_BOOKING,
         params
       );
-      console.log("PARMAS", params);
-      console.log("🚀 ~ file: index.js:257 ~ data:", data);
-
-      if (data.status == 200) {
-        setSuccessMessage(data.message);
-        setVisibleSuccess(true);
+      if (data?.status == 200) {
         setVisible(false);
-        setShoppingCartData("");
+        setShoppingCartData({});
+        navigation.navigate("OrderHistory");
+        setMessageShow({
+          visible: true,
+          type: "success",
+          message: data?.message,
+        });
       } else {
-        // setErrorMessage(data.message);
-        // setVisibleErr(true);
         setVisible(false);
         setMessageShow({
           visible: true,
@@ -304,35 +247,23 @@ const ConfirmOrderView = ({ navigation, route }) => {
         });
       }
     } catch (error) {
-      // setErrorMessage(error.message);
-      // setVisibleErr(true);
-      // setVisible(false);
       setVisible(false);
       setMessageShow({
         visible: true,
         type: "error",
         message: error?.message,
       });
-      console.log("🚀 ~ file: index.js:297 ~ error?.message:", error?.message);
     }
-  };
-  const DeleteCart = async () => {
-    setShoppingCartData("");
-    await AsyncStorage.removeItem("productOrderData");
-    setAllDelete(false);
-    navigation.navigate("ShopList");
   };
   return (
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ConfirmOrder
-        orderData={orderData}
         confirmPress={confirmPress}
         localUserData={localUserData}
         setLocalUserData={setLocalUserData}
         shoppingCartData={shoppingCartData}
         _handleConfirmOrder={_handleConfirmOrder}
-        setAllDelete={setAllDelete}
         setOnlineDetail={setOnlineDetail}
         order_payment_type={order_payment_type}
         location={location}
@@ -347,27 +278,8 @@ const ConfirmOrderView = ({ navigation, route }) => {
             message: "",
             type: "",
           });
-          setVisibleErr(false)
+          setVisibleErr(false);
         }}
-      />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => {
-          navigation.navigate("OrderHistory"), setVisibleSuccess(false);
-        }}
-      /> */}
-      <QuestionModal
-        surringVisible={allDelete}
-        topMessage={"Delete Carts"}
-        message={"Do you want to delete this carts ?"}
-        positiveResponse={() => DeleteCart()}
-        negativeResponse={() => setAllDelete(false)}
       />
     </View>
   );
