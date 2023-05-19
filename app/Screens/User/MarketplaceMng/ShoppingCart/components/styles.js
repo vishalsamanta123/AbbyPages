@@ -1,9 +1,7 @@
 import { Platform, StyleSheet } from "react-native";
 import {
-  SMALL_TEXT_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
+  COLORS,
+  FONT_FAMILY,
 } from "../../../../../Utils/Constant";
 const styles = StyleSheet.create({
   itemsVw: {
@@ -34,11 +32,11 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     borderWidth: 2,
-    borderColor: SMALL_TEXT_COLOR_CODE,
+    borderColor: COLORS.SMALL_TEXT,
   },
   text: {
-    color: SMALL_TEXT_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   underLineVw: {
     width: "100%",
@@ -50,13 +48,12 @@ const styles = StyleSheet.create({
   priceVw: {
     flex: 1,
     justifyContent: "center",
-    // marginRight: 20,
     marginLeft: 10
   },
   hdngtxt: {
     fontSize: 18,
     width: "90%",
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "#3a3838",
   },
   itemsTxt: {
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
     margin: 2,
     marginLeft: 0,
     marginRight: 5,
-    tintColor: BLACK_COLOR_CODE,
+    tintColor: COLORS.BLACK,
   },
   inputcon: {
     borderTopLeftRadius: 8,
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     fontSize: 15,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
   },

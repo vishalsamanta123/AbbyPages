@@ -1,51 +1,39 @@
 import React from "react";
 import {
   View,
-  Text,
-  StatusBar,
-  Image,
   KeyboardAvoidingView,
   ScrollView,
   FlatList,
   Platform,
 } from "react-native";
-import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import Input from "../../../../../Components/Input";
 import Button from "../../../../../Components/Button";
 import styles from "./styles";
 import {
-  GREY_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
+  COLORS,
 } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import { CardField } from "@stripe/stripe-react-native";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 const ConfirmOrder = (props) => {
-  console.log("🚀 ~ file: ConfirmOrder.js:176 ~ props?.location:", props?.location)
+  console.log(
+    "🚀 ~ file: ConfirmOrder.js:176 ~ props?.location:",
+    props?.location
+  );
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={[CommonStyles.container]}>
-      {/* <Header
-        RightImg={Images.TRASH_IMG}
-        HeaderText={" Confirm Order "}
-        headerSecondText={false}
-        onPress={() => props.setAllDelete(true)}
-        logoImg={false}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-      /> */}
-       <MainHeader
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
+      <MainHeader
         headerText={"Confirm Order"}
         isSearch={false}
         loginButton={false}
         TxtMarginRight={"5%"}
-        // onPressBack={() => onBackPress()}
       />
-      <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
+      <View style={[CommonStyles.body, { backgroundColor: COLORS.WHITE }]}>
         <ScrollView>
           <Input
             value={props?.localUserData?.first_name}
@@ -56,10 +44,10 @@ const ConfirmOrder = (props) => {
               })
             }
             labelStyleMain={{
-              color: GREY_COLOR_CODE,
+              color: COLORS.GREY,
               backgroundColor: "#f2f2f2",
             }}
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             placeholder={"First Name"}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
@@ -71,7 +59,7 @@ const ConfirmOrder = (props) => {
                 last_name: val,
               })
             }
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             placeholder={"Last Name"}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
@@ -83,7 +71,7 @@ const ConfirmOrder = (props) => {
                 email: val,
               })
             }
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             placeholder={"Email"}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
@@ -95,7 +83,7 @@ const ConfirmOrder = (props) => {
                 mobile: val,
               })
             }
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             placeholder={"Phone"}
             keyboardType={"number-pad"}
             maxLength={10}
@@ -109,55 +97,55 @@ const ConfirmOrder = (props) => {
                 description: val,
               })
             }
-            placeholderTextColor={GREY_COLOR_CODE}
+            placeholderTextColor={COLORS.GREY}
             placeholder={"Description"}
             containerStyle={{ backgroundColor: "#f2f2f2" }}
           />
           <View style={styles.TextInputView}>
-            <Text style={styles.FirsNameTxt}>Payment Method</Text>
-            <Text style={styles.NameTextStyle}>
+            <ScaleText style={styles.FirsNameTxt}>Payment Method</ScaleText>
+            <ScaleText style={styles.NameTextStyle}>
               {props?.order_payment_type === 1
                 ? "Cash On Delievery"
                 : "Pay Online"}
-            </Text>
+            </ScaleText>
           </View>
-          {props.order_payment_type === 2&& (
-              <View>
-                <Text style={[styles.TakeOutText, styles.cardDetailsTxt]}>
-                  Enter Card Details
-                </Text>
-                <CardField
-                  postalCodeEnabled={true}
-                  placeholders={{
-                    number: "Number",
-                    expiration: "Expiry",
-                    cvc: "Cvv",
-                    postalCode: "ZipCode",
-                  }}
-                  style={styles.cardStyleVw}
-                  cardStyle={styles.cardStyle}
-                  onCardChange={(cardDetails) => {
-                    props.setOnlineDetail({
-                      ...props.onlineDetail,
-                      brand: cardDetails.brand,
-                      expiryMonth: cardDetails.expiryMonth,
-                      expiryYear: cardDetails.expiryYear,
-                      last4: cardDetails.last4,
-                      postalCode: cardDetails.postalCode,
-                      validCVC: cardDetails.validCVC,
-                      validExpiryDate: cardDetails.validExpiryDate,
-                      validNumber: cardDetails.validNumber,
-                    });
-                  }}
-                />
-              </View>
-            )}
+          {props.order_payment_type === 2 && (
+            <View>
+              <ScaleText style={[styles.TakeOutText, styles.cardDetailsTxt]}>
+                Enter Card Details
+              </ScaleText>
+              <CardField
+                postalCodeEnabled={true}
+                placeholders={{
+                  number: "Number",
+                  expiration: "Expiry",
+                  cvc: "Cvv",
+                  postalCode: "ZipCode",
+                }}
+                style={styles.cardStyleVw}
+                cardStyle={styles.cardStyle}
+                onCardChange={(cardDetails) => {
+                  props.setOnlineDetail({
+                    ...props.onlineDetail,
+                    brand: cardDetails.brand,
+                    expiryMonth: cardDetails.expiryMonth,
+                    expiryYear: cardDetails.expiryYear,
+                    last4: cardDetails.last4,
+                    postalCode: cardDetails.postalCode,
+                    validCVC: cardDetails.validCVC,
+                    validExpiryDate: cardDetails.validExpiryDate,
+                    validNumber: cardDetails.validNumber,
+                  });
+                }}
+              />
+            </View>
+          )}
           <View style={styles.TextInputView}>
-            <Text style={styles.FirsNameTxt}>Address</Text>
+            <ScaleText style={styles.FirsNameTxt}>Address</ScaleText>
             {props?.location && (
-              <Text style={styles.NameTextStyle}>
+              <ScaleText style={styles.NameTextStyle}>
                 {props?.location[0]?.location}
-              </Text>
+              </ScaleText>
             )}
           </View>
           <FlatList

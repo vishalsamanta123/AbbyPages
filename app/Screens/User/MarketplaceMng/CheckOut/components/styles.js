@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 import {
-  SMALL_TEXT_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
+  FONT_SIZE,
+  COLORS,
+  FONT_FAMILY,
 } from "../../../../../Utils/Constant";
 const styles = StyleSheet.create({
   dataCon: {
@@ -17,7 +16,6 @@ const styles = StyleSheet.create({
   posterimg: {
     width: 90,
     height: 90,
-    // flex: 1,
     alignSelf: "center",
     justifyContent: "flex-end",
     alignItems: "flex-end",
@@ -35,8 +33,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   text: {
-    color: SMALL_TEXT_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.SMALL_TEXT,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   footerVw: {
     flex: 1,
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
   hdngtxt: {
     fontSize: 18,
     width: "90%",
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "#3a3838",
   },
   paymentTxt: {
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     width: null,
   },
   TakeOutText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 16,
     paddingLeft: 10,
   },
@@ -74,7 +72,7 @@ const styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
-    textColor: BLACK_COLOR_CODE,
+    textColor: COLORS.BLACK,
   },
   headingTxt: {
     fontSize: 18,
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     opacity: 0.9,
     width: "90%",
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "#3a3838",
   },
   addressEditVw: {
@@ -98,8 +96,8 @@ const styles = StyleSheet.create({
   },
   addressEditTxt: {
     fontSize: 12,
-    color: YELLOW_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.YELLOW,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   addressEditImg: {
     marginLeft: 4,
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
     margin: 2,
     marginLeft: 0,
     marginRight: 5,
-    tintColor: BLACK_COLOR_CODE,
+    tintColor: COLORS.BLACK,
   },
   inputcon: {
     borderTopLeftRadius: 8,
@@ -125,7 +123,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRightWidth: 0,
     borderColor: "#d8d8d8",
-    // paddingHorizontal: 20,
     width: 220,
   },
   appliedbtncon: {
@@ -133,9 +130,14 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     fontSize: 15,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
+  },
+  locationTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: "#3a3838",
+    fontSize: FONT_SIZE.smallL,
   },
 });
 export default styles;

@@ -165,7 +165,7 @@ const BusinessGallery = (props) => {
             <View style={{ flex: 2 }}>
               <MediaPicker
                 modalType={"opened"}
-                setVisible={false}
+                setVisible={() => {}}
                 imageData={(data) => {
                   setImageData(data);
                 }}

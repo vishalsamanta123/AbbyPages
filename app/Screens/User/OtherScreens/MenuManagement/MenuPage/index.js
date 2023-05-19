@@ -49,6 +49,7 @@ const MenuPage = ({ navigation, route }) => {
     navigation.navigate("Login");
   };
   const onPressOptions = async (options) => {
+    
     if (options.type === "2") {
     console.log('options: ', options);
       navigation.navigate("MarketplaceScreen");
@@ -68,6 +69,10 @@ const MenuPage = ({ navigation, route }) => {
       } else {
         Alert.alert(`Don't know how to open this URL: ${options.url}`);
       }
+    } else if (options?.type === "4"){
+      navigation.navigate("EventListings");
+    } else if (options?.type === "5"){
+      navigation.navigate("JobListing");
     }
   };
   const onPressView = (item) => {

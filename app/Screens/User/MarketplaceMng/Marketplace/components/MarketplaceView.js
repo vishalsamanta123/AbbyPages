@@ -1,9 +1,7 @@
 import {
   View,
-  Text,
   TouchableOpacity,
   FlatList,
-  Image,
   ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
@@ -80,7 +78,6 @@ const MarketplaceView = (props) => {
       </TouchableOpacity>
     );
   };
-  const onLocationValueChange = () => {};
   return (
     <View style={[CommonStyles.container, { paddingHorizontal: 10 }]}>
       <MainHeader
