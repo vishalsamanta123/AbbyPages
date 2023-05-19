@@ -49,14 +49,16 @@ const BusinessPageDetails = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
-      if (data.status == 200) {
+      console.log("🚀 ~ file: index.js:66 ~ data?.data:", data?.data)
+
+      if (data?.status == 200) {
         setVisible(false);
         setDetailData(data?.data);
         getRecentFeedDetails(data?.data);
 
         setIsSaved(data?.data?.user_like);
       } else {
-        if (data.status === 201) {
+        if (data?.status === 201) {
           setDetailData({});
           setVisible(false);
         } else {
@@ -79,11 +81,11 @@ const BusinessPageDetails = ({ navigation, route }) => {
         ENDPOINTS.GETABBYCONNECTPOST,
         params
       );
-      if (data.status == 200) {
+      if (data?.status == 200) {
         // setVisible(false);
         setRecentFeedData(data?.data?.abbyConnectData[0]);
       } else {
-        if (data.status === 201) {
+        if (data?.status === 201) {
           setRecentFeedData({});
           // setVisible(false);
         } else {
@@ -110,13 +112,13 @@ const BusinessPageDetails = ({ navigation, route }) => {
       };
 
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      if (data.status == 200) {
+      if (data?.status == 200) {
         // setVisible(false);
         setIsSaved(!isSaved);
       } else {
-        if (data.status === 201) {
+        if (data?.status === 201) {
           // setVisible(false);
-        } else if (data.status === 401) {
+        } else if (data?.status === 401) {
           setMessageShow({
             visible: true,
             message: data?.message,

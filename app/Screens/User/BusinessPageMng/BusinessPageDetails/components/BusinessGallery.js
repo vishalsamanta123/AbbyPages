@@ -23,7 +23,7 @@ const BusinessGallery = (props) => {
     visible = false,
     setVisible = () => {},
     type = "",
-    detailData,
+    detailData = {},
     moreData,
   } = props;
 

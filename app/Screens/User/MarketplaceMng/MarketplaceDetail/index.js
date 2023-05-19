@@ -109,6 +109,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
       const params = {
         product_id: item?.product_id,
         quantity: value,
+        business_id: item?.business_id
       };
       const { data } = await apiCall(
         "POST",
