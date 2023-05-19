@@ -23,7 +23,7 @@ const MoreInfo = (props) => {
     visible = false,
     setVisible = () => {},
     type = "",
-    detailData,
+    detailData = {},
     moreData,
   } = props;
   const amenities = detailData?.amenities?.split(",");

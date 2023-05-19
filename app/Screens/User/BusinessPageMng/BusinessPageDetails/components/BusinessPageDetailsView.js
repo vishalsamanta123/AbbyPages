@@ -252,7 +252,7 @@ const BusinessPageDetailsView = (props) => {
         <BusinessDetail type="image" />
       ) : (
         <ImageBackground
-          source={{ uri: props?.detailData.header_image }}
+          source={{ uri: props?.detailData?.header_image }}
           style={{
             width: Constants.windowWidth,
             height: Constants.Ios ? 280 : 220,
@@ -910,7 +910,7 @@ const BusinessPageDetailsView = (props) => {
             contentContainerStyle={{ marginVertical: 16 }}
             horizontal
           >
-            {props?.detailData?.image.map((photo) => {
+            {props?.detailData?.image?.map((photo) => {
               return (
                 <>
                   <Image
@@ -980,7 +980,7 @@ const BusinessPageDetailsView = (props) => {
           <View>
             <ScaleText style={styles.sectionTxt}>Reviews and Ratings</ScaleText>
 
-            {props?.detailData?.business_review.map((item, index) => {
+            {props?.detailData?.business_review?.map((item, index) => {
               return (
                 <MainItemsView
                   onPressView={props.onPressView}

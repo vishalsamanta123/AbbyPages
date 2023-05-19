@@ -65,10 +65,10 @@ const MarketplaceScreen = ({ navigation, route }) => {
       const params = {
         category_id: null,
         category_name: info?.cat_name,
-        latitude: info?.latitude,
-        longitude: info?.longitude,
+        latitude: info?.latitude ? info?.latitude : 28.5383832,
+        longitude: info?.longitude ? info?.longitude : -81.3789269,
         location: info?.location,
-        radius: info?.radius ? Number(info?.radius).toFixed(0) : "250",
+        radius: info?.radius ? Number(info?.radius).toFixed(0) : 250,
         sub_category_id: null,
         product_color: null,
         company_brand: null,
