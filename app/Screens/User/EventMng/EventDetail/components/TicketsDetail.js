@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Modal,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { View, Modal, ScrollView, Platform } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
   FONT_FAMILY_REGULAR,
@@ -18,12 +11,11 @@ import {
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Loader from "../../../Utils/Loader";
+} from "../../../../../Utils/Constant";
+import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
-import Input from "../../../Components/Input";
+import Input from "../../../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import Error from "../../../Components/Modal/error";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ScaleText from "../../../../../Components/ScaleText";
 
@@ -78,11 +70,6 @@ const TicketDetailsScreen = (props) => {
       }}
     >
       <View style={styles.modalCon}>
-        <Error
-          message={props.errorMessage}
-          visible={props.visibleErr}
-          closeModel={() => props.setVisibleErr(false)}
-        />
         {props?.loader && <Loader state={props?.loader} />}
         <Header
           mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}

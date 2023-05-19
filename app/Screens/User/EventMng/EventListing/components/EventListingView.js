@@ -104,6 +104,7 @@ const EventListingView = (props) => {
             </ScaleText>
             <View style={styles.containers}>
               <FullImageViewList
+                onPressView={() => props.navToEventDetail(props?.events?.upcoming_events)}
                 fullImage={props?.events?.upcoming_events?.events_image}
                 timeTxt={RECENT_TIME_FORMAT(
                   props?.events?.upcoming_events?.event_date
@@ -171,6 +172,7 @@ const EventListingView = (props) => {
                 {props.eventsList.map((item) => {
                   return (
                     <FullImageViewList
+                      onPressView={() => props.navToEventDetail(item)}
                       fullImage={item?.events_image}
                       timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
                       headTxt={item?.event_name}
@@ -196,6 +198,7 @@ const EventListingView = (props) => {
             {props?.events?.recently_added?.map((item) => {
               return (
                 <FullImageViewList
+                  onPressView={() => props.navToEventDetail(item)}
                   fullImage={item?.events_image}
                   timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
                   headTxt={item?.event_name}
@@ -213,6 +216,7 @@ const EventListingView = (props) => {
             {props?.events?.popular_events?.map((item) => {
               return (
                 <FullImageViewList
+                  onPressView={() => props.navToEventDetail(item)}
                   fullImage={item?.events_image}
                   timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
                   headTxt={item?.event_name}

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   headingView: {
-    margin: 10
+    margin: 10,
   },
   headingTxt: {
     fontFamily: FONT_FAMILY.NORMAL_BOLD,
@@ -21,11 +21,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.small,
     color: COLORS.BLACK,
   },
-  catgSearchVw: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: COLORS.LIGHT_COMMON,
-    borderRadius: 10,
+  inputVw: {
+    marginHorizontal: 12,
     marginTop: 10,
   },
 });

@@ -12,19 +12,19 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
-import CommonStyles from "../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import Input from "../../../../Components/Input";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../Utils/images";
 
 const CreateEvent = (props) => {
   const hideDatePicker = () => {
@@ -44,8 +44,9 @@ const CreateEvent = (props) => {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -60,8 +61,8 @@ const CreateEvent = (props) => {
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-              ? "Edit Event"
-              : "Submit an Event"
+            ? "Edit Event"
+            : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -199,9 +200,7 @@ const CreateEvent = (props) => {
                   </Text>
                 </View>
                 <View style={styles.BckArrowBack}>
-                  <Image
-                    source={Images.CALENDER_IMG}
-                  />
+                  <Image source={Images.CALENDER_IMG} />
                 </View>
                 <DateTimePickerModal
                   isVisible={props.isDatePickerVisible}
@@ -227,9 +226,7 @@ const CreateEvent = (props) => {
                   </Text>
                 </View>
                 <View style={styles.BckArrowBack}>
-                  <Image
-                    source={Images.CALENDER_IMG}
-                  />
+                  <Image source={Images.CALENDER_IMG} />
                 </View>
                 <DateTimePickerModal
                   isVisible={props.isStartDatePicker}
@@ -256,9 +253,7 @@ const CreateEvent = (props) => {
                   </Text>
                 </View>
                 <View style={styles.BckArrowBack}>
-                  <Image
-                    source={Images.CALENDER_IMG}
-                  />
+                  <Image source={Images.CALENDER_IMG} />
                 </View>
                 <DateTimePickerModal
                   isVisible={props.isEndDatePicker}
@@ -285,7 +280,8 @@ const CreateEvent = (props) => {
             <View style={styles.BckArrowBack}>
               <Image
                 style={CommonStyles.blackDropDownImg}
-                source={Images.ARROW_DOWN_IMG} />
+                source={Images.ARROW_DOWN_IMG}
+              />
             </View>
             <DateTimePickerModal
               isVisible={props.isStartTimePickerVisible}
@@ -307,8 +303,10 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image style={CommonStyles.blackDropDownImg}
-                source={Images.ARROW_DOWN_IMG} />
+              <Image
+                style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG}
+              />
             </View>
             <DateTimePickerModal
               isVisible={props.isEndTimePickerVisible}
@@ -517,18 +515,24 @@ const CreateEvent = (props) => {
             InputType="withScroll"
           /> */}
           {/* <Text style={styles.titlesTxt}>Free Event</Text> */}
-          {<TouchableOpacity onPress={() => props.onPressFreeEvent()} style={styles.container}>
-            <View style={styles.CameraImgView}>
-              <TouchableOpacity>
-                <Image
-                  style={{ width: 25, height: 25, }}
-                  resizeMode={'contain'}
-                  source={!props.FreeEvent ?
-                    Images.CHECK_IMG : Images.UNCHECK_IMG} />
-              </TouchableOpacity>
-              <Text style={styles.AddPhotosTxt}>Free Event</Text>
-            </View>
-          </TouchableOpacity>
+          {
+            <TouchableOpacity
+              onPress={() => props.onPressFreeEvent()}
+              style={styles.container}
+            >
+              <View style={styles.CameraImgView}>
+                <TouchableOpacity>
+                  <Image
+                    style={{ width: 25, height: 25 }}
+                    resizeMode={"contain"}
+                    source={
+                      !props.FreeEvent ? Images.CHECK_IMG : Images.UNCHECK_IMG
+                    }
+                  />
+                </TouchableOpacity>
+                <Text style={styles.AddPhotosTxt}>Free Event</Text>
+              </View>
+            </TouchableOpacity>
           }
           <Text style={styles.titlesTxt}>Category -</Text>
           <TouchableOpacity
@@ -546,8 +550,10 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image style={CommonStyles.blackDropDownImg}
-                source={Images.ARROW_DOWN_IMG} />
+              <Image
+                style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG}
+              />
             </View>
           </TouchableOpacity>
           <Text style={styles.titlesTxt}>Keywords search terms -</Text>
@@ -560,8 +566,10 @@ const CreateEvent = (props) => {
               </Text>
             </View>
             <View style={styles.BckArrowBack}>
-              <Image style={CommonStyles.blackDropDownImg}
-                source={Images.ARROW_DOWN_IMG} />
+              <Image
+                style={CommonStyles.blackDropDownImg}
+                source={Images.ARROW_DOWN_IMG}
+              />
             </View>
           </TouchableOpacity>
           <Text style={styles.titlesTxt}>Type -</Text>
@@ -579,7 +587,7 @@ const CreateEvent = (props) => {
                   type: itemValue,
                 })
               }
-              itemStyle={{ height: Platform.OS === 'ios' ? '100%' : null, }}
+              itemStyle={{ height: Platform.OS === "ios" ? "100%" : null }}
               selectedValue={props.createEvent.type}
             >
               <Picker.Item label={"In Person"} value={""} />

@@ -58,6 +58,7 @@ import CheckOut from "../Screens/User/MarketplaceMng/CheckOut";
 import AddNewLocation from "../Screens/Common/AddNewLocation";
 import RestroPlaceOrder from "../Screens/User/RestroMng/RestroPlaceOrder";
 import ConfirmOrderView from "../Screens/User/MarketplaceMng/ConfirmOrder";
+import EventDetail from "../Screens/User/EventMng/EventDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,6 +98,7 @@ function TabNavigation() {
       <Tab.Screen name="ShoppingCart" component={ShoppingCart} />
       <Tab.Screen name="CheckOut" component={CheckOut} />
       <Tab.Screen name="ConfirmOrderView" component={ConfirmOrderView} />
+      <Tab.Screen name="EventDetail" component={EventDetail} />
     </Tab.Navigator>
   );
 }
@@ -135,6 +137,7 @@ function AppStack() {
       <Stack.Screen name="AddNewLocation" component={AddNewLocation} />
       <Stack.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
       <Stack.Screen name="ConfirmOrderView" component={TabNavigation} />
+      <Stack.Screen name="EventDetail" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

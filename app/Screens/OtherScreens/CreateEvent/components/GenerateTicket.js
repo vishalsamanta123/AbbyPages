@@ -10,18 +10,18 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
-import CommonStyles from "../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import Input from "../../../../Components/Input";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-community/picker";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../Utils/images";
 
 const GenerateTicket = (props) => {
   const [selectedIndex, setSelectedIndex] = useState({
@@ -36,8 +36,9 @@ const GenerateTicket = (props) => {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -52,8 +53,8 @@ const GenerateTicket = (props) => {
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-              ? "Edit Event"
-              : "Submit an Event"
+            ? "Edit Event"
+            : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -126,9 +127,7 @@ const GenerateTicket = (props) => {
                             }
                             style={styles.straightVw}
                           >
-                            <Image
-                              source={Images.COLLECTION_IMG}
-                            />
+                            <Image source={Images.COLLECTION_IMG} />
                             <Text style={styles.moreOptionTxt}>
                               More Options
                             </Text>
@@ -169,7 +168,7 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_start_date != ""
                                     ? props?.createEventData[index]
-                                      ?.tckt_start_date
+                                        ?.tckt_start_date
                                     : "Start Sale Date"}
                                 </Text>
                                 <Image
@@ -209,7 +208,7 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_end_date != ""
                                     ? props?.createEventData[index]
-                                      ?.tckt_end_date
+                                        ?.tckt_end_date
                                     : "End Sale Date"}
                                 </Text>
                                 <Image
@@ -251,7 +250,7 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_start_time != ""
                                     ? props?.createEventData[index]
-                                      ?.tckt_start_time
+                                        ?.tckt_start_time
                                     : "Start Sale Time"}
                                 </Text>
                                 <Image
@@ -291,7 +290,7 @@ const GenerateTicket = (props) => {
                                   {props?.createEventData[index]
                                     ?.tckt_end_time != ""
                                     ? props?.createEventData[index]
-                                      ?.tckt_end_time
+                                        ?.tckt_end_time
                                     : "End Sale Time"}
                                 </Text>
                                 <Image
@@ -412,7 +411,7 @@ const GenerateTicket = (props) => {
                                   style={styles.checkImg}
                                   source={
                                     props.createEventData[index].trasferable ===
-                                      0
+                                    0
                                       ? Images.UNCHECK_IMG
                                       : Images.CHECK_IMG
                                   }
@@ -501,47 +500,47 @@ const GenerateTicket = (props) => {
                               </TouchableOpacity>
                               {props.createEventData[index].ticket_limit ===
                                 1 && (
-                                  <View style={{ flexDirection: "row" }}>
-                                    <View style={{ flex: 1 }}>
-                                      <Text style={styles.titlesTxt}>Min</Text>
-                                      <Input
-                                        InputType={""}
-                                        onChangeText={(value) =>
-                                          props.handleTicketInput(
-                                            "min_ticket",
-                                            value,
-                                            index
-                                          )
-                                        }
-                                        value={
-                                          props?.createEventData[index]
-                                            ?.min_ticket
-                                        }
-                                        textInputStyle={styles.formsInputVw}
-                                        keyboardType={"number-pad"}
-                                      />
-                                    </View>
-                                    <View style={{ flex: 1 }}>
-                                      <Text style={styles.titlesTxt}>Max</Text>
-                                      <Input
-                                        InputType={""}
-                                        onChangeText={(value) =>
-                                          props.handleTicketInput(
-                                            "max_ticket",
-                                            value,
-                                            index
-                                          )
-                                        }
-                                        value={
-                                          props?.createEventData[index]
-                                            ?.max_ticket
-                                        }
-                                        keyboardType={"number-pad"}
-                                        textInputStyle={styles.formsInputVw}
-                                      />
-                                    </View>
+                                <View style={{ flexDirection: "row" }}>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={styles.titlesTxt}>Min</Text>
+                                    <Input
+                                      InputType={""}
+                                      onChangeText={(value) =>
+                                        props.handleTicketInput(
+                                          "min_ticket",
+                                          value,
+                                          index
+                                        )
+                                      }
+                                      value={
+                                        props?.createEventData[index]
+                                          ?.min_ticket
+                                      }
+                                      textInputStyle={styles.formsInputVw}
+                                      keyboardType={"number-pad"}
+                                    />
                                   </View>
-                                )}
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={styles.titlesTxt}>Max</Text>
+                                    <Input
+                                      InputType={""}
+                                      onChangeText={(value) =>
+                                        props.handleTicketInput(
+                                          "max_ticket",
+                                          value,
+                                          index
+                                        )
+                                      }
+                                      value={
+                                        props?.createEventData[index]
+                                          ?.max_ticket
+                                      }
+                                      keyboardType={"number-pad"}
+                                      textInputStyle={styles.formsInputVw}
+                                    />
+                                  </View>
+                                </View>
+                              )}
                             </View>
                           </View>
                         </>

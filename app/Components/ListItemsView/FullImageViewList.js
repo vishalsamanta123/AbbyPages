@@ -13,14 +13,46 @@ const FullImageViewList = (props) => {
     subHeadTxt = "",
     smallTxt = "",
     subSmallTxt = "",
+    onPressView = () => {},
+    shadow = true,
+    marginTop = 6,
+    marginBottom = 6,
+    marginHorizontal = 10,
+    activeOpacity = 1,
+    item = {},
   } = props;
   return (
-    <TouchableOpacity style={styles.mainCon}>
-      <Image
-        source={{ uri: fullImage }}
-        resizeMode={"cover"}
-        style={styles.fullImageVw}
-      />
+    <TouchableOpacity
+      activeOpacity={activeOpacity}
+      onPress={() => onPressView(item)}
+      style={[
+        styles.mainCon,
+        shadow
+          ? {
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+              elevation: 3,
+            }
+          : null,
+        {
+          marginTop: marginTop,
+          marginBottom: marginBottom,
+          marginHorizontal: marginHorizontal,
+        },
+      ]}
+    >
+      {fullImage === "" ? null : (
+        <Image
+          source={{ uri: fullImage }}
+          resizeMode={"cover"}
+          style={styles.fullImageVw}
+        />
+      )}
       <View style={styles.txtConVw}>
         <View style={CommonStyles.straightCon}>
           <IconX
@@ -66,17 +98,7 @@ export default FullImageViewList;
 const styles = StyleSheet.create({
   mainCon: {
     flex: 1,
-    marginHorizontal: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
     borderRadius: 10,
-    marginVertical: 6,
   },
   fullImageVw: {
     height: 150,

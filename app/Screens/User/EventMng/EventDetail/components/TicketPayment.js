@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Modal,
   KeyboardAvoidingView,
   ScrollView,
@@ -9,19 +8,18 @@ import {
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/error";
+} from "../../../../../Utils/Constant";
+import Loader from "../../../../../Utils/Loader";
 import { CardField } from "@stripe/stripe-react-native";
 import CountDown from "react-native-countdown-component";
-import Input from "../../../Components/Input";
+import Input from "../../../../../Components/Input";
 import ScaleText from "../../../../../Components/ScaleText";
 
 const TicketPaymentScreen = (props) => {
@@ -39,11 +37,6 @@ const TicketPaymentScreen = (props) => {
         props.setBuyTicketModal("");
       }}
     >
-      <Error
-        message={props.errorMessage}
-        visible={props.visibleErr}
-        closeModel={() => props.setVisibleErr(false)}
-      />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={styles.modalCon}

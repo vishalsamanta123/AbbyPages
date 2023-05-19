@@ -16,6 +16,8 @@ const MainInput = (props) => {
     headTxt = placeholder,
     placeholderTextColor = COLORS.COMMON,
     onChangeText = () => {},
+    onFocus = () => {},
+    onBlur = () => {},
     value = "",
     header = true,
     flex = 0,
@@ -86,6 +88,8 @@ const MainInput = (props) => {
         maxLength={maxLength}
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry && secure ? secure : false}
+        onFocus={() => onFocus()}
+        onBlur={() => onBlur()}
       />
       {rightImgName != "" && rightImgOrigin != "" ? (
         <View style={styles.iconVw}>

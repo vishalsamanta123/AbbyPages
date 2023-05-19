@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   Modal,
   FlatList,
   Platform,
@@ -10,20 +9,20 @@ import {
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
 import {
   FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Loader from "../../../Utils/Loader";
-import Input from "../../../Components/Input";
+} from "../../../../../Utils/Constant";
+import Loader from "../../../../../Utils/Loader";
+import Input from "../../../../../Components/Input";
 import InputSpinner from "react-native-input-spinner";
 import _ from "lodash";
 import ScaleText from "../../../../../Components/ScaleText";
+
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
   const eventDate = moment(props?.eventDetails?.created_at).format(

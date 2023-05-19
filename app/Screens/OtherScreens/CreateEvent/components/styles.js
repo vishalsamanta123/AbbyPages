@@ -6,7 +6,7 @@ import {
   BLACK_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
+} from "../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   container: {
     height: 60,

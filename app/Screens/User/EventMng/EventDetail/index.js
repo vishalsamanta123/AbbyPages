@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, ToastAndroid, View } from "react-native";
-import EventDetailsScreen from "./components/EventDetailsScreen";
+import EventDetailView from "./components/EventDetailView";
 import BuyTicket from "./components/BuyTicket";
-import CommonStyles from "../../Utils/CommonStyles";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
-import Loader from "../../Utils/Loader";
-import Error from "../../Components/Modal/error";
-import Success from "../../Components/Modal/success";
+import TicketPayment from "./components/TicketPayment";
 import TicketDetails from "./components/TicketsDetail";
 import BuyerInfo from "./components/BuyerInfo";
-import TicketPayment from "./components/TicketPayment";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import { apiCall } from "../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import Loader from "../../../../Utils/Loader";
 
-const EventDetails = ({ route }) => {
+const EventDetail = ({ route }) => {
   const { width } = Dimensions.get("window");
   const params = route?.params;
   const [counrtys, setCounrtys] = useState([]);
@@ -301,7 +299,7 @@ const EventDetails = ({ route }) => {
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
-      <EventDetailsScreen
+      <EventDetailView
         eventDetails={eventDetails}
         loader={loader}
         setSliderPage={setSliderPage}
@@ -404,17 +402,7 @@ const EventDetails = ({ route }) => {
           )}
         </>
       )}
-      <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      />
     </View>
   );
 };
-export default EventDetails;
+export default EventDetail;

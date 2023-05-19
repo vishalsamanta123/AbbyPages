@@ -4,8 +4,8 @@ import GenerateTicket from "./components/GenerateTicket";
 import StripeConnect from "./components/StripeConnect";
 import EventPublish from "./components/EventPublish";
 import moment from "moment";
-import { apiCall } from "../../Utils/httpClient";
-import ENDPOINTS from "../../Utils/apiEndPoints";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
 import {
   View,
   Text,
@@ -14,14 +14,14 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import CommonStyles from "../../Utils/CommonStyles";
+import CommonStyles from "../../../Utils/CommonStyles";
 import ImagePicker from "react-native-image-crop-picker";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import Success from "../../Components/Modal/success";
-import Loader from "../../Utils/Loader";
-import Error from "../../Components/Modal/showMessage";
+import Success from "../../../Components/Modal/success";
+import Loader from "../../../Utils/Loader";
+import Error from "../../../Components/Modal/showMessage";
 import styles from "./components/styles";
-import { Images } from "../../Utils/images";
+import { Images } from "../../../Utils/images";
 
 const CreateEventView = ({ route, navigation }) => {
   const { type, item, img_url, detail } = route?.params || {
@@ -75,7 +75,7 @@ const CreateEventView = ({ route, navigation }) => {
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
   const [checkbox, SetCheckBox] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [formView, setFormView] = useState(1);
+  const [formView, setFormView] = useState(4);
   const [eventModalVisible, setEventModalVisible] = useState("");
   const [contentType, setContentType] = useState("");
   const [updatePic, setUpdatePic] = useState([]);
@@ -321,10 +321,7 @@ const CreateEventView = ({ route, navigation }) => {
                 style={styles.deleteImageVw}
                 onPress={() => deleteImage(index)}
               >
-                <Image
-                  source={Images.MINUS_IMG}
-                  style={styles.deleteImage}
-                />
+                <Image source={Images.MINUS_IMG} style={styles.deleteImage} />
               </TouchableOpacity>
               <View style={{ marginLeft: "5%" }}>
                 <Image
@@ -908,7 +905,7 @@ const CreateEventView = ({ route, navigation }) => {
           )}
         </>
       )}
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -920,7 +917,7 @@ const CreateEventView = ({ route, navigation }) => {
           setVisibleSuccess(false);
           // navigation.navigate("EventManagement");
         }}
-      />
+      /> */}
     </View>
   );
 };

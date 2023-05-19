@@ -36,24 +36,9 @@ const TabModalScreens = (props) => {
           }
           style={styles.customPopupVw}
         >
-          <View
-            style={[
-              styles.popupVw,
-              {
-                marginLeft: onPressmodal.modal === "EventManagement" ? 24 : 0,
-                alignSelf:
-                  onPressmodal.modal === "JobManagement" ||
-                  onPressmodal.modal === "MoreManagement"
-                    ? "flex-end"
-                    : onPressmodal.modal === "PlusManagement"
-                    ? "center"
-                    : "auto",
-                marginRight: onPressmodal.modal === "JobManagement" ? 24 : 0,
-              },
-            ]}
-          >
+          <View style={styles.popupVw}>
             {onPressmodal.modal === "EventManagement" ? (
-              <>
+              <View>
                 <TouchableOpacity style={styles.subCatVw}>
                   <ScaleText style={styles.subCatTxt}>
                     {"Create Event"}
@@ -93,9 +78,9 @@ const TabModalScreens = (props) => {
                 >
                   <ScaleText style={styles.subCatTxt}>{"Pricing"}</ScaleText>
                 </TouchableOpacity>
-              </>
+              </View>
             ) : onPressmodal.modal === "PlusManagement" ? (
-              <>
+              <View>
                 <TouchableOpacity style={styles.subCatVw}>
                   <ScaleText style={styles.subCatTxt}>
                     {"Add a Business"}
@@ -126,9 +111,9 @@ const TabModalScreens = (props) => {
                     {"Write a Review "}
                   </ScaleText>
                 </TouchableOpacity>
-              </>
+              </View>
             ) : onPressmodal.modal === "JobManagement" ? (
-              <>
+              <View>
                 <TouchableOpacity
                   onPress={() => {
                     modalNavigation("JobListing", "JobManagement");
@@ -147,7 +132,7 @@ const TabModalScreens = (props) => {
                     {"Upload Your Résumé"}
                   </ScaleText>
                 </TouchableOpacity>
-              </>
+              </View>
             ) : null}
           </View>
         </Pressable>

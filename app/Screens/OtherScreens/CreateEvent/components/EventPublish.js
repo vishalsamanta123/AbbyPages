@@ -6,21 +6,24 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
-import CommonStyles from "../../../Utils/CommonStyles";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../Utils/Constant";
-import Input from "../../../Components/Input";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import CommonStyles from "../../../../Utils/CommonStyles";
+import {
+  WHITE_COLOR_CODE,
+  YELLOW_COLOR_CODE,
+} from "../../../../Utils/Constant";
+import Input from "../../../../Components/Input";
 import {
   actions,
   RichEditor,
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import Clipboard from "@react-native-clipboard/clipboard";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../Utils/images";
 
 const StripeConnect = (props) => {
   const handleCopyPress = async () => {
@@ -31,8 +34,9 @@ const StripeConnect = (props) => {
   const richText = React.createRef() || useRef();
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -47,14 +51,14 @@ const StripeConnect = (props) => {
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-              ? "Edit Event"
-              : "Submit an Event"
+            ? "Edit Event"
+            : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
       />
       <ScrollView keyboardShouldPersistTaps="handled">
-        {props.type === "busniess" ? (
+        {props.type === "" ? (
           <View style={{ marginHorizontal: 5, marginTop: 5 }}>
             <Text style={[styles.mainTitlesTxt]}>Checkout -:</Text>
             <View style={[styles.radioBttnVw, { paddingTop: 2 }]}>
@@ -276,8 +280,8 @@ const StripeConnect = (props) => {
               secureTextEntry={false}
               placeholder=""
               InputType={null}
-            // copyText={true}
-            // onPressCoptTxt={() => handleCopyPress()}
+              // copyText={true}
+              // onPressCoptTxt={() => handleCopyPress()}
             />
             <Text style={styles.titlesTxt}>Slug Url -</Text>
             <Input
@@ -537,7 +541,7 @@ const StripeConnect = (props) => {
           <Button
             buttonText={"Next is what?"}
             style={styles.bttnNotwoVw}
-          // onPress={() => props.onPressCreateEvent()}
+            // onPress={() => props.onPressCreateEvent()}
           />
         </View>
       </ScrollView>

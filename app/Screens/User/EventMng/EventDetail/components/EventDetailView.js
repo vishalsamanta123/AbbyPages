@@ -10,13 +10,13 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Button from "../../../../../Components/Button";
 import {
   BLACK_COLOR_CODE,
+  COLORS,
   GREY_COLOR_CODE,
   LIGHT_BLACK_COLOR_CODE,
   LIGHT_GREY_COLOR_CODE,
@@ -24,27 +24,27 @@ import {
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { SafeAreaView } from "react-native-safe-area-context";
+} from "../../../../../Utils/Constant";
 import Video from "react-native-video";
-import { Images } from "../../../Utils/images";
+import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
+import SliderImages from "../../../../../Components/SliderImages";
+import { FullImageViewList } from "../../../../../Components/ListItemsView";
+import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
+import MainButton from "../../../../../Components/MainButton";
+import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 
-const EventListingScreen = (props) => {
+const EventDetailView = (props) => {
   const [videoShow, setVideoShow] = useState(false);
   const { width, height } = Dimensions.get("window");
 
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Events Details"
-        RightImg={null}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-      />
+      <MainHeader headerText="Events Details" />
       <ScrollView>
         {/* <SafeAreaView style={{ alignItems: "center", }}> */}
-        <FlatList
+        {/* <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={props?.eventDetails?.events_image}
           scrollEventThrottle={16}
@@ -84,9 +84,13 @@ const EventListingScreen = (props) => {
               key={index}
             />
           ))}
-        </View>
+        </View> */}
         {/* </SafeAreaView> */}
-        <View style={styles.infocon}>
+        <SliderImages
+          data={props?.eventDetails?.events_image}
+          posterImg={"events_image"}
+        />
+        {/* <View style={styles.infocon}>
           <ScaleText style={styles.nameTxt}>
             {props?.eventDetails?.event_name}
           </ScaleText>
@@ -207,7 +211,107 @@ const EventListingScreen = (props) => {
               </ScaleText>
             </>
           ) : null}
+        </View> */}
+        <View style={{ bottom: 24 }}>
+          <FullImageViewList
+            shadow={false}
+            marginHorizontal={5}
+            fullImage={""}
+            timeTxt={RECENT_TIME_FORMAT(props?.eventDetails?.event_date)}
+            headTxt={props?.eventDetails?.event_name}
+            subHeadTxt={props?.eventDetails?.event_location?.trim()}
+            smallTxt={`${props?.eventDetails?.interested} Interested`}
+            subSmallTxt={""}
+            item={props?.eventDetails}
+            marginBottom={0}
+          />
+          <View
+            style={[
+              CommonStyles.straightCon,
+              { justifyContent: "space-evenly" },
+            ]}
+          >
+            <MainButton
+              paddingHeight={2}
+              paddingHorizontal={25}
+              buttonTxt={"Interested"}
+              backgroundColor={
+                props.eventDetails?.user_interested === 0
+                  ? COLORS.COMMON
+                  : COLORS.YELLOW
+              }
+              txtColor={COLORS.BLACK}
+              borderRadius={10}
+              borderColor={
+                props.eventDetails?.user_interested === 0
+                  ? COLORS.GREY
+                  : COLORS.LIGHT_GREY
+              }
+              onPressButton={() => {
+                if (props.eventDetails?.user_interested === 0) {
+                  props.setChangeInterest(1);
+                  props.onInterestResp(1);
+                } else {
+                  props.setInterstedModal(true);
+                  props.getEventDetails(props.eventDetails?.event_id);
+                }
+              }}
+            />
+            <MainButton
+              paddingHeight={2}
+              paddingHorizontal={25}
+              buttonTxt={"Buy Ticket"}
+              borderRadius={10}
+              backgroundColor={COLORS.YELLOW}
+              txtColor={COLORS.WHITE}
+              borderColor={COLORS.TRANSPARENT}
+              // onPressButton={() => props.setBuyTicketModal(1)}
+            />
+            <TouchableOpacity
+              style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+            >
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                name={"dots-horizontal"}
+                size={26}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
+        {props.videoUrl != "null" ? (
+          <View style={{ marginHorizontal: 12 }}>
+            <ScaleText style={styles.titleTxt}>Event Video</ScaleText>
+            <View style={styles.videoVw}>
+              <Video
+                source={{ uri: props.eventDetails?.events_video }} // Can be a URL or a local file.
+                style={styles.backgroundVideo}
+                resizeMode={"stretch"}
+                paused={videoShow}
+                repeat={true}
+              />
+              <View style={styles.videoContVw}>
+                <TouchableOpacity
+                  onPress={() => setVideoShow(!videoShow)}
+                  style={styles.startPauseVw}
+                >
+                  <ScaleText style={{ color: WHITE_COLOR_CODE }}>
+                    {!videoShow ? "Pause" : "Start"}
+                  </ScaleText>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ) : null}
+        {props.eventDetails?.event_description ? (
+          <View style={{ marginHorizontal: 12 }}>
+            <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
+              Discription
+            </ScaleText>
+            <ScaleText style={[styles.subTitleTxt, { padding: 6 }]}>
+              {props.eventDetails?.event_description}
+            </ScaleText>
+          </View>
+        ) : null}
       </ScrollView>
       <Modal
         visible={props.interestedModal}
@@ -354,4 +458,4 @@ const EventListingScreen = (props) => {
     </View>
   );
 };
-export default EventListingScreen;
+export default EventDetailView;

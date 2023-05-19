@@ -14,15 +14,14 @@ const AddressInput = (props) => {
     onChangeText = () => {},
     value = "",
     fetchDetails = true,
-    height = 56,
-    paddingVertical = 0,
+    paddingVertical = 4,
     backgroundColor = COLORS.WHITE,
-    placeholder = "Input",
+    placeholder = "Location",
     headTxtBackColor = COLORS.WHITE,
     headTxt = placeholder,
     placeholderTextColor = COLORS.COMMON,
     header = true,
-    flex = 0,
+    iconTop = 25,
     borderRadius = 18,
     rightImgName = "",
     rightImgSize = 22,
@@ -51,7 +50,14 @@ const AddressInput = (props) => {
         </View>
       )}
       {leftImgName != "" && leftImgOrigin != "" ? (
-        <View style={styles.iconVw}>
+        <View
+          style={[
+            styles.iconVw,
+            {
+              top: iconTop,
+            },
+          ]}
+        >
           <IconX
             origin={leftImgOrigin}
             name={leftImgName}
@@ -69,7 +75,7 @@ const AddressInput = (props) => {
         textInputProps={{
           onFocus: () => setOnfocus(true),
           onBlur: () => setOnfocus(false),
-          placeholderTextColor: COLORS.COMMON,
+          placeholderTextColor: placeholderTextColor,
           onChangeText: (txt) => {
             if (onfocus) {
               if (txt == "") {
@@ -85,7 +91,13 @@ const AddressInput = (props) => {
           language: "en",
         }}
         styles={{
-          textInputContainer: styles.mainCont,
+          textInputContainer: [
+            styles.mainCont,
+            {
+              paddingLeft: leftImgName != "" && leftImgOrigin != "" ? 26 : 0,
+              paddingVertical: paddingVertical,
+            },
+          ],
           textInput: styles.inputCon,
           listView: {},
         }}
@@ -95,7 +107,7 @@ const AddressInput = (props) => {
         keyboardShouldPersistTaps={"handled"}
       />
       {rightImgName != "" && rightImgOrigin != "" ? (
-        <View style={styles.iconVw}>
+        <View style={[styles.iconVw, { alignSelf: "flex-end", top: iconTop }]}>
           <IconX
             origin={rightImgOrigin}
             name={rightImgName}

@@ -54,7 +54,7 @@ const EventListing = ({ navigation }) => {
     }
   };
   const navToEventDetail = (item) => {
-    navigation.navigate("EventDetails", { item: item });
+    navigation.navigate("EventDetail", { item: item });
   };
   const handlePopularEvents = async () => {
     try {

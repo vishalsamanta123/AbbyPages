@@ -4,6 +4,7 @@ import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS } from "../../Utils/Constant";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
+import TabModalScreens from "./TabModalScreens";
 
 const TabModal = (props) => {
   const {
@@ -12,7 +13,18 @@ const TabModal = (props) => {
     isFocused,
     setIsFocused = () => {},
     state = "",
+    navigation = "",
   } = props;
+
+  const modalNavigation = (navigate, modal) => {
+    navigation.navigate(navigate);
+    setIsFocused(modal);
+    setOnPressmodal({
+      ...onPressmodal,
+      modal: "",
+      navigate: modal,
+    });
+  };
 
   const handleTabs = (type, focuse) => {
     if (type === onPressmodal?.modal) {
@@ -33,6 +45,15 @@ const TabModal = (props) => {
         style={styles.tapVws}
         onPress={() => handleTabs("EventManagement")}
       >
+        {onPressmodal?.modal === "EventManagement" ? (
+          <TabModalScreens
+            navigation={navigation}
+            onPressmodal={onPressmodal}
+            setOnPressmodal={setOnPressmodal}
+            isFocused={isFocused}
+            setIsFocused={setIsFocused}
+          />
+        ) : null}
         <View>
           <IconX
             origin={
@@ -63,7 +84,16 @@ const TabModal = (props) => {
         style={styles.tapVws}
         onPress={() => handleTabs("PlusManagement")}
       >
-        <View style={{ marginBottom: 5 }}>
+        {onPressmodal?.modal === "PlusManagement" ? (
+          <TabModalScreens
+            navigation={navigation}
+            onPressmodal={onPressmodal}
+            setOnPressmodal={setOnPressmodal}
+            isFocused={isFocused}
+            setIsFocused={setIsFocused}
+          />
+        ) : null}
+        <View style={{ bottom: 2 }}>
           <IconX
             origin={ICON_TYPE.ANT_ICON}
             name={isFocused === "PlusManagement" ? "pluscircle" : "pluscircleo"}
@@ -73,11 +103,21 @@ const TabModal = (props) => {
             }
           />
         </View>
+        <ScaleText style={[styles.iconTxt]}></ScaleText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.tapVws}
         onPress={() => handleTabs("JobManagement")}
       >
+        {onPressmodal?.modal === "JobManagement" ? (
+          <TabModalScreens
+            navigation={navigation}
+            onPressmodal={onPressmodal}
+            setOnPressmodal={setOnPressmodal}
+            isFocused={isFocused}
+            setIsFocused={setIsFocused}
+          />
+        ) : null}
         <View>
           <IconX
             origin={ICON_TYPE.ICONICONS}
