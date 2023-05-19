@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import { View, TouchableOpacity, Image, TextInput } from "react-native";
 import React from "react";
 import MainHeader from "../../../../../Components/MainHeader";
 import CommonStyles from "../../../../../Utils/CommonStyles";
@@ -25,7 +25,6 @@ const MarkteplaceDetailView = (props) => {
         TxtMarginRight={"5%"}
         onPressCart={() => props.onPressCart()}
         addToCartIcon={true}
-        // onPressBack={() => onBackPress()}
       />
       <PageScroll
         contentContainerStyle={[CommonStyles.otherScrollCon, ,]}
@@ -46,6 +45,9 @@ const MarkteplaceDetailView = (props) => {
               </ScaleText>
             </View>
           </View>
+          <ScaleText style={styles.sendMsgTxt}>
+                Only {productDetail?.quantity} left in stock
+              </ScaleText>
           <View style={[styles.sendmsgView]}>
             <ScaleText style={styles.sendMsgTxt}>
               Send seller a message
@@ -532,7 +534,10 @@ const MarkteplaceDetailView = (props) => {
           <View>
             <ScaleText>
               Total Amount:{" "}
-              {getAmount(productDetail?.final_price * props?.cartData[0]?.quantity)}
+              {getAmount(
+                productDetail?.final_price *
+                  (props.quantity ? props.quantity : 1)
+              )}
             </ScaleText>
           </View>
           <View
@@ -540,12 +545,13 @@ const MarkteplaceDetailView = (props) => {
               alignItems: "center",
               flexDirection: "row",
               justifyContent: "space-around",
+              marginHorizontal: 10
             }}
           >
             <AddMinusView
-              value={props.cartData[0]?.quantity}
+              value={props?.quantity ? props?.quantity : 1}
               minVal={1}
-              onPressAdd={(val) => props.addToCart(productDetail, val)}
+              onPressAdd={(val) => props?.quantity < productDetail?.quantity && props.addToCart(productDetail, val)}
               onPressMinus={(val) => props.removeFromCart(productDetail, val)}
               width={"80%"}
             />
@@ -554,7 +560,7 @@ const MarkteplaceDetailView = (props) => {
               onPressButton={() =>
                 props.addProductOnCart(
                   productDetail,
-                  props.cartData[0]?.quantity
+                  props?.quantity ? props?.quantity : 1
                 )
               }
               width={"90%"}
@@ -566,6 +572,23 @@ const MarkteplaceDetailView = (props) => {
               paddingHorizontal={35}
             />
           </View>
+          <MainButton
+              buttonTxt={"Buy now"}
+              onPressButton={() =>
+                props.addProductOnCart(
+                  productDetail,
+                  props?.quantity ? props?.quantity : 1,
+                  "buynow"
+                )
+              }
+              width={"90%"}
+              borderColor={COLORS.YELLOW}
+              txtColor={COLORS.WHITE}
+              backgroundColor={COLORS.YELLOW}
+              borderRadius={10}
+              paddingHeight={9}
+              paddingHorizontal={35}
+            />
           <View style={{ marginVertical: 20 }}></View>
         </View>
       </PageScroll>

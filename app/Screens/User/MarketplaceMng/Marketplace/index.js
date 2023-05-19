@@ -1,11 +1,9 @@
-import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import MarketplaceView from "./components/MarketplaceView";
 import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
-import { defaultLatitude, defaultLongitute } from "../../../../Utils/Constant";
 
 const MarketplaceScreen = ({ navigation, route }) => {
   const [isVisibleFilters, setIsVisibleFilters] = useState(false);
@@ -53,8 +51,8 @@ const MarketplaceScreen = ({ navigation, route }) => {
         apiEndPoints.PRODUCT_CATEGORY_LIST,
         params
       );
-      if (data.status === 200) {
-        setSubCategories(data.data);
+      if (data?.status === 200) {
+        setSubCategories(data?.data);
       } else {
         setSubCategories([]);
       }
@@ -88,12 +86,8 @@ const MarketplaceScreen = ({ navigation, route }) => {
         apiEndPoints.PRODUCT_FILTER_DATA,
         params
       );
-      console.log("🚀 ~ file: index.js:96 ~ params:", params);
-
-      console.log("🚀 ~ file: index.js:84 ~ data:", data);
-
-      if (data.status === 200) {
-        setProductList(data.data);
+      if (data?.status === 200) {
+        setProductList(data?.data);
         setLocationModal(false);
         setSearchData({
           ...searchData,
@@ -120,7 +114,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
         apiEndPoints.USERCOMMONLIKES,
         params
       );
-      if (data.status === 200) {
+      if (data?.status === 200) {
         setLikedata(data);
       } else {
         setLikedata({});
@@ -140,8 +134,8 @@ const MarketplaceScreen = ({ navigation, route }) => {
   };
   const handleProductPress = (data) => {
     navigation.navigate("MarketplaceDetail", {
-      product_id: data.product_id,
-      business_id: data.business_id,
+      product_id: data?.product_id,
+      business_id: data?.business_id,
     });
   };
   const onBackPress = () => {

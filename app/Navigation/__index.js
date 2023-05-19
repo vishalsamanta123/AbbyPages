@@ -49,7 +49,7 @@ import NeweFeedDetails from "../Screens/User/BusinessPageMng/NewsFeedDetails";
 import ApplyJob from "../Screens/User/JobMng/ApplyJob";
 import RestroBooking from "../Screens/User/RestroMng/RestauranrtBooking";
 import ConfirmReservationView from "../Screens/User/RestroMng/ConfirmReservation";
-import OrderHistoryView from "../Screens/User/RestroMng/OrderHistory";
+import OrderHistoryView from "../Screens/User/OrderHistory";
 import RestroMenu from "../Screens/User/RestroMng/RestroMenu";
 import MarketplaceScreen from "../Screens/User/MarketplaceMng/Marketplace";
 

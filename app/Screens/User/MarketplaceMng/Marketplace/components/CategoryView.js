@@ -20,8 +20,8 @@ const CategoryView = (props) => {
   const handleCategory = async () => {
     try {
       const { data } = await apiCall("POST", apiEndPoints.PRODUCT_CATEGORY_LIST);
-      if (data.status === 200) {
-        setCategories(data.data);
+      if (data?.status === 200) {
+        setCategories(data?.data);
       } else {
         setCategories([]);
       }

@@ -20,6 +20,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from "@react-native-community/google-signin";
+import ShowMessage from "../../../Components/Modal/showMessage";
 GoogleSignin.configure({
   scopes: ["https://www.googleapis.com/auth/drive.readonly"],
   webClientId:
@@ -379,10 +380,14 @@ const SignUpView = ({ navigation }) => {
         userValMessage={userValMessage}
         setUserValMessage={setUserValMessage}
       />
-      <Error
-        message={errorMessage}
+       <ShowMessage
         visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
+        message={errorMessage}
+        messageViewType={'error'}
+        onEndVisible={() => {
+          setVisibleErr(false);
+          setErrorMessage("")
+        }}
       />
     </View>
   );

@@ -7,14 +7,14 @@ import {
   SMALL_TEXT_COLOR_CODE,
   LIGHT_WHITE_COLOR,
   WHITE_COLOR_CODE,
-} from "../../../../Utils/Constant";
+} from "../../../Utils/Constant";
 import { useIsFocused } from "@react-navigation/native";
-import CommonStyles from "../../../../Utils/CommonStyles";
-import { apiCall } from "../../../../Utils/httpClient";
-import ENDPOINTS from "../../../../Utils/apiEndPoints";
-import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
+import CommonStyles from "../../../Utils/CommonStyles";
+import { apiCall } from "../../../Utils/httpClient";
+import ENDPOINTS from "../../../Utils/apiEndPoints";
+import Loader from "../../../Utils/Loader";
+import Success from "../../../Components/Modal/success";
+import Error from "../../../Components/Modal/showMessage";
 
 const OrderHistoryView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);

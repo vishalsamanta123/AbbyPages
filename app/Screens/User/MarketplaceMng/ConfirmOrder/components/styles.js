@@ -1,9 +1,7 @@
 import { StyleSheet } from "react-native";
 import {
-  GREY_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LINE_COMMON_COLOR_CODE,
-  BLACK_COLOR_CODE,
+  COLORS,
+  FONT_FAMILY,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   TextInputView: {
@@ -15,17 +13,17 @@ const Styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: LINE_COMMON_COLOR_CODE,
+    borderColor: COLORS.COMMON,
   },
   FirsNameTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
     bottom: 4,
     fontSize: 16,
   },
   NameTextStyle: {
     fontSize: 17,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     // backgroundColor:"red",
   },
   MainProductContain: {
@@ -35,7 +33,7 @@ const Styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     marginLeft: 15,
-    borderBottomColor: LINE_COMMON_COLOR_CODE,
+    borderBottomColor: COLORS.COMMON,
   },
   ProductImge: {
     width: 110,
@@ -47,16 +45,16 @@ const Styles = StyleSheet.create({
     paddingLeft: 10,
   },
   ProductNameText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 18,
   },
   ProductDescrptn: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
     fontSize: 12,
   },
   QuantityText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 16,
   },
   COnfirmBtnView: {
@@ -76,7 +74,7 @@ const Styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
-    textColor: BLACK_COLOR_CODE,
+    textColor: COLORS.BLACK,
   },
 });
 export default Styles;
