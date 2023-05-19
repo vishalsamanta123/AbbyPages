@@ -49,13 +49,10 @@ const BusinessPageDetails = ({ navigation, route }) => {
         ENDPOINTS.BUSINESS_DETAILS,
         params
       );
-      console.log("🚀 ~ file: index.js:66 ~ data?.data:", data?.data)
-
       if (data?.status == 200) {
         setVisible(false);
         setDetailData(data?.data);
         getRecentFeedDetails(data?.data);
-
         setIsSaved(data?.data?.user_like);
       } else {
         if (data?.status === 201) {

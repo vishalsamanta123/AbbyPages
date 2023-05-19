@@ -25,7 +25,6 @@ const SliderImages = (props) => {
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={data}
-        scrollEventThrottle={10}
         pagingEnabled={true}
         contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}
@@ -57,10 +56,16 @@ const SliderImages = (props) => {
                   />
                 ))}
               </View>
-              <ScaleText style={styles.titleTxt}>{title}</ScaleText>
-              <ScaleText style={styles.posterTxt}>
-                {subTitle + " " + "Listing"}
-              </ScaleText>
+              {title === "" || title === null || title === undefined ? null : (
+                <ScaleText style={styles.titleTxt}>{title}</ScaleText>
+              )}
+              {subTitle === "" ||
+              subTitle === null ||
+              subTitle === undefined ? null : (
+                <ScaleText style={styles.posterTxt}>
+                  {subTitle + " " + "Listing"}
+                </ScaleText>
+              )}
             </View>
           );
         }}

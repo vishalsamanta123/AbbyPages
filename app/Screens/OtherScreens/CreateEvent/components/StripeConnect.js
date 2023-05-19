@@ -6,25 +6,26 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
-import CommonStyles from "../../../Utils/CommonStyles";
+import Header from "../../../../Components/Header";
+import Button from "../../../../Components/Button";
+import Input from "../../../../Components/Input";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import {
   LIGHT_BLACK_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import { Images } from "../../../Utils/images";
+} from "../../../../Utils/Constant";
+import { Images } from "../../../../Utils/images";
 
 const StripeConnect = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={CommonStyles.container}>
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={CommonStyles.container}
+    >
       <Header
         RightImg={null}
         tintColor={WHITE_COLOR_CODE}
@@ -39,8 +40,8 @@ const StripeConnect = (props) => {
           props.type === "busniess"
             ? "Create Event"
             : props.type === "Edit_event"
-              ? "Edit Event"
-              : "Submit an Event"
+            ? "Edit Event"
+            : "Submit an Event"
         }
         onPressBackFun={() => props.handleBackFun()}
         type={`${props.type !== "busniess" && "Drawer"}`}
@@ -126,7 +127,8 @@ const StripeConnect = (props) => {
                   style={styles.checkImg}
                   source={
                     props?.createEvent?.include_tax === 0
-                      ? Images.UNCHECK_IMG : Images.CHECK_IMG
+                      ? Images.UNCHECK_IMG
+                      : Images.CHECK_IMG
                   }
                 />
                 <Text style={[styles.optionChooseTxt, { fontSize: 18 }]}>

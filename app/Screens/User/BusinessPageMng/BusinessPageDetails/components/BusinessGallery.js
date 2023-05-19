@@ -1,11 +1,4 @@
-import {
-  FlatList,
-  Image,
-  Modal,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Image, Modal, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import MainHeader from "../../../../../Components/MainHeader";
 import CommonStyles from "../../../../../Utils/CommonStyles";

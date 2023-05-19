@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  BackHandler,
-  FlatList,
-} from "react-native";
-import moment from "moment";
+import { View, BackHandler } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
-import { COLORS } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import { FullImageViewList } from "../../../../../Components/ListItemsView";
 import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
+import ListingView from "../../../../../Components/ListingView";
 
 const EventListingScreen = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
@@ -42,7 +33,7 @@ const EventListingScreen = (props) => {
         backText={false}
         onPressBack={() => handleBack()}
       />
-      <FlatList
+      <ListingView
         data={props?.eventsList}
         style={styles.allEventsVw}
         ListEmptyComponent={() => {
@@ -67,6 +58,7 @@ const EventListingScreen = (props) => {
           return (
             <FullImageViewList
               fullImage={item?.events_image}
+              onPressView={() => props.navToEventDetail(item)}
               timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
               headTxt={item?.event_name}
               subHeadTxt={item?.event_location?.trim()}

@@ -6,7 +6,6 @@ import Video from "react-native-video";
 const CarouselView = (props) => {
   const { data } = props;
   const renderMedia = (media) => {
-    // console.log("🚀 ~ file: index.js:8 ~ media:", media);
     const temp = media?.product_image.split(".");
     const type = temp[temp.length - 1];
     return (

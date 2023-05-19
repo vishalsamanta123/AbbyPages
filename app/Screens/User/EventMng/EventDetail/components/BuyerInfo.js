@@ -9,21 +9,20 @@ import {
 } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../Components/Header";
-import Button from "../../../Components/Button";
+import Header from "../../../../../Components/Header";
+import Button from "../../../../../Components/Button";
 import {
-  COLORS,
   SMALL_TEXT_COLOR_CODE,
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Loader from "../../../Utils/Loader";
+} from "../../../../../Utils/Constant";
+import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
-import Input from "../../../Components/Input";
+import Input from "../../../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import CountDown from "react-native-countdown-component";
-import { apiCall } from "../../../Utils/httpClient";
-import ENDPOINTS from "../../../Utils/apiEndPoints";
+import { apiCall } from "../../../../../Utils/httpClient";
+import ENDPOINTS from "../../../../../Utils/apiEndPoints";
 import ScaleText from "../../../../../Components/ScaleText";
 import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 

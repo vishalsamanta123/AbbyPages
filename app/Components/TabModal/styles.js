@@ -31,18 +31,14 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   customPopupVw: {
-    justifyContent: "flex-end",
+    backgroundColor: COLORS.RGBA2,
     position: "absolute",
-    bottom: 55,
-    height: Constants.windowHeight,
-    width: Constants.windowWidth,
-    backgroundColor:COLORS.RGBA2,
-    flex: 1,
+    zIndex: 1,
+    bottom: 50,
   },
   popupVw: {
     backgroundColor: COLORS.WHITE,
     paddingVertical: 10,
-    width: 200,
     borderRadius: 20,
   },
   subCatVw: {
@@ -51,6 +47,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.BORDER_LINE,
     borderBottomWidth: Constants.normalBW,
     paddingVertical: 8,
+    minWidth: 180,
   },
   subCatTxt: {
     fontSize: 15,

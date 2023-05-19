@@ -8,7 +8,6 @@ import {
 
 const Styles = StyleSheet.create({
   topHeaderVw: {
-    justifyContent: "space-between",
     paddingHorizontal: 6,
     paddingVertical: Constants.Ios ? 10 : 4,
   },
@@ -52,11 +51,18 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     top: 1,
   },
+  optionsVw: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 8,
+  },
   smallOptionVw: {
     backgroundColor: COLORS.COMMON,
     borderRadius: 100,
     padding: 8,
     marginVertical: 5,
+    alignItems: "center",
   },
   onSaved: {
     borderColor: COLORS.YELLOW,
@@ -505,25 +511,19 @@ const Styles = StyleSheet.create({
   orderTouch: {
     alignItems: "center",
     justifyContent: "center",
-    borderColor: COLORS.YELLOW,
-    borderWidth: Constants.normalBW,
+    backgroundColor: COLORS.YELLOW,
     margin: 5,
     borderRadius: 5,
     paddingVertical: 5,
     paddingHorizontal: 10,
-  },
-  orderTouchSecond: {
-    paddingVertical: 5,
-    marginTop: 10,
-    backgroundColor: COLORS.YELLOW,
-    borderRadius: 12,
+    marginTop: 8,
   },
   orderTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.small,
     textAlign: "center",
     marginVertical: 5,
-    color: COLORS.YELLOW,
+    color: COLORS.WHITE,
   },
   orderTxtSecond: {
     fontSize: FONT_SIZE.medium,

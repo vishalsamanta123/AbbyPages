@@ -38,13 +38,6 @@ function MyTabBar({ state, navigation }) {
 
   return (
     <>
-      <TabModalScreens
-        navigation={navigation}
-        onPressmodal={onPressmodal}
-        setOnPressmodal={setOnPressmodal}
-        isFocused={isFocused}
-        setIsFocused={setIsFocused}
-      />
       <View style={styles.iconStyleVw}>
         {state.routes.map((route, index) => {
           return (
@@ -87,6 +80,7 @@ function MyTabBar({ state, navigation }) {
           setIsFocused={setIsFocused}
           handleNavigation={handleNavigation}
           state={state}
+          navigation={navigation}
         />
         {state?.routes?.map((route, index) => {
           return (

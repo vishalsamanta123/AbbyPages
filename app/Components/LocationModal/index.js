@@ -24,29 +24,8 @@ const LocationModal = (props) => {
     value,
     searchData,
     setSearchData,
-    getProductList
+    getProductList,
   } = props;
-  const [pin, setPin] = useState({
-    latitude: 22.7196,
-    longitude: 75.8577,
-  });
-
-  console.log("🚀 ~ file: index.js:88 ~ searchData:", searchData);
-
-  const myPlace = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "Point",
-          coordinates: [22.7196, 75.8577],
-        },
-      },
-    ],
-  };
-  console.log("adddre");
 
   return (
     <Modal
@@ -60,15 +39,14 @@ const LocationModal = (props) => {
         loginButton={false}
         onPressBack={() => setVisible(false)}
       />
-      <View style={styles.catgSearchVw}>
-        <View style={CommonStyles.locationIcon}>
-          <IconX
-            origin={ICON_TYPE.SIMPLELINE}
-            color={COLORS.GREY}
-            name={"location-pin"}
-          />
-        </View>
+      <View style={styles.inputVw}>
         <AddressInput
+          leftImgOrigin={ICON_TYPE.SIMPLELINE}
+          iconTop={22}
+          paddingVertical={1}
+          leftImgColor={COLORS.GREY}
+          leftImgName={"location-pin"}
+          header={false}
           onPress={(data, details = null) => {
             setSearchData({
               ...searchData,

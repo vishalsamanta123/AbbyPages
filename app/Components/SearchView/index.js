@@ -19,6 +19,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import apiEndPoints from "../../Utils/apiEndPoints";
 import { apiCall } from "../../Utils/httpClient";
+import MainInput from "../MainInput";
 
 const SearchView = (props) => {
   const {
@@ -61,8 +62,8 @@ const SearchView = (props) => {
     setSearchData({ ...itemData });
     const params = {
       search_category_or_business: itemData?.search_category_or_business
-        ? itemData?.search_category_or_business
-        : "",
+      ? itemData?.search_category_or_business
+      : "",
       address: itemData?.address ? itemData?.address : "",
     };
     try {
@@ -232,19 +233,16 @@ const SearchView = (props) => {
       <View style={styles.searchVw}>
         <TouchableOpacity
           onPress={() => setSearchOpen(searchOpen ? false : true)}
-          style={styles.catgSearchVw}
         >
-          <IconX
-            origin={ICON_TYPE.OCTICONS}
-            color={COLORS.GREY}
-            name={"search"}
-            style={{ marginHorizontal: 10 }}
-          />
-          <TextInput
+          <MainInput
+            leftImgOrigin={ICON_TYPE.OCTICONS}
+            leftImgColor={COLORS.GREY}
+            leftImgName={"search"}
+            height={50}
+            header={false}
+            onFocus={() => handleOnSearch()}
             placeholder="Search"
             placeholderTextColor={COLORS.GREY}
-            style={styles.catgSearchInput}
-            onFocus={() => handleOnSearch()}
             value={searchData?.search_category_or_business}
             onChangeText={(txt) => {
               setSearchData({
@@ -268,41 +266,37 @@ const SearchView = (props) => {
         {searchOpen && listOpen ? renderCategories() : null}
         {searchOpen ? (
           <>
-            <View style={styles.catgSearchVw}>
-              <View style={CommonStyles.locationIcon}>
-                <IconX
-                  origin={ICON_TYPE.SIMPLELINE}
-                  color={COLORS.GREY}
-                  name={"location-pin"}
-                />
-              </View>
-              <AddressInput
-                onPress={(data, details = null) => {
+            <AddressInput
+              leftImgOrigin={ICON_TYPE.SIMPLELINE}
+              leftImgColor={COLORS.GREY}
+              leftImgName={"location-pin"}
+              header={false}
+              placeholderTextColor={COLORS.GREY}
+              onPress={(data, details = null) => {
+                setSearchData({
+                  ...searchData,
+                  address: data.description,
+                  latitude: details?.geometry?.location?.lat,
+                  longitude: details?.geometry?.location?.lng,
+                });
+              }}
+              onChangeText={(txt) => {
+                if (txt === "") {
                   setSearchData({
                     ...searchData,
-                    address: data.description,
-                    latitude: details?.geometry?.location?.lat,
-                    longitude: details?.geometry?.location?.lng,
+                    address: "",
+                    latitude: "",
+                    longitude: "",
                   });
-                }}
-                onChangeText={(txt) => {
-                  if (txt === "") {
-                    setSearchData({
-                      ...searchData,
-                      address: "",
-                      latitude: "",
-                      longitude: "",
-                    });
-                  } else {
-                    setSearchData({
-                      ...searchData,
-                      address: txt ? txt : searchData?.address,
-                    });
-                  }
-                }}
-                value={searchData?.address}
-              />
-            </View>
+                } else {
+                  setSearchData({
+                    ...searchData,
+                    address: txt ? txt : searchData?.address,
+                  });
+                }
+              }}
+              value={searchData?.address}
+            />
             <Button
               buttonText={"Search"}
               buttonLabelStyle={{ color: COLORS.WHITE }}

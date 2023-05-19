@@ -53,7 +53,6 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? getObj?.selectOption?.toString()
             : "",
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.GET_NEW_BUSINESS,

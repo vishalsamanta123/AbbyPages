@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     borderWidth: Constants.standardBW,
     backgroundColor: COLORS.WHITE,
     borderRadius: 16,
-    paddingVertical: 4,
   },
   headTxtVw: {
     position: "absolute",
@@ -34,8 +33,8 @@ const styles = StyleSheet.create({
   },
   iconVw: {
     paddingHorizontal: 5,
-    alignItems: "center",
-    flex: 0.1,
+    position: "absolute",
+    zIndex: 1,
   },
 });
 export default styles;

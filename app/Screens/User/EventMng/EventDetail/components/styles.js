@@ -6,7 +6,6 @@ const Styles = StyleSheet.create({
     width: "100%",
   },
   infocon: {
-    marginTop: 16,
     marginHorizontal: 20,
     borderBottomWidth: 15,
     borderBottomColor: "#fff",

@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     elevation: 10,
     marginVertical: 3,
+    bottom: 10,
   },
   searchHeadTxt: {
     fontSize: FONT_SIZE.mediumL,
