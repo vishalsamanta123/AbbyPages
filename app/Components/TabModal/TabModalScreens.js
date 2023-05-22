@@ -34,7 +34,12 @@ const TabModalScreens = (props) => {
               modal: "",
             })
           }
-          style={styles.customPopupVw}
+          style={[
+            styles.customPopupVw,
+            {
+              bottom: onPressmodal.modal === "PlusManagement" ? 56 : 50,
+            },
+          ]}
         >
           <View style={styles.popupVw}>
             {onPressmodal.modal === "EventManagement" ? (

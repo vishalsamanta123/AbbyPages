@@ -10,7 +10,7 @@ import Error from "../../../../Components/Modal/showMessage";
 import AllEvents from "./components/AllEvents";
 import moment from "moment";
 
-const EventListing = ({ navigation }) => {
+const EventListing = ({ navigation, route }) => {
   const [loader, setLoader] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -26,14 +26,16 @@ const EventListing = ({ navigation }) => {
   const [eventType, setEventType] = useState(0);
   const [searchDate, setSearchDate] = useState("");
   const [dataType, setDataType] = useState([]);
-  const isFocus = useIsFocused();
-  useEffect(() => {
-    handleCategory();
-    if (offset === 0) {
-      getEventList(0, limit, eventType, searchDate);
-    }
-    handlePopularEvents();
-  }, [isFocus]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      handleCategory();
+      if (offset === 0) {
+        getEventList(0, limit, eventType, searchDate);
+      }
+      handlePopularEvents();
+    }, [navigation, route])
+  );
 
   const handleCategory = async () => {
     try {

@@ -9,7 +9,6 @@ import {
 const styles = StyleSheet.create({
   tapVws: {
     alignItems: "center",
-    flex: 1,
   },
   iconStyleVw: {
     marginHorizontal: 5,
@@ -34,7 +33,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.RGBA2,
     position: "absolute",
     zIndex: 1,
-    bottom: 50,
   },
   popupVw: {
     backgroundColor: COLORS.WHITE,

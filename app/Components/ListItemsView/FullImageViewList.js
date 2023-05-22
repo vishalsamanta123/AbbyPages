@@ -54,40 +54,67 @@ const FullImageViewList = (props) => {
         />
       )}
       <View style={styles.txtConVw}>
+        <View
+          style={[
+            CommonStyles.straightCon,
+            { justifyContent: "space-between" },
+          ]}
+        >
+          <View style={CommonStyles.straightCon}>
+            <IconX
+              origin={ICON_TYPE.MATERIAL_ICONS}
+              name={"event"}
+              size={16}
+              paddingRight={10}
+              color={COLORS.BLACK}
+            />
+            <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
+          </View>
+          <ScaleText
+            style={[
+              styles.smallTxt,
+              {
+                marginLeft: headTxt?.length > 9 ? 18 : 0,
+              },
+            ]}
+          >
+            {smallTxt}
+          </ScaleText>
+        </View>
         <View style={CommonStyles.straightCon}>
           <IconX
             origin={ICON_TYPE.FEATHER_ICONS}
             name={"calendar"}
-            size={16}
+            size={14}
             paddingRight={10}
-            color={COLORS.LIGHT_GREY}
+            color={COLORS.RGBA}
           />
           <ScaleText style={styles.topTxt}>{timeTxt}</ScaleText>
         </View>
-        <View style={CommonStyles.straightCon}>
-          <IconX
-            origin={ICON_TYPE.MATERIAL_ICONS}
-            name={"event"}
-            size={16}
-            paddingRight={10}
-            color={COLORS.BLACK}
-          />
-          <ScaleText style={styles.headTxt}>{headTxt}</ScaleText>
-        </View>
+
         <View style={CommonStyles.straightCon}>
           <IconX
             origin={ICON_TYPE.ICONICONS}
             name={"location"}
-            size={16}
+            size={14}
             paddingRight={10}
-            color={COLORS.LIGHT_GREY}
+            color={COLORS.RGBA}
           />
           <ScaleText style={styles.topTxt}>{subHeadTxt}</ScaleText>
         </View>
-        <View style={[CommonStyles.straightCon, { marginLeft: 10 }]}>
-          <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
-          <ScaleText style={styles.smallTxt}>{subSmallTxt}</ScaleText>
-        </View>
+        {subSmallTxt === "" ? null : (
+          <View style={CommonStyles.straightCon}>
+            <IconX
+              origin={ICON_TYPE.ANT_ICON}
+              name={"infocirlce"}
+              size={14}
+              paddingRight={10}
+              paddingLeft={2}
+              color={COLORS.YELLOW}
+            />
+            <ScaleText style={styles.bottomTxt}>{subSmallTxt}</ScaleText>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -101,7 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   fullImageVw: {
-    height: 150,
+    height: 170,
     width: "99%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -111,21 +138,29 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    width: "95%",
+    width: "98%",
   },
   topTxt: {
-    fontSize: FONT_SIZE.normal,
-    color: COLORS.LIGHT_GREY,
+    fontSize: FONT_SIZE.smallL,
+    color: COLORS.RGBA,
     fontFamily: FONT_FAMILY.REGULAR,
+    width: "80%",
   },
   headTxt: {
     fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    bottom: 2,
   },
   smallTxt: {
+    fontSize: FONT_SIZE.small,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.YELLOW,
+    bottom: 2,
+  },
+  bottomTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.BLUE,
+    color: COLORS.YELLOW,
   },
 });

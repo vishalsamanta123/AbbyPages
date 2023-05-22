@@ -63,7 +63,7 @@ const EventListingScreen = (props) => {
               headTxt={item?.event_name}
               subHeadTxt={item?.event_location?.trim()}
               smallTxt={`${item?.interested} Interested`}
-              subSmallTxt={""}
+              subSmallTxt={item?.category_name}
             />
           );
         }}

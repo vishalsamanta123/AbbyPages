@@ -1,5 +1,10 @@
 import { Platform, StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   imageStyle: {
     height: 210,
@@ -206,35 +211,35 @@ const Styles = StyleSheet.create({
     padding: 8,
   },
   eventNameTx: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.large,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     textTransform: "capitalize",
     textAlign: "center",
   },
   startDateTxt: {
-    fontSize: FONT_SIZE.smallL,
+    fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_BLACK,
     textAlign: "center",
   },
   selectTxt: {
-    fontSize: FONT_SIZE.medium,
     marginTop: 18,
     textAlign: "center",
     color: COLORS.BLACK,
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
     textDecorationLine: "underline",
   },
   titleTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 12,
     marginLeft: 4,
   },
   subTitleTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.normal,
     marginTop: 2,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
@@ -261,25 +266,31 @@ const Styles = StyleSheet.create({
     marginLeft: 20,
   },
   ticketCategoryVw: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderWidth: 0.5,
-    borderColor: COLORS.YELLOW,
-    paddingVertical: 10,
+    paddingVertical: 2,
     paddingHorizontal: 10,
     marginVertical: 8,
     borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+    backgroundColor: COLORS.WHITE,
   },
   ticketCtgryTxt: {
-    fontSize: FONT_SIZE.mediumL,
-    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.medium,
+    color: COLORS.THEME,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   ticketAmtTxt: {
-    fontSize: FONT_SIZE.medium,
-    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.smallL,
+    color: COLORS.THEME,
     fontFamily: FONT_FAMILY.REGULAR,
     marginTop: 2,
   },
@@ -305,7 +316,7 @@ const Styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   smallTxt: {
-    fontSize: FONT_SIZE.small,
+    fontSize: FONT_SIZE.verysmall,
     marginVertical: 2,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_GREY,
@@ -370,6 +381,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginVertical: 12,
+    justifyContent: "space-between",
   },
   modalBttn: {
     width: "45%",

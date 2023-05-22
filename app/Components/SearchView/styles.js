@@ -25,11 +25,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   categoriesVw: {
-    marginHorizontal: 2,
+    marginHorizontal: 5,
     backgroundColor: COLORS.WHITE,
     elevation: 10,
     marginVertical: 3,
     bottom: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   searchHeadTxt: {
     fontSize: FONT_SIZE.mediumL,
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   categoryTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     marginLeft: 10,

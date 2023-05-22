@@ -281,6 +281,6 @@ export const RECENT_TIME_FORMAT = (time) => {
   if (time === "" || time === null || time === undefined) {
     return "";
   } else {
-    return moment.unix(time).subtract(6, "days").calendar();
+    return moment.unix(time).format(Constants.TIME_DATE_FORMAT);
   }
 };

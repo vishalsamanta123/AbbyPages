@@ -137,16 +137,17 @@ function MyTabBar({ state, navigation }) {
 export default MyTabBar;
 
 const styles = StyleSheet.create({
-  tapVws: {
-    alignItems: "center",
-    flex: 1,
-  },
   iconStyleVw: {
     marginHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: Constants.Ios ? 10 : 1,
     paddingTop: 6,
+    justifyContent: "space-between",
+    paddingHorizontal: 7,
+  },
+  tapVws: {
+    alignItems: "center",
   },
   iconTxt: {
     fontSize: FONT_SIZE.verysmall,

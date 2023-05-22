@@ -132,11 +132,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
   },
   posterVw: {
-    flex: 1,
-    marginVertical: 5,
-    marginHorizontal: 4,
-    borderColor: COLORS.BLACK,
-    paddingVertical: 5,
+    alignItems: "center",
   },
   posterTitleTxt: {
     fontSize: FONT_SIZE.medium,

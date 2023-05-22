@@ -9,8 +9,9 @@ import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
+import { useFocusEffect } from "@react-navigation/native";
 
-const EventDetail = ({ route }) => {
+const EventDetail = ({ navigation, route }) => {
   const { width } = Dimensions.get("window");
   const params = route?.params;
   const [counrtys, setCounrtys] = useState([]);
@@ -61,12 +62,15 @@ const EventDetail = ({ route }) => {
   const videoUrl = `${eventDetails?.events_video?.substring(
     eventDetails?.events_video?.lastIndexOf("/") + 1
   )}`;
-  useEffect(() => {
-    if (params?.item?.event_id) {
-      getEventDetails(params?.item?.event_id);
-      getPlaceData();
-    }
-  }, [params?.item?.event_id]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (params?.item?.event_id) {
+        getEventDetails(params?.item?.event_id);
+        getPlaceData();
+      }
+    }, [navigation, params?.item?.event_id])
+  );
 
   const getEventDetails = async (id) => {
     setLoader(true);

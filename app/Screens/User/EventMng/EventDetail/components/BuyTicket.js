@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Modal,
-  FlatList,
-  Platform,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Modal, FlatList } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../../../Components/Header";
 import Button from "../../../../../Components/Button";
-import {
-  FONT_FAMILY_REGULAR,
-  SMALL_TEXT_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS, Constants } from "../../../../../Utils/Constant";
 import Loader from "../../../../../Utils/Loader";
-import Input from "../../../../../Components/Input";
-import InputSpinner from "react-native-input-spinner";
 import _ from "lodash";
 import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
+import MainInput from "../../../../../Components/MainInput";
+import PageScroll from "../../../../../Components/PageScroll";
+import MainButton from "../../../../../Components/MainButton";
+import AddMinusView from "../../../../../Components/AddMinusView";
+import { getAmount } from "../../../../../Utils/Globalfunctions";
 
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
   const eventDate = moment(props?.eventDetails?.created_at).format(
-    "dddd, MMMM Do YYYY, h:mm:ss a"
+    Constants.TIME_DATE_FORMAT
   );
   const getqty = (item) => {
     var getIndex = _.findIndex(props?.ticketsData, {
@@ -134,178 +125,159 @@ const BuyTicketScreen = (props) => {
   };
   return (
     <Modal
-      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal == 1}
       onRequestClose={() => {
-        props.setBuyTicketModal(false);
+        props.setBuyTicketModal("");
       }}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : null}
-        style={styles.modalCon}
-      >
-        <Header
-          mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-          tintColor={WHITE_COLOR_CODE}
-          HeaderText="Buy Ticket"
-          leftImg={""}
-          RightImg={null}
-        />
-        <ScrollView>
-          {props?.loader && <Loader state={props?.loader} />}
-          <View style={styles.modalsVw}>
-            <ScaleText style={styles.eventNameTx}>
-              {props?.eventDetails?.event_name}
+      <MainHeader
+        onPressBack={() => props.setBuyTicketModal("")}
+        headerText={"Buy Ticket"}
+        notifyIcon={false}
+        TxtMarginRight={"8%"}
+      />
+      <PageScroll>
+        {props?.loader && <Loader state={props?.loader} />}
+        <View style={styles.modalsVw}>
+          <ScaleText style={styles.eventNameTx}>
+            {props?.eventDetails?.event_name}
+          </ScaleText>
+          <ScaleText style={styles.startDateTxt}>
+            Event Starts : {eventDate}
+          </ScaleText>
+          <ScaleText style={styles.selectTxt}>Select Ticket</ScaleText>
+          <>
+            <ScaleText style={styles.titleTxt}>
+              Show best available for
             </ScaleText>
-            <ScaleText style={styles.startDateTxt}>
-              Event Starts : {eventDate}
-            </ScaleText>
-            <ScaleText style={styles.selectTxt}>Select Ticket</ScaleText>
-            <>
-              <ScaleText style={styles.titleTxt}>Qty :</ScaleText>
-              <ScaleText style={[styles.subTitleTxt, { marginLeft: 5 }]}>
-                Show best available for
-              </ScaleText>
-              <Input
-                placeholder=""
+            <View style={{ marginRight: 100 }}>
+              <MainInput
+                placeholder="Qty : "
+                header={false}
+                height={45}
                 keyboardType={"number-pad"}
-                InputType={null}
-                containerStyle={styles.smallInputVw}
-                textInputStyle={{ marginTop: 2, paddingLeft: 8 }}
                 onChangeText={(text) => {
                   setBestQuality(text);
                 }}
                 value={bestQuality}
               />
-              <Button style={styles.bttnSubmitVw} buttonText={"Submit"} />
-              <View style={{ marginVertical: 12 }}>
-                <ScaleText style={styles.titleTxt}>Ticket Category</ScaleText>
-                <FlatList
-                  data={props.ticketCategory}
-                  ListEmptyComponent={() => {
-                    return (
-                      <View>
-                        <ScaleText style={styles.emptyTxt}>
-                          No Tickets Available
-                        </ScaleText>
-                      </View>
-                    );
-                  }}
-                  renderItem={({ item, index }) => {
-                    return (
-                      <View style={styles.ticketCategoryVw}>
-                        <View>
-                          <ScaleText style={styles.ticketCtgryTxt}>
-                            {item?.event_type_name}
-                          </ScaleText>
-                          <ScaleText style={styles.ticketAmtTxt}>
-                            $ {item?.ticket_price}
-                          </ScaleText>
-                        </View>
-                        <View style={{ alignItems: "flex-end" }}>
-                          <InputSpinner
-                            value={getqty(item, index)}
-                            onIncrease={(value) =>
-                              addProductOnCart(item, value, index)
-                            }
-                            onDecrease={(value) => removeFromCart(item, index)}
-                            max={10}
-                            min={0}
-                            step={1}
-                            editable={false}
-                            rounded={false}
-                            height={32}
-                            width={"60%"}
-                            textColor={WHITE_COLOR_CODE}
-                            colorMax={YELLOW_COLOR_CODE}
-                            colorMin={YELLOW_COLOR_CODE}
-                            colorPress={YELLOW_COLOR_CODE}
-                            buttonPressTextColor={YELLOW_COLOR_CODE}
-                            buttonFontSize={28}
-                            inputStyle={styles.spinnerInput}
-                            buttonStyle={styles.addItemBttn}
-                            buttonFontFamily={FONT_FAMILY_REGULAR}
-                            style={styles.spinnerVw}
-                          />
-                          <ScaleText style={styles.smallTxt}>
-                            Total Amount:{" "}
-                            {props?.ticketsData[index]?.total_amount
-                              ? props?.ticketsData[index]?.total_amount
-                              : "0.00"}
-                          </ScaleText>
-                        </View>
-                      </View>
-                    );
-                  }}
-                />
-              </View>
-              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
-                Ticket Total
-              </ScaleText>
-              {props?.ticketsData?.map((item) => {
-                return (
-                  <View style={styles.straightVw}>
-                    <ScaleText style={styles.ticketsNameTxt}>
-                      ({item.quantity}) {item.name}
-                    </ScaleText>
-                    <ScaleText style={styles.smallTxt}>
-                      ${item.total_amount}
-                    </ScaleText>
-                  </View>
-                );
-              })}
-              <View style={styles.straightVw}>
-                <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
-                <ScaleText style={styles.subTitleTxt}>
-                  {props?.eventDetails?.serviceAmount
-                    ? props?.eventDetails?.serviceAmount
-                    : "0.00"}
-                </ScaleText>
-              </View>
-              <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
-                <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
-                <ScaleText style={[styles.subTitleTxt]}>
-                  {props?.eventDetails?.taxesAmount
-                    ? props?.eventDetails?.taxesAmount
-                    : "0.00"}
-                </ScaleText>
-              </View>
-              <View style={styles.straightVw}>
-                <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
-                <ScaleText style={styles.subTitleTxt}>
-                  {props?.totalAmount ? props?.totalAmount : "0.00"}
-                </ScaleText>
-              </View>
-            </>
-            <View style={styles.modalBttnVw}>
-              <Button
-                style={[
-                  styles.modalBttn,
-                  { backgroundColor: SMALL_TEXT_COLOR_CODE },
-                ]}
-                buttonLabelStyle={[
-                  styles.modalBttnTxt,
-                  {
-                    color: WHITE_COLOR_CODE,
-                  },
-                ]}
-                onPress={() => props.onPressCancelTick()}
-                buttonText={"Cancel"}
-              />
-              {/* {props?.eventDetails?.ticket_price > 0 && ( */}
-              <Button
-                style={styles.modalBttn}
-                buttonLabelStyle={styles.modalBttnTxt}
-                onPress={() => {
-                  props.onPressTicketResp(3);
-                }}
-                buttonText={"Next"}
+            </View>
+            <View style={{ marginRight: "50%", marginTop: 10 }}>
+              <MainButton
+                buttonTxt="Submit"
+                backgroundColor={COLORS.YELLOW}
+                txtColor={COLORS.WHITE}
               />
             </View>
+            <View style={{ marginVertical: 12 }}>
+              <ScaleText style={styles.titleTxt}>Ticket Category</ScaleText>
+              <FlatList
+                data={props.ticketCategory}
+                ListEmptyComponent={() => {
+                  return (
+                    <View>
+                      <ScaleText style={styles.emptyTxt}>
+                        No Tickets Available
+                      </ScaleText>
+                    </View>
+                  );
+                }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <View style={styles.ticketCategoryVw}>
+                      <View>
+                        <ScaleText style={styles.ticketCtgryTxt}>
+                          {item?.event_type_name}
+                        </ScaleText>
+                        <ScaleText style={styles.ticketAmtTxt}>
+                          $ {getAmount(item?.ticket_price)}
+                        </ScaleText>
+                      </View>
+                      <View style={{ alignItems: "flex-end" }}>
+                        <AddMinusView
+                          bttnBackgroundColor={COLORS.THEME}
+                          value={getqty(item, index)}
+                          onPressAdd={(value) =>
+                            addProductOnCart(item, value, index)
+                          }
+                          onPressMinus={(value) =>
+                            removeFromCart(item, value, index)
+                          }
+                        />
+                        <ScaleText style={styles.smallTxt}>
+                          Total Amount:{" "}
+                          {props?.ticketsData[index]?.total_amount
+                            ? getAmount(props?.ticketsData[index]?.total_amount)
+                            : "0.00"}
+                        </ScaleText>
+                      </View>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+            <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
+              Ticket Total
+            </ScaleText>
+            {props?.ticketsData?.map((item) => {
+              return (
+                <View style={styles.straightVw}>
+                  <ScaleText style={styles.ticketsNameTxt}>
+                    ({item.quantity}) {item.name}
+                  </ScaleText>
+                  <ScaleText style={styles.smallTxt}>
+                    ${item.total_amount}
+                  </ScaleText>
+                </View>
+              );
+            })}
+            <View style={styles.straightVw}>
+              <ScaleText style={styles.subTitleTxt}>Service fee</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
+                {props?.eventDetails?.serviceAmount
+                  ? props?.eventDetails?.serviceAmount
+                  : "0.00"}
+              </ScaleText>
+            </View>
+            <View style={[styles.straightVw, { borderBottomWidth: 0.5 }]}>
+              <ScaleText style={styles.subTitleTxt}>Taxes</ScaleText>
+              <ScaleText style={[styles.subTitleTxt]}>
+                {props?.eventDetails?.taxesAmount
+                  ? props?.eventDetails?.taxesAmount
+                  : "0.00"}
+              </ScaleText>
+            </View>
+            <View style={styles.straightVw}>
+              <ScaleText style={styles.subTitleTxt}>Total</ScaleText>
+              <ScaleText style={styles.subTitleTxt}>
+                {props?.totalAmount ? props?.totalAmount : "0.00"}
+              </ScaleText>
+            </View>
+          </>
+          <View style={styles.modalBttnVw}>
+            <MainButton
+              paddingHorizontal={30}
+              buttonTxt={"Cancel"}
+              backgroundColor={COLORS.COMMON}
+              txtColor={COLORS.BLACK}
+              borderRadius={10}
+              borderColor={COLORS.LIGHT_GREY}
+              onPressButton={() => props.onPressCancelTick()}
+            />
+            {/* {props?.eventDetails?.ticket_price > 0 && ( */}
+            <MainButton
+              paddingHorizontal={40}
+              borderRadius={10}
+              backgroundColor={COLORS.YELLOW}
+              txtColor={COLORS.WHITE}
+              borderColor={COLORS.TRANSPARENT}
+              buttonTxt={"Next"}
+              onPressButton={() => props.onPressTicketResp(3)}
+            />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </View>
+      </PageScroll>
     </Modal>
   );
 };

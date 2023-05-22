@@ -130,8 +130,13 @@ const DashBoardView = ({ navigation }) => {
       navigation.navigate("ReviewRating", item);
     }
   };
-  const onSearchByCategoryPress = (item) => {
-    navigation.navigate("CategorySearch");
+ 
+  const handleCategoryPress = (item) => {
+    const newObject = {
+      ...item,
+      city: "",
+    };
+    navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
   };
   return (
     <View style={CommonStyles.container}>
@@ -151,12 +156,12 @@ const DashBoardView = ({ navigation }) => {
         onRefresh={onRefresh}
         refreshing={refreshing}
         handleOnActivity={handleOnActivity}
-        onSearchByCategoryPress={onSearchByCategoryPress}
         actOffset={actOffset}
         getDashBoardActivity={getDashBoardActivity}
         moreData={moreData}
         setSliderState={setSliderState}
         sliderState={sliderState}
+        handleCategoryPress={handleCategoryPress}
       />
       {/* <QuestionModal
         surringVisible={forBusinees}
