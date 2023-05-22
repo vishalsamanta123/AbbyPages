@@ -128,9 +128,14 @@ const EventDetailView = (props) => {
                   onPress={() => setVideoShow(!videoShow)}
                   style={styles.startPauseVw}
                 >
-                  <ScaleText style={{ color: COLORS.WHITE }}>
+                  {/* <ScaleText style={{ color: COLORS.WHITE }}>
                     {!videoShow ? "Pause" : "Start"}
-                  </ScaleText>
+                  </ScaleText> */}
+                  <IconX
+                    origin={ICON_TYPE.ANT_ICON}
+                    name={!videoShow ? "pausecircleo" : "playcircleo"}
+                    size={22}
+                  />
                 </TouchableOpacity>
               </View>
             </View>

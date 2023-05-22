@@ -51,7 +51,10 @@ const BuyerInfoScreen = (props) => {
       }}
     >
       {props?.loader && <Loader state={props?.loader} />}
-      <MainHeader headerText={"Buy Info"} />
+      <MainHeader
+        headerText={"Buy Info"}
+        onPressBack={() => props.setBuyTicketModal(1)}
+      />
       <PageScroll keyboardShouldPersistTaps={"handled"}>
         <View style={styles.modalsVw}>
           <ScaleText style={styles.eventNameTx}>

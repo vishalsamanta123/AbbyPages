@@ -138,7 +138,7 @@ const EventDetail = ({ navigation, route }) => {
         interest_status: resp ? resp : changeInterest,
       };
       setInterstedModal(false);
-      if (typeof changeInterest == "number") {
+      if (typeof changeInterest === "number") {
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.CHOOSE_INTEREST_EVENT,
