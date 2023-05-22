@@ -13,7 +13,7 @@ import {
   Platform,
 } from "react-native";
 import _ from "lodash";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+// import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import styles from "./styles";
 import Header from "../../../Components/Header";
@@ -414,7 +414,7 @@ const RestauranrtBookingScreen = (props) => {
             >
               {props?.restroDetail?.about_business}
             </Text>
-            <MapView
+            {/* <MapView
               showsUserLocation
               style={styles.MapImgeStyle}
               provider={PROVIDER_GOOGLE}
@@ -432,7 +432,7 @@ const RestauranrtBookingScreen = (props) => {
                   resizeMethod="auto"
                 />
               </Marker>
-            </MapView>
+            </MapView> */}
           </View>
         </View>
         <View style={styles.PopularDishContain}>
