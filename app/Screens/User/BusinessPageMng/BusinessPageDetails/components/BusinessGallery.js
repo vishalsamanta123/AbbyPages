@@ -10,6 +10,8 @@ import Button from "../../../../../Components/Button";
 import styles from "./styles";
 import ScaleText from "../../../../../Components/ScaleText";
 import { Constants } from "../../../../../Utils/Constant";
+import CarouselView from "../../../../../Components/CarouselView";
+import GalleryCarousalView from "../../../../../Components/GalleryCarousalView";
 
 const BusinessGallery = (props) => {
   const {
@@ -22,6 +24,8 @@ const BusinessGallery = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const [isVisibleCarousal, setIsisVisibleCarousal] = useState(false);
+  const [index, setIndex] = useState(0);
   const [galleryData, setGalleryData] = useState([]);
   const [uploadData, setUploadData] = useState({});
   const [imageData, setImageData] = useState({});
@@ -59,16 +63,18 @@ const BusinessGallery = (props) => {
     setImageData({});
   }, [visible]);
 
-  const renderimage = (item) => {
+  const renderimage = (item, index) => {
     return (
       <TouchableOpacity
         style={{ alignItems: "center", justifyContent: "center" }}
         onPress={() => {
-          OpenDoc(item.image);
+          // OpenDoc(item?.image);
+          setIsisVisibleCarousal(true);
+          setIndex(index);
         }}
       >
         <Image
-          source={{ uri: item.image }}
+          source={{ uri: item?.image }}
           style={{
             height: 100,
             width: Constants.windowWidth / 3.8,
@@ -139,7 +145,7 @@ const BusinessGallery = (props) => {
           <View style={{ alignItems: "center", flex: 1 }}>
             <FlatList
               data={galleryData}
-              renderItem={({ item }) => renderimage(item)}
+              renderItem={({ item, index }) => renderimage(item, index)}
               numColumns={3}
             />
           </View>
@@ -180,6 +186,14 @@ const BusinessGallery = (props) => {
             </View>
           </View>
         )}
+        {isVisibleCarousal ? (
+          <GalleryCarousalView
+            data={galleryData}
+            isVisible={isVisibleCarousal}
+            setIsVisible={setIsisVisibleCarousal}
+            index={index}
+          />
+        ) : null}
       </View>
     </Modal>
   );

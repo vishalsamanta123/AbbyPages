@@ -6,12 +6,6 @@ import { COLORS } from "../../Utils/Constant";
 import CommonStyles from "../../Utils/CommonStyles";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
-import MapView, {
-  Circle,
-  Geojson,
-  Marker,
-  PROVIDER_GOOGLE,
-} from "react-native-maps";
 import MainButton from "../MainButton";
 import AddressInput from "../AddressInput";
 import { ICON_TYPE, IconX } from "../Icons/Icon";
@@ -73,41 +67,6 @@ const LocationModal = (props) => {
           value={searchData?.address}
         />
       </View>
-      {/* <PageScroll keyboardShouldPersistTaps={'handled'}> */}
-
-      {/* <View style={styles.mapView}>
-        <MapView
-          region={{
-            latitude: 22.7196,
-            longitude: 75.8577,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          // onRegionChange={this.onRegionChange}
-          initialRegion={{
-            latitude: 22.7196,
-            longitude: 75.8577,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          showsUserLocation
-          style={StyleSheet.absoluteFillObject}
-          provider={PROVIDER_GOOGLE}
-        >
-          <>
-            <Circle
-              style={StyleSheet.absoluteFillObject}
-              radius={value * 1609}
-              fillColor={COLORS.BLUE}
-              center={{
-                latitude: 22.7196,
-                longitude: 75.8577,
-              }}
-              focusable
-            />
-          </>
-        </MapView>
-      </View> */}
       <View style={styles.sliderView}>
         <View style={styles.headingView}>
           <ScaleText style={styles.headingTxt}>Custom Radius</ScaleText>

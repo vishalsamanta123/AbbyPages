@@ -19,7 +19,6 @@ import Header from "../../../Components/Header";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import CommonStyles from "../../../Utils/CommonStyles";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import Dialog, {
   DialogContent,
   SlideAnimation,
@@ -446,27 +445,6 @@ const ShopDetail = (props) => {
                 <Text style={styles.ViewFullmenu}>Get Directions</Text>
               </TouchableOpacity>
             </View>
-            <MapView
-              showsUserLocation
-              style={{ width: "95%", height: 190, alignSelf: "center" }}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={initialRegion}
-            >
-              <Marker
-                coordinate={coordinate}
-                // image={Images.MIDDLE_LOGO_IMG}
-                title={props?.shopDetail?.business_name}
-              // description={marker.description}
-              >
-                <Image
-                  source={Images.MAP_LOGO}
-                  style={{ height: 50, width: 50 }}
-                  resizeMode="contain"
-                  resizeMethod="auto"
-                />
-              </Marker>
-            </MapView>
-
             <Text style={styles.ChoosedLocationTxt}>
               {props?.shopDetail?.address}
             </Text>

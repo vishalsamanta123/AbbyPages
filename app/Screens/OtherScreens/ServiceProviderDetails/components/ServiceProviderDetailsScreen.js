@@ -13,7 +13,6 @@ import {
   Dimensions,
 } from "react-native";
 import moment from "moment";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Rating } from "react-native-ratings";
 import Input from "../../../Components/Input";
 import styles from "./styles";
@@ -404,26 +403,6 @@ const ServiceProviderDetailsScreen = (props) => {
                 <Text style={styles.getlocktext}>Get Directions</Text>
               </TouchableOpacity>
             </View>
-            <MapView
-              showsUserLocation
-              style={styles.googlebigimg}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={initialRegion}
-            >
-              <Marker
-                coordinate={coordinate}
-                // image={Images.MIDDLE_LOGO_IMG}
-                title={props?.serviceDetail?.business_name}
-                // description={marker.description}
-              >
-                <Image
-                  source={Images.MAP_LOGO}
-                  style={{ height: 50, width: 50 }}
-                  resizeMode="contain"
-                  resizeMethod="auto"
-                />
-              </Marker>
-            </MapView>
             <View style={styles.twoaddvwe}>
               <Text style={styles.twotxt}>{props?.serviceDetail?.address}</Text>
             </View>
