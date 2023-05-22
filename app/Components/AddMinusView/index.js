@@ -21,6 +21,7 @@ const AddMinusView = (props) => {
     height = 42,
     width = "50%",
     steps = 1,
+    bttnBackgroundColor = COLORS.YELLOW,
   } = props;
   return (
     <View style={{ marginVertical: 10 }}>
@@ -46,7 +47,12 @@ const AddMinusView = (props) => {
           buttonTextColor: COLORS.WHITE,
         }}
         inputStyle={styles.spinnerInput}
-        buttonStyle={styles.addItemBttn}
+        buttonStyle={[
+          styles.addItemBttn,
+          {
+            backgroundColor: bttnBackgroundColor,
+          },
+        ]}
         buttonFontFamily={buttonFontFamily}
         style={styles.spinnerVw}
         inputProps={{

@@ -17,12 +17,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
     borderRadius: 5,
     color: COLORS.BLACK,
-    padding: 5
+    padding: 5,
   },
   addItemBttn: {
     width: 40,
     paddingTop: 0,
-    backgroundColor: COLORS.YELLOW,
     paddingHorizontal: 5,
     borderRadius: 5,
   },

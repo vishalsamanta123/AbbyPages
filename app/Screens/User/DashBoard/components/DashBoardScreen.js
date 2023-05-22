@@ -76,120 +76,118 @@ const DashBoardScreen = (props) => {
               <View>
                 <ListShimmer />
               </View>
-            ) : (
-              // <View style={styles.activityConVw}>
-              //   {props?.recent_activity?.length > 0 ? (
-              //     <>
-              //       {props?.recent_activity?.map((activity) => {
-              //         return (
-              //           <TouchableOpacity
-              //             activeOpacity={1}
-              //             style={styles.activityCon}
-              //             onPress={() => props.handleOnActivity(activity)}
-              //           >
-              //             <View style={styles.rowVw}>
-              //               <Image
-              //                 source={{ uri: activity?.user?.profile }}
-              //                 style={styles.activityProfileVw}
-              //               />
-              //               <View style={styles.textVw}>
-              //                 <ScaleText style={styles.activityNameTxt}>
-              //                   {activity?.user?.first_name +
-              //                     " " +
-              //                     activity?.user?.last_name}
-              //                 </ScaleText>
-              //                 <ScaleText style={styles.activityRvwTxt}>
-              //                   {activity?.review
-              //                     ? "Wrote a Review"
-              //                     : activity?.image?.length > 0
-              //                     ? `${
-              //                         "Added " +
-              //                         activity?.image?.length +
-              //                         " Photos"
-              //                       }`
-              //                     : null}
-              //                 </ScaleText>
-              //               </View>
-              //             </View>
-              //             {activity?.image?.length > 0 ? (
-              //               <ScaleText style={styles.activityMainTxt}>
-              //                 {activity?.business_name}
-              //               </ScaleText>
-              //             ) : null}
-              //             {activity?.review ? (
-              //               <Image
-              //                 source={{ uri: activity?.business_logo }}
-              //                 style={[
-              //                   styles.activityBnnrVw,
-              //                   {
-              //                     marginBottom: 0,
-              //                   },
-              //                 ]}
-              //                 resizeMode={"cover"}
-              //               />
-              //             ) : (
-              //               <>
-              //                 {Array.isArray(activity?.image) &&
-              //                 activity?.image?.length > 0 ? (
-              //                   <ScrollView
-              //                     nestedScrollEnabled
-              //                     contentContainerStyle={styles.photosVw}
-              //                   >
-              //                     {activity?.image
-              //                       ?.slice(0, 5)
-              //                       ?.map((photos) => {
-              //                         return (
-              //                           <Image
-              //                             source={{ uri: photos }}
-              //                             resizeMode={"cover"}
-              //                             style={[
-              //                               styles.activityBnnrVw,
-              //                               {
-              //                                 marginBottom: 10,
-              //                                 width:
-              //                                   activity?.image?.length === 1
-              //                                     ? "100%"
-              //                                     : Constants.windowWidth / 2.4,
-              //                               },
-              //                             ]}
-              //                           />
-              //                         );
-              //                       })}
-              //                   </ScrollView>
-              //                 ) : null}
-              //                 {/* {activity?.image?.length > 2 ? (
-              //                 <TouchableOpacity onPress={() => setViewPhotos()}>
-              //                   <ScaleText style={styles.seeAllTxt}>
-              //                     See All {activity?.image?.length} Photos
-              //                   </ScaleText>
-              //                 </TouchableOpacity>
-              //               ) : null} */}
-              //               </>
-              //             )}
-              //             {activity?.review ? (
-              //               <ScaleText style={styles.activityMainTxt}>
-              //                 {activity?.business_name}
-              //               </ScaleText>
-              //             ) : null}
-              //             {activity?.review ? (
-              //               <>
-              //                 <StarShower
-              //                   marginLeft={8}
-              //                   counts={activity?.review?.business_rating}
-              //                 />
-              //                 <ScaleText style={styles.activityCmntTxt}>
-              //                   {activity?.review?.description}
-              //                 </ScaleText>
-              //               </>
-              //             ) : null}
-              //           </TouchableOpacity>
-              //         );
-              //       })}
-              //     </>
-              //   ) : null}
-              // </View>
-              null
-            )}
+            ) : // <View style={styles.activityConVw}>
+            //   {props?.recent_activity?.length > 0 ? (
+            //     <>
+            //       {props?.recent_activity?.map((activity) => {
+            //         return (
+            //           <TouchableOpacity
+            //             activeOpacity={1}
+            //             style={styles.activityCon}
+            //             onPress={() => props.handleOnActivity(activity)}
+            //           >
+            //             <View style={styles.rowVw}>
+            //               <Image
+            //                 source={{ uri: activity?.user?.profile }}
+            //                 style={styles.activityProfileVw}
+            //               />
+            //               <View style={styles.textVw}>
+            //                 <ScaleText style={styles.activityNameTxt}>
+            //                   {activity?.user?.first_name +
+            //                     " " +
+            //                     activity?.user?.last_name}
+            //                 </ScaleText>
+            //                 <ScaleText style={styles.activityRvwTxt}>
+            //                   {activity?.review
+            //                     ? "Wrote a Review"
+            //                     : activity?.image?.length > 0
+            //                     ? `${
+            //                         "Added " +
+            //                         activity?.image?.length +
+            //                         " Photos"
+            //                       }`
+            //                     : null}
+            //                 </ScaleText>
+            //               </View>
+            //             </View>
+            //             {activity?.image?.length > 0 ? (
+            //               <ScaleText style={styles.activityMainTxt}>
+            //                 {activity?.business_name}
+            //               </ScaleText>
+            //             ) : null}
+            //             {activity?.review ? (
+            //               <Image
+            //                 source={{ uri: activity?.business_logo }}
+            //                 style={[
+            //                   styles.activityBnnrVw,
+            //                   {
+            //                     marginBottom: 0,
+            //                   },
+            //                 ]}
+            //                 resizeMode={"cover"}
+            //               />
+            //             ) : (
+            //               <>
+            //                 {Array.isArray(activity?.image) &&
+            //                 activity?.image?.length > 0 ? (
+            //                   <ScrollView
+            //                     nestedScrollEnabled
+            //                     contentContainerStyle={styles.photosVw}
+            //                   >
+            //                     {activity?.image
+            //                       ?.slice(0, 5)
+            //                       ?.map((photos) => {
+            //                         return (
+            //                           <Image
+            //                             source={{ uri: photos }}
+            //                             resizeMode={"cover"}
+            //                             style={[
+            //                               styles.activityBnnrVw,
+            //                               {
+            //                                 marginBottom: 10,
+            //                                 width:
+            //                                   activity?.image?.length === 1
+            //                                     ? "100%"
+            //                                     : Constants.windowWidth / 2.4,
+            //                               },
+            //                             ]}
+            //                           />
+            //                         );
+            //                       })}
+            //                   </ScrollView>
+            //                 ) : null}
+            //                 {/* {activity?.image?.length > 2 ? (
+            //                 <TouchableOpacity onPress={() => setViewPhotos()}>
+            //                   <ScaleText style={styles.seeAllTxt}>
+            //                     See All {activity?.image?.length} Photos
+            //                   </ScaleText>
+            //                 </TouchableOpacity>
+            //               ) : null} */}
+            //               </>
+            //             )}
+            //             {activity?.review ? (
+            //               <ScaleText style={styles.activityMainTxt}>
+            //                 {activity?.business_name}
+            //               </ScaleText>
+            //             ) : null}
+            //             {activity?.review ? (
+            //               <>
+            //                 <StarShower
+            //                   marginLeft={8}
+            //                   counts={activity?.review?.business_rating}
+            //                 />
+            //                 <ScaleText style={styles.activityCmntTxt}>
+            //                   {activity?.review?.description}
+            //                 </ScaleText>
+            //               </>
+            //             ) : null}
+            //           </TouchableOpacity>
+            //         );
+            //       })}
+            //     </>
+            //   ) : null}
+            // </View>
+            null}
             {/* {props.recentLoader && (
               <Loader type={"small"} state={props.recentLoader} />
             )} */}
@@ -216,45 +214,23 @@ const DashBoardScreen = (props) => {
                 Town
               </ScaleText>
             </ScaleText>
-            {/* <View style={styles.posterVw}>
-              <SliderImages
-                data={props.businessTypes}
-                posterImg={"business_type_image"}
-                titleTxt={"business_type_name"}
-                subTitleTxt={"total_business_count"}
-              />
-            </View> */}
-            <View style={styles.posterVw}>
-              <Carousel
-                data={props.businessTypes}
-                renderItem={renderSlideItem}
-                layout={"default"}
-                sliderWidth={Constants.windowWidth}
-                activeDotIndex={1}
-                itemWidth={Constants.windowWidth}
-                autoplay
-                loop
-                onSnapToItem={(index) => {
-                  props.setSliderState({ activeSlide: index });
-                }}
-              />
-              <Pagination
-                dotsLength={props?.businessTypes?.length}
-                activeDotIndex={props?.sliderState?.activeSlide}
-                containerStyle={{
-                  paddingVertical: 0,
-                }}
-                inactiveDotStyle={styles.dotInActiveVw}
-                dotStyle={styles.dotActiveVw}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-              />
-            </View>
+          </View>
+          <View style={styles.posterVw}>
+            <SliderImages
+              data={props.businessTypes}
+              posterImg={"business_type_image"}
+              titleTxt={"business_type_name"}
+              subTitleTxt={"total_business_count"}
+              imgWidth={"97%"}
+            />
           </View>
           <View style={styles.containersVw}>
             <ImageBackground style={{ flex: 1 }} source={Images.COVER_IMG}>
               <ScaleText
-                style={[styles.titlesTxt, { fontFamily: FONT_FAMILY.BOLD, marginBottom: 10 }]}
+                style={[
+                  styles.titlesTxt,
+                  { fontFamily: FONT_FAMILY.BOLD, marginBottom: 10 },
+                ]}
               >
                 Browse Businesses by Category
               </ScaleText>
@@ -267,6 +243,7 @@ const DashBoardScreen = (props) => {
                         boxContainerTxt={type?.category_name}
                         paddingVertical={50}
                         marginHorizontal={20}
+                        onPressBox={() => props.handleCategoryPress(type)}
                       />
                     );
                   })}
@@ -309,11 +286,6 @@ const DashBoardScreen = (props) => {
           </View>
         </View>
       </PageScroll>
-      {/* <ByCategory
-        navigation={props.navigation}
-        searchModal={searchModal}
-        setSearchModal={setSearchModal}
-      /> */}
     </View>
   );
 };

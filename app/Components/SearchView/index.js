@@ -40,6 +40,7 @@ const SearchView = (props) => {
     search_category_or_business: "",
     address: "Orlando, FL, USA",
   });
+  console.log("searchData: ", searchData);
 
   const handleDetailNavigation = (data) => {
     setSearchOpen(false);
@@ -62,8 +63,8 @@ const SearchView = (props) => {
     setSearchData({ ...itemData });
     const params = {
       search_category_or_business: itemData?.search_category_or_business
-      ? itemData?.search_category_or_business
-      : "",
+        ? itemData?.search_category_or_business
+        : "",
       address: itemData?.address ? itemData?.address : "",
     };
     try {
@@ -88,12 +89,12 @@ const SearchView = (props) => {
 
   const onSearchData = async (data) => {
     if (searchData?.search_category_or_business !== "") {
+      setSearchOpen(false);
+      setListOpen(false);
       const catSearchNew = [...searchHistory];
       const objNew = {
         category_name: searchData?.search_category_or_business,
       };
-      setSearchOpen(false);
-      setListOpen(false);
       if (catSearchNew?.length >= 5) {
         catSearchNew?.splice(catSearchNew.length - 1, 1);
         catSearchNew?.push(objNew);
@@ -140,7 +141,10 @@ const SearchView = (props) => {
         {searchHistory?.length > 0 && Array?.isArray(searchHistory)
           ? searchHistory?.map((itm) => {
               return (
-                <TouchableOpacity onPress={() => {}} style={styles.categoryVw}>
+                <TouchableOpacity
+                  onPress={() => onPressCat(itm)}
+                  style={styles.categoryVw}
+                >
                   <IconX
                     origin={ICON_TYPE.MATERIAL_ICONS}
                     name={"history"}
@@ -271,6 +275,10 @@ const SearchView = (props) => {
               leftImgColor={COLORS.GREY}
               leftImgName={"location-pin"}
               header={false}
+              marginTop={3}
+              paddingVertical={2}
+              iconTop={15}
+              value={searchData?.address ? searchData?.address : ""}
               placeholderTextColor={COLORS.GREY}
               onPress={(data, details = null) => {
                 setSearchData({
@@ -281,21 +289,11 @@ const SearchView = (props) => {
                 });
               }}
               onChangeText={(txt) => {
-                if (txt === "") {
-                  setSearchData({
-                    ...searchData,
-                    address: "",
-                    latitude: "",
-                    longitude: "",
-                  });
-                } else {
-                  setSearchData({
-                    ...searchData,
-                    address: txt ? txt : searchData?.address,
-                  });
-                }
+                setSearchData({
+                  ...searchData,
+                  address: txt ? txt : searchData?.address,
+                });
               }}
-              value={searchData?.address}
             />
             <Button
               buttonText={"Search"}

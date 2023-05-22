@@ -8,7 +8,6 @@ import {
 
 const styles = StyleSheet.create({
   mainCont: {
-    marginVertical: 10,
     borderWidth: Constants.standardBW,
     backgroundColor: COLORS.WHITE,
     borderRadius: 16,

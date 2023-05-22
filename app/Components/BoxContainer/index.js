@@ -11,11 +11,11 @@ const BoxContainers = (props) => {
     fontSize = 18,
     boxContainerImg = "",
     minWidth = 150,
-    onPress,
+    onPressBox = () => {},
   } = props;
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={onPressBox}
       style={[
         styles.mainVw,
         {

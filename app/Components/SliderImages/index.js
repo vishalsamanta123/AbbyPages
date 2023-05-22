@@ -4,7 +4,13 @@ import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import ScaleText from "../ScaleText";
 
 const SliderImages = (props) => {
-  const { data = [], posterImg = "", titleTxt = "", subTitleTxt = "" } = props;
+  const {
+    data = [],
+    posterImg = "",
+    titleTxt = "",
+    subTitleTxt = "",
+    imgWidth = "100%",
+  } = props;
   const { width } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
   const { currentPage: pageIndex } = sliderState;
@@ -26,46 +32,55 @@ const SliderImages = (props) => {
         keyExtractor={(item, index) => index.toString()}
         data={data}
         pagingEnabled={true}
-        contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
         horizontal={true}
         onScroll={(event) => {
           handleSrolling(event);
         }}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           const image = item[posterImg];
           const title = item[titleTxt];
           const subTitle = item[subTitleTxt];
           return (
-            <View style={[{ width }, styles.mainCon]}>
+            <View key={index} style={[{ width }, styles.mainCon]}>
               <Image
                 resizeMode="cover"
                 source={{ uri: image }}
-                style={styles.imageVw}
+                style={[
+                  styles.imageVw,
+                  {
+                    width: imgWidth,
+                  },
+                ]}
               />
-              <View style={styles.paginationWrapper}>
-                {Array?.from(
-                  Array(data?.length > 5 ? 5 : data?.length).keys()
-                ).map((key, index) => (
-                  <View
-                    style={[
-                      styles.paginationDots,
-                      { opacity: pageIndex === index ? 1 : 0.2 },
-                    ]}
-                    key={index}
-                  />
-                ))}
+              <View style={{ marginHorizontal: 8 }}>
+                <View style={styles.paginationWrapper}>
+                  {Array?.from(
+                    Array(data?.length > 5 ? 5 : data?.length).keys()
+                  ).map((key, index) => (
+                    <View
+                      style={[
+                        styles.paginationDots,
+                        { opacity: pageIndex === index ? 1 : 0.2 },
+                      ]}
+                      key={index}
+                    />
+                  ))}
+                </View>
+                {title === "" ||
+                title === null ||
+                title === undefined ? null : (
+                  <ScaleText style={styles.titleTxt}>{title}</ScaleText>
+                )}
+                {subTitle === "" ||
+                subTitle === null ||
+                subTitle === undefined ? null : (
+                  <ScaleText style={styles.posterTxt}>
+                    {subTitle + " " + "Listing"}
+                  </ScaleText>
+                )}
               </View>
-              {title === "" || title === null || title === undefined ? null : (
-                <ScaleText style={styles.titleTxt}>{title}</ScaleText>
-              )}
-              {subTitle === "" ||
-              subTitle === null ||
-              subTitle === undefined ? null : (
-                <ScaleText style={styles.posterTxt}>
-                  {subTitle + " " + "Listing"}
-                </ScaleText>
-              )}
             </View>
           );
         }}
@@ -79,12 +94,10 @@ export default SliderImages;
 const styles = StyleSheet.create({
   mainCon: {
     marginVertical: 5,
-    borderColor: COLORS.BLACK,
     paddingVertical: 5,
   },
   imageVw: {
     height: 200,
-    width: "100%",
     alignSelf: "center",
   },
   paginationWrapper: {

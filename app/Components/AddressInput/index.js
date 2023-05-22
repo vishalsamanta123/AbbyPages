@@ -15,7 +15,6 @@ const AddressInput = (props) => {
     value = "",
     fetchDetails = true,
     paddingVertical = 4,
-    backgroundColor = COLORS.WHITE,
     placeholder = "Location",
     headTxtBackColor = COLORS.WHITE,
     headTxt = placeholder,
@@ -31,9 +30,8 @@ const AddressInput = (props) => {
     leftImgSize = 22,
     leftImgOrigin = "",
     leftImgColor = COLORS.DARK_PURPLE,
-    keyboardType = "default",
     marginTop = 10,
-    borderColor = COLORS.GREY,
+    marginBottom = 10,
   } = props;
   return (
     <ScrollView keyboardShouldPersistTaps={"handled"}>
@@ -85,6 +83,7 @@ const AddressInput = (props) => {
               }
             }
           },
+          value: value,
         }}
         query={{
           key: Constants.mapKey,
@@ -96,6 +95,8 @@ const AddressInput = (props) => {
             {
               paddingLeft: leftImgName != "" && leftImgOrigin != "" ? 26 : 0,
               paddingVertical: paddingVertical,
+              marginTop: marginTop,
+              marginBottom: marginBottom,
             },
           ],
           textInput: styles.inputCon,

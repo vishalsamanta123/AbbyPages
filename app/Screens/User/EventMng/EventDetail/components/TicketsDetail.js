@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, Modal, ScrollView, Platform } from "react-native";
+import React, { useState } from "react";
+import { View, Modal, TouchableOpacity, Platform } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Header from "../../../../../Components/Header";
 import Button from "../../../../../Components/Button";
-import {
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_BLACK_COLOR_CODE,
-  SMALL_TEXT_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
 import Input from "../../../../../Components/Input";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const TicketDetailsScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
@@ -62,7 +55,6 @@ const TicketDetailsScreen = (props) => {
   };
   return (
     <Modal
-      animationType={Platform.OS === "ios" ? "none" : "slide"}
       transparent={true}
       visible={props.buyTicketModal === 2}
       onRequestClose={() => {
@@ -71,14 +63,8 @@ const TicketDetailsScreen = (props) => {
     >
       <View style={styles.modalCon}>
         {props?.loader && <Loader state={props?.loader} />}
-        <Header
-          mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-          tintColor={WHITE_COLOR_CODE}
-          HeaderText="Buy Ticket"
-          leftImg={""}
-          RightImg={null}
-        />
-        <ScrollView keyboardShouldPersistTaps={"always"}>
+        <MainHeader headerText={"But Ticket"} />
+        <PageScroll keyboardShouldPersistTaps={"always"}>
           <View style={styles.modalsVw}>
             <ScaleText style={styles.eventNameTx}>
               {props?.eventDetails?.event_name}
@@ -159,7 +145,7 @@ const TicketDetailsScreen = (props) => {
                         language: "en",
                       }}
                       textInputProps={{
-                        placeholderTextColor: BLACK_COLOR_CODE,
+                        placeholderTextColor: COLORS.BLACK,
                         onChangeText: (text) => {
                           handleTicketAddressInput(
                             "cand_address",
@@ -174,16 +160,16 @@ const TicketDetailsScreen = (props) => {
                       }}
                       styles={{
                         textInputContainer: {
-                          fontFamily: FONT_FAMILY_REGULAR,
-                          color: BLACK_COLOR_CODE,
+                          fontFamily: FONT_FAMILY.REGULAR,
+                          color: COLORS.BLACK,
                         },
                         textInput: {
                           fontSize: 20,
-                          color: LIGHT_BLACK_COLOR_CODE,
-                          fontFamily: FONT_FAMILY_REGULAR,
+                          color: COLORS.LIGHT_BLACK,
+                          fontFamily: FONT_FAMILY.REGULAR,
                         },
                         listView: {
-                          backgroundColor: WHITE_COLOR_CODE,
+                          backgroundColor: COLORS.WHITE,
                           width: "90%",
                         },
                       }}
@@ -221,7 +207,7 @@ const TicketDetailsScreen = (props) => {
                       buttonLabelStyle={[
                         styles.modalBttnTxt,
                         {
-                          color: WHITE_COLOR_CODE,
+                          color: COLORS.WHITE,
                         },
                       ]}
                       onPress={() => {
@@ -236,7 +222,7 @@ const TicketDetailsScreen = (props) => {
                       buttonLabelStyle={[
                         styles.modalBttnTxt,
                         {
-                          color: WHITE_COLOR_CODE,
+                          color: COLORS.WHITE,
                         },
                       ]}
                       onPress={() => {
@@ -335,15 +321,15 @@ const TicketDetailsScreen = (props) => {
               //                 styles={{
               //                   textInputContainer: {
               //                     fontFamily: FONT_FAMILY_REGULAR,
-              //                     color: BLACK_COLOR_CODE,
+              //                     color: COLORS.BLACK,
               //                   },
               //                   textInput: {
               //                     fontSize: 20,
-              //                     color: LIGHT_BLACK_COLOR_CODE,
+              //                     color: COLORS.BLACK,
               //                     fontFamily: FONT_FAMILY_REGULAR,
               //                   },
               //                   listView: {
-              //                     backgroundColor: WHITE_COLOR_CODE,
+              //                     backgroundColor: COLORS.WHITE,
               //                     width: "90%",
               //                   },
               //                 }}
@@ -423,12 +409,12 @@ const TicketDetailsScreen = (props) => {
               <Button
                 style={[
                   styles.modalBttn,
-                  { backgroundColor: SMALL_TEXT_COLOR_CODE },
+                  { backgroundColor: COLORS.SMALL_TEXT },
                 ]}
                 buttonLabelStyle={[
                   styles.modalBttnTxt,
                   {
-                    color: WHITE_COLOR_CODE,
+                    color: COLORS.WHITE,
                   },
                 ]}
                 onPress={() =>
@@ -447,7 +433,7 @@ const TicketDetailsScreen = (props) => {
               />
             </View>
           </View>
-        </ScrollView>
+        </PageScroll>
       </View>
     </Modal>
   );

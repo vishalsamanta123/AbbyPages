@@ -90,7 +90,7 @@ export const Constants = {
   standardBW: 0.5,
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
-  TIME_DATE_FORMAT: "MMMM Do YYYY, h:mm:ss a",
+  TIME_DATE_FORMAT: "MMMM DD YYYY",
   DATE_FORMAT: "LLL",
   TIME_FORMAT: "LTS",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",

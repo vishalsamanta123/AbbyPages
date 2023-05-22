@@ -5,6 +5,7 @@ import { COLORS } from "../../Utils/Constant";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
 import TabModalScreens from "./TabModalScreens";
+import CommonStyles from "../../Utils/CommonStyles";
 
 const TabModal = (props) => {
   const {
@@ -93,7 +94,7 @@ const TabModal = (props) => {
             setIsFocused={setIsFocused}
           />
         ) : null}
-        <View style={{ bottom: 2 }}>
+        <View style={{ bottom: 3 }}>
           <IconX
             origin={ICON_TYPE.ANT_ICON}
             name={isFocused === "PlusManagement" ? "pluscircle" : "pluscircleo"}
@@ -103,7 +104,7 @@ const TabModal = (props) => {
             }
           />
         </View>
-        <ScaleText style={[styles.iconTxt]}></ScaleText>
+        <ScaleText style={styles.iconTxt}></ScaleText>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.tapVws}

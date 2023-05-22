@@ -104,7 +104,9 @@ const EventListingView = (props) => {
             </ScaleText>
             <View style={styles.containers}>
               <FullImageViewList
-                onPressView={() => props.navToEventDetail(props?.events?.upcoming_events)}
+                onPressView={() =>
+                  props.navToEventDetail(props?.events?.upcoming_events)
+                }
                 fullImage={props?.events?.upcoming_events?.events_image}
                 timeTxt={RECENT_TIME_FORMAT(
                   props?.events?.upcoming_events?.event_date
@@ -112,7 +114,7 @@ const EventListingView = (props) => {
                 headTxt={props?.events?.upcoming_events?.event_name}
                 subHeadTxt={props?.events?.upcoming_events?.event_location?.trim()}
                 smallTxt={`${props?.events?.upcoming_events?.interested} Interested`}
-                subSmallTxt={""}
+                subSmallTxt={props?.events?.upcoming_events?.category_name}
               />
             </View>
           </>
@@ -178,7 +180,7 @@ const EventListingView = (props) => {
                       headTxt={item?.event_name}
                       subHeadTxt={item?.event_location?.trim()}
                       smallTxt={`${item?.interested} Interested`}
-                      subSmallTxt={""}
+                      subSmallTxt={item?.category_name}
                     />
                   );
                 })}
@@ -204,7 +206,7 @@ const EventListingView = (props) => {
                   headTxt={item?.event_name}
                   subHeadTxt={item?.event_location?.trim()}
                   smallTxt={`${item?.interested} Interested`}
-                  subSmallTxt={""}
+                  subSmallTxt={item?.category_name}
                 />
               );
             })}
@@ -222,7 +224,7 @@ const EventListingView = (props) => {
                   headTxt={item?.event_name}
                   subHeadTxt={item?.event_location?.trim()}
                   smallTxt={`${item?.interested} Interested`}
-                  subSmallTxt={""}
+                  subSmallTxt={item?.category_name}
                 />
               );
             })}
