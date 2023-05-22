@@ -7,7 +7,7 @@ import {
   WHITE_COLOR_CODE,
   YELLOW_COLOR_CODE,
 } from "../../../../Utils/Constant";
-import MapView from "react-native-maps";
+// import MapView from "react-native-maps";
 import { Images } from "../../../../Utils/images";
 
 const BussinessInfoScreen = (props) => {
@@ -24,7 +24,7 @@ const BussinessInfoScreen = (props) => {
       <View style={[CommonStyles.body, { backgroundColor: WHITE_COLOR_CODE }]}>
         {/* <Image style={styles.allmainimg} source={require('../../../../Assets/extraImages/google2x.png')} /> */}
         <View style={{ height: 180 }}>
-          {props.profileData.latitude && (
+          {/* {props.profileData.latitude && (
             <MapView
               region={{
                 latitude: parseInt(props.profileData.latitude),
@@ -45,7 +45,7 @@ const BussinessInfoScreen = (props) => {
                 }}
               />
             </MapView>
-          )}
+          )} */}
         </View>
         <ScrollView>
           <TouchableOpacity

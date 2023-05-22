@@ -1026,52 +1026,6 @@ const BusinessPageDetailsView = (props) => {
             </TouchableOpacity>
           </View>
         )}
-        {/* <View
-          style={[
-            CommonStyles.straightCon,
-            {
-              justifyContent: "space-between",
-              marginTop: 20,
-            },
-          ]}
-        >
-          <TouchableOpacity style={styles.tapRowButtonsVw}>
-            <IconX
-              origin={ICON_TYPE.MATERIAL_COMMUNITY}
-              name={"camera-plus-outline"}
-              size={29}
-              color={COLORS.BLACK}
-            />
-            <ScaleText
-              style={[
-                styles.titletxt,
-                {
-                  marginLeft: 12,
-                },
-              ]}
-            >
-              Add Photos
-            </ScaleText>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tapRowButtonsVw}>
-            <IconX
-              origin={ICON_TYPE.MATERIAL_COMMUNITY}
-              name={"check-decagram-outline"}
-              size={29}
-              color={COLORS.BLACK}
-            />
-            <ScaleText
-              style={[
-                styles.titletxt,
-                {
-                  marginLeft: 12,
-                },
-              ]}
-            >
-              Check
-            </ScaleText>
-          </TouchableOpacity>
-        </View> */}
       </View>
       <MoreInfo
         visible={props?.moreInfoModal?.open}
