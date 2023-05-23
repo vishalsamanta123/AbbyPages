@@ -388,3 +388,36 @@ export const dayData = [
   { id: 5, name: "Next Week" },
   { id: 6, name: "Jump to Date" },
 ];
+
+export const eventTickets = [
+  {
+    ticket_id: 1,
+    ticket_title: "General Admission",
+    ticket_price: 20,
+    min_ticket_limit: 1,
+    max_ticket_limit: 10,
+    max_booking_time: 600000,
+    ticket_quantity: 0,
+    total_price: 0,
+  },
+  {
+    ticket_id: 2,
+    ticket_title: "VIP Admission",
+    ticket_price: 50,
+    min_ticket_limit: 1,
+    max_ticket_limit: 10,
+    max_booking_time: 600000,
+    ticket_quantity: 0,
+    total_price: 0,
+  },
+  {
+    ticket_id: 3,
+    ticket_title: "Hero Ticket",
+    ticket_price: 80,
+    min_ticket_limit: 1,
+    max_ticket_limit: 10,
+    max_booking_time: 600000,
+    ticket_quantity: 0,
+    total_price: 0,
+  },
+];

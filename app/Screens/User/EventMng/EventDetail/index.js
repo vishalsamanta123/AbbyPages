@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, ToastAndroid, View } from "react-native";
 import EventDetailView from "./components/EventDetailView";
 import BuyTicket from "./components/BuyTicket";
@@ -10,35 +10,24 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
+import ShowMessage from "../../../../Components/Modal/showMessage";
+import { UserContext } from "../../../../Utils/UserContext";
 
 const EventDetail = ({ navigation, route }) => {
-  const { width } = Dimensions.get("window");
-  const params = route?.params;
-  const [counrtys, setCounrtys] = useState([]);
+  const getData = route?.params;
+  const [userData, setUserData] = useContext(UserContext);
   const [eventDetails, setEventDetails] = useState("");
-  const [sliderState, setSliderState] = useState({ currentPage: 0 });
-  const { currentPage: pageIndex } = sliderState;
-  const [changeInterest, setChangeInterest] = useState("");
-  const [addtoCaldr, setAddtoCaldr] = useState(false);
+  const [interest, setInterest] = useState("");
   const [interestedModal, setInterstedModal] = useState(false);
   const [buyTicketModal, setBuyTicketModal] = useState("");
   const [loader, setLoader] = useState(false);
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [visibleErr, setVisibleErr] = useState(false);
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   const [totalAmount, setTotalAmount] = useState("");
-  const [ticketIds, setTicketIds] = useState([]);
-  const [ticketsDetails, setTicketsDetails] = useState([]);
-  const [ticketsData, setTicketsData] = useState([]);
-  const [ticketList, setTicketList] = useState([]);
-  const [ticketCategory, setTicketCategory] = useState([
-    {
-      event_type_id: 1,
-      event_type_name: "General Ticket",
-      ticket_price: "100",
-    },
-  ]);
+  const [ticketAdded, setTicketAdded] = useState([]);
   const [buyerInfo, setBuyerInfo] = useState({
     first_name: "",
     last_name: "",
@@ -65,11 +54,10 @@ const EventDetail = ({ navigation, route }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      if (params?.item?.event_id) {
-        getEventDetails(params?.item?.event_id);
-        getPlaceData();
+      if (getData?.item?.event_id) {
+        getEventDetails(getData?.item?.event_id);
       }
-    }, [navigation, params?.item?.event_id])
+    }, [navigation, getData?.item?.event_id])
   );
 
   const getEventDetails = async (id) => {
@@ -86,59 +74,22 @@ const EventDetail = ({ navigation, route }) => {
       if (data.status === 200) {
         setLoader(false);
         setEventDetails(data?.data);
-        setChangeInterest(data?.data?.user_interested);
-        // setTicketCategory(data.data.event_ticket_type);
+        setInterest(data?.data?.user_interested);
       } else {
         setLoader(false);
-        setVisibleErr(true);
-        setErrorMessage(data.message);
       }
     } catch (error) {
       setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
     }
   };
-  const getPlaceData = async (type) => {
-    setLoader(true);
-    try {
-      const params = {
-        status: 0,
-      };
-      const { data } = await apiCall("POST", ENDPOINTS.GET_PLACES, params);
-      if (data.status === 200) {
-        setLoader(false);
-        setCounrtys(data.data);
-      } else {
-        setLoader(false);
-        setVisibleErr(true);
-        setErrorMessage(data.message);
-      }
-    } catch (error) {
-      setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
-    }
-  };
-  const setSliderPage = (event) => {
-    const { currentPage } = sliderState;
-    const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / width);
-    if (indexOfNextScreen !== currentPage) {
-      setSliderState({
-        ...sliderState,
-        currentPage: indexOfNextScreen,
-      });
-    }
-  };
-  const onInterestResp = async (resp) => {
-    try {
-      const params = {
-        event_id: eventDetails?.event_id,
-        interest_status: resp ? resp : changeInterest,
-      };
-      setInterstedModal(false);
-      if (typeof changeInterest === "number") {
+  const onInterestPress = async (resp) => {
+    if (userData?.login_type) {
+      if (resp === 1 || resp === 0) {
+        const params = {
+          event_id: eventDetails?.event_id,
+          interest_status: resp,
+        };
+        setInterstedModal(false);
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.CHOOSE_INTEREST_EVENT,
@@ -146,28 +97,37 @@ const EventDetail = ({ navigation, route }) => {
         );
         if (data.status === 200) {
           setLoader(false);
-          getEventDetails(eventDetails?.event_id);
-          ToastAndroid.show(data.message, ToastAndroid.SHORT);
+          setEventDetails({
+            ...eventDetails,
+            user_interested: resp,
+            interested:
+              resp === 0
+                ? eventDetails?.interested - 1
+                : eventDetails?.interested + 1,
+          });
+          setInterest(resp);
+          setMessageShow({
+            type: "success",
+            message: data.message,
+            visible: true,
+          });
         } else {
           setLoader(false);
-          setVisibleErr(true);
-          setErrorMessage(data.message);
         }
       } else {
-        if (changeInterest === "") {
-          setInterstedModal(false);
-          setBuyTicketModal(1);
-        }
+        setBuyTicketModal(1);
+        setInterstedModal(false);
       }
-    } catch (error) {
-      setLoader(false);
-      setVisibleErr(true);
-      setErrorMessage(error.message);
+    } else {
+      setMessageShow({
+        type: "error",
+        message: "Please Login First",
+        visible: true,
+      });
     }
   };
   const onPressCancelTick = (resp) => {
     setBuyTicketModal("");
-    setTicketsDetails([]);
     setBuyerInfo({
       first_name: "",
       last_name: "",
@@ -185,9 +145,6 @@ const EventDetail = ({ navigation, route }) => {
       dis_code: "",
     });
     setTotalAmount("");
-    setTicketsDetails([]);
-    setTicketsData([]);
-    setTicketList([]);
   };
   const onPressTicketResp = (resp) => {
     if (resp <= 4) {
@@ -273,7 +230,7 @@ const EventDetail = ({ navigation, route }) => {
       const params = {
         event_id: eventDetails.event_id,
         payment_type: "stripe",
-        ticket_id: ticketIds.toString(),
+        ticket_id: "",
         event_book_id: ticketList[0].event_booking_id,
         payment_amount: totalAmount
           ? Number(totalAmount)
@@ -293,10 +250,8 @@ const EventDetail = ({ navigation, route }) => {
         onPressCancelTick();
       } else {
         setLoader(false);
-        ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
       }
     } catch (error) {
-      ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
       setLoader(false);
     }
   };
@@ -306,16 +261,12 @@ const EventDetail = ({ navigation, route }) => {
       <EventDetailView
         eventDetails={eventDetails}
         loader={loader}
-        setSliderPage={setSliderPage}
         interestedModal={interestedModal}
         setInterstedModal={setInterstedModal}
-        pageIndex={pageIndex}
-        changeInterest={changeInterest}
-        setChangeInterest={setChangeInterest}
+        interest={interest}
+        setInterest={setInterest}
         setBuyTicketModal={setBuyTicketModal}
-        onInterestResp={onInterestResp}
-        addtoCaldr={addtoCaldr}
-        setAddtoCaldr={setAddtoCaldr}
+        onInterestPress={onInterestPress}
         videoUrl={videoUrl}
         getEventDetails={getEventDetails}
       />
@@ -326,14 +277,11 @@ const EventDetail = ({ navigation, route }) => {
           onPressTicketResp={onPressTicketResp}
           buyTicketModal={buyTicketModal}
           setBuyTicketModal={setBuyTicketModal}
-          ticketCategory={ticketCategory}
-          ticketsData={ticketsData}
-          setTicketsData={setTicketsData}
           totalAmount={totalAmount}
           setTotalAmount={setTotalAmount}
-          ticketsDetails={ticketsDetails}
-          setTicketsDetails={setTicketsDetails}
           loader={loader}
+          ticketAdded={ticketAdded}
+          setTicketAdded={setTicketAdded}
         />
       ) : (
         <>
@@ -341,18 +289,12 @@ const EventDetail = ({ navigation, route }) => {
             <TicketDetails
               eventDetails={eventDetails}
               totalAmount={totalAmount}
-              ticketsData={ticketsData}
               buyTicketModal={buyTicketModal}
               onPressCancelTick={onPressCancelTick}
               onPressTicketResp={onPressTicketResp}
-              ticketsDetails={ticketsDetails}
-              setTicketsDetails={setTicketsDetails}
               setBuyTicketModal={setBuyTicketModal}
               handleBuyTicket={handleBuyTicket}
               loader={loader}
-              errorMessage={errorMessage}
-              visibleErr={visibleErr}
-              setVisibleErr={setVisibleErr}
             />
           ) : (
             <>
@@ -360,12 +302,9 @@ const EventDetail = ({ navigation, route }) => {
                 <BuyerInfo
                   eventDetails={eventDetails}
                   totalAmount={totalAmount}
-                  ticketsData={ticketsData}
                   buyTicketModal={buyTicketModal}
                   onPressCancelTick={onPressCancelTick}
                   onPressTicketResp={onPressTicketResp}
-                  ticketsDetails={ticketsDetails}
-                  setTicketsDetails={setTicketsDetails}
                   setBuyTicketModal={setBuyTicketModal}
                   buyerInfo={buyerInfo}
                   setBuyerInfo={setBuyerInfo}
@@ -384,8 +323,6 @@ const EventDetail = ({ navigation, route }) => {
                       buyTicketModal={buyTicketModal}
                       onPressCancelTick={onPressCancelTick}
                       onPressTicketResp={onPressTicketResp}
-                      ticketsDetails={ticketsDetails}
-                      setTicketsDetails={setTicketsDetails}
                       setBuyTicketModal={setBuyTicketModal}
                       buyerInfo={buyerInfo}
                       setBuyerInfo={setBuyerInfo}
@@ -395,15 +332,25 @@ const EventDetail = ({ navigation, route }) => {
                       paymentForTicket={paymentForTicket}
                       loader={loader}
                       IncreasePercentage={IncreasePercentage}
-                      errorMessage={errorMessage}
-                      visibleErr={visibleErr}
-                      setVisibleErr={setVisibleErr}
                     />
                   ) : null}
                 </>
               )}
             </>
           )}
+          <ShowMessage
+            visible={messageShow?.visible}
+            message={messageShow?.message}
+            messageViewType={messageShow?.type}
+            position={"bottom"}
+            onEndVisible={() => {
+              setMessageShow({
+                visible: false,
+                message: "",
+                type: "",
+              });
+            }}
+          />
         </>
       )}
     </View>

@@ -1,11 +1,19 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   COLORS,
-  Constants,
   FONT_FAMILY,
   FONT_SIZE,
+  Constants,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  containVw: {
+    marginVertical: 8,
+    paddingHorizontal: 7,
+    paddingTop: 5,
+    paddingVertical: 10,
+    borderColor: COLORS.COMMON2,
+    borderWidth: Constants.standardBW,
+  },
   imageStyle: {
     height: 210,
     width: "100%",
@@ -64,33 +72,6 @@ const Styles = StyleSheet.create({
     borderWidth: 0.8,
     borderColor: COLORS.LIGHT_GREY,
   },
-  videoVw: {
-    height: 230,
-    justifyContent: "flex-end",
-    borderRadius: 16,
-    marginTop: 6,
-  },
-  backgroundVideo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    borderRadius: 12,
-  },
-  videoContVw: {
-    justifyContent: "center",
-    flexDirection: "row",
-    marginBottom: 5,
-  },
-  startPauseVw: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderWidth: 0.6,
-    borderColor: COLORS.WHITE,
-    marginHorizontal: 10,
-    borderRadius: 5,
-  },
   modalCon: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
@@ -115,7 +96,7 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
   ticketsInputVw: {
-    paddingVertical: Platform.OS === "ios" ? 5 : 2,
+    paddingVertical: Constants.Ios ? 5 : 2,
     width: "95%",
     marginLeft: 0,
     margin: 0,
@@ -125,7 +106,7 @@ const Styles = StyleSheet.create({
     borderColor: "#d8d8d8",
     borderWidth: 1,
     borderRadius: 9,
-    paddingVertical: Platform.OS === "ios" ? 4 : 0,
+    paddingVertical: Constants.Ios ? 4 : 0,
   },
   codesVw: {
     borderWidth: 1,
@@ -152,11 +133,12 @@ const Styles = StyleSheet.create({
   respnsesTxtVw: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 0.5,
+    borderBottomWidth: Constants.standardBW,
+    borderColor: COLORS.BORDER_LINE,
     justifyContent: "space-between",
   },
   responseTxt: {
-    fontSize: FONT_SIZE.largeL,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     textTransform: "capitalize",
@@ -168,7 +150,8 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottomWidth: 0.4,
+    borderBottomWidth: Constants.normalBW,
+    borderColor: COLORS.BORDER_LINE,
   },
   notIntrstVw: {
     borderRadius: 12,
@@ -178,7 +161,7 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
   },
   respnsesTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginLeft: 8,
@@ -189,7 +172,7 @@ const Styles = StyleSheet.create({
     marginRight: 8,
   },
   addToCalTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
   },
@@ -200,11 +183,9 @@ const Styles = StyleSheet.create({
     paddingVertical: 8,
   },
   respnsesBttnVw: {
-    justifyContent: "flex-end",
+    justifyContent: "space-around",
     flexDirection: "row",
-    alignItems: "center",
     marginTop: 20,
-    marginRight: 10,
   },
   respnsesBttn: {
     width: "40%",
@@ -235,8 +216,7 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    marginTop: 12,
-    marginLeft: 4,
+    marginLeft: 10,
   },
   subTitleTxt: {
     fontSize: FONT_SIZE.normal,
@@ -255,7 +235,7 @@ const Styles = StyleSheet.create({
     marginTop: 0,
     paddingLeft: 8,
     paddingRight: 12,
-    paddingVertical: Platform.OS === "ios" ? 0 : 10,
+    paddingVertical: Constants.Ios ? 0 : 10,
   },
   bttnSubmitVw: {
     marginTop: 10,
@@ -305,7 +285,7 @@ const Styles = StyleSheet.create({
   spinnerInput: {
     backgroundColor: "transparent",
     fontSize: FONT_SIZE.large,
-    top: Platform.OS === "ios" ? 1 : 8,
+    top: Constants.Ios ? 1 : 8,
     paddingTop: 0,
   },
   addItemBttn: {
@@ -386,7 +366,7 @@ const Styles = StyleSheet.create({
   modalBttn: {
     width: "45%",
     marginHorizontal: 5,
-    paddingVertical: Platform.OS === "ios" ? 12 : 8,
+    paddingVertical: Constants.Ios ? 12 : 8,
     alignSelf: "flex-end",
     backgroundColor: COLORS.YELLOW,
   },

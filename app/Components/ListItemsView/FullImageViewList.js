@@ -87,6 +87,7 @@ const FullImageViewList = (props) => {
             name={"calendar"}
             size={14}
             paddingRight={10}
+            paddingLeft={1}
             color={COLORS.RGBA}
           />
           <ScaleText style={styles.topTxt}>{timeTxt}</ScaleText>
@@ -98,6 +99,7 @@ const FullImageViewList = (props) => {
             name={"location"}
             size={14}
             paddingRight={10}
+            paddingLeft={2}
             color={COLORS.RGBA}
           />
           <ScaleText style={styles.topTxt}>{subHeadTxt}</ScaleText>
@@ -109,7 +111,7 @@ const FullImageViewList = (props) => {
               name={"infocirlce"}
               size={14}
               paddingRight={10}
-              paddingLeft={2}
+              paddingLeft={4}
               color={COLORS.YELLOW}
             />
             <ScaleText style={styles.bottomTxt}>{subSmallTxt}</ScaleText>
