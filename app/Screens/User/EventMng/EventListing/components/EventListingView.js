@@ -23,6 +23,7 @@ import MainButton from "../../../../../Components/MainButton";
 import { dayData } from "../../../../../Utils/staticData";
 import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
 import { FullImageViewList } from "../../../../../Components/ListItemsView";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -62,7 +63,7 @@ const EventListingView = (props) => {
         TxtMarginRight={"5%"}
         backText={false}
       />
-      <ScrollView contentContainerStyle={CommonStyles.scrollCon}>
+      <PageScroll contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.videoBannerView}>
           <Video
             source={videos.FIND_EVENT_BANNER_VIDEO}
@@ -244,7 +245,7 @@ const EventListingView = (props) => {
             />
           </View>
         </View>
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };

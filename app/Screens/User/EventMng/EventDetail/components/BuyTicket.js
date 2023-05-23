@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { View, Modal, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Button from "../../../../../Components/Button";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
@@ -13,6 +12,7 @@ import PageScroll from "../../../../../Components/PageScroll";
 import MainButton from "../../../../../Components/MainButton";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
+import { eventTickets } from "../../../../../Utils/staticData";
 
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
@@ -20,117 +20,69 @@ const BuyTicketScreen = (props) => {
     Constants.TIME_DATE_FORMAT
   );
   const getqty = (item) => {
-    var getIndex = _.findIndex(props?.ticketsData, {
-      category_id: item.event_type_id,
+    var getIndex = _.findIndex(props?.ticketAdded, {
+      ticket_title: item.ticket_title,
     });
     if (getIndex >= 0) {
-      return props?.ticketsData[getIndex]?.quantity;
+      return props?.ticketAdded[getIndex]?.ticket_quantity
+        ? props?.ticketAdded[getIndex]?.ticket_quantity
+        : 0;
     }
   };
-  const addProductOnCart = async (item, value, index) => {
-    try {
-      const selectedCategory = {
-        category_id: item.event_type_id,
-        name: item.event_type_name,
-        amount: item.ticket_price,
-        total_amount: item.ticket_price * value,
-        quantity: value,
-      };
-      const arr = {
-        ticket_id: item.event_type_id,
-        ticket_Name: item.event_type_name,
-        ticket_amount: item.ticket_price,
-        ticket_totalAmt: item.ticket_price * value,
-        ticket_qty: 1,
-        cand_firstName: "",
-        cand_lastName: "",
-        cand_email: "",
-        cand_phoneNo: "",
-        cand_address: "",
-        cand_lat: "",
-        cand_long: "",
-        can_countrycode: "",
-      };
-      if (props?.ticketsData?.length > 0) {
-        var getIndex = _.findIndex(props?.ticketsData, {
-          category_id: item.event_type_id,
-        });
-        if (getIndex >= 0) {
-          const newItems = props?.ticketsData[getIndex];
-          newItems.quantity = newItems?.quantity + 1;
-          newItems.total_amount = newItems.amount * value;
-          const FinalAmount = props?.ticketsData?.reduce(
-            (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
-            0
-          );
-          props.setTotalAmount(FinalAmount);
-          props.setTicketsData(props?.ticketsData);
-        } else {
-          props.setTicketsData((curr) => [...curr, selectedCategory]);
-          const FinalAmount = props?.ticketsData?.reduce(
-            (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
-            0
-          );
-          props.setTotalAmount(FinalAmount);
-        }
-        props.ticketsDetails.push(arr);
+  const getTicketAmount = (item) => {
+    var getIndex = _.findIndex(props?.ticketAdded, {
+      ticket_title: item.ticket_title,
+    });
+    if (getIndex >= 0) {
+      return props?.ticketAdded[getIndex]?.ticket_totalAmt
+        ? props?.ticketAdded[getIndex]?.ticket_totalAmt
+        : 0;
+    }
+  };
+  const addProductOnCart = async (item, value) => {
+    const objSet = {
+      ...item,
+      ticket_quantity: value,
+      ticket_totalAmt: item?.ticket_price * value,
+    };
+    if (props?.ticketAdded?.length === 0) {
+      props.setTicketAdded([objSet]);
+    } else {
+      var getIndex = _.findIndex(props?.ticketAdded, {
+        ticket_title: item.ticket_title,
+      });
+      if (getIndex >= 0) {
+        const newObj = { ...props?.ticketAdded[getIndex] };
+        newObj.ticket_quantity = newObj.ticket_quantity + 1;
+        const newArray = [...props?.ticketAdded];
+        newArray[getIndex] = newObj;
+        props.setTicketAdded(newArray);
       } else {
-        props.setTicketsData((curr) => [...curr, selectedCategory]);
-        const FinalAmount = props?.ticketsData?.reduce(
-          (accumulatedTotal, curr) => accumulatedTotal + curr?.total_amount,
-          0
-        );
-        props.ticketsDetails.push(arr);
-        props.setTotalAmount(FinalAmount);
+        props.setTicketAdded((curr) => [...curr, objSet]);
       }
-    } catch (error) {
-      console.log("error: ", error);
     }
   };
-  const removeFromCart = (item, index) => {
-    try {
-      if (props.ticketsData.length > 0) {
-        var getIndex = _.findIndex(props.ticketsData, {
-          category_id: item.event_type_id,
-        });
-        if (getIndex >= 0) {
-          const newItems = props.ticketsData[getIndex];
-          if (props.ticketsData[getIndex].quantity > 0) {
-            newItems.quantity = newItems.quantity - 1;
-            newItems.total_amount = newItems.total_amount - newItems.amount;
-            const FinalAmount = props?.ticketsData?.reduce(
-              (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
-              0
-            );
-            props.setTotalAmount(FinalAmount);
-            props.setTicketsData(props?.ticketsData);
-          }
-          if (props?.ticketsData[getIndex].quantity === 0) {
-            props?.ticketsData.splice(getIndex, 1);
-            const FinalAmount = props?.ticketsData.reduce(
-              (accumulatedTotal, curr) => accumulatedTotal + curr.total_amount,
-              0
-            );
-            props.setTotalAmount(FinalAmount);
-            props.setTicketsData(props?.ticketsData);
-          }
+  const removeFromCart = (item, value) => {
+    if (props?.ticketAdded?.length > 0) {
+      var getIndex = _.findIndex(props?.ticketAdded, {
+        ticket_title: item.ticket_title,
+      });
+      if (getIndex >= 0) {
+        if (props?.ticketAdded[getIndex].ticket_quantity > 0 && value > 0) {
+          const newObj = { ...props?.ticketAdded[getIndex] };
+          newObj.ticket_quantity = newObj.ticket_quantity - 1;
+          const newArray = [...props?.ticketAdded];
+          newArray[getIndex] = newObj;
+          props.setTicketAdded(newArray);
+        } else if (value === 0) {
+          props?.ticketAdded.splice(getIndex, 1);
+          props.setTicketAdded(props?.ticketAdded);
         }
-        const ticketsList = [...props.ticketsDetails];
-        ticketsList.splice(index, 1);
-        props.setTicketsDetails(ticketsList);
       }
-    } catch (error) {
-      console.log("error: ", error);
     }
   };
   return (
-    <Modal
-      transparent={true}
-      visible={props.buyTicketModal == 1}
-      onRequestClose={() => {
-        props.setBuyTicketModal("");
-      }}
-    >
+    <>
       <MainHeader
         onPressBack={() => props.setBuyTicketModal("")}
         headerText={"Buy Ticket"}
@@ -173,22 +125,13 @@ const BuyTicketScreen = (props) => {
             <View style={{ marginVertical: 12 }}>
               <ScaleText style={styles.titleTxt}>Ticket Category</ScaleText>
               <FlatList
-                data={props.ticketCategory}
-                ListEmptyComponent={() => {
-                  return (
-                    <View>
-                      <ScaleText style={styles.emptyTxt}>
-                        No Tickets Available
-                      </ScaleText>
-                    </View>
-                  );
-                }}
+                data={eventTickets}
                 renderItem={({ item, index }) => {
                   return (
                     <View style={styles.ticketCategoryVw}>
                       <View>
                         <ScaleText style={styles.ticketCtgryTxt}>
-                          {item?.event_type_name}
+                          {item?.ticket_title}
                         </ScaleText>
                         <ScaleText style={styles.ticketAmtTxt}>
                           $ {getAmount(item?.ticket_price)}
@@ -196,19 +139,21 @@ const BuyTicketScreen = (props) => {
                       </View>
                       <View style={{ alignItems: "flex-end" }}>
                         <AddMinusView
-                          bttnBackgroundColor={COLORS.THEME}
-                          value={getqty(item, index)}
-                          onPressAdd={(value) =>
-                            addProductOnCart(item, value, index)
+                          colorMin={COLORS.THEME}
+                          colorMax={COLORS.THEME}
+                          minVal={0}
+                          value={getqty(item)}
+                          onPressAdd={(val) =>
+                            addProductOnCart(item, val, index)
                           }
-                          onPressMinus={(value) =>
-                            removeFromCart(item, value, index)
+                          onPressMinus={(val) =>
+                            removeFromCart(item, val, index)
                           }
                         />
                         <ScaleText style={styles.smallTxt}>
                           Total Amount:{" "}
-                          {props?.ticketsData[index]?.total_amount
-                            ? getAmount(props?.ticketsData[index]?.total_amount)
+                          {getTicketAmount(item)
+                            ? getTicketAmount(item)
                             : "0.00"}
                         </ScaleText>
                       </View>
@@ -220,14 +165,14 @@ const BuyTicketScreen = (props) => {
             <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
               Ticket Total
             </ScaleText>
-            {props?.ticketsData?.map((item) => {
+            {props?.ticketAdded?.map((item) => {
               return (
                 <View style={styles.straightVw}>
                   <ScaleText style={styles.ticketsNameTxt}>
-                    ({item.quantity}) {item.name}
+                    ({item.ticket_quantity}) {item.ticket_title}
                   </ScaleText>
                   <ScaleText style={styles.smallTxt}>
-                    ${item.total_amount}
+                    ${item.ticket_totalAmt}
                   </ScaleText>
                 </View>
               );
@@ -278,7 +223,7 @@ const BuyTicketScreen = (props) => {
           </View>
         </View>
       </PageScroll>
-    </Modal>
+    </>
   );
 };
 export default BuyTicketScreen;

@@ -43,21 +43,9 @@ const AddMinusView = (props) => {
         buttonPressTextColor={buttonPressTextColor}
         buttonFontSize={buttonFontSize}
         buttonTextColor={COLORS.WHITE}
-        buttonTextProps={{
-          buttonTextColor: COLORS.WHITE,
-        }}
         inputStyle={styles.spinnerInput}
-        buttonStyle={[
-          styles.addItemBttn,
-          {
-            backgroundColor: bttnBackgroundColor,
-          },
-        ]}
         buttonFontFamily={buttonFontFamily}
         style={styles.spinnerVw}
-        inputProps={{
-          fontSize: 15,
-        }}
       />
     </View>
   );

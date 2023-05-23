@@ -54,13 +54,7 @@ const TicketDetailsScreen = (props) => {
     props.setTicketsDetails(NewEventTicket);
   };
   return (
-    <Modal
-      transparent={true}
-      visible={props.buyTicketModal === 2}
-      onRequestClose={() => {
-        props.setBuyTicketModal("");
-      }}
-    >
+    <>
       <View style={styles.modalCon}>
         {props?.loader && <Loader state={props?.loader} />}
         <MainHeader headerText={"But Ticket"} />
@@ -435,7 +429,7 @@ const TicketDetailsScreen = (props) => {
           </View>
         </PageScroll>
       </View>
-    </Modal>
+    </>
   );
 };
 export default TicketDetailsScreen;
