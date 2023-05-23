@@ -59,6 +59,10 @@ import AddNewLocation from "../Screens/Common/AddNewLocation";
 import RestroPlaceOrder from "../Screens/User/RestroMng/RestroPlaceOrder";
 import ConfirmOrderView from "../Screens/User/MarketplaceMng/ConfirmOrder";
 import EventDetail from "../Screens/User/EventMng/EventDetail";
+import UserProfileView from "../Screens/User/ProfileMng/UserProfile";
+import ProfileSetting from "../Screens/User/ProfileMng/ProfileSetting";
+import UpdateProfileView from "../Screens/User/ProfileMng/UpdateProfile";
+import OrderDetailIndex from "../Screens/User/OrderDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,6 +103,9 @@ function TabNavigation() {
       <Tab.Screen name="CheckOut" component={CheckOut} />
       <Tab.Screen name="ConfirmOrderView" component={ConfirmOrderView} />
       <Tab.Screen name="EventDetail" component={EventDetail} />
+      <Tab.Screen name="ProfileSetting" component={ProfileSetting} />
+      <Tab.Screen name="UpdateProfileView" component={UpdateProfileView} />
+      <Tab.Screen name="OrderDetailIndex" component={OrderDetailIndex} />
     </Tab.Navigator>
   );
 }
@@ -138,6 +145,9 @@ function AppStack() {
       <Stack.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
       <Stack.Screen name="ConfirmOrderView" component={TabNavigation} />
       <Stack.Screen name="EventDetail" component={TabNavigation} />
+      <Stack.Screen name="ProfileSetting" component={TabNavigation} />
+      <Stack.Screen name="UpdateProfileView" component={TabNavigation} />
+      <Stack.Screen name="OrderDetailIndex" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

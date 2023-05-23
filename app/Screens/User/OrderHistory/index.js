@@ -7,6 +7,7 @@ import {
   SMALL_TEXT_COLOR_CODE,
   LIGHT_WHITE_COLOR,
   WHITE_COLOR_CODE,
+  COLORS,
 } from "../../../Utils/Constant";
 import { useIsFocused } from "@react-navigation/native";
 import CommonStyles from "../../../Utils/CommonStyles";
@@ -15,6 +16,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/showMessage";
+import { RowSingleTxtList } from "../../../Components/ListItemsView";
 
 const OrderHistoryView = ({ navigation }) => {
   const [visibleErr, setVisibleErr] = useState(false);
@@ -86,33 +88,32 @@ const OrderHistoryView = ({ navigation }) => {
     }
   };
   const onpressOrder = (item) => {
-    navigation.navigate("OrderDetailBackEnd", { OrderDetail: item });
+    navigation.navigate("OrderDetailIndex", { OrderDetail: item });
   };
   const _renderCategory = (item, index) => {
     return (
       <>
-        <TouchableOpacity
-          onPress={() => {
+        <RowSingleTxtList
+          text={item.business_type_name}
+          txtColor={
+            item.business_type_id === isSelectedCatgory
+              ? COLORS.YELLOW
+              : COLORS.BLACK
+          }
+          borderColor={
+            item.business_type_id === isSelectedCatgory
+              ? COLORS.YELLOW
+              : COLORS.BLACK
+          }
+          onPressItem={() => {
             if (item.business_type_id != isSelectedCatgory) {
               handleOrderedItemList(0, item.business_type_id);
             }
           }}
-          style={styles.lablestyle}
-        >
-          <Text
-            style={[
-              styles.txtCat,
-              {
-                color:
-                  item.business_type_id === isSelectedCatgory
-                    ? WHITE_COLOR_CODE
-                    : LIGHT_WHITE_COLOR,
-              },
-            ]}
-          >
-            {item.business_type_name}
-          </Text>
-        </TouchableOpacity>
+          borderBottomWidth={
+            item.business_type_id === isSelectedCatgory ? 1 : 0
+          }
+        />
       </>
     );
   };

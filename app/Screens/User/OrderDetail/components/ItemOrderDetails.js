@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList, Image, Text, ScrollView } from "react-native";
 import styles from "./styles";
-import CommonStyles from "../../../Utils/CommonStyles";
+import CommonStyles from "../../../../Utils/CommonStyles";
 import moment from "moment";
-import Header from "../../../Components/Header";
+import Header from "../../../../Components/Header";
 import {
   SMALL_TEXT_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
   YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
-} from "../../../Utils/Constant";
-import Button from "../../../Components/Button";
-import { Images } from "../../../Utils/images";
+  FONT_SIZE,
+} from "../../../../Utils/Constant";
+import Button from "../../../../Components/Button";
+import { Images } from "../../../../Utils/images";
+import MainHeader from "../../../../Components/MainHeader";
 
-const OrderDetailScreen = (props) => {
+const ItemOrderDetails = (props) => {
   const _handleItemList = (item, index) => {
     return (
       <View key={index} style={styles.ConatinView}>
@@ -24,14 +24,16 @@ const OrderDetailScreen = (props) => {
           />
         </View>
         <View style={styles.DishDiscptnView}>
-          <Text style={[styles.text, { fontSize: 18 }]}>{item.item_name}</Text>
+          <Text style={[styles.text, { fontSize: 18 }]}>
+            {item.product_name}
+          </Text>
           <Text
             style={[
               styles.text,
               { fontSize: 12.5, color: SMALL_TEXT_COLOR_CODE },
             ]}
           >
-            Design for simplicity and made from high quality materials
+            {item?.product_description}
           </Text>
           <View style={{ flexDirection: "row", flex: 1 }}>
             <View style={{ flexDirection: "row" }}>
@@ -55,11 +57,11 @@ const OrderDetailScreen = (props) => {
   };
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Order Detail"
-        RightImg={null}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
+      <MainHeader
+        headerText={"Order Detail"}
+        fontSize={FONT_SIZE.medium}
+        loginButton={false}
+        isLogin={true}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
@@ -116,6 +118,7 @@ const OrderDetailScreen = (props) => {
                     ? "Cancel Table Book"
                     : "Cancel Order"
                 }
+                paddingHeight={7}
               />
             </View>
           )}
@@ -130,37 +133,19 @@ const OrderDetailScreen = (props) => {
               renderItem={({ item, index }) => _handleItemList(item, index)}
               ListFooterComponent={
                 <View>
-                  {/* <View style={{
-                            // borderBottomWidth: 3,
-                            // borderColor: LINE_COMMON_COLOR_CODE,
-                            padding: 20, paddingTop: 0
-                        }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                <Text style={[styles.text, { fontSize: 15 }]}>SubTotal</Text>
-                                <Text style={[styles.text, { fontSize: 15 }]}>$12.00</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1 }}>
-                                <Text style={[styles.text, { fontSize: 15 }]}>Tax</Text>
-                                <Text style={[styles.text, { fontSize: 15 }]}>$1.00</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                <Text style={[styles.text, { fontSize: 16 }]}>Final Amount</Text>
-                                <Text style={[styles.text, { fontSize: 16 }]}>$13.00</Text>
-                            </View>
-                        </View> */}
                   <View>
                     <Button
                       onPress={() => props.onPressInvoice()}
                       buttonText={"Invoice Download"}
                       style={styles.invoiceBttn}
+                      paddingHeight={7}
                     />
                   </View>
                 </View>
               }
             />
-            {/* {props.orderDetail.order_process == 0 && ( */}
             <View style={{ padding: 20 }}>
-              <Text style={styles.orderStatusTxt}>OrderStatus</Text>
+              <Text style={styles.orderStatusTxt}>Order Status</Text>
               <View>
                 <View style={{ flexDirection: "row" }}>
                   <Image
@@ -215,47 +200,12 @@ const OrderDetailScreen = (props) => {
                   </Text>
                 </View>
               </View>
-              {/* <ProgressSteps
-                                    removeBtnRow={false}
-                                    completedProgressBarColor={YELLOW_COLOR_CODE}
-                                    activeStepIconColor={YELLOW_COLOR_CODE}
-                                    activeStepIconBorderColor={YELLOW_COLOR_CODE}
-                                    completedStepIconColor={YELLOW_COLOR_CODE}
-                                    labelFontFamily={FONT_FAMILY_REGULAR}
-                                    activeLabelColor={YELLOW_COLOR_CODE}
-                                    completedLabelColor={YELLOW_COLOR_CODE}
-                                    activeStepNumColor={WHITE_COLOR_CODE}
-                                // labelColor={YELLOW_COLOR_CODE}
-                                >
-                                    <ProgressStep
-                                        onNext={() => onNextFirst()}
-                                        label="Ordered">
-                                        <View style={{ alignItems: 'center' }}>
-                                            <Text>This is the content within step 1!</Text>
-                                        </View>
-                                    </ProgressStep>
-                                    <ProgressStep label="Packed">
-                                        <View style={{ alignItems: 'center' }}>
-                                            <Text>This is the content within step 2!</Text>
-                                        </View>
-                                    </ProgressStep>
-                                    <ProgressStep label="Shipped">
-                                        <View style={{ alignItems: 'center' }}>
-                                            <Text>This is the content within step 3!</Text>
-                                        </View>
-                                    </ProgressStep>
-                                    <ProgressStep label="Delievered">
-                                        <View style={{ alignItems: 'center' }}>
-                                            <Text>This is the content within step 4!</Text>
-                                        </View>
-                                    </ProgressStep>
-                                </ProgressSteps> */}
             </View>
-            {/* )} */}
           </>
         )}
       </ScrollView>
     </View>
   );
 };
-export default OrderDetailScreen;
+
+export default ItemOrderDetails;

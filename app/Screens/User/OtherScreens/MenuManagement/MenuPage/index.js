@@ -82,6 +82,10 @@ const MenuPage = ({ navigation, route }) => {
     };
     navigation.navigate("BusinessPageDetails", { detail: data });
   };
+
+  const handleSeeProfilePress = () => {
+    navigation.navigate("ProfileSetting");
+  }
   return (
     <View style={CommonStyles.container}>
       <MenuPageView
@@ -93,6 +97,7 @@ const MenuPage = ({ navigation, route }) => {
         onPressView={onPressView}
         logoutVw={logoutVw}
         setLogoutVw={setLogoutVw}
+        handleSeeProfilePress={handleSeeProfilePress}
       />
       <QuestionModal
         surringVisible={logoutVw}

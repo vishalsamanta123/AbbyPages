@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Image, View, Text, FlatList, TouchableOpacity } from "react-native";
-import Header from "../../../../Components/Header";
 import moment from "moment";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import styles from "./styles";
 import {
   YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  LIGHT_WHITE_COLOR,
-  SMALL_TEXT_COLOR_CODE,
   FONT_SIZE,
+  COLORS,
 } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
+import { RowSingleTxtList } from "../../../../Components/ListItemsView";
+import OrderCard from "../../../../Components/OrderCard";
 const OrderHistory = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   const _handleOrders = (item, index) => {
     return (
-      <TouchableOpacity
+      <>
+      {/* <TouchableOpacity
         style={styles.ConatinView}
         onPress={() =>
           item.order_booking_type == 1 ? props.onpressOrder(item) : null
@@ -48,7 +48,11 @@ const OrderHistory = (props) => {
             <View style={{ flex: 1 }}>
               {item.total_amount && (
                 <View style={styles.DateContainer}>
-                  <Text style={[styles.ReviewText, { fontSize: FONT_SIZE.smallL }]}>$</Text>
+                  <Text
+                    style={[styles.ReviewText, { fontSize: FONT_SIZE.smallL }]}
+                  >
+                    $
+                  </Text>
                   <Text
                     style={[
                       styles.ReviewText,
@@ -67,10 +71,7 @@ const OrderHistory = (props) => {
                 Order Id: {item.order_id}
               </Text>
               <View style={styles.DateContainer}>
-                <Image
-                  style={styles.DateImge}
-                  source={Images.CALENDER_IMG}
-                />
+                <Image style={styles.DateImge} source={Images.CALENDER_IMG} />
                 <Text style={[styles.ReviewText, { paddingLeft: 10 }]}>
                   {moment(item.create_order).format("MM/DD/YYYY")}
                 </Text>
@@ -110,7 +111,9 @@ const OrderHistory = (props) => {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <OrderCard item={item} onpressOrder={() => props.onpressOrder(item)} />
+      </>
     );
   };
   return (
@@ -122,28 +125,21 @@ const OrderHistory = (props) => {
         isLogin={true}
       />
       <View style={styles.topCont}>
-        <TouchableOpacity
-          onPress={() => {
+        <RowSingleTxtList
+          text={"All"}
+          txtColor={
+            props.isSelectedCatgory === 0 ? COLORS.YELLOW : COLORS.BLACK
+          }
+          borderColor={
+            props.isSelectedCatgory === 0 ? COLORS.YELLOW : COLORS.BLACK
+          }
+          onPressItem={() => {
             if (props.isSelectedCatgory != 0) {
               props.handleOrderedItemList(0, 0);
             }
           }}
-          style={styles.lablestyle}
-        >
-          <Text
-            style={[
-              styles.txtCat,
-              {
-                color:
-                  props.isSelectedCatgory === 0
-                    ? WHITE_COLOR_CODE
-                    : LIGHT_WHITE_COLOR,
-              },
-            ]}
-          >
-            All
-          </Text>
-        </TouchableOpacity>
+          borderBottomWidth={props.isSelectedCatgory === 0 ? 1 : 0}
+        />
         <FlatList
           data={props?.itemCategoryList}
           horizontal
@@ -162,9 +158,7 @@ const OrderHistory = (props) => {
               <View style={styles.emptyListVw}>
                 <View style={[styles.cardCon]}>
                   <View style={styles.imgCon}>
-                    <Image
-                      source={Images.ORDERS_IMG}
-                    />
+                    <Image source={Images.ORDERS_IMG} />
                   </View>
                   <Text style={[CommonStyles.text, styles.emptyListTxt]}>
                     Look like you don't have any orders yet.
