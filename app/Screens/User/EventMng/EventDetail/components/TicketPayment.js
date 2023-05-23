@@ -29,14 +29,7 @@ const TicketPaymentScreen = (props) => {
   const [newPercentage, setNewPercentage] = useState();
   const couts = newPercentage * 0.16;
   return (
-    <Modal
-      animationType={Platform.OS === "ios" ? "none" : "slide"}
-      transparent={true}
-      visible={props.buyTicketModal === 4}
-      onRequestClose={() => {
-        props.setBuyTicketModal("");
-      }}
-    >
+    <>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={styles.modalCon}
@@ -228,7 +221,7 @@ const TicketPaymentScreen = (props) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </Modal>
+    </>
   );
 };
 export default TicketPaymentScreen;

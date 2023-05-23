@@ -20,10 +20,11 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   addItemBttn: {
-    width: 40,
+    width: 100,
     paddingTop: 0,
     paddingHorizontal: 5,
-    borderRadius: 5,
+    borderRadius: 50,
+    backgroundColor: COLORS.YELLOW,
   },
 });
 

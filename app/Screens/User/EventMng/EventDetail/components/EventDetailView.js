@@ -1,21 +1,10 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Modal,
-  FlatList,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import React from "react";
+import { View, Image, Modal, TouchableOpacity } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import moment from "moment";
 import Button from "../../../../../Components/Button";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
-import Video from "react-native-video";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -25,11 +14,9 @@ import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
 import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import PageScroll from "../../../../../Components/PageScroll";
+import VideoPlayer from "../../../../../Components/VideoPlayer";
 
 const EventDetailView = (props) => {
-  const [videoShow, setVideoShow] = useState(false);
-  const { width, height } = Dimensions.get("window");
-
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText="Events Details" />
@@ -59,93 +46,96 @@ const EventDetailView = (props) => {
             item={props?.eventDetails}
             marginBottom={0}
           />
-          <View
-            style={[
-              CommonStyles.straightCon,
-              { justifyContent: "space-evenly" },
-            ]}
-          >
-            <MainButton
-              paddingHeight={2}
-              paddingHorizontal={25}
-              buttonTxt={"Interested"}
-              backgroundColor={
-                props.eventDetails?.user_interested === 0
-                  ? COLORS.COMMON
-                  : COLORS.YELLOW
-              }
-              txtColor={COLORS.BLACK}
-              borderRadius={10}
-              borderColor={
-                props.eventDetails?.user_interested === 0
-                  ? COLORS.GREY
-                  : COLORS.LIGHT_GREY
-              }
-              onPressButton={() => {
-                if (props.eventDetails?.user_interested === 0) {
-                  props.setChangeInterest(1);
-                  props.onInterestResp(1);
-                } else {
-                  props.setInterstedModal(true);
-                  props.getEventDetails(props.eventDetails?.event_id);
-                }
-              }}
-            />
-            <MainButton
-              paddingHeight={2}
-              paddingHorizontal={25}
-              buttonTxt={"Buy Ticket"}
-              borderRadius={10}
-              backgroundColor={COLORS.YELLOW}
-              txtColor={COLORS.WHITE}
-              borderColor={COLORS.TRANSPARENT}
-              onPressButton={() => props.setBuyTicketModal(1)}
-            />
-            <TouchableOpacity
-              style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+          {/* {moment(props?.eventDetails?.event_end_date).format(
+            Constants.TIME_DATE_FORMAT
+          ) > moment().format(Constants.TIME_DATE_FORMAT) ? ( */}
+            <View
+              style={[
+                CommonStyles.straightCon,
+                { justifyContent: "space-evenly" },
+              ]}
             >
-              <IconX
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                name={"dots-horizontal"}
-                size={26}
+              <MainButton
+                paddingHeight={2}
+                paddingHorizontal={16}
+                buttonTxt={"Interested"}
+                backgroundColor={
+                  props.eventDetails?.user_interested === 0
+                    ? COLORS.COMMON
+                    : COLORS.YELLOW
+                }
+                txtColor={
+                  props.eventDetails?.user_interested === 0
+                    ? COLORS.BLACK
+                    : COLORS.WHITE
+                }
+                borderRadius={10}
+                borderColor={
+                  props.eventDetails?.user_interested === 0
+                    ? COLORS.GREY
+                    : COLORS.TRANSPARENT
+                }
+                onPressButton={() => {
+                  if (props.eventDetails?.user_interested === 0) {
+                    props.onInterestPress(1);
+                  } else {
+                    props.setInterstedModal(true);
+                  }
+                }}
+                leftImgOrigin={ICON_TYPE.ANT_ICON}
+                leftImgName={"star"}
+                leftImgSize={13}
+                leftImgColor={
+                  props.eventDetails?.user_interested === 0
+                    ? COLORS.RGBA1
+                    : COLORS.WHITE
+                }
+                rightImgOrigin={
+                  props.eventDetails?.user_interested === 1
+                    ? ICON_TYPE.ANT_ICON
+                    : ""
+                }
+                rightImgName={"caretdown"}
+                rightImgSize={13}
+                rightImgColor={
+                  props.eventDetails?.user_interested === 0
+                    ? COLORS.RGBA1
+                    : COLORS.WHITE
+                }
               />
-            </TouchableOpacity>
-          </View>
+              <MainButton
+                paddingHeight={2}
+                paddingHorizontal={25}
+                buttonTxt={"Buy Ticket"}
+                borderRadius={10}
+                backgroundColor={COLORS.YELLOW}
+                txtColor={COLORS.WHITE}
+                borderColor={COLORS.TRANSPARENT}
+                onPressButton={() => props.setBuyTicketModal(1)}
+              />
+              <TouchableOpacity
+                style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+              >
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                  name={"dots-horizontal"}
+                  size={26}
+                />
+              </TouchableOpacity>
+            </View>
+          {/* ) : null} */}
         </View>
         {props.videoUrl != "null" ? (
-          <View style={{ marginHorizontal: 12 }}>
+          <View style={[styles.containVw, { paddingHorizontal: 0 }]}>
             <ScaleText style={styles.titleTxt}>Event Video</ScaleText>
-            <View style={styles.videoVw}>
-              <Video
-                source={{ uri: props.eventDetails?.events_video }} // Can be a URL or a local file.
-                style={styles.backgroundVideo}
-                resizeMode={"stretch"}
-                paused={videoShow}
-                repeat={true}
-              />
-              <View style={styles.videoContVw}>
-                <TouchableOpacity
-                  onPress={() => setVideoShow(!videoShow)}
-                  style={styles.startPauseVw}
-                >
-                  {/* <ScaleText style={{ color: COLORS.WHITE }}>
-                    {!videoShow ? "Pause" : "Start"}
-                  </ScaleText> */}
-                  <IconX
-                    origin={ICON_TYPE.ANT_ICON}
-                    name={!videoShow ? "pausecircleo" : "playcircleo"}
-                    size={22}
-                  />
-                </TouchableOpacity>
-              </View>
+            <View style={{ paddingHorizontal: 10 }}>
+              <VideoPlayer video={props.eventDetails?.events_video} />
             </View>
           </View>
         ) : null}
         {props.eventDetails?.event_description ? (
-          <View style={{ marginHorizontal: 12 }}>
-            <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
-              Discription
-            </ScaleText>
+          <View style={styles.containVw}>
+            <ScaleText style={styles.titleTxt}>Discription</ScaleText>
             <ScaleText style={[styles.subTitleTxt, { padding: 6 }]}>
               {props.eventDetails?.event_description}
             </ScaleText>
@@ -155,7 +145,6 @@ const EventDetailView = (props) => {
       <Modal
         visible={props.interestedModal}
         transparent={true}
-        animationType="slide"
         onRequestClose={() => {
           props.setInterstedModal(false);
         }}
@@ -163,132 +152,129 @@ const EventDetailView = (props) => {
         <View
           style={[
             styles.modalCon,
-            { justifyContent: "center", backgroundColor: "rgba(0,0,0,0.3)" },
+            { justifyContent: "center", backgroundColor: COLORS.RGBA2 },
           ]}
         >
           <View style={styles.interestedModalVw}>
             <View style={styles.respnsesTxtVw}>
               <ScaleText style={styles.responseTxt}>Your Response</ScaleText>
               <TouchableOpacity onPress={() => props.setInterstedModal(false)}>
-                <Image
-                  style={{ width: 32, height: 32, marginRight: 5 }}
-                  source={Images.CANCEL_IMG}
+                <IconX
+                  name={"cross"}
+                  origin={ICON_TYPE.ENTYPO}
+                  size={25}
+                  color={COLORS.RGBA}
+                  paddingRight={8}
                 />
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              onPress={() => props.setChangeInterest(1)}
+              onPress={() => props.setInterest(1)}
               style={styles.respnsesVw}
             >
               <View style={styles.straightVw}>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor:
-                      props?.changeInterest === 1
-                        ? COLORS.YELLOW
-                        : COLORS.BLACK,
-                  }}
-                  source={Images.STAR_FILLED_IMG}
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"star"}
+                  size={20}
+                  color={COLORS.RGBA1}
                 />
                 <ScaleText style={styles.respnsesTxt}>Interested</ScaleText>
               </View>
-              <Image
-                source={
-                  props?.changeInterest === 1
-                    ? Images.RADIO_CHECK_IMG
-                    : Images.RADIO_UNCHECK_IMG
+              <IconX
+                origin={ICON_TYPE.Fontisto}
+                name={
+                  props.interest === 1
+                    ? "radio-btn-active"
+                    : "radio-btn-passive"
                 }
+                size={20}
+                color={COLORS.YELLOW}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.setChangeInterest("")}
+              onPress={() => props.setInterest(2)}
               style={styles.respnsesVw}
             >
               <View style={styles.straightVw}>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor:
-                      props?.changeInterest === ""
-                        ? COLORS.YELLOW
-                        : COLORS.BLACK,
-                  }}
-                  source={Images.VERIFIED_IMG}
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"checkcircle"}
+                  size={18}
+                  color={COLORS.RGBA1}
                 />
                 <ScaleText style={styles.respnsesTxt}>Going</ScaleText>
               </View>
-              <Image
-                source={
-                  props?.changeInterest === ""
-                    ? Images.RADIO_CHECK_IMG
-                    : Images.RADIO_UNCHECK_IMG
+              <IconX
+                origin={ICON_TYPE.Fontisto}
+                name={
+                  props.interest === 2
+                    ? "radio-btn-active"
+                    : "radio-btn-passive"
                 }
+                size={20}
+                color={COLORS.YELLOW}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.setChangeInterest(0)}
+              onPress={() => props.setInterest(0)}
               style={styles.respnsesVw}
             >
               <View style={styles.straightVw}>
-                <View
-                  style={[
-                    styles.notIntrstVw,
-                    {
-                      backgroundColor:
-                        props?.changeInterest === 0
-                          ? COLORS.YELLOW
-                          : COLORS.BLACK,
-                    },
-                  ]}
-                >
-                  <Image
-                    style={{ tintColor: COLORS.WHITE }}
-                    source={Images.CANCEL_IMG}
-                  />
-                </View>
+                <IconX
+                  name={"circle-with-cross"}
+                  origin={ICON_TYPE.ENTYPO}
+                  size={22}
+                  color={COLORS.RGBA1}
+                />
                 <ScaleText style={styles.respnsesTxt}>Not Interested</ScaleText>
               </View>
-              <Image
-                source={
-                  props?.changeInterest === 0
-                    ? Images.RADIO_CHECK_IMG
-                    : Images.RADIO_UNCHECK_IMG
+              <IconX
+                origin={ICON_TYPE.Fontisto}
+                name={
+                  props.interest === 0
+                    ? "radio-btn-active"
+                    : "radio-btn-passive"
                 }
+                size={20}
+                color={COLORS.YELLOW}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => props.setAddtoCaldr(!props.addtoCaldr)}
-              style={styles.addToCalVw}
-            >
-              <Image
-                style={styles.addToCalImg}
-                source={
-                  props.addtoCaldr
-                    ? Images.RADIO_CHECK_IMG
-                    : Images.RADIO_UNCHECK_IMG
-                }
+            <TouchableOpacity onPress={() => {}} style={styles.addToCalVw}>
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                name={"checkbox-blank-circle-outline"}
+                size={25}
+                color={COLORS.BLACK}
+                paddingRight={6}
               />
               <ScaleText style={styles.addToCalTxt}>Add to calender</ScaleText>
             </TouchableOpacity>
             <View style={styles.respnsesBttnVw}>
-              <Button
-                buttonText={"Save"}
-                onPress={() => props.onInterestResp()}
-                style={[styles.respnsesBttn, { marginRight: 10 }]}
-              />
-              <Button
-                buttonText={"Cancel"}
-                onPress={() => {
-                  props.setInterstedModal(false);
-                  props.setChangeInterest("");
+              <MainButton
+                paddingHeight={2}
+                paddingHorizontal={35}
+                buttonTxt={"Save"}
+                backgroundColor={COLORS.YELLOW}
+                txtColor={COLORS.WHITE}
+                borderRadius={10}
+                borderColor={COLORS.TRANSPARENT}
+                onPressButton={() => {
+                  props.onInterestPress(props.interest);
                 }}
-                style={[
-                  styles.respnsesBttn,
-                  { backgroundColor: COLORS.SMALL_TEXT },
-                ]}
+              />
+              <MainButton
+                paddingHeight={2}
+                paddingHorizontal={30}
+                buttonTxt={"Cancel"}
+                backgroundColor={COLORS.COMMON}
+                txtColor={COLORS.BLACK}
+                borderRadius={10}
+                borderColor={COLORS.GREY}
+                onPressButton={() => {
+                  props.setInterest(props.eventDetails?.user_interested);
+                  props.setInterstedModal(false);
+                }}
               />
             </View>
           </View>

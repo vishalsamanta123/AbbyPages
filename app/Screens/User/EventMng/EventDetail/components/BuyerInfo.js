@@ -43,13 +43,7 @@ const BuyerInfoScreen = (props) => {
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
   return (
-    <Modal
-      transparent={true}
-      visible={props.buyTicketModal === 3}
-      onRequestClose={() => {
-        props.setBuyTicketModal("");
-      }}
-    >
+    <>
       {props?.loader && <Loader state={props?.loader} />}
       <MainHeader
         headerText={"Buy Info"}
@@ -305,7 +299,7 @@ const BuyerInfoScreen = (props) => {
           </View>
         </View>
       </PageScroll>
-    </Modal>
+    </>
   );
 };
 export default BuyerInfoScreen;
