@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import {
-  COLORS, FONT_FAMILY, FONT_SIZE,
+  COLORS, Constants, FONT_FAMILY, FONT_SIZE,
 } from "../../../../Utils/Constant";
 const styles = StyleSheet.create({
   cardCon: {
@@ -38,11 +38,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topCont: {
-    paddingVertical: 5,
+    // paddingVertical: 5,
+    // flexDirection: "row",
+    // width: "100%",
+    // alignItems: "center",
+    // // backgroundColor: COLORS.YELLOW,
+
     flexDirection: "row",
-    width: "100%",
     alignItems: "center",
-    backgroundColor: COLORS.YELLOW,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderBottomColor: COLORS.BORDER_LINE,
+    borderBottomWidth: Constants.normalBW,
   },
   FlatlistContain: {
     borderTopColor: COLORS.WHITE,
@@ -60,6 +67,7 @@ const styles = StyleSheet.create({
     width: "35%",
     height: "100%",
     margin: 2,
+    borderRadius: 10
   },
   DishDiscptnView: {
     padding: 15,

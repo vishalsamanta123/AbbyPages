@@ -53,9 +53,9 @@ const MenuPageView = (props) => {
                   />
                 </TouchableOpacity>
               </View>
-              <View style={styles.seeAllVw}>
+              <TouchableOpacity style={styles.seeAllVw} onPress={() => props.handleSeeProfilePress()}>
                 <ScaleText style={styles.seeAllTxt}>See Profile</ScaleText>
-              </View>
+              </TouchableOpacity>
             </View>
           ) : (
             <TouchableOpacity
