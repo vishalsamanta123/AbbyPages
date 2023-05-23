@@ -231,7 +231,7 @@ const ConfirmOrderView = ({ navigation, route }) => {
       );
       if (data?.status == 200) {
         setVisible(false);
-        setShoppingCartData({});
+        setShoppingCartData([]);
         navigation.navigate("OrderHistory");
         setMessageShow({
           visible: true,

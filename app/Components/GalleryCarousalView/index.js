@@ -10,21 +10,25 @@ import { Constants } from "../../Utils/Constant";
 import Video from "react-native-video";
 import styles from "./style";
 import MainHeader from "../MainHeader";
+import { useFocusEffect } from "@react-navigation/native";
 
 const GalleryCarousalView = (props) => {
   const { data, isVisible, setIsVisible, index } = props;
   const { width } = Dimensions.get("window");
   let arr = data;
-
   const flatListRef = useRef(null);
-
-  const onViewRef = useRef((viewableItems) => {});
+  const onViewRef = useRef((viewableItems) => { });
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
+
   useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({ index: index });
-    }
+    
+    setInterval(() => {
+      if (flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index: index });
+      }
+    }, 500)
   }, []);
+   
   const ITEM_WIDTH = width;
   const renderMedia = (media, Iindex) => {
     const temp = media?.image?.split(".");
