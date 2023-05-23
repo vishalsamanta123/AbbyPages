@@ -185,7 +185,7 @@ const JobOrderDetails = (props) => {
                 {props.orderDetail.business_name}
               </Text>
               {props.orderDetail.email !== null && (
-                <Text style={styles.detailTxt}>
+                <Text style={styles.detailTxt} numberOfLines={1}>
                   <Text style={styles.detailTitleTxt}>Email : </Text>
                   {props.orderDetail.email}
                 </Text>

@@ -17,6 +17,10 @@ import PageScroll from "../../../../../Components/PageScroll";
 import VideoPlayer from "../../../../../Components/VideoPlayer";
 
 const EventDetailView = (props) => {
+  
+console.log(':moment ',moment
+.unix(props?.eventDetails?.event_end_date)
+.format(Constants.TIME_DATE_FORMAT) );
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText="Events Details" />
@@ -34,7 +38,7 @@ const EventDetailView = (props) => {
               props?.eventDetails?.event_start_date
                 ? `${moment
                     .unix(props?.eventDetails?.event_start_date)
-                    .format(Constants.TIME_DATE_FORMAT)} To ${moment
+                    .format(Constants.TIME_DATE_FORMAT)} to ${moment
                     .unix(props?.eventDetails?.event_end_date)
                     .format(Constants.TIME_DATE_FORMAT)}`
                 : RECENT_TIME_FORMAT(props?.eventDetails?.event_date)
@@ -46,9 +50,9 @@ const EventDetailView = (props) => {
             item={props?.eventDetails}
             marginBottom={0}
           />
-          {/* {moment(props?.eventDetails?.event_end_date).format(
+          {/* {moment.unix(props?.eventDetails?.event_end_date).format(
             Constants.TIME_DATE_FORMAT
-          ) > moment().format(Constants.TIME_DATE_FORMAT) ? ( */}
+          ) < moment().format(Constants.TIME_DATE_FORMAT) ? ( */}
             <View
               style={[
                 CommonStyles.straightCon,
@@ -123,7 +127,7 @@ const EventDetailView = (props) => {
                 />
               </TouchableOpacity>
             </View>
-          {/* ) : null} */}
+          {/* ) : null}  */}
         </View>
         {props.videoUrl != "null" ? (
           <View style={[styles.containVw, { paddingHorizontal: 0 }]}>
