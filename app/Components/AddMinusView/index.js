@@ -21,7 +21,6 @@ const AddMinusView = (props) => {
     height = 42,
     width = "50%",
     steps = 1,
-    bttnBackgroundColor = COLORS.YELLOW,
   } = props;
   return (
     <View style={{ marginVertical: 10 }}>

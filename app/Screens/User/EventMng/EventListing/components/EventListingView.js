@@ -22,8 +22,13 @@ import EmptyList from "../../../../../Components/EmptyList";
 import MainButton from "../../../../../Components/MainButton";
 import { dayData } from "../../../../../Utils/staticData";
 import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
-import { FullImageViewList } from "../../../../../Components/ListItemsView";
+import {
+  FullImageViewList,
+  RowSingleTxtList,
+} from "../../../../../Components/ListItemsView";
 import PageScroll from "../../../../../Components/PageScroll";
+import VideoPlayer from "../../../../../Components/VideoPlayer";
+import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -65,11 +70,10 @@ const EventListingView = (props) => {
       />
       <PageScroll contentContainerStyle={CommonStyles.scrollCon}>
         <View style={styles.videoBannerView}>
-          <Video
-            source={videos.FIND_EVENT_BANNER_VIDEO}
-            style={styles.bannervideoStyle}
-            repeat
-            resizeMode={"cover"}
+          <VideoPlayer
+            reqVideo={videos.FIND_EVENT_BANNER_VIDEO}
+            videoHeight={320}
+            pauseStartBttn={false}
           />
           <View style={styles.bannerView}>
             <ScaleText style={CommonStyles.bigTxtVw}>
@@ -122,9 +126,7 @@ const EventListingView = (props) => {
         )}
         <View style={styles.containers}>
           <ScaleText style={styles.eventTitlesTxt}>Events</ScaleText>
-          <View
-            style={[styles.straightVw, { justifyContent: "space-between" }]}
-          >
+          <View style={styles.seeEventsVw}>
             <TouchableOpacity
               onPress={() => {
                 setAlsoSeeFor(!alsoSeeFor);
@@ -134,32 +136,88 @@ const EventListingView = (props) => {
                 }
                 props.setIsSelectedDay(null);
               }}
-              style={[styles.straightVw, styles.seeOnVw]}
+              style={[
+                styles.seeOnVw,
+                {
+                  borderColor: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
+                },
+              ]}
             >
-              <ScaleText style={styles.seeOnTxt}>See Events For</ScaleText>
-              <Image
-                style={styles.seeForImg}
-                source={
-                  alsoSeeFor ? Images.ARROW_UP_IMG : Images.ARROW_DOWN_IMG
-                }
+              <ScaleText
+                style={[
+                  styles.seeOnTxt,
+                  {
+                    color: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
+                  },
+                ]}
+              >
+                See Events For
+              </ScaleText>
+              <IconX
+                origin={ICON_TYPE.MATERIAL_ICONS}
+                size={22}
+                color={alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW}
+                name={alsoSeeFor ? "keyboard-arrow-up" : "keyboard-arrow-down"}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.seeOnVw}
+              style={[
+                styles.seeOnVw,
+                {
+                  borderColor: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
+                },
+              ]}
               onPress={() => handleSeeAll()}
             >
-              <ScaleText style={styles.seeOnTxt}>See All</ScaleText>
+              <ScaleText
+                style={[
+                  styles.seeOnTxt,
+                  {
+                    color: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
+                  },
+                ]}
+              >
+                See All
+              </ScaleText>
             </TouchableOpacity>
           </View>
           {alsoSeeFor && (
-            <>
+            <View style={{ marginLeft: 10, marginVertical: 5 }}>
               <FlatList
                 data={dayData}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => index}
-                renderItem={({ item, index }) => _renderTime(item, index)}
+                renderItem={({ item, index }) => {
+                  const selectedColor =
+                    index === props.isSelectedDay
+                      ? COLORS.YELLOW
+                      : COLORS.BLACK;
+                  return (
+                    <View style={CommonStyles.straightCon}>
+                      <RowSingleTxtList
+                        text={item.name}
+                        txtColor={selectedColor}
+                        paddingHorizontal={0}
+                        paddingVertical={0}
+                        borderColor={selectedColor}
+                        onPressItem={() =>
+                          props._handleDaySelected(item.id, index)
+                        }
+                        borderBottomWidth={0}
+                      />
+                      <View style={{ right: 5 }}>
+                        <IconX
+                          origin={ICON_TYPE.ICONICONS}
+                          name={"remove-outline"}
+                          style={[styles.timeDataImg]}
+                          color={selectedColor}
+                        />
+                      </View>
+                    </View>
+                  );
+                }}
               />
               <DateTimePickerModal
                 isVisible={props?.openSearchDate}
@@ -167,7 +225,7 @@ const EventListingView = (props) => {
                 onConfirm={(date) => props?.handleEndTimeConfirm(date)}
                 onCancel={handleCloseDate}
               />
-            </>
+            </View>
           )}
           <ScrollView>
             {props.eventsList.length > 0 ? (

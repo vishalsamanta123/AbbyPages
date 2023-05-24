@@ -73,6 +73,7 @@ export const FONT_FAMILY = {
 };
 export const FONT_SIZE = {
   light: normalize(9),
+  lightL: normalize(10),
   verysmall: normalize(11),
   small: normalize(12),
   smallL: normalize(14),

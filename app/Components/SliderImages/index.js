@@ -44,17 +44,17 @@ const SliderImages = (props) => {
           const subTitle = item[subTitleTxt];
           return (
             <View key={index} style={[{ width }, styles.mainCon]}>
-              <Image
-                resizeMode="cover"
-                source={{ uri: image }}
-                style={[
-                  styles.imageVw,
-                  {
-                    width: imgWidth,
-                  },
-                ]}
-              />
-              <View style={{ marginHorizontal: 8 }}>
+              <View>
+                <Image
+                  resizeMode="cover"
+                  source={{ uri: image }}
+                  style={[
+                    styles.imageVw,
+                    {
+                      width: imgWidth,
+                    },
+                  ]}
+                />
                 <View style={styles.paginationWrapper}>
                   {Array?.from(
                     Array(data?.length > 5 ? 5 : data?.length).keys()
@@ -68,6 +68,8 @@ const SliderImages = (props) => {
                     />
                   ))}
                 </View>
+              </View>
+              <View style={{ marginHorizontal: 8 }}>
                 {title === "" ||
                 title === null ||
                 title === undefined ? null : (
@@ -93,19 +95,18 @@ export default SliderImages;
 
 const styles = StyleSheet.create({
   mainCon: {
-    marginVertical: 5,
-    paddingVertical: 5,
+    flex: 1,
   },
   imageVw: {
     height: 200,
     alignSelf: "center",
   },
   paginationWrapper: {
-    bottom: 18,
     justifyContent: "center",
-    alignItems: "center",
+    alignSelf: "center",
     flexDirection: "row",
-    flex: 1,
+    position: "absolute",
+    bottom: 5,
   },
   paginationDots: {
     height: 10,

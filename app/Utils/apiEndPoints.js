@@ -149,12 +149,12 @@ export default {
   COMMENT_ON_ABBY_CONNECT_POST: "api/abbyConnect/commentOnAbbyConnectPost",
   GET_ABBY_CONNET_POST_DETAILS: "api/abbyConnect/getAbbyConnectPostDetail",
   USERLASTJOBDTL: "api/jobs/userLastJobDetail",
-  
+
   // MarketPlace
   PRODUCT_CATEGORY_LIST: "api/product/productCategoryList",
   PRODUCT_FILTER_DATA: "api/product/getProductFlterData",
   ADD_TO_CART_PRODUCT: "api/product/addProductIntoCart",
   GET_TO_CART_PRODUCT: "api/product/getProductFromCart",
   UPDATE_CART_QUANTITY: "api/product/updateQuantityAndClearCart",
+  BUSINESSDETAILSBYNAME: "/api/business/businessDetailsForGoogle",
 };
-    
