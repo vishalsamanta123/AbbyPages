@@ -28,13 +28,18 @@ const UserVerify = ({ route, navigation }) => {
       const params = {
         otp: otp,
       };
+      console.log("🚀 ~ file: index.js:31 ~ params:", params);
       try {
         const { data } = await apiCall("POST", ENDPOINTS.USER_VERIFY, params);
+        console.log("🚀 ~ file: index.js:33 ~ data:", data);
         if (data.status === 200) {
           setVisible(false);
           setUserData(data.data);
           await AsyncStorage.setItem("userData", JSON.stringify(data?.data));
           signIn(data);
+          await AsyncStorage.setItem("userToken", data?.token);
+          setDefaultHeader("token", data?.token);
+          navigation.navigate("HomeDashboard");
         } else {
           setVisible(false);
           setErrorMessage(data.message);
@@ -86,7 +91,7 @@ const UserVerify = ({ route, navigation }) => {
         handleOtp={(val) => setOtp(val)}
         _handleOtpVerify={(data) => _handleOtpVerify(data)}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -95,7 +100,7 @@ const UserVerify = ({ route, navigation }) => {
         message={successMessage}
         visible={visibleSuccess}
         closeModel={() => setVisibleSuccess(false)}
-      />
+      /> */}
     </View>
   );
 };

@@ -1,15 +1,5 @@
-import { StyleSheet, Dimensions, PixelRatio } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_BOLD,
-  LIGHT_GREY_COLOR_CODE,
-  LINE_COMMON_COLOR_CODE,
-  GREY_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  FONT_FAMILY_THIN,
-  FONT_FAMILY_LIGHT,
-} from "../../../../../Utils/Constant";
+import { StyleSheet } from "react-native";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
   container: {
@@ -26,7 +16,7 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     paddingLeft: 20,
     marginLeft: 4,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   CameraImgView: {
     flex: 0.5,
@@ -39,7 +29,7 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
   },
   AddPhotosTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
     paddingLeft: 10,
   },
@@ -49,7 +39,7 @@ const Styles = StyleSheet.create({
     alignItems: "center",
   },
   MainContainer: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     paddingTop: 15,
     paddingBottom: 15,
   },
@@ -57,16 +47,16 @@ const Styles = StyleSheet.create({
     paddingTop: 10,
   },
   LoctionTextStyle: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
   },
   LocationNameTXt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
   },
   AnyProblmTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
     fontSize: 16,
     textAlign: "center",
   },

@@ -63,6 +63,10 @@ import UserProfileView from "../Screens/User/ProfileMng/UserProfile";
 import ProfileSetting from "../Screens/User/ProfileMng/ProfileSetting";
 import UpdateProfileView from "../Screens/User/ProfileMng/UpdateProfile";
 import OrderDetailIndex from "../Screens/User/OrderDetail";
+import ChangePasswordView from "../Screens/User/ProfileMng/ChangePassword";
+import NotificationSettingsView from "../Screens/User/ProfileMng/NotificationSettings";
+import AddEmail from "../Screens/User/ProfileMng/AddEmail";
+import LocationsView from "../Screens/User/ProfileMng/Locations";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -106,6 +110,11 @@ function TabNavigation() {
       <Tab.Screen name="ProfileSetting" component={ProfileSetting} />
       <Tab.Screen name="UpdateProfileView" component={UpdateProfileView} />
       <Tab.Screen name="OrderDetailIndex" component={OrderDetailIndex} />
+      <Tab.Screen name="ChangePassword" component={ChangePasswordView} />
+      <Tab.Screen name="NotificationSettings" component={NotificationSettingsView} />
+      <Tab.Screen name="AddEmail" component={AddEmail} />
+      <Tab.Screen name="Locations" component={LocationsView} />
+      <Tab.Screen name="UserProfile" component={UserProfileView} />
     </Tab.Navigator>
   );
 }
@@ -148,6 +157,11 @@ function AppStack() {
       <Stack.Screen name="ProfileSetting" component={TabNavigation} />
       <Stack.Screen name="UpdateProfileView" component={TabNavigation} />
       <Stack.Screen name="OrderDetailIndex" component={TabNavigation} />
+      <Stack.Screen name="ChangePassword" component={TabNavigation} />
+      <Stack.Screen name="NotificationSettings" component={TabNavigation} />
+      <Stack.Screen name="AddEmail" component={TabNavigation} />
+      <Stack.Screen name="Locations" component={TabNavigation} />
+      <Stack.Screen name="UserProfile" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -212,7 +226,7 @@ function AuthLoading({ navigation }) {
   const authContext = React.useMemo(
     () => ({
       signIn: async (data) => {
-        getLoginType();
+        // getLoginType();
         const userToken = data.token;
         try {
           await AsyncStorage.setItem("userToken", userToken);
