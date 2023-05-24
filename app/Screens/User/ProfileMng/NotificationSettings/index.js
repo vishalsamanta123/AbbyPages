@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import auth from "@react-native-firebase/auth";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -6,9 +6,7 @@ import CountryData from "../../../../Components/CountryData/countryData";
 import NotificationSettings from "./components/NotificationSettings";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
 import { useFocusEffect } from "@react-navigation/native";
-import Error from "../../../../Components/Modal/showMessage";
 import QuestionModal from "../../../../Components/Modal/questionModal";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
@@ -72,7 +70,7 @@ const NotificationSettingsView = ({ navigation }) => {
       data.name.toLowerCase().includes(lowerCased)
     );
     SetfilterCountry(list.length > 0 ? list : CountryData);
-    setSearchFeildKey(searchKey)
+    setSearchFeildKey(searchKey);
   };
   const _handleOtpVerify = async () => {
     setVisible(true);
@@ -652,16 +650,6 @@ const NotificationSettingsView = ({ navigation }) => {
         _handleEmailNotificationSettings={_handleEmailNotificationSettings}
         searchFeildKey={searchFeildKey}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      /> */}
       <ShowMessage
         visible={visibleErr || visibleSuccess}
         message={errorMessage || successMessage}

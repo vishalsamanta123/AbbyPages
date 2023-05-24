@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Image,
-  ScrollView,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
@@ -12,9 +11,9 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS } from "../../../../../Utils/Constant";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Images } from "../../../../../Utils/images";
-import Header from "../../../../../Components/Header";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
+import PageScroll from "../../../../../Components/PageScroll";
 const UserProfile = (props) => {
   return (
     <KeyboardAvoidingView
@@ -28,7 +27,7 @@ const UserProfile = (props) => {
         TxtMarginRight={"5%"}
       />
       <View style={[CommonStyles.body]}>
-        <ScrollView>
+        <PageScroll>
           <View style={styles.EmailContainer}>
             <View style={styles.FlexViewContain}>
               <View>
@@ -189,7 +188,7 @@ const UserProfile = (props) => {
             paddingHeight={10}
 
           />
-        </ScrollView>
+        </PageScroll>
       </View>
     </KeyboardAvoidingView>
   );

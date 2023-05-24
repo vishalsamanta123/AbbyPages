@@ -1,13 +1,9 @@
 import React from "react";
 import { View, KeyboardAvoidingView, Platform } from "react-native";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
-import Input from "../../../../../Components/Input";
 import Button from "../../../../../Components/Button";
 import {
   FONT_SIZE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
 import MainHeader from "../../../../../Components/MainHeader";
 import MainInput from "../../../../../Components/MainInput";

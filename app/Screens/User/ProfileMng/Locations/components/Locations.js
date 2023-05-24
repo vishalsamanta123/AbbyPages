@@ -1,26 +1,17 @@
 import React from "react";
 import {
   View,
-  Text,
-  Image,
   FlatList,
-  StatusBar,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
-  BLACK_COLOR_CODE,
   FONT_SIZE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
 } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 const Locations = (props) => {
   return (
     <KeyboardAvoidingView
@@ -34,7 +25,7 @@ const Locations = (props) => {
       <View style={styles.EmailContainer}>
         <View style={styles.FlexViewContain}>
           <View style={{ flex: 5 }}>
-            <Text style={styles.EmailNotifyTxt}>Your Saved Locations</Text>
+            <ScaleText style={styles.EmailNotifyTxt}>Your Saved Locations</ScaleText>
           </View>
           {/* <TouchableOpacity
             onPress={() => props.onPressAddLocation()}

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   txtipt: {
     height: 65,
-    borderColor: "#d8d8d8",
+    borderColor: COLORS.BORDER_LINE,
     borderWidth: 0.8,
     width: "90%",
     alignSelf: "center",

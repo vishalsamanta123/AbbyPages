@@ -1,14 +1,8 @@
 import { Platform, StyleSheet } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  GREY_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  LIGHT_GREY_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   GetEmailText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 15,
   },
   MainGetEmailView: {
@@ -17,27 +11,27 @@ const Styles = StyleSheet.create({
     paddingTop: 5,
   },
   GetEmailOptnTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
     paddingLeft: 5,
     fontSize: 14,
   },
   EmailContainer: {
     padding: 15,
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   FlexViewContain: {
     flexDirection: "row",
   },
   EmailNotifyTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 19,
   },
   AddAccountTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     paddingTop: 5,
     lineHeight: 18,
-    color: LIGHT_GREY_COLOR_CODE,
+    color: COLORS.LIGHT_GREY,
     fontSize: 13,
   },
   AddLocationView: {
@@ -52,16 +46,16 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginTop: 15,
     marginBottom: 20,
-    borderColor: LIGHT_GREY_COLOR_CODE,
+    borderColor: COLORS.LIGHT_GREY,
   },
   MainEmaliTXt: {
     fontSize: 19,
-    color: BLACK_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.BLACK,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   PrimaryText: {
-    color: LIGHT_GREY_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    color: COLORS.LIGHT_GREY,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
   ImageDelete: {
     position: "absolute",
@@ -71,7 +65,7 @@ const Styles = StyleSheet.create({
     marginRight: 17,
   },
   PhoneNumberContain: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     marginTop: 10,
     paddingBottom: 15,
   },
@@ -81,14 +75,14 @@ const Styles = StyleSheet.create({
   PhoneDescrptnText: {
     lineHeight: 19,
     paddingTop: 5,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
     fontSize: 13,
   },
   EmalNotifyText: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 19,
-    color: BLACK_COLOR_CODE,
+    color: COLORS.BLACK,
   },
   ReceiveEmailView: {
     flexDirection: "row",
@@ -99,13 +93,13 @@ const Styles = StyleSheet.create({
   },
   ReceiveEmailText: {
     fontSize: 15,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
   },
   NOteTextStyle: {
     fontSize: 12,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: LIGHT_GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_GREY,
     width: "60%",
   },
 
@@ -115,7 +109,7 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
   modalView: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     borderRadius: 10,
     borderWidth: 0.5,
     width: "100%",
@@ -132,10 +126,10 @@ const Styles = StyleSheet.create({
   },
   TxtInptStyle: {
     borderBottomWidth: 0.5,
-    borderColor: GREY_COLOR_CODE,
+    borderColor: COLORS.GREY,
     fontSize: 17,
     paddingLeft: 15,
-    color: GREY_COLOR_CODE,
+    color: COLORS.GREY,
     paddingVertical: Platform.OS === "ios" ? 20 : 0,
   },
   MainCntrySlctTouchble: {
@@ -148,7 +142,7 @@ const Styles = StyleSheet.create({
   CountryText: {
     fontSize: 18,
     margin: 5,
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: "grey",
   },
 
@@ -159,14 +153,14 @@ const Styles = StyleSheet.create({
   },
   CountryflgTxt: {
     fontSize: 25,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
   },
   RegionTextMain: {
     fontSize: 17,
     margin: 10,
-    fontFamily: FONT_FAMILY_REGULAR,
-    color: GREY_COLOR_CODE,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
     marginTop: 19,
   },
 });
