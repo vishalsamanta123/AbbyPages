@@ -21,7 +21,7 @@ const AddressInput = (props) => {
     placeholderTextColor = COLORS.COMMON,
     header = true,
     iconTop = 25,
-    borderRadius = 18,
+    borderRadius = 16,
     rightImgName = "",
     rightImgSize = 22,
     rightImgOrigin = "",
@@ -83,8 +83,8 @@ const AddressInput = (props) => {
               }
             }
           },
-          value: value,
         }}
+        value={value}
         query={{
           key: Constants.mapKey,
           language: "en",
@@ -97,6 +97,7 @@ const AddressInput = (props) => {
               paddingVertical: paddingVertical,
               marginTop: marginTop,
               marginBottom: marginBottom,
+              borderRadius: borderRadius,
             },
           ],
           textInput: styles.inputCon,

@@ -1,49 +1,47 @@
 import React from "react";
 import {
   View,
-  Text,
   Image,
-  StatusBar,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Images } from "../../../../../Utils/images";
 import Header from "../../../../../Components/Header";
+import ScaleText from "../../../../../Components/ScaleText";
+import MainHeader from "../../../../../Components/MainHeader";
 const UserProfile = (props) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
-      style={[CommonStyles.container]}>
-      <Header
-        RightImg={null}
-        HeaderText={"Profile"}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={[CommonStyles.container]}
+    >
+      <MainHeader
+        headerText={"Settings"}
+        isSearch={false}
+        loginButton={false}
+        TxtMarginRight={"5%"}
       />
       <View style={[CommonStyles.body]}>
         <ScrollView>
           <View style={styles.EmailContainer}>
             <View style={styles.FlexViewContain}>
               <View>
-                <Text style={styles.EmailNotifyTxt}>Your Profile</Text>
-                <Text style={styles.AddAccountTxt}>
+                <ScaleText style={styles.EmailNotifyTxt}>
+                  Your Profile
+                </ScaleText>
+                <ScaleText style={styles.AddAccountTxt}>
                   Manage the visibility of your profile.
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 15 }}>
-              <Text style={styles.EmalNotifyText}>Find Friends</Text>
+              <ScaleText style={styles.EmalNotifyText}>Find Friends</ScaleText>
             </View>
             <View style={styles.ReceiveEmailView}>
               <TouchableOpacity
@@ -54,23 +52,21 @@ const UserProfile = (props) => {
                 <Image
                   style={{ marginTop: 5 }}
                   source={
-                    props.findFriends
-                      ? Images.CHECK_IMG
-                      : Images.UNCHECK_IMG
+                    props.findFriends ? Images.CHECK_IMG : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
               <View style={styles.ReceiveContain}>
-                <Text style={styles.ReceiveEmailText}>
+                <ScaleText style={styles.ReceiveEmailText}>
                   Let others find my profile using my name or email address
-                </Text>
-                <Text style={styles.NOteTextStyle}>
+                </ScaleText>
+                <ScaleText style={styles.NOteTextStyle}>
                   users added as friends can always find a profile.
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 15 }}>
-              <Text style={styles.EmalNotifyText}>Bookmarks</Text>
+              <ScaleText style={styles.EmalNotifyText}>Bookmarks</ScaleText>
             </View>
             <View style={styles.ReceiveEmailView}>
               <TouchableOpacity
@@ -81,22 +77,20 @@ const UserProfile = (props) => {
                 <Image
                   style={{ marginTop: 5 }}
                   source={
-                    props.bookmarks
-                      ? Images.CHECK_IMG
-                      : Images.UNCHECK_IMG
+                    props.bookmarks ? Images.CHECK_IMG : Images.UNCHECK_IMG
                   }
                 />
               </TouchableOpacity>
               <View style={styles.ReceiveContain}>
-                <Text style={[styles.ReceiveEmailText, { width: "100%" }]}>
+                <ScaleText style={[styles.ReceiveEmailText, { width: "100%" }]}>
                   Make my bookmarks public
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 15 }}>
-              <Text style={styles.EmalNotifyText}>
+              <ScaleText style={styles.EmalNotifyText}>
                 Direct Messages from Bussinesses
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.ReceiveEmailView}>
               <TouchableOpacity
@@ -117,14 +111,16 @@ const UserProfile = (props) => {
                 />
               </TouchableOpacity>
               <View style={styles.ReceiveContain}>
-                <Text style={styles.ReceiveEmailText}>
+                <ScaleText style={styles.ReceiveEmailText}>
                   Allow business owners to send you direct messages in response
                   to your review
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 15 }}>
-              <Text style={styles.EmalNotifyText}>Ads Displayed Elsewhere</Text>
+              <ScaleText style={styles.EmalNotifyText}>
+                Ads Displayed Elsewhere
+              </ScaleText>
             </View>
             <View style={styles.ReceiveEmailView}>
               <TouchableOpacity
@@ -145,47 +141,53 @@ const UserProfile = (props) => {
                 />
               </TouchableOpacity>
               <View style={styles.ReceiveContain}>
-                <Text style={[styles.ReceiveEmailText]}>
+                <ScaleText style={[styles.ReceiveEmailText]}>
                   Allow AbbyPages to target ads on other sites and apps based on
                   your use of AbbyPages
-                </Text>
+                </ScaleText>
               </View>
             </View>
           </View>
           <View style={styles.PhoneNumberContain}>
             <View style={styles.PhoneDescrptnView}>
-              <Text
-                style={[styles.EmailNotifyTxt, { color: BLACK_COLOR_CODE }]}
+              <ScaleText
+                style={[styles.EmailNotifyTxt, { color: COLORS.BLACK }]}
               >
                 Business Visibility Settings
-              </Text>
-              <Text style={styles.PhoneDescrptnText}>
+              </ScaleText>
+              <ScaleText style={styles.PhoneDescrptnText}>
                 Manage what a business sees when you interact with its AbbyPages
                 Listing
-              </Text>
+              </ScaleText>
               <View style={{ paddingTop: 15 }}>
-                <Text style={styles.PhoneDescrptnText}>
+                <ScaleText style={styles.PhoneDescrptnText}>
                   These settings govern how businesses will see actuione you
                   take through abbyPeges, such as, mobile calls. directions
                   requests, men view, and visite to a business's webs.. The
                   date, time, and whetter you. accessing AbbyPages vie web or
                   mobile device are always shown.
-                </Text>
+                </ScaleText>
               </View>
               <View style={{ paddingTop: 15 }}>
-                <Text style={styles.PhoneDescrptnText}>
+                <ScaleText style={styles.PhoneDescrptnText}>
                   Businesses can always see your public contributions (Like
                   reviews and photos), and information about your transactions
                   with them through AbbyPages.
-                </Text>
+                </ScaleText>
               </View>
             </View>
           </View>
-          <Button buttonText="Save Settings" style={styles.SaveBtnsTYLE} />
+          <Button
+            buttonText="Save Settings"
+            style={styles.SaveBtnsTYLE}
+            paddingHeight={10}
+          />
           <Button
             buttonText="Cancel"
             buttonLabelStyle={styles.CancelBtnTxt}
             style={styles.CancelBtnStyle}
+            paddingHeight={10}
+
           />
         </ScrollView>
       </View>

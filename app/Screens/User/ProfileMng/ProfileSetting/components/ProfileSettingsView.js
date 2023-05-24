@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Text,
   View,
   Image,
   ScrollView,
@@ -9,13 +8,12 @@ import {
   Platform,
 } from "react-native";
 import styles from "./styles";
-import Header from "../../../../../Components/Header";
 import Button from "../../../../../Components/Button";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import moment from "moment";
-import { WHITE_COLOR_CODE, YELLOW_COLOR_CODE } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 
 const ProfileSettingsView = (props) => {
   return (
@@ -43,7 +41,7 @@ const ProfileSettingsView = (props) => {
                 />
               </View>
               <View style={styles.TextContainer}>
-                <Text style={styles.AddPhotosTxt}>Profile</Text>
+                <ScaleText style={styles.AddPhotosTxt}>Profile</ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -58,7 +56,7 @@ const ProfileSettingsView = (props) => {
                   <Image source={Images.LOCK_IMG} />
                 </View>
                 <View style={styles.TextContainer}>
-                  <Text style={styles.AddPhotosTxt}>Password</Text>
+                  <ScaleText style={styles.AddPhotosTxt}>Password</ScaleText>
                 </View>
                 <View style={styles.BckArrowBack}>
                   <Image source={Images.ARROW_RIGHT_IMG} />
@@ -73,7 +71,7 @@ const ProfileSettingsView = (props) => {
                 <Image source={Images.ENVELOPE_IMG} />
               </View>
               <View style={styles.TextContainer}>
-                <Text style={styles.AddPhotosTxt}>Email / Notifications</Text>
+                <ScaleText style={styles.AddPhotosTxt}>Email / Notifications</ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -87,7 +85,7 @@ const ProfileSettingsView = (props) => {
                 <Image source={Images.LOCATION_IMG} />
               </View>
               <View style={styles.TextContainer}>
-                <Text style={styles.AddPhotosTxt}>Locations</Text>
+                <ScaleText style={styles.AddPhotosTxt}>Locations</ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -101,7 +99,7 @@ const ProfileSettingsView = (props) => {
                 <Image source={Images.LOCATION_IMG} />
               </View>
               <View style={styles.TextContainer}>
-                <Text style={styles.AddPhotosTxt}>Order history</Text>
+                <ScaleText style={styles.AddPhotosTxt}>Order history</ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -115,7 +113,7 @@ const ProfileSettingsView = (props) => {
                 <Image source={Images.SETTING_IMG} />
               </View>
               <View style={styles.TextContainer}>
-                <Text style={styles.AddPhotosTxt}>Settings</Text>
+                <ScaleText style={styles.AddPhotosTxt}>Settings</ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -125,7 +123,7 @@ const ProfileSettingsView = (props) => {
           <View
             style={[styles.MainContainer, { marginTop: 10, paddingLeft: 15 }]}
           >
-            <Text
+            <ScaleText
               style={[styles.AddPhotosTxt, { fontSize: 19, paddingLeft: 0 }]}
             >
               About{" "}
@@ -133,31 +131,31 @@ const ProfileSettingsView = (props) => {
                 props.userProfileData.first_name +
                   " " +
                   props.userProfileData.last_name}
-            </Text>
+            </ScaleText>
             <View style={styles.LocationView}>
-              <Text style={styles.LoctionTextStyle}>Location</Text>
-              <Text style={styles.LocationNameTXt}>
+              <ScaleText style={styles.LoctionTextStyle}>Location</ScaleText>
+              <ScaleText style={styles.LocationNameTXt}>
                 {props.userProfileData.find_me_in}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.LocationView}>
-              <Text style={styles.LoctionTextStyle}>Member Since</Text>
-              <Text style={styles.LocationNameTXt}>
+              <ScaleText style={styles.LoctionTextStyle}>Member Since</ScaleText>
+              <ScaleText style={styles.LocationNameTXt}>
                 {moment(props.userProfileData.create_date).format("MM/DD/YYYY")}
-              </Text>
+              </ScaleText>
             </View>
             <View style={styles.LocationView}>
-              <Text style={styles.LoctionTextStyle}>Things I Love</Text>
+              <ScaleText style={styles.LoctionTextStyle}>Things I Love</ScaleText>
               {props.userProfileData.i_love ? (
-                <Text style={styles.LocationNameTXt}>
+                <ScaleText style={styles.LocationNameTXt}>
                   {props.userProfileData && props.userProfileData.i_love}
-                </Text>
+                </ScaleText>
               ) : (
                 <>
-                  <Text style={styles.LocationNameTXt}>
+                  <ScaleText style={styles.LocationNameTXt}>
                     You haven't told us yet...
-                  </Text>
-                  <Text style={styles.LocationNameTXt}>do tell!</Text>
+                  </ScaleText>
+                  <ScaleText style={styles.LocationNameTXt}>do tell!</ScaleText>
                 </>
               )}
             </View>
@@ -165,12 +163,12 @@ const ProfileSettingsView = (props) => {
           <View style={[styles.MainContainer, { marginTop: 10 }]}>
             <View style={{ alignItems: "center" }}>
               <Image source={Images.HEADPHONES_IMG} />
-              <Text style={styles.AnyProblmTxt}>Have any problem and</Text>
-              <Text style={styles.AnyProblmTxt}>
+              <ScaleText style={styles.AnyProblmTxt}>Have any problem and</ScaleText>
+              <ScaleText style={styles.AnyProblmTxt}>
                 need support? Call Us directly
-              </Text>
-              <Text style={styles.LocationNameTXt}>(+1) 407-600-5690</Text>
-              <Text style={styles.AnyProblmTxt}>or chat with us</Text>
+              </ScaleText>
+              <ScaleText style={styles.LocationNameTXt}>(+1) 407-600-5690</ScaleText>
+              <ScaleText style={styles.AnyProblmTxt}>or chat with us</ScaleText>
             </View>
             <Button buttonText="Contact Us" style={{ marginTop: 10 }} />
           </View>

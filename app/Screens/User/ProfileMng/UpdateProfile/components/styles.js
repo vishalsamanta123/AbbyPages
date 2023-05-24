@@ -1,25 +1,19 @@
 import { Platform, StyleSheet } from "react-native";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-} from "../../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   alertBackground: {
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)', // If the mask is to be displayed in a semi-transparent state, it must be set here. The a in the reba controls the transparency, which is in the range of 0.0 to 1.0.
   },
   modalItem: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     textAlign: "center",
   },
   alertBox: {
     width: 200,
-    // height: 100,
     flexDirection: "row",
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
   },
   profileModal: {
     flex: 1,
@@ -38,8 +32,8 @@ const Styles = StyleSheet.create({
   },
   pickerVw: {
     width: "100%",
-    backgroundColor: WHITE_COLOR_CODE,
-    fontFamily: FONT_FAMILY_REGULAR,
+    backgroundColor: COLORS.WHITE,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
   },
   pickerItemVw: {
@@ -54,7 +48,7 @@ const Styles = StyleSheet.create({
     paddingLeft: 15,
   },
   AddPhotosTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
+    fontFamily: FONT_FAMILY.REGULAR,
     fontSize: 17,
     paddingLeft: 10,
     paddingTop: Platform.OS === "ios" ? 12 : 0,
@@ -65,34 +59,19 @@ const Styles = StyleSheet.create({
     alignItems: "center",
   },
   MainContainer: {
-    backgroundColor: WHITE_COLOR_CODE,
+    backgroundColor: COLORS.WHITE,
     paddingTop: 15,
     paddingBottom: 15,
+    marginHorizontal: 10,
   },
   HeaderContain: {
     flex: 1,
     zIndex: 1,
-    backgroundColor: YELLOW_COLOR_CODE,
+    backgroundColor: COLORS.YELLOW,
   },
   ImageView: {
-    // position: 'absolute',
-    // right: 0,
-    // top: 0,
-    // bottom: -45,
-    // top: -45,
-    // left: 0,
     alignItems: "center",
-    backgroundColor: YELLOW_COLOR_CODE,
-    // height:40,
     justifyContent: "flex-end",
-    // position: 'absolute',
-    // right: 0,
-    // top: 0,
-    // bottom: -45,
-    // // top: -45,
-    // left: 0,
-    // alignItems: 'center',
-    // justifyContent: 'flex-end'
   },
   EditProfileImge: {
     position: "absolute",

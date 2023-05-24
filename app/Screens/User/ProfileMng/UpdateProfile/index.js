@@ -1,16 +1,16 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { Image } from "react-native";
 import UpdateProfile from "./components/UpdateProfile";
 import ImagePicker from "react-native-image-crop-picker";
-import { WHITE_COLOR_CODE } from "../../../../Utils/Constant";
-import ENDPOINTS from "../../../../Utils/apiEndPoints";
+import { COLORS } from "../../../../Utils/Constant";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
 import { Images } from "../../../../Utils/images";
 import { apiCall } from "../../../../Utils/httpClient";
+import ShowMessage from "../../../../Components/Modal/showMessage";
+import ENDPOINTS from "../../../../Utils/apiEndPoints";
+
 const UpdateProfileView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -24,8 +24,8 @@ const UpdateProfileView = ({ navigation }) => {
     last_name: "",
     headline: "",
     i_love: "",
-    find_me_in: "",
-    hometown: "",
+    find_me_in: "w",
+    hometown: "w",
     blog_website: "",
     when_not_on_abbypages: "",
     why_should_read_my_reviews: "",
@@ -76,11 +76,7 @@ const UpdateProfileView = ({ navigation }) => {
     setVisible(true);
     try {
       let formdata = new FormData();
-      formdata.append("profile_image", {
-        uri: img.path,
-        type: img.mime,
-        name: img.path.substring(img.path.lastIndexOf("/") + 1),
-      });
+      formdata.append("profile_image", img);
       const { data } = await apiCall(
         "post",
         ENDPOINTS.USER_PROFILE_IMAGE_UPLOAD,
@@ -89,14 +85,14 @@ const UpdateProfileView = ({ navigation }) => {
           "Content-Type": "multipart/form-data",
         }
       );
-      if (data.status === 200) {
+      if (data?.status === 200) {
         setVisibleSuccess(true);
-        setSuccessMessage(data.message);
+        setSuccessMessage(data?.message);
         getProfileData();
         setVisible(false);
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
+        setErrorMessage(data?.message);
         setVisibleErr(true);
       }
     } catch (error) {
@@ -116,7 +112,7 @@ const UpdateProfileView = ({ navigation }) => {
               height: 100,
               borderRadius: 55,
               borderWidth: 3,
-              borderColor: WHITE_COLOR_CODE,
+              borderColor: COLORS.WHITE,
             }}
           />
         </TouchableOpacity>
@@ -238,13 +234,13 @@ const UpdateProfileView = ({ navigation }) => {
           ENDPOINTS.EDIT_USER_PROFILE,
           params
         );
-        if (data.status === 200) {
-          setSuccessMessage(data.message);
+        if (data?.status === 200) {
+          setSuccessMessage(data?.message);
           setVisibleSuccess(true);
           setVisible(false);
         } else {
           setVisible(false);
-          setErrorMessage(data.message);
+          setErrorMessage(data?.message);
           setVisibleErr(true);
         }
       } catch (error) {
@@ -270,20 +266,19 @@ const UpdateProfileView = ({ navigation }) => {
         profileData={profileData}
         setProfileData={setProfileData}
         renderFileUri={renderFileUri}
+        handleUploadProfileImage={handleUploadProfileImage}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
+      <ShowMessage
+        visible={visibleErr || visibleSuccess}
+        message={errorMessage || successMessage}
+        messageViewType={visibleErr ? "error" : "success"}
+        onEndVisible={() => {
+          setErrorMessage("");
+          setVisibleErr(false);
+          setVisibleSuccess(false);
+          setSuccessMessage("");
+        }}
       />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      // closeModel={() => {
-      //   navigation.goBack(null)
-      //   setVisibleSuccess(false)}}
-      /> */}
     </View>
   );
 };

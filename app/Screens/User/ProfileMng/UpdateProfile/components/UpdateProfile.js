@@ -2,160 +2,57 @@ import React, { useState } from "react";
 import {
   View,
   Image,
-  StatusBar,
-  ScrollView,
   TouchableOpacity,
-  Text,
   KeyboardAvoidingView,
   ImageBackground,
   Platform,
 } from "react-native";
-import { Picker } from "@react-native-community/picker";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import styles from "./styles";
-import Dialog, {
-  DialogContent,
-  SlideAnimation,
-} from "react-native-popup-dialog";
-import Header from "../../../../../Components/Header";
 import Button from "../../../../../Components/Button";
-import Input from "../../../../../Components/Input";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  GREY_COLOR_CODE,
-  WHITE_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  FONT_FAMILY_BOLD,
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-} from "../../../../../Utils/Constant";
+import { FONT_SIZE, COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
+import MainHeader from "../../../../../Components/MainHeader";
+import MediaPicker from "../../../../../Components/MediaPicker";
+import MainInput from "../../../../../Components/MainInput";
+import PageScroll from "../../../../../Components/PageScroll";
+import AddressInput from "../../../../../Components/AddressInput";
+import SelectButton from "../../../../../Components/SelectButton";
+import DateTimeModal from "../../../../../Components/DateTimeModal";
+import { ICON_TYPE } from "../../../../../Components/Icons/Icon";
 const UpdateProfile = (props) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = (date) => {
-    const value = moment(date).format("MM/DD/YYYY");
-    props.setProfileData({
-      ...props.profileData,
-      birth_date: value,
-    });
-    hideDatePicker();
-  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={[CommonStyles.container]}
     >
-      <Header
-        RightImg={null}
-        HeaderText={"Update Profile"}
-        MainHeadStyle={{ color: WHITE_COLOR_CODE }}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      <MainHeader
+        headerText={"Update Profile"}
+        fontSize={FONT_SIZE.medium}
+        loginButton={false}
+        isLogin={true}
       />
-      <View>
-        {/* // style={styles.HeaderContain}> */}
-        {/* <TouchableOpacity style={[styles.ImageView, {}]}>
-                    <TouchableOpacity style={{}} onPress={() => props.setProfileModal(true)}>
-                    {props.renderFileUri()}
-                    <TouchableOpacity style={{ position: 'absolute', right: 0, bottom: 0 }}>
-                    <TouchableOpacity style={{}} onPress={() => props.setProfileModal(true)}>
-                    <Image
-                    // style={styles.EditProfileImge}
-                    source={Images.EDIT_PHOTO_IMG} />
-                    </TouchableOpacity>
-                    </TouchableOpacity>
-                    </TouchableOpacity>
-                </TouchableOpacity> */}
-      </View>
       <View style={[CommonStyles.body]}>
-        <ImageBackground
-          source={Images.PROCEED_IMG}
-          style={[styles.ImageView, {}]}
-        >
-          <TouchableOpacity
-            style={{}}
-            onPress={() => props.setProfileModal(true)}
-          >
-            {props.renderFileUri()}
-            <View style={{ position: "absolute", right: 0, bottom: 0 }}>
-              <TouchableOpacity
-                style={{}}
-                onPress={() => props.setProfileModal(true)}
-              >
-                <Image source={Images.EDIT_PHOTO_IMG} />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        </ImageBackground>
-        <View>
-          <Dialog
-            visible={props.ProfileModal}
-            dialogAnimation={
-              new SlideAnimation({
-                slideFrom: "bottom",
-              })
-            }
-            transparent={true}
-            onTouchOutside={() => {
-              props.setProfileModal(false);
-            }}
-            onRequestClose={() => props.setProfileModal(false)}
-          >
-            <DialogContent>
-              <View style={styles.alertBackground}>
-                <Text style={[styles.modalItem, { paddingBottom: 10 }]}>
-                  Please select
-                </Text>
-                <View style={styles.alertBox}>
-                  <TouchableOpacity
-                    style={styles.profileModal}
-                    onPress={() => props.openCamera()}
-                    underlayColor={"#F5F5F5"}
-                  >
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.COLORED_CAMERA_IMG}
-                    />
-                    <Text style={styles.modalItem}>Open camera</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.profileModal}
-                    onPress={() => props.openAlbum()}
-                    underlayColor={"#F5F5F5"}
-                  >
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.GALLERY_IMG}
-                    />
-                    <Text style={styles.modalItem}>Open album</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.profileModal}
-                    underlayColor={"#F5F5F5"}
-                    onPress={() => props.setProfileModal(false)}
-                  >
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.COLORED_CANCEL_IMG}
-                    />
-                    <Text style={styles.modalItem}>Cancel</Text>
-                  </TouchableOpacity>
-                </View>
+        <PageScroll keyboardShouldPersistTaps={"always"}>
+          <ImageBackground style={styles.ImageView}>
+            <TouchableOpacity
+              style={{}}
+              onPress={() => props.setProfileModal(true)}
+            >
+              {props.renderFileUri()}
+              <View style={{ position: "absolute", right: 0, bottom: 0 }}>
+                <TouchableOpacity
+                  style={{}}
+                  onPress={() => props.setProfileModal(true)}
+                >
+                  <Image source={Images.EDIT_PHOTO_IMG} />
+                </TouchableOpacity>
               </View>
-            </DialogContent>
-          </Dialog>
-        </View>
-        <ScrollView keyboardShouldPersistTaps={"always"}>
+            </TouchableOpacity>
+          </ImageBackground>
           <View style={[styles.MainContainer, { paddingTop: "10%" }]}>
-            <Input
+            <MainInput
               onChangeText={(first_name) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -167,7 +64,7 @@ const UpdateProfile = (props) => {
               placeholder="First Name"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(last_name) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -179,7 +76,7 @@ const UpdateProfile = (props) => {
               placeholder="Last Name"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(nick_name) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -192,73 +89,46 @@ const UpdateProfile = (props) => {
               InputType="withScroll"
             />
             {/* gender */}
-            <View
-              style={[
-                styles.container,
-                {
-                  paddingHorizontal: 10,
-                  height: Platform.OS === "ios" ? 75 : 60,
-                  flexDirection: Platform.OS === "ios" ? null : "column",
-                },
+            <SelectButton
+              listType={""}
+              data={[
+                { label: "Male", value: 1 },
+                { label: "Female", value: 2 },
               ]}
-            >
-              {props.profileData.gender !== 0 && (
-                <Text style={[styles.AddPhotosTxt, { fontSize: 17 }]}>
-                  Gender
-                </Text>
-              )}
-              <Picker
-                mode={"dropdown"}
-                selectedValue={`${props.profileData.gender}`}
-                style={styles.pickerVw}
-                itemStyle={styles.pickerItemVw}
-                onValueChange={(itemValue, itemIndex) =>
-                  props.setProfileData({
-                    ...props.profileData,
-                    gender: itemValue,
-                  })
-                }
-              >
-                <Picker.Item label="Please Select Your Gender" value="0" />
-                <Picker.Item label="Male" value="1" />
-                <Picker.Item label="Female" value="2" />
-              </Picker>
-            </View>
-            <TouchableOpacity
-              onPress={() => showDatePicker()}
-              style={{
-                padding: 20,
-                borderColor: "#d8d8d8",
-                borderWidth: 1,
-                borderRadius: 12,
-                flexDirection: "row",
-                margin: 10,
-                marginLeft: 15,
-                marginRight: 15,
-                justifyContent: "space-between",
-                alignItems: "center",
+              headTxt={"Gender"}
+              value={
+                props.profileData.gender === "1"
+                  ? "Male"
+                  : props.profileData.gender === "2"
+                  ? "Female"
+                  : ""
+              }
+              labelField={"label"}
+              valueField={"label"}
+              onPressItem={(item) => {
+                props.setProfileData({
+                  ...props.profileData,
+                  gender: item?.value,
+                });
               }}
-            >
-              <Text style={{ fontSize: 15, fontFamily: FONT_FAMILY_REGULAR }}>
-                {props?.profileData?.birth_date === "" ||
-                  props?.profileData?.birth_date === undefined
-                  ? "Date Of Birth"
-                  : props?.profileData?.birth_date}
-              </Text>
-              <Image
-                resizeMode={"contain"}
-                style={{ height: 24, width: 24, alignSelf: "flex-end" }}
-                source={Images.CALENDER_IMG}
-              />
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              maximumDate={new Date()}
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
+              searchInput={false}
             />
-            <Input
+            <DateTimeModal
+              rightImgOrigin={ICON_TYPE.Fontisto}
+              rightImgName={"date"}
+              headTxt={"Birth date"}
+              placeholder={"Birth date"}
+              mode={"date"}
+              borderRadius={5}
+              value={props?.profileData?.birth_date}
+              onPressokButton={(data) => {
+                props.setProfileData({
+                  ...props.profileData,
+                  birth_date: data,
+                });
+              }}
+            />
+            <MainInput
               onChangeText={(zip_code) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -271,7 +141,7 @@ const UpdateProfile = (props) => {
               placeholder="Zip Code"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(headline) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -283,7 +153,7 @@ const UpdateProfile = (props) => {
               placeholder="Your Headline"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(i_love) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -295,7 +165,7 @@ const UpdateProfile = (props) => {
               placeholder="I Love"
               InputType="withScroll"
             />
-            <GooglePlacesAutocomplete
+            <AddressInput
               placeholder={"Find me in"}
               value={props.profileData.find_me_in}
               fetchDetails={true}
@@ -308,7 +178,7 @@ const UpdateProfile = (props) => {
                 });
               }}
               textInputProps={{
-                placeholderTextColor: BLACK_COLOR_CODE,
+                placeholderTextColor: COLORS.BLACK,
                 onChangeText: (e) => {
                   props.setProfileData({
                     ...props.profileData,
@@ -324,33 +194,32 @@ const UpdateProfile = (props) => {
               styles={{
                 textInputContainer: {
                   borderRadius: 4,
-                  backgroundColor: WHITE_COLOR_CODE,
+                  backgroundColor: COLORS.WHITE,
                   fontSize: 16,
                   marginHorizontal: 17,
                   margin: 10,
-                  fontFamily: FONT_FAMILY_REGULAR,
+                  fontFamily: FONT_FAMILY.REGULAR,
                   borderColor: "#d8d8d8",
                   borderRadius: 8,
                   borderWidth: 1,
                   alignItems: "center",
-                  // height: 70,
                   paddingVertical: 10,
                 },
                 textInput: {
                   fontSize: 15,
-                  color: BLACK_COLOR_CODE,
+                  color: COLORS.BLACK,
                 },
                 listView: {
                   width: "90%",
                   alignSelf: "center",
-                  backgroundColor: WHITE_COLOR_CODE,
+                  backgroundColor: COLORS.WHITE,
                 },
               }}
               minLength={2}
               autoFocus={false}
               returnKeyType={"default"}
             />
-            <GooglePlacesAutocomplete
+            <AddressInput
               placeholder={"Home town"}
               value={props.profileData.hometown}
               fetchDetails={true}
@@ -363,7 +232,7 @@ const UpdateProfile = (props) => {
                 });
               }}
               textInputProps={{
-                placeholderTextColor: BLACK_COLOR_CODE,
+                placeholderTextColor: COLORS.BLACK,
                 onChangeText: (e) => {
                   props.setProfileData({
                     ...props.profileData,
@@ -379,26 +248,25 @@ const UpdateProfile = (props) => {
               styles={{
                 textInputContainer: {
                   borderRadius: 4,
-                  backgroundColor: WHITE_COLOR_CODE,
+                  backgroundColor: COLORS.WHITE,
                   fontSize: 16,
                   marginHorizontal: 17,
                   margin: 10,
-                  fontFamily: FONT_FAMILY_REGULAR,
+                  fontFamily: FONT_FAMILY.REGULAR,
                   borderColor: "#d8d8d8",
                   borderRadius: 8,
                   borderWidth: 1,
                   alignItems: "center",
-                  // height: 70,
                   paddingVertical: 10,
                 },
                 textInput: {
                   fontSize: 15,
-                  color: BLACK_COLOR_CODE,
+                  color: COLORS.BLACK,
                 },
                 listView: {
                   width: "90%",
                   alignSelf: "center",
-                  backgroundColor: WHITE_COLOR_CODE,
+                  backgroundColor: COLORS.WHITE,
                 },
               }}
               minLength={2}
@@ -406,7 +274,7 @@ const UpdateProfile = (props) => {
               returnKeyType={"default"}
             />
 
-            <Input
+            <MainInput
               onChangeText={(blog_website) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -419,7 +287,7 @@ const UpdateProfile = (props) => {
               placeholder="My Blog or Website"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(when_not_on_abbypages) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -431,7 +299,7 @@ const UpdateProfile = (props) => {
               placeholder="When I'm Not AbbyPages"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(why_should_read_my_reviews) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -443,7 +311,7 @@ const UpdateProfile = (props) => {
               placeholder="Why You Should Reviews"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(second_website) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -456,7 +324,7 @@ const UpdateProfile = (props) => {
               placeholder="My Second Favorite Website"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(great_book_read) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -468,7 +336,7 @@ const UpdateProfile = (props) => {
               placeholder="The Last Great Book I Read"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(concert) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -480,7 +348,7 @@ const UpdateProfile = (props) => {
               placeholder="My First Concert"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(favorite_movie) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -492,7 +360,7 @@ const UpdateProfile = (props) => {
               placeholder="My Favorite Movie"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(last_meal_on_earth) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -504,7 +372,7 @@ const UpdateProfile = (props) => {
               placeholder="My Last Meal on Earth"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(anyone_else_but) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -516,7 +384,7 @@ const UpdateProfile = (props) => {
               placeholder="Don't Tell Anyone Else But"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(most_recent_discovery) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -528,7 +396,7 @@ const UpdateProfile = (props) => {
               placeholder="Most Recent Discovery"
               InputType="withScroll"
             />
-            <Input
+            <MainInput
               onChangeText={(current_crush) =>
                 props.setProfileData({
                   ...props.profileData,
@@ -540,56 +408,49 @@ const UpdateProfile = (props) => {
               placeholder="Current Crush"
               InputType="withScroll"
             />
-
-            <View
-              style={[
-                styles.container,
-                {
-                  paddingHorizontal: 10,
-                  height: Platform.OS === "ios" ? 75 : 60,
-                  flexDirection: Platform.OS === "ios" ? null : "column",
-                },
-              ]}
-            >
-              {props?.profileData?.primary_language != "" ? (
-                <Text style={[styles.AddPhotosTxt, { fontSize: 17 }]}>
-                  Primary Language
-                </Text>
-              ) : null}
-              <Picker
-                mode={"dropdown"}
-                style={styles.pickerVw}
-                itemStyle={styles.pickerItemVw}
-                selectedValue={`${props.profileData.primary_language}`}
-                onValueChange={(itemValue, itemIndex) =>
-                  props.setProfileData({
-                    ...props.profileData,
-                    primary_language: itemValue,
-                  })
-                }
-              >
-                <Picker.Item label="Please Select Primary Language" value="0" />
-                <Picker.Item label="English" value="1" />
-                <Picker.Item label="Hindi" value="2" />
-                <Picker.Item label="Others" value="3" />
-              </Picker>
-            </View>
+            <SelectButton
+              listType={""}
+              data={[{ label: "English", value: "1" }]}
+              headTxt={"Primary Language"}
+              value={
+                props.profileData.primary_language === "1" ? "English" : ""
+              }
+              labelField={"label"}
+              valueField={"label"}
+              onPressItem={(item) => {
+                props.setProfileData({
+                  ...props.profileData,
+                  primary_language: item?.value,
+                });
+              }}
+              searchInput={false}
+            />
             <Button
               onPress={() => props.handleEditProfile()}
               buttonText="Save Changes"
-              style={{ marginTop: 5, marginBottom: 5 }}
+              style={{ marginTop: 15, marginBottom: 5 }}
+              paddingHeight={10}
             />
             <Button
               buttonLabelStyle={{
-                color: WHITE_COLOR_CODE,
-                fontFamily: FONT_FAMILY_BOLD,
+                color: COLORS.WHITE,
+                fontFamily: FONT_FAMILY.BOLD,
               }}
               buttonText="Cancel"
               onPress={() => props.onClickCancel()}
-              style={{ marginTop: 10, backgroundColor: GREY_COLOR_CODE }}
+              style={{ marginTop: 10, backgroundColor: COLORS.LIGHT_GREY }}
+              paddingHeight={10}
+              buttonTxtColor={COLORS.WHITE}
             />
           </View>
-        </ScrollView>
+        </PageScroll>
+        <MediaPicker
+          Visible={props.ProfileModal}
+          setVisible={() => props.setProfileModal(false)}
+          imageData={(data) => {
+            props.handleUploadProfileImage(data);
+          }}
+        />
       </View>
     </KeyboardAvoidingView>
   );

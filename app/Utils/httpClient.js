@@ -19,6 +19,7 @@ export async function apiCall(method, url, data, header = { 'Content-Type': 'app
         return res;
     }
     catch (error) {
+        console.log("🚀 ~ file: httpClient.js:22 ~ error:", error)
         if (error.response) {
             if (error.response.data.status === 401) {
                 return error.response

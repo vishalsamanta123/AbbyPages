@@ -56,13 +56,14 @@ const ProfileSetting = ({ navigation }) => {
     navigation.navigate("UpdateProfileView");
   };
   const onPressPassword = () => {
-    // navigation.navigate("ChangePassword");
+    console.log('ChangePassword')
+    navigation.navigate("ChangePassword");
   };
   const onPressEmail = () => {
-    // navigation.navigate("NotificationSettings");
+    navigation.navigate("NotificationSettings");
   };
   const onPressLocations = () => {
-    // navigation.navigate("Locations");
+    navigation.navigate("Locations");
   };
   const onPressOrderHistory = () => {
     navigation.navigate("OrderHistory");
