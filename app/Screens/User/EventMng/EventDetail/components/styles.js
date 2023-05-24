@@ -7,12 +7,13 @@ import {
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containVw: {
-    marginVertical: 8,
+    marginVertical: 2,
     paddingHorizontal: 7,
     paddingTop: 5,
     paddingVertical: 10,
     borderColor: COLORS.COMMON2,
     borderWidth: Constants.standardBW,
+    backgroundColor: COLORS.COMMON2,
   },
   imageStyle: {
     height: 210,
@@ -31,17 +32,18 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
   },
   nameTxt: {
-    fontSize: FONT_SIZE.mediumL,
-    lineHeight: 22,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
-    paddingBottom: 10,
     textTransform: "capitalize",
   },
   detailTxt: {
-    color: COLORS.LIGHT_BLACK,
+    color: COLORS.GREY,
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
+    marginLeft: 5,
+    flex: 1,
+    marginVertical: 3,
   },
   paginationDots: {
     height: 10,
@@ -82,11 +84,11 @@ const Styles = StyleSheet.create({
   },
   ticketDetailVw: {
     paddingVertical: 8,
-    paddingHorizontal: 18,
-    borderWidth: 0.5,
+    paddingHorizontal: 14,
+    borderWidth: Constants.normalBW,
     marginVertical: 4,
     borderRadius: 6,
-    borderColor: COLORS.YELLOW,
+    borderColor: COLORS.BORDER_LINE,
     marginTop: 12,
   },
   ticketTxt: {
@@ -217,6 +219,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginLeft: 10,
+    textTransform: "capitalize",
   },
   subTitleTxt: {
     fontSize: FONT_SIZE.normal,
@@ -247,30 +250,22 @@ const Styles = StyleSheet.create({
   },
   ticketCategoryVw: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    marginVertical: 8,
+    paddingHorizontal: 12,
+    marginVertical: 6,
     borderRadius: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
-    backgroundColor: COLORS.WHITE,
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.BORDER_LINE,
+    flex: 1,
   },
   ticketCtgryTxt: {
-    fontSize: FONT_SIZE.medium,
-    color: COLORS.THEME,
+    fontSize: FONT_SIZE.mediumL,
+    color: COLORS.LIGHT_BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
+    textTransform: "capitalize",
   },
   ticketAmtTxt: {
     fontSize: FONT_SIZE.smallL,
-    color: COLORS.THEME,
+    color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     marginTop: 2,
   },
@@ -296,10 +291,10 @@ const Styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   smallTxt: {
-    fontSize: FONT_SIZE.verysmall,
-    marginVertical: 2,
+    fontSize: FONT_SIZE.lightL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_GREY,
+    paddingBottom: 10,
   },
   straightVw: {
     flexDirection: "row",
@@ -378,6 +373,10 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     marginLeft: 6,
     marginVertical: 5,
+  },
+  inputVw: {
+    marginHorizontal: 8,
+    marginTop: 10,
   },
 });
 export default Styles;

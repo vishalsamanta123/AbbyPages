@@ -3,7 +3,6 @@ import { View, FlatList } from "react-native";
 import styles from "./styles";
 import moment from "moment";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
-import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -12,7 +11,6 @@ import PageScroll from "../../../../../Components/PageScroll";
 import MainButton from "../../../../../Components/MainButton";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
-import { eventTickets } from "../../../../../Utils/staticData";
 
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
@@ -23,19 +21,14 @@ const BuyTicketScreen = (props) => {
     var getIndex = _.findIndex(props?.ticketAdded, {
       ticket_title: item.ticket_title,
     });
+    const FinalAmount = props?.ticketAdded.reduce(
+      (accumulatedTotal, curr) => accumulatedTotal + curr.total_price,
+      0
+    );
+    props.setTotalAmount(FinalAmount);
     if (getIndex >= 0) {
       return props?.ticketAdded[getIndex]?.ticket_quantity
         ? props?.ticketAdded[getIndex]?.ticket_quantity
-        : 0;
-    }
-  };
-  const getTicketAmount = (item) => {
-    var getIndex = _.findIndex(props?.ticketAdded, {
-      ticket_title: item.ticket_title,
-    });
-    if (getIndex >= 0) {
-      return props?.ticketAdded[getIndex]?.ticket_totalAmt
-        ? props?.ticketAdded[getIndex]?.ticket_totalAmt
         : 0;
     }
   };
@@ -43,7 +36,7 @@ const BuyTicketScreen = (props) => {
     const objSet = {
       ...item,
       ticket_quantity: value,
-      ticket_totalAmt: item?.ticket_price * value,
+      total_price: item?.ticket_price * value,
     };
     if (props?.ticketAdded?.length === 0) {
       props.setTicketAdded([objSet]);
@@ -52,8 +45,9 @@ const BuyTicketScreen = (props) => {
         ticket_title: item.ticket_title,
       });
       if (getIndex >= 0) {
-        const newObj = { ...props?.ticketAdded[getIndex] };
-        newObj.ticket_quantity = newObj.ticket_quantity + 1;
+        const newObj = { ...props?.ticketAdded[getIndex], objSet };
+        newObj.ticket_quantity = value;
+        newObj.total_price = newObj.ticket_price * value;
         const newArray = [...props?.ticketAdded];
         newArray[getIndex] = newObj;
         props.setTicketAdded(newArray);
@@ -71,6 +65,7 @@ const BuyTicketScreen = (props) => {
         if (props?.ticketAdded[getIndex].ticket_quantity > 0 && value > 0) {
           const newObj = { ...props?.ticketAdded[getIndex] };
           newObj.ticket_quantity = newObj.ticket_quantity - 1;
+          newObj.total_price = newObj.total_price - newObj.ticket_price;
           const newArray = [...props?.ticketAdded];
           newArray[getIndex] = newObj;
           props.setTicketAdded(newArray);
@@ -90,7 +85,6 @@ const BuyTicketScreen = (props) => {
         TxtMarginRight={"8%"}
       />
       <PageScroll>
-        {props?.loader && <Loader state={props?.loader} />}
         <View style={styles.modalsVw}>
           <ScaleText style={styles.eventNameTx}>
             {props?.eventDetails?.event_name}
@@ -125,11 +119,11 @@ const BuyTicketScreen = (props) => {
             <View style={{ marginVertical: 12 }}>
               <ScaleText style={styles.titleTxt}>Ticket Category</ScaleText>
               <FlatList
-                data={eventTickets}
+                data={props.ticketsType}
                 renderItem={({ item, index }) => {
                   return (
                     <View style={styles.ticketCategoryVw}>
-                      <View>
+                      <View style={{ flex: 1, paddingVertical: 5 }}>
                         <ScaleText style={styles.ticketCtgryTxt}>
                           {item?.ticket_title}
                         </ScaleText>
@@ -137,24 +131,39 @@ const BuyTicketScreen = (props) => {
                           $ {getAmount(item?.ticket_price)}
                         </ScaleText>
                       </View>
-                      <View style={{ alignItems: "flex-end" }}>
+                      <View style={{ flex: 1, alignItems: "flex-end" }}>
                         <AddMinusView
-                          colorMin={COLORS.THEME}
-                          colorMax={COLORS.THEME}
+                          colorMin={COLORS.YELLOW}
+                          colorMax={COLORS.YELLOW}
                           minVal={0}
                           value={getqty(item)}
-                          onPressAdd={(val) =>
-                            addProductOnCart(item, val, index)
-                          }
-                          onPressMinus={(val) =>
-                            removeFromCart(item, val, index)
-                          }
+                          height={36}
+                          onPressAdd={(val) => {
+                            addProductOnCart(item, val, index);
+                            const newObj = {
+                              ...props.ticketsType[index],
+                              total_price: item?.ticket_price * val,
+                              ticket_quantity: val,
+                            };
+                            const newArray = [...props.ticketsType];
+                            newArray[index] = newObj;
+                            props.setTicketsType(newArray);
+                          }}
+                          onPressMinus={(val) => {
+                            removeFromCart(item, val, index);
+                            const newObj = {
+                              ...props.ticketsType[index],
+                              total_price: item?.ticket_price * val,
+                              ticket_quantity: val,
+                            };
+                            const newArray = [...props.ticketsType];
+                            newArray[index] = newObj;
+                            props.setTicketsType(newArray);
+                          }}
                         />
                         <ScaleText style={styles.smallTxt}>
                           Total Amount:{" "}
-                          {getTicketAmount(item)
-                            ? getTicketAmount(item)
-                            : "0.00"}
+                          {item?.total_price ? item?.total_price : "0.00"}
                         </ScaleText>
                       </View>
                     </View>
@@ -172,7 +181,7 @@ const BuyTicketScreen = (props) => {
                     ({item.ticket_quantity}) {item.ticket_title}
                   </ScaleText>
                   <ScaleText style={styles.smallTxt}>
-                    ${item.ticket_totalAmt}
+                    ${item.total_price}
                   </ScaleText>
                 </View>
               );
@@ -210,7 +219,6 @@ const BuyTicketScreen = (props) => {
               borderColor={COLORS.LIGHT_GREY}
               onPressButton={() => props.onPressCancelTick()}
             />
-            {/* {props?.eventDetails?.ticket_price > 0 && ( */}
             <MainButton
               paddingHorizontal={40}
               borderRadius={10}

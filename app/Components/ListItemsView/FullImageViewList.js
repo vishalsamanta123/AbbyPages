@@ -1,7 +1,12 @@
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import React from "react";
 import ScaleText from "../ScaleText";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../Utils/Constant";
 import CommonStyles from "../../Utils/CommonStyles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 
@@ -29,14 +34,8 @@ const FullImageViewList = (props) => {
         styles.mainCon,
         shadow
           ? {
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.22,
-              shadowRadius: 2.22,
-              elevation: 3,
+              borderWidth: Constants.standardBW,
+              borderColor: COLORS.BORDER_LINE,
             }
           : null,
         {
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
   },
   fullImageVw: {
     height: 170,
-    width: "99%",
+    width: "100%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     alignSelf: "center",

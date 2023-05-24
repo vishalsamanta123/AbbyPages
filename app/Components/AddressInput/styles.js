@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   mainCont: {
     borderWidth: Constants.standardBW,
     backgroundColor: COLORS.WHITE,
-    borderRadius: 16,
   },
   headTxtVw: {
     position: "absolute",

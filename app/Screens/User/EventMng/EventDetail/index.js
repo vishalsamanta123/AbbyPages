@@ -28,6 +28,7 @@ const EventDetail = ({ navigation, route }) => {
   });
   const [totalAmount, setTotalAmount] = useState("");
   const [ticketAdded, setTicketAdded] = useState([]);
+  const [ticketsType, setTicketsType] = useState([]);
   const [buyerInfo, setBuyerInfo] = useState({
     first_name: "",
     last_name: "",
@@ -56,6 +57,7 @@ const EventDetail = ({ navigation, route }) => {
     React.useCallback(() => {
       if (getData?.item?.event_id) {
         getEventDetails(getData?.item?.event_id);
+        setBuyTicketModal("");
       }
     }, [navigation, getData?.item?.event_id])
   );
@@ -72,15 +74,64 @@ const EventDetail = ({ navigation, route }) => {
         params
       );
       if (data.status === 200) {
-        setLoader(false);
-        setEventDetails(data?.data);
-        setInterest(data?.data?.user_interested);
+        getBusinessDetail(data?.data);
       } else {
         setLoader(false);
       }
     } catch (error) {
       setLoader(false);
     }
+  };
+
+  const getBusinessDetail = async (itemData) => {
+    try {
+      const params = {
+        business_name_slug: itemData?.business_name,
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.BUSINESSDETAILSBYNAME,
+        params
+      );
+      if (data.status === 200) {
+        const newData = { ...itemData, ...data?.data };
+        setEventDetails(newData);
+        setInterest(itemData?.data?.user_interested);
+        const arr = itemData?.data?.event_ticket_type?.map((tic) => {
+          return {
+            ...tic,
+            ticket_id: tic.event_type_id,
+            ticket_title: tic.event_type_name,
+            ticket_price: tic.ticket_price,
+            min_ticket_limit: tic.buy_min_ticket,
+            max_ticket_limit: tic.buy_max_ticket,
+            max_booking_time: 600000,
+            ticket_quantity: 0,
+            total_price: 0,
+          };
+        });
+        setTicketsType(arr);
+        setLoader(false);
+      } else {
+        setEventDetails(itemData);
+        setInterest(itemData?.data?.user_interested);
+        const arr = itemData?.data?.event_ticket_type?.map((tic) => {
+          return {
+            ...tic,
+            ticket_id: tic.event_type_id,
+            ticket_title: tic.event_type_name,
+            ticket_price: tic.ticket_price,
+            min_ticket_limit: tic.buy_min_ticket,
+            max_ticket_limit: tic.buy_max_ticket,
+            max_booking_time: 600000,
+            ticket_quantity: 0,
+            total_price: 0,
+          };
+        });
+        setTicketsType(arr);
+        setLoader(false);
+      }
+    } catch (error) {}
   };
   const onInterestPress = async (resp) => {
     if (userData?.login_type) {
@@ -148,7 +199,15 @@ const EventDetail = ({ navigation, route }) => {
   };
   const onPressTicketResp = (resp) => {
     if (resp <= 4) {
-      setBuyTicketModal(resp);
+      if (ticketAdded?.length === 0) {
+        setMessageShow({
+          type: "error",
+          message: "Please Add Ticket",
+          visible: true,
+        });
+      } else {
+        setBuyTicketModal(resp);
+      }
     }
   };
   const handleBuyTicket = async (resp) => {
@@ -258,18 +317,6 @@ const EventDetail = ({ navigation, route }) => {
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
-      <EventDetailView
-        eventDetails={eventDetails}
-        loader={loader}
-        interestedModal={interestedModal}
-        setInterstedModal={setInterstedModal}
-        interest={interest}
-        setInterest={setInterest}
-        setBuyTicketModal={setBuyTicketModal}
-        onInterestPress={onInterestPress}
-        videoUrl={videoUrl}
-        getEventDetails={getEventDetails}
-      />
       {buyTicketModal === 1 ? (
         <BuyTicket
           eventDetails={eventDetails}
@@ -279,9 +326,10 @@ const EventDetail = ({ navigation, route }) => {
           setBuyTicketModal={setBuyTicketModal}
           totalAmount={totalAmount}
           setTotalAmount={setTotalAmount}
-          loader={loader}
           ticketAdded={ticketAdded}
           setTicketAdded={setTicketAdded}
+          ticketsType={ticketsType}
+          setTicketsType={setTicketsType}
         />
       ) : (
         <>
@@ -294,7 +342,6 @@ const EventDetail = ({ navigation, route }) => {
               onPressTicketResp={onPressTicketResp}
               setBuyTicketModal={setBuyTicketModal}
               handleBuyTicket={handleBuyTicket}
-              loader={loader}
             />
           ) : (
             <>
@@ -310,8 +357,8 @@ const EventDetail = ({ navigation, route }) => {
                   setBuyerInfo={setBuyerInfo}
                   setPercentage={setPercentage}
                   couts={couts}
-                  loader={loader}
                   IncreasePercentage={IncreasePercentage}
+                  setMessageShow={setMessageShow}
                 />
               ) : (
                 <>
@@ -319,7 +366,6 @@ const EventDetail = ({ navigation, route }) => {
                     <TicketPayment
                       eventDetails={eventDetails}
                       totalAmount={totalAmount}
-                      ticketsData={ticketsData}
                       buyTicketModal={buyTicketModal}
                       onPressCancelTick={onPressCancelTick}
                       onPressTicketResp={onPressTicketResp}
@@ -330,29 +376,43 @@ const EventDetail = ({ navigation, route }) => {
                       setPercentage={setPercentage}
                       couts={couts}
                       paymentForTicket={paymentForTicket}
-                      loader={loader}
+                      setMessageShow={setMessageShow}
+                      ticketAdded={ticketAdded}
                       IncreasePercentage={IncreasePercentage}
                     />
-                  ) : null}
+                  ) : (
+                    <EventDetailView
+                      eventDetails={eventDetails}
+                      interestedModal={interestedModal}
+                      setInterstedModal={setInterstedModal}
+                      interest={interest}
+                      setInterest={setInterest}
+                      setBuyTicketModal={setBuyTicketModal}
+                      onInterestPress={onInterestPress}
+                      videoUrl={videoUrl}
+                      getEventDetails={getEventDetails}
+                      userData={userData}
+                    />
+                  )}
                 </>
               )}
             </>
           )}
-          <ShowMessage
-            visible={messageShow?.visible}
-            message={messageShow?.message}
-            messageViewType={messageShow?.type}
-            position={"bottom"}
-            onEndVisible={() => {
-              setMessageShow({
-                visible: false,
-                message: "",
-                type: "",
-              });
-            }}
-          />
         </>
       )}
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={"bottom"}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
+      />
     </View>
   );
 };
