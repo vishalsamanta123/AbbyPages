@@ -3,9 +3,7 @@ import { View, Image, Modal, TouchableOpacity } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import moment from "moment";
-import Button from "../../../../../Components/Button";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import SliderImages from "../../../../../Components/SliderImages";
@@ -17,10 +15,7 @@ import PageScroll from "../../../../../Components/PageScroll";
 import VideoPlayer from "../../../../../Components/VideoPlayer";
 
 const EventDetailView = (props) => {
-  
-console.log(':moment ',moment
-.unix(props?.eventDetails?.event_end_date)
-.format(Constants.TIME_DATE_FORMAT) );
+  const timestampInSeconds = Math.floor(new Date().getTime() / 1000);
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText="Events Details" />
@@ -29,111 +24,183 @@ console.log(':moment ',moment
           data={props?.eventDetails?.events_image}
           posterImg={"events_image"}
         />
-        <View style={{ bottom: 24 }}>
-          <FullImageViewList
-            shadow={false}
-            marginHorizontal={5}
-            fullImage={""}
-            timeTxt={
-              props?.eventDetails?.event_start_date
-                ? `${moment
-                    .unix(props?.eventDetails?.event_start_date)
-                    .format(Constants.TIME_DATE_FORMAT)} to ${moment
-                    .unix(props?.eventDetails?.event_end_date)
-                    .format(Constants.TIME_DATE_FORMAT)}`
-                : RECENT_TIME_FORMAT(props?.eventDetails?.event_date)
-            }
-            headTxt={props?.eventDetails?.event_name}
-            subHeadTxt={props?.eventDetails?.event_location?.trim()}
-            smallTxt={`${props?.eventDetails?.interested} Interested`}
-            subSmallTxt={props?.eventDetails?.category_name}
-            item={props?.eventDetails}
-            marginBottom={0}
-          />
-          {/* {moment.unix(props?.eventDetails?.event_end_date).format(
-            Constants.TIME_DATE_FORMAT
-          ) < moment().format(Constants.TIME_DATE_FORMAT) ? ( */}
-            <View
-              style={[
-                CommonStyles.straightCon,
-                { justifyContent: "space-evenly" },
-              ]}
-            >
-              <MainButton
-                paddingHeight={2}
-                paddingHorizontal={16}
-                buttonTxt={"Interested"}
-                backgroundColor={
-                  props.eventDetails?.user_interested === 0
-                    ? COLORS.COMMON
-                    : COLORS.YELLOW
-                }
-                txtColor={
-                  props.eventDetails?.user_interested === 0
-                    ? COLORS.BLACK
-                    : COLORS.WHITE
-                }
-                borderRadius={10}
-                borderColor={
-                  props.eventDetails?.user_interested === 0
-                    ? COLORS.GREY
-                    : COLORS.TRANSPARENT
-                }
-                onPressButton={() => {
-                  if (props.eventDetails?.user_interested === 0) {
-                    props.onInterestPress(1);
-                  } else {
-                    props.setInterstedModal(true);
-                  }
-                }}
-                leftImgOrigin={ICON_TYPE.ANT_ICON}
-                leftImgName={"star"}
-                leftImgSize={13}
-                leftImgColor={
-                  props.eventDetails?.user_interested === 0
-                    ? COLORS.RGBA1
-                    : COLORS.WHITE
-                }
-                rightImgOrigin={
-                  props.eventDetails?.user_interested === 1
-                    ? ICON_TYPE.ANT_ICON
-                    : ""
-                }
-                rightImgName={"caretdown"}
-                rightImgSize={13}
-                rightImgColor={
-                  props.eventDetails?.user_interested === 0
-                    ? COLORS.RGBA1
-                    : COLORS.WHITE
-                }
-              />
-              <MainButton
-                paddingHeight={2}
-                paddingHorizontal={25}
-                buttonTxt={"Buy Ticket"}
-                borderRadius={10}
-                backgroundColor={COLORS.YELLOW}
-                txtColor={COLORS.WHITE}
-                borderColor={COLORS.TRANSPARENT}
-                onPressButton={() => props.setBuyTicketModal(1)}
-              />
-              <TouchableOpacity
-                style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+        <View
+          style={[
+            styles.containVw,
+            { paddingVertical: 0, paddingHorizontal: 0 },
+          ]}
+        >
+          <View style={{ bottom: 8 }}>
+            <FullImageViewList
+              shadow={false}
+              marginHorizontal={5}
+              fullImage={""}
+              timeTxt={
+                props?.eventDetails?.event_start_date
+                  ? `${moment
+                      .unix(props?.eventDetails?.event_start_date)
+                      .format(Constants.TIME_DATE_FORMAT)} to ${moment
+                      .unix(props?.eventDetails?.event_end_date)
+                      .format(Constants.TIME_DATE_FORMAT)}`
+                  : RECENT_TIME_FORMAT(props?.eventDetails?.event_date)
+              }
+              headTxt={props?.eventDetails?.event_name}
+              subHeadTxt={props?.eventDetails?.event_location?.trim()}
+              smallTxt={`${props?.eventDetails?.interested} Interested`}
+              subSmallTxt={props?.eventDetails?.category_name}
+              item={props?.eventDetails}
+              marginBottom={0}
+            />
+            {(props?.userData?.login_type &&
+              timestampInSeconds < props?.eventDetails?.event_end_date) ||
+            timestampInSeconds < props?.eventDetails?.event_date ? (
+              <View
+                style={[
+                  CommonStyles.straightCon,
+                  { justifyContent: "space-evenly" },
+                ]}
               >
-                <IconX
-                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                  name={"dots-horizontal"}
-                  size={26}
+                <MainButton
+                  paddingHeight={2}
+                  paddingHorizontal={16}
+                  buttonTxt={"Interested"}
+                  backgroundColor={
+                    props.eventDetails?.user_interested === 0
+                      ? COLORS.COMMON
+                      : COLORS.YELLOW
+                  }
+                  txtColor={
+                    props.eventDetails?.user_interested === 0
+                      ? COLORS.BLACK
+                      : COLORS.WHITE
+                  }
+                  borderRadius={10}
+                  borderColor={
+                    props.eventDetails?.user_interested === 0
+                      ? COLORS.GREY
+                      : COLORS.TRANSPARENT
+                  }
+                  onPressButton={() => {
+                    if (props.eventDetails?.user_interested === 0) {
+                      props.onInterestPress(1);
+                    } else {
+                      props.setInterstedModal(true);
+                    }
+                  }}
+                  leftImgOrigin={ICON_TYPE.ANT_ICON}
+                  leftImgName={"star"}
+                  leftImgSize={13}
+                  leftImgColor={
+                    props.eventDetails?.user_interested === 0
+                      ? COLORS.RGBA1
+                      : COLORS.WHITE
+                  }
+                  rightImgOrigin={
+                    props.eventDetails?.user_interested === 1
+                      ? ICON_TYPE.ANT_ICON
+                      : ""
+                  }
+                  rightImgName={"caretdown"}
+                  rightImgSize={13}
+                  rightImgColor={
+                    props.eventDetails?.user_interested === 0
+                      ? COLORS.RGBA1
+                      : COLORS.WHITE
+                  }
                 />
-              </TouchableOpacity>
-            </View>
-          {/* ) : null}  */}
+                <MainButton
+                  paddingHeight={2}
+                  paddingHorizontal={25}
+                  buttonTxt={"Buy Ticket"}
+                  borderRadius={10}
+                  backgroundColor={COLORS.YELLOW}
+                  txtColor={COLORS.WHITE}
+                  borderColor={COLORS.TRANSPARENT}
+                  onPressButton={() => props.setBuyTicketModal(1)}
+                />
+                <TouchableOpacity
+                  style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+                >
+                  <IconX
+                    origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                    name={"dots-horizontal"}
+                    size={26}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : null}
+          </View>
         </View>
+        {props.eventDetails?.business_name ? (
+          <View style={styles.containVw}>
+            <View style={CommonStyles.straightCon}>
+              <Image
+                source={{ uri: props.eventDetails?.owner_image }}
+                style={{ width: 45, height: 45, marginLeft: 3 }}
+              />
+              <View style={{ marginLeft: 10 }}>
+                <ScaleText style={styles.nameTxt}>
+                  {props.eventDetails?.first_name +
+                    " " +
+                    props.eventDetails?.last_name}{" "}
+                  ({props.eventDetails?.business_name})
+                </ScaleText>
+                <ScaleText
+                  style={[
+                    styles.detailTxt,
+                    { marginLeft: 0, marginVertical: 0 },
+                  ]}
+                >
+                  Event Organiser
+                </ScaleText>
+              </View>
+            </View>
+            <View style={{ marginLeft: 7, marginVertical: 5 }}>
+              <View style={CommonStyles.straightCon}>
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_ICONS}
+                  name={"category"}
+                  size={22}
+                />
+                <ScaleText style={styles.detailTxt}>
+                  {props.eventDetails?.business_service_category}
+                </ScaleText>
+              </View>
+              <View style={CommonStyles.straightCon}>
+                <IconX
+                  origin={ICON_TYPE.FEATHER_ICONS}
+                  name={"thumbs-up"}
+                  size={19}
+                />
+                <ScaleText style={styles.detailTxt}>
+                  14 Users like this business*
+                </ScaleText>
+              </View>
+              <View style={CommonStyles.straightCon}>
+                <IconX origin={ICON_TYPE.ANT_ICON} name={"star"} size={19} />
+                <ScaleText style={styles.detailTxt}>
+                  {props.eventDetails?.rating} Rating
+                </ScaleText>
+              </View>
+              <View style={CommonStyles.straightCon}>
+                <IconX
+                  origin={ICON_TYPE.FONT_AWESOME5}
+                  name={"directions"}
+                  size={19}
+                />
+                <ScaleText style={styles.detailTxt}>
+                  {props.eventDetails?.address?.trim()}
+                </ScaleText>
+              </View>
+            </View>
+          </View>
+        ) : null}
+
         {props.videoUrl != "null" ? (
           <View style={[styles.containVw, { paddingHorizontal: 0 }]}>
             <ScaleText style={styles.titleTxt}>Event Video</ScaleText>
             <View style={{ paddingHorizontal: 10 }}>
-              <VideoPlayer video={props.eventDetails?.events_video} />
+              <VideoPlayer uriVideo={props.eventDetails?.events_video} />
             </View>
           </View>
         ) : null}

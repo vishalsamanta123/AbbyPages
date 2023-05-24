@@ -15,6 +15,8 @@ const RowSingleTxtList = (props) => {
     borderBottomWidth = Constants.normalBW,
     txtColor = COLORS.YELLOW,
     onPressItem = () => {},
+    paddingHorizontal = 6,
+    paddingVertical = 4,
     item = {},
   } = props;
   return (
@@ -24,6 +26,8 @@ const RowSingleTxtList = (props) => {
         {
           borderBottomColor: borderColor,
           borderBottomWidth: borderBottomWidth,
+          paddingHorizontal: paddingHorizontal,
+          paddingVertical: paddingVertical,
         },
       ]}
       onPress={() => onPressItem(item)}
@@ -46,8 +50,6 @@ export default RowSingleTxtList;
 
 const styles = StyleSheet.create({
   mainCon: {
-    paddingHorizontal: 6,
-    paddingVertical: 4,
     marginHorizontal: 5,
   },
   txtStyle: {

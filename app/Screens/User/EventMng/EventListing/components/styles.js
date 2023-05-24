@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
   containers: {
     marginTop: 8,
@@ -10,6 +15,13 @@ const Styles = StyleSheet.create({
     color: COLORS.BLACK,
     marginTop: 12,
     marginLeft: 16,
+  },
+  seeEventsVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingTop: 5,
+    paddingHorizontal: 10,
   },
   bannervideoStyle: {
     height: 350,
@@ -52,16 +64,17 @@ const Styles = StyleSheet.create({
     color: COLORS.WHITE,
   },
   seeOnVw: {
-    borderColor: COLORS.GREY,
-    borderWidth: 0.3,
+    borderWidth: Constants.standardBW,
     paddingHorizontal: 8,
     paddingVertical: 5,
-    borderRadius: 20,
+    borderRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
   },
   seeOnTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.LIGHT_BLACK,
+    color: COLORS.YELLOW,
   },
   seeForImg: {
     width: 14,
@@ -139,10 +152,8 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
   },
   timeDataImg: {
-    width: 16,
-    height: 2,
     transform: [{ rotate: "90deg" }],
-    marginTop: 8,
+    top: 3,
   },
   mnCon: {
     margin: 5,

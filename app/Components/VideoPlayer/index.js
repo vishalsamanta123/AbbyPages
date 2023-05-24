@@ -1,23 +1,45 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Video from "react-native-video";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS } from "../../Utils/Constant";
+import { useNavigation } from "@react-navigation/native";
 
 const VideoPlayer = (props) => {
+  const navigation = useNavigation();
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setVideoShow(true);
+    });
+    return unsubscribe;
+  }, [navigation]);
   const [videoShow, setVideoShow] = useState(false);
   const {
-    video = "",
+    uriVideo = "",
     pauseStartBttn = true,
     pauseStartColor = COLORS.WHITE,
     videoWidth = "100%",
     borderRadius = 5,
+    repeat = true,
+    reqVideo = "",
+    videoHeight = 230,
   } = props;
 
   return (
-    <View style={styles.videoVw}>
+    <View
+      style={[
+        styles.videoVw,
+        {
+          height: videoHeight,
+        },
+      ]}
+    >
       <Video
-        source={{ uri: video }}
+        source={
+          uriVideo === "" || uriVideo === null || uriVideo === undefined
+            ? reqVideo
+            : { uri: uriVideo }
+        }
         style={[
           styles.backgroundVideo,
           {
@@ -27,7 +49,7 @@ const VideoPlayer = (props) => {
         resizeMode={"cover"}
         width={videoWidth}
         paused={videoShow}
-        repeat={true}
+        repeat={repeat}
       />
       {pauseStartBttn ? (
         <View style={styles.videoContVw}>
@@ -52,7 +74,6 @@ export default VideoPlayer;
 
 const styles = StyleSheet.create({
   videoVw: {
-    height: 230,
     justifyContent: "flex-end",
     marginTop: 8,
   },
