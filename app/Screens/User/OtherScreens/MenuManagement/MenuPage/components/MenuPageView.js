@@ -95,7 +95,7 @@ const MenuPageView = (props) => {
                             numberOfLines={2}
                             style={styles.listSmallTxt}
                           >
-                            {item.address}
+                            {item.address?.trim()}
                           </ScaleText>
                         </View>
                       </TouchableOpacity>
