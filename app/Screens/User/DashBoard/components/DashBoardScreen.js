@@ -21,24 +21,7 @@ import SliderImages from "../../../../Components/SliderImages";
 import PageScroll from "../../../../Components/PageScroll";
 
 const DashBoardScreen = (props) => {
-  const renderSlideItem = ({ item }) => {
-    return (
-      <View style={{ flex: 1, marginHorizontal: 4 }}>
-        <View>
-          <Image
-            source={{ uri: item.business_type_image }}
-            style={{ height: 200, width: "97%" }}
-          />
-          <ScaleText style={styles.posterTitleTxt}>
-            {item.business_type_name}
-          </ScaleText>
-          <ScaleText style={styles.posterTxt}>
-            {item.total_business_count + " " + "Listing"}
-          </ScaleText>
-        </View>
-      </View>
-    );
-  };
+
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerType={"logo"} />

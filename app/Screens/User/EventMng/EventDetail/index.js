@@ -92,12 +92,12 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.BUSINESSDETAILSBYNAME,
         params
-      );
+        );
       if (data.status === 200) {
         const newData = { ...itemData, ...data?.data };
         setEventDetails(newData);
-        setInterest(itemData?.data?.user_interested);
-        const arr = itemData?.data?.event_ticket_type?.map((tic) => {
+        setInterest(newData?.user_interested);
+        const arr = newData?.event_ticket_type?.map((tic) => {
           return {
             ...tic,
             ticket_id: tic.event_type_id,
@@ -110,6 +110,8 @@ const EventDetail = ({ navigation, route }) => {
             total_price: 0,
           };
         });
+        
+console.log(':arrarr ', arr);
         setTicketsType(arr);
         setLoader(false);
       } else {

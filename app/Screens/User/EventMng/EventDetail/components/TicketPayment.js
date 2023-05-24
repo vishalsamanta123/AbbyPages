@@ -23,11 +23,11 @@ const TicketPaymentScreen = (props) => {
     <>
       <MainHeader
         headerText={"Buy Payment"}
-        onPressBack={() => props.setBuyTicketModal(2)}
+        onPressBack={() => props.setBuyTicketModal(3)}
         notifyIcon={false}
         TxtMarginRight={"8%"}
       />
-      <PageScroll keyboardShouldPersistTaps={"handled"}>
+      <PageScroll>
         <View style={styles.modalsVw}>
           <ScaleText style={styles.eventNameTx}>
             {props?.eventDetails?.event_name}
