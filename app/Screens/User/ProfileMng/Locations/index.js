@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import Locations from "./components/Locations";
 import styles from "./components/styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
 import { Images } from "../../../../Utils/images";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import ScaleText from "../../../../Components/ScaleText";
 const LocationsView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -75,9 +74,9 @@ const LocationsView = ({ navigation }) => {
       <>
         <View style={styles.emailContainerBox}>
           <View style={{ flex: 5 }}>
-            <Text style={styles.MainEmaliTXt}>{item.location} </Text>
+            <ScaleText style={styles.MainEmaliTXt}>{item.location} </ScaleText>
             {item.primary_status === 1 && (
-              <Text style={styles.PrimaryText}>Primary</Text>
+              <ScaleText style={styles.PrimaryText}>Primary</ScaleText>
             )}
           </View>
           {item.primary_status !== 1 && (

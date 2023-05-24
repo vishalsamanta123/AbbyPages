@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Image,
@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Platform,
 } from "react-native";
-import moment from "moment";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import CommonStyles from "../../../../../Utils/CommonStyles";

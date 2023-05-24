@@ -1,27 +1,14 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StatusBar,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
 import styles from "./styles";
-import Input from "../../../../../Components/Input";
 import Button from "../../../../../Components/Button";
-import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  WHITE_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  FONT_SIZE,
-} from "../../../../../Utils/Constant";
+import { FONT_SIZE, COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 import MainHeader from "../../../../../Components/MainHeader";
 import MainInput from "../../../../../Components/MainInput";
+import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const AddEmailScreen = (props) => {
   return (
@@ -29,12 +16,6 @@ const AddEmailScreen = (props) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={[CommonStyles.container]}
     >
-      {/* <Header
-        RightImg={null}
-        HeaderText={"Add a new Email"}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
-      /> */}
       <MainHeader
         headerText={"Add a new Email"}
         fontSize={FONT_SIZE.medium}
@@ -46,12 +27,12 @@ const AddEmailScreen = (props) => {
           CommonStyles.body,
           {
             paddingTop: "20%",
-            backgroundColor: WHITE_COLOR_CODE,
+            backgroundColor: COLORS.WHITE,
             justifyContent: "center",
           },
         ]}
       >
-        <ScrollView keyboardShouldPersistTaps={"always"}>
+        <PageScroll keyboardShouldPersistTaps={"always"}>
           {props.verifyEmail === "" ? (
             <>
               <View style={{ marginHorizontal: 20 }}>
@@ -79,17 +60,17 @@ const AddEmailScreen = (props) => {
             </>
           ) : (
             <>
-              <Text style={{ textAlign: "center", paddingBottom: 15 }}>
+              <ScaleText style={{ textAlign: "center", paddingBottom: 15 }}>
                 Please Enter Otp
-              </Text>
+              </ScaleText>
               <OTPTextView
                 handleTextChange={(val) => props.setOtp(val)}
-                tintColor={YELLOW_COLOR_CODE}
+                tintColor={COLORS.YELLOW}
                 containerStyle={{ alignSelf: "center" }}
                 textInputStyle={{
                   borderWidth: 2,
-                  color: BLACK_COLOR_CODE,
-                  fontFamily: FONT_FAMILY_REGULAR,
+                  color: COLORS.BLACK,
+                  fontFamily: FONT_FAMILY.REGULAR,
                   borderBottomWidth: 2,
                 }}
                 inputCount={4}
@@ -100,7 +81,6 @@ const AddEmailScreen = (props) => {
                 buttonLabelStyle={styles.logtxt}
                 onPress={() => props._handleOtpVerify()}
                 paddingHeight={10}
-
               />
             </>
           )}
@@ -112,7 +92,7 @@ const AddEmailScreen = (props) => {
             style={styles.CancelBtnStyle}
             paddingHeight={10}
           />
-        </ScrollView>
+        </PageScroll>
       </View>
     </KeyboardAvoidingView>
   );

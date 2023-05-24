@@ -1,35 +1,24 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
-  StatusBar,
   KeyboardAvoidingView,
   Image,
   ScrollView,
   Modal,
   TouchableOpacity,
   FlatList,
-  TextInput,
   Platform,
 } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
 import styles from "./styles";
 import Input from "../../../../../Components/Input";
 import Button from "../../../../../Components/Button";
-import Header from "../../../../../Components/Header";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import {
-  WHITE_COLOR_CODE,
-  GREY_COLOR_CODE,
-  BLACK_COLOR_CODE,
-  YELLOW_COLOR_CODE,
-  FONT_FAMILY_REGULAR,
-  FONT_SIZE,
-  COLORS,
-} from "../../../../../Utils/Constant";
+import { FONT_SIZE, COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import MainInput from "../../../../../Components/MainInput";
 import MainHeader from "../../../../../Components/MainHeader";
+import ScaleText from "../../../../../Components/ScaleText";
 const NotificationSettings = (props) => {
   return (
     <KeyboardAvoidingView
@@ -46,10 +35,12 @@ const NotificationSettings = (props) => {
           <View style={[styles.EmailContainer, { paddingBottom: 10 }]}>
             <View style={styles.FlexViewContain}>
               <View style={{ flex: 5 }}>
-                <Text style={styles.EmailNotifyTxt}>Email Notifications</Text>
-                <Text style={styles.AddAccountTxt}>
+                <ScaleText style={styles.EmailNotifyTxt}>
+                  Email Notifications
+                </ScaleText>
+                <ScaleText style={styles.AddAccountTxt}>
                   Add accounts, remove accounts, and change your primary account
-                </Text>
+                </ScaleText>
               </View>
               <TouchableOpacity
                 onPress={() => props.onPressAddEmail()}
@@ -66,9 +57,13 @@ const NotificationSettings = (props) => {
               data={props.emailList}
               renderItem={({ item, index }) => (
                 <View style={styles.EmailContainerBox}>
-                  <Text style={styles.MainEmaliTXt}>{item.email}</Text>
+                  <ScaleText style={styles.MainEmaliTXt}>
+                    {item.email}
+                  </ScaleText>
                   {item.primary_status === 1 && (
-                    <Text style={styles.PrimaryText}>Primary account</Text>
+                    <ScaleText style={styles.PrimaryText}>
+                      Primary account
+                    </ScaleText>
                   )}
                   <View style={[styles.ImageDelete, { flexDirection: "row" }]}>
                     {item.primary_status !== 1 && (
@@ -93,7 +88,6 @@ const NotificationSettings = (props) => {
                           resizeMode="contain"
                           // style={styles.ImageDelete}
                           source={Images.DELETE_IMG}
-
                         />
                       </TouchableOpacity>
                     )}
@@ -104,16 +98,16 @@ const NotificationSettings = (props) => {
           </View>
           <View style={styles.PhoneNumberContain}>
             <View style={styles.PhoneDescrptnView}>
-              <Text
-                style={[styles.EmailNotifyTxt, { color: BLACK_COLOR_CODE }]}
+              <ScaleText
+                style={[styles.EmailNotifyTxt, { color: COLORS.BLACK }]}
               >
                 Phone Number
-              </Text>
-              <Text style={styles.PhoneDescrptnText}>
+              </ScaleText>
+              <ScaleText style={styles.PhoneDescrptnText}>
                 Add or edit your number. We'll automatically enter It when you
                 request a quote, make restaurant reservations, order food
                 delivery, or make other transactions on AbbyPages
-              </Text>
+              </ScaleText>
             </View>
             {props.confirm === "" ? (
               <>
@@ -132,21 +126,24 @@ const NotificationSettings = (props) => {
                 >
                   {props.selectedCountry ? (
                     <View style={styles.MainTextViewCountry}>
-                      <Text style={styles.CountryflgTxt}>
+                      <ScaleText style={styles.CountryflgTxt}>
                         {props.selectedCountryFlag}
-                      </Text>
-                      <Text style={styles.RegionTextMain}>
+                      </ScaleText>
+                      <ScaleText style={styles.RegionTextMain}>
                         {props.SelectedCode}
-                      </Text>
-                      <Text numberOfLines={1} style={styles.RegionTextMain}>
+                      </ScaleText>
+                      <ScaleText
+                        numberOfLines={1}
+                        style={styles.RegionTextMain}
+                      >
                         {props.selectedCountry}
-                      </Text>
+                      </ScaleText>
                     </View>
                   ) : (
                     <View style={{ flex: 5.5 }}>
-                      <Text style={{ fontFamily: FONT_FAMILY_REGULAR }}>
+                      <ScaleText style={{ fontFamily: FONT_FAMILY.REGULAR }}>
                         Region
-                      </Text>
+                      </ScaleText>
                     </View>
                   )}
                   <TouchableOpacity
@@ -184,12 +181,12 @@ const NotificationSettings = (props) => {
               <>
                 <OTPTextView
                   handleTextChange={(val) => props.setOtp(val)}
-                  tintColor={YELLOW_COLOR_CODE}
+                  tintColor={COLORS.YELLOW}
                   containerStyle={{ alignSelf: "center" }}
                   textInputStyle={{
                     borderWidth: 2,
-                    color: BLACK_COLOR_CODE,
-                    fontFamily: FONT_FAMILY_REGULAR,
+                    color: COLORS.BLACK,
+                    fontFamily: FONT_FAMILY.REGULAR,
                     borderBottomWidth: 2,
                   }}
                   inputCount={6}
@@ -205,12 +202,12 @@ const NotificationSettings = (props) => {
             )}
           </View>
           <View style={[styles.PhoneNumberContain, { padding: 15 }]}>
-            <Text style={styles.EmalNotifyText}>
+            <ScaleText style={styles.EmalNotifyText}>
               Email Notifications Settings
-            </Text>
-            <Text style={styles.PhoneDescrptnText}>
+            </ScaleText>
+            <ScaleText style={styles.PhoneDescrptnText}>
               Manage what emaiLs are sent to your primary email
-            </Text>
+            </ScaleText>
             <View style={styles.ReceiveEmailView}>
               <TouchableOpacity
                 style={{}}
@@ -226,17 +223,19 @@ const NotificationSettings = (props) => {
                 />
               </TouchableOpacity>
               <View style={styles.ReceiveContain}>
-                <Text style={styles.ReceiveEmailText}>
+                <ScaleText style={styles.ReceiveEmailText}>
                   Receive emails from AbbyPages
-                </Text>
-                <Text style={styles.NOteTextStyle}>
+                </ScaleText>
+                <ScaleText style={styles.NOteTextStyle}>
                   Note: you will still receive certain legal, transcational or
                   administrative emails.
-                </Text>
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 20 }}>
-              <Text style={styles.GetEmailText}>Get email updates about:</Text>
+              <ScaleText style={styles.GetEmailText}>
+                Get email updates about:
+              </ScaleText>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
                   onPress={() =>
@@ -253,7 +252,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Friend requests</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Friend requests
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -271,7 +272,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>New Followers</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  New Followers
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -291,9 +294,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Compliments and direct messages
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -312,9 +315,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Message from business owners
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -333,9 +336,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Status of your business info edits
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -353,7 +356,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Cash back updates</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Cash back updates
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -371,13 +376,15 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Contributions</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Contributions
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 20 }}>
-              <Text style={styles.GetEmailText}>
+              <ScaleText style={styles.GetEmailText}>
                 We'll also let you know about:
-              </Text>
+              </ScaleText>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
                   onPress={() =>
@@ -394,9 +401,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Businesses you might like
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -415,9 +422,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   AbbyPages tips and tricks
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -436,9 +443,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Suggested businesses to review
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -457,9 +464,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Discounts and promotions
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -477,7 +484,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Restaurants news</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Restaurants news
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -496,9 +505,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   New questions you can answer
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -516,7 +525,7 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Surveys</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>Surveys</ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -534,25 +543,29 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Neighborhoods</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Neighborhoods
+                </ScaleText>
               </View>
             </View>
           </View>
           {/* <Image style={{ marginTop: 5 }} source={Images.UNCHECK_IMG} /> */}
           <View style={[styles.PhoneNumberContain, { padding: 15 }]}>
-            <Text style={styles.EmalNotifyText}>
+            <ScaleText style={styles.EmalNotifyText}>
               Push Notifications Settings
-            </Text>
-            <Text style={[styles.PhoneDescrptnText]}>
+            </ScaleText>
+            <ScaleText style={[styles.PhoneDescrptnText]}>
               Receive push notifications to mobile devices that are connected
               you Abby account
-            </Text>
-            <Text style={[styles.GetEmailText, { paddingTop: 10 }]}>
+            </ScaleText>
+            <ScaleText style={[styles.GetEmailText, { paddingTop: 10 }]}>
               Friend activity
-            </Text>
+            </ScaleText>
             <View style={[styles.ReceiveEmailView, { paddingTop: 5 }]}>
               <View style={styles.ReceiveContain}>
-                <Text style={styles.ReceiveEmailText}>Check-ins(anyone)</Text>
+                <ScaleText style={styles.ReceiveEmailText}>
+                  Check-ins(anyone)
+                </ScaleText>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() =>
@@ -570,14 +583,14 @@ const NotificationSettings = (props) => {
                       <Image source={Images.UNCHECK_IMG} />
                     )}
                   </TouchableOpacity>
-                  <Text
+                  <ScaleText
                     style={[
                       styles.NOteTextStyle,
                       { width: "100%", lineHeight: 25, paddingLeft: 5 },
                     ]}
                   >
                     By friends in your city
-                  </Text>
+                  </ScaleText>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity
@@ -597,19 +610,21 @@ const NotificationSettings = (props) => {
                       <Image source={Images.UNCHECK_IMG} />
                     )}
                   </TouchableOpacity>
-                  <Text
+                  <ScaleText
                     style={[
                       styles.NOteTextStyle,
                       { width: "100%", lineHeight: 25, paddingLeft: 5 },
                     ]}
                   >
                     By friends in all cities
-                  </Text>
+                  </ScaleText>
                 </View>
               </View>
             </View>
             <View style={{ paddingTop: 20 }}>
-              <Text style={styles.GetEmailText}>Reactions to your posts</Text>
+              <ScaleText style={styles.GetEmailText}>
+                Reactions to your posts
+              </ScaleText>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
                   onPress={() =>
@@ -626,7 +641,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Review votes</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Review votes
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -644,7 +661,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Check-in comments</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Check-in comments
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -662,7 +681,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Check-in likes</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Check-in likes
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -680,7 +701,7 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Tip likes</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>Tip likes</ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -699,9 +720,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Photos and videos Likes
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -719,7 +740,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Compliments</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Compliments
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -737,7 +760,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Direct messages</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Direct messages
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -755,7 +780,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Helpful answers</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Helpful answers
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -773,11 +800,13 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Review comments </Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Review comments{" "}
+                </ScaleText>
               </View>
             </View>
             <View style={{ paddingTop: 20 }}>
-              <Text style={styles.GetEmailText}>From AbbyPages</Text>
+              <ScaleText style={styles.GetEmailText}>From AbbyPages</ScaleText>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
                   onPress={() =>
@@ -795,9 +824,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Deals and announcements
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -817,9 +846,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Businesses you might like
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -839,9 +868,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Suggested businessses to review
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -859,7 +888,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Cash back updates</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Cash back updates
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -878,9 +909,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Updates on your views
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -898,7 +929,7 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Surveys</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>Surveys</ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -916,7 +947,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Collections updates</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Collections updates
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -934,7 +967,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Business you hired</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Business you hired
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -952,7 +987,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Neighborhoods</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Neighborhoods
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -972,9 +1009,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>
+                <ScaleText style={styles.GetEmailOptnTxt}>
                   Order and purchase updates
-                </Text>
+                </ScaleText>
               </View>
               <View style={styles.MainGetEmailView}>
                 <TouchableOpacity
@@ -992,7 +1029,9 @@ const NotificationSettings = (props) => {
                     <Image source={Images.UNCHECK_IMG} />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.GetEmailOptnTxt}>Waitlist updates</Text>
+                <ScaleText style={styles.GetEmailOptnTxt}>
+                  Waitlist updates
+                </ScaleText>
               </View>
             </View>
           </View>
@@ -1004,11 +1043,11 @@ const NotificationSettings = (props) => {
           />
           <Button
             buttonText="Cancel"
-            buttonLabelStyle={{ color: WHITE_COLOR_CODE }}
+            buttonLabelStyle={{ color: COLORS.WHITE }}
             onPress={() => props.onPressCancel()}
             style={{
               marginTop: 5,
-              backgroundColor: GREY_COLOR_CODE,
+              backgroundColor: COLORS.GREY,
               marginTop: 10,
               marginBottom: 10,
             }}
@@ -1059,9 +1098,11 @@ const NotificationSettings = (props) => {
                   style={styles.MainCntrySlctTouchble}
                   onPress={() => props.OnpressCountry(item)}
                 >
-                  <Text style={{ fontSize: 25 }}>{item.flag}</Text>
-                  <Text style={styles.CountryText}>{item.dial_code}</Text>
-                  <Text style={styles.CountryText}>{item.name}</Text>
+                  <ScaleText style={{ fontSize: 25 }}>{item.flag}</ScaleText>
+                  <ScaleText style={styles.CountryText}>
+                    {item.dial_code}
+                  </ScaleText>
+                  <ScaleText style={styles.CountryText}>{item.name}</ScaleText>
                 </TouchableOpacity>
               )}
             />

@@ -71,7 +71,9 @@ const ProfileSettingsView = (props) => {
                 <Image source={Images.ENVELOPE_IMG} />
               </View>
               <View style={styles.TextContainer}>
-                <ScaleText style={styles.AddPhotosTxt}>Email / Notifications</ScaleText>
+                <ScaleText style={styles.AddPhotosTxt}>
+                  Email / Notifications
+                </ScaleText>
               </View>
               <View style={styles.BckArrowBack}>
                 <Image source={Images.ARROW_RIGHT_IMG} />
@@ -139,13 +141,17 @@ const ProfileSettingsView = (props) => {
               </ScaleText>
             </View>
             <View style={styles.LocationView}>
-              <ScaleText style={styles.LoctionTextStyle}>Member Since</ScaleText>
+              <ScaleText style={styles.LoctionTextStyle}>
+                Member Since
+              </ScaleText>
               <ScaleText style={styles.LocationNameTXt}>
                 {moment(props.userProfileData.create_date).format("MM/DD/YYYY")}
               </ScaleText>
             </View>
             <View style={styles.LocationView}>
-              <ScaleText style={styles.LoctionTextStyle}>Things I Love</ScaleText>
+              <ScaleText style={styles.LoctionTextStyle}>
+                Things I Love
+              </ScaleText>
               {props.userProfileData.i_love ? (
                 <ScaleText style={styles.LocationNameTXt}>
                   {props.userProfileData && props.userProfileData.i_love}
@@ -163,11 +169,15 @@ const ProfileSettingsView = (props) => {
           <View style={[styles.MainContainer, { marginTop: 10 }]}>
             <View style={{ alignItems: "center" }}>
               <Image source={Images.HEADPHONES_IMG} />
-              <ScaleText style={styles.AnyProblmTxt}>Have any problem and</ScaleText>
+              <ScaleText style={styles.AnyProblmTxt}>
+                Have any problem and
+              </ScaleText>
               <ScaleText style={styles.AnyProblmTxt}>
                 need support? Call Us directly
               </ScaleText>
-              <ScaleText style={styles.LocationNameTXt}>(+1) 407-600-5690</ScaleText>
+              <ScaleText style={styles.LocationNameTXt}>
+                (+1) 407-600-5690
+              </ScaleText>
               <ScaleText style={styles.AnyProblmTxt}>or chat with us</ScaleText>
             </View>
             <Button buttonText="Contact Us" style={{ marginTop: 10 }} />

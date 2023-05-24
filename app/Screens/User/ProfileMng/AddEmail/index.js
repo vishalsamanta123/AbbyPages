@@ -4,8 +4,6 @@ import { View } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 const AddEmail = ({ navigation }) => {
@@ -123,18 +121,6 @@ const AddEmail = ({ navigation }) => {
         onPressSave={onPressSave}
         onPressCancelBtn={onPressCancelBtn}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
-      />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() =>
-          navigation.navigate("NotificationSettings", setVisibleSuccess(false))
-        }
-      /> */}
       <ShowMessage
         visible={visibleErr || visibleSuccess}
         message={errorMessage || successMessage}
