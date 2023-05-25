@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, FlatList, Dimensions } from "react-native";
 import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
+import FastImages from "../FastImage";
 import ScaleText from "../ScaleText";
 
 const SliderImages = (props) => {
@@ -45,8 +46,7 @@ const SliderImages = (props) => {
           return (
             <View key={index} style={[{ width }, styles.mainCon]}>
               <View>
-                <Image
-                  resizeMode="cover"
+                <FastImages
                   source={{ uri: image }}
                   style={[
                     styles.imageVw,
@@ -56,9 +56,7 @@ const SliderImages = (props) => {
                   ]}
                 />
                 <View style={styles.paginationWrapper}>
-                  {Array?.from(
-                    Array(data?.length > 5 ? 5 : data?.length).keys()
-                  ).map((key, index) => (
+                  {Array?.from(Array(data?.length).keys()).map((key, index) => (
                     <View
                       style={[
                         styles.paginationDots,

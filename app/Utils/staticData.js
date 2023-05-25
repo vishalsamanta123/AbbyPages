@@ -1,5 +1,5 @@
 import { ICON_TYPE } from "../Components/Icons/Icon";
-import { BLACK_COLOR_CODE, COLORS, LIGHT_BLACK_COLOR_CODE } from "./Constant";
+import { COLORS } from "./Constant";
 
 export const businessTypes = [
   {
@@ -8,7 +8,7 @@ export const businessTypes = [
     origin: ICON_TYPE.MATERIAL_COMMUNITY,
     name: "bank-outline",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     url: "https://business.abbypages.com/login",
   },
   {
@@ -17,7 +17,7 @@ export const businessTypes = [
     origin: ICON_TYPE.ICONICONS,
     name: "car-sport-outline",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   {
     type: "4",
@@ -25,7 +25,7 @@ export const businessTypes = [
     origin: ICON_TYPE.FEATHER_ICONS,
     name: "calendar",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   {
     type: "5",
@@ -33,7 +33,7 @@ export const businessTypes = [
     origin: ICON_TYPE.SIMPLELINE,
     name: "briefcase",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   {
     type: "2",
@@ -41,7 +41,7 @@ export const businessTypes = [
     origin: ICON_TYPE.MATERIAL_COMMUNITY,
     name: "shopping-outline",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   {
     type: "feed",
@@ -49,7 +49,7 @@ export const businessTypes = [
     origin: ICON_TYPE.OCTICONS,
     name: "checklist",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
   {
     type: "1",
@@ -57,7 +57,7 @@ export const businessTypes = [
     origin: ICON_TYPE.ICONICONS,
     name: "ios-restaurant-outline",
     size: 24,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
   },
 ];
 export const staticSearchOptions = [
@@ -67,7 +67,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.ICONICONS,
     name: "restaurant",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "",
     selectOption: "",
     city: "Orlando, FL, USA",
@@ -78,7 +78,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.MATERIAL_ICONS,
     name: "delivery-dining",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "1",
     selectOption: 1,
     city: "Orlando, FL, USA",
@@ -89,7 +89,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.FEATHER_ICONS,
     name: "shopping-bag",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "10",
     selectOption: 10,
     city: "Orlando, FL, USA",
@@ -101,7 +101,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.MATERIAL_COMMUNITY,
     name: "badge-account-outline",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "",
     selectOption: "",
     city: "Orlando, FL, USA",
@@ -114,7 +114,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.MATERIAL_ICONS,
     name: "plumbing",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "",
     selectOption: "",
     city: "Orlando, FL, USA",
@@ -126,7 +126,7 @@ export const staticSearchOptions = [
     origin: ICON_TYPE.ICONICONS,
     name: "ios-settings",
     size: 22,
-    color: LIGHT_BLACK_COLOR_CODE,
+    color: COLORS.LIGHT_BLACK,
     option: "",
     selectOption: "",
     city: "Orlando, FL, USA",

@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useContext, useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import ScaleText from "../Components/ScaleText";
 import TabModal from "../Components/TabModal/TabModal";
-import TabModalScreens from "../Components/TabModal/TabModalScreens";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 import { UserContext } from "../Utils/UserContext";
 
@@ -25,6 +23,17 @@ function MyTabBar({ state, navigation }) {
       setUserData(userData);
     }, [navigation, state?.index, userData])
   );
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setOnPressmodal({
+        ...onPressmodal,
+        modal: "",
+        navigate: onPressmodal.navigate,
+      });
+    });
+    return unsubscribe;
+  }, [navigation, onPressmodal?.navigate]);
 
   const handleNavigation = (type, index) => {
     navigation.navigate(type);

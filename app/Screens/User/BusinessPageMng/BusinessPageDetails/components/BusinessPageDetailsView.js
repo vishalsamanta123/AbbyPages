@@ -30,6 +30,7 @@ import MainButton from "../../../../../Components/MainButton";
 import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../Components/PageScroll";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
+import Geolocation from "@react-native-community/geolocation";
 
 const BusinessPageDetailsView = (props) => {
   const { detailData = {} } = props;
@@ -41,45 +42,55 @@ const BusinessPageDetailsView = (props) => {
       }, 2000);
     }
   }, [specialIcon]);
-  function handleGetDirections(lattitude, longitude) {
-    if (Platform.OS === "android") {
-      const url = `${
-        "http://maps.google.com/maps?daddr=" + lattitude + "," + longitude + ""
-      }`;
+  function handleGetDirections() {
+    Geolocation.getCurrentPosition((position) => {
+      const getCord =
+        position?.coords?.latitude + "," + position?.coords?.longitude;
+      const url = `https:www.google.com/maps/dir/?api=1&origin=${getCord}&destination=${detailData.address}`;
+      // if (Constants.Ios) {
+      // } else {
       Linking.canOpenURL(url)
         .then((supported) => {
           if (supported) {
-            Linking.openURL(
-              "http://maps.google.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
-            );
+            Linking.openURL(url);
           } else {
             alert("Don't know how to go");
           }
         })
         .catch((err) => console.error("An error occurred", err));
-    } else {
-      Linking.canOpenURL(
-        "http://maps.apple.com/maps?daddr=" + lattitude + "," + longitude + ""
-      )
-        .then((supported) => {
-          if (supported) {
-            Linking.openURL(
-              "http://maps.apple.com/maps?daddr=" +
-                lattitude +
-                "," +
-                longitude +
-                ""
-            );
-          } else {
-            alert("Don't know how to go");
-          }
-        })
-        .catch((err) => console.error("An error occurred", err));
-    }
+      // }
+    });
+
+    //   Geolocation.getCurrentPosition((position) => {
+    //     const url = `https://www.google.com/maps/dir/?api=1&origin=${getCord}&destination=${detailData.address}`;
+    //   });
+    //   Linking.canOpenURL(url)
+    //     .then((supported) => {
+    //       if (supported) {
+    //       } else {
+    //         alert("Don't know how to go");
+    //       }
+    //     })
+    //     .catch((err) => console.error("An error occurred", err));
+    // } else {
+    //   Linking.canOpenURL(
+    //     "http://maps.apple.com/maps?daddr=" + lattitude + "," + longitude + ""
+    //   )
+    //     .then((supported) => {
+    //       if (supported) {
+    //         Linking.openURL(
+    //           "http://maps.apple.com/maps?daddr=" +
+    //             lattitude +
+    //             "," +
+    //             longitude +
+    //             ""
+    //         );
+    //       } else {
+    //         alert("Don't know how to go");
+    //       }
+    //     })
+    //     .catch((err) => console.error("An error occurred", err));
+    // }
   }
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${detailData?.latitude},${detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
   const renderPopularDish = (item) => {

@@ -9,6 +9,7 @@ import {
 } from "../../Utils/Constant";
 import CommonStyles from "../../Utils/CommonStyles";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
+import FastImages from "../FastImage";
 
 const FullImageViewList = (props) => {
   const {
@@ -46,11 +47,7 @@ const FullImageViewList = (props) => {
       ]}
     >
       {fullImage === "" ? null : (
-        <Image
-          source={{ uri: fullImage }}
-          resizeMode={"cover"}
-          style={styles.fullImageVw}
-        />
+        <FastImages source={{ uri: fullImage }} style={styles.fullImageVw} />
       )}
       <View style={styles.txtConVw}>
         <View

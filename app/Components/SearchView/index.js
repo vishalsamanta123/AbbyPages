@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   Image,
   Pressable,
@@ -14,20 +13,15 @@ import { COLORS } from "../../Utils/Constant";
 import AddressInput from "../AddressInput";
 import { staticSearchOptions } from "../../Utils/staticData";
 import Button from "../Button";
-import CommonStyles from "../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import apiEndPoints from "../../Utils/apiEndPoints";
 import { apiCall } from "../../Utils/httpClient";
 import MainInput from "../MainInput";
+import _ from "lodash";
 
 const SearchView = (props) => {
-  const {
-    // resBusdata = [],
-    // resultCat = [],
-    searchStart = false,
-    searchValues = () => {},
-  } = props;
+  const {} = props;
   const navigation = useNavigation();
   const [searchHistory, setSearchHistory] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -39,23 +33,42 @@ const SearchView = (props) => {
   const [searchData, setSearchData] = useState({
     search_category_or_business: "",
     address: "Orlando, FL, USA",
+    latitude: "28.5383832",
+    longitude: "-81.3789269",
   });
-  console.log("searchData: ", searchData);
 
   const handleDetailNavigation = (data) => {
+    const item = { ...data };
+    item?.business_type &&
+      (item.business_type = data?.business_type?.toString()?.split(",")[0]);
     setSearchOpen(false);
     setListOpen(false);
-    navigation.navigate("BusinessPageDetails", { detail: data });
+    navigation.navigate("BusinessPageDetails", { detail: item });
   };
-  useFocusEffect(
-    React.useCallback(() => {
-      getHistorySearch();
-    }, [navigation, searchOpen])
-  );
+
+  useLayoutEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setSearchOpen(false);
+      setListOpen(false);
+      setSearchData({
+        search_category_or_business: "",
+        address: "Orlando, FL, USA",
+        latitude: "",
+        longitude: "",
+      });
+      Keyboard.dismiss();
+      return unsubscribe;
+    });
+    getHistorySearch();
+  }, [navigation, searchOpen]);
+
   const getHistorySearch = async () => {
+    // await AsyncStorage.removeItem("searchCategoryHistory");
     const historySearch = await AsyncStorage.getItem("searchCategoryHistory");
     if (JSON?.parse(historySearch)) {
-      setSearchHistory(JSON?.parse(historySearch)?.reverse());
+      setSearchHistory(JSON?.parse(historySearch));
+    } else {
+      setSearchHistory([]);
     }
   };
 
@@ -88,31 +101,52 @@ const SearchView = (props) => {
   };
 
   const onSearchData = async (data) => {
-    if (searchData?.search_category_or_business !== "") {
-      setSearchOpen(false);
-      setListOpen(false);
-      const catSearchNew = [...searchHistory];
-      const objNew = {
-        category_name: searchData?.search_category_or_business,
-      };
-      if (catSearchNew?.length >= 5) {
-        catSearchNew?.splice(catSearchNew.length - 1, 1);
-        catSearchNew?.push(objNew);
-        AsyncStorage.setItem(
-          "searchCategoryHistory",
-          JSON.stringify(catSearchNew)
-        );
-      } else {
-        catSearchNew?.push(objNew);
-        AsyncStorage.setItem(
-          "searchCategoryHistory",
-          JSON.stringify(catSearchNew)
-        );
+    if (searchData?.address != "") {
+      const searchKey = searchData?.search_category_or_business;
+      if (searchData?.search_category_or_business !== "") {
+        const catSearchNew = [...searchHistory];
+        const objNew = {
+          category_name: searchData?.search_category_or_business,
+        };
+        if (catSearchNew?.length >= 5) {
+          catSearchNew?.splice(catSearchNew.length - 1, 1);
+          const data = _.find(catSearchNew, { category_name: searchKey });
+          if (data?.category_name) {
+            AsyncStorage.setItem(
+              "searchCategoryHistory",
+              JSON.stringify(catSearchNew?.reverse())
+            );
+          } else {
+            catSearchNew?.push(objNew);
+            AsyncStorage.setItem(
+              "searchCategoryHistory",
+              JSON.stringify(catSearchNew?.reverse())
+            );
+          }
+        } else {
+          if (catSearchNew?.length === 0) {
+            catSearchNew?.push(objNew);
+            AsyncStorage.setItem(
+              "searchCategoryHistory",
+              JSON.stringify(catSearchNew)
+            );
+          } else {
+            const data = _.find(catSearchNew, { category_name: searchKey });
+            if (data?.category_name) {
+              AsyncStorage.setItem(
+                "searchCategoryHistory",
+                JSON.stringify(catSearchNew?.reverse())
+              );
+            } else {
+              catSearchNew?.push(objNew);
+              AsyncStorage.setItem(
+                "searchCategoryHistory",
+                JSON.stringify(catSearchNew?.reverse())
+              );
+            }
+          }
+        }
       }
-      setSearchData({
-        address: searchData?.address,
-        search_category_or_business: "",
-      });
       const newObject = {
         ...data,
         city: data?.address,
@@ -125,7 +159,12 @@ const SearchView = (props) => {
       ...itm,
       address: searchData?.address,
       search_category_or_business: itm?.category_name,
+      category_id: itm.id,
     };
+    newObject?.business_type &&
+      (newObject.business_type = newObject?.business_type
+        ?.toString()
+        ?.split(",")[0]);
     setSearchData({ ...newObject });
     setListOpen(false);
   };
@@ -172,7 +211,7 @@ const SearchView = (props) => {
                         source={{ uri: itm?.logo }}
                         style={styles.categoryImg}
                       />
-                      <View>
+                      <View style={{ flex: 1 }}>
                         <Text style={styles.categoryTxt}>
                           {itm?.business_name}
                         </Text>

@@ -10,6 +10,7 @@ import moment from "moment";
 import ScaleText from "../ScaleText";
 import AddMinusView from "../AddMinusView";
 import Button from "../Button";
+import FastImages from "../FastImage";
 
 const NoRowImageList = (props) => {
   const {
@@ -41,7 +42,7 @@ const NoRowImageList = (props) => {
       ]}
     >
       {largeImg === "" ? null : (
-        <Image
+        <FastImages
           style={styles.largeImgVw}
           resizeMode="cover"
           source={{ uri: largeImg }}

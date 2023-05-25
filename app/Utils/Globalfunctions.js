@@ -9,7 +9,7 @@ import {
 import FileViewer from "react-native-file-viewer";
 import RNFS from "react-native-fs";
 import { Constants } from "./Constant";
-import { Alert } from "react-native";
+import { Alert, Linking } from "react-native";
 import moment from "moment";
 
 export const handlePermission = async (
@@ -282,5 +282,16 @@ export const RECENT_TIME_FORMAT = (time) => {
     return "";
   } else {
     return moment.unix(time).format(Constants.TIME_DATE_FORMAT);
+  }
+};
+
+export const handleBusinessNav = async (options) => {
+  if (options?.type?.includes("Business")) {
+    const supported = await Linking.canOpenURL(options.url);
+    if (supported) {
+      await Linking.openURL(options.url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${options.url}`);
+    }
   }
 };

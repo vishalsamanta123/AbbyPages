@@ -4,10 +4,12 @@ import Button from "../Button";
 import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 import ScaleText from "../ScaleText";
+import MainButton from "../MainButton";
+import { IconX, ICON_TYPE } from "../Icons/Icon";
 
 const QuestionModal = (props) => {
   const {
-    modalType,
+    modalType = "normal",
     surringVisible,
     negativeResponse,
     positiveResponse,
@@ -29,7 +31,7 @@ const QuestionModal = (props) => {
         >
           <View style={styles.modal}>
             {spaceFromTop ? (
-              <View style={{ flex: space ? space : 0.65 }} />
+              <View style={{ flex: space ? space : 0.3 }} />
             ) : null}
             <View style={styles.normalModalVw}>
               {topMessage ? (
@@ -39,19 +41,21 @@ const QuestionModal = (props) => {
               ) : null}
               <ScaleText style={styles.normalConfrTxt}>{message}</ScaleText>
               <View style={styles.normalModalBttnVw}>
-                <Button
-                  style={styles.modalBttn}
-                  width={"45%"}
-                  paddingHeight={10}
-                  onPress={positiveResponse}
-                  buttonText={positiveTxt ? positiveTxt : "Yes"}
+                <MainButton
+                  paddingHorizontal={40}
+                  borderRadius={10}
+                  backgroundColor={COLORS.YELLOW}
+                  txtColor={COLORS.WHITE}
+                  onPressButton={positiveResponse}
+                  buttonTxt={positiveTxt ? positiveTxt : "Yes"}
                 />
-                <Button
-                  style={styles.modalBttn}
-                  width={"45%"}
-                  paddingHeight={10}
-                  onPress={negativeResponse}
-                  buttonText={negativeTxt ? negativeTxt : "No"}
+                <MainButton
+                  paddingHorizontal={40}
+                  borderRadius={10}
+                  backgroundColor={COLORS.YELLOW}
+                  txtColor={COLORS.WHITE}
+                  onPressButton={negativeResponse}
+                  buttonTxt={negativeTxt ? negativeTxt : "No"}
                 />
               </View>
             </View>
@@ -67,25 +71,28 @@ const QuestionModal = (props) => {
             <View style={styles.modalVw}>
               <View style={styles.closeModalVw}>
                 <TouchableOpacity onPress={cancelModel}>
-                  <Image
-                    style={{ width: 35, height: 35 }}
-                    source={Images.CANCEL_IMG}
-                  />
+                  <IconX origin={ICON_TYPE.ENTYPO} name={"cross"} size={35} />
                 </TouchableOpacity>
               </View>
               <ScaleText style={styles.topMssgTxt}>{topMessage}</ScaleText>
               <ScaleText style={styles.confrTxt}>{message}</ScaleText>
-              <Button
-                style={[styles.modalBttnVw, { marginTop: 20 }]}
-                buttonLabelStyle={{ color: COLORS.GREY }}
-                buttonText={positiveTxt}
-                onPress={positiveResponse}
+              <MainButton
+                borderRadius={10}
+                onPressButton={positiveResponse}
+                buttonTxt={positiveTxt}
+                marginTop={14}
+                paddingHeight={14}
+                borderColor={COLORS.GREY}
+                txtColor={COLORS.GREY}
               />
-              <Button
-                style={styles.modalBttnVw}
-                buttonLabelStyle={{ color: COLORS.GREY }}
-                buttonText={negativeTxt}
-                onPress={negativeResponse}
+              <MainButton
+                borderRadius={10}
+                onPressButton={negativeResponse}
+                buttonTxt={negativeTxt}
+                marginTop={14}
+                paddingHeight={14}
+                borderColor={COLORS.GREY}
+                txtColor={COLORS.GREY}
               />
             </View>
           </View>
@@ -108,11 +115,9 @@ const styles = StyleSheet.create({
   },
   normalModalVw: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 20,
-    alignItems: "center",
-    marginHorizontal: 30,
+    borderRadius: 40,
+    marginHorizontal: 24,
     paddingVertical: 16,
-    paddingHorizontal: 16,
   },
   normalTopMssgTxt: {
     fontSize: 18,
@@ -129,6 +134,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 30,
     alignItems: "center",
+    justifyContent: "space-around",
+    paddingHorizontal: 10,
   },
   modalBttn: {
     width: "45%",

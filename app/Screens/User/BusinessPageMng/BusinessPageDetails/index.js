@@ -6,7 +6,6 @@ import BusinessPageDetailsView from "./components/BusinessPageDetailsView";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
-import Loader from "../../../../Utils/Loader";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const BusinessPageDetails = ({ navigation, route }) => {
@@ -152,7 +151,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
 
   const handleConsiderPress = (item) => {
     navigation.navigate("BusinessPageDetails", { detail: item });
-  }
+  };
   return (
     <View style={CommonStyles.container}>
       {/* {visible && <Loader state={visible} />} */}

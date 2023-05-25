@@ -11,6 +11,7 @@ import { IconX, ICON_TYPE } from "../Icons/Icon";
 import ScaleText from "../ScaleText";
 import CommonStyles from "../../Utils/CommonStyles";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../Utils/svgImages";
+import FastImages from "../FastImage";
 
 const MainItemsView = (props) => {
   const [specialIcon, setSpecialIcon] = useState(false);
@@ -58,7 +59,7 @@ const MainItemsView = (props) => {
             style={[styles.mainConatiner]}
           >
             {largeImg === "" ? null : (
-              <Image
+              <FastImages
                 style={styles.largeImgVw}
                 resizeMode="cover"
                 source={{ uri: largeImg }}
@@ -160,7 +161,7 @@ const MainItemsView = (props) => {
       ) : (
         <>
           <TouchableOpacity style={[styles.rowVw, { marginTop: 10 }]}>
-            <Image
+            <FastImages
               style={styles.smallImgVw}
               resizeMode="cover"
               source={{ uri: profile_image }}

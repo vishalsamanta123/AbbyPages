@@ -1,4 +1,3 @@
-import _, { filter } from "lodash";
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Modal, FlatList } from "react-native";
 import CommonStyles from "../../Utils/CommonStyles";

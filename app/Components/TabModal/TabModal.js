@@ -13,19 +13,8 @@ const TabModal = (props) => {
     setOnPressmodal = () => {},
     isFocused,
     setIsFocused = () => {},
-    state = "",
     navigation = "",
   } = props;
-
-  const modalNavigation = (navigate, modal) => {
-    navigation.navigate(navigate);
-    setIsFocused(modal);
-    setOnPressmodal({
-      ...onPressmodal,
-      modal: "",
-      navigate: modal,
-    });
-  };
 
   const handleTabs = (type, focuse) => {
     if (type === onPressmodal?.modal) {
@@ -40,6 +29,7 @@ const TabModal = (props) => {
       });
     }
   };
+
   return (
     <>
       <TouchableOpacity

@@ -2,6 +2,8 @@ import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
+import { handleBusinessNav } from "../../Utils/Globalfunctions";
+import { businessTypes } from "../../Utils/staticData";
 
 const TabModalScreens = (props) => {
   const {
@@ -44,7 +46,10 @@ const TabModalScreens = (props) => {
           <View style={styles.popupVw}>
             {onPressmodal.modal === "EventManagement" ? (
               <View>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>
                     {"Create Event"}
                   </ScaleText>
@@ -86,25 +91,40 @@ const TabModalScreens = (props) => {
               </View>
             ) : onPressmodal.modal === "PlusManagement" ? (
               <View>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>
                     {"Add a Business"}
                   </ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>
                     {"Business Post"}
                   </ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>
                     {"Create Event"}
                   </ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>{"Post Job"}</ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>
                     {"Sell Products"}
                   </ScaleText>
@@ -127,7 +147,10 @@ const TabModalScreens = (props) => {
                 >
                   <ScaleText style={styles.subCatTxt}>{"Find a Job"}</ScaleText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subCatVw}>
+                <TouchableOpacity
+                  onPress={() => handleBusinessNav(businessTypes[0])}
+                  style={styles.subCatVw}
+                >
                   <ScaleText style={styles.subCatTxt}>{"Post Job"}</ScaleText>
                 </TouchableOpacity>
                 <TouchableOpacity
