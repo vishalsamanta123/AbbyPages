@@ -42,6 +42,9 @@ const Styles = StyleSheet.create({
   },
   ImageDelete: {
     margin: 5,
+    backgroundColor: COLORS.YELLOW,
+    padding: 10,
+    borderRadius: 25,
   },
   MainEmaliTXt: {
     fontSize: FONT_SIZE.smallL,

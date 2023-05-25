@@ -106,3 +106,44 @@ export const BASEURL = "https://itinformatix.org:3040";
 export const defaultLatitude = "28.5383832";
 export const defaultLongitute = "-81.3789269";
 export const defaultLocationName = "Orlando, FL, USA";
+
+export const Regexs = {
+  AadharRegex: new RegExp(/^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$/),
+  panRegex: new RegExp(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/),
+  emailRegex: new RegExp(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  ),
+  phoneNumRegex: new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/),
+  emailOrPhone: new RegExp(/^(.+@.+|\d{10})$/),
+  mobilenumRegex: new RegExp(/^[6-9]{1}[0-9]{9}$/),
+  accountnumRegex: new RegExp(/^\d{9,18}$/),
+  ifscRegex: new RegExp(/^[A-Z]{4}0[A-Z0-9]{6}$/),
+  specialCharacters: new RegExp(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/),
+  alphaNumeric: new RegExp(/^[A-Za-z0-9\s]*$/),
+  nameRegex: new RegExp(/^([a-zA-Z]+\s)*[a-zA-Z]+$/),
+  passwordRegex: new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
+};
+
+export const passwordValidator = (val) => {
+  var p = val,
+    errors = [];
+  if (p.length < 8) {
+    errors.push("Add at least 8 characters");
+  }
+  if (p.search(/[a-z]/) < 0) {
+    errors.push("Add at least one small letter.");
+  }
+  if (p.search(/[A-Z]/) < 0) {
+    errors.push("Add at least one capital letter.");
+  }
+  if (p.search(/[0-9]/) < 0) {
+    errors.push("Add at least one digit.");
+  }
+  if (p.search(/[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/) < 0) {
+    errors.push("Add at least one special character.");
+  }
+  if (errors.length > 0) {
+    console.log(errors);
+  }
+  return errors;
+};

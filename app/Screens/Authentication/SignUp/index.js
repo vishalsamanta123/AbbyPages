@@ -16,11 +16,9 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from "react-native-fbsdk";
-import {
-  GoogleSignin,
-  statusCodes,
-} from "@react-native-community/google-signin";
+import { GoogleSignin } from "@react-native-community/google-signin";
 import ShowMessage from "../../../Components/Modal/showMessage";
+import { Regexs } from "../../../Utils/Constant";
 GoogleSignin.configure({
   scopes: ["https://www.googleapis.com/auth/drive.readonly"],
   webClientId:
@@ -53,6 +51,7 @@ const SignUpView = ({ navigation }) => {
   const [deviceType, setDeviceType] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [pswdErrors, setPswdErrors] = useState([]);
   // const { signIn } = React.useContext(AuthContext);
   function validationFrom() {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -72,15 +71,23 @@ const SignUpView = ({ navigation }) => {
       setErrorMessage("Please Enter FirstName");
       setVisibleErr(true);
       return false;
+    } else if (Regexs.nameRegex.test(registrationData.first_name) === false) {
+      setErrorMessage("Please Enter valid first name");
+      setVisibleErr(true);
+      return false;
     } else if (registrationData.last_name == "") {
       setErrorMessage("Please Enter LastName");
+      setVisibleErr(true);
+      return false;
+    } else if (Regexs.nameRegex.test(registrationData.last_name) === false) {
+      setErrorMessage("Please Enter valid Last Name");
       setVisibleErr(true);
       return false;
     } else if (registrationData.email == "") {
       setErrorMessage("Please Enter Email");
       setVisibleErr(true);
       return false;
-    } else if (reg.test(registrationData.email) === false) {
+    } else if (Regexs.emailRegex.test(registrationData.email) === false) {
       setErrorMessage("Please Enter Correct Email Address");
       setVisibleErr(true);
       return false;
@@ -88,7 +95,7 @@ const SignUpView = ({ navigation }) => {
       setErrorMessage("Please Enter Mobile No.");
       setVisibleErr(true);
       return false;
-    } else if (registrationData.mobile.length < 10) {
+    } else if (Regexs.mobilenumRegex.test(registrationData.mobile) === false) {
       setErrorMessage("Please Enter 10 Digit Mobile No.");
       setVisibleErr(true);
       return false;
@@ -96,8 +103,14 @@ const SignUpView = ({ navigation }) => {
       setErrorMessage("Please Enter Password");
       setVisibleErr(true);
       return false;
-    } else if (registrationData.password.length <= 5) {
-      setErrorMessage("please Enter password min 6 characters");
+    } else if (registrationData.password.length < 8) {
+      setErrorMessage("Please Enter more than 8 letters");
+      setVisibleErr(true);
+      return false;
+    } else if (Regexs.passwordRegex.test(registrationData.password) === false) {
+      setErrorMessage(
+        "Please choose a stronger password. Try a mix of letters, numbers, and symbols."
+      );
       setVisibleErr(true);
       return false;
     } else if (registrationData.cnfrmpassword == "") {
@@ -146,8 +159,8 @@ const SignUpView = ({ navigation }) => {
         setVisible(true);
         const params = {
           user_name: registrationData?.user_name,
-          first_name: registrationData?.first_name,
-          last_name: registrationData?.last_name,
+          first_name: registrationData?.first_name.trim(),
+          last_name: registrationData?.last_name.trim(),
           email: registrationData?.email,
           mobile: registrationData?.mobile,
           password: registrationData?.password,
@@ -380,13 +393,13 @@ const SignUpView = ({ navigation }) => {
         userValMessage={userValMessage}
         setUserValMessage={setUserValMessage}
       />
-       <ShowMessage
+      <ShowMessage
         visible={visibleErr}
         message={errorMessage}
-        messageViewType={'error'}
+        messageViewType={"error"}
         onEndVisible={() => {
           setVisibleErr(false);
-          setErrorMessage("")
+          setErrorMessage("");
         }}
       />
     </View>

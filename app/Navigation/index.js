@@ -67,6 +67,7 @@ import ChangePasswordView from "../Screens/User/ProfileMng/ChangePassword";
 import NotificationSettingsView from "../Screens/User/ProfileMng/NotificationSettings";
 import AddEmail from "../Screens/User/ProfileMng/AddEmail";
 import LocationsView from "../Screens/User/ProfileMng/Locations";
+import NotificationsView from "../Screens/User/OtherScreens/Notifications";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -115,6 +116,7 @@ function TabNavigation() {
       <Tab.Screen name="AddEmail" component={AddEmail} />
       <Tab.Screen name="Locations" component={LocationsView} />
       <Tab.Screen name="UserProfile" component={UserProfileView} />
+      <Tab.Screen name="Notifications" component={NotificationsView} />
     </Tab.Navigator>
   );
 }
@@ -123,7 +125,7 @@ function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={"HomeDashboard"}
+      initialRouteName={"DashBoard"}
     >
       <Stack.Screen name="HomeDashboard" component={TabNavigation} />
       <Stack.Screen name="MenuPage" component={TabNavigation} />
@@ -162,6 +164,7 @@ function AppStack() {
       <Stack.Screen name="AddEmail" component={TabNavigation} />
       <Stack.Screen name="Locations" component={TabNavigation} />
       <Stack.Screen name="UserProfile" component={TabNavigation} />
+      <Stack.Screen name="Notifications" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -235,6 +238,7 @@ function AuthLoading({ navigation }) {
           console.log(error.message);
         }
         dispatch({ type: "LOGIN", id: "userName", token: userToken });
+        navigation.navigate('HomeDashboard')
       },
       signOut: async () => {
         try {
