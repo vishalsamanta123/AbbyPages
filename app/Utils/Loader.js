@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   smallLoader:{
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     alignSelf: "center",
     tintColor: COLORS.YELLOW,
   }

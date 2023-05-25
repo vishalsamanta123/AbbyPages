@@ -92,7 +92,7 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.BUSINESSDETAILSBYNAME,
         params
-        );
+      );
       if (data.status === 200) {
         const newData = { ...itemData, ...data?.data };
         setEventDetails(newData);
@@ -110,8 +110,6 @@ const EventDetail = ({ navigation, route }) => {
             total_price: 0,
           };
         });
-        
-console.log(':arrarr ', arr);
         setTicketsType(arr);
         setLoader(false);
       } else {

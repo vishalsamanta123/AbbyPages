@@ -9,6 +9,7 @@ import { businessPageObj } from "../../../../../Utils/staticData";
 import { AuthContext, UserContext } from "../../../../../Utils/UserContext";
 import QuestionModal from "../../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
+import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
 
 const MenuPage = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
@@ -49,9 +50,7 @@ const MenuPage = ({ navigation, route }) => {
     navigation.navigate("Login");
   };
   const onPressOptions = async (options) => {
-    
     if (options.type === "2") {
-    console.log('options: ', options);
       navigation.navigate("MarketplaceScreen");
     } else if (options.type === "1" || options.type === "3") {
       const newObj = { ...businessPageObj, business_type: options.type };
@@ -63,15 +62,10 @@ const MenuPage = ({ navigation, route }) => {
     } else if (options.type === "feed") {
       navigation.navigate("NewsFeed", { business_name: "" });
     } else if (options?.type?.includes("Business")) {
-      const supported = await Linking.canOpenURL(options.url);
-      if (supported) {
-        await Linking.openURL(options.url);
-      } else {
-        Alert.alert(`Don't know how to open this URL: ${options.url}`);
-      }
-    } else if (options?.type === "4"){
+      handleBusinessNav(options);
+    } else if (options?.type === "4") {
       navigation.navigate("EventListings");
-    } else if (options?.type === "5"){
+    } else if (options?.type === "5") {
       navigation.navigate("JobListing");
     }
   };
@@ -85,7 +79,7 @@ const MenuPage = ({ navigation, route }) => {
 
   const handleSeeProfilePress = () => {
     navigation.navigate("ProfileSetting");
-  }
+  };
   return (
     <View style={CommonStyles.container}>
       <MenuPageView
@@ -101,6 +95,7 @@ const MenuPage = ({ navigation, route }) => {
       />
       <QuestionModal
         surringVisible={logoutVw}
+        spaceFromTop={true}
         message={"Are you sure you want to Logout"}
         positiveResponse={() => signOutFun()}
         negativeResponse={() => setLogoutVw(false)}

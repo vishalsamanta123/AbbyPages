@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.RGBA2,
     position: "absolute",
     zIndex: 1,
+    borderRadius: 10,
+    padding: 2,
   },
   popupVw: {
     backgroundColor: COLORS.WHITE,

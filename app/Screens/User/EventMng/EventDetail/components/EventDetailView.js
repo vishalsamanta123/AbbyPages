@@ -13,17 +13,26 @@ import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import PageScroll from "../../../../../Components/PageScroll";
 import VideoPlayer from "../../../../../Components/VideoPlayer";
+import FastImages from "../../../../../Components/FastImage";
 
 const EventDetailView = (props) => {
   const timestampInSeconds = Math.floor(new Date().getTime() / 1000);
+  console.log("props?.eventDetails: ", props?.eventDetails);
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText="Events Details" />
       <PageScroll>
-        <SliderImages
-          data={props?.eventDetails?.events_image}
-          posterImg={"events_image"}
-        />
+        {props?.eventDetails?.events_image?.length > 0 ? (
+          <SliderImages
+            data={props?.eventDetails?.events_image}
+            posterImg={"events_image"}
+          />
+        ) : (
+          <FastImages
+            style={{ height: 200, width: "100%" }}
+            source={{ uri: props?.eventDetails?.header_image }}
+          />
+        )}
         <View
           style={[
             styles.containVw,

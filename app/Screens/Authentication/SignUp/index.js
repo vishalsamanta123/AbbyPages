@@ -179,7 +179,7 @@ const SignUpView = ({ navigation }) => {
     }
   };
   useEffect(() => {
-    // getOneTimeLocation();
+    getOneTimeLocation();
     // subscribeLocationLocation();
     fireBaseToken();
     deviceDetails();
@@ -187,6 +187,7 @@ const SignUpView = ({ navigation }) => {
   const getOneTimeLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
+      console.log('position: ', position);
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
         // var currentLocation = {
