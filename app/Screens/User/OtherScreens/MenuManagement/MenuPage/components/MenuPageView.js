@@ -31,7 +31,10 @@ const MenuPageView = (props) => {
                   },
                 ]}
               >
-                <View style={CommonStyles.straightCon}>
+                <TouchableOpacity
+                  style={CommonStyles.straightCon}
+                  onPress={() => props.handleSeeProfilePress()}
+                >
                   <Image
                     source={{ uri: props?.userData?.profile_image }}
                     style={styles.profileImgVw}
@@ -43,8 +46,16 @@ const MenuPageView = (props) => {
                         " " +
                         props?.userData?.last_name}
                     </ScaleText>
+                    <TouchableOpacity
+                      style={styles.seeAllVw}
+                      onPress={() => props.handleSeeProfilePress()}
+                    >
+                      <ScaleText style={styles.seeAllTxt}>
+                        See Profile
+                      </ScaleText>
+                    </TouchableOpacity>
                   </View>
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => props.setLogoutVw(true)}>
                   <IconX
                     origin={ICON_TYPE.FONT_AWESOME}
@@ -53,9 +64,6 @@ const MenuPageView = (props) => {
                   />
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.seeAllVw} onPress={() => props.handleSeeProfilePress()}>
-                <ScaleText style={styles.seeAllTxt}>See Profile</ScaleText>
-              </TouchableOpacity>
             </View>
           ) : (
             <TouchableOpacity
@@ -87,7 +95,7 @@ const MenuPageView = (props) => {
                           style={styles.listImgVw}
                           resizeMode={"cover"}
                         />
-                        <View style={{ width: "92%" }}>
+                        <View style={{ flex: 1 }}>
                           <ScaleText style={styles.listTxt}>
                             {item.business_name}
                           </ScaleText>

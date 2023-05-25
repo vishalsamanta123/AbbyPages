@@ -78,19 +78,11 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.GREY,
   },
-  seeAllVw: {
-    paddingTop: 8,
-    borderTopWidth: Constants.normalBW,
-    borderColor: COLORS.BORDER_LINE,
-    marginBottom: 4,
-    marginTop: 6,
-    marginHorizontal: 5,
-    paddingHorizontal: 5,
-  },
+  seeAllVw: {},
   seeAllTxt: {
     color: COLORS.BLUE,
     fontFamily: FONT_FAMILY.BOLD,
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.small,
   },
   listVew: {
     paddingHorizontal: 20,

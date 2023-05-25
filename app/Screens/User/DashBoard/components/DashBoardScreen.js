@@ -19,8 +19,13 @@ import ScaleText from "../../../../Components/ScaleText";
 import { ListShimmer } from "../../../../Components/ShimmerEffect";
 import SliderImages from "../../../../Components/SliderImages";
 import PageScroll from "../../../../Components/PageScroll";
+import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
 
 const DashBoardScreen = (props) => {
+  console.log(
+    "🚀 ~ file: DashBoardScreen.js:275 ~ props.moreCategory:",
+    props.moreCategory
+  );
 
   return (
     <View style={CommonStyles.container}>
@@ -230,15 +235,15 @@ const DashBoardScreen = (props) => {
                       />
                     );
                   })}
-                  <BoxContainer
+                  {/* <BoxContainer
                     boxContainerImg={Images.MORE_IMG}
                     boxContainerTxt={props.moreCategory ? "Less" : "More"}
-                    onPress={() =>
+                    onPressBox={() =>
                       props.setMoreCategory(props.moreCategory ? false : true)
                     }
                     paddingVertical={50}
                     marginHorizontal={10}
-                  />
+                  /> */}
                 </>
               ) : null}
               {props.moreCategory ? (
@@ -247,7 +252,10 @@ const DashBoardScreen = (props) => {
                     <>
                       {props?.moreServices?.map((more) => {
                         return (
-                          <TouchableOpacity style={styles.moreServiceVw}>
+                          <TouchableOpacity
+                            style={styles.moreServiceVw}
+                            onPress={() => props.handleCategoryPress(more)}
+                          >
                             <ScaleText
                               style={[
                                 CommonStyles.mediumTxt,
@@ -265,6 +273,31 @@ const DashBoardScreen = (props) => {
                   ) : null}
                 </View>
               ) : null}
+              {/* <BoxContainer
+                    boxContainerImg={Images.MORE_IMG}
+                    boxContainerTxt={props.moreCategory ? "Less" : "More"}
+                    onPressBox={() =>
+                      props.setMoreCategory(props.moreCategory ? false : true)
+                    }
+                    paddingVertical={50}
+                    marginHorizontal={10}
+                  /> */}
+              <View style={{ alignItems: "center", marginVertical: 20 }}>
+                <TouchableOpacity
+                  style={styles.showMoreTouch}
+                  onPress={() => props.setMoreCategory(!props.moreCategory)}
+                >
+                  <ScaleText style={styles.showMoreTxt}>
+                    {props.moreCategory ? "Less" : "More"}
+                  </ScaleText>
+                  <IconX
+                    origin={ICON_TYPE.ANT_ICON}
+                    name={props.moreCategory ? "up" : "down"}
+                    size={20}
+                    color={COLORS.BLACK}
+                  />
+                </TouchableOpacity>
+              </View>
             </ImageBackground>
           </View>
         </View>

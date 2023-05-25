@@ -163,5 +163,17 @@ const Styles = StyleSheet.create({
     color: COLORS.GREY,
     marginTop: 19,
   },
+  ImageDelete: {
+    margin: 5,
+    backgroundColor: COLORS.YELLOW,
+    padding: 10,
+    borderRadius: 25,
+  },
+  addressOptionVw: {
+    flexDirection: "row",
+    position: "absolute",
+    right: 10,
+    bottom: -25,
+  },
 });
 export default Styles;
