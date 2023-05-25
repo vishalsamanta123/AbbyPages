@@ -21,8 +21,7 @@ const GalleryCarousalView = (props) => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   useEffect(() => {
-    
-    setInterval(() => {
+    setTimeout(() => {
       if (flatListRef.current) {
         flatListRef.current.scrollToIndex({ index: index });
       }

@@ -85,14 +85,7 @@ const SignInView = ({ navigation, route }) => {
         message: "Please enter password",
       });
       return false;
-    } else if (loginData?.password?.length <= 5) {
-      setMessageShow({
-        visible: true,
-        type: "error",
-        message: "Please enter password min 6 characters",
-      });
-      return false;
-    }
+    } 
     return true;
   }
   const onPressLogin = async () => {
@@ -175,7 +168,7 @@ const SignInView = ({ navigation, route }) => {
         visible={messageShow?.visible}
         message={messageShow?.message}
         messageViewType={messageShow?.type}
-        position={"top"}
+        // position={"top"}
         onEndVisible={() => {
           setMessageShow({
             visible: false,
