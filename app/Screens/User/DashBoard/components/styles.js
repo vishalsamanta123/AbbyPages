@@ -173,10 +173,11 @@ const Styles = StyleSheet.create({
     marginLeft: 10,
   },
   moreServiceVw: {
-    margin: 8,
+    margin: 4,
     backgroundColor: COLORS.COMMON,
     borderRadius: 10,
-    padding: 4,
+    paddingHorizontal: 20,
+    paddingVertical: 4
   },
   searchModal: {
     flexGrow: 1,
@@ -261,6 +262,20 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.mediumL,
     color: COLORS.WHITE,
+  },
+  showMoreTouch: {
+    backgroundColor: COLORS.BORDER_LINE,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    paddingVertical: 5,
+    borderRadius: 30,
+  },
+  showMoreTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.mediumL,
+    marginRight: 10
   },
 });
 export default Styles;

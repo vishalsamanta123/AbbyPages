@@ -52,6 +52,10 @@ const MainHeader = (props) => {
   const handleSearchPress = () => {
     navigation.navigate("CategorySearch");
   };
+  const onNotificationPress = () => {
+    console.log('Notifications')
+    navigation.navigate("Notifications");
+  };
   const handleGoBack = () => {
     navigation.goBack();
   };
@@ -69,7 +73,7 @@ const MainHeader = (props) => {
           <View style={CommonStyles.straightCon}>
             {notifyIcon ? (
               <View>
-                <TouchableOpacity style={styles.leftIconVw}>
+                <TouchableOpacity style={styles.leftIconVw} onPress={() => onNotificationPress()}>
                   <IconX
                     origin={ICON_TYPE.FONT_AWESOME}
                     name={"bell-o"}
@@ -194,7 +198,7 @@ const MainHeader = (props) => {
               ) : null}
               {notifyIcon ? (
                 <View>
-                  <TouchableOpacity style={styles.leftIconVw}>
+                  <TouchableOpacity style={styles.leftIconVw} onPress={() => onNotificationPress()}>
                     <IconX
                       origin={ICON_TYPE.FONT_AWESOME}
                       name={"bell-o"}

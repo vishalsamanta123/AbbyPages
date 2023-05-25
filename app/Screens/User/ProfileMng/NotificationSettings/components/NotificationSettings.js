@@ -19,6 +19,7 @@ import { Images } from "../../../../../Utils/images";
 import MainInput from "../../../../../Components/MainInput";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
+import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 const NotificationSettings = (props) => {
   return (
     <KeyboardAvoidingView
@@ -65,33 +66,35 @@ const NotificationSettings = (props) => {
                       Primary account
                     </ScaleText>
                   )}
-                  <View style={[styles.ImageDelete, { flexDirection: "row" }]}>
-                    {item.primary_status !== 1 && (
+                  {item.primary_status !== 1 && (
+                    <View style={styles.addressOptionVw}>
                       <TouchableOpacity
                         onPress={() => props.onPressPrimaryEmail(item.email_id)}
-                        style={{ marginRight: 5 }}
+                        style={[styles.ImageDelete]}
                       >
-                        <Image
-                          style={{ height: 42, width: 42 }}
-                          source={Images.PRIMARY_IMG}
+                        <IconX
+                          origin={ICON_TYPE.FONT_AWESOME5}
+                          name={"crown"}
+                          size={15}
+                          color={COLORS.BLACK}
                         />
                       </TouchableOpacity>
-                    )}
-                    {item.primary_status !== 1 && (
                       <TouchableOpacity
+                        style={styles.ImageDelete}
                         onPress={() => {
                           props.setDeleteEmail(true);
                           props.setDeleteEmailData(item);
                         }}
                       >
-                        <Image
-                          resizeMode="contain"
-                          // style={styles.ImageDelete}
-                          source={Images.DELETE_IMG}
+                        <IconX
+                          origin={ICON_TYPE.MATERIAL_ICONS}
+                          name={"delete"}
+                          size={20}
+                          color={COLORS.BLACK}
                         />
                       </TouchableOpacity>
-                    )}
-                  </View>
+                    </View>
+                  )}
                 </View>
               )}
             />

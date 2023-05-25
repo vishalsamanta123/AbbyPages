@@ -77,7 +77,9 @@ const SignUpScreen = (props) => {
               value={props.registrationData.user_name}
               secureTextEntry={false}
               placeholder="User Name"
-              onBlurPress={() => props.checkUserName(props.registrationData.user_name)}
+              onBlurPress={() =>
+                props.checkUserName(props.registrationData.user_name)
+              }
               onFocusPress={() => {
                 props.setUserValMessage({ message: "" });
               }}
@@ -172,12 +174,12 @@ const SignUpScreen = (props) => {
               InputType="withScroll"
             />
             <Input
-              onChangeText={(txt) =>
+              onChangeText={(txt) => {
                 props.setRegistrationData({
                   ...props.registrationData,
                   password: txt,
-                })
-              }
+                });
+              }}
               value={props.registrationData.password}
               // secureTextEntry={true}
               placeholder="Password"

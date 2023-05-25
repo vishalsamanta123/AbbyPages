@@ -10,6 +10,8 @@ import { Images } from "../../../../Utils/images";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import ScaleText from "../../../../Components/ScaleText";
+import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
+import { COLORS } from "../../../../Utils/Constant";
 const LocationsView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -85,16 +87,23 @@ const LocationsView = ({ navigation }) => {
                 onPress={() => onPressPrimary(item.location_id)}
                 style={[styles.ImageDelete]}
               >
-                <Image
-                  style={{ height: 42, width: 42 }}
-                  source={Images.PRIMARY_IMG}
+                <IconX
+                  origin={ICON_TYPE.FONT_AWESOME5}
+                  name={"crown"}
+                  size={15}
+                  color={COLORS.BLACK}
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.ImageDelete}
                 onPress={() => OnDeleteLocation(item)}
               >
-                <Image source={Images.DELETE_IMG} />
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_ICONS}
+                  name={"delete"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
               </TouchableOpacity>
             </View>
           )}
