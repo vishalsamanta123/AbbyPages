@@ -11,6 +11,7 @@ import {
   ShoppingCartProvider,
   AddItemCategortyProvider,
   OrderCategorySelectProvider,
+  TabModalProvider,
 } from "./app/Utils/UserContext";
 
 const App = () => {
@@ -41,21 +42,23 @@ const App = () => {
 
   return (
     // <View style={{ flex: 1 }}>
-    <CartProvider>
-      <ServiceProvider>
-        <ServiceProviderQueAns>
-          <ShoppingCartProvider>
-            <OrderCategorySelectProvider>
-              <AddItemCategortyProvider>
-                <UserProvider>
-                  <Navigation />
-                </UserProvider>
-              </AddItemCategortyProvider>
-            </OrderCategorySelectProvider>
-          </ShoppingCartProvider>
-        </ServiceProviderQueAns>
-      </ServiceProvider>
-    </CartProvider>
+    <TabModalProvider>
+      <CartProvider>
+        <ServiceProvider>
+          <ServiceProviderQueAns>
+            <ShoppingCartProvider>
+              <OrderCategorySelectProvider>
+                <AddItemCategortyProvider>
+                  <UserProvider>
+                    <Navigation />
+                  </UserProvider>
+                </AddItemCategortyProvider>
+              </OrderCategorySelectProvider>
+            </ShoppingCartProvider>
+          </ServiceProviderQueAns>
+        </ServiceProvider>
+      </CartProvider>
+    </TabModalProvider>
     // </View>
   );
 };

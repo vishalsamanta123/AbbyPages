@@ -1,8 +1,15 @@
-import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { COLORS, Constants } from "../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { useIsFocused } from "@react-navigation/native";
+import { TabModalContext } from "../../Utils/UserContext";
 
 const PageScroll = ({
   contentContainerStyle: propStyle,
@@ -10,8 +17,8 @@ const PageScroll = ({
   children,
   backgroundColor,
   keyboardShouldPersistTaps = "handled",
-  onPressScrollTop = () => { },
-  onScroll = () => { },
+  onPressScrollTop = () => {},
+  onScroll = () => {},
   scrollEnabled,
   style,
   StickyHeaderComponent,
@@ -31,6 +38,7 @@ const PageScroll = ({
     : Constants.windowHeight / 1.9;
   const { mainCon } = styles;
   let defaultStyle = mainCon;
+  const [onPressmodal, setOnPressmodal] = useContext(TabModalContext);
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -52,6 +60,10 @@ const PageScroll = ({
         onScroll={(event) => {
           onScroll(event);
           setScreenOffSet(event.nativeEvent.contentOffset.y);
+          setOnPressmodal({
+            ...onPressmodal,
+            modal: "",
+          });
         }}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         style={style}
@@ -64,7 +76,16 @@ const PageScroll = ({
         refreshControl={refreshControl}
         nestedScrollEnabled={nestedScrollEnabled}
       >
-        {children}
+        <Pressable
+          onPress={() => {
+            setOnPressmodal({
+              ...onPressmodal,
+              modal: "",
+            });
+          }}
+        >
+          {children}
+        </Pressable>
       </ScrollView>
       {bottomButton ? (
         <>
