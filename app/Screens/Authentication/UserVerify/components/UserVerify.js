@@ -1,27 +1,24 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./styles";
 import {
   FONT_FAMILY_REGULAR,
   BLACK_COLOR_CODE,
-  ORANGE_COLOR_CODE,
-  LINE_COLOR,
   YELLOW_COLOR_CODE,
-  WHITE_COLOR_CODE,
+  FONT_SIZE,
 } from "../../../../Utils/Constant";
 import OTPTextView from "react-native-otp-textinput";
 import Button from "../../../../Components/Button";
-import Header from "../../../../Components/Header";
 import CommonStyles from "../../../../Utils/CommonStyles";
+import MainHeader from "../../../../Components/MainHeader";
 
 const UserVerifyScreen = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <Header
-        HeaderText="Verify Account"
-        RightImg={null}
-        tintColor={WHITE_COLOR_CODE}
-        mncontainer={{ backgroundColor: YELLOW_COLOR_CODE }}
+      <MainHeader
+        headerText={"Verify Account"}
+        fontSize={FONT_SIZE.medium}
+        notifyIcon={false}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.maintxt}>

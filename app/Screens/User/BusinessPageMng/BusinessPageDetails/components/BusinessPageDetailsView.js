@@ -491,7 +491,11 @@ const BusinessPageDetailsView = (props) => {
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity
                 style={styles.smallOptionVw}
-                onPress={() => props.handleNavigation("ReviewRating", {})}
+                onPress={() =>
+                  props.handleNavigation("ReviewRating", {
+                    detailData: detailData,
+                  })
+                }
               >
                 <IconX
                   origin={ICON_TYPE.MATERIAL_COMMUNITY}
@@ -978,7 +982,7 @@ const BusinessPageDetailsView = (props) => {
           <View>
             <ScaleText style={styles.sectionTxt}>Reviews and Ratings</ScaleText>
 
-            {detailData?.business_review?.map((item, index) => {
+            {detailData?.business_review?.slice(0, 3)?.map((item, index) => {
               return (
                 <MainItemsView
                   onPressView={props.onPressView}
@@ -1037,6 +1041,16 @@ const BusinessPageDetailsView = (props) => {
             </TouchableOpacity>
           </View>
         )}
+        <TouchableOpacity
+          onPress={() =>
+            props.handleNavigation("ReviewRating", {
+              detailData: detailData,
+            })
+          }
+          style={styles.tapButtonsVw}
+        >
+          <ScaleText style={styles.blueColorTxt}>See more reviews</ScaleText>
+        </TouchableOpacity>
       </View>
       <MoreInfo
         visible={props?.moreInfoModal?.open}

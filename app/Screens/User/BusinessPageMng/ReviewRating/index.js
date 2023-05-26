@@ -6,44 +6,94 @@ import Loader from "../../../../Utils/Loader";
 import ReviewRatingView from "./components/ReviewRatingView";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import AsyncStorage from "@react-native-community/async-storage";
+import ShowMessage from "../../../../Components/Modal/showMessage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ReviewRating = ({ navigation, route }) => {
-  const { params = {} } = route;
+  const { detailData = {} } = route.params;
   const [visible, setVisible] = useState(false);
-  const [recntRVwsData, setRecntRVwsData] = useState({});
+  const [reviewData, setReviewData] = useState({});
   const [userData, setUserData] = useState({});
   const [ratingData, setRatingData] = useState({
     title: "",
     description: "",
     business_rating: "",
   });
-
-  useEffect(() => {
-    getReviewsAndRating();
-  }, [navigation]);
-  const getReviewsAndRating = async () => {
-    setVisible(true);
-    const getUserData = await AsyncStorage.getItem("userData");
-    if (JSON?.parse(getUserData)?.login_type) {
-      setUserData(JSON?.parse(getUserData));
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
+  function validationFrom() {
+    if (ratingData.business_rating == "") {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: "Please enter rating",
+      });
+      return false;
     }
-    const param = {
-      business_name_slug: params?.business_name,
+    if (ratingData.title == "") {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: "Please enter title",
+      });
+      return false;
+    }
+    if (ratingData.description == "") {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: "Please enter description",
+      });
+      return false;
+    }
+    return true;
+  }
+  const addReviewsAndRating = async () => {
+    const params = {
+      business_id: detailData?.business_id,
+      business_type: detailData?.business_type,
+      business_rating: ratingData?.business_rating,
+      description: ratingData?.description,
+      title: ratingData?.title,
     };
-    try {
-      const { data } = await apiCall(
-        "POST",
-        apiEndPoints.USER_BUSINESS_DETAIL,
-        param
-      );
-      if (data.status === 200) {
+    if (validationFrom()) {
+    setVisible(true);
+      try {
+        const { data } = await apiCall("POST", apiEndPoints.ADD_REVIEW, params);
+        if (data?.status === 200) {
+          setVisible(false);
+          setReviewData(data?.data);
+          setMessageShow({
+            visible: true,
+            type: "success",
+            message: "Review added",
+          });
+          setRatingData({
+            title: "",
+            description: "",
+            business_rating: "",
+          });
+          navigation.goBack();
+        } else {
+          setReviewData({});
+          setVisible(false);
+          setMessageShow({
+            visible: true,
+            type: "error",
+            message: data?.message,
+          });
+        }
+      } catch (error) {
         setVisible(false);
-        setRecntRVwsData(data?.data);
-      } else {
-        setVisible(false);
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
       }
-    } catch (error) {
-      setVisible(false);
     }
   };
   const onPressRating = (item) => {
@@ -56,11 +106,24 @@ const ReviewRating = ({ navigation, route }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <ReviewRatingView
-        recntRVwsData={recntRVwsData}
+        recntRVwsData={detailData}
         userData={userData}
         onPressRating={onPressRating}
         ratingData={ratingData}
         setRatingData={setRatingData}
+        addReviewsAndRating={addReviewsAndRating}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
     </View>
   );

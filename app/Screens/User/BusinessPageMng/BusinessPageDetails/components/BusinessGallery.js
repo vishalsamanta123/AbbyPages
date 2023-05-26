@@ -12,6 +12,7 @@ import ScaleText from "../../../../../Components/ScaleText";
 import { Constants } from "../../../../../Utils/Constant";
 import CarouselView from "../../../../../Components/CarouselView";
 import GalleryCarousalView from "../../../../../Components/GalleryCarousalView";
+import ShowMessage from "../../../../../Components/Modal/showMessage";
 
 const BusinessGallery = (props) => {
   const {
@@ -29,7 +30,11 @@ const BusinessGallery = (props) => {
   const [galleryData, setGalleryData] = useState([]);
   const [uploadData, setUploadData] = useState({});
   const [imageData, setImageData] = useState({});
-
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   const getGalleryDetails = async () => {
     try {
       setLoading(true);
@@ -85,44 +90,65 @@ const BusinessGallery = (props) => {
     );
   };
 
+  const validation = () => {
+    if (Object.keys(imageData)?.length === 0) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: "Please select file to upload",
+      });
+      return false;
+    }
+    return true
+  };
+
   const handleUploadImage = async () => {
     const formData = new FormData();
     formData.append("business_id", detailData?.business_id);
     formData.append("business_type", detailData?.business_type);
     formData.append("image", imageData);
-    try {
-      setLoading(true);
-      const header = {
-        "Content-Type": "multipart/form-data",
-        "access-control-allow-origin": "*",
-      };
-      const { data } = await apiCall(
-        "POST",
-        apiEndPoints.USER_BUSINESS_UPLOAD_IMAGE,
-        formData,
-        header
-      );
-      if (data.status == 200) {
-        setLoading(false);
-        setUploadData(data?.data);
-        setVisible({
-          open: false,
-          type: "",
-        });
-      } else {
-        if (data.status === 201) {
-          setUploadData({});
+    if (validation()) {
+      try {
+        setLoading(true);
+        const header = {
+          "Content-Type": "multipart/form-data",
+          "access-control-allow-origin": "*",
+        };
+        const { data } = await apiCall(
+          "POST",
+          apiEndPoints.USER_BUSINESS_UPLOAD_IMAGE,
+          formData,
+          header
+        );
+        console.log("🚀 ~ file: BusinessGallery.js:117 ~ data:", data)
+
+        if (data.status == 200) {
           setLoading(false);
+          setUploadData(data?.data);
           setVisible({
             open: false,
             type: "",
           });
         } else {
-          setLoading(false);
+          if (data.status === 201) {
+            setUploadData({});
+            setLoading(false);
+            setVisible({
+              open: false,
+              type: "",
+            });
+            setMessageShow({
+              visible: true,
+              type: "error",
+              message: data?.message,
+            });
+          } else {
+            setLoading(false);
+          }
         }
+      } catch (error) {
+        setLoading(false);
       }
-    } catch (error) {
-      setLoading(false);
     }
   };
 
@@ -195,6 +221,19 @@ const BusinessGallery = (props) => {
           />
         ) : null}
       </View>
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        position={"bottom"}
+        onEndVisible={() =>
+          setMessageShow({
+            visible: false,
+            type: "",
+            message: "",
+          })
+        }
+      />
     </Modal>
   );
 };

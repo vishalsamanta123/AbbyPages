@@ -16,9 +16,10 @@ import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import { IconX } from "../../../../../Components/Icons/Icon";
-import { ticketPricingPros, whoPayOptions } from "../../../../../Utils/staticData";
+import { businessTypes, ticketPricingPros, whoPayOptions } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
 import SelectButton from "../../../../../Components/SelectButton";
+import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
 
 const PricingView = () => {
   const [ticketPrice, setTicketPrice] = useState(0.0);
@@ -121,7 +122,7 @@ const PricingView = () => {
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
-              onPress={() => {}}
+              onPress={() => handleBusinessNav(businessTypes[0])}
               buttonText={"Create Event"}
               width={"50%"}
               paddingHeight={12}

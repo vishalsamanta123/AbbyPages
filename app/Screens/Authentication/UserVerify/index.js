@@ -1,13 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import UserVerifyScreen from "./components/UserVerify";
 import AsyncStorage from "@react-native-community/async-storage";
-import { apiCall } from "../../../Utils/httpClient";
+import { apiCall, setDefaultHeader } from "../../../Utils/httpClient";
 import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import { UserContext, AuthContext } from "../../../Utils/UserContext";
-import Error from "../../../Components/Modal/showMessage";
-import Success from "../../../Components/Modal/success";
+import ShowMessage from "../../../Components/Modal/showMessage";
 const UserVerify = ({ route, navigation }) => {
   const [visible, setVisible] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -18,34 +17,34 @@ const UserVerify = ({ route, navigation }) => {
   const [otp, setOtp] = useState("");
   const { signIn } = React.useContext(AuthContext);
   const email = route.params;
-  useEffect(() => {
-    // if (route.params) {
-    // }
-  }, []);
+  console.log("🚀 ~ file: index.js:17 ~ userData:", userData)
+
   const _handleOtpVerify = async () => {
     setVisible(true);
     if (otp !== "") {
       const params = {
         otp: otp,
       };
-      console.log("🚀 ~ file: index.js:31 ~ params:", params);
       try {
         const { data } = await apiCall("POST", ENDPOINTS.USER_VERIFY, params);
-        console.log("🚀 ~ file: index.js:33 ~ data:", data);
-        if (data.status === 200) {
+        if (data?.status === 200) {
           setVisible(false);
-          setUserData(data.data);
-          await AsyncStorage.setItem("userData", JSON.stringify(data?.data));
-          signIn(data);
-          await AsyncStorage.setItem("userToken", data?.token);
-          setDefaultHeader("token", data?.token);
-          navigation.navigate("HomeDashboard");
+          if (data?.data?.login_type === 1) {
+            navigation.navigate("DashBoard");
+            setVisible(false);
+            signIn(data);
+          } else if (data?.data?.login_type === 2) {
+            setVisible(false);
+            setErrorMessage( "It is your business account ,please check to login with user account");
+            setVisibleErr(true);
+          }
         } else {
           setVisible(false);
-          setErrorMessage(data.message);
+          setErrorMessage(data?.message);
           setVisibleErr(true);
         }
       } catch (error) {
+        console.log("🚀 ~ file: index.js:45 ~ error:", error);
         setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);
@@ -63,13 +62,13 @@ const UserVerify = ({ route, navigation }) => {
     };
     try {
       const { data } = await apiCall("POST", ENDPOINTS.RESENT_OTP, params);
-      if (data.status === 200) {
+      if (data?.status === 200) {
         setVisible(false);
-        setSuccessMessage(data.message);
+        setSuccessMessage(data?.message);
         setVisibleSuccess(true);
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
+        setErrorMessage(data?.message);
         setVisibleErr(true);
       }
     } catch (error) {
@@ -91,16 +90,17 @@ const UserVerify = ({ route, navigation }) => {
         handleOtp={(val) => setOtp(val)}
         _handleOtpVerify={(data) => _handleOtpVerify(data)}
       />
-      {/* <Error
-        message={errorMessage}
-        visible={visibleErr}
-        closeModel={() => setVisibleErr(false)}
+      <ShowMessage
+        visible={visibleErr || visibleSuccess}
+        message={errorMessage || successMessage}
+        messageViewType={visibleErr ? "error" : "success"}
+        onEndVisible={() => {
+          setErrorMessage("");
+          setVisibleErr(false);
+          setVisibleSuccess(false);
+          setSuccessMessage("");
+        }}
       />
-      <Success
-        message={successMessage}
-        visible={visibleSuccess}
-        closeModel={() => setVisibleSuccess(false)}
-      /> */}
     </View>
   );
 };

@@ -20,8 +20,8 @@ import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import EmptyList from "../../../../../Components/EmptyList";
 import MainButton from "../../../../../Components/MainButton";
-import { dayData } from "../../../../../Utils/staticData";
-import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
+import { businessTypes, dayData } from "../../../../../Utils/staticData";
+import { RECENT_TIME_FORMAT, handleBusinessNav } from "../../../../../Utils/Globalfunctions";
 import {
   FullImageViewList,
   RowSingleTxtList,
@@ -91,7 +91,7 @@ const EventListingView = (props) => {
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
-              onPress={() => {}}
+              onPress={() => handleBusinessNav(businessTypes[0])}
               buttonText={"Create Event"}
               width={"50%"}
               paddingHeight={10}

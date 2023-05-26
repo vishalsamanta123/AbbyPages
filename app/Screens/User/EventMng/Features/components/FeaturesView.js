@@ -10,9 +10,11 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import { COLORS } from "../../../../../Utils/Constant";
 import {
   admin_deshboard,
+  businessTypes,
   event_page,
   promoting_selling,
 } from "../../../../../Utils/staticData";
+import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
 
 const FeaturesView = () => {
   return (
@@ -49,7 +51,7 @@ const FeaturesView = () => {
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
-              onPress={() => {}}
+              onPress={() => handleBusinessNav(businessTypes[0])}
               buttonText={"Create Event"}
               width={"50%"}
               paddingHeight={12}

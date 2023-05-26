@@ -7,8 +7,9 @@ import { Images } from "../../../../../Utils/images";
 import styles from "./styles";
 import Button from "../../../../../Components/Button";
 import { IconX } from "../../../../../Components/Icons/Icon";
-import { createEventSteps } from "../../../../../Utils/staticData";
+import { businessTypes, createEventSteps } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
+import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
 
 const HowItWorksView = (props) => {
   const renderSteps = (item) => {
@@ -78,7 +79,7 @@ const HowItWorksView = (props) => {
             <Button
               style={styles.createbtn}
               buttonLabelStyle={styles.createBtnTxt}
-              onPress={() => {}}
+              onPress={() => handleBusinessNav(businessTypes[0])}
               buttonText={"Create Event"}
               width={"50%"}
               paddingHeight={12}

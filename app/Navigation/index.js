@@ -68,6 +68,7 @@ import NotificationSettingsView from "../Screens/User/ProfileMng/NotificationSet
 import AddEmail from "../Screens/User/ProfileMng/AddEmail";
 import LocationsView from "../Screens/User/ProfileMng/Locations";
 import NotificationsView from "../Screens/User/OtherScreens/Notifications";
+import ForgotPasswordFieldView from "../Screens/Authentication/ForgotPasswordField";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -117,6 +118,7 @@ function TabNavigation() {
       <Tab.Screen name="Locations" component={LocationsView} />
       <Tab.Screen name="UserProfile" component={UserProfileView} />
       <Tab.Screen name="Notifications" component={NotificationsView} />
+      <Tab.Screen name="ForgotPasswordField" component={ForgotPasswordFieldView} />
     </Tab.Navigator>
   );
 }
@@ -234,6 +236,7 @@ function AuthLoading({ navigation }) {
         try {
           await AsyncStorage.setItem("userToken", userToken);
           await AsyncStorage.setItem("userData", JSON.stringify(data.data));
+          setUserData(data?.data);
         } catch (error) {
           console.log(error.message);
         }
