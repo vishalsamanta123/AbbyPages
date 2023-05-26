@@ -131,17 +131,17 @@ const SignUpView = ({ navigation }) => {
         const { data } = await apiCall("POST", ENDPOINTS.CHECKUSERNAME, {
           user_name: txt,
         });
-        if (data.status === 200) {
+        if (data?.status === 200) {
           setUserNameVal(true);
           setVisible(false);
           setUserValMessage(data);
-        } else if (data.status === 201) {
+        } else if (data?.status === 201) {
           setVisible(false);
           setUserNameVal(false);
           setUserValMessage(data);
         } else {
           setVisible(false);
-          setErrorMessage(data.message);
+          setErrorMessage(data?.message);
           setVisibleErr(true);
           setUserValMessage({ message: "" });
         }
@@ -166,8 +166,8 @@ const SignUpView = ({ navigation }) => {
           password: registrationData?.password,
         };
         const { data } = await apiCall("POST", ENDPOINTS.USER_SIGN_UP, params);
-        if (data.status === 200) {
-          await setDefaultHeader("token", data.data.token);
+        if (data?.status === 200) {
+          await setDefaultHeader("token", data?.data?.token);
           navigation.navigate("UserVerify", { email: registrationData.email });
           setRegistrationData({
             user_name: "",
@@ -181,7 +181,7 @@ const SignUpView = ({ navigation }) => {
           setVisible(false);
         } else {
           setVisible(false);
-          setErrorMessage(data.message);
+          setErrorMessage(data?.message);
           setVisibleErr(true);
         }
       } catch (error) {
@@ -309,7 +309,7 @@ const SignUpView = ({ navigation }) => {
         // console.log("User cancelled request");
       } else {
         AccessToken.getCurrentAccessToken().then((data) => {
-          const accessTokenFaceBook = data.accessToken;
+          const accessTokenFaceBook = data?.accessToken;
           // alert(JSON.stringify(data))
           const responseCallback = (error, result) => {
             var fbResponse = {
@@ -359,20 +359,20 @@ const SignUpView = ({ navigation }) => {
     setVisible(true);
     try {
       const { data } = await apiCall("POST", ENDPOINTS.SOCIAL_LOGIN, prms);
-      if (data.status === 200) {
+      if (data?.status === 200) {
         if (params.signup_mode === 1) {
           LoginManager.logOut();
         } else {
           await GoogleSignin.signOut();
         }
         setVisible(false);
-        setUserData(data.data);
-        await setDefaultHeader("token", data.token);
+        setUserData(data?.data);
+        await setDefaultHeader("token", data?.token);
         await AsyncStorage.setItem("userData", JSON.stringify(data));
         signIn();
       } else {
         setVisible(false);
-        setErrorMessage(data.message);
+        setErrorMessage(data?.message);
         setVisibleErr(true);
       }
     } catch (error) {

@@ -117,7 +117,7 @@ const SignInView = ({ navigation, route }) => {
               );
               await AsyncStorage.setItem("userToken", data?.token);
               setDefaultHeader("token", data?.token);
-              navigation.navigate("HomeDashboard");
+              navigation.navigate("DashBoard");
               setVisible(false);
               signIn(data);
             } else if (data?.data?.login_type === 2) {
