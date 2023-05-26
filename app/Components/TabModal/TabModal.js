@@ -5,7 +5,6 @@ import { COLORS } from "../../Utils/Constant";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
 import TabModalScreens from "./TabModalScreens";
-import CommonStyles from "../../Utils/CommonStyles";
 
 const TabModal = (props) => {
   const {

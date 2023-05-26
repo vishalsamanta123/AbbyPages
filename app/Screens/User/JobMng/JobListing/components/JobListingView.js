@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, Keyboard } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
-import { COLORS } from "../../../../../Utils/Constant";
+import { COLORS, Constants, FONT_SIZE } from "../../../../../Utils/Constant";
 import EmptyList from "../../../../../Components/EmptyList";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -53,6 +53,20 @@ const JobListingView = (props) => {
             color={COLORS.BLACK}
           />
           <ScaleText style={styles.hdngtxt}>Filter</ScaleText>
+          {props.filterData?.country_name_d != "" ||
+          props.filterData?.state_name_d != "" ||
+          props.filterData?.city_name_d != "" ||
+          props.filterData?.hire_name_d != "" ? (
+            <ScaleText
+              style={[
+                CommonStyles.dotTxt,
+                { color: COLORS.YELLOW, fontSize: FONT_SIZE.smallL },
+              ]}
+            >
+              {" "}
+              {Constants.dot}
+            </ScaleText>
+          ) : null}
         </TouchableOpacity>
       </View>
       <View style={{ marginTop: 6, marginHorizontal: 12 }}>
@@ -83,14 +97,22 @@ const JobListingView = (props) => {
       </View>
       <TouchableOpacity
         onPress={() => {
+          Keyboard.dismiss();
           if (
-            props.filterData?.city_name != "" ||
-            props.filterData?.job_title != ""
+            props.filterData?.city_name === "" &&
+            props.filterData?.job_title === ""
           ) {
-            props.handleJobFilter(0, {
-              ...props?.filterData,
-            });
-            Keyboard.dismiss();
+            const newObj = {
+              ...props.filterData,
+              city_name: "",
+              job_title: "",
+            };
+            props.handleJobFilter(0, { ...newObj });
+          } else {
+            const newObj = {
+              ...props.filterData,
+            };
+            props.handleJobFilter(0, { ...newObj });
           }
         }}
         style={styles.searchBttn}

@@ -5,14 +5,11 @@ import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import ScaleText from "../Components/ScaleText";
 import TabModal from "../Components/TabModal/TabModal";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
-import { UserContext } from "../Utils/UserContext";
+import { TabModalContext, UserContext } from "../Utils/UserContext";
 
 function MyTabBar({ state, navigation }) {
   const [isFocused, setIsFocused] = useState("DashBoard");
-  const [onPressmodal, setOnPressmodal] = useState({
-    modal: "DashBoard",
-    navigate: "",
-  });
+  const [onPressmodal, setOnPressmodal] = useContext(TabModalContext);
   const [userData, setUserData] = useContext(UserContext);
 
   useFocusEffect(

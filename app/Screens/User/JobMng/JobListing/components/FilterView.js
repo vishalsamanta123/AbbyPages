@@ -102,7 +102,7 @@ const FilterView = (props) => {
             <SelectButton
               headTxt={"Country"}
               data={country}
-              value={props?.filterData?.country}
+              value={props?.filterData?.country_name_d}
               searchHeader={"Country"}
               labelField={"name"}
               valueField={"name"}
@@ -125,7 +125,7 @@ const FilterView = (props) => {
                   ? ""
                   : " " + props?.filterData?.country_name_d?.substring(0, 12)
               }
-              value={props?.filterData?.state}
+              value={props?.filterData?.state_name_d}
               labelField={"name"}
               valueField={"name"}
               onPressDropDown={() => getPlaces(1)}
@@ -147,7 +147,7 @@ const FilterView = (props) => {
                   ? ""
                   : " " + props?.filterData?.state_name_d?.substring(0, 12)
               }
-              value={props?.filterData?.city}
+              value={props?.filterData?.city_name_d}
               labelField={"name"}
               valueField={"name"}
               onPressDropDown={() => getPlaces(2)}
@@ -165,7 +165,7 @@ const FilterView = (props) => {
               headTxt={"Hire Type"}
               searchHeader={"Hire Type"}
               data={hireType}
-              value={props?.filterData?.job_type}
+              value={props?.filterData?.hire_name_d}
               labelField={"name"}
               valueField={"name"}
               onPressDropDown={() => handleJobType()}

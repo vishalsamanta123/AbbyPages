@@ -11,6 +11,19 @@ export const UserProvider = (props) => {
   );
 };
 
+export const TabModalContext = React.createContext();
+export const TabModalProvider = (props) => {
+  const [onPressmodal, setOnPressmodal] = useState({
+    modal: "DashBoard",
+    navigate: "",
+  });
+  return (
+    <TabModalContext.Provider value={[onPressmodal, setOnPressmodal]}>
+      {props.children}
+    </TabModalContext.Provider>
+  );
+};
+
 export const CartContext = React.createContext();
 export const CartProvider = (props) => {
   const [cartData, setCartData] = useState([]);
