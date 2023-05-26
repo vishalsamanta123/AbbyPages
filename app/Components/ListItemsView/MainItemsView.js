@@ -160,7 +160,7 @@ const MainItemsView = (props) => {
         </>
       ) : (
         <>
-          <TouchableOpacity style={[styles.rowVw, { marginTop: 10 }]}>
+          <TouchableOpacity style={[styles.rowVw, { marginTop: 10, alignItems: 'flex-start' }]}>
             <FastImages
               style={styles.smallImgVw}
               resizeMode="cover"
@@ -176,7 +176,7 @@ const MainItemsView = (props) => {
                   },
                 ]}
               >
-                <View style={{ width: "70%" }}>
+                <View style={{ width: "100%" }}>
                   <ScaleText
                     style={[styles.largeNameTxt, { color: COLORS.BLACK }]}
                   >
@@ -187,11 +187,10 @@ const MainItemsView = (props) => {
                       By {largeName} |{" "}
                     </ScaleText>
                     <ScaleText style={styles.lightTxt}>
-                      {moment(rowImgTxt2).startOf("hour").fromNow()}
+                      {moment(rowImgTxt2).startOf("seconds").fromNow()}
                     </ScaleText>
                   </View>
-                </View>
-                <View style={styles.straightVw}>
+                  <View style={styles.straightVw}>
                   <View style={styles.ratingVw}>
                     <ScaleText style={styles.ratingTxt}>
                       {rating?.substring(0, 3)}
@@ -200,8 +199,9 @@ const MainItemsView = (props) => {
                   <ScaleText
                     style={[styles.ratingTxt, { color: COLORS.BLACK }]}
                   >
-                    rating
+                    Star rating
                   </ScaleText>
+                </View>
                 </View>
               </View>
               <ScaleText style={styles.descTxt}>{description}</ScaleText>
@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
   descTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
+    marginLeft: 10,
   },
   postBreakView: {
     borderWidth: Constants.standardBW,

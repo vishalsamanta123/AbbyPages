@@ -6,6 +6,7 @@ import Loader from "../../../Utils/Loader";
 import { View } from "react-native";
 import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
+import ShowMessage from "../../../Components/Modal/showMessage";
 const ForgotPasswordView = ({ navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -29,6 +30,9 @@ const ForgotPasswordView = ({ navigation }) => {
         if (data.status === 200) {
           await setDefaultHeader("token", data.token);
           setSuccessMessage("We have sent OTP on your email please check it.");
+          navigation.navigate("ForgotPasswordField", {
+            email: email,
+          });
           setVisibleSuccess(true);
           setVisible(false);
         } else {
@@ -59,7 +63,7 @@ const ForgotPasswordView = ({ navigation }) => {
         setEmail={setEmail}
         email={email}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -74,6 +78,17 @@ const ForgotPasswordView = ({ navigation }) => {
             setVisibleSuccess(false)
           )
         }
+      /> */}
+      <ShowMessage
+        visible={visibleErr || visibleSuccess}
+        message={errorMessage || successMessage}
+        messageViewType={visibleErr ? "error" : "success"}
+        onEndVisible={() => {
+          setErrorMessage("");
+          setVisibleErr(false);
+          setVisibleSuccess(false);
+          setSuccessMessage("");
+        }}
       />
     </View>
   );

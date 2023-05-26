@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   topLogoVw: {
     width: 45,
     height: 38,
-    marginLeft: 5
+    marginLeft: 5,
   },
   topLogoVw2: {
     width: 200,
@@ -63,21 +63,21 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   headTxt: {
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     color: COLORS.BLACK,
-    fontSize: FONT_SIZE.largeM,
+    fontSize: FONT_SIZE.large,
   },
   subHeadTxt: {
-    marginTop: 20,
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.BOLD,
+    // marginTop: 20,
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLUE,
-    marginLeft: 2,
+    // marginLeft: 2,
   },
   subHeadTxtNon: {
     marginTop: 0,
     fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.BOLD,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     color: COLORS.BLACK,
     marginBottom: 10,
   },
@@ -96,9 +96,18 @@ const styles = StyleSheet.create({
     color: COLORS.GREY,
     marginLeft: 6,
   },
+  titleVw: {
+    marginVertical: 5,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: COLORS.BORDER_LINE,
+  },
   descriptVw: {
     marginVertical: 5,
     minHeight: 200,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: COLORS.BORDER_LINE,
   },
   descriptInput: {
     fontSize: FONT_SIZE.medium,

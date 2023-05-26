@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import ForgotPasswordField from "./components/ForgotPasswordField";
 import { apiCall } from "../../../Utils/httpClient";
@@ -6,7 +6,12 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import Error from "../../../Components/Modal/showMessage";
 import Success from "../../../Components/Modal/success";
+import ShowMessage from "../../../Components/Modal/showMessage";
+import AsyncStorage from "@react-native-community/async-storage";
+import { UserContext } from "../../../Utils/UserContext";
 const ForgotPasswordFieldView = ({ route, navigation }) => {
+  const [userData, setUserData] = useContext(UserContext);
+
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -15,7 +20,6 @@ const ForgotPasswordFieldView = ({ route, navigation }) => {
   const [otp, setOTP] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [response, setResponse] = useState(false);
   const { email } = route.params;
   const otpresend = async () => {
     setVisible(true);
@@ -28,7 +32,6 @@ const ForgotPasswordFieldView = ({ route, navigation }) => {
         setVisible(false);
         setSuccessMessage(data.message);
         setVisibleSuccess(true);
-        setResponse(true);
       } else {
         setVisible(false);
         setErrorMessage(data.message);
@@ -76,7 +79,7 @@ const ForgotPasswordFieldView = ({ route, navigation }) => {
           setVisibleSuccess(true);
           setSuccessMessage(data.message);
           setVisible(false);
-          setResponse(false);
+          navigation.navigate("Login");
         } else {
           setVisible(false);
           setErrorMessage(data.message);
@@ -107,7 +110,7 @@ const ForgotPasswordFieldView = ({ route, navigation }) => {
         repeatPassword={repeatPassword}
         setRepeatPassword={setRepeatPassword}
       />
-      <Error
+      {/* <Error
         message={errorMessage}
         visible={visibleErr}
         closeModel={() => setVisibleErr(false)}
@@ -120,6 +123,17 @@ const ForgotPasswordFieldView = ({ route, navigation }) => {
             ? setVisibleSuccess(false)
             : navigation.navigate("Home", setVisibleSuccess(false))
         }
+      /> */}
+      <ShowMessage
+        visible={visibleErr || visibleSuccess}
+        message={errorMessage || successMessage}
+        messageViewType={visibleErr ? "error" : "success"}
+        onEndVisible={() => {
+          setErrorMessage("");
+          setVisibleErr(false);
+          setVisibleSuccess(false);
+          setSuccessMessage("");
+        }}
       />
     </View>
   );
