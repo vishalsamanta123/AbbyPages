@@ -19,6 +19,7 @@ import { Constants } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const CheckOutScreen = (props) => {
   const _renderAddressList = (item) => {
@@ -95,7 +96,7 @@ const CheckOutScreen = (props) => {
         loginButton={false}
         TxtMarginRight={"5%"}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PageScroll contentContainerStyle={{ flexGrow: 1 }}>
         <FlatList
           data={props?.shoppingCartData}
           style={{ flex: 1 }}
@@ -229,7 +230,7 @@ const CheckOutScreen = (props) => {
             onPress={() => props.onPressContinue()}
           />
         </View>
-      </ScrollView>
+      </PageScroll>
       <Dialog
         visible={props.addressListVisible}
         width={1}

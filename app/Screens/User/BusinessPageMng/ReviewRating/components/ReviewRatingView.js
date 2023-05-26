@@ -12,7 +12,7 @@ import { MainItemsView } from "../../../../../Components/ListItemsView";
 
 const ReviewRatingView = (props) => {
   return (
-    <SafeAreaView style={CommonStyles.container}>
+    <View style={CommonStyles.container}>
       <MainHeader headerText={"Review"} />
       <PageScroll contentContainerStyle={styles.mainContainer}>
         <ScaleText style={styles.headTxt}>
@@ -98,7 +98,7 @@ const ReviewRatingView = (props) => {
           })}
         </View>
       </PageScroll>
-    </SafeAreaView>
+    </View>
   );
 };
 

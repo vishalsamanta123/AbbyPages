@@ -26,6 +26,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import StarShower from "../../../../../Components/StarShower";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const RestauranrtBookingScreen = (props) => {
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props?.restroDetail?.latitude},${props?.restroDetail?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
@@ -41,7 +42,7 @@ const RestauranrtBookingScreen = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView>
+      <PageScroll>
         <ImageBackground
           source={{ uri: props?.restroDetail.header_image }}
           style={{
@@ -374,7 +375,7 @@ const RestauranrtBookingScreen = (props) => {
             }
           />
         </View>
-      </ScrollView>
+      </PageScroll>
     </KeyboardAvoidingView>
   );
 };

@@ -14,6 +14,7 @@ import Button from "../../../../Components/Button";
 import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
+import PageScroll from "../../../../Components/PageScroll";
 
 const JobOrderDetails = (props) => {
   function tConvert(time) {
@@ -38,7 +39,7 @@ const JobOrderDetails = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PageScroll contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
           <Image
             style={styles.restoImg}
@@ -275,7 +276,7 @@ const JobOrderDetails = (props) => {
             )}
           </View>
         </View>
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };

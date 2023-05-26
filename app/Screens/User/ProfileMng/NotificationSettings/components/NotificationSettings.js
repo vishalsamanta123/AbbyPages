@@ -20,6 +20,7 @@ import MainInput from "../../../../../Components/MainInput";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
+import PageScroll from "../../../../../Components/PageScroll";
 const NotificationSettings = (props) => {
   return (
     <KeyboardAvoidingView
@@ -32,7 +33,7 @@ const NotificationSettings = (props) => {
         notifyIcon={false}
       />
       <View style={[CommonStyles.body]}>
-        <ScrollView>
+        <PageScroll>
           <View style={[styles.EmailContainer, { paddingBottom: 10 }]}>
             <View style={styles.FlexViewContain}>
               <View style={{ flex: 5 }}>
@@ -1056,7 +1057,7 @@ const NotificationSettings = (props) => {
             }}
             paddingHeight={10}
           />
-        </ScrollView>
+        </PageScroll>
       </View>
       <Modal
         animationType="fade"

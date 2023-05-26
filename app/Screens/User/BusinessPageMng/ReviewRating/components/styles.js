@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginHorizontal: 5,
+    paddingVertical:Constants.Ios? 16:0
   },
   bottomVw: {
     flex: 1,

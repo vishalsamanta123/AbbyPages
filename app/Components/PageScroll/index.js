@@ -8,7 +8,7 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { COLORS, Constants } from "../../Utils/Constant";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { TabModalContext } from "../../Utils/UserContext";
 
 const PageScroll = ({
@@ -17,8 +17,8 @@ const PageScroll = ({
   children,
   backgroundColor,
   keyboardShouldPersistTaps = "handled",
-  onPressScrollTop = () => {},
-  onScroll = () => {},
+  onPressScrollTop = () => { },
+  onScroll = () => { },
   scrollEnabled,
   style,
   StickyHeaderComponent,
@@ -39,13 +39,22 @@ const PageScroll = ({
   const { mainCon } = styles;
   let defaultStyle = mainCon;
   const [onPressmodal, setOnPressmodal] = useContext(TabModalContext);
-
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
       ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
     }
   }, [isFocused]);
+  const navigation = useNavigation()
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setOnPressmodal({
+        ...onPressmodal,
+        modal: "",
+      });
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <>
       <ScrollView

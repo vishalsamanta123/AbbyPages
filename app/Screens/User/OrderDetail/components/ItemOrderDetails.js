@@ -12,6 +12,7 @@ import {
 import Button from "../../../../Components/Button";
 import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
+import PageScroll from "../../../../Components/PageScroll";
 
 const ItemOrderDetails = (props) => {
   const _handleItemList = (item, index) => {
@@ -63,7 +64,7 @@ const ItemOrderDetails = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PageScroll contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
           <Image
             style={styles.restoImg}
@@ -203,7 +204,7 @@ const ItemOrderDetails = (props) => {
             </View>
           </>
         )}
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };

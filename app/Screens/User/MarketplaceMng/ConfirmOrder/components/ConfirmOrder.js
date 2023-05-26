@@ -16,6 +16,7 @@ import {
 import { CardField } from "@stripe/stripe-react-native";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 const ConfirmOrder = (props) => {
   console.log(
     "🚀 ~ file: ConfirmOrder.js:176 ~ props?.location:",
@@ -34,7 +35,7 @@ const ConfirmOrder = (props) => {
         TxtMarginRight={"5%"}
       />
       <View style={[CommonStyles.body, { backgroundColor: COLORS.WHITE }]}>
-        <ScrollView>
+        <PageScroll>
           <Input
             value={props?.localUserData?.first_name}
             onChangeText={(val) =>
@@ -158,7 +159,7 @@ const ConfirmOrder = (props) => {
           <View style={styles.COnfirmBtnView}>
             <Button onPress={() => props.confirmPress()} buttonText="Confirm" />
           </View>
-        </ScrollView>
+        </PageScroll>
       </View>
     </KeyboardAvoidingView>
   );

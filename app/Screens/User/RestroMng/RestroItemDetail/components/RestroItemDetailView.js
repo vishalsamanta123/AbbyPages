@@ -11,6 +11,7 @@ import { levels } from "../../../../../Utils/staticData";
 import MainInput from "../../../../../Components/MainInput";
 import { COLORS } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const RestroItemDetailView = (props) => {
   return (
@@ -20,7 +21,7 @@ const RestroItemDetailView = (props) => {
         loginButton={false}
         isLogin={true}
       />
-      <ScrollView style={CommonStyles.scrollCon}>
+      <PageScroll contentContainerStyle={CommonStyles.scrollCon}>
         <Image
           resizeMode={"cover"}
           style={[styles.mainImgStyle]}
@@ -94,7 +95,7 @@ const RestroItemDetailView = (props) => {
             />
           </View>
         </View>
-      </ScrollView>
+      </PageScroll>
     </View>
   );
 };

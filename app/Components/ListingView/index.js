@@ -9,7 +9,7 @@ import {
 import EmptyList from "../EmptyList";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import { COLORS, Constants } from "../../Utils/Constant";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { TabModalContext } from "../../Utils/UserContext";
 
 const ListingView = ({
@@ -21,12 +21,14 @@ const ListingView = ({
   renderItem,
   ListEmptyComponent,
   ListHeaderComponent,
+  ListFooterComponent,
   newRef,
   onEndReached,
   onRefresh,
   onPressScrollTop = () => {},
   onScroll = () => {},
   Content_offset,
+  onMomentumScrollBegin,
 }) => {
   const ref = useRef(null);
   const [screenOffSet, setScreenOffSet] = useState(0);
@@ -41,7 +43,16 @@ const ListingView = ({
       ref?.current?.scrollToOffset({ x: 0, y: 0, animated: true });
     }
   }, [isFocused]);
-
+  const navigation = useNavigation()
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setOnPressmodal({
+        ...onPressmodal,
+        modal: "",
+      });
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <>
       <Pressable
@@ -62,6 +73,7 @@ const ListingView = ({
           renderItem={renderItem}
           ListEmptyComponent={ListEmptyComponent}
           ListHeaderComponent={ListHeaderComponent}
+          ListFooterComponent={ListFooterComponent}
           onEndReached={onEndReached}
           refreshing={false}
           onRefresh={onRefresh}
@@ -73,6 +85,7 @@ const ListingView = ({
               modal: "",
             });
           }}
+          onMomentumScrollBegin={onMomentumScrollBegin}
         />
         {CONTENT_OFFSET <= screenOffSet ? (
           <View style={styles.scrollPosVw}>

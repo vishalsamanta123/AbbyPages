@@ -4,6 +4,7 @@ import { OnlyTextList } from "../../../../../Components/ListItemsView";
 import MainHeader from "../../../../../Components/MainHeader";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
+import ListingView from "../../../../../Components/ListingView";
 
 const CategoryView = (props) => {
   const [categories, setCategories] = useState([]);
@@ -41,7 +42,7 @@ const CategoryView = (props) => {
         notifyIcon={false}
         TxtMarginRight={"16%"}
       />
-      <FlatList
+      <ListingView
         data={categories}
         renderItem={({ item, index }) => {
           return (

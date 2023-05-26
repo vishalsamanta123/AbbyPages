@@ -15,6 +15,7 @@ import { FONT_SIZE, COLORS } from "../../../../../Utils/Constant";
 import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 const ConfirmReservation = (props) => {
   return (
     <KeyboardAvoidingView
@@ -28,7 +29,7 @@ const ConfirmReservation = (props) => {
         isLogin={true}
       />
       <View style={[CommonStyles.body, { backgroundColor: COLORS.WHITE }]}>
-        <ScrollView>
+        <PageScroll>
           <View style={styles.ConfirmationContain}>
             <ScaleText style={styles.HaedingParatTXT}>
               You 'll get response through Abby here. Businesses will not see
@@ -171,7 +172,7 @@ const ConfirmReservation = (props) => {
               onPress={() => props.onPressConfirm()}
             />
           </View>
-        </ScrollView>
+        </PageScroll>
       </View>
     </KeyboardAvoidingView>
   );

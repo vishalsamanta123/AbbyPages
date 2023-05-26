@@ -12,6 +12,7 @@ import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import { RowSingleTxtList } from "../../../../Components/ListItemsView";
 import OrderCard from "../../../../Components/OrderCard";
+import ListingView from "../../../../Components/ListingView";
 const OrderHistory = (props) => {
   const [scrollBegin, setScrollBegin] = useState();
   const _handleOrders = (item, index) => {
@@ -150,7 +151,7 @@ const OrderHistory = (props) => {
         />
       </View>
       <View style={styles.FriendContainer}>
-        <FlatList
+        <ListingView
           data={props.orderItemList}
           keyExtractor={(item, index) => index}
           ListEmptyComponent={() => {

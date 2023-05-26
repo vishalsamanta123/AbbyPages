@@ -1,19 +1,15 @@
 import React from "react";
-import { View, FlatList, KeyboardAvoidingView, Platform } from "react-native";
-import Header from "../../../../../Components/Header";
+import { View,  } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import {
-  BLACK_COLOR_CODE,
   FONT_SIZE,
-  LIGHT_BLACK_COLOR_CODE,
-  WHITE_COLOR_CODE,
 } from "../../../../../Utils/Constant";
-import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
+import ListingView from "../../../../../Components/ListingView";
+
 const Notifications = (props) => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : null}
+    <View
       style={[CommonStyles.container]}>
       <MainHeader
         headerText={"Notifications"}
@@ -22,7 +18,7 @@ const Notifications = (props) => {
         TxtMarginRight={'20%'}
       />
       <View style={[CommonStyles.body]}>
-        <FlatList
+        <ListingView
           keyExtractor={(item, index) => index.toString()}
           data={props.NotificationData}
           renderItem={({ item, index }) =>
@@ -30,7 +26,7 @@ const Notifications = (props) => {
           }
         />
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 export default Notifications;

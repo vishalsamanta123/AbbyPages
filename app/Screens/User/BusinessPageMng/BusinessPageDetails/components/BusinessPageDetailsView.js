@@ -257,6 +257,7 @@ const BusinessPageDetailsView = (props) => {
     <PageScroll
       scrollEnabled={!props?.visible}
       contentContainerStyle={[CommonStyles.otherScrollCon]}
+      nestedScrollEnabled={true}
     >
       {props?.visible ? (
         <BusinessDetail type="image" />
@@ -909,6 +910,7 @@ const BusinessPageDetailsView = (props) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ marginVertical: 16 }}
             horizontal
+            
           >
             {detailData?.image?.map((photo) => {
               return (

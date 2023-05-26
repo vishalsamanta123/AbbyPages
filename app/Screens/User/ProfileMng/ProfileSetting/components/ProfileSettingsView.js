@@ -14,6 +14,7 @@ import moment from "moment";
 import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
+import PageScroll from "../../../../../Components/PageScroll";
 
 const ProfileSettingsView = (props) => {
   return (
@@ -28,7 +29,7 @@ const ProfileSettingsView = (props) => {
         TxtMarginRight={"5%"}
       />
       <View style={[CommonStyles.body]}>
-        <ScrollView>
+        <PageScroll>
           <View style={styles.MainContainer}>
             <TouchableOpacity
               onPress={() => props.onPressProfile()}
@@ -182,7 +183,7 @@ const ProfileSettingsView = (props) => {
             </View>
             <Button buttonText="Contact Us" style={{ marginTop: 10 }} />
           </View>
-        </ScrollView>
+        </PageScroll>
       </View>
     </KeyboardAvoidingView>
   );
