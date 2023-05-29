@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Share, View } from "react-native";
+import React, { useContext, useState } from "react";
 import JobDetailView from "./components/JobDetailView";
+import { Share, View } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
@@ -8,6 +8,10 @@ import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import { UserContext } from "../../../../Utils/UserContext";
+import ScaleText from "../../../../Components/ScaleText";
+import ShowMessageStyle, {
+  styles,
+} from "../../../../Components/Modal/showMessage";
 
 const JobDetail = ({ route, navigation }) => {
   const { detail = {} } = route.params;
@@ -44,13 +48,50 @@ const JobDetail = ({ route, navigation }) => {
     }
   };
   const applyNowPress = async () => {
-    if(userData?.login_type){
+    if (userData?.login_type) {
       navigation.navigate("ApplyJob", jobDetail);
     } else {
       setMessageShow({
         visible: true,
         type: "error",
-        message: "Please log in to application",
+        message: (
+          <ScaleText style={styles.messageTxt}>
+            Please login to apply.
+            <ScaleText
+              onPress={() => navigation.navigate("SignUp")}
+              style={[
+                styles.messageTxt,
+                {
+                  textDecorationLine: "underline",
+                },
+              ]}
+            >
+              SignUp
+            </ScaleText>
+            <ScaleText
+              style={[
+                styles.messageTxt,
+                {
+                  textDecorationLine: "underline",
+                },
+              ]}
+            >
+              {" "}
+              or{" "}
+            </ScaleText>
+            <ScaleText
+              onPress={() => navigation.navigate("Login")}
+              style={[
+                styles.messageTxt,
+                {
+                  textDecorationLine: "underline",
+                },
+              ]}
+            >
+              Login
+            </ScaleText>
+          </ScaleText>
+        ),
       });
     }
   };
@@ -70,7 +111,6 @@ const JobDetail = ({ route, navigation }) => {
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
         const newObj = { ...item, user_like: item?.user_like === 0 ? 1 : 0 };
-        console.log('newObj: ', newObj);
         setJobDetail(newObj);
         // setMessageShow({
         //   visible: true,
@@ -112,6 +152,13 @@ const JobDetail = ({ route, navigation }) => {
         visible={messageShow?.visible}
         message={messageShow?.message}
         messageViewType={messageShow?.type}
+        onPressMessage={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
         onEndVisible={() => {
           setMessageShow({
             visible: false,

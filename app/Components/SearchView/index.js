@@ -14,7 +14,7 @@ import AddressInput from "../AddressInput";
 import { staticSearchOptions } from "../../Utils/staticData";
 import Button from "../Button";
 import AsyncStorage from "@react-native-community/async-storage";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import apiEndPoints from "../../Utils/apiEndPoints";
 import { apiCall } from "../../Utils/httpClient";
 import MainInput from "../MainInput";
@@ -35,6 +35,7 @@ const SearchView = (props) => {
     address: "Orlando, FL, USA",
     latitude: "28.5383832",
     longitude: "-81.3789269",
+    city: "Orlando",
   });
 
   const handleDetailNavigation = (data) => {
@@ -63,7 +64,6 @@ const SearchView = (props) => {
   }, [navigation, searchOpen]);
 
   const getHistorySearch = async () => {
-    // await AsyncStorage.removeItem("searchCategoryHistory");
     const historySearch = await AsyncStorage.getItem("searchCategoryHistory");
     if (JSON?.parse(historySearch)) {
       setSearchHistory(JSON?.parse(historySearch));
@@ -78,7 +78,7 @@ const SearchView = (props) => {
       search_category_or_business: itemData?.search_category_or_business
         ? itemData?.search_category_or_business
         : "",
-      address: itemData?.address ? itemData?.address : "",
+      address: itemData?.city ? itemData?.city : "",
     };
     try {
       const { data } = await apiCall(
@@ -317,7 +317,7 @@ const SearchView = (props) => {
               marginTop={3}
               paddingVertical={2}
               iconTop={15}
-              value={searchData?.address ? searchData?.address : ""}
+              value={searchData?.address}
               placeholderTextColor={COLORS.GREY}
               onPress={(data, details = null) => {
                 setSearchData({
@@ -325,12 +325,14 @@ const SearchView = (props) => {
                   address: data.description,
                   latitude: details?.geometry?.location?.lat,
                   longitude: details?.geometry?.location?.lng,
+                  city: details?.name,
                 });
               }}
               onChangeText={(txt) => {
                 setSearchData({
                   ...searchData,
-                  address: txt ? txt : searchData?.address,
+                  address: txt,
+                  city: txt,
                 });
               }}
             />

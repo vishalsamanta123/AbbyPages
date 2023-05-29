@@ -9,6 +9,8 @@ import ScaleText from "../ScaleText";
 
 const AddressInput = (props) => {
   const [onfocus, setOnfocus] = useState(false);
+  console.log("onfocus: ", onfocus);
+  const [searchVal, setSearchVal] = useState("");
   const {
     onPress = () => {},
     onChangeText = () => {},
@@ -76,13 +78,10 @@ const AddressInput = (props) => {
           placeholderTextColor: placeholderTextColor,
           onChangeText: (txt) => {
             if (onfocus) {
-              if (txt == "") {
-                onChangeText("");
-              } else {
-                onChangeText(txt);
-              }
+              onChangeText(txt);
             }
           },
+          value: value,
         }}
         value={value}
         query={{

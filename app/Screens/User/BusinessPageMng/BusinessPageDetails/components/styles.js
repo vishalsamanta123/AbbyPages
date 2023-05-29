@@ -51,6 +51,11 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.BOLD,
     top: 1,
   },
+  iconSty: {
+    backgroundColor: COLORS.BLACK,
+    padding: 5,
+    borderRadius: 100,
+  },
   optionsVw: {
     flex: 1,
     flexDirection: "row",
@@ -119,7 +124,6 @@ const Styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
     flex: 1,
-    justifyContent: "center",
     right: 10,
   },
   tapButtonsVw: {
@@ -517,6 +521,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginTop: 8,
+    minWidth: 150,
   },
   orderTxt: {
     fontFamily: FONT_FAMILY.REGULAR,

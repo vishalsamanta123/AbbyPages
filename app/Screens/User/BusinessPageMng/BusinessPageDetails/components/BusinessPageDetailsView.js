@@ -7,7 +7,6 @@ import {
   ScrollView,
   FlatList,
   Linking,
-  Platform,
   TextInput,
 } from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
@@ -19,14 +18,14 @@ import StarShower from "../../../../../Components/StarShower";
 import MoreInfo from "./MoreInfo";
 import MainHeader from "../../../../../Components/MainHeader";
 import { MainItemsView } from "../../../../../Components/ListItemsView";
-import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import BusinessGallery from "./BusinessGallery";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
-import Button from "../../../../../Components/Button";
-import { removeHttp } from "../../../../../Utils/Globalfunctions";
-import MainButton from "../../../../../Components/MainButton";
+import {
+  handleSharePress,
+  removeHttp,
+} from "../../../../../Utils/Globalfunctions";
 import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../Components/PageScroll";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
@@ -552,6 +551,68 @@ const BusinessPageDetailsView = (props) => {
           </View>
         </View>
       </View>
+      <View style={styles.mainContainer}>
+        <ScaleText style={[styles.sectionTxt, { alignSelf: "center" }]}>
+          Share this Business
+        </ScaleText>
+        <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
+          <View style={styles.optionsVw}>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() => {
+                  Linking.openURL(`sms:`);
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.ANT_ICON}
+                  name={"message1"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={[styles.smallOptiontxt2]}>Message</ScaleText>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() => {
+                  Clipboard.setString(detailData?.websites);
+                }}
+              >
+                <IconX
+                  origin={ICON_TYPE.FEATHER_ICONS}
+                  name={"copy"}
+                  size={20}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={[styles.smallOptiontxt2]}>Copy Link</ScaleText>
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.smallOptionVw}
+                onPress={() =>
+                  handleSharePress({
+                    message: detailData?.business_name,
+                    title: detailData?.business_name,
+                    urlName: detailData?.business_name,
+                    imageUrl: detailData?.logo,
+                  })
+                }
+              >
+                <IconX
+                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                  name={"dots-horizontal"}
+                  size={22}
+                  color={COLORS.BLACK}
+                />
+              </TouchableOpacity>
+              <ScaleText style={[styles.smallOptiontxt2]}>More</ScaleText>
+            </View>
+          </View>
+        </View>
+      </View>
       {props?.visible ? (
         <BusinessDetail type="image" />
       ) : (
@@ -575,38 +636,69 @@ const BusinessPageDetailsView = (props) => {
           )}
         </>
       )}
-      {offer_takeout || offers_delivery || outdoor_seating ? (
-        <View style={[styles.mainContainer, { paddingVertical: 8 }]}>
-          <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
-          <View style={styles.triBttnVw}>
-            {offer_takeout ? (
-              <TouchableOpacity
-                style={styles.orderTouch}
-                onPress={() => props.onPressOrder(1)}
+      {detailData?.business_type?.toString() === "1" && (
+        <>
+          {offer_takeout || offers_delivery || outdoor_seating ? (
+            <View style={[styles.mainContainer, { paddingVertical: 8 }]}>
+              <ScaleText style={styles.sectionTxt}>Order Food</ScaleText>
+              <View
+                style={[
+                  styles.triBttnVw,
+                  {
+                    justifyContent:
+                      offer_takeout || offers_delivery || outdoor_seating
+                        ? "center"
+                        : "flex-start",
+                  },
+                ]}
               >
-                <ScaleText style={styles.orderTxt}>
-                  Start Order Delivery
-                </ScaleText>
-              </TouchableOpacity>
-            ) : null}
-            {offers_delivery ? (
-              <TouchableOpacity
-                style={styles.orderTouch}
-                onPress={() => props.onPressOrder(2)}
-              >
-                <ScaleText style={styles.orderTxt}>
-                  Start Order Takeout
-                </ScaleText>
-              </TouchableOpacity>
-            ) : null}
-            {outdoor_seating ? (
-              <TouchableOpacity
-                style={styles.orderTouch}
-                onPress={() => props.handleReservationPress()}
-              >
-                <ScaleText style={styles.orderTxt}>Outdoor Seating</ScaleText>
-              </TouchableOpacity>
-            ) : null}
+                {offers_delivery ? (
+                  <TouchableOpacity
+                    style={styles.orderTouch}
+                    onPress={() => props.onPressOrder(1)}
+                  >
+                    <ScaleText style={styles.orderTxt}>
+                      Start Order Delivery
+                    </ScaleText>
+                  </TouchableOpacity>
+                ) : null}
+                {offer_takeout ? (
+                  <TouchableOpacity
+                    style={styles.orderTouch}
+                    onPress={() => props.onPressOrder(2)}
+                  >
+                    <ScaleText style={styles.orderTxt}>
+                      Start Order Takeout
+                    </ScaleText>
+                  </TouchableOpacity>
+                ) : null}
+                {outdoor_seating ? (
+                  <TouchableOpacity
+                    style={styles.orderTouch}
+                    onPress={() => props.handleReservationPress()}
+                  >
+                    <ScaleText style={styles.orderTxt}>
+                      Outdoor Seating
+                    </ScaleText>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+            </View>
+          ) : null}
+        </>
+      )}
+      {detailData?.business_type?.toString() === "3" ? (
+        <View style={styles.mainContainer}>
+          <View style={styles.reservationView}>
+            <ScaleText style={styles.sectionTxt}>Make a Quote</ScaleText>
+            <TouchableOpacity
+              style={styles.orderTouch}
+              onPress={() => props.handleQuotePress()}
+            >
+              <ScaleText style={[styles.orderTxt, styles.orderTxtSecond]}>
+                Request a Quote
+              </ScaleText>
+            </TouchableOpacity>
           </View>
         </View>
       ) : null}
@@ -635,7 +727,7 @@ const BusinessPageDetailsView = (props) => {
           <IconX
             origin={ICON_TYPE.MATERIAL_ICONS}
             name={"directions"}
-            size={24}
+            size={25}
             color={COLORS.BLACK}
           />
         </TouchableOpacity>
@@ -648,18 +740,20 @@ const BusinessPageDetailsView = (props) => {
           >
             <View>
               <ScaleText style={styles.buttonsTxt}>{"Call"}</ScaleText>
-              <ScaleText style={styles.smallTxt}>
+              <ScaleText style={[styles.smallTxt, { marginLeft: 8 }]}>
                 {detailData?.mobileno
                   ? detailData?.mobileno
                   : "Mobile no. Not Found"}
               </ScaleText>
             </View>
-            <IconX
-              origin={ICON_TYPE.FEATHER_ICONS}
-              name={"phone-call"}
-              size={20}
-              color={COLORS.BLACK}
-            />
+            <View style={styles.iconSty}>
+              <IconX
+                origin={ICON_TYPE.FEATHER_ICONS}
+                name={"phone-call"}
+                size={12}
+                color={COLORS.WHITE}
+              />
+            </View>
           </TouchableOpacity>
         ) : null}
       </View>
@@ -834,7 +928,8 @@ const BusinessPageDetailsView = (props) => {
           </TouchableOpacity>
         </View>
       ) : null}
-      {detailData?.popular_dish?.length > 0 ? (
+      {detailData?.business_type?.toString() === "1" &&
+      detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
           <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
           <FlatList
@@ -910,7 +1005,6 @@ const BusinessPageDetailsView = (props) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ marginVertical: 16 }}
             horizontal
-            
           >
             {detailData?.image?.map((photo) => {
               return (
@@ -925,59 +1019,6 @@ const BusinessPageDetailsView = (props) => {
             })}
           </ScrollView>
         ) : null}
-      </View>
-      <View style={styles.mainContainer}>
-        <ScaleText style={styles.sectionTxt}>Share this Business</ScaleText>
-        <View style={[CommonStyles.straightCon, styles.topHeaderVw]}>
-          <View style={styles.optionsVw}>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                style={styles.smallOptionVw}
-                onPress={() => {
-                  Linking.openURL(`sms:`);
-                }}
-              >
-                <IconX
-                  origin={ICON_TYPE.ANT_ICON}
-                  name={"message1"}
-                  size={20}
-                  color={COLORS.BLACK}
-                />
-              </TouchableOpacity>
-              <ScaleText style={[styles.smallOptiontxt2]}>Message</ScaleText>
-            </View>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                style={styles.smallOptionVw}
-                onPress={() => {
-                  Clipboard.setString(detailData?.websites);
-                }}
-              >
-                <IconX
-                  origin={ICON_TYPE.FEATHER_ICONS}
-                  name={"copy"}
-                  size={20}
-                  color={COLORS.BLACK}
-                />
-              </TouchableOpacity>
-              <ScaleText style={[styles.smallOptiontxt2]}>Copy Link</ScaleText>
-            </View>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                style={styles.smallOptionVw}
-                onPress={() => props.handleSharePress()}
-              >
-                <IconX
-                  origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                  name={"dots-horizontal"}
-                  size={22}
-                  color={COLORS.BLACK}
-                />
-              </TouchableOpacity>
-              <ScaleText style={[styles.smallOptiontxt2]}>More</ScaleText>
-            </View>
-          </View>
-        </View>
       </View>
       <View style={styles.mainContainer}>
         {detailData?.business_review?.length > 0 ? (
@@ -1008,7 +1049,14 @@ const BusinessPageDetailsView = (props) => {
         ) : (
           <View>
             <ScaleText style={styles.sectionTxt}>No reviews yet</ScaleText>
-            <TouchableOpacity style={styles.tapRowButtonsVw}>
+            <TouchableOpacity
+              onPress={() =>
+                props.handleNavigation("ReviewRating", {
+                  detailData: detailData,
+                })
+              }
+              style={styles.tapRowButtonsVw}
+            >
               <ScaleText style={styles.titletxt}>
                 Be the first to review
               </ScaleText>
@@ -1019,9 +1067,7 @@ const BusinessPageDetailsView = (props) => {
                 size={32}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
-            >
+            <View style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}>
               <StarShower
                 ActiveStarColor={COLORS.COMMON}
                 UnActiveStarColor={COLORS.COMMON}
@@ -1040,7 +1086,7 @@ const BusinessPageDetailsView = (props) => {
               >
                 Tap to review....
               </ScaleText>
-            </TouchableOpacity>
+            </View>
           </View>
         )}
         <TouchableOpacity

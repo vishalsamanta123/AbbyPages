@@ -1,3 +1,4 @@
+import React from "react";
 import {
   request,
   PERMISSIONS,
@@ -5,12 +6,12 @@ import {
   openSettings,
   check,
 } from "react-native-permissions";
-
 import FileViewer from "react-native-file-viewer";
 import RNFS from "react-native-fs";
 import { Constants } from "./Constant";
 import { Alert, Linking } from "react-native";
 import moment from "moment";
+import Share from "react-native-share";
 
 export const handlePermission = async (
   permission,
@@ -293,5 +294,31 @@ export const handleBusinessNav = async (options) => {
     } else {
       Alert.alert(`Don't know how to open this URL: ${options.url}`);
     }
+  }
+};
+
+export const handleSharePress = async (data) => {
+  const { title = "", message = "", urlName = "", imageUrl = "" } = data;
+  try {
+    const result = await Share.open({
+      message: message,
+      url: `https://abbypages.com/business/${urlName?.split(" ").join("-")}`,
+      title: urlName,
+      subject: "Share it",
+      // imageUrl: `https://abbypages.com/business/${imageUrl?.substring(
+      //   imageUrl?.lastIndexOf("/") + 1
+      // )}`,
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // Shared successfully
+      } else {
+        // Share cancelled
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // Share dismissed
+    }
+  } catch (error) {
+    // Error while sharing
   }
 };
