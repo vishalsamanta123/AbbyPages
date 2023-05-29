@@ -136,13 +136,18 @@ const BusinessPageDetails = ({ navigation, route }) => {
   const handleSharePress = async () => {
     const finalName = detailData?.business_name.split(" ").join("-");
     const options = {
-      message: `https://abbypages.com/business/${finalName}`,
+      title: finalName,
+      message: finalName,
+      url: `https://abbypages.com/business/${finalName}`,
     };
-    const shareResponse = await Share.open(options);
+    await Share.open(options);
   };
 
   const handleReservationPress = () => {
     navigation.navigate("RestroBooking", { detail: detailData });
+  };
+  const handleQuotePress = () => {
+    navigation.navigate("RequestQuote", { detail: detailData });
   };
   const onPressOrder = (type) => {
     const getData = { ...detailData, delivery_type: type };
@@ -170,6 +175,7 @@ const BusinessPageDetails = ({ navigation, route }) => {
         recentFeedData={recentFeedData}
         handleSharePress={handleSharePress}
         handleReservationPress={handleReservationPress}
+        handleQuotePress={handleQuotePress}
         onPressOrder={onPressOrder}
         handleConsiderPress={handleConsiderPress}
       />
