@@ -298,13 +298,19 @@ export const handleBusinessNav = async (options) => {
 };
 
 export const handleSharePress = async (data) => {
-  const { title = "", message = "", urlName = "", imageUrl = "" } = data;
+  const {
+    title = "",
+    message = "",
+    urlName = "",
+    imageUrl = "",
+    image = "",
+  } = data;
   try {
     const result = await Share.open({
       message: message,
       url: `https://abbypages.com/business/${urlName?.split(" ").join("-")}`,
-      title: urlName,
-      subject: "Share it",
+      title: title,
+      backgroundImage: image,
       // imageUrl: `https://abbypages.com/business/${imageUrl?.substring(
       //   imageUrl?.lastIndexOf("/") + 1
       // )}`,

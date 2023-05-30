@@ -197,6 +197,7 @@ export const Images = {
   COVER_IMG: require("../Assets/background-thedir-cover.jpg"),
   HOW_IT_WORKS_BANNER: require("../Assets/how_it_works_banner.jpg"),
   FEATURES_BANNER: require("../Assets/features.jpg"),
+  QUES_IMG: require("../Assets/faq.png"),
 
   //Demo Images for static
   DEMO1: require("../Assets/extraImages/bob-marley-profile.jpg"),

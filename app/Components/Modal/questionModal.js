@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Modal, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Button from "../Button";
 import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 import ScaleText from "../ScaleText";
@@ -20,6 +19,7 @@ const QuestionModal = (props) => {
     topMessage,
     positiveTxt,
     negativeTxt,
+    quesImg = false,
   } = props;
   return (
     <>
@@ -74,6 +74,12 @@ const QuestionModal = (props) => {
                   <IconX origin={ICON_TYPE.ENTYPO} name={"cross"} size={35} />
                 </TouchableOpacity>
               </View>
+              {quesImg ? (
+                <Image
+                  source={Images.QUES_IMG}
+                  style={{ width: 45, height: 45, alignSelf: "center" }}
+                />
+              ) : null}
               <ScaleText style={styles.topMssgTxt}>{topMessage}</ScaleText>
               <ScaleText style={styles.confrTxt}>{message}</ScaleText>
               <MainButton
@@ -103,8 +109,8 @@ const QuestionModal = (props) => {
 };
 QuestionModal.defaultProps = {
   modalType: "normal",
-  positiveResponse: "Yes",
   negativeTxt: "No",
+  positiveTxt: "Yes",
 };
 export default QuestionModal;
 const styles = StyleSheet.create({
