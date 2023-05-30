@@ -10,7 +10,7 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 const StepOneView = (props) => {
   return (
     <View style={CommonStyles.container}>
-      <View style={styles.centermanimg}>
+      <View style={styles.centerVw}>
         <Image
           resizeMode="contain"
           style={styles.centerimgstye}
@@ -27,7 +27,8 @@ const StepOneView = (props) => {
           buttonTxt="Get Started"
           backgroundColor={COLORS.YELLOW}
           txtColor={COLORS.WHITE}
-          //   onPressButton={() => props.onPressStepSecond()}
+          paddingHeight={10}
+          onPressButton={() => props.setScreenPlay(2)}
         />
       </View>
     </View>

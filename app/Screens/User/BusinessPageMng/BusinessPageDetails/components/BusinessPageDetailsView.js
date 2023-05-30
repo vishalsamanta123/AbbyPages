@@ -30,10 +30,12 @@ import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../Components/PageScroll";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
 import Geolocation from "@react-native-community/geolocation";
+import ShareModal from "../../../../../Components/ShareModal";
 
 const BusinessPageDetailsView = (props) => {
   const { detailData = {} } = props;
   const [specialIcon, setSpecialIcon] = useState(false);
+  const [shareModal, setShareModal] = useState(false);
   useEffect(() => {
     if (specialIcon) {
       setTimeout(async () => {
@@ -592,13 +594,16 @@ const BusinessPageDetailsView = (props) => {
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity
                 style={styles.smallOptionVw}
-                onPress={() =>
-                  handleSharePress({
-                    message: detailData?.business_name,
-                    title: detailData?.business_name,
-                    urlName: detailData?.business_name,
-                    imageUrl: detailData?.logo,
-                  })
+                onPress={
+                  () =>
+                    handleSharePress({
+                      message: detailData?.business_name,
+                      title: detailData?.business_name,
+                      urlName: detailData?.business_name,
+                      imageUrl: detailData?.logo,
+                      image: detailData?.logo,
+                    })
+                  // setShareModal(true)
                 }
               >
                 <IconX
@@ -1114,6 +1119,12 @@ const BusinessPageDetailsView = (props) => {
         detailData={detailData}
         moreData={props?.galleryModal?.moreData}
       />
+      {/* <ShareModal
+        visible={shareModal}
+        endVisible={() => setShareModal(false)}
+        topTxt={detailData?.business_name}
+        topImg={detailData?.header_image}
+      /> */}
     </PageScroll>
   );
 };

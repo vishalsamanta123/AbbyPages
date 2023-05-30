@@ -1,34 +1,55 @@
 import { StyleSheet } from "react-native";
-import { FONT_FAMILY, FONT_SIZE } from "../../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../../Utils/Constant";
 
 const styles = StyleSheet.create({
-  startedbtntxt: {
-    fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: FONT_SIZE.largeM,
-  },
-  centermanimg: {
+  centerVw: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flex: 3,
-  },
-  centerimgstye: {
-    width: 190,
-    height: 190,
+    marginHorizontal: 10,
   },
   centervwe: {
-    alignSelf: "center",
-    paddingLeft: "10%",
-    paddingRight: 10,
-    flex: 2,
+    flex: 1,
+  },
+  centerimgstye: {
+    width: 180,
+    height: 180,
   },
   centermntxt: {
     fontSize: FONT_SIZE.mediumL,
-    lineHeight: 30,
     fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    lineHeight: 24,
+    textAlign: "center",
   },
   btnvwe: {
     marginHorizontal: 20,
     marginBottom: 12,
+  },
+  boxesCon: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  boxesVw: {
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.COMMON2,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    alignItems: "center",
+  },
+  boxesTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.RGBA,
+    fontFamily: FONT_FAMILY.REGULAR,
   },
 });
 

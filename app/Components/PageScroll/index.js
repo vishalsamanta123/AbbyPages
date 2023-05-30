@@ -17,8 +17,8 @@ const PageScroll = ({
   children,
   backgroundColor,
   keyboardShouldPersistTaps = "handled",
-  onPressScrollTop = () => { },
-  onScroll = () => { },
+  onPressScrollTop = () => {},
+  onScroll = () => {},
   scrollEnabled,
   style,
   StickyHeaderComponent,
@@ -45,7 +45,7 @@ const PageScroll = ({
       ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
     }
   }, [isFocused]);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("blur", () => {
       setOnPressmodal({
@@ -92,6 +92,7 @@ const PageScroll = ({
               modal: "",
             });
           }}
+          style={{ flex: 1 }}
         >
           {children}
         </Pressable>
