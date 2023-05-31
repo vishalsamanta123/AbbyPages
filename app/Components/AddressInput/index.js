@@ -9,7 +9,6 @@ import ScaleText from "../ScaleText";
 
 const AddressInput = (props) => {
   const [onfocus, setOnfocus] = useState(false);
-  console.log("onfocus: ", onfocus);
   const [searchVal, setSearchVal] = useState("");
   const {
     onPress = () => {},

@@ -12,6 +12,7 @@ import {
   AddItemCategortyProvider,
   OrderCategorySelectProvider,
   TabModalProvider,
+  RequestQutProvider,
 } from "./app/Utils/UserContext";
 
 const App = () => {
@@ -43,21 +44,23 @@ const App = () => {
   return (
     // <View style={{ flex: 1 }}>
     <TabModalProvider>
-      <CartProvider>
-        <ServiceProvider>
-          <ServiceProviderQueAns>
-            <ShoppingCartProvider>
-              <OrderCategorySelectProvider>
-                <AddItemCategortyProvider>
-                  <UserProvider>
-                    <Navigation />
-                  </UserProvider>
-                </AddItemCategortyProvider>
-              </OrderCategorySelectProvider>
-            </ShoppingCartProvider>
-          </ServiceProviderQueAns>
-        </ServiceProvider>
-      </CartProvider>
+      <RequestQutProvider>
+        <CartProvider>
+          <ServiceProvider>
+            <ServiceProviderQueAns>
+              <ShoppingCartProvider>
+                <OrderCategorySelectProvider>
+                  <AddItemCategortyProvider>
+                    <UserProvider>
+                      <Navigation />
+                    </UserProvider>
+                  </AddItemCategortyProvider>
+                </OrderCategorySelectProvider>
+              </ShoppingCartProvider>
+            </ServiceProviderQueAns>
+          </ServiceProvider>
+        </CartProvider>
+      </RequestQutProvider>
     </TabModalProvider>
     // </View>
   );

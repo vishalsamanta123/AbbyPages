@@ -225,7 +225,6 @@ const BusinessGallery = (props) => {
         visible={messageShow?.visible}
         message={messageShow?.message}
         messageViewType={messageShow?.type}
-        position={"bottom"}
         onEndVisible={() =>
           setMessageShow({
             visible: false,

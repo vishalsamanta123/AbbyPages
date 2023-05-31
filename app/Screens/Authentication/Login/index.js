@@ -168,7 +168,6 @@ const SignInView = ({ navigation, route }) => {
         visible={messageShow?.visible}
         message={messageShow?.message}
         messageViewType={messageShow?.type}
-        // position={"top"}
         onEndVisible={() => {
           setMessageShow({
             visible: false,

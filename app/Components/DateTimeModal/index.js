@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import ScaleText from "../ScaleText";
 import { IconX } from "../Icons/Icon";
-import { COLORS, Constants } from "../../Utils/Constant";
+import { COLORS, Constants, FONT_SIZE } from "../../Utils/Constant";
 import styles from "./styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
@@ -31,6 +31,9 @@ const DateTimeModal = (props) => {
     onPressokButton = () => {},
     onPressCancelButton = () => {},
     mode = "datetime",
+    marginHorizontal = 0,
+    fontSize = FONT_SIZE.normal,
+    flex = 0,
   } = props;
   return (
     <TouchableOpacity
@@ -38,11 +41,13 @@ const DateTimeModal = (props) => {
       style={[
         styles.mainCont,
         {
+          flex: flex,
           paddingVertical: paddingVertical,
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
           marginTop: marginTop,
           borderColor: borderColor,
+          marginHorizontal: marginHorizontal,
         },
       ]}
     >
@@ -68,7 +73,19 @@ const DateTimeModal = (props) => {
           />
         </View>
       ) : null}
-      <ScaleText style={styles.inputCon}>
+      <ScaleText
+        numberOfLines={1}
+        style={[
+          styles.inputCon,
+          {
+            color:
+              value === "" || value === null || value === undefined
+                ? COLORS.GREY
+                : COLORS.BLACK,
+            fontSize: fontSize,
+          },
+        ]}
+      >
         {value === "" || value === null || value === undefined
           ? placeholder
           : value}

@@ -34,6 +34,15 @@ export const CartProvider = (props) => {
   );
 };
 
+export const RequestQutProviderContext = React.createContext();
+export const RequestQutProvider = (props) => {
+  const [requestQuote, setRequestQuote] = useState([]);
+  return (
+    <RequestQutProviderContext.Provider value={[requestQuote, setRequestQuote]}>
+      {props.children}
+    </RequestQutProviderContext.Provider>
+  );
+};
 export const ServiceProviderContext = React.createContext();
 export const ServiceProvider = (props) => {
   const [serviceProviderData, setServiceProviderData] = useState([]);

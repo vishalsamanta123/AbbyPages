@@ -101,7 +101,6 @@ const AddNewLocation = ({ navigation }) => {
         visible={messageShow?.visible}
         message={messageShow?.message}
         messageViewType={messageShow?.type}
-        position={messageShow?.type === "success" ? "bottom" : "top"}
         onEndVisible={() =>
           setMessageShow({
             visible: false,

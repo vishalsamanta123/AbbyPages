@@ -9,6 +9,11 @@ import QuestionModal from "../../../../../Components/Modal/questionModal";
 import PageScroll from "../../../../../Components/PageScroll";
 import StepSecondView from "./StepSecondView";
 import styles from "./styles";
+import StepThirdView from "./StepThirdView";
+import StepFourthView from "./StepFourthView";
+import StepFifthView from "./StepFifthView";
+import StepSixView from "./StepSixView";
+import StepSeventhView from "./StepSeventhView";
 
 const RequestQuoteView = (props) => {
   const [almostDoneModal, setAlmostDoneModal] = useState(false);
@@ -23,7 +28,7 @@ const RequestQuoteView = (props) => {
           <StepOneView
             screenPlay={props.screenPlay}
             setScreenPlay={props.setScreenPlay}
-            service={props.service}
+            serviceData={props.serviceData}
           />
         ) : (
           <>
@@ -31,9 +36,71 @@ const RequestQuoteView = (props) => {
               <StepSecondView
                 screenPlay={props.screenPlay}
                 setScreenPlay={props.setScreenPlay}
-                service={props.service}
+                serviceData={props.serviceData}
+                onPressNext={props.onPressNext}
               />
-            ) : null}
+            ) : (
+              <>
+                {props?.screenPlay === 3 ? (
+                  <StepThirdView
+                    messageShow={props.messageShow}
+                    setMessageShow={props.setMessageShow}
+                    screenPlay={props.screenPlay}
+                    setScreenPlay={props.setScreenPlay}
+                    serviceData={props.serviceData}
+                  />
+                ) : (
+                  <>
+                    {props?.screenPlay === 4 ? (
+                      <StepFourthView
+                        messageShow={props.messageShow}
+                        setMessageShow={props.setMessageShow}
+                        screenPlay={props.screenPlay}
+                        setScreenPlay={props.setScreenPlay}
+                        serviceData={props.serviceData}
+                      />
+                    ) : (
+                      <>
+                        {props?.screenPlay === 5 ? (
+                          <StepFifthView
+                            messageShow={props.messageShow}
+                            setMessageShow={props.setMessageShow}
+                            screenPlay={props.screenPlay}
+                            setScreenPlay={props.setScreenPlay}
+                            serviceData={props.serviceData}
+                          />
+                        ) : (
+                          <>
+                            {props?.screenPlay === 6 ? (
+                              <StepSixView
+                                messageShow={props.messageShow}
+                                setMessageShow={props.setMessageShow}
+                                screenPlay={props.screenPlay}
+                                setScreenPlay={props.setScreenPlay}
+                                serviceData={props.serviceData}
+                              />
+                            ) : (
+                              <>
+                                {props?.screenPlay === 7 ? (
+                                  <StepSeventhView
+                                    messageShow={props.messageShow}
+                                    setMessageShow={props.setMessageShow}
+                                    screenPlay={props.screenPlay}
+                                    setScreenPlay={props.setScreenPlay}
+                                    serviceData={props.serviceData}
+                                    onPressEnd={props.onPressEnd}
+                                  />
+                                ) : null}
+                              </>
+                            )}
+                          </>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </>
         )}
         <View style={styles.btnvwe}>
