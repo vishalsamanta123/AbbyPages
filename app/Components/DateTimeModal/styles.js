@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   mainCont: {
     marginVertical: 10,
     borderWidth: Constants.standardBW,
-    flex: 0,
     paddingVertical: 0,
     backgroundColor: COLORS.WHITE,
     borderRadius: 18,
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.smallL,
   },
   inputCon: {
-    fontSize: FONT_SIZE.normal,
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     flex: 1,
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
   iconVw: {
     paddingHorizontal: 5,
     alignItems: "center",
-    flex: 0.1,
+    flex: 0.2,
   },
 });
 export default styles;

@@ -35,6 +35,7 @@ const MainInput = (props) => {
     secureTextEntry = false,
     marginTop = 10,
     borderColor = COLORS.GREY,
+    multiline = false,
   } = props;
   return (
     <View
@@ -76,7 +77,7 @@ const MainInput = (props) => {
         style={[
           styles.inputCon,
           {
-            height: height,
+            height: multiline ? 80 : height,
             marginLeft: leftImgName != "" && leftImgOrigin != "" ? 0 : 8,
           },
         ]}
@@ -90,6 +91,7 @@ const MainInput = (props) => {
         secureTextEntry={secureTextEntry && secure ? secure : false}
         onFocus={() => onFocus()}
         onBlur={() => onBlur()}
+        multiline={multiline}
       />
       {rightImgName != "" && rightImgOrigin != "" ? (
         <View style={styles.iconVw}>
