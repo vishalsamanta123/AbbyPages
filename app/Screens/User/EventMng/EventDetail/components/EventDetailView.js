@@ -126,7 +126,7 @@ const EventDetailView = (props) => {
                   borderColor={COLORS.TRANSPARENT}
                   onPressButton={() => props.setBuyTicketModal(1)}
                 />
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
                 >
                   <IconX
@@ -134,7 +134,7 @@ const EventDetailView = (props) => {
                     name={"dots-horizontal"}
                     size={26}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             ) : null}
           </View>

@@ -63,19 +63,11 @@ const SignInView = ({ navigation, route }) => {
     });
   }
   function validationFrom() {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (loginData?.email == "") {
       setMessageShow({
         visible: true,
         type: "error",
-        message: "Please enter email",
-      });
-      return false;
-    } else if (reg.test(loginData?.email) === false) {
-      setMessageShow({
-        visible: true,
-        type: "error",
-        message: "Please enter correct email address",
+        message: "Please enter email or username",
       });
       return false;
     } else if (loginData?.password == "") {
@@ -85,7 +77,7 @@ const SignInView = ({ navigation, route }) => {
         message: "Please enter password",
       });
       return false;
-    } 
+    }
     return true;
   }
   const onPressLogin = async () => {
@@ -125,7 +117,8 @@ const SignInView = ({ navigation, route }) => {
               setMessageShow({
                 visible: true,
                 type: "error",
-                message: "It is your business account ,please check to login with user account",
+                message:
+                  "It is your business account ,please check to login with user account",
               });
             }
           }

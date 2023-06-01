@@ -455,9 +455,11 @@ const BusinessPageDetailsView = (props) => {
                 onPress={() => props.handleSavepress()}
               >
                 <IconX
-                  origin={ICON_TYPE.MATERIAL_ICONS}
-                  name={"save-alt"}
+                  origin={ICON_TYPE.FONT_AWESOME}
+                  name={"bookmark-o"}
                   size={22}
+                  paddingLeft={2.5}
+                  paddingRight={2.5}
                   color={props.isSaved ? COLORS.YELLOW : COLORS.BLACK}
                 />
               </TouchableOpacity>
@@ -602,7 +604,9 @@ const BusinessPageDetailsView = (props) => {
                       urlName: detailData?.business_name,
                       imageUrl: detailData?.logo,
                       image: detailData?.logo,
-                      url:`https://abbypages.com/business/${detailData?.business_name?.split(" ").join("-")}`
+                      url: `https://abbypages.com/business/${detailData?.business_name
+                        ?.split(" ")
+                        .join("-")}`,
                     })
                   // setShareModal(true)
                 }

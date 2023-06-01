@@ -1,4 +1,4 @@
-import { View, Modal, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Modal, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -100,7 +100,7 @@ const OrderSetting = (props) => {
           notifyIcon={false}
           TxtMarginRight={"10%"}
         />
-        <View style={styles.mainCon}>
+        <ScrollView contentContainerStyle={styles.mainCon}>
           {cartData[0]?.delivery_type === 1 ? (
             <>
               <ScaleText style={styles.headTxt}>Select Address :</ScaleText>
@@ -189,7 +189,7 @@ const OrderSetting = (props) => {
               handleApply();
             }}
           />
-        </View>
+        </ScrollView>
       </View>
       <ShowMessage
         visible={messageShow?.visible}
