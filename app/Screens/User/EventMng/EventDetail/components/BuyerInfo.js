@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
-import { View, Modal, ScrollView } from "react-native";
+import { View } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Button from "../../../../../Components/Button";
-import Loader from "../../../../../Utils/Loader";
 import _ from "lodash";
-import Input from "../../../../../Components/Input";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import CountDown from "react-native-countdown-component";
 import { apiCall } from "../../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../../Utils/apiEndPoints";
 import ScaleText from "../../../../../Components/ScaleText";
-import { COLORS, FONT_FAMILY } from "../../../../../Utils/Constant";
+import { COLORS } from "../../../../../Utils/Constant";
 import MainHeader from "../../../../../Components/MainHeader";
 import PageScroll from "../../../../../Components/PageScroll";
 import MainButton from "../../../../../Components/MainButton";
@@ -37,9 +33,7 @@ const BuyerInfoScreen = (props) => {
           phoneNo: data?.data?.modile ? data?.data?.modile : "",
         });
       }
-    } catch (error) {
-      console.log("error: ", error);
-    }
+    } catch (error) {}
   };
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"

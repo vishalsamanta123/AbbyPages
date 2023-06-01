@@ -230,7 +230,6 @@ const TicketDetailsScreen = (props) => {
               // ) : (
               //   <>
               //     {props?.ticketsDetails?.map((item, index) => {
-              //       console.log("item: ", item);
               //       return (
               //         <View style={styles.ticketDetailVw}>
               //           <ScaleText style={styles.ticketTxt}>

@@ -249,7 +249,6 @@ const Styles = StyleSheet.create({
     marginLeft: 20,
   },
   ticketCategoryVw: {
-    flexDirection: "row",
     paddingHorizontal: 12,
     marginVertical: 6,
     borderRadius: 6,
@@ -268,6 +267,33 @@ const Styles = StyleSheet.create({
     color: COLORS.BLACK,
     fontFamily: FONT_FAMILY.REGULAR,
     marginTop: 2,
+  },
+  ticketSubTxt: {
+    fontSize: FONT_SIZE.small,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    color: COLORS.BLACK,
+    paddingVertical: 2,
+  },
+  modalVw: {
+    justifyContent: "center",
+    flex: 1,
+    backgroundColor: COLORS.RGBA2,
+  },
+  detailInfoVw: {
+    backgroundColor: COLORS.WHITE,
+    paddingVertical: 5,
+    borderColor: COLORS.BLACK,
+    borderWidth: Constants.normalBW,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginHorizontal: 10,
+  },
+  detailInfoTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.GREY,
+    fontFamily: FONT_FAMILY.REGULAR,
+    textTransform: "capitalize",
+    marginTop: 4,
   },
   spinnerVw: {
     backgroundColor: COLORS.YELLOW,
@@ -294,7 +320,6 @@ const Styles = StyleSheet.create({
     fontSize: FONT_SIZE.lightL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_GREY,
-    paddingBottom: 10,
   },
   straightVw: {
     flexDirection: "row",

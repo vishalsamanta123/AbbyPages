@@ -21,7 +21,10 @@ import MainHeader from "../../../../../Components/MainHeader";
 import EmptyList from "../../../../../Components/EmptyList";
 import MainButton from "../../../../../Components/MainButton";
 import { businessTypes, dayData } from "../../../../../Utils/staticData";
-import { RECENT_TIME_FORMAT, handleBusinessNav } from "../../../../../Utils/Globalfunctions";
+import {
+  RECENT_TIME_FORMAT,
+  handleBusinessNav,
+} from "../../../../../Utils/Globalfunctions";
 import {
   FullImageViewList,
   RowSingleTxtList,
@@ -29,6 +32,7 @@ import {
 import PageScroll from "../../../../../Components/PageScroll";
 import VideoPlayer from "../../../../../Components/VideoPlayer";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
+import Loader from "../../../../../Utils/Loader";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -53,7 +57,6 @@ const EventListingView = (props) => {
   const handleSeeAll = async () => {
     props.getEventList(0, 12, 0, "");
     props?.setEventType(0);
-    props.setLimit(12);
     await props.setOpenAll(true);
     setAlsoSeeFor(false);
   };
@@ -112,6 +115,7 @@ const EventListingView = (props) => {
                 onPressView={() =>
                   props.navToEventDetail(props?.events?.upcoming_events)
                 }
+                subSmallTxt2={"Tickets on Sale now"}
                 fullImage={props?.events?.upcoming_events?.events_image}
                 timeTxt={RECENT_TIME_FORMAT(
                   props?.events?.upcoming_events?.event_date
@@ -131,65 +135,36 @@ const EventListingView = (props) => {
               onPress={() => {
                 setAlsoSeeFor(!alsoSeeFor);
                 if (props.eventType !== 0) {
-                  props.getEventList(0, props.limit, 0, "");
+                  props.getEventList(0, 4, 0, "");
                   props.setEventType(0);
                 }
                 props.setIsSelectedDay(null);
               }}
-              style={[
-                styles.seeOnVw,
-                {
-                  borderColor: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
-                },
-              ]}
+              style={styles.seeOnVw}
             >
-              <ScaleText
-                style={[
-                  styles.seeOnTxt,
-                  {
-                    color: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
-                  },
-                ]}
-              >
-                See Events For
-              </ScaleText>
+              <ScaleText style={styles.seeOnTxt}>See Events For</ScaleText>
               <IconX
                 origin={ICON_TYPE.MATERIAL_ICONS}
                 size={22}
-                color={alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW}
+                color={COLORS.BLACK}
                 name={alsoSeeFor ? "keyboard-arrow-up" : "keyboard-arrow-down"}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[
-                styles.seeOnVw,
-                {
-                  borderColor: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
-                },
-              ]}
+              style={styles.seeOnVw}
               onPress={() => handleSeeAll()}
             >
-              <ScaleText
-                style={[
-                  styles.seeOnTxt,
-                  {
-                    color: alsoSeeFor ? COLORS.BLACK : COLORS.YELLOW,
-                  },
-                ]}
-              >
-                See All
-              </ScaleText>
+              <ScaleText style={styles.seeOnTxt}>See All</ScaleText>
             </TouchableOpacity>
           </View>
           {alsoSeeFor && (
             <View style={{ marginLeft: 10, marginVertical: 5 }}>
-              <FlatList
-                data={dayData}
+              <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => index}
-                renderItem={({ item, index }) => {
+              >
+                {dayData?.map((itm, index) => {
                   const selectedColor =
                     index === props.isSelectedDay
                       ? COLORS.YELLOW
@@ -197,13 +172,13 @@ const EventListingView = (props) => {
                   return (
                     <View style={CommonStyles.straightCon}>
                       <RowSingleTxtList
-                        text={item.name}
+                        text={itm.name}
                         txtColor={selectedColor}
                         paddingHorizontal={0}
                         paddingVertical={0}
                         borderColor={selectedColor}
                         onPressItem={() =>
-                          props._handleDaySelected(item.id, index)
+                          props._handleDaySelected(itm.id, index)
                         }
                         borderBottomWidth={0}
                       />
@@ -211,14 +186,14 @@ const EventListingView = (props) => {
                         <IconX
                           origin={ICON_TYPE.ICONICONS}
                           name={"remove-outline"}
-                          style={[styles.timeDataImg]}
+                          style={styles.timeDataImg}
                           color={selectedColor}
                         />
                       </View>
                     </View>
                   );
-                }}
-              />
+                })}
+              </ScrollView>
               <DateTimePickerModal
                 isVisible={props?.openSearchDate}
                 mode={"date"}
@@ -245,10 +220,15 @@ const EventListingView = (props) => {
                 })}
               </>
             ) : (
-              <View style={styles.emptyEventVw}>
-                <EmptyList message={"Event"} />
-              </View>
+              <>
+                {!props?.messageShow?.loader && (
+                  <View style={styles.emptyEventVw}>
+                    <EmptyList message={"Event"} />
+                  </View>
+                )}
+              </>
             )}
+            {props?.messageShow?.loader ? <Loader type={"small"} /> : null}
           </ScrollView>
         </View>
         <View style={styles.containers}>
@@ -274,27 +254,21 @@ const EventListingView = (props) => {
         <View style={styles.containers}>
           <ScaleText style={styles.eventTitlesTxt}>Popular Events</ScaleText>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {props?.events?.popular_events?.map((item) => {
-              return (
-                <FullImageViewList
-                  onPressView={() => props.navToEventDetail(item)}
-                  fullImage={item?.events_image}
-                  timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
-                  headTxt={item?.event_name}
-                  subHeadTxt={item?.event_location?.trim()}
-                  smallTxt={`${item?.interested} Interested`}
-                  subSmallTxt={item?.category_name}
-                />
-              );
-            })}
+            {Array.isArray(props?.events?.popular_events) &&
+              props?.events?.popular_events?.map((item) => {
+                return (
+                  <FullImageViewList
+                    onPressView={() => props.navToEventDetail(item)}
+                    fullImage={item?.events_image}
+                    timeTxt={RECENT_TIME_FORMAT(item?.event_date)}
+                    headTxt={item?.event_name}
+                    subHeadTxt={item?.event_location?.trim()}
+                    smallTxt={`${item?.interested} Interested`}
+                    subSmallTxt={item?.category_name}
+                  />
+                );
+              })}
           </ScrollView>
-          {/* <Button
-            style={styles.seeAllBttn}
-            buttonLabelStyle={styles.seeAllBttnTxt}
-            onPress={() => handleSeeAll()}
-            buttonText={"See All"}
-            paddingHeight={10}
-          /> */}
           <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
             <MainButton
               buttonTxt="See All"

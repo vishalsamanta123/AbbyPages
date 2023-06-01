@@ -92,6 +92,7 @@ export const Constants = {
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
   TIME_DATE_FORMAT: "MMMM DD YYYY",
+  SH_TIME_DATE_FORMAT: "MMM,DD YYYY",
   DATE_FORMAT: "LLL",
   TIME_FORMAT: "LTS",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
