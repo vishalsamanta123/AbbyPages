@@ -95,6 +95,13 @@ const styles = StyleSheet.create({
   productTxt: {
     width: Constants.windowWidth / 2.5,
   },
+  outOfTxt: {
+    width: Constants.windowWidth / 2.5,
+    color: COLORS.LIGHT_RED,
+    fontSize: FONT_SIZE.small,
+    fontFamily: FONT_FAMILY.REGULAR,
+    marginTop: 5,
+  },
   productPriceTxt: {},
 });
 

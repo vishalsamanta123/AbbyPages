@@ -47,6 +47,7 @@ const MarketplaceView = (props) => {
     );
   };
   const renderProductList = (item, index) => {
+  console.log('item: ', item);
     return (
       <TouchableOpacity
         style={styles.productTouch}
@@ -71,6 +72,8 @@ const MarketplaceView = (props) => {
             />
           </TouchableOpacity>
         </ImageBackground>
+        {item?.quantity <= 0 && 
+        <ScaleText style={styles.outOfTxt}>Out of Stock</ScaleText>}
         <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
         <ScaleText style={styles.productPriceTxt}>
           ${getAmount(item.final_price)}
