@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity, Modal } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import { COLORS, Constants } from "../../../../../Utils/Constant";
+import { COLORS, Constants, FONT_SIZE } from "../../../../../Utils/Constant";
 import _ from "lodash";
 import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -11,9 +11,12 @@ import PageScroll from "../../../../../Components/PageScroll";
 import MainButton from "../../../../../Components/MainButton";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
+import CommonStyles from "../../../../../Utils/CommonStyles";
+import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
+  const [pressInfo, setPressInfo] = useState({});
   const eventDate = moment(props?.eventDetails?.created_at).format(
     Constants.TIME_DATE_FORMAT
   );
@@ -76,6 +79,87 @@ const BuyTicketScreen = (props) => {
       }
     }
   };
+  const DetailInfo = ({ item }) => {
+    return (
+      <Modal transparent visible={pressInfo?.item ? true : false}>
+        <View style={styles.modalVw}>
+          <View style={styles.detailInfoVw}>
+            <View
+              style={[
+                CommonStyles.straightCon,
+                { justifyContent: "space-between" },
+              ]}
+            >
+              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
+                Ticket Discription
+              </ScaleText>
+              <TouchableOpacity onPress={() => setPressInfo({})}>
+                <ScaleText>Close</ScaleText>
+              </TouchableOpacity>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>Ticket Name:</ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {item?.ticket_title}
+              </ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>Ticket Price:</ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {item?.ticket_price}
+              </ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>
+                Available Quantity:
+              </ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {item?.other?.quantity}
+              </ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>
+                Buy max Quantity:
+              </ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>{1}</ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>
+                Ticket Transferable:
+              </ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>{"Yes"}</ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>
+                Ticket start sale time:
+              </ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {moment(item?.other?.ticket_sale_start_date).format(
+                  Constants.SH_TIME_DATE_FORMAT
+                )}
+              </ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>
+                Ticket end sale time:
+              </ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {moment(item?.other?.ticket_sale_end_date).format(
+                  Constants.SH_TIME_DATE_FORMAT
+                )}
+              </ScaleText>
+            </View>
+            <View style={CommonStyles.straightCon}>
+              <ScaleText style={styles.detailInfoTxt}>Description:</ScaleText>
+              <ScaleText style={styles.detailInfoTxt}>
+                {item?.other?.ticket_description}
+              </ScaleText>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
   return (
     <>
       <MainHeader
@@ -123,50 +207,106 @@ const BuyTicketScreen = (props) => {
                 renderItem={({ item, index }) => {
                   return (
                     <View style={styles.ticketCategoryVw}>
-                      <View style={{ flex: 1, paddingVertical: 5 }}>
-                        <ScaleText style={styles.ticketCtgryTxt}>
-                          {item?.ticket_title}
-                        </ScaleText>
-                        <ScaleText style={styles.ticketAmtTxt}>
-                          $ {getAmount(item?.ticket_price)}
-                        </ScaleText>
+                      <View style={CommonStyles.straightCon}>
+                        <View style={{ flex: 1.5, paddingVertical: 5 }}>
+                          <View style={CommonStyles.straightCon}>
+                            <ScaleText
+                              numberOfLines={1}
+                              style={[styles.ticketCtgryTxt, { maxWidth: 150 }]}
+                            >
+                              {item?.ticket_title}
+                            </ScaleText>
+                            <TouchableOpacity
+                              onPress={() => setPressInfo({ index, item })}
+                            >
+                              <IconX
+                                origin={ICON_TYPE.ENTYPO}
+                                name={"info-with-circle"}
+                                paddingLeft={10}
+                                paddingRight={10}
+                                color={COLORS.RGBA}
+                                size={20}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                          <ScaleText style={styles.ticketAmtTxt}>
+                            $ {getAmount(item?.ticket_price)}
+                          </ScaleText>
+                        </View>
+                        <View style={{ flex: 1, alignItems: "flex-end" }}>
+                          <AddMinusView
+                            colorMin={COLORS.YELLOW}
+                            colorMax={COLORS.YELLOW}
+                            minVal={0}
+                            value={getqty(item)}
+                            height={36}
+                            onPressAdd={(val) => {
+                              addProductOnCart(item, val, index);
+                              const newObj = {
+                                ...props.ticketsType[index],
+                                total_price: item?.ticket_price * val,
+                                ticket_quantity: val,
+                              };
+                              const newArray = [...props.ticketsType];
+                              newArray[index] = newObj;
+                              props.setTicketsType(newArray);
+                            }}
+                            onPressMinus={(val) => {
+                              removeFromCart(item, val, index);
+                              const newObj = {
+                                ...props.ticketsType[index],
+                                total_price: item?.ticket_price * val,
+                                ticket_quantity: val,
+                              };
+                              const newArray = [...props.ticketsType];
+                              newArray[index] = newObj;
+                              props.setTicketsType(newArray);
+                            }}
+                          />
+                          <ScaleText style={styles.smallTxt}>
+                            Total Amount:{" "}
+                            {item?.total_price ? item?.total_price : "0.00"}
+                          </ScaleText>
+                        </View>
                       </View>
-                      <View style={{ flex: 1, alignItems: "flex-end" }}>
-                        <AddMinusView
-                          colorMin={COLORS.YELLOW}
-                          colorMax={COLORS.YELLOW}
-                          minVal={0}
-                          value={getqty(item)}
-                          height={36}
-                          onPressAdd={(val) => {
-                            addProductOnCart(item, val, index);
-                            const newObj = {
-                              ...props.ticketsType[index],
-                              total_price: item?.ticket_price * val,
-                              ticket_quantity: val,
-                            };
-                            const newArray = [...props.ticketsType];
-                            newArray[index] = newObj;
-                            props.setTicketsType(newArray);
-                          }}
-                          onPressMinus={(val) => {
-                            removeFromCart(item, val, index);
-                            const newObj = {
-                              ...props.ticketsType[index],
-                              total_price: item?.ticket_price * val,
-                              ticket_quantity: val,
-                            };
-                            const newArray = [...props.ticketsType];
-                            newArray[index] = newObj;
-                            props.setTicketsType(newArray);
-                          }}
-                        />
-                        <ScaleText style={styles.smallTxt}>
-                          Total Amount:{" "}
-                          {item?.total_price ? item?.total_price : "0.00"}
+                      <View
+                        style={[
+                          CommonStyles.straightCon,
+                          { justifyContent: "space-between" },
+                        ]}
+                      >
+                        <ScaleText style={styles.ticketSubTxt}>
+                          Sale End On:{" "}
+                          {item?.other?.ticket_sale_end_date
+                            ? moment(item?.other?.ticket_sale_end_date).format(
+                                Constants.SH_TIME_DATE_FORMAT
+                              )
+                            : "Not Found"}
+                        </ScaleText>
+                        <ScaleText
+                          style={[
+                            styles.ticketSubTxt,
+                            { fontSize: FONT_SIZE.verysmall },
+                          ]}
+                        >
+                          Ticket Availablity:{" "}
+                          {item?.other?.quantity
+                            ? Number(item?.other?.quantity) > 1000
+                              ? "1000+"
+                              : Number(item?.other?.quantity)
+                            : "0"}
                         </ScaleText>
                       </View>
                     </View>
+                  );
+                }}
+                ItemSeparatorComponent={() => {
+                  return (
+                    <>
+                      {pressInfo?.item ? (
+                        <DetailInfo item={pressInfo?.item} />
+                      ) : null}
+                    </>
                   );
                 }}
               />

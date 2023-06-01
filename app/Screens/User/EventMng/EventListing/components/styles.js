@@ -65,6 +65,7 @@ const Styles = StyleSheet.create({
   },
   seeOnVw: {
     borderWidth: Constants.standardBW,
+    borderColor:COLORS.BLACK,
     paddingHorizontal: 8,
     paddingVertical: 5,
     borderRadius: 6,
@@ -74,7 +75,7 @@ const Styles = StyleSheet.create({
   seeOnTxt: {
     fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.YELLOW,
+    color: COLORS.BLACK,
   },
   seeForImg: {
     width: 14,

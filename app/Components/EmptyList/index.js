@@ -6,7 +6,7 @@ import { ICON_TYPE, IconX } from "../Icons/Icon";
 
 const EmptyList = (props) => {
   const {
-    message = "Oops! Not found",
+    message = "",
     height = 200,
     alignItems = "center",
     marginLeft = 0,

@@ -7,9 +7,10 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { FullImageViewList } from "../../../../../Components/ListItemsView";
 import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
 import ListingView from "../../../../../Components/ListingView";
+import EmptyList from "../../../../../Components/EmptyList";
+import Loader from "../../../../../Utils/Loader";
 
 const EventListingScreen = (props) => {
-  const [scrollBegin, setScrollBegin] = useState();
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -19,10 +20,8 @@ const EventListingScreen = (props) => {
   }, []);
   const handleBack = () => {
     props.setOpenAll(false);
-    props.setLimit(4);
     props.setoffset(0);
     props.getEventList(0, 4, 0, "");
-    setScrollBegin(false);
   };
   return (
     <View style={CommonStyles.container}>
@@ -37,22 +36,21 @@ const EventListingScreen = (props) => {
         data={props?.eventsList}
         style={styles.allEventsVw}
         ListEmptyComponent={() => {
-          return (
-            <View style={[styles.emptyEventVw, { height: 200 }]}>
-              <ScaleText style={styles.emptyEventTxt}>No Data Found</ScaleText>
-            </View>
-          );
+          return <EmptyList message={"Events"} />;
         }}
-        onMomentumScrollBegin={() => setScrollBegin(true)}
         onEndReached={() => {
-          if (scrollBegin) {
-            if (!props.stopOffset) {
-              props?.getEventList(props?.offset + 1, props?.limit + 1, 0, "");
-              setScrollBegin(false);
-            } else {
-              setScrollBegin(false);
-            }
+          if (props?.eventsList?.length < props?.moreData) {
+            props?.getEventList(props?.offset + 1, 5, 0, "", false);
+            props.setMessageShow({
+              ...props.messageShow,
+              loader: true,
+            });
           }
+        }}
+        ListFooterComponent={() => {
+          return (
+            <>{props?.messageShow?.loader ? <Loader type={"small"} /> : null}</>
+          );
         }}
         renderItem={({ item }) => {
           return (

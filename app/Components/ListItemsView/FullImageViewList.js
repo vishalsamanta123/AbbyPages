@@ -19,6 +19,7 @@ const FullImageViewList = (props) => {
     subHeadTxt = "",
     smallTxt = "",
     subSmallTxt = "",
+    subSmallTxt2 = "",
     onPressView = () => {},
     shadow = true,
     marginTop = 6,
@@ -111,6 +112,11 @@ const FullImageViewList = (props) => {
               color={COLORS.YELLOW}
             />
             <ScaleText style={styles.bottomTxt}>{subSmallTxt}</ScaleText>
+          </View>
+        )}
+        {subSmallTxt2 === "" ? null : (
+          <View style={{ marginLeft: 6, marginTop: 5 }}>
+            <ScaleText style={styles.headTxt}>{subSmallTxt2}</ScaleText>
           </View>
         )}
       </View>

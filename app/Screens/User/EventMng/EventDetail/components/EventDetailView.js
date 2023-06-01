@@ -17,7 +17,6 @@ import FastImages from "../../../../../Components/FastImage";
 
 const EventDetailView = (props) => {
   const timestampInSeconds = Math.floor(new Date().getTime() / 1000);
-  console.log("props?.eventDetails: ", props?.eventDetails);
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText="Events Details" />

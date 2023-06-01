@@ -99,7 +99,6 @@ const EventDetail = ({ navigation, route }) => {
         setInterest(newData?.user_interested);
         const arr = newData?.event_ticket_type?.map((tic) => {
           return {
-            ...tic,
             ticket_id: tic.event_type_id,
             ticket_title: tic.event_type_name,
             ticket_price: tic.ticket_price,
@@ -108,14 +107,15 @@ const EventDetail = ({ navigation, route }) => {
             max_booking_time: 600000,
             ticket_quantity: 0,
             total_price: 0,
+            other: tic,
           };
         });
         setTicketsType(arr);
         setLoader(false);
       } else {
         setEventDetails(itemData);
-        setInterest(itemData?.data?.user_interested);
-        const arr = itemData?.data?.event_ticket_type?.map((tic) => {
+        setInterest(itemData?.user_interested);
+        const arr = itemData?.event_ticket_type?.map((tic) => {
           return {
             ...tic,
             ticket_id: tic.event_type_id,
