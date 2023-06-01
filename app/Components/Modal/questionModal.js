@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Modal, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { COLORS, FONT_FAMILY } from "../../Utils/Constant";
+import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
 import { Images } from "../../Utils/images";
 import ScaleText from "../ScaleText";
 import MainButton from "../MainButton";
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.4)",
     justifyContent: "center",
+    padding: 10
   },
   normalModalVw: {
     backgroundColor: COLORS.WHITE,
@@ -126,12 +127,13 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   normalTopMssgTxt: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_BLACK,
+    textAlign: 'center'
   },
   normalConfrTxt: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.medium,
     textAlign: "center",
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.LIGHT_BLACK,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   topMssgTxt: {
-    fontSize: 18,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.BOLD,
     color: COLORS.LIGHT_BLACK,
     textAlign: "center",

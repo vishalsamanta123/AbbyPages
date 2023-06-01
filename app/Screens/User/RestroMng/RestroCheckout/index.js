@@ -35,7 +35,6 @@ const RestroCheckout = ({ navigation }) => {
     longitude: "",
     date_time: moment().format(Constants.TIME_DATE_FORMAT),
   });
-  const [delivery_type, setDeliveryType] = useState("");
   const [onlineDetail, setOnlineDetail] = useState({
     brand: "",
     expiryMonth: "",
@@ -116,16 +115,6 @@ const RestroCheckout = ({ navigation }) => {
       });
       return false;
     }
-    if (delivery_type === 1) {
-      if (location?.location == "") {
-        setMessageShow({
-          visible: true,
-          message: "Please enter address for delievery address",
-          type: "error",
-        });
-        return false;
-      }
-    }
     if (localUserData.order_payment_type === 2) {
       if (onlineDetail.validNumber !== "Valid") {
         setMessageShow({
@@ -174,8 +163,6 @@ const RestroCheckout = ({ navigation }) => {
     const valid = validationFrom();
     if (valid) {
       try {
-        const orderData = await AsyncStorage.getItem("orderData");
-        if (orderData !== "") {
           const {
             brand = "",
             expiryMonth = "",
@@ -222,7 +209,6 @@ const RestroCheckout = ({ navigation }) => {
           };
           setVisible(false);
           navigation.navigate("RestroPlaceOrder", { orderData: params });
-        }
       } catch (error) {}
     }
   };
@@ -230,7 +216,6 @@ const RestroCheckout = ({ navigation }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <RestroCheckoutView
-        delivery_type={delivery_type}
         localUserData={localUserData}
         setLocalUserData={setLocalUserData}
         onPressPaymentMethod={onPressPaymentMethod}

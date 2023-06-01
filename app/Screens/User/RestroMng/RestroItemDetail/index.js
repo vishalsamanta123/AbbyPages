@@ -14,7 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 const RestroItemDetail = ({ navigation, route }) => {
   const { itemDetail = {} } = route.params;
   const [cartValData, setCartValData] = useState({
-    spice_level: "",
+    spice_level: 2,
     special_instruct: "",
     quantity: 0,
     total_item_price: "",

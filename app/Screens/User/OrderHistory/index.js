@@ -18,7 +18,9 @@ import Success from "../../../Components/Modal/success";
 import Error from "../../../Components/Modal/showMessage";
 import { RowSingleTxtList } from "../../../Components/ListItemsView";
 
-const OrderHistoryView = ({ navigation }) => {
+const OrderHistoryView = ({ navigation, route }) => {
+  const {from} = route?.params
+  const { itemDetail = {} } = route.params;
   const [visibleErr, setVisibleErr] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
@@ -90,6 +92,15 @@ const OrderHistoryView = ({ navigation }) => {
   const onpressOrder = (item) => {
     navigation.navigate("OrderDetailIndex", { OrderDetail: item });
   };
+  const handleBackPress = () => {
+    console.log('from: ', from);
+    if(from === "profile"){
+      navigation.goBack()
+    } else {
+      navigation.navigate("DashBoard");
+    }
+    navigation.setParams({from: ''})
+  };
   const _renderCategory = (item, index) => {
     return (
       <>
@@ -131,6 +142,7 @@ const OrderHistoryView = ({ navigation }) => {
         isSelectedCatgory={isSelectedCatgory}
         handleOrderedItemList={handleOrderedItemList}
         setIsSelectedCatgory={setIsSelectedCatgory}
+        handleBackPress={handleBackPress}
       />
     </View>
   );

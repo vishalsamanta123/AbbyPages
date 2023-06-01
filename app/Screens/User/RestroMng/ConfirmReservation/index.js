@@ -130,7 +130,7 @@ const ConfirmReservationView = ({ navigation, route }) => {
           params
         );
         if (data.status === 200) {
-          navigation.navigate("OrderHistory");
+          navigation.navigate("OrderHistory", {});
           setSuccessMessage(data.message);
           setVisibleSuccess(true);
           setVisible(false);

@@ -16,7 +16,7 @@ const NewsFeedView = (props) => {
     commentParams,
     handelOnPressPost,
     visible,
-    handleSharePress,
+    onSharePress,
   } = props;
   return (
     <View style={CommonStyles.container}>
@@ -41,7 +41,7 @@ const NewsFeedView = (props) => {
                 setCommentParams={setCommentParams}
                 commentParams={commentParams}
                 handelOnPressPost={handelOnPressPost}
-                handleSharePress={handleSharePress}
+                onSharePress={onSharePress}
               />
             );
           }}

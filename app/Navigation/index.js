@@ -121,6 +121,7 @@ function TabNavigation() {
       <Tab.Screen name="Notifications" component={NotificationsView} />
       <Tab.Screen name="ForgotPasswordField" component={ForgotPasswordFieldView} />
       <Tab.Screen name="RequestQuote" component={RequestQuote} />
+      <Tab.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
     </Tab.Navigator>
   );
 }
@@ -157,7 +158,7 @@ function AppStack() {
       <Stack.Screen name="ShoppingCart" component={TabNavigation} />
       <Stack.Screen name="CheckOut" component={TabNavigation} />
       <Stack.Screen name="AddNewLocation" component={AddNewLocation} />
-      <Stack.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
+      <Stack.Screen name="RestroPlaceOrder" component={TabNavigation} />
       <Stack.Screen name="ConfirmOrderView" component={TabNavigation} />
       <Stack.Screen name="EventDetail" component={TabNavigation} />
       <Stack.Screen name="ProfileSetting" component={TabNavigation} />

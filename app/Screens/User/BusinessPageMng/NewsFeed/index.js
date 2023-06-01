@@ -8,6 +8,7 @@ import apiEndPoints from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { apiCall } from "../../../../Utils/httpClient";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import { handleSharePress } from "../../../../Utils/Globalfunctions";
 
 const NewsFeed = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
@@ -137,13 +138,18 @@ const NewsFeed = ({ navigation, route }) => {
     navigation.navigate("NeweFeedDetails", { post: data });
   };
 
-  const handleSharePress = async (post_id, business_name) => {
+  const onSharePress = async (post_id, business_name, logo) => {
     const finalName = business_name.split(" ").join("-");
     const options = {
       message: `https://abbypages.com/news-feeds/${finalName}/${post_id}`,
     };
 
-    const shareResponse = await Share.open(options);
+    // const shareResponse = await Share.open(options);
+    handleSharePress({
+      message: `https://abbypages.com/news-feeds/${finalName}/${post_id}`,
+      title: business_name,
+      imageUrl: logo,
+    })
   };
   return (
     <View style={CommonStyles.container}>
@@ -155,7 +161,7 @@ const NewsFeed = ({ navigation, route }) => {
         commentParams={commentParams}
         handelOnPressPost={handelOnPressPost}
         visible={visible}
-        handleSharePress={handleSharePress}
+        onSharePress={onSharePress}
       />
       <ShowMessage
         visible={messageShow?.visible}

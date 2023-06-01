@@ -301,14 +301,13 @@ export const handleSharePress = async (data) => {
   const {
     title = "",
     message = "",
-    urlName = "",
     imageUrl = "",
-    detailData = {}
+    detailData = {},
+    url = ""
   } = data;
-  const url = `https://abbypages.com/${urlName?.split(" ").join("-")}`
   try {
     const result = await Share.open({
-      url: `https://abbypages.com/${urlName?.split(" ").join("-")}`,
+      url: url,
       activityItemSources: [
         {
           // For using custom icon instead of default text icon at share preview when sharing with message.

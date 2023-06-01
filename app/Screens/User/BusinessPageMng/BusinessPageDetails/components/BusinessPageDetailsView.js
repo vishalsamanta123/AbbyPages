@@ -602,6 +602,7 @@ const BusinessPageDetailsView = (props) => {
                       urlName: detailData?.business_name,
                       imageUrl: detailData?.logo,
                       image: detailData?.logo,
+                      url:`https://abbypages.com/business/${detailData?.business_name?.split(" ").join("-")}`
                     })
                   // setShareModal(true)
                 }
