@@ -60,7 +60,10 @@ const ProfileSetting = ({ navigation }) => {
     navigation.navigate("Locations");
   };
   const onPressOrderHistory = () => {
-    navigation.navigate("OrderHistory");
+    const params = {
+      from : 'profile'
+    }
+    navigation.navigate("OrderHistory",  params);
   };
   const onPressSettings = () => {
     navigation.navigate("UserProfile");

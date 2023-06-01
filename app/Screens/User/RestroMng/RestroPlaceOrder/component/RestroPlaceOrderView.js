@@ -24,9 +24,9 @@ const RestroPlaceOrderView = (props) => {
           <Text style={styles.OrderTextStyle}>Your order From</Text>
           <Text style={styles.CheckOutText}>{props?.businessName}</Text>
           {/* <View style={{ minHeight: 50 }}> */}
-          <ListingView
+          <FlatList
             data={props.cartLocalData}
-            style={{ minHeight: 30 }}
+            // style={{ minHeight: 30 }}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) => props._handleDishItem(item, index)}
           />

@@ -12,8 +12,12 @@ import Loader from "../../../../Utils/Loader";
 import QuestionModal from "../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
 import { Images } from "../../../../Utils/images";
+import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
+import { COLORS } from "../../../../Utils/Constant";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
-const RestroPlaceOrder = ({ navigation }) => {
+const RestroPlaceOrder = ({ navigation, route }) => {
+  const { orderData } = route.params
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -26,6 +30,11 @@ const RestroPlaceOrder = ({ navigation }) => {
   const [businessName, setBusinessName] = useState("");
   const [cartData, setCartData] = useContext(CartContext);
   const [cartLocalData, setCartLocalData] = useState("");
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -36,13 +45,13 @@ const RestroPlaceOrder = ({ navigation }) => {
         setCartLocalData(cartData);
         handleFinalAmount();
       };
-    }, [removeIndex])
+    }, [removeIndex, navigation, orderData])
   );
   const getOrderDetails = async () => {
     try {
-      const orderData = await AsyncStorage.getItem("orderData");
+      // const orderData = await AsyncStorage.getItem("orderData");
       if (orderData !== "") {
-        setBusinessName(JSON.parse(orderData).business_name);
+        setBusinessName(cartData[0]?.business_name);
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -61,7 +70,13 @@ const RestroPlaceOrder = ({ navigation }) => {
               setRemoveIndex(index);
             }}
           >
-            <Image source={Images.MINUS_IMG} />
+            {/* <Image source={Images.MINUS_IMG} /> */}
+            <IconX
+              origin={ICON_TYPE.ANT_ICON}
+              name={"minuscircle"}
+              size={22}
+              color={COLORS.GREY}
+            />
           </TouchableOpacity>
           <View style={{ paddingLeft: 5, flexDirection: "row" }}>
             <Text style={styles.DishTextStyle}>{item.quantity + " "}</Text>
@@ -113,27 +128,26 @@ const RestroPlaceOrder = ({ navigation }) => {
     setTotalAmount(FinalAmount);
   };
   const checkoutPress = async () => {
-    const orderData = await AsyncStorage.getItem("orderData");
+    // const orderData = await AsyncStorage.getItem("orderData");
     if (orderData !== "") {
       try {
-        if (JSON.parse(orderData).order_payment_type == 2) {
+        if (orderData.order_payment_type == 2) {
           setVisible(true);
           const params = {
             amount: totalAmount.toString(),
-            email: JSON.parse(orderData).email,
-            user_name: JSON.parse(orderData).first_name,
-            card_number: "424242424242" + JSON.parse(orderData).last4,
-            // cvc: JSON.parse(orderData).validCVC.toString(),
-            exp_month: JSON.parse(orderData).expiryMonth.toString(),
-            exp_year: JSON.parse(orderData).expiryYear.toString(),
-            zipcode: JSON.parse(orderData).postalCode,
+            email: orderData.email,
+            user_name: orderData.first_name,
+            card_number: "424242424242" + orderData.last4,
+            // cvc: orderData.validCVC.toString(),
+            exp_month: orderData.expiryMonth.toString(),
+            exp_year: orderData.expiryYear.toString(),
+            zipcode: orderData.postalCode,
           };
           const { data } = await apiCall(
             "POST",
             ENDPOINTS.ORDERPAYMENT,
             params
           );
-          console.log("data PAyment: ", data);
           if (data.status === 200) {
             OnPressCheckOut();
           } else {
@@ -154,23 +168,22 @@ const RestroPlaceOrder = ({ navigation }) => {
   const OnPressCheckOut = async () => {
     setVisible(true);
     try {
-      const orderData = await AsyncStorage.getItem("orderData");
       if (orderData !== "") {
         const params = {
           business_type: 1,
-          business_id: JSON.parse(orderData).business_id,
-          delivery_type: JSON.parse(orderData).delivery_type,
+          business_id: orderData.business_id,
+          delivery_type: orderData.delivery_type,
           item: cartData,
-          first_name: JSON.parse(orderData).first_name,
-          last_name: JSON.parse(orderData).last_name,
-          email: JSON.parse(orderData).email,
-          mobile: JSON.parse(orderData).mobile,
-          address: JSON.parse(orderData)?.address?.location,
-          latitude: JSON.parse(orderData)?.address?.latitude,
-          longitude: JSON.parse(orderData)?.address?.longitude,
-          order_description: JSON.parse(orderData).order_description,
-          order_schedule_time: JSON.parse(orderData).order_schedule_time,
-          order_payment_type: JSON.parse(orderData).order_payment_type,
+          first_name: orderData.first_name,
+          last_name: orderData.last_name,
+          email: orderData.email,
+          mobile: orderData.mobile,
+          address: orderData?.address?.location,
+          latitude: orderData?.address?.latitude,
+          longitude: orderData?.address?.longitude,
+          order_description: orderData.order_description,
+          order_schedule_time: orderData.order_schedule_time,
+          order_payment_type: orderData.order_payment_type,
           total_order_amount: totalAmount,
           order_discount: 0,
           total_amount: totalAmount,
@@ -183,25 +196,28 @@ const RestroPlaceOrder = ({ navigation }) => {
         );
         if (data.status === 200) {
           setCartData([]);
-          try {
-            await AsyncStorage.removeItem("orderData");
-          } catch (error) {
-            setErrorMessage(error.message);
-            setVisibleErr(true);
-            setVisible(false);
-          }
-          setVisibleSuccess(true);
-          setSuccessMessage(data.message);
+          setMessageShow({
+            visible: true,
+            type: "success",
+            message: data?.message,
+          });
+            navigation.navigate("OrderHistory",{});
           setVisible(false);
         } else {
-          setErrorMessage(data.message);
-          setVisibleErr(true);
+          setMessageShow({
+            visible: true,
+            type: "error",
+            message: data?.message,
+          });
           setVisible(false);
         }
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setVisibleErr(true);
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
       setVisible(false);
     }
   };
@@ -234,6 +250,19 @@ const RestroPlaceOrder = ({ navigation }) => {
         message={"Are you sure want to delete this item from Your cart ?"}
         positiveResponse={() => DeleteItem(removeIndex)}
         negativeResponse={() => setRemoveItem(false)}
+      />
+      <ShowMessage
+        visible={messageShow?.visible || visibleErr}
+        message={messageShow?.message || errorMessage}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+          setVisibleErr(false);
+        }}
       />
     </View>
   );

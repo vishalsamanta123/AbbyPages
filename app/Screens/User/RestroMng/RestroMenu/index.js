@@ -166,6 +166,7 @@ const RestroMenu = ({ route, navigation }) => {
     try {
       const items = {
         ...item,
+        ...detail,
         discounted_price: item.discounted_price,
         total_item_price: item.discounted_price * value,
         item_discount: item.item_discount === null ? 0 : item.item_discount,

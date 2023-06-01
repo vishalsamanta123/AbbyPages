@@ -16,7 +16,7 @@ const NewsPost = (props) => {
     setCommentParams,
     commentParams,
     handelOnPressPost,
-    handleSharePress
+    onSharePress
   } = props;
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
   const isPostLiked = newsData?.postLikeData?.likeStatus === 0 ? false : true;
@@ -115,7 +115,7 @@ const NewsPost = (props) => {
           >
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.likeView} onPress={() => handleSharePress(newsData?.post_id, newsData?.business_name)}>
+          <TouchableOpacity style={styles.likeView} onPress={() => onSharePress(newsData?.post_id, newsData?.business_name, newsData?.logo_url)}>
             <ScaleText style={styles.likeSectionText}>Share</ScaleText>
           </TouchableOpacity>
         </View>

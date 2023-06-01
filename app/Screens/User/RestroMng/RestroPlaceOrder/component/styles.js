@@ -4,6 +4,9 @@ import {
   FONT_FAMILY_REGULAR,
   LIGHT_GREY_COLOR_CODE,
   YELLOW_COLOR_CODE,
+  FONT_SIZE,
+  Constants,
+  COLORS,
 } from "../../../../../Utils/Constant";
 
 
@@ -13,25 +16,31 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE_COLOR_CODE,
   },
   CheckOutText: {
-    fontSize: 19,
+    fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY_REGULAR,
   },
   DishMainView: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingTop: 10,
+    paddingBottom: 10,
+    borderWidth:Constants.normalBW,
+    borderColor:COLORS.BORDER_LINE,
+    borderRadius: 10,
+    marginVertical: 5
   },
   DishTextCOntain: {
     flexDirection: "row",
+    alignItems: 'center'
   },
   DishTextStyle: {
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 14,
+    fontSize: FONT_SIZE.medium,
     color: YELLOW_COLOR_CODE,
   },
   PriceDishText: {
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 14,
+    fontSize: FONT_SIZE.smallL,
     color: LIGHT_GREY_COLOR_CODE,
   },
   SubTotalView: {
@@ -41,12 +50,12 @@ const styles = StyleSheet.create({
   },
   SubTotalText: {
     fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 14,
+    fontSize: FONT_SIZE.smallL,
   },
   guidedTxt: {
     fontFamily: FONT_FAMILY_REGULAR,
     color: LIGHT_GREY_COLOR_CODE,
-    fontSize: 14,
+    fontSize: FONT_SIZE.smallL,
     lineHeight: 22,
   },
   CheckBtnView: {

@@ -202,7 +202,6 @@ const ConfirmOrderView = ({ navigation, route }) => {
     }
   };
   const onPressConfirm = async () => {
-    console.log("ON CONFIRM API CALLED");
     try {
       setVisible(true);
       const params = {
@@ -222,8 +221,6 @@ const ConfirmOrderView = ({ navigation, route }) => {
         order_booking_type: 2, //table ,outside,foodand item
         order_description: "",
       };
-      console.log("🚀 ~ file: index.js:267 ~ params:", params);
-      console.log("🚀 ~ file: index.js:269 ~ data:", data);
       const { data } = await apiCall(
         "POST",
         apiEndPoints.PRODUCT_ORDER_BOOKING,
@@ -232,7 +229,7 @@ const ConfirmOrderView = ({ navigation, route }) => {
       if (data?.status == 200) {
         setVisible(false);
         setShoppingCartData([]);
-        navigation.navigate("OrderHistory");
+        navigation.navigate("OrderHistory", {});
         setMessageShow({
           visible: true,
           type: "success",

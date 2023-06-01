@@ -5,6 +5,7 @@ import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { useFocusEffect } from "@react-navigation/native";
 import Share from "react-native-share";
+import { handleSharePress } from "../../../../Utils/Globalfunctions";
 
 const NeweFeedDetails = ({ navigation, route }) => {
   const { post } = route?.params;
@@ -111,14 +112,16 @@ const NeweFeedDetails = ({ navigation, route }) => {
     }
   };
 
-  const handleSharePress = async () => {
+  const onSharePress = async () => {
     const finalName = post?.business_name.split(" ").join("-");
-    const options = {
-      message: `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`,
-    };
-    console.log("options", options);
+    console.log('postData: ', postData);
+    console.log('`https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`: ', `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`);
 
-    const shareResponse = await Share.open(options);
+    handleSharePress({
+      message: `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`,
+      title: postData?.business_name,
+      imageUrl: postData?.logo_url,
+    })
   };
 
   return (
@@ -132,7 +135,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
         handleOnCommentPress={handleOnCommentPress}
         handleOnPressLike={handleOnPressLike}
         visible={visible}
-        handleSharePress={handleSharePress}
+        onSharePress={onSharePress}
       />
     </>
   );

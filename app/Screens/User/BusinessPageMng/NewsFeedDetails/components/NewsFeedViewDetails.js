@@ -28,7 +28,7 @@ const NewsFeedView = (props) => {
     setCommentParams,
     handleOnCommentPress,
     visible,
-    handleSharePress,
+    onSharePress
   } = props;
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
@@ -154,7 +154,9 @@ const NewsFeedView = (props) => {
                 <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => handleSharePress()}
+                onPress={() =>
+                  onSharePress()
+                }
                 style={styles.likeView}
               >
                 <ScaleText style={styles.likeSectionText}>Share</ScaleText>

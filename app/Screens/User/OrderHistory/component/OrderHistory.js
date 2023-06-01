@@ -124,6 +124,7 @@ const OrderHistory = (props) => {
         fontSize={FONT_SIZE.medium}
         loginButton={false}
         isLogin={true}
+        onPressBack={() => props.handleBackPress()}
       />
       <View style={styles.topCont}>
         <RowSingleTxtList
