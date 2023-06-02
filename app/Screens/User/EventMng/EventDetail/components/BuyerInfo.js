@@ -16,8 +16,13 @@ import AddressInput from "../../../../../Components/AddressInput";
 
 const BuyerInfoScreen = (props) => {
   useEffect(() => {
-    getProfile();
-  }, []);
+    if (
+      props?.buyerInfo?.first_name === "" &&
+      props?.buyerInfo?.last_name === ""
+    ) {
+      getProfile();
+    }
+  }, [props?.buyerInfo]);
   const getProfile = async () => {
     try {
       const { data } = await apiCall("POST", ENDPOINTS.GET_USER_PROFILE);
@@ -158,6 +163,7 @@ const BuyerInfoScreen = (props) => {
                   });
                 }}
                 borderRadius={10}
+                value={props.buyerInfo?.address}
                 headTxt={"Address"}
                 onChangeText={(text) => {
                   props.setBuyerInfo({
@@ -230,7 +236,7 @@ const BuyerInfoScreen = (props) => {
               borderRadius={10}
               borderColor={COLORS.LIGHT_GREY}
               onPressButton={() =>
-                props.onPressTicketResp(props.buyTicketModal - 2)
+                props.setBuyTicketModal(props.buyTicketModal - 2)
               }
             />
             <MainButton

@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Linking, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { View } from "react-native";
 import apiEndPoints from "../../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../../Utils/httpClient";
 import MenuPageView from "./components/MenuPageView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
-import AsyncStorage from "@react-native-community/async-storage";
 import { businessPageObj } from "../../../../../Utils/staticData";
 import { AuthContext, UserContext } from "../../../../../Utils/UserContext";
 import QuestionModal from "../../../../../Components/Modal/questionModal";

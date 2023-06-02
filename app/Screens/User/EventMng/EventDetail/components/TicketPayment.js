@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import styles from "./styles";
 import moment from "moment";
-import Button from "../../../../../Components/Button";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { CardField } from "@stripe/stripe-react-native";
 import CountDown from "react-native-countdown-component";
-import Input from "../../../../../Components/Input";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
 import MainHeader from "../../../../../Components/MainHeader";
 import MainInput from "../../../../../Components/MainInput";
 import MainButton from "../../../../../Components/MainButton";
+import QuestionModal from "../../../../../Components/Modal/questionModal";
 
 const TicketPaymentScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
@@ -89,6 +88,12 @@ const TicketPaymentScreen = (props) => {
               </ScaleText>
               <CardField
                 postalCodeEnabled={true}
+                dangerouslyGetFullCardDetails={
+                  props.buyerInfo?.validNumber === "Valid" &&
+                  props.buyerInfo?.validExpiryDate === "Valid"
+                    ? true
+                    : false
+                }
                 placeholders={{
                   number: "Number",
                   expiration: "Expiry",
@@ -108,6 +113,7 @@ const TicketPaymentScreen = (props) => {
                     validCVC: cardDetails.validCVC,
                     validExpiryDate: cardDetails.validExpiryDate,
                     validNumber: cardDetails.validNumber,
+                    cvc: cardDetails?.cvc,
                   });
                 }}
               />
@@ -119,7 +125,7 @@ const TicketPaymentScreen = (props) => {
                   <MainInput
                     placeholder=""
                     keyboardType={"number-pad"}
-                    height={45}
+                    height={40}
                     header={false}
                     borderRadius={8}
                     onChangeText={(text) => {
@@ -193,13 +199,23 @@ const TicketPaymentScreen = (props) => {
               txtColor={COLORS.WHITE}
               borderColor={COLORS.TRANSPARENT}
               buttonTxt={"Pay"}
-              onPressButton={() => {
-                // props.paymentForTicket();
-                // props.onPressTicketResp(2);
-              }}
+              onPressButton={() => props.paymentForTicket()}
             />
           </View>
         </View>
+        <QuestionModal
+          surringVisible={props.downloadModal}
+          spaceFromTop={true}
+          message={
+            "You sccessfully booked the tickets. You can download your tickets from your email or from abbyPages ticket history"
+          }
+          modalType={""}
+          positiveTxt={"Ok"}
+          negativeTxt={"Download Now"}
+          negativeResponse={() => props.onPressDownload()}
+          positiveResponse={() => props.setDownloadModal(false)}
+          cancelModel={() => props.setDownloadModal(false)}
+        />
       </PageScroll>
     </>
   );

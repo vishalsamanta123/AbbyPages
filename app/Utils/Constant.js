@@ -88,7 +88,7 @@ export const FONT_SIZE = {
 
 export const Constants = {
   normalBW: 0.3,
-  standardBW: 0.5,
+  standardBW: 0.8,
   dot: "\u2B24",
   Ios: Platform.OS === "ios",
   TIME_DATE_FORMAT: "MMMM DD YYYY",
