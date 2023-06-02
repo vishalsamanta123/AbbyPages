@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginRight: 20,
     marginTop: 10,
+    marginBottom: 10
   },
   locationtxt: {
     fontSize: FONT_SIZE.smallL,
@@ -79,21 +80,30 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   productTouch: {
-    backgroundColor: COLORS.LIGHT_WHITE,
-    padding: 10,
-    borderRadius: 10,
-    justifyContent: "center",
-    marginTop: 10,
-    marginHorizontal: 5,
+    // padding: 10,
+    // borderRadius: 10,
+    // justifyContent: "center",
+    // marginTop: 10,
+    // marginHorizontal: 5,
+    margin: 2,
+    flex: 1
   },
   productImage: {
-    height: 150,
-    // width: 150,
-    width: Constants.windowWidth / 2.5,
-    borderRadius: 10,
+    height: Constants.windowHeight/ 4,
+    width: '100%',
+    // width: Constants.windowWidth / 2,
+    // borderRadius: 10,
   },
   productTxt: {
     width: Constants.windowWidth / 2.5,
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  catTxt: {
+    width: Constants.windowWidth / 2.5,
+    fontSize: FONT_SIZE.smallL,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY
   },
   outOfTxt: {
     width: Constants.windowWidth / 2.5,
@@ -102,7 +112,11 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
     marginTop: 5,
   },
-  productPriceTxt: {},
+  productPriceTxt: {
+    fontSize: FONT_SIZE.normal,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.GREY,
+  },
 });
 
 export default styles;

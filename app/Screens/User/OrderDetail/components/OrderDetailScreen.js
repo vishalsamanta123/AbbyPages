@@ -14,6 +14,7 @@ import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import ItemOrderDetails from "./ItemOrderDetails";
 import JobOrderDetails from "./JobOrderDetails";
+import RestroOrderDetails from "./RestroOrderDetails";
 
 const OrderDetailScreen = (props) => {
   // const _handleItemList = (item, index) => {
@@ -210,21 +211,28 @@ const OrderDetailScreen = (props) => {
   // );
   return (
     <>
-      {props.orderDetail?.business_type === 2 ? (
-        <ItemOrderDetails
+      {props.orderDetail?.business_type === 1 ? (
+        <RestroOrderDetails
           orderDetail={props.orderDetail}
           setCancelOrder={props.setCancelOrder}
           onPressInvoice={props.onPressInvoice}
         />
-      ) : props.orderDetail?.business_type === 5 ? (
-        <JobOrderDetails
-          orderDetail={props.orderDetail}
-          setCancelOrder={props.setCancelOrder}
-          onPressInvoice={props.onPressInvoice}
-        />
-      ) : (
-        <></>
-      )}
+      ) :
+        props.orderDetail?.business_type === 2 ? (
+          <ItemOrderDetails
+            orderDetail={props.orderDetail}
+            setCancelOrder={props.setCancelOrder}
+            onPressInvoice={props.onPressInvoice}
+          />
+        ) : props.orderDetail?.business_type === 5 ? (
+          <JobOrderDetails
+            orderDetail={props.orderDetail}
+            setCancelOrder={props.setCancelOrder}
+            onPressInvoice={props.onPressInvoice}
+          />
+        ) : (
+          <></>
+        )}
     </>
   );
 };

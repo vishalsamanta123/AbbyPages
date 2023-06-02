@@ -11,6 +11,7 @@ import Error from "../../../Components/Modal/showMessage";
 import QuestionModal from "../../../Components/Modal/questionModal";
 import { apiCall } from "../../../Utils/httpClient";
 import { useFocusEffect } from "@react-navigation/native";
+import ShowMessage from "../../../Components/Modal/showMessage";
 const OrderDetailIndex = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -24,11 +25,16 @@ const OrderDetailIndex = ({ route, navigation }) => {
   const [showPdf, setShowPdf] = useState(false);
   const [filePath, setfilePath] = useState("");
   const [dataForPdf, setDataForPdf] = useState("");
-
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   useFocusEffect(
     React.useCallback(() => {
       if (route.params) {
         const { OrderDetail } = route.params;
+        console.log('OrderDetail: ', OrderDetail);
         getOrderDetail(OrderDetail);
       }
       return () => {};
@@ -42,15 +48,20 @@ const OrderDetailIndex = ({ route, navigation }) => {
         business_type: orderDetail.business_type,
         order_booking_type: orderDetail.order_booking_type,
       };
+      console.log('params: ', params);
+
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.BUSINESS_ITEM_ORDER_DETAILS,
         params
       );
+      console.log('data: ', data);
+
       if (data.status === 200) {
         setOrderDetail(data.data);
         setVisible(false);
       } else {
+        setOrderDetail({})
         setErrorMessage(data.message);
         setVisible(false);
         setVisibleErr(true);
@@ -164,6 +175,19 @@ const OrderDetailIndex = ({ route, navigation }) => {
         surringVisible={showPdf}
         positiveResponse={() => onPressDownload(filePath)}
         negativeResponse={() => setShowPdf(false)}
+      />
+      <ShowMessage
+        visible={messageShow?.visible || visibleErr}
+        message={messageShow?.message || errorMessage}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+          setVisibleErr(false);
+        }}
       />
     </View>
   );

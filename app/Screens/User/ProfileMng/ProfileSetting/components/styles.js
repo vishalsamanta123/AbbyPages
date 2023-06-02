@@ -22,7 +22,7 @@ const Styles = StyleSheet.create({
     flex: 0.5,
     flexDirection: "row",
     alignItems: "center",
-    paddingLeft: 15,
+    paddingLeft: 10,
   },
   TextContainer: {
     flex: 4.5,

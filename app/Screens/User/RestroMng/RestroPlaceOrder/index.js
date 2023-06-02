@@ -18,6 +18,7 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const RestroPlaceOrder = ({ navigation, route }) => {
   const { orderData } = route.params
+  console.log('orderData: ', orderData);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visibleErr, setVisibleErr] = useState(false);
@@ -171,7 +172,8 @@ const RestroPlaceOrder = ({ navigation, route }) => {
       if (orderData !== "") {
         const params = {
           business_type: 1,
-          business_id: orderData.business_id,
+          // business_id: orderData.business_id,
+          business_id: cartData[0]?.business_id,
           delivery_type: orderData.delivery_type,
           item: cartData,
           first_name: orderData.first_name,
@@ -189,6 +191,8 @@ const RestroPlaceOrder = ({ navigation, route }) => {
           total_amount: totalAmount,
           order_booking_type: 1,
         };
+        console.log('params: ', params);
+
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.BUSINESS_ITEM_ORDER,

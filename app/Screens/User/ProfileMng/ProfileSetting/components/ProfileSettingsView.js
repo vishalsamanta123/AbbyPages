@@ -15,6 +15,7 @@ import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
+import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 
 const ProfileSettingsView = (props) => {
   return (
@@ -36,9 +37,10 @@ const ProfileSettingsView = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image
-                  style={{ width: 18, height: 18 }}
-                  source={Images.PROFILE_IMG}
+                <IconX
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"user"}
+                  size={35}
                 />
               </View>
               <View style={styles.TextContainer}>
@@ -54,7 +56,11 @@ const ProfileSettingsView = (props) => {
                 style={styles.container}
               >
                 <View style={styles.CameraImgView}>
-                  <Image source={Images.LOCK_IMG} />
+                  <IconX
+                    origin={ICON_TYPE.EVIL_ICONS}
+                    name={"lock"}
+                    size={35}
+                  />
                 </View>
                 <View style={styles.TextContainer}>
                   <ScaleText style={styles.AddPhotosTxt}>Password</ScaleText>
@@ -69,7 +75,11 @@ const ProfileSettingsView = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image source={Images.ENVELOPE_IMG} />
+                <IconX
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"envelope"}
+                  size={35}
+                />
               </View>
               <View style={styles.TextContainer}>
                 <ScaleText style={styles.AddPhotosTxt}>
@@ -85,7 +95,11 @@ const ProfileSettingsView = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image source={Images.LOCATION_IMG} />
+                <IconX
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"location"}
+                  size={35}
+                />
               </View>
               <View style={styles.TextContainer}>
                 <ScaleText style={styles.AddPhotosTxt}>Locations</ScaleText>
@@ -99,7 +113,11 @@ const ProfileSettingsView = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image source={Images.LOCATION_IMG} />
+                <IconX
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"clock"}
+                  size={35}
+                />
               </View>
               <View style={styles.TextContainer}>
                 <ScaleText style={styles.AddPhotosTxt}>Order history</ScaleText>
@@ -113,7 +131,11 @@ const ProfileSettingsView = (props) => {
               style={styles.container}
             >
               <View style={styles.CameraImgView}>
-                <Image source={Images.SETTING_IMG} />
+                <IconX
+                  origin={ICON_TYPE.EVIL_ICONS}
+                  name={"gear"}
+                  size={35}
+                />
               </View>
               <View style={styles.TextContainer}>
                 <ScaleText style={styles.AddPhotosTxt}>Settings</ScaleText>
@@ -132,8 +154,8 @@ const ProfileSettingsView = (props) => {
               About{" "}
               {props.userProfileData &&
                 props.userProfileData.first_name +
-                  " " +
-                  props.userProfileData.last_name}
+                " " +
+                props.userProfileData.last_name}
             </ScaleText>
             <View style={styles.LocationView}>
               <ScaleText style={styles.LoctionTextStyle}>Location</ScaleText>

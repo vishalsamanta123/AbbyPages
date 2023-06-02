@@ -47,7 +47,7 @@ const MarketplaceView = (props) => {
     );
   };
   const renderProductList = (item, index) => {
-  console.log('item: ', item);
+    console.log('item?.product_specification?.category?.category_name: ', JSON.parse(item?.product_specification)?.category?.category_name);
     return (
       <TouchableOpacity
         style={styles.productTouch}
@@ -56,6 +56,7 @@ const MarketplaceView = (props) => {
         <ImageBackground
           source={{ uri: item.product_image }}
           style={styles.productImage}
+          resizeMode="cover"
         >
           <TouchableOpacity
             style={{ margin: 5 }}
@@ -72,17 +73,20 @@ const MarketplaceView = (props) => {
             />
           </TouchableOpacity>
         </ImageBackground>
-        {item?.quantity <= 0 && 
-        <ScaleText style={styles.outOfTxt}>Out of Stock</ScaleText>}
-        <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
-        <ScaleText style={styles.productPriceTxt}>
-          ${getAmount(item.final_price)}
-        </ScaleText>
+        <View style={{marginVertical: 10, marginHorizontal: 10}}>
+          <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
+          <ScaleText style={styles.catTxt}>{JSON.parse(item?.product_specification)?.category?.category_name}</ScaleText>
+          <ScaleText style={styles.productPriceTxt}>
+            ${getAmount(item.final_price)}
+          </ScaleText>
+          {item?.quantity <= 0 &&
+            <ScaleText style={styles.outOfTxt}>Out of Stock</ScaleText>}
+        </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View style={[CommonStyles.container, { paddingHorizontal: 10 }]}>
+    <View style={[CommonStyles.container, { paddingHorizontal: 0 }]}>
       <MainHeader
         headerText={"Marketplace"}
         isSearch={false}
@@ -149,7 +153,7 @@ const MarketplaceView = (props) => {
             showsVerticalScrollIndicator={false}
           />
         </View>
-        <View style={{ alignItems: "center" }}>
+        <View style={{}}>
           <FlatList
             data={productList}
             renderItem={({ item, index }) => renderProductList(item, index)}
