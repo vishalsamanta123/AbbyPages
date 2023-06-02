@@ -71,7 +71,7 @@ const QuestionModal = (props) => {
             <View style={styles.modalVw}>
               <View style={styles.closeModalVw}>
                 <TouchableOpacity onPress={cancelModel}>
-                  <IconX origin={ICON_TYPE.ENTYPO} name={"cross"} size={35} />
+                  <IconX origin={ICON_TYPE.ENTYPO} name={"cross"} size={30} />
                 </TouchableOpacity>
               </View>
               {quesImg ? (
@@ -80,26 +80,30 @@ const QuestionModal = (props) => {
                   style={{ width: 45, height: 45, alignSelf: "center" }}
                 />
               ) : null}
-              <ScaleText style={styles.topMssgTxt}>{topMessage}</ScaleText>
+              {topMessage === "" ? (
+                <ScaleText style={styles.topMssgTxt}>{topMessage}</ScaleText>
+              ) : null}
               <ScaleText style={styles.confrTxt}>{message}</ScaleText>
-              <MainButton
-                borderRadius={10}
-                onPressButton={positiveResponse}
-                buttonTxt={positiveTxt}
-                marginTop={14}
-                paddingHeight={14}
-                borderColor={COLORS.GREY}
-                txtColor={COLORS.GREY}
-              />
-              <MainButton
-                borderRadius={10}
-                onPressButton={negativeResponse}
-                buttonTxt={negativeTxt}
-                marginTop={14}
-                paddingHeight={14}
-                borderColor={COLORS.GREY}
-                txtColor={COLORS.GREY}
-              />
+              <View style={{ marginHorizontal: 16 }}>
+                <MainButton
+                  borderRadius={10}
+                  onPressButton={positiveResponse}
+                  buttonTxt={positiveTxt}
+                  marginTop={14}
+                  paddingHeight={14}
+                  borderColor={COLORS.GREY}
+                  txtColor={COLORS.GREY}
+                />
+                <MainButton
+                  borderRadius={10}
+                  onPressButton={negativeResponse}
+                  buttonTxt={negativeTxt}
+                  marginTop={14}
+                  paddingHeight={14}
+                  borderColor={COLORS.GREY}
+                  txtColor={COLORS.GREY}
+                />
+              </View>
             </View>
           </View>
         </Modal>
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.4)",
     justifyContent: "center",
-    padding: 10
+    padding: 10,
   },
   normalModalVw: {
     backgroundColor: COLORS.WHITE,
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_BLACK,
-    textAlign: 'center'
+    textAlign: "center",
   },
   normalConfrTxt: {
     fontSize: FONT_SIZE.medium,
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_BLACK,
-    marginTop: 8,
+    marginTop: 10,
   },
   modalBttnVw: {
     backgroundColor: "transparent",
@@ -182,7 +186,7 @@ const styles = StyleSheet.create({
   closeModalVw: {
     position: "absolute",
     right: 0,
-    marginVertical: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 2,
+    marginBottom: 10,
   },
 });

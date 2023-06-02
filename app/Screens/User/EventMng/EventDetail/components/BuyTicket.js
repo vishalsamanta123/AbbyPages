@@ -84,32 +84,28 @@ const BuyTicketScreen = (props) => {
       <Modal transparent visible={pressInfo?.item ? true : false}>
         <View style={styles.modalVw}>
           <View style={styles.detailInfoVw}>
-            <View
-              style={[
-                CommonStyles.straightCon,
-                { justifyContent: "space-between" },
-              ]}
-            >
-              <ScaleText style={[styles.titleTxt, { marginLeft: 0 }]}>
+            <View style={styles.straightStyl}>
+              {/* <View style={{ marginRight: 25 }} /> */}
+              <ScaleText style={styles.modalTopTxt}>
                 Ticket Discription
               </ScaleText>
               <TouchableOpacity onPress={() => setPressInfo({})}>
-                <ScaleText>Close</ScaleText>
+                <ScaleText style={styles.modalTopTxt}>Close</ScaleText>
               </TouchableOpacity>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>Ticket Name:</ScaleText>
               <ScaleText style={styles.detailInfoTxt}>
                 {item?.ticket_title}
               </ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>Ticket Price:</ScaleText>
               <ScaleText style={styles.detailInfoTxt}>
                 {item?.ticket_price}
               </ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>
                 Available Quantity:
               </ScaleText>
@@ -117,19 +113,19 @@ const BuyTicketScreen = (props) => {
                 {item?.other?.quantity}
               </ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>
                 Buy max Quantity:
               </ScaleText>
               <ScaleText style={styles.detailInfoTxt}>{1}</ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>
                 Ticket Transferable:
               </ScaleText>
               <ScaleText style={styles.detailInfoTxt}>{"Yes"}</ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>
                 Ticket start sale time:
               </ScaleText>
@@ -139,7 +135,7 @@ const BuyTicketScreen = (props) => {
                 )}
               </ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={styles.detailInfoTxtVw}>
               <ScaleText style={styles.detailInfoTxt}>
                 Ticket end sale time:
               </ScaleText>
@@ -149,7 +145,7 @@ const BuyTicketScreen = (props) => {
                 )}
               </ScaleText>
             </View>
-            <View style={CommonStyles.straightCon}>
+            <View style={[styles.detailInfoTxtVw, { borderBottomWidth: 0 }]}>
               <ScaleText style={styles.detailInfoTxt}>Description:</ScaleText>
               <ScaleText style={styles.detailInfoTxt}>
                 {item?.other?.ticket_description}
@@ -160,12 +156,30 @@ const BuyTicketScreen = (props) => {
       </Modal>
     );
   };
+
+  const findSaleEndDate = (date, time) => {
+    console.log("time: ", time);
+    console.log("date: ", date);
+    // const combinedateAndTime = (date?.toString()+ +time?.toString())?.toString();
+    const combinedateAndTime = `${date?.toString()} ${time?.toString()}`
+    console.log("combinedateAndTime: ", combinedateAndTime);
+    const currentTime = Date.now();
+    const unixOfTicketEndDate = Math.floor(
+      new Date(combinedateAndTime).getTime() / 1000
+    );
+    if (unixOfTicketEndDate > currentTime) {
+      return date.format(Constants.SH_TIME_DATE_FORMAT);
+    } else {
+      return "Sale End";
+    }
+  };
   return (
     <>
       <MainHeader
         onPressBack={() => props.setBuyTicketModal("")}
         headerText={"Buy Ticket"}
         notifyIcon={false}
+        backText={false}
         TxtMarginRight={"8%"}
       />
       <PageScroll>
@@ -225,7 +239,7 @@ const BuyTicketScreen = (props) => {
                                 paddingLeft={10}
                                 paddingRight={10}
                                 color={COLORS.RGBA}
-                                size={20}
+                                size={18}
                               />
                             </TouchableOpacity>
                           </View>
@@ -233,40 +247,50 @@ const BuyTicketScreen = (props) => {
                             $ {getAmount(item?.ticket_price)}
                           </ScaleText>
                         </View>
-                        <View style={{ flex: 1, alignItems: "flex-end" }}>
-                          <AddMinusView
-                            colorMin={COLORS.YELLOW}
-                            colorMax={COLORS.YELLOW}
-                            minVal={0}
-                            value={getqty(item)}
-                            height={36}
-                            onPressAdd={(val) => {
-                              addProductOnCart(item, val, index);
-                              const newObj = {
-                                ...props.ticketsType[index],
-                                total_price: item?.ticket_price * val,
-                                ticket_quantity: val,
-                              };
-                              const newArray = [...props.ticketsType];
-                              newArray[index] = newObj;
-                              props.setTicketsType(newArray);
-                            }}
-                            onPressMinus={(val) => {
-                              removeFromCart(item, val, index);
-                              const newObj = {
-                                ...props.ticketsType[index],
-                                total_price: item?.ticket_price * val,
-                                ticket_quantity: val,
-                              };
-                              const newArray = [...props.ticketsType];
-                              newArray[index] = newObj;
-                              props.setTicketsType(newArray);
-                            }}
-                          />
-                          <ScaleText style={styles.smallTxt}>
-                            Total Amount:{" "}
-                            {item?.total_price ? item?.total_price : "0.00"}
-                          </ScaleText>
+                        <View>
+                          {findSaleEndDate() !== "Sale End" ? (
+                            <View style={{ flex: 1, alignItems: "flex-end" }}>
+                              <AddMinusView
+                                colorMin={COLORS.YELLOW}
+                                colorMax={COLORS.YELLOW}
+                                minVal={0}
+                                value={getqty(item)}
+                                height={36}
+                                onPressAdd={(val) => {
+                                  addProductOnCart(item, val, index);
+                                  const newObj = {
+                                    ...props.ticketsType[index],
+                                    total_price: item?.ticket_price * val,
+                                    ticket_quantity: val,
+                                  };
+                                  const newArray = [...props.ticketsType];
+                                  newArray[index] = newObj;
+                                  props.setTicketsType(newArray);
+                                }}
+                                onPressMinus={(val) => {
+                                  removeFromCart(item, val, index);
+                                  const newObj = {
+                                    ...props.ticketsType[index],
+                                    total_price: item?.ticket_price * val,
+                                    ticket_quantity: val,
+                                  };
+                                  const newArray = [...props.ticketsType];
+                                  newArray[index] = newObj;
+                                  props.setTicketsType(newArray);
+                                }}
+                              />
+                              <ScaleText style={styles.smallTxt}>
+                                Total Amount:{" "}
+                                {item?.total_price ? item?.total_price : "0.00"}
+                              </ScaleText>
+                            </View>
+                          ) : (
+                            <View style={styles.emptySale}>
+                              <ScaleText style={{ color: COLORS.LIGHT_RED }}>
+                                Sale End
+                              </ScaleText>
+                            </View>
+                          )}
                         </View>
                       </View>
                       <View
@@ -275,27 +299,42 @@ const BuyTicketScreen = (props) => {
                           { justifyContent: "space-between" },
                         ]}
                       >
-                        <ScaleText style={styles.ticketSubTxt}>
+                        {console.log("item?.other: ", item?.other)}
+                        {/* <ScaleText style={styles.ticketSubTxt}>
                           Sale End On:{" "}
                           {item?.other?.ticket_sale_end_date
                             ? moment(item?.other?.ticket_sale_end_date).format(
                                 Constants.SH_TIME_DATE_FORMAT
                               )
                             : "Not Found"}
-                        </ScaleText>
-                        <ScaleText
-                          style={[
-                            styles.ticketSubTxt,
-                            { fontSize: FONT_SIZE.verysmall },
-                          ]}
-                        >
-                          Ticket Availablity:{" "}
-                          {item?.other?.quantity
-                            ? Number(item?.other?.quantity) > 1000
-                              ? "1000+"
-                              : Number(item?.other?.quantity)
-                            : "0"}
-                        </ScaleText>
+                        </ScaleText> */}
+                        {findSaleEndDate(
+                          item?.other?.ticket_sale_end_date,
+                          item?.other?.ticket_end_sale_time
+                        ) !== "Sale End" && (
+                          <ScaleText style={styles.ticketSubTxt}>
+                            Sale End On:
+                            {findSaleEndDate(
+                              item?.other?.ticket_sale_end_date,
+                              item?.other?.ticket_end_sale_time
+                            )}
+                          </ScaleText>
+                        )}
+                        {findSaleEndDate() !== "Sale End" && (
+                          <ScaleText
+                            style={[
+                              styles.ticketSubTxt,
+                              { fontSize: FONT_SIZE.verysmall },
+                            ]}
+                          >
+                            Ticket Availablity:{" "}
+                            {item?.other?.quantity
+                              ? Number(item?.other?.quantity) > 1000
+                                ? "1000+"
+                                : Number(item?.other?.quantity)
+                              : "0"}
+                          </ScaleText>
+                        )}
                       </View>
                     </View>
                   );
@@ -303,7 +342,7 @@ const BuyTicketScreen = (props) => {
                 ItemSeparatorComponent={() => {
                   return (
                     <>
-                      {pressInfo?.item ? (
+                      {pressInfo?.item?.ticket_title ? (
                         <DetailInfo item={pressInfo?.item} />
                       ) : null}
                     </>

@@ -12,6 +12,8 @@ import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import { UserContext } from "../../../../Utils/UserContext";
+import { Regexs } from "../../../../Utils/Constant";
+import { OpenDoc } from "../../../../Utils/Globalfunctions";
 
 const EventDetail = ({ navigation, route }) => {
   const getData = route?.params;
@@ -43,9 +45,11 @@ const EventDetail = ({ navigation, route }) => {
     validCVC: "",
     validExpiryDate: "",
     validNumber: "",
+    cvc: "",
     dis_code: "",
   });
   const [percentage, setPercentage] = useState(0);
+  const [downloadModal, setDownloadModal] = useState(false);
   const couts = percentage * 0.16;
   const IncreasePercentage =
     100 * Math.abs((60 * 10 - percentage) / ((60 * 10 + percentage) / 2));
@@ -58,6 +62,10 @@ const EventDetail = ({ navigation, route }) => {
       if (getData?.item?.event_id) {
         getEventDetails(getData?.item?.event_id);
         setBuyTicketModal("");
+        const unsubscribe = navigation.addListener("blur", () => {
+          onPressCancelTick();
+        });
+        return unsubscribe;
       }
     }, [navigation, getData?.item?.event_id])
   );
@@ -72,7 +80,8 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.GET_EVENT_DETAILS,
         params
-      );
+        );
+        console.log('data: GET_EVENT_DETAILS ', data);
       if (data.status === 200) {
         getBusinessDetail(data?.data);
       } else {
@@ -92,7 +101,7 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.BUSINESSDETAILSBYNAME,
         params
-      );
+        );
       if (data.status === 200) {
         const newData = { ...itemData, ...data?.data };
         setEventDetails(newData);
@@ -184,6 +193,8 @@ const EventDetail = ({ navigation, route }) => {
       last_name: "",
       email: "",
       address: "",
+      latitude: "",
+      longitude: "",
       phoneNo: "",
       brand: "",
       expiryMonth: "",
@@ -192,108 +203,208 @@ const EventDetail = ({ navigation, route }) => {
       postalCode: "",
       validCVC: "",
       validExpiryDate: "",
+      cvc: "",
       validNumber: "",
       dis_code: "",
     });
     setTotalAmount("");
+    setTicketAdded([]);
   };
-  const onPressTicketResp = (resp) => {
-    if (resp <= 4) {
+
+  const handleValidation = () => {
+    if (buyTicketModal === 1) {
       if (ticketAdded?.length === 0) {
         setMessageShow({
           type: "error",
           message: "Please Add Ticket",
           visible: true,
         });
-      } else {
-        setBuyTicketModal(resp);
+        return false;
+      }
+    } else if (buyTicketModal === 3) {
+      if (buyerInfo?.first_name === "") {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter First Name",
+          visible: true,
+        });
+        return false;
+      } else if (buyerInfo?.last_name === "") {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter Last Name",
+          visible: true,
+        });
+        return false;
+      } else if (buyerInfo?.email === "") {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter Email",
+          visible: true,
+        });
+        return false;
+      } else if (Regexs.emailRegex?.test(buyerInfo?.email) === false) {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter Email Correctly",
+          visible: true,
+        });
+        return false;
+      } else if (buyerInfo?.address === "") {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter Address",
+          visible: true,
+        });
+        return false;
+      } else if (buyerInfo?.phoneNo === "") {
+        setMessageShow({
+          type: "error",
+          message: "Please Enter Phone Number",
+          visible: true,
+        });
+        return false;
+      }
+    } else if (buyTicketModal === 4) {
+      if (buyerInfo.validNumber !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter card number correctly",
+          type: "error",
+        });
+        return false;
+      } else if (buyerInfo.brand !== "Visa") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter card number starts from 42",
+          type: "error",
+        });
+        return false;
+      } else if (buyerInfo.validExpiryDate !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter correct expiry date",
+          type: "error",
+        });
+        return false;
+      } else if (buyerInfo.validCVC !== "Valid") {
+        setMessageShow({
+          visible: true,
+          message: "Please enter correct cvc number",
+          type: "error",
+        });
+        return false;
+      } else if (buyerInfo.postalCode === "" || null) {
+        setMessageShow({
+          visible: true,
+          message: "Please enter postal code card details",
+          type: "error",
+        });
+        return false;
+      }
+    }
+    return true;
+  };
+  const onPressTicketResp = (resp) => {
+    const valid = handleValidation();
+    if (valid) {
+      setBuyTicketModal(resp);
+    }
+  };
+
+  const paymentForTicket = async () => {
+    const valid = handleValidation();
+    if (valid) {
+      try {
+        setLoader(true);
+        const params = {
+          amount: totalAmount ? Number(totalAmount) : "0.00",
+          email: buyerInfo.email,
+          user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
+          card_number: "424242424242" + buyerInfo.last4,
+          exp_month: buyerInfo.expiryMonth.toString(),
+          exp_year: buyerInfo.expiryYear.toString(),
+          zipcode: buyerInfo.postalCode,
+          business_id: eventDetails?.business_id,
+          business_type: eventDetails?.business_type?.toString()?.split(",")[0],
+          cvc: buyerInfo?.cvc,
+        };
+        const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
+        if (data.status === 200) {
+          handleBuyTicket(data?.data);
+        } else {
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
+          setLoader(false);
+        }
+      } catch (error) {
+        setLoader(false);
       }
     }
   };
-  const handleBuyTicket = async (resp) => {
-    onPressTicketResp(3);
-    // try {
-    //   setLoader(true);
-    //   const tickets_details = ticketsDetails.map((item) => {
-    //     return {
-    //       ticket_type_id: item.ticket_id,
-    //       ticket_amount: item.ticket_amount,
-    //       ticket_user_name: item.cand_firstName + "" + item.cand_lastName,
-    //       user_email: item.cand_email,
-    //       user_phone: item.cand_phoneNo,
-    //       country_code: item.can_countrycode,
-    //       address: item.cand_address,
-    //       latitude: item.cand_lat,
-    //       longitude: item.cand_long,
-    //     };
-    //   });
-    //   const params = {
-    //     event_id: eventDetails?.event_id,
-    //     total_ticket_book: Number(ticketsDetails?.length),
-    //     total_ticket_amount: totalAmount
-    //       ? Number(totalAmount)
-    //       : Number(ticketsData[0].total_amount),
-    //     tickets_details: JSON.stringify(tickets_details),
-    //   };
-    //   const { data } = await apiCall(
-    //     "POST",
-    //     ENDPOINTS.BUY_EVENT_TICKET,
-    //     params
-    //   );
-    //   if (data.status === 200) {
-    //     setLoader(false);
-    //     ToastAndroid.show(data.message, ToastAndroid.LONG);
-    //     onPressTicketResp(3);
-    //     setTicketList(data.data);
-    //     const result = data.data.map(({ ticket_id }) => ticket_id);
-    //     setTicketIds(result);
-    //   } else {
-    //     setLoader(false);
-    //     ToastAndroid.show(data.message, ToastAndroid.LONG);
-    //   }
-    // } catch (error) {
-    //   ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
-    //   setLoader(false);
-    // }
+
+  const handleBuyTicket = async (paymentData) => {
+    try {
+      const tickets_details = ticketAdded.map((item) => {
+        return {
+          ticket_type_id: item.ticket_id,
+          ticket_amount: item.ticket_amount,
+          ticket_user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
+          user_email: buyerInfo.email,
+          user_phone: buyerInfo.phoneNo,
+          country_code: buyerInfo.country_code,
+          address: buyerInfo.address,
+          latitude: buyerInfo.latitude,
+          longitude: buyerInfo.longitude,
+        };
+      });
+      const params = {
+        event_id: eventDetails?.event_id,
+        total_ticket_book: ticketAdded.reduce(
+          (accumulatedTotal, curr) => accumulatedTotal + curr.ticket_quantity,
+          0
+        ),
+        total_ticket_amount: totalAmount ? Number(totalAmount) : "0.00",
+        tickets_details: JSON.stringify(tickets_details),
+      };
+      const { data } = await apiCall(
+        "POST",
+        ENDPOINTS.EVENT_TICKET_BOOK,
+        params
+      );
+      if (data.status === 200) {
+        eventPaymentProcess(paymentData, data.data);
+      } else {
+        setLoader(false);
+        setMessageShow({
+          visible: true,
+          message: data?.message,
+          type: "error",
+        });
+      }
+    } catch (error) {
+      setLoader(false);
+      setMessageShow({
+        visible: true,
+        message: error?.message,
+        type: "error",
+      });
+    }
   };
-  const paymentForTicket = async () => {
-    // try {
-    //   setLoader(true);
-    //   const params = {
-    //     amount: totalAmount
-    //       ? Number(totalAmount)
-    //       : Number(ticketsData[0].total_amount),
-    //     email: buyerInfo.email,
-    //     user_name: buyerInfo.first_name + " " + buyerInfo.last_name,
-    //     card_number: "424242424242" + buyerInfo.last4,
-    //     exp_month: buyerInfo.expiryMonth.toString(),
-    //     exp_year: buyerInfo.expiryYear.toString(),
-    //     zipcode: buyerInfo.postalCode,
-    //   };
-    //   const { data } = await apiCall("POST", ENDPOINTS.ORDERPAYMENT, params);
-    //   if (data.status === 200) {
-    //     setLoader(false);
-    //     eventPaymentProcess(data.data);
-    //   } else {
-    //     ToastAndroid.show(data.message.toString(), ToastAndroid.LONG);
-    //     setLoader(false);
-    //   }
-    // } catch (error) {
-    //   ToastAndroid.show(error.message.toString(), ToastAndroid.LONG);
-    //   setLoader(false);
-    // }
-  };
-  const eventPaymentProcess = async (paymentData) => {
+
+  const eventPaymentProcess = async (paymentData, ticketData) => {
+    const ticket_ids = ticketData.map(({ ticket_id }) => ticket_id);
     try {
       setLoader(true);
       const params = {
         event_id: eventDetails.event_id,
         payment_type: "stripe",
-        ticket_id: "",
-        event_book_id: ticketList[0].event_booking_id,
-        payment_amount: totalAmount
-          ? Number(totalAmount)
-          : Number(ticketsData[0].total_amount),
+        ticket_id: ticket_ids?.length > 0 ? ticket_ids?.toString() : "",
+        event_book_id: ticketData[0].event_booking_id,
+        payment_amount: totalAmount ? Number(totalAmount) : "0.00",
         transaction_id: paymentData.id,
       };
       const { data } = await apiCall(
@@ -303,15 +414,63 @@ const EventDetail = ({ navigation, route }) => {
       );
       if (data.status === 200) {
         setLoader(false);
-        setSuccessMessage(data.message);
-        setVisibleSuccess(true);
-        setBuyTicketModal("");
-        onPressCancelTick();
+        setBuyerInfo({
+          first_name: "",
+          last_name: "",
+          email: "",
+          address: "",
+          latitude: "",
+          longitude: "",
+          phoneNo: "",
+          brand: "",
+          expiryMonth: "",
+          expiryYear: "",
+          last4: "",
+          postalCode: "",
+          validCVC: "",
+          validExpiryDate: "",
+          cvc: "",
+          validNumber: "",
+          dis_code: "",
+        });
+        setTotalAmount("");
+        setTicketAdded([]);
+        setMessageShow({
+          visible: true,
+          message: data?.message,
+          type: "success",
+        });
+        setDownloadModal(true);
       } else {
         setLoader(false);
+        setMessageShow({
+          visible: true,
+          message: data?.message,
+          type: "error",
+        });
       }
     } catch (error) {
       setLoader(false);
+      setMessageShow({
+        visible: true,
+        message: error?.message,
+        type: "error",
+      });
+    }
+  };
+  const onPressDownload = async () => {
+    const { data } = await apiCall("POST", ENDPOINTS.GET_USER_EVENT_TICKET);
+    if (data?.status === 200) {
+      const ticketUrl = data?.base_url + "/" + data?.data[0]?.ticket;
+      OpenDoc(ticketUrl);
+      setDownloadModal(false);
+      setBuyTicketModal("");
+    } else {
+      setMessageShow({
+        visible: true,
+        message: data?.message,
+        type: "error",
+      });
     }
   };
   return (
@@ -379,6 +538,9 @@ const EventDetail = ({ navigation, route }) => {
                       setMessageShow={setMessageShow}
                       ticketAdded={ticketAdded}
                       IncreasePercentage={IncreasePercentage}
+                      downloadModal={downloadModal}
+                      setDownloadModal={setDownloadModal}
+                      onPressDownload={onPressDownload}
                     />
                   ) : (
                     <EventDetailView
