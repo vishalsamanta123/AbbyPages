@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   emptyListTxt: {
     bottom: 25,
     fontSize: FONT_SIZE.mediumL,
-    color: COLORS.LIGHT_WHITE,
+    color: COLORS.GREY,
     lineHeight: 25,
     textAlign: "center",
   },
