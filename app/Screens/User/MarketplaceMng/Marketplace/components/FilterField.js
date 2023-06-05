@@ -5,42 +5,70 @@ import ScaleText from "../../../../../Components/ScaleText";
 import styles from "./styles";
 
 const FilterField = (props) => {
+  const {
+    searchData,
+    setSearchData,
+    getProductList
+  } = props
   return (
     <View style={{ marginTop: 6, marginHorizontal: 12 }}>
       <MainInput
         headTxt={"Any Keyword..."}
         placeholder={"Search here..."}
         height={50}
-        // onChangeText={(txt) => {
-        //   props.setFilterData({
-        //     ...props.filterData,
-        //     job_title: txt,
-        //   });
-        // }}
-        // value={props?.filterData?.job_title}
+        onChangeText={(txt) => {
+          setSearchData({
+            ...searchData,
+            search_product: txt,
+          });
+        }}
+        value={searchData?.search_product}
       />
-      <MainInput
-        placeholder={"Search here..."}
-        headTxt={"City..."}
-        height={50}
-        // onChangeText={(txt) => {
-        //   props.setFilterData({
-        //     ...props.filterData,
-        //     city_name: txt,
-        //   });
-        // }}
-        // value={props?.filterData?.city_name}
-      />
+
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <MainInput
+          placeholder={"Search here..."}
+          headTxt={"Price..."}
+          height={50}
+          flex={1}
+          leftTextPlaceholder={"$"}
+          marginHorizontal={10}
+          onChangeText={(txt) => {
+            setSearchData({
+              ...searchData,
+              min_price: txt,
+            });
+          }}
+          value={searchData?.min_price}
+        />
+        <MainInput
+          placeholder={"Search here..."}
+          headTxt={"To..."}
+          height={50}
+          flex={1}
+          leftTextPlaceholder={"$"}
+          marginHorizontal={10}
+
+          onChangeText={(txt) => {
+            setSearchData({
+              ...searchData,
+              max_price: txt,
+            });
+          }}
+          value={searchData?.max_price}
+        />
+      </View>
       <TouchableOpacity
         onPress={() => {
           if (
-            props.filterData?.city_name != "" ||
-            props.filterData?.job_title != ""
+            searchData?.search_product != "" ||
+            searchData?.min_price != "" ||
+            searchData?.max_price != "" 
           ) {
-            // props.handleJobFilter(0, {
-            //   ...props?.filterData,
-            // });
-            // Keyboard.dismiss();
+            getProductList(searchData);
+            Keyboard.dismiss();
+          } else {
+            getProductList({});
           }
         }}
         style={styles.searchBttn}

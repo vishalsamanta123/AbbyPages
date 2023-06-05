@@ -15,9 +15,9 @@ const MainInput = (props) => {
     headTxtBackColor = COLORS.WHITE,
     headTxt = placeholder,
     placeholderTextColor = COLORS.COMMON,
-    onChangeText = () => {},
-    onFocus = () => {},
-    onBlur = () => {},
+    onChangeText = () => { },
+    onFocus = () => { },
+    onBlur = () => { },
     value = "",
     header = true,
     flex = 0,
@@ -36,6 +36,8 @@ const MainInput = (props) => {
     marginTop = 10,
     borderColor = COLORS.GREY,
     multiline = false,
+    leftTextPlaceholder = "",
+    marginHorizontal = 0
   } = props;
   return (
     <View
@@ -48,6 +50,7 @@ const MainInput = (props) => {
           borderRadius: borderRadius,
           marginTop: marginTop,
           borderColor: borderColor,
+          marginHorizontal: marginHorizontal
         },
       ]}
     >
@@ -73,6 +76,9 @@ const MainInput = (props) => {
           />
         </View>
       ) : null}
+      {leftTextPlaceholder != "" ?
+        <ScaleText style={styles.leftTextPlaceholderTxt}>$</ScaleText> : null
+      }
       <TextInput
         style={[
           styles.inputCon,

@@ -13,6 +13,7 @@ import { Constants } from "../../../../../Utils/Constant";
 import CarouselView from "../../../../../Components/CarouselView";
 import GalleryCarousalView from "../../../../../Components/GalleryCarousalView";
 import ShowMessage from "../../../../../Components/Modal/showMessage";
+import Loader from "../../../../../Utils/Loader";
 
 const BusinessGallery = (props) => {
   const {
@@ -125,10 +126,17 @@ const BusinessGallery = (props) => {
         if (data.status == 200) {
           setLoading(false);
           setUploadData(data?.data);
-          setVisible({
-            open: false,
-            type: "",
+          setMessageShow({
+            visible: true,
+            type: "success",
+            message: data?.message,
           });
+          setTimeout(() => {
+            setVisible({
+              open: false,
+              type: "",
+            });
+          }, 2000)
         } else {
           if (data.status === 201) {
             setUploadData({});
@@ -154,6 +162,7 @@ const BusinessGallery = (props) => {
 
   return (
     <Modal visible={visible}>
+      {loading && <Loader state={loading} />}
       <View style={CommonStyles.container}>
         <MainHeader
           isSearch={false}

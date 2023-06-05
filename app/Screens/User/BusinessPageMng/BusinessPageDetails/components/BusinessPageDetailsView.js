@@ -96,7 +96,7 @@ const BusinessPageDetailsView = (props) => {
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${detailData?.latitude},${detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
   const renderPopularDish = (item) => {
     return (
-      <TouchableOpacity style={styles.popularCardTouch}>
+      <TouchableOpacity style={styles.popularCardTouch} onPress={() => props.onPressOrder(1)}>
         <Image source={{ uri: item.image }} style={styles.popularimage} />
         <ScaleText style={styles.popularNameTxt}>{item.item_name}</ScaleText>
         <ScaleText style={styles.popularPrice}>
@@ -117,22 +117,22 @@ const BusinessPageDetailsView = (props) => {
   const take_reservation =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-          ?.split(",")
-          ?.some((amn) => amn == "Takes Reservations")
+        ?.split(",")
+        ?.some((amn) => amn == "Takes Reservations")
       : false;
 
   const offer_takeout =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-          ?.split(",")
-          ?.some((amn) => amn == "Offers Takeout")
+        ?.split(",")
+        ?.some((amn) => amn == "Offers Takeout")
       : false;
 
   const offers_delivery =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-          ?.split(",")
-          ?.some((amn) => amn == "Offers Delivery")
+        ?.split(",")
+        ?.some((amn) => amn == "Offers Delivery")
       : false;
 
   const outdoor_seating =
@@ -163,7 +163,7 @@ const BusinessPageDetailsView = (props) => {
         {considr?.goal !== "3" ? (
           <TouchableOpacity
             style={styles.considrVw}
-            // onPress={() => props.handleConsiderPress(considr)}
+          // onPress={() => props.handleConsiderPress(considr)}
           >
             <View style={CommonStyles.straightCon}>
               <Image
@@ -201,7 +201,7 @@ const BusinessPageDetailsView = (props) => {
           <View>
             <TouchableOpacity
               style={styles.considrVw}
-              // onPress={() => props.handleConsiderPress(considr)}
+            // onPress={() => props.handleConsiderPress(considr)}
             >
               <View style={CommonStyles.straightCon}>
                 <Image
@@ -362,22 +362,22 @@ const BusinessPageDetailsView = (props) => {
                     {
                       color:
                         detailData?.business_open_time?.closing_day === 1 &&
-                        detailData?.business_open_time?.temporary_close === 1 &&
-                        detailData?.business_open_time?.permanent_close === 1
+                          detailData?.business_open_time?.temporary_close === 1 &&
+                          detailData?.business_open_time?.permanent_close === 1
                           ? COLORS.LIGHT_GREEN
                           : COLORS.LIGHT_RED,
                     },
                   ]}
                 >
                   {detailData?.business_open_time?.closing_day === 1 &&
-                  detailData?.business_open_time?.temporary_close === 1 &&
-                  detailData?.business_open_time?.permanent_close === 1
+                    detailData?.business_open_time?.temporary_close === 1 &&
+                    detailData?.business_open_time?.permanent_close === 1
                     ? "Open Now"
                     : "Closed Now"}
                 </ScaleText>
                 {detailData?.business_open_time?.closing_day === 1 &&
-                detailData?.business_open_time?.temporary_close === 1 &&
-                detailData?.business_open_time?.permanent_close === 1 ? (
+                  detailData?.business_open_time?.temporary_close === 1 &&
+                  detailData?.business_open_time?.permanent_close === 1 ? (
                   <ScaleText style={styles.smallTxt}>
                     {" "}
                     - {detailData?.business_open_time?.timeline}
@@ -785,7 +785,7 @@ const BusinessPageDetailsView = (props) => {
           {detailData?.about_business?.substring(0, 60)}
           {"..."}
         </ScaleText>
-        <TouchableOpacity
+        {detailData?.service_offered ? <View
           style={[
             CommonStyles.straightCon,
             { justifyContent: "space-between", marginTop: 10 },
@@ -803,7 +803,7 @@ const BusinessPageDetailsView = (props) => {
             size={20}
             color={COLORS.BLACK}
           />
-        </TouchableOpacity>
+        </View> : null}
         {detailData?.websites ? (
           <TouchableOpacity
             style={[
@@ -939,7 +939,7 @@ const BusinessPageDetailsView = (props) => {
         </View>
       ) : null}
       {detailData?.business_type?.toString() === "1" &&
-      detailData?.popular_dish?.length > 0 ? (
+        detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
           <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
           <FlatList
@@ -1077,7 +1077,13 @@ const BusinessPageDetailsView = (props) => {
                 size={32}
               />
             </TouchableOpacity>
-            <View style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}>
+            <TouchableOpacity
+              onPress={() =>
+                props.handleNavigation("ReviewRating", {
+                  detailData: detailData,
+                })
+              } 
+              style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}>
               <StarShower
                 ActiveStarColor={COLORS.COMMON}
                 UnActiveStarColor={COLORS.COMMON}
@@ -1096,7 +1102,7 @@ const BusinessPageDetailsView = (props) => {
               >
                 Tap to review....
               </ScaleText>
-            </View>
+            </TouchableOpacity>
           </View>
         )}
         <TouchableOpacity

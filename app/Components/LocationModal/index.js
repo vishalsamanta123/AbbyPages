@@ -97,7 +97,7 @@ const LocationModal = (props) => {
       <View style={{ marginHorizontal: 50, marginBottom: 20 }}>
         <MainButton
           buttonTxt={"Apply"}
-          onPressButton={() => getProductList(searchData)}
+          onPressButton={() => getProductList({...searchData, radius: searchData.radius})}
           borderColor={COLORS.YELLOW}
           txtColor={COLORS.WHITE}
           backgroundColor={COLORS.YELLOW}

@@ -38,5 +38,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 0.1,
   },
+  leftTextPlaceholderTxt:{
+    fontSize: FONT_SIZE.large,
+    color: COLORS.GREY,
+    fontFamily: FONT_FAMILY.REGULAR,
+    marginLeft: 10
+  }
 });
 export default styles;

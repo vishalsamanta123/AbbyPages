@@ -24,12 +24,16 @@ const MarketplaceScreen = ({ navigation, route }) => {
     location: "Orlando, FL, USA",
     radius: 250,
     finalRadius: 250,
+    cat_name: "",
+    min_price: "",
+    max_price: "",
+    search_product: "",
   });
 
   useFocusEffect(
     React.useCallback(() => {
       setSubCategories([]);
-      getProductList(searchData);
+      getProductList({});
     }, [navigation, route])
   );
 
@@ -39,6 +43,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
 
   const handleCategoryPress = async (cat_name) => {
     getProductList({
+      ...searchData,
       cat_name: cat_name,
     });
     try {
@@ -71,10 +76,11 @@ const MarketplaceScreen = ({ navigation, route }) => {
         product_color: null,
         company_brand: null,
         product_size: null,
-        min_price: 0,
-        max_price: null,
+        min_price: info?.min_price,
+        max_price: info?.max_price,
         product_tags: null,
         status: 1,
+        search_product: info?.search_product
       };
       if (typeof info.cat_name === "undefined") {
         setCanGoBack(true);
