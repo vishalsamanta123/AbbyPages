@@ -85,7 +85,6 @@ const BuyTicketScreen = (props) => {
         <View style={styles.modalVw}>
           <View style={styles.detailInfoVw}>
             <View style={styles.straightStyl}>
-              {/* <View style={{ marginRight: 25 }} /> */}
               <ScaleText style={styles.modalTopTxt}>
                 Ticket Discription
               </ScaleText>
@@ -157,22 +156,6 @@ const BuyTicketScreen = (props) => {
     );
   };
 
-  const findSaleEndDate = (date, time) => {
-    console.log("time: ", time);
-    console.log("date: ", date);
-    // const combinedateAndTime = (date?.toString()+ +time?.toString())?.toString();
-    const combinedateAndTime = `${date?.toString()} ${time?.toString()}`
-    console.log("combinedateAndTime: ", combinedateAndTime);
-    const currentTime = Date.now();
-    const unixOfTicketEndDate = Math.floor(
-      new Date(combinedateAndTime).getTime() / 1000
-    );
-    if (unixOfTicketEndDate > currentTime) {
-      return date.format(Constants.SH_TIME_DATE_FORMAT);
-    } else {
-      return "Sale End";
-    }
-  };
   return (
     <>
       <MainHeader
@@ -219,6 +202,30 @@ const BuyTicketScreen = (props) => {
               <FlatList
                 data={props.ticketsType}
                 renderItem={({ item, index }) => {
+                  const findStart = (startDate, startTime) => {
+                    const cobStartTimeDate = `${startDate} ${startTime}`;
+                    const dateTimeUnix = Math.floor(
+                      new Date(cobStartTimeDate).getTime() / 1000
+                    );
+                    const currentTime = moment(new Date()).unix();
+                    if (dateTimeUnix <= currentTime) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  };
+                  const findEnd = (endDate, endTime) => {
+                    const cobStartTimeDate = `${endDate} ${endTime}`;
+                    const dateTimeUnix = Math.floor(
+                      new Date(cobStartTimeDate).getTime() / 1000
+                    );
+                    const currentTime = moment(new Date()).unix();
+                    if (dateTimeUnix >= currentTime) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  };
                   return (
                     <View style={styles.ticketCategoryVw}>
                       <View style={CommonStyles.straightCon}>
@@ -248,7 +255,14 @@ const BuyTicketScreen = (props) => {
                           </ScaleText>
                         </View>
                         <View>
-                          {findSaleEndDate() !== "Sale End" ? (
+                          {findStart(
+                            item?.other?.ticket_sale_start_date,
+                            item?.other?.ticket_start_sale_time
+                          ) &&
+                          findEnd(
+                            item?.other?.ticket_sale_end_date,
+                            item?.other?.ticket_end_sale_time
+                          ) ? (
                             <View style={{ flex: 1, alignItems: "flex-end" }}>
                               <AddMinusView
                                 colorMin={COLORS.YELLOW}
@@ -284,10 +298,38 @@ const BuyTicketScreen = (props) => {
                                 {item?.total_price ? item?.total_price : "0.00"}
                               </ScaleText>
                             </View>
-                          ) : (
-                            <View style={styles.emptySale}>
-                              <ScaleText style={{ color: COLORS.LIGHT_RED }}>
+                          ) : findStart(
+                              item?.other?.ticket_sale_end_date,
+                              item?.other?.ticket_end_sale_time
+                            ) ? (
+                            <View style={styles.ticketOtherCon}>
+                              <ScaleText style={styles.ticketOtherTxt}>
                                 Sale End
+                              </ScaleText>
+                            </View>
+                          ) : (
+                            <View style={styles.ticketOtherCon}>
+                              <ScaleText
+                                style={[
+                                  styles.ticketOtherTxt,
+                                  {
+                                    color: COLORS.YELLOW,
+                                  },
+                                ]}
+                              >
+                                Sale Will Start on
+                              </ScaleText>
+                              <ScaleText
+                                style={[
+                                  styles.ticketOtherTxt,
+                                  {
+                                    color: COLORS.YELLOW,
+                                  },
+                                ]}
+                              >
+                                {moment(
+                                  item?.other?.ticket_sale_start_date
+                                ).format(Constants.SH_TIME_DATE_FORMAT)}
                               </ScaleText>
                             </View>
                           )}
@@ -299,42 +341,43 @@ const BuyTicketScreen = (props) => {
                           { justifyContent: "space-between" },
                         ]}
                       >
-                        {console.log("item?.other: ", item?.other)}
-                        {/* <ScaleText style={styles.ticketSubTxt}>
-                          Sale End On:{" "}
-                          {item?.other?.ticket_sale_end_date
-                            ? moment(item?.other?.ticket_sale_end_date).format(
+                        {findStart(
+                          item?.other?.ticket_sale_start_date,
+                          item?.other?.ticket_start_sale_time
+                        ) &&
+                          findEnd(
+                            item?.other?.ticket_sale_end_date,
+                            item?.other?.ticket_end_sale_time
+                          ) && (
+                            <ScaleText style={styles.ticketSubTxt}>
+                              Sale End On:
+                              {moment(item?.other?.ticket_sale_end_date).format(
                                 Constants.SH_TIME_DATE_FORMAT
-                              )
-                            : "Not Found"}
-                        </ScaleText> */}
-                        {findSaleEndDate(
-                          item?.other?.ticket_sale_end_date,
-                          item?.other?.ticket_end_sale_time
-                        ) !== "Sale End" && (
-                          <ScaleText style={styles.ticketSubTxt}>
-                            Sale End On:
-                            {findSaleEndDate(
-                              item?.other?.ticket_sale_end_date,
-                              item?.other?.ticket_end_sale_time
-                            )}
-                          </ScaleText>
-                        )}
-                        {findSaleEndDate() !== "Sale End" && (
-                          <ScaleText
-                            style={[
-                              styles.ticketSubTxt,
-                              { fontSize: FONT_SIZE.verysmall },
-                            ]}
-                          >
-                            Ticket Availablity:{" "}
-                            {item?.other?.quantity
-                              ? Number(item?.other?.quantity) > 1000
-                                ? "1000+"
-                                : Number(item?.other?.quantity)
-                              : "0"}
-                          </ScaleText>
-                        )}
+                              )}
+                            </ScaleText>
+                          )}
+                        {findStart(
+                          item?.other?.ticket_sale_start_date,
+                          item?.other?.ticket_start_sale_time
+                        ) &&
+                          findEnd(
+                            item?.other?.ticket_sale_end_date,
+                            item?.other?.ticket_end_sale_time
+                          ) && (
+                            <ScaleText
+                              style={[
+                                styles.ticketSubTxt,
+                                { fontSize: FONT_SIZE.verysmall },
+                              ]}
+                            >
+                              Ticket Availablity:{" "}
+                              {item?.other?.quantity
+                                ? Number(item?.other?.quantity) > 1000
+                                  ? "1000+"
+                                  : Number(item?.other?.quantity)
+                                : "0"}
+                            </ScaleText>
+                          )}
                       </View>
                     </View>
                   );

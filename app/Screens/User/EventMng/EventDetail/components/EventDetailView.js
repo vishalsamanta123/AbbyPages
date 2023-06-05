@@ -59,9 +59,9 @@ const EventDetailView = (props) => {
               item={props?.eventDetails}
               marginBottom={0}
             />
-            {(props?.userData?.login_type &&
-              timestampInSeconds < props?.eventDetails?.event_end_date) ||
-            timestampInSeconds < props?.eventDetails?.event_date ? (
+            {props?.userData?.login_type &&
+            (timestampInSeconds < props?.eventDetails?.event_end_date ||
+              timestampInSeconds < props?.eventDetails?.event_date) ? (
               <View
                 style={[
                   CommonStyles.straightCon,
@@ -319,7 +319,7 @@ const EventDetailView = (props) => {
                 color={COLORS.YELLOW}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}} style={styles.addToCalVw}>
+            {/* <TouchableOpacity onPress={() => {}} style={styles.addToCalVw}>
               <IconX
                 origin={ICON_TYPE.MATERIAL_COMMUNITY}
                 name={"checkbox-blank-circle-outline"}
@@ -328,7 +328,7 @@ const EventDetailView = (props) => {
                 paddingRight={6}
               />
               <ScaleText style={styles.addToCalTxt}>Add to calender</ScaleText>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={styles.respnsesBttnVw}>
               <MainButton
                 paddingHeight={2}
