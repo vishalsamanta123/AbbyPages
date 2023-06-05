@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Share from "react-native-share";
 import NewsFeedView from "./components/NewsFeedView";
 import CommonStyles from "../../../../Utils/CommonStyles";
@@ -30,12 +30,15 @@ const NewsFeed = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getNewsFeedDetails();
-      return () => {};
-    }, [navigation, route, likeUnlikeData, commentResp])
+      return () => { };
+    }, [navigation, route])
   );
-  const getNewsFeedDetails = async () => {
+  useEffect(() => {
+    getNewsFeedDetails('likeComment');
+  }, [likeUnlikeData, commentResp])
+  const getNewsFeedDetails = async (type) => {
     try {
-      setVisible(true);
+      setVisible(type === 'likeComment' ? false : true);
       const params = {
         business_name: business_name ? business_name : "",
         limit: 10,
@@ -111,23 +114,30 @@ const NewsFeed = ({ navigation, route }) => {
 
   const handleOnCommentPress = async () => {
     try {
-      // setVisible(true);
-      const { data } = await apiCall(
-        "POST",
-        apiEndPoints.COMMENT_ON_ABBY_CONNECT_POST,
-        commentParams
-      );
-      if (data.status == 200) {
-        // setVisible(false);
-        setCommentResp(data?.data);
-      } else {
-        if (data.status === 201) {
+      if (commentParams.comment.trim() !== "") {
+        // setVisible(true);
+        const { data } = await apiCall(
+          "POST",
+          apiEndPoints.COMMENT_ON_ABBY_CONNECT_POST,
+          commentParams
+        );
+        if (data.status == 200) {
           // setVisible(false);
-          setCommentResp({});
+          setCommentResp(data?.data);
         } else {
-          // setVisible(false);
-          setCommentResp({});
+          if (data.status === 201) {
+            // setVisible(false);
+            setCommentResp({});
+          } else {
+            // setVisible(false);
+            setCommentResp({});
+          }
         }
+      } else {
+        setCommentParams({
+          ...commentParams,
+          comment: ""
+        })
       }
     } catch (error) {
       setVisible(false);

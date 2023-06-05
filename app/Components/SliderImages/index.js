@@ -39,6 +39,8 @@ const SliderImages = (props) => {
         onScroll={(event) => {
           handleSrolling(event);
         }}
+        keyboardShouldPersistTaps={"handled"}
+        nestedScrollEnabled
         renderItem={({ item, index }) => {
           const image = item[posterImg];
           const title = item[titleTxt];

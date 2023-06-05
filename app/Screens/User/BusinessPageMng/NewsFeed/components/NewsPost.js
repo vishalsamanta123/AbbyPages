@@ -21,7 +21,7 @@ const NewsPost = (props) => {
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
   const isPostLiked = newsData?.postLikeData?.likeStatus === 0 ? false : true;
   return (
-    <TouchableOpacity  style={styles.mainConatiner} onPress={() => handelOnPressPost(newsData)}>
+    <TouchableOpacity style={styles.mainConatiner} onPress={() => handelOnPressPost(newsData)}>
       <View style={{ flex: 1 }}>
         <View style={styles.rowVw}>
           <Image
@@ -113,9 +113,25 @@ const NewsPost = (props) => {
             onPress={() => setIsCommentsVisible(true)}
             style={styles.likeView}
           >
+            <View style={{ marginRight: 5 }}>
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                color={COLORS.BLACK}
+                name={"comment-outline"}
+                size={20}
+              />
+            </View>
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
           <TouchableOpacity style={styles.likeView} onPress={() => onSharePress(newsData?.post_id, newsData?.business_name, newsData?.logo_url)}>
+            <View style={{ marginRight: 5 }}>
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                color={COLORS.BLACK}
+                name={"sharealt"}
+                size={20}
+              />
+            </View>
             <ScaleText style={styles.likeSectionText}>Share</ScaleText>
           </TouchableOpacity>
         </View>

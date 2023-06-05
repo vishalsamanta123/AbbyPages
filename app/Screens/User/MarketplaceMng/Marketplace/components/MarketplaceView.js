@@ -47,7 +47,6 @@ const MarketplaceView = (props) => {
     );
   };
   const renderProductList = (item, index) => {
-    console.log('item?.product_specification?.category?.category_name: ', JSON.parse(item?.product_specification)?.category?.category_name);
     return (
       <TouchableOpacity
         style={styles.productTouch}
@@ -73,7 +72,7 @@ const MarketplaceView = (props) => {
             />
           </TouchableOpacity>
         </ImageBackground>
-        <View style={{marginVertical: 10, marginHorizontal: 10}}>
+        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
           <ScaleText style={styles.productTxt}>{item.product_name}</ScaleText>
           <ScaleText style={styles.catTxt}>{JSON.parse(item?.product_specification)?.category?.category_name}</ScaleText>
           <ScaleText style={styles.productPriceTxt}>
@@ -125,7 +124,11 @@ const MarketplaceView = (props) => {
 
       {isVisibleFilters && (
         <View>
-          <FilterField />
+          <FilterField
+            setSearchData={setSearchData}
+            searchData={searchData} 
+            getProductList={getProductList}
+            />
         </View>
       )}
       <View style={styles.setLocationView}>
@@ -169,9 +172,9 @@ const MarketplaceView = (props) => {
           onPressCatgry={(item) => {
             setCategoryModal(false);
             handleCategoryPress(item?.category_name);
-            // props.handleJobFilter(0, {
-            //   ...props?.filterData,
-            //   category: item?.id,
+            // props.setSearchData( {
+            //   ...props?.searchData,
+            //   cat_name: item?.category_name,
             // });
           }}
         />

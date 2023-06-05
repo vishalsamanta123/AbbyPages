@@ -19,6 +19,13 @@ const ReviewRating = ({ navigation, route }) => {
     description: "",
     business_rating: "",
   });
+  useEffect(() => {
+    setRatingData({
+      title: "",
+      description: "",
+      business_rating: "",
+    })
+  }, [visible])
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
