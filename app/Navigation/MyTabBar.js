@@ -8,8 +8,8 @@ import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../Utils/Constant";
 import { TabModalContext, UserContext } from "../Utils/UserContext";
 
 function MyTabBar({ state, navigation }) {
-  const [isFocused, setIsFocused] = useState("DashBoard");
-  const [onPressmodal, setOnPressmodal] = useContext(TabModalContext);
+  const [onPressmodal, setOnPressmodal, isFocused, setIsFocused] =
+    useContext(TabModalContext);
   const [userData, setUserData] = useContext(UserContext);
 
   useFocusEffect(

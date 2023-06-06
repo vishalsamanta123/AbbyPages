@@ -93,7 +93,7 @@ const JobListing = ({ navigation, route }) => {
   const onPressLike = async (item, index) => {
     try {
       const params = {
-        favorite: 0,
+        favorite: item?.user_like === 0 ? 1 : 0,
         interest: 0,
         item_id: item?.job_id,
         item_type: 3,

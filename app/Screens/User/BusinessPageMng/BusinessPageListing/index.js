@@ -7,6 +7,8 @@ import { apiCall } from "../../../../Utils/httpClient";
 import ENDPOINTS from "../../../../Utils/apiEndPoints";
 import Loader from "../../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
+import apiEndPoints from "../../../../Utils/apiEndPoints";
+import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const BusinessPageListing = ({ navigation, route }) => {
   const { nearbySearch = {} } = route?.params || {};
@@ -15,7 +17,11 @@ const BusinessPageListing = ({ navigation, route }) => {
   const [offSet, setOffSet] = useState(0);
   const [moreData, setMoreData] = useState(0);
   const [businessList, setBusinessList] = useState([]);
-
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
+  });
   useFocusEffect(
     React.useCallback(() => {
       if (search?.selectOption?.length === 0) {
@@ -89,7 +95,49 @@ const BusinessPageListing = ({ navigation, route }) => {
       detail: getObj,
     });
   };
-
+  const onPressLike = async (item, index) => {
+    try {
+      const params = {
+        favorite: item?.user_favorite === 0 ? 1 : 0,
+        interest: 0,
+        item_id: item?.business_id,
+        item_type: item?.search_business_type,
+        like: item?.user_favorite === 0 ? 1 : 0,
+        views: item?.views,
+      };
+      const { data } = await apiCall(
+        "POST",
+        apiEndPoints.USERCOMMONLIKES,
+        params
+      );
+      if (data.status === 200) {
+        const newObj = {
+          ...item,
+          user_favorite: item?.user_favorite === 0 ? 1 : 0,
+        };
+        const newArray = [...businessList];
+        newArray[index] = newObj;
+        setBusinessList(newArray);
+        // setMessageShow({
+        //   visible: true,
+        //   type: "success",
+        //   message: data?.message,
+        // });
+      } else {
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (error) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
+    }
+  };
   const handleOptions = (item) => {
     if (search?.selectOption?.toString()?.includes(item?.type)) {
       const toRemoveObj = [...search.selectOption];
@@ -123,6 +171,19 @@ const BusinessPageListing = ({ navigation, route }) => {
         moreData={moreData}
         handleOptions={handleOptions}
         onPressView={onPressView}
+        onPressLike={onPressLike}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
     </View>
   );

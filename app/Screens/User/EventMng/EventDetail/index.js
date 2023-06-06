@@ -80,8 +80,8 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.GET_EVENT_DETAILS,
         params
-        );
-        console.log('data: GET_EVENT_DETAILS ', data);
+      );
+      console.log("data: GET_EVENT_DETAILS ", data);
       if (data.status === 200) {
         getBusinessDetail(data?.data);
       } else {
@@ -101,7 +101,7 @@ const EventDetail = ({ navigation, route }) => {
         "POST",
         ENDPOINTS.BUSINESSDETAILSBYNAME,
         params
-        );
+      );
       if (data.status === 200) {
         const newData = { ...itemData, ...data?.data };
         setEventDetails(newData);
@@ -183,6 +183,43 @@ const EventDetail = ({ navigation, route }) => {
         type: "error",
         message: "Please Login First",
         visible: true,
+      });
+    }
+  };
+  const onPressLike = async (item) => {
+    try {
+      const params = {
+        favorite: item?.user_favorite === 0 ? 1 : 0,
+        interest: 0,
+        item_id: item?.event_id,
+        item_type: 4,
+        like: item?.user_favorite === 0 ? 1 : 0,
+        views: item?.view,
+      };
+      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      if (data.status === 200) {
+        const eventDetailData = {
+          ...eventDetails,
+          user_favorite: eventDetails?.user_favorite === 0 ? 1 : 0,
+        };
+        setEventDetails(eventDetailData);
+        // setMessageShow({
+        //   visible: true,
+        //   type: "success",
+        //   message: data?.message,
+        // });
+      } else {
+        setMessageShow({
+          visible: true,
+          type: "error",
+          message: data?.message,
+        });
+      }
+    } catch (error) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
       });
     }
   };
@@ -554,6 +591,7 @@ const EventDetail = ({ navigation, route }) => {
                       videoUrl={videoUrl}
                       getEventDetails={getEventDetails}
                       userData={userData}
+                      onPressLike={onPressLike}
                     />
                   )}
                 </>

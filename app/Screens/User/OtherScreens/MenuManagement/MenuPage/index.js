@@ -5,7 +5,11 @@ import { apiCall } from "../../../../../Utils/httpClient";
 import MenuPageView from "./components/MenuPageView";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { businessPageObj } from "../../../../../Utils/staticData";
-import { AuthContext, UserContext } from "../../../../../Utils/UserContext";
+import {
+  AuthContext,
+  TabModalContext,
+  UserContext,
+} from "../../../../../Utils/UserContext";
 import QuestionModal from "../../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
 import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
@@ -16,6 +20,8 @@ const MenuPage = ({ navigation, route }) => {
   const [recent_view, setRecent_view] = useState([]);
   const { signOut } = React.useContext(AuthContext);
   const [logoutVw, setLogoutVw] = useState(false);
+  const [onPressmodal, setOnPressmodal, isFocused, setIsFocused] =
+    useContext(TabModalContext);
 
   const signOutFun = () => {
     signOut();
@@ -64,8 +70,12 @@ const MenuPage = ({ navigation, route }) => {
       handleBusinessNav(options);
     } else if (options?.type === "4") {
       navigation.navigate("EventListings");
+      setIsFocused("EventManagement");
     } else if (options?.type === "5") {
       navigation.navigate("JobListing");
+      setIsFocused("JobManagement");
+    } else if (options?.type === null) {
+      navigation.navigate("Favorite");
     }
   };
   const onPressView = (item) => {

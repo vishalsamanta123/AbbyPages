@@ -70,6 +70,7 @@ import LocationsView from "../Screens/User/ProfileMng/Locations";
 import NotificationsView from "../Screens/User/OtherScreens/Notifications";
 import ForgotPasswordFieldView from "../Screens/Authentication/ForgotPasswordField";
 import RequestQuote from "../Screens/User/ServiceMng/RequestQuote";
+import Favorite from "../Screens/User/OtherScreens/Favorite";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -114,14 +115,21 @@ function TabNavigation() {
       <Tab.Screen name="UpdateProfileView" component={UpdateProfileView} />
       <Tab.Screen name="OrderDetailIndex" component={OrderDetailIndex} />
       <Tab.Screen name="ChangePassword" component={ChangePasswordView} />
-      <Tab.Screen name="NotificationSettings" component={NotificationSettingsView} />
+      <Tab.Screen
+        name="NotificationSettings"
+        component={NotificationSettingsView}
+      />
       <Tab.Screen name="AddEmail" component={AddEmail} />
       <Tab.Screen name="Locations" component={LocationsView} />
       <Tab.Screen name="UserProfile" component={UserProfileView} />
       <Tab.Screen name="Notifications" component={NotificationsView} />
-      <Tab.Screen name="ForgotPasswordField" component={ForgotPasswordFieldView} />
+      <Tab.Screen
+        name="ForgotPasswordField"
+        component={ForgotPasswordFieldView}
+      />
       <Tab.Screen name="RequestQuote" component={RequestQuote} />
       <Tab.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
+      <Tab.Screen name="Favorite" component={Favorite} />
     </Tab.Navigator>
   );
 }
@@ -171,6 +179,7 @@ function AppStack() {
       <Stack.Screen name="UserProfile" component={TabNavigation} />
       <Stack.Screen name="Notifications" component={TabNavigation} />
       <Stack.Screen name="RequestQuote" component={TabNavigation} />
+      <Stack.Screen name="Favorite" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -245,7 +254,7 @@ function AuthLoading({ navigation }) {
           console.log(error.message);
         }
         dispatch({ type: "LOGIN", id: "userName", token: userToken });
-        navigation.navigate('HomeDashboard')
+        navigation.navigate("HomeDashboard");
       },
       signOut: async () => {
         try {

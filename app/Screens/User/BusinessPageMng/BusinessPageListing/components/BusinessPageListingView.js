@@ -91,6 +91,8 @@ const BusinessPageListingView = (props) => {
               rowImgTxt1={item?.business_service_category}
               rowImgTxt2={item?.create_date}
               rowImgTxt3={item?.about_business}
+              onPressHeart={() => props.onPressLike(item, index)}
+              heartDark={item.user_favorite === 1 ? true : false}
             />
           );
         }}

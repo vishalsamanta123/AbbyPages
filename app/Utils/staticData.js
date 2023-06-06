@@ -28,6 +28,14 @@ export const businessTypes = [
     color: COLORS.LIGHT_BLACK,
   },
   {
+    type: null,
+    optionName: "Favorite",
+    origin: ICON_TYPE.ENTYPO,
+    name: "heart-outlined",
+    size: 26,
+    color: COLORS.LIGHT_BLACK,
+  },
+  {
     type: "5",
     optionName: "Jobs",
     origin: ICON_TYPE.SIMPLELINE,
@@ -130,6 +138,28 @@ export const staticSearchOptions = [
     option: "",
     selectOption: "",
     city: "Orlando, FL, USA",
+  },
+];
+export const modalTypes = [
+  {
+    business_type: 3,
+    modal_name: "Directory",
+  },
+  {
+    business_type: 4,
+    modal_name: "Event",
+  },
+  {
+    business_type: 5,
+    modal_name: "Job",
+  },
+  {
+    business_type: 2,
+    modal_name: "MarketPlace",
+  },
+  {
+    business_type: 1,
+    modal_name: "Restaurant",
   },
 ];
 export const businessPageObj = {

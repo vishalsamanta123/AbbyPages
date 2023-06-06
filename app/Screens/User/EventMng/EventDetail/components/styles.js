@@ -6,6 +6,22 @@ import {
   Constants,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
+  heartVw: {
+    position: "absolute",
+    bottom: 3,
+    right: 5,
+    backgroundColor: COLORS.WHITE,
+    padding: 5,
+    borderRadius: 100,
+    elevation: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+  },
   containVw: {
     marginVertical: 2,
     paddingHorizontal: 7,

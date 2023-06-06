@@ -103,13 +103,7 @@ const EventListingView = (props) => {
         </View>
         {props?.events?.upcoming_events && (
           <>
-            <ScaleText style={styles.eventTitlesTxt}>
-              Abbypages Events
-              <ScaleText style={{ color: COLORS.SMALL_TEXT }}>
-                {" "}
-                (Latest){" "}
-              </ScaleText>
-            </ScaleText>
+            <ScaleText style={styles.eventTitlesTxt}>Upcoming Events</ScaleText>
             <View style={styles.containers}>
               <FullImageViewList
                 onPressView={() =>
@@ -124,6 +118,13 @@ const EventListingView = (props) => {
                 subHeadTxt={props?.events?.upcoming_events?.event_location?.trim()}
                 smallTxt={`${props?.events?.upcoming_events?.interested} Interested`}
                 subSmallTxt={props?.events?.upcoming_events?.category_name}
+                onPressHeart={() =>
+                  props.onPressLike(
+                    props?.events?.upcoming_events,
+                    null,
+                    "upcoming"
+                  )
+                }
               />
             </View>
           </>
@@ -215,6 +216,9 @@ const EventListingView = (props) => {
                       subHeadTxt={item?.event_location?.trim()}
                       smallTxt={`${item?.interested} Interested`}
                       subSmallTxt={item?.category_name}
+                      onPressHeart={() =>
+                        props.onPressLike(item, index, "list")
+                      }
                     />
                   );
                 })}
@@ -246,6 +250,7 @@ const EventListingView = (props) => {
                   subHeadTxt={item?.event_location?.trim()}
                   smallTxt={`${item?.interested} Interested`}
                   subSmallTxt={item?.category_name}
+                  onPressHeart={() => props.onPressLike(item, index, "recent")}
                 />
               );
             })}
@@ -265,6 +270,9 @@ const EventListingView = (props) => {
                     subHeadTxt={item?.event_location?.trim()}
                     smallTxt={`${item?.interested} Interested`}
                     subSmallTxt={item?.category_name}
+                    onPressHeart={() =>
+                      props.onPressLike(item, index, "popular")
+                    }
                   />
                 );
               })}

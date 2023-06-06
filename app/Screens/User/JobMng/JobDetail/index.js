@@ -99,7 +99,7 @@ const JobDetail = ({ route, navigation }) => {
   const onPressLike = async (item) => {
     try {
       const params = {
-        favorite: item?.favorite,
+        favorite: item?.user_like === 0 ? 1 : 0,
         interest: item?.interest,
         item_id: item?.job_id,
         item_type: 3,
@@ -108,7 +108,10 @@ const JobDetail = ({ route, navigation }) => {
       };
       const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
       if (data.status === 200) {
-        const newObj = { ...item, user_like: item?.user_like === 0 ? 1 : 0 };
+        const newObj = {
+          ...item,
+          user_like: item?.user_like === 0 ? 1 : 0,
+        };
         setJobDetail(newObj);
         // setMessageShow({
         //   visible: true,

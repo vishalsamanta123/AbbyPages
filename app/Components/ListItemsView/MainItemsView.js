@@ -26,7 +26,7 @@ const MainItemsView = (props) => {
     item = {},
     index = "",
     onPressView,
-    onPressLike,
+    onPressHeart,
     largeImg = "",
     largeName = "",
     smallTxt = "",
@@ -42,6 +42,7 @@ const MainItemsView = (props) => {
     description = "Scooping and hapiness every single child have to do other ",
     iconType = "",
     iconColor = COLORS.YELLOW,
+    heartDark = false,
   } = props;
   return (
     <>
@@ -67,7 +68,17 @@ const MainItemsView = (props) => {
             )}
             <View style={styles.innContainer}>
               <View style={CommonStyles.straightCon}>
-                <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+                <View style={[CommonStyles.straightCon, { flex: 1 }]}>
+                  <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+                  <TouchableOpacity onPress={() => onPressHeart()}>
+                    <IconX
+                      origin={ICON_TYPE.ANT_ICON}
+                      name={heartDark ? "heart" : "hearto"}
+                      color={heartDark ? COLORS.YELLOW : null}
+                      size={18}
+                    />
+                  </TouchableOpacity>
+                </View>
                 {item?.acorn_type === "Black Supported" ? (
                   <TouchableOpacity onPress={() => setSpecialIcon(true)}>
                     <OUTLINE_ACORN
@@ -160,7 +171,9 @@ const MainItemsView = (props) => {
         </>
       ) : (
         <>
-          <TouchableOpacity style={[styles.rowVw, { marginTop: 10, alignItems: 'flex-start' }]}>
+          <TouchableOpacity
+            style={[styles.rowVw, { marginTop: 10, alignItems: "flex-start" }]}
+          >
             <FastImages
               style={styles.smallImgVw}
               resizeMode="cover"
@@ -191,17 +204,17 @@ const MainItemsView = (props) => {
                     </ScaleText>
                   </View>
                   <View style={styles.straightVw}>
-                  <View style={styles.ratingVw}>
-                    <ScaleText style={styles.ratingTxt}>
-                      {rating?.substring(0, 3)}
+                    <View style={styles.ratingVw}>
+                      <ScaleText style={styles.ratingTxt}>
+                        {rating?.substring(0, 3)}
+                      </ScaleText>
+                    </View>
+                    <ScaleText
+                      style={[styles.ratingTxt, { color: COLORS.BLACK }]}
+                    >
+                      Star rating
                     </ScaleText>
                   </View>
-                  <ScaleText
-                    style={[styles.ratingTxt, { color: COLORS.BLACK }]}
-                  >
-                    Star rating
-                  </ScaleText>
-                </View>
                 </View>
               </View>
               <ScaleText style={styles.descTxt}>{description}</ScaleText>
@@ -268,7 +281,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: COLORS.BLACK,
     textTransform: "capitalize",
-    width: "90%",
+    marginRight: 8,
   },
   smallTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
