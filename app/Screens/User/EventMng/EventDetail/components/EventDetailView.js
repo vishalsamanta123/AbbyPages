@@ -22,15 +22,44 @@ const EventDetailView = (props) => {
       <MainHeader headerText="Events Details" />
       <PageScroll>
         {props?.eventDetails?.events_image?.length > 0 ? (
-          <SliderImages
-            data={props?.eventDetails?.events_image}
-            posterImg={"events_image"}
-          />
+          <View>
+            <SliderImages
+              data={props?.eventDetails?.events_image}
+              posterImg={"events_image"}
+            />
+            <TouchableOpacity
+              // onPress={() => props.onPressLike(props?.eventDetails)}
+              style={styles.heartVw}
+            >
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={"hearto"}
+                // name={heartDark ? "heart" : "hearto"}
+                // color={heartDark ? COLORS.YELLOW : null}
+                size={19}
+              />
+            </TouchableOpacity>
+          </View>
         ) : (
-          <FastImages
-            style={{ height: 200, width: "100%" }}
-            source={{ uri: props?.eventDetails?.header_image }}
-          />
+          <View>
+            <FastImages
+              style={{ height: 200, width: "100%" }}
+              source={{ uri: props?.eventDetails?.header_image }}
+            />
+            <TouchableOpacity
+              // onPress={() => props.onPressLike(props?.eventDetails)}
+              style={styles.heartVw}
+            >
+              <IconX
+                origin={ICON_TYPE.ANT_ICON}
+                name={"hearto"}
+                // name={heartDark ? "heart" : "hearto"}
+                color={null}
+                // color={heartDark ? COLORS.YELLOW : null}
+                size={19}
+              />
+            </TouchableOpacity>
+          </View>
         )}
         <View
           style={[
@@ -118,7 +147,7 @@ const EventDetailView = (props) => {
                 />
                 <MainButton
                   paddingHeight={2}
-                  paddingHorizontal={25}
+                  paddingHorizontal={30}
                   buttonTxt={"Buy Ticket"}
                   borderRadius={10}
                   backgroundColor={COLORS.YELLOW}

@@ -6,15 +6,13 @@ import {
   FONT_SIZE,
 } from "../../../../../Utils/Constant";
 const Styles = StyleSheet.create({
-  containers: {
-    marginTop: 8,
-  },
+  containers: {},
   eventTitlesTxt: {
     fontSize: FONT_SIZE.mediumL,
-    fontFamily: FONT_FAMILY.REGULAR,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     color: COLORS.BLACK,
-    marginTop: 12,
-    marginLeft: 16,
+    marginTop: 8,
+    marginLeft: 10,
   },
   seeEventsVw: {
     flexDirection: "row",
@@ -65,7 +63,7 @@ const Styles = StyleSheet.create({
   },
   seeOnVw: {
     borderWidth: Constants.standardBW,
-    borderColor:COLORS.BLACK,
+    borderColor: COLORS.BLACK,
     paddingHorizontal: 8,
     paddingVertical: 5,
     borderRadius: 6,

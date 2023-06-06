@@ -17,8 +17,11 @@ export const TabModalProvider = (props) => {
     modal: "DashBoard",
     navigate: "",
   });
+  const [isFocused, setIsFocused] = useState("DashBoard");
   return (
-    <TabModalContext.Provider value={[onPressmodal, setOnPressmodal]}>
+    <TabModalContext.Provider
+      value={[onPressmodal, setOnPressmodal, isFocused, setIsFocused]}
+    >
       {props.children}
     </TabModalContext.Provider>
   );

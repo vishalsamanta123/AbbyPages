@@ -21,10 +21,12 @@ const FullImageViewList = (props) => {
     subSmallTxt = "",
     subSmallTxt2 = "",
     onPressView = () => {},
+    onPressHeart = () => {},
+    heartDark = false,
     shadow = true,
     marginTop = 6,
     marginBottom = 6,
-    marginHorizontal = 10,
+    marginHorizontal = 6,
     activeOpacity = 1,
     item = {},
   } = props;
@@ -48,16 +50,24 @@ const FullImageViewList = (props) => {
       ]}
     >
       {fullImage === "" ? null : (
-        <FastImages source={{ uri: fullImage }} style={styles.fullImageVw} />
+        <View>
+          <FastImages source={{ uri: fullImage }} style={styles.fullImageVw} />
+          <TouchableOpacity
+            onPress={() => onPressHeart()}
+            style={styles.heartVw}
+          >
+            <IconX
+              origin={ICON_TYPE.ANT_ICON}
+              name={heartDark ? "heart" : "hearto"}
+              color={heartDark ? COLORS.YELLOW : null}
+              size={19}
+            />
+          </TouchableOpacity>
+        </View>
       )}
       <View style={styles.txtConVw}>
-        <View
-          style={[
-            CommonStyles.straightCon,
-            { justifyContent: "space-between" },
-          ]}
-        >
-          <View style={CommonStyles.straightCon}>
+        <View style={[CommonStyles.straightCon]}>
+          <View style={[CommonStyles.straightCon, { flex: 2.4 }]}>
             <IconX
               origin={ICON_TYPE.MATERIAL_ICONS}
               name={"event"}
@@ -78,13 +88,13 @@ const FullImageViewList = (props) => {
             {smallTxt}
           </ScaleText>
         </View>
-        <View style={CommonStyles.straightCon}>
+        <View style={[CommonStyles.straightCon, { marginTop: 2 }]}>
           <IconX
             origin={ICON_TYPE.FEATHER_ICONS}
             name={"calendar"}
             size={14}
             paddingRight={10}
-            paddingLeft={1}
+            paddingLeft={2}
             color={COLORS.RGBA}
           />
           <ScaleText style={styles.topTxt}>{timeTxt}</ScaleText>
@@ -93,11 +103,11 @@ const FullImageViewList = (props) => {
         <View style={CommonStyles.straightCon}>
           <IconX
             origin={ICON_TYPE.ICONICONS}
-            name={"location"}
-            size={14}
+            name={"location-outline"}
+            size={16}
             paddingRight={10}
-            paddingLeft={2}
-            color={COLORS.RGBA}
+            paddingLeft={1}
+            color={COLORS.BLACK}
           />
           <ScaleText style={styles.topTxt}>{subHeadTxt}</ScaleText>
         </View>
@@ -134,13 +144,29 @@ const styles = StyleSheet.create({
   fullImageVw: {
     height: 170,
     width: "100%",
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
     alignSelf: "center",
+  },
+  heartVw: {
+    position: "absolute",
+    top: 3,
+    right: 5,
+    backgroundColor: COLORS.WHITE,
+    padding: 5,
+    borderRadius: 100,
+    elevation: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
   },
   txtConVw: {
     paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 6,
     marginBottom: 10,
     width: "98%",
   },
@@ -158,9 +184,11 @@ const styles = StyleSheet.create({
   },
   smallTxt: {
     fontSize: FONT_SIZE.small,
-    fontFamily: FONT_FAMILY.REGULAR,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
     color: COLORS.YELLOW,
     bottom: 2,
+    flex: 1,
+    textAlign: "right",
   },
   bottomTxt: {
     fontSize: FONT_SIZE.smallL,

@@ -75,6 +75,7 @@ const EventListing = ({ navigation, route }) => {
       } else {
         setLoader(false);
         setMessageShow({
+          ...messageShow,
           type: "error",
           message: data.message,
           visible: true,
@@ -83,6 +84,7 @@ const EventListing = ({ navigation, route }) => {
     } catch (error) {
       setLoader(false);
       setMessageShow({
+        ...messageShow,
         type: "error",
         message: error.message,
         visible: true,
@@ -142,6 +144,78 @@ const EventListing = ({ navigation, route }) => {
       });
     }
   };
+  const onPressLike = async (item, index, type) => {
+    try {
+      const params = {
+        favorite: item?.user_favorite === 0 ? 1 : 0,
+        interest: 0,
+        item_id: item?.event_id,
+        item_type: 4,
+        like: item?.user_favorite === 0 ? 1 : 0,
+        views: item?.view,
+      };
+      // const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      // if (data.status === 200) {
+      //   if (type === "list") {
+      //     const newObj = {
+      //       ...item,
+      //       user_favorite: item?.user_favorite === 0 ? 1 : 0,
+      //     };
+      //     const newArray = [...eventsList];
+      //     newArray[index] = newObj;
+      //     setEventsList(newArray);
+      //   } else if (type === "upcoming") {
+      //     const upcomingEvent = {
+      //       ...events?.upcoming_events,
+      //       user_favorite: events?.upcoming_events?.user_favorite === 0 ? 1 : 0,
+      //     };
+      //     setEvents({
+      //       ...events,
+      //       upcoming_events: upcomingEvent,
+      //     });
+      //   } else if (type === "recent") {
+      //     const newObj = {
+      //       ...item,
+      //       user_favorite: item?.user_favorite === 0 ? 1 : 0,
+      //     };
+      //     const newArray = [...events?.recently_added];
+      //     newArray[index] = newObj;
+      //     setEvents({
+      //       ...events,
+      //       recently_added: newArray,
+      //     });
+      //   } else if (type === "popular") {
+      //     const newObj = {
+      //       ...item,
+      //       user_favorite: item?.user_favorite === 0 ? 1 : 0,
+      //     };
+      //     const newArray = [...events?.popular_events];
+      //     newArray[index] = newObj;
+      //     setEvents({
+      //       ...events,
+      //       popular_events: newArray,
+      //     });
+      //   }
+      //   // setMessageShow({
+      //   //   visible: true,
+      //   //   type: "success",
+      //   //   message: data?.message,
+      //   // });
+      // } else {
+      //   setMessageShow({
+      //     visible: true,
+      //     type: "error",
+      //     message: data?.message,
+      //   });
+      // }
+    } catch (error) {
+      setMessageShow({
+        visible: true,
+        type: "error",
+        message: error?.message,
+      });
+    }
+  };
   const handleEndTimeConfirm = (selectedDate) => {
     const date = moment(selectedDate).format("MM/DD/YYYY");
     setSearchDate(date);
@@ -177,6 +251,7 @@ const EventListing = ({ navigation, route }) => {
           moreData={moreData}
           messageShow={messageShow}
           setMessageShow={setMessageShow}
+          onPressLike={onPressLike}
         />
       ) : (
         <EventListingScreen
@@ -197,6 +272,7 @@ const EventListing = ({ navigation, route }) => {
           setIsSelectedDay={setIsSelectedDay}
           setOpenSearchDate={setOpenSearchDate}
           messageShow={messageShow}
+          onPressLike={onPressLike}
         />
       )}
       <ShowMessage

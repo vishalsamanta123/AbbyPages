@@ -52,7 +52,7 @@ const EventListingScreen = (props) => {
             <>{props?.messageShow?.loader ? <Loader type={"small"} /> : null}</>
           );
         }}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <FullImageViewList
               fullImage={item?.events_image}
@@ -62,6 +62,7 @@ const EventListingScreen = (props) => {
               subHeadTxt={item?.event_location?.trim()}
               smallTxt={`${item?.interested} Interested`}
               subSmallTxt={item?.category_name}
+              onPressHeart={() => props.onPressLike(item, index, "list")}
             />
           );
         }}

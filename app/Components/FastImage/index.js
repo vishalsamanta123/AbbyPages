@@ -25,6 +25,7 @@ const FastImages = (props) => {
       <FastImage
         style={style}
         source={source}
+        resizeMode={"cover"}
         onLoadStart={() => setIsLoading(true)}
         onLoadEnd={() => setIsLoading(false)}
       />
