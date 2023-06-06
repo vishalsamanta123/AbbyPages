@@ -85,16 +85,6 @@ const PageScroll = ({
         refreshControl={refreshControl}
         nestedScrollEnabled={nestedScrollEnabled}
       >
-        {/* <Pressable
-          onPress={() => {
-            setOnPressmodal({
-              ...onPressmodal,
-              modal: "",
-            });
-          }}
-          style={{ flex: 1 }}
-        >
-        </Pressable> */}
           {children}
       </ScrollView>
       {bottomButton ? (
