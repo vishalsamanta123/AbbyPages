@@ -35,7 +35,6 @@ const ShoppingCart = ({ navigation, route }) => {
   );
 
   const getCartProducts = async () => {
-    console.log()
     try {
       const { data } = await apiCall("GET", apiEndPoints.GET_TO_CART_PRODUCT);
       if (data.status === 200) {
@@ -46,7 +45,6 @@ const ShoppingCart = ({ navigation, route }) => {
         setFinalAmount(0)
       }
     } catch (e) {
-      console.log("🚀 ~ file: index.js:136 ~ e:", e);
     }
   };
   const handleUpdateQuantity = async (item, value) => {
@@ -79,7 +77,6 @@ const ShoppingCart = ({ navigation, route }) => {
         });
       }
     } catch (e) {
-      console.log("🚀 ~ file: index.js:136 ~ e:", e);
       setMessageShow({
         visible: true,
         type: "error",

@@ -35,7 +35,6 @@ const PricingView = () => {
   }, [paymentCondition]);
 
   const handleCharges = (tp) => {
-    console.log("tp", tp);
     const tkt_p = Number(tp);
     var abby = (0).toFixed(2);
     var card = (0).toFixed(2);
@@ -258,7 +257,6 @@ const PricingView = () => {
                 labelField={"title"}
                 valueField={"title"}
                 onPressItem={(item) => {
-                  console.log("🚀 ~ file: PricingView.js:311 ~ item:", item)
                   setPaymentCondition(item?.value)
                   setPaymentConditionLabel(item?.title)
                 }}

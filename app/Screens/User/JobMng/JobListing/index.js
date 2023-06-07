@@ -66,8 +66,6 @@ const JobListing = ({ navigation, route }) => {
         offset: offSet,
         limit: 10,
       };
-      console.log('params: ', params);
-
       const { data } = await apiCall("POST", ENDPOINTS.JOB_FILTER, params);
       if (data.status == 200) {
         if (offSet === 0) {

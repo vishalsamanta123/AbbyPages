@@ -50,7 +50,6 @@ const ProfileSetting = ({ navigation }) => {
     navigation.navigate("UpdateProfileView");
   };
   const onPressPassword = () => {
-    console.log('ChangePassword')
     navigation.navigate("ChangePassword");
   };
   const onPressEmail = () => {

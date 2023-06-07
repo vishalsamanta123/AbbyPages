@@ -33,7 +33,6 @@ const MarketplaceDetail = ({ navigation, route }) => {
         apiEndPoints.GET_BUSINESS_PRODUCT_DETAILS,
         params
       );
-      console.log("🚀 ~ file: index.js:41 ~ data:", data);
       if (data?.status === 200) {
         setProductDetail({
           ...data?.data,
@@ -63,9 +62,6 @@ const MarketplaceDetail = ({ navigation, route }) => {
         apiEndPoints.ADD_TO_CART_PRODUCT,
         params
       );
-      console.log("🚀 ~ file: index.js:114 ~ params:", params);
-      console.log("🚀 ~ file: index.js:135 ~ data?.data:", data?.data);
-
       if (data?.status === 200) {
         if (type === "buynow") {
           onPressCart();
@@ -84,7 +80,6 @@ const MarketplaceDetail = ({ navigation, route }) => {
         });
       }
     } catch (e) {
-      console.log("🚀 ~ file: index.js:136 ~ e:", e);
       setMessageShow({
         visible: true,
         type: "error",

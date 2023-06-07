@@ -87,6 +87,7 @@ const MainInput = (props) => {
             marginLeft: leftImgName != "" && leftImgOrigin != "" ? 0 : 8,
           },
         ]}
+        allowFontScaling={false}
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
         selectionColor={COLORS.BLACK}

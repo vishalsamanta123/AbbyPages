@@ -9,7 +9,6 @@ import { handleSharePress } from "../../../../Utils/Globalfunctions";
 
 const NeweFeedDetails = ({ navigation, route }) => {
   const { post } = route?.params;
-  console.log("post", post);
   const [visible, setVisible] = useState(false);
   const [likeUnlikeData, setLikeUnlikeData] = useState({});
   const [commentResp, setCommentResp] = useState({});
@@ -114,9 +113,6 @@ const NeweFeedDetails = ({ navigation, route }) => {
 
   const onSharePress = async () => {
     const finalName = post?.business_name.split(" ").join("-");
-    console.log('postData: ', postData);
-    console.log('`https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`: ', `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`);
-
     handleSharePress({
       message: `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`,
       title: postData?.business_name,

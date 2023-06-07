@@ -188,16 +188,12 @@ const RestroBooking = ({ route, navigation }) => {
   const onPressTableFind = async (find) => {
     const valid = validation();
     if (valid) {
-      console.log("date: ", date);
-
       try {
         setVisible(true);
         const params = {
           business_id: restroDetail?.business_id.toString(),
           booking_date: date,
         };
-        console.log("params: ", params);
-
         const { data } = await apiCall(
           "POST",
           ENDPOINTS.RESTAURANT_TIME_SLOAT,
@@ -224,20 +220,17 @@ const RestroBooking = ({ route, navigation }) => {
             } else {
               setRestaurantTimeData([]);
               setReservationDateList(data.data);
-              console.log("data.data: ", data.data);
               setVisible(false);
             }
           }
         } else {
           setVisible(false);
           setErrorMessage(data.message);
-          console.log("data.message: ", data.message);
           setVisibleErr(true);
         }
       } catch (error) {
         setVisible(false);
         setErrorMessage(error.message);
-        console.log("catch error.message: ", error.message);
         setVisibleErr(true);
       }
     }

@@ -87,13 +87,11 @@ const ProductListing = ({ navigation, route }) => {
           : null,
         product_filter: filterData.sorting ? filterData.sorting : null,
       };
-      console.log("params: ", params);
       const { data } = await apiCall(
         "POST",
         ENDPOINTS.FILTER_PRODUCTLIST,
         params
       );
-      console.log("data: ", data);
       if (data.status === 200) {
         setVisible(false);
         setProductList(data.data);

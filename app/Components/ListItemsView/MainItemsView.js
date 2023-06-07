@@ -70,28 +70,34 @@ const MainItemsView = (props) => {
               <View style={CommonStyles.straightCon}>
                 <View style={[CommonStyles.straightCon, { flex: 1 }]}>
                   <ScaleText style={styles.largeNameTxt}>{largeName}</ScaleText>
+                </View>
+                <View style={[CommonStyles.straightCon, { left: 16 }]}>
                   <TouchableOpacity onPress={() => onPressHeart()}>
                     <IconX
                       origin={ICON_TYPE.ANT_ICON}
                       name={heartDark ? "heart" : "hearto"}
                       color={heartDark ? COLORS.YELLOW : null}
-                      size={18}
+                      size={21}
                     />
                   </TouchableOpacity>
+                  {item?.acorn_type === "Black Supported" ? (
+                    <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                      <OUTLINE_ACORN
+                        width={24}
+                        height={24}
+                        style={{ marginLeft: 5, bottom: 2 }}
+                      />
+                    </TouchableOpacity>
+                  ) : item?.acorn_type === "Black Owned" ? (
+                    <TouchableOpacity onPress={() => setSpecialIcon(true)}>
+                      <BLACK_ACORN
+                        width={24}
+                        height={24}
+                        style={{ marginLeft: 5, bottom: 2 }}
+                      />
+                    </TouchableOpacity>
+                  ) : null}
                 </View>
-                {item?.acorn_type === "Black Supported" ? (
-                  <TouchableOpacity onPress={() => setSpecialIcon(true)}>
-                    <OUTLINE_ACORN
-                      width={24}
-                      height={24}
-                      style={{ left: 16 }}
-                    />
-                  </TouchableOpacity>
-                ) : item?.acorn_type === "Black Owned" ? (
-                  <TouchableOpacity onPress={() => setSpecialIcon(true)}>
-                    <BLACK_ACORN width={24} height={24} style={{ left: 16 }} />
-                  </TouchableOpacity>
-                ) : null}
               </View>
               <ScaleText style={styles.smallTxt}>{smallTxt}</ScaleText>
               {rating === "" ? null : (
@@ -242,7 +248,6 @@ const styles = StyleSheet.create({
     width: 110,
     height: 120,
     borderRadius: 15,
-    marginBottom: 5,
   },
   straightVw: {
     flexDirection: "row",

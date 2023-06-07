@@ -18,11 +18,6 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
 const ConfirmOrder = (props) => {
-  console.log(
-    "🚀 ~ file: ConfirmOrder.js:176 ~ props?.location:",
-    props?.location
-  );
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}

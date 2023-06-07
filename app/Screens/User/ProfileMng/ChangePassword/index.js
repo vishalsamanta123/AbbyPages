@@ -35,8 +35,6 @@ const ChangePasswordView = ({ navigation }) => {
               ENDPOINTS.CHANGE_PASSWORD,
               params
             );
-            console.log("🚀 ~ file: index.js:30 ~ data:", data);
-
             if (data.status === 200) {
               setSuccessMessage(data.message);
               setVisibleSuccess(true);

@@ -20,7 +20,6 @@ const AddNewLocation = ({ navigation }) => {
     longitude: "",
     pincode: "",
   });
-  console.log("Address: ", Address);
   function validationFrom() {
     if (Address.location == "") {
       setMessageShow({

@@ -35,6 +35,44 @@ const Styles = StyleSheet.create({
     height: 210,
     width: "100%",
   },
+  moreBttnVw: {
+    backgroundColor: COLORS.COMMON,
+    borderRadius: 8,
+    position: "absolute",
+    right: 10,
+    bottom: 2,
+  },
+  moreDotVw: {
+    position: "absolute",
+    zIndex: 10,
+    backgroundColor: COLORS.WHITE,
+    bottom: 30,
+    alignSelf: "flex-end",
+    right: 21,
+    borderRadius: 10,
+    borderBottomRightRadius: 0,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  moreDotItmVw: {
+    alignItems: "center",
+    flexDirection: "row",
+    borderBottomWidth: Constants.normalBW,
+    borderBottomColor: COLORS.BORDER_LINE,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  moreDotItmTxt: {
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.BLACK,
+    fontSize: FONT_SIZE.medium,
+  },
   infocon: {
     marginHorizontal: 20,
     borderBottomWidth: 15,
@@ -96,7 +134,7 @@ const Styles = StyleSheet.create({
   },
   modalsVw: {
     paddingVertical: 8,
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
   },
   ticketDetailVw: {
     paddingVertical: 8,
@@ -311,7 +349,7 @@ const Styles = StyleSheet.create({
   ticketSubTxt: {
     fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.NORMAL_BOLD,
-    color: COLORS.BLACK,
+    color: COLORS.YELLOW,
     paddingVertical: 2,
   },
   modalVw: {

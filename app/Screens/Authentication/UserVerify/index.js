@@ -17,7 +17,6 @@ const UserVerify = ({ route, navigation }) => {
   const [otp, setOtp] = useState("");
   const { signIn } = React.useContext(AuthContext);
   const email = route.params;
-  console.log("🚀 ~ file: index.js:17 ~ userData:", userData)
 
   const _handleOtpVerify = async () => {
     setVisible(true);
@@ -44,7 +43,6 @@ const UserVerify = ({ route, navigation }) => {
           setVisibleErr(true);
         }
       } catch (error) {
-        console.log("🚀 ~ file: index.js:45 ~ error:", error);
         setErrorMessage(error.message);
         setVisibleErr(true);
         setVisible(false);

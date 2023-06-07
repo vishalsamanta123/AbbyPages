@@ -121,8 +121,6 @@ const BusinessGallery = (props) => {
           formData,
           header
         );
-        console.log("🚀 ~ file: BusinessGallery.js:117 ~ data:", data)
-
         if (data.status == 200) {
           setLoading(false);
           setUploadData(data?.data);

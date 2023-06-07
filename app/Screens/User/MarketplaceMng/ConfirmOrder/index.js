@@ -64,7 +64,6 @@ const ConfirmOrderView = ({ navigation, route }) => {
         });
       }
     } catch (e) {
-      console.log("🚀 ~ file: index.js:136 ~ e:", e);
     }
   };
   const getUserData = async () => {
