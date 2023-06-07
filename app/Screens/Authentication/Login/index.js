@@ -100,7 +100,6 @@ const SignInView = ({ navigation, route }) => {
               setVisible(false);
             }
           } else if (data?.data?.verified === 1) {
-            console.log("data?.data: ", data?.data);
             if (data?.data?.login_type === 1) {
               setUserData(data?.data);
               await AsyncStorage.setItem(

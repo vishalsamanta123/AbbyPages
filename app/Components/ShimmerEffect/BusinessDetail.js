@@ -7,7 +7,6 @@ import { COLORS } from "../../Utils/Constant";
 
 const BusinessDetail = (props) => {
     const {type} = props
-  console.log("🚀 ~ file: BusinessDetail.js:9 ~ type:", type)
   const arr = [""];
   return (
     <>

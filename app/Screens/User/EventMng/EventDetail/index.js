@@ -81,7 +81,6 @@ const EventDetail = ({ navigation, route }) => {
         ENDPOINTS.GET_EVENT_DETAILS,
         params
       );
-      console.log("data: GET_EVENT_DETAILS ", data);
       if (data.status === 200) {
         getBusinessDetail(data?.data);
       } else {
@@ -196,25 +195,25 @@ const EventDetail = ({ navigation, route }) => {
         like: item?.user_favorite === 0 ? 1 : 0,
         views: item?.view,
       };
-      const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
-      if (data.status === 200) {
-        const eventDetailData = {
-          ...eventDetails,
-          user_favorite: eventDetails?.user_favorite === 0 ? 1 : 0,
-        };
-        setEventDetails(eventDetailData);
-        // setMessageShow({
-        //   visible: true,
-        //   type: "success",
-        //   message: data?.message,
-        // });
-      } else {
-        setMessageShow({
-          visible: true,
-          type: "error",
-          message: data?.message,
-        });
-      }
+      // const { data } = await apiCall("POST", ENDPOINTS.USERCOMMONLIKES, params);
+      // if (data.status === 200) {
+      //   const eventDetailData = {
+      //     ...eventDetails,
+      //     user_favorite: eventDetails?.user_favorite === 0 ? 1 : 0,
+      //   };
+      //   setEventDetails(eventDetailData);
+      //   // setMessageShow({
+      //   //   visible: true,
+      //   //   type: "success",
+      //   //   message: data?.message,
+      //   // });
+      // } else {
+      //   setMessageShow({
+      //     visible: true,
+      //     type: "error",
+      //     message: data?.message,
+      //   });
+      // }
     } catch (error) {
       setMessageShow({
         visible: true,
@@ -574,6 +573,7 @@ const EventDetail = ({ navigation, route }) => {
                       paymentForTicket={paymentForTicket}
                       setMessageShow={setMessageShow}
                       ticketAdded={ticketAdded}
+                      setTicketAdded={setTicketAdded}
                       IncreasePercentage={IncreasePercentage}
                       downloadModal={downloadModal}
                       setDownloadModal={setDownloadModal}
@@ -592,6 +592,7 @@ const EventDetail = ({ navigation, route }) => {
                       getEventDetails={getEventDetails}
                       userData={userData}
                       onPressLike={onPressLike}
+                      navigation={navigation}
                     />
                   )}
                 </>

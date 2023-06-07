@@ -39,7 +39,7 @@ const TabModalScreens = (props) => {
           style={[
             styles.customPopupVw,
             {
-              bottom: onPressmodal.modal === "PlusManagement" ? 56 : 50,
+              bottom: onPressmodal.modal === "PlusManagement" ? 53 : 46,
             },
           ]}
         >
@@ -155,6 +155,9 @@ const TabModalScreens = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.subCatVw, { borderBottomWidth: 0 }]}
+                  onPress={() => {
+                    modalNavigation("UploadResume", "JobManagement");
+                  }}
                 >
                   <ScaleText style={styles.subCatTxt}>
                     {"Upload Your Résumé"}

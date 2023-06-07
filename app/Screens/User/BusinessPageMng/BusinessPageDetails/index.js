@@ -114,6 +114,11 @@ const BusinessPageDetails = ({ navigation, route }) => {
       } else {
         if (data?.status === 201) {
           // setVisible(false);
+          setMessageShow({
+            visible: true,
+            message: data?.message,
+            type: "error",
+          });
         } else if (data?.status === 401) {
           setMessageShow({
             visible: true,

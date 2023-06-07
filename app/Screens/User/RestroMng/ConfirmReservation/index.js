@@ -105,7 +105,6 @@ const ConfirmReservationView = ({ navigation, route }) => {
   };
   const onPressConfirm = async () => {
     const valid = validationForm();
-    console.log("valid: ", valid);
     if (valid) {
       try {
         setVisible(true);

@@ -93,7 +93,6 @@ const OrderHistoryView = ({ navigation, route }) => {
     navigation.navigate("OrderDetailIndex", { OrderDetail: item });
   };
   const handleBackPress = () => {
-    console.log('from: ', from);
     if(from === "profile"){
       navigation.goBack()
     } else {

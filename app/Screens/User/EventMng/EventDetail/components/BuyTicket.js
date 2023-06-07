@@ -159,7 +159,10 @@ const BuyTicketScreen = (props) => {
   return (
     <>
       <MainHeader
-        onPressBack={() => props.setBuyTicketModal("")}
+        onPressBack={() => {
+          props.setBuyTicketModal("");
+          props.setTicketAdded([]);
+        }}
         headerText={"Buy Ticket"}
         notifyIcon={false}
         backText={false}

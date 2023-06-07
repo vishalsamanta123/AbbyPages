@@ -53,7 +53,6 @@ const MainHeader = (props) => {
     navigation.navigate("CategorySearch");
   };
   const onNotificationPress = () => {
-    console.log('Notifications')
     navigation.navigate("Notifications");
   };
   const handleGoBack = () => {

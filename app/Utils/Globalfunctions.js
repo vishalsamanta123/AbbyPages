@@ -44,7 +44,6 @@ export const handlePermission = async (
       break;
   }
   let res = false;
-  console.log("result", result);
   switch (await result) {
     case RESULTS.UNAVAILABLE:
       res = requestPermission(permission, msgHeading, message);
@@ -149,7 +148,6 @@ export const requestPermission = async (permission, msgHeading, message) => {
       break;
   }
   let res = false;
-  console.log("reqRes", reqRes);
   switch (await reqRes) {
     case RESULTS.UNAVAILABLE:
       openPermissionSetting(msgHeading, message);

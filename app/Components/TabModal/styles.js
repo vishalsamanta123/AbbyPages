@@ -30,11 +30,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   customPopupVw: {
-    backgroundColor: COLORS.RGBA2,
     position: "absolute",
     zIndex: 1,
-    borderRadius: 10,
+    borderRadius: 21,
     padding: 2,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   popupVw: {
     backgroundColor: COLORS.WHITE,

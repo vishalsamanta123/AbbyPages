@@ -63,6 +63,7 @@ const DashBoardView = ({ navigation }) => {
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
+      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
         setMoreData(20);

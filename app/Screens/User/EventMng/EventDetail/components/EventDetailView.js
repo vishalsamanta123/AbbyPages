@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Modal, TouchableOpacity } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
@@ -8,7 +8,10 @@ import ScaleText from "../../../../../Components/ScaleText";
 import MainHeader from "../../../../../Components/MainHeader";
 import SliderImages from "../../../../../Components/SliderImages";
 import { FullImageViewList } from "../../../../../Components/ListItemsView";
-import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
+import {
+  handleSharePress,
+  RECENT_TIME_FORMAT,
+} from "../../../../../Utils/Globalfunctions";
 import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import PageScroll from "../../../../../Components/PageScroll";
@@ -16,6 +19,13 @@ import VideoPlayer from "../../../../../Components/VideoPlayer";
 import FastImages from "../../../../../Components/FastImage";
 
 const EventDetailView = (props) => {
+  const [moreDot, setMoreDot] = useState(false);
+  useEffect(() => {
+    const unsubscribe = props?.navigation.addListener("blur", () => {
+      setMoreDot(false);
+    });
+    return unsubscribe;
+  }, [props?.navigation]);
   const timestampInSeconds = Math.floor(new Date().getTime() / 1000);
   return (
     <View style={CommonStyles.container}>
@@ -27,18 +37,6 @@ const EventDetailView = (props) => {
               data={props?.eventDetails?.events_image}
               posterImg={"events_image"}
             />
-            <TouchableOpacity
-              // onPress={() => props.onPressLike(props?.eventDetails)}
-              style={styles.heartVw}
-            >
-              <IconX
-                origin={ICON_TYPE.ANT_ICON}
-                name={"hearto"}
-                // name={heartDark ? "heart" : "hearto"}
-                // color={heartDark ? COLORS.YELLOW : null}
-                size={19}
-              />
-            </TouchableOpacity>
           </View>
         ) : (
           <View>
@@ -46,19 +44,6 @@ const EventDetailView = (props) => {
               style={{ height: 200, width: "100%" }}
               source={{ uri: props?.eventDetails?.header_image }}
             />
-            <TouchableOpacity
-              // onPress={() => props.onPressLike(props?.eventDetails)}
-              style={styles.heartVw}
-            >
-              <IconX
-                origin={ICON_TYPE.ANT_ICON}
-                name={"hearto"}
-                // name={heartDark ? "heart" : "hearto"}
-                color={null}
-                // color={heartDark ? COLORS.YELLOW : null}
-                size={19}
-              />
-            </TouchableOpacity>
           </View>
         )}
         <View
@@ -94,7 +79,7 @@ const EventDetailView = (props) => {
               <View
                 style={[
                   CommonStyles.straightCon,
-                  { justifyContent: "space-evenly" },
+                  { justifyContent: "space-evenly", marginRight: 35 },
                 ]}
               >
                 <MainButton
@@ -118,6 +103,7 @@ const EventDetailView = (props) => {
                       : COLORS.TRANSPARENT
                   }
                   onPressButton={() => {
+                    setMoreDot(false);
                     if (props.eventDetails?.user_interested === 0) {
                       props.onInterestPress(1);
                     } else {
@@ -153,21 +139,90 @@ const EventDetailView = (props) => {
                   backgroundColor={COLORS.YELLOW}
                   txtColor={COLORS.WHITE}
                   borderColor={COLORS.TRANSPARENT}
-                  onPressButton={() => props.setBuyTicketModal(1)}
+                  onPressButton={() => {
+                    props.setBuyTicketModal(1);
+                    setMoreDot(false);
+                  }}
                 />
-                {/* <TouchableOpacity
-                  style={{ backgroundColor: COLORS.COMMON, borderRadius: 10 }}
+              </View>
+            ) : null}
+            <TouchableOpacity
+              onPress={() => setMoreDot(moreDot ? false : true)}
+              style={styles.moreBttnVw}
+            >
+              <IconX
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                name={"dots-horizontal"}
+                size={25}
+              />
+            </TouchableOpacity>
+            {moreDot ? (
+              <View style={styles.moreDotVw}>
+                <TouchableOpacity
+                  onPress={() => {}}
+                  style={styles.moreDotItmVw}
                 >
                   <IconX
-                    origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                    name={"dots-horizontal"}
-                    size={26}
+                    origin={ICON_TYPE.OCTICONS}
+                    name={"calendar"}
+                    size={20}
+                    color={COLORS.BLACK}
+                    paddingRight={10}
                   />
-                </TouchableOpacity> */}
+                  <ScaleText style={styles.moreDotItmTxt}>
+                    Add to Calender
+                  </ScaleText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.onPressLike(props?.eventDetails);
+                    setMoreDot(false);
+                  }}
+                  style={styles.moreDotItmVw}
+                >
+                  <IconX
+                    origin={ICON_TYPE.ANT_ICON}
+                    name={"hearto"}
+                    // name={heartDark ? "heart" : "hearto"}
+                    color={COLORS.BLACK}
+                    // color={heartDark ? COLORS.YELLOW : COLORS.BLACK}
+                    size={21}
+                    paddingRight={10}
+                  />
+                  <ScaleText style={styles.moreDotItmTxt}>
+                    Add to Favourite
+                  </ScaleText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    handleSharePress({
+                      message: props?.eventDetails?.event_name,
+                      title: props?.eventDetails?.event_name,
+                      urlName: props?.eventDetails?.event_name,
+                      imageUrl: props?.eventDetails?.events_image,
+                      image: props?.eventDetails?.events_image,
+                      url: `https://abbypages.com/events/${props?.eventDetails?.event_name
+                        ?.split(" ")
+                        .join("-")}`,
+                    });
+                    setMoreDot(false);
+                  }}
+                  style={[styles.moreDotItmVw, { borderBottomWidth: 0 }]}
+                >
+                  <IconX
+                    origin={ICON_TYPE.ICONICONS}
+                    name={"share-social-outline"}
+                    color={COLORS.BLACK}
+                    size={23}
+                    paddingRight={10}
+                  />
+                  <ScaleText style={styles.moreDotItmTxt}>Share</ScaleText>
+                </TouchableOpacity>
               </View>
             ) : null}
           </View>
         </View>
+
         {props.eventDetails?.business_name ? (
           <View style={styles.containVw}>
             <View style={CommonStyles.straightCon}>
@@ -175,11 +230,14 @@ const EventDetailView = (props) => {
                 source={{ uri: props.eventDetails?.owner_image }}
                 style={{ width: 45, height: 45, marginLeft: 3 }}
               />
-              <View style={{ marginLeft: 10 }}>
+              <View style={{ flex: 1, marginHorizontal: 10 }}>
                 <ScaleText style={styles.nameTxt}>
-                  {props.eventDetails?.first_name +
-                    " " +
-                    props.eventDetails?.last_name}{" "}
+                  {props.eventDetails?.first_name
+                    ? props.eventDetails?.first_name +
+                      " " +
+                      props.eventDetails?.last_name +
+                      " "
+                    : ""}
                   ({props.eventDetails?.business_name})
                 </ScaleText>
                 <ScaleText
@@ -348,16 +406,6 @@ const EventDetailView = (props) => {
                 color={COLORS.YELLOW}
               />
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={() => {}} style={styles.addToCalVw}>
-              <IconX
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                name={"checkbox-blank-circle-outline"}
-                size={25}
-                color={COLORS.BLACK}
-                paddingRight={6}
-              />
-              <ScaleText style={styles.addToCalTxt}>Add to calender</ScaleText>
-            </TouchableOpacity> */}
             <View style={styles.respnsesBttnVw}>
               <MainButton
                 paddingHeight={2}

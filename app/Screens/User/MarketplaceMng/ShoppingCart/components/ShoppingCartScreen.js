@@ -21,8 +21,6 @@ import ScaleText from "../../../../../Components/ScaleText";
 import EmptyList from "../../../../../Components/EmptyList";
 import ListingView from "../../../../../Components/ListingView";
 const ShoppingCartScreen = (props) => {
-  console.log("🚀 ~ file: ShoppingCartScreen.js:82 ~ props.finalAmount:", props.finalAmount)
-
   const screenlowerdata = (item) => {
     return (
       <View style={styles.footerVw}>

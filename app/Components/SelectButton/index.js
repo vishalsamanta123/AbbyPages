@@ -50,12 +50,12 @@ const SelectButton = (props) => {
       setListData(constListData);
       setSearchValue("");
     } else {
-      const searchKey = text?.toLowerCase();
+      const searchKey = text?.trim()?.toLowerCase();
       setSearchValue(text);
-      const searchArray = [...listData];
+      const searchArray = [...constListData];
       const list = searchArray.filter((item) => {
         const label = item[labelField];
-        return label?.toLowerCase().match(searchKey);
+        return label?.toLowerCase().includes(searchKey);
       });
       setListData(list);
     }
@@ -132,6 +132,7 @@ const SelectButton = (props) => {
             ) : null}
             <FlatList
               data={listData}
+              keyboardShouldPersistTaps={"handled"}
               style={{ paddingHorizontal: 10 }}
               renderItem={({ item, index }) => {
                 const label = item[labelField];
@@ -176,6 +177,7 @@ const SelectButton = (props) => {
                 <FlatList
                   data={listData}
                   style={{ paddingHorizontal: 10 }}
+                  keyboardShouldPersistTaps={"handled"}
                   renderItem={({ item, index }) => {
                     const label = item[labelField];
                     const value = item[valueField];

@@ -71,6 +71,7 @@ import NotificationsView from "../Screens/User/OtherScreens/Notifications";
 import ForgotPasswordFieldView from "../Screens/Authentication/ForgotPasswordField";
 import RequestQuote from "../Screens/User/ServiceMng/RequestQuote";
 import Favorite from "../Screens/User/OtherScreens/Favorite";
+import UploadResume from "../Screens/User/JobMng/UploadResume";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -130,6 +131,7 @@ function TabNavigation() {
       <Tab.Screen name="RequestQuote" component={RequestQuote} />
       <Tab.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
       <Tab.Screen name="Favorite" component={Favorite} />
+      <Tab.Screen name="UploadResume" component={UploadResume} />
     </Tab.Navigator>
   );
 }
@@ -180,6 +182,7 @@ function AppStack() {
       <Stack.Screen name="Notifications" component={TabNavigation} />
       <Stack.Screen name="RequestQuote" component={TabNavigation} />
       <Stack.Screen name="Favorite" component={TabNavigation} />
+      <Stack.Screen name="UploadResume" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
       <Stack.Screen name="Login" component={LoginScreen} />

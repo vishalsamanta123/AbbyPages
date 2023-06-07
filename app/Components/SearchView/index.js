@@ -19,6 +19,7 @@ import apiEndPoints from "../../Utils/apiEndPoints";
 import { apiCall } from "../../Utils/httpClient";
 import MainInput from "../MainInput";
 import _ from "lodash";
+import ScaleText from "../ScaleText";
 
 const SearchView = (props) => {
   const {} = props;
@@ -51,11 +52,16 @@ const SearchView = (props) => {
     const unsubscribe = navigation.addListener("blur", () => {
       setSearchOpen(false);
       setListOpen(false);
-      setSearchData({
-        search_category_or_business: "",
-        address: "Orlando, FL, USA",
-        latitude: "",
-        longitude: "",
+      // setSearchData({
+      //   search_category_or_business: "",
+      //   address: "Orlando, FL, USA",
+      //   latitude: "28.5383832",
+      //   longitude: "-81.3789269",
+      //   city: "Orlando",
+      // });
+      setSearchCategory({
+        resBusdata: [],
+        resultCat: [],
       });
       Keyboard.dismiss();
       return unsubscribe;
@@ -64,6 +70,7 @@ const SearchView = (props) => {
   }, [navigation, searchOpen]);
 
   const getHistorySearch = async () => {
+    // await AsyncStorage.removeItem("searchCategoryHistory");
     const historySearch = await AsyncStorage.getItem("searchCategoryHistory");
     if (JSON?.parse(historySearch)) {
       setSearchHistory(JSON?.parse(historySearch));
@@ -105,13 +112,11 @@ const SearchView = (props) => {
       const searchKey = searchData?.search_category_or_business;
       if (searchData?.search_category_or_business !== "") {
         const catSearchNew = [...searchHistory];
-        const objNew = {
-          category_name: searchData?.search_category_or_business,
-        };
+        const objNew = { category_name: searchKey };
         if (catSearchNew?.length >= 5) {
           catSearchNew?.splice(catSearchNew.length - 1, 1);
-          const data = _.find(catSearchNew, { category_name: searchKey });
-          if (data?.category_name) {
+          const findData = _.find(catSearchNew, { category_name: searchKey });
+          if (findData?.category_name) {
             AsyncStorage.setItem(
               "searchCategoryHistory",
               JSON.stringify(catSearchNew?.reverse())
@@ -131,8 +136,8 @@ const SearchView = (props) => {
               JSON.stringify(catSearchNew)
             );
           } else {
-            const data = _.find(catSearchNew, { category_name: searchKey });
-            if (data?.category_name) {
+            const findData = _.find(catSearchNew, { category_name: searchKey });
+            if (findData?.category_name) {
               AsyncStorage.setItem(
                 "searchCategoryHistory",
                 JSON.stringify(catSearchNew?.reverse())
@@ -149,7 +154,7 @@ const SearchView = (props) => {
       }
       const newObject = {
         ...data,
-        city: data?.address,
+        city: data?.city,
       };
       navigation.navigate("BusinessPageListing", { nearbySearch: newObject });
     }
@@ -190,7 +195,9 @@ const SearchView = (props) => {
                     size={22}
                     color={COLORS.BLACK}
                   />
-                  <Text style={styles.categoryTxt}>{itm.category_name}</Text>
+                  <ScaleText style={styles.categoryTxt}>
+                    {itm.category_name}
+                  </ScaleText>
                 </TouchableOpacity>
               );
             })
@@ -200,7 +207,9 @@ const SearchView = (props) => {
           <>
             {searchCategory?.resBusdata?.length > 0 ? (
               <>
-                <Text style={styles.searchHeadTxt}>Related Businesses:</Text>
+                <ScaleText style={styles.searchHeadTxt}>
+                  Related Businesses:
+                </ScaleText>
                 {searchCategory?.resBusdata?.map((itm) => {
                   return (
                     <TouchableOpacity
@@ -212,12 +221,12 @@ const SearchView = (props) => {
                         style={styles.categoryImg}
                       />
                       <View style={{ flex: 1 }}>
-                        <Text style={styles.categoryTxt}>
+                        <ScaleText style={styles.categoryTxt}>
                           {itm?.business_name}
-                        </Text>
-                        <Text style={styles.categorySmallTxt}>
+                        </ScaleText>
+                        <ScaleText style={styles.categorySmallTxt}>
                           {itm?.address}
-                        </Text>
+                        </ScaleText>
                       </View>
                     </TouchableOpacity>
                   );
@@ -226,16 +235,18 @@ const SearchView = (props) => {
             ) : null}
             {searchCategory?.resultCat?.length > 0 ? (
               <>
-                <Text style={styles.searchHeadTxt}>Related Categories:</Text>
+                <ScaleText style={styles.searchHeadTxt}>
+                  Related Categories:
+                </ScaleText>
                 {searchCategory?.resultCat?.map((itm) => {
                   return (
                     <TouchableOpacity
                       onPress={() => onPressCat(itm)}
                       style={styles.categoryVw}
                     >
-                      <Text style={styles.categoryTxt}>
+                      <ScaleText style={styles.categoryTxt}>
                         {itm?.category_name}
-                      </Text>
+                      </ScaleText>
                     </TouchableOpacity>
                   );
                 })}
@@ -256,7 +267,9 @@ const SearchView = (props) => {
                     size={item.size}
                     color={item.color}
                   />
-                  <Text style={styles.categoryTxt}>{item.category_name}</Text>
+                  <ScaleText style={styles.categoryTxt}>
+                    {item.category_name}
+                  </ScaleText>
                 </TouchableOpacity>
               );
             })}

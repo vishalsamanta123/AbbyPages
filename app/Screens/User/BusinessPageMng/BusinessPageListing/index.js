@@ -31,7 +31,7 @@ const BusinessPageListing = ({ navigation, route }) => {
             ? nearbySearch?.selectOption?.toString()
             : "",
         };
-        handleSearchData(offSet, filterSearch);
+        handleSearchData(0, filterSearch);
       }
       return () => {};
     }, [navigation, route?.params])
@@ -49,15 +49,15 @@ const BusinessPageListing = ({ navigation, route }) => {
         limit: 5,
         offset: offset,
         business_type: getObj?.business_type
-          ? Number(getObj?.business_type)
-          : "",
+        ? Number(getObj?.business_type)
+        : "1",
         search_key: null,
         city: getObj?.city ? getObj?.city : "",
         options:
-          getObj?.selectOption?.length > 0 ||
-          Array?.isArray(getObj?.selectOption)
-            ? getObj?.selectOption?.toString()
-            : "",
+        getObj?.selectOption?.length > 0 ||
+        Array?.isArray(getObj?.selectOption)
+        ? getObj?.selectOption?.toString()
+        : "",
       };
       const { data } = await apiCall(
         "POST",

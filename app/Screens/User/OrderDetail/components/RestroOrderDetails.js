@@ -15,8 +15,6 @@ import MainHeader from "../../../../Components/MainHeader";
 import PageScroll from "../../../../Components/PageScroll";
 
 const RestroOrderDetails = (props) => {
-  console.log('props?.orderDetail: ', props?.orderDetail);
-
   const _handleItemList = (item, index) => {
     return (
       <View key={index} style={styles.ConatinView}>
