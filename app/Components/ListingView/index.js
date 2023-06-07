@@ -56,14 +56,6 @@ const ListingView = ({
   }, [navigation]);
   return (
     <View style={CommonStyles.container}>
-      <Pressable
-        onPress={() => {
-          setOnPressmodal({
-            ...onPressmodal,
-            modal: "",
-          });
-        }}
-      >
         <FlatList
           data={data}
           ref={newRef ? newRef : ref}
@@ -105,7 +97,6 @@ const ListingView = ({
             </TouchableOpacity>
           </View>
         ) : null}
-      </Pressable>
     </View>
   );
 };
