@@ -34,8 +34,6 @@ const DashBoardScreen = (props) => {
             onRefresh={props.onRefresh}
           />
         }
-        keyboardShouldPersistTaps={"handled"}
-        contentContainerStyle={{ flexGrow: 1 }}
         nestedScrollEnabled={true}
       >
         <ImageBackground

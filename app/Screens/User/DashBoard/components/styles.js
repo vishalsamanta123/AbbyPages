@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT_FAMILY, FONT_SIZE } from "../../../../Utils/Constant";
+import {
+  COLORS,
+  Constants,
+  FONT_FAMILY,
+  FONT_SIZE,
+} from "../../../../Utils/Constant";
 
 const Styles = StyleSheet.create({
   mainVw: {
@@ -15,24 +20,6 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  straightVw: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    width: "70%",
-    justifyContent: "space-between",
-  },
-  topVwsCon: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    backgroundColor: "rgba(50, 50, 50, 0.8)",
-    borderRadius: 10,
-  },
-  topVwsTxt: {
-    fontSize: FONT_SIZE.medium,
-    color: COLORS.WHITE,
-    fontFamily: FONT_FAMILY.REGULAR,
-  },
   boxesVw: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -45,75 +32,11 @@ const Styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   titlesTxt: {
-    //on Dashboard and ByCategory
     fontSize: FONT_SIZE.mediumL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 12,
     marginLeft: 13,
-  },
-  activityConVw: {
-    marginTop: 3,
-  },
-  activityCon: {
-    flex: 1,
-    paddingVertical: 8,
-    borderRadius: 10,
-    marginVertical: 12,
-    backgroundColor: COLORS.WHITE,
-    elevation: 5,
-    marginHorizontal: 10,
-  },
-  rowVw: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-  },
-  activityProfileVw: {
-    width: 48,
-    height: 48,
-    marginLeft: 12,
-    borderRadius: 50,
-  },
-  textVw: {
-    marginLeft: 20,
-  },
-  activityNameTxt: {
-    fontSize: FONT_SIZE.large,
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.LIGHT_BLACK,
-  },
-  activityRvwTxt: {
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.SMALL_TEXT,
-  },
-  activityBnnrVw: {
-    height: 120,
-    width: "100%",
-    marginTop: 20,
-    marginHorizontal: 5,
-    marginBottom: 12,
-  },
-  photosVw: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "center",
-    height: 150,
-    flexGrow: 1,
-  },
-  activityMainTxt: {
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.BOLD,
-    color: COLORS.BLUE,
-    marginTop: 8,
-    paddingHorizontal: 14,
-  },
-  activityCmntTxt: {
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.BOLD,
-    color: COLORS.SMALL_TEXT,
-    paddingHorizontal: 14,
   },
   seeAllTxt: {
     fontSize: FONT_SIZE.medium,
@@ -134,129 +57,12 @@ const Styles = StyleSheet.create({
   posterVw: {
     alignItems: "center",
   },
-  posterTitleTxt: {
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.BLACK,
-    marginTop: 5,
-    marginLeft: 5,
-  },
-  posterTxt: {
-    fontSize: FONT_SIZE.smallL,
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.LIGHT_BLACK,
-    marginLeft: 5,
-  },
-  dotActiveVw: {
-    borderRadius: 100,
-    backgroundColor: COLORS.BLACK,
-    width: 12,
-    height: 12,
-  },
-  dotInActiveVw: {
-    borderRadius: 100,
-    backgroundColor: COLORS.BLACK,
-    width: 20,
-    height: 20,
-  },
-  paginationWrapper: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 5,
-  },
-  paginationDots: {
-    height: 10,
-    width: 10,
-    borderRadius: 10 / 2,
-    backgroundColor: COLORS.BLACK,
-    marginLeft: 10,
-  },
   moreServiceVw: {
     margin: 4,
     backgroundColor: COLORS.COMMON,
     borderRadius: 10,
     paddingHorizontal: 20,
-    paddingVertical: 4
-  },
-  searchModal: {
-    flexGrow: 1,
-    backgroundColor: COLORS.WHITE,
-  },
-  ctgTopHeader: {
-    flex: 1,
-    top: 10,
-    marginLeft: 8,
-  },
-  searchTxt: {
-    fontSize: FONT_SIZE.largeM,
-    color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.REGULAR,
-    textAlign: "center",
-  },
-  crossVw: {
-    paddingRight: 8,
-    marginTop: 2,
-  },
-  searchVw: {
-    marginHorizontal: 30,
-    marginVertical: 10,
-  },
-  catgSearchVw: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: COLORS.COMMON,
-    borderRadius: 10,
-  },
-  catgSearchInput: {
-    height: 54,
-    fontFamily: FONT_FAMILY.REGULAR,
-    fontSize: FONT_SIZE.medium,
-    color: COLORS.GREY,
-    width: "80%",
-  },
-  searchButtonVw: {
-    borderRadius: 20,
-    marginHorizontal: 0,
-    width: "100%",
-    marginVertical: 8,
-  },
-  categoriesVw: {
-    marginHorizontal: 34,
-    backgroundColor: COLORS.WHITE,
-    elevation: 10,
-    marginVertical: 3,
-  },
-  searchHeadTxt: {
-    fontSize: FONT_SIZE.mediumL,
-    fontFamily: FONT_FAMILY.REGULAR,
-    color: COLORS.YELLOW,
-    marginLeft: 10,
-    marginVertical: 5,
-  },
-  categoryVw: {
-    marginVertical: 6,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-  },
-  categoryTxt: {
-    fontSize: FONT_SIZE.mediumL,
-    color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.REGULAR,
-    marginLeft: 10,
-  },
-  categorySmallTxt: {
-    fontSize: FONT_SIZE.small,
-    color: COLORS.BLACK,
-    fontFamily: FONT_FAMILY.REGULAR,
-    marginLeft: 10,
-    marginRight: 50,
-  },
-  categoryImg: {
-    width: 50,
-    height: 40,
-    borderRadius: 12,
+    paddingVertical: 4,
   },
   supportTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
@@ -275,7 +81,128 @@ const Styles = StyleSheet.create({
   showMoreTxt: {
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.mediumL,
-    marginRight: 10
+    marginRight: 10,
+  },
+
+  activityConVw: {
+    marginTop: 3,
+  },
+  activityCon: {
+    flex: 1,
+    borderRadius: 10,
+    marginVertical: 8,
+    backgroundColor: COLORS.WHITE,
+    marginHorizontal: 10,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  rowVw: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingTop: 8,
+    paddingBottom: 5,
+  },
+  activityProfileVw: {
+    width: 48,
+    height: 48,
+    marginLeft: 5,
+    borderRadius: 50,
+  },
+  textVw: {
+    marginLeft: 12,
+  },
+  activityNameTxt: {
+    fontSize: FONT_SIZE.mediumL,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    color: COLORS.LIGHT_BLACK,
+  },
+  activityTitlTxt: {
+    fontSize: FONT_SIZE.normal,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.RGBA,
+    bottom: 4,
+  },
+  mainContVw: {
+    paddingHorizontal: 10,
+    marginVertical: 8,
+  },
+  mainHeadTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.NORMAL_BOLD,
+    color: COLORS.YELLOW,
+    textDecorationLine: "underline",
+    textTransform: "capitalize",
+  },
+  photosVw: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  activityBnnrVw: {
+    height: 120,
+    width: "100%",
+    marginTop: 5,
+    borderWidth: Constants.normalBW,
+    borderColor: COLORS.COMMON2,
+  },
+  seeMoreVw: {
+    alignSelf: "flex-end",
+    marginHorizontal: 10,
+    marginBottom: 10,
+  },
+  activityMainTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.BOLD,
+    color: COLORS.BLUE,
+    marginTop: 8,
+    paddingHorizontal: 14,
+  },
+  activityCmntTxt: {
+    fontSize: FONT_SIZE.medium,
+    fontFamily: FONT_FAMILY.REGULAR,
+    color: COLORS.LIGHT_BLACK,
+    marginLeft: 4,
+  },
+  extraTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.BLUE,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  activitySubTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.RGBA,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  activityLightTxt: {
+    fontSize: FONT_SIZE.normal,
+    color: COLORS.RGBA1,
+    fontFamily: FONT_FAMILY.REGULAR,
+  },
+  likeSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  likeView: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    borderRightWidth: Constants.standardBW,
+    borderColor: COLORS.BORDER_LINE,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  likeSectionText: {
+    color: COLORS.RGBA,
+    fontFamily: FONT_FAMILY.REGULAR,
+    fontSize: FONT_SIZE.normal,
   },
 });
 export default Styles;
