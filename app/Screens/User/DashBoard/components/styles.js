@@ -90,7 +90,7 @@ const Styles = StyleSheet.create({
   activityCon: {
     flex: 1,
     borderRadius: 10,
-    marginVertical: 8,
+    marginVertical: Constants.Ios ? 11 : 8,
     backgroundColor: COLORS.WHITE,
     marginHorizontal: 10,
     elevation: 5,
