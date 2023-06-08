@@ -21,6 +21,7 @@ import SliderImages from "../../../../Components/SliderImages";
 import PageScroll from "../../../../Components/PageScroll";
 import { ICON_TYPE, IconX } from "../../../../Components/Icons/Icon";
 import RecentActivity from "./RecentActivity";
+import Loader from "../../../../Utils/Loader";
 
 const DashBoardScreen = (props) => {
   return (

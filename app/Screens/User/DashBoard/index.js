@@ -47,6 +47,8 @@ const DashBoardView = ({ navigation }) => {
     };
     if (!refreshing && offset === 0) {
       setVisible(true);
+    } else {
+      setRecentLoader(true);
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
