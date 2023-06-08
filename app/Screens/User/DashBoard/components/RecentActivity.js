@@ -173,7 +173,7 @@ const RecentActivity = (props) => {
                       <View style={styles.mainContVw}>
                         <StarShower
                           counts={Number(
-                            !item?.review?.business_rating
+                            item?.review?.business_rating
                               ? item?.review?.business_rating
                               : 1
                           )}
