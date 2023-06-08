@@ -10,7 +10,6 @@ import { Constants } from "../../../Utils/Constant";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
-  const [sliderState, setSliderState] = useState({ activeSlide: 0 });
   const [recent_activity, setRecent_Activity] = useState([]);
   const [businessTypes, setBusinessTypes] = useState([]);
   const [actOffset, setActOffset] = useState(0);
@@ -40,18 +39,6 @@ const DashBoardView = ({ navigation }) => {
     setRefreshing(false);
     setRecentLoader(false);
   };
-  const setSliderPage = (event) => {
-    const { currentPage } = sliderState;
-    const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.ceil(x / Constants.windowWidth);
-    if (indexOfNextScreen !== currentPage) {
-      setSliderState({
-        ...sliderState,
-        currentPage: indexOfNextScreen,
-      });
-    }
-  };
-
   const getDashBoardActivity = async (offset) => {
     setActOffset(offset);
     const params = {
@@ -63,10 +50,9 @@ const DashBoardView = ({ navigation }) => {
     }
     try {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
-      console.log('data: ', data);
       if (data.status === 200) {
         setVisible(false);
-        setMoreData(20);
+        setMoreData(16);
         if (offset === 0) {
           setRecent_Activity(data?.data);
         } else {
@@ -131,7 +117,7 @@ const DashBoardView = ({ navigation }) => {
       navigation.navigate("ReviewRating", item);
     }
   };
- 
+
   const handleCategoryPress = (item) => {
     const newObject = {
       ...item,
@@ -143,7 +129,6 @@ const DashBoardView = ({ navigation }) => {
     <View style={CommonStyles.container}>
       {visible && <Loader state={visible} />}
       <DashBoardScreen
-        setSliderPage={setSliderPage}
         recent_activity={recent_activity}
         services={byCategory?.services}
         moreServices={byCategory?.moreServices}
@@ -160,8 +145,6 @@ const DashBoardView = ({ navigation }) => {
         actOffset={actOffset}
         getDashBoardActivity={getDashBoardActivity}
         moreData={moreData}
-        setSliderState={setSliderState}
-        sliderState={sliderState}
         handleCategoryPress={handleCategoryPress}
       />
       {/* <QuestionModal
