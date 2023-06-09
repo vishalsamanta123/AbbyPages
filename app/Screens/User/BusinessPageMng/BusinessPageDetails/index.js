@@ -10,6 +10,7 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
+  console.log("detail: ", detail);
   const [visible, setVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(0);
   const [messageShow, setMessageShow] = useState({
@@ -33,6 +34,9 @@ const BusinessPageDetails = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getDetails();
+      if (detail?.openFile === "gallery") {
+        setGalleryModal({ open: true, type: "view", moreData: {} });
+      }
       return () => {};
     }, [navigation, route])
   );

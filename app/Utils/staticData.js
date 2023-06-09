@@ -11,6 +11,15 @@ export const businessTypes = [
     color: COLORS.LIGHT_BLACK,
     url: "https://business.abbypages.com/login",
   },
+  // {
+  //   type: "calendar",
+  //   optionName: "Abby Calendar",
+  //   origin: ICON_TYPE.MATERIAL_COMMUNITY,
+  //   name: "bank-outline",
+  //   size: 24,
+  //   color: COLORS.LIGHT_BLACK,
+  //   url: "https://business.abbypages.com/login",
+  // },
   {
     type: "3",
     optionName: "Directory",

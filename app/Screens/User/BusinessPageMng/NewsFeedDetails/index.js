@@ -137,6 +137,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
         handleOnPressLike={handleOnPressLike}
         visible={visible}
         onSharePress={onSharePress}
+        post={post}
       />
     </>
   );
