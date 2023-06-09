@@ -153,10 +153,12 @@ const CommentsModal = (props) => {
         <ScrollView
           automaticallyAdjustKeyboardInsets={true}
           contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps={"handled"}
         >
           <View style={{ flex: 1 }}>
             <FlatList
               data={commentData}
+              keyboardShouldPersistTaps={"handled"}
               renderItem={({ item }) => rendercomments(item)}
               ListEmptyComponent={() => renderOnEmptyComments()}
             />

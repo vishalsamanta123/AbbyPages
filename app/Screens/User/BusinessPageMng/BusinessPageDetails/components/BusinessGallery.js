@@ -14,6 +14,7 @@ import CarouselView from "../../../../../Components/CarouselView";
 import GalleryCarousalView from "../../../../../Components/GalleryCarousalView";
 import ShowMessage from "../../../../../Components/Modal/showMessage";
 import Loader from "../../../../../Utils/Loader";
+import FastImages from "../../../../../Components/FastImage";
 
 const BusinessGallery = (props) => {
   const {
@@ -68,6 +69,7 @@ const BusinessGallery = (props) => {
     getGalleryDetails();
     setImageData({});
   }, [visible]);
+  console.log("🚀 ~ file: BusinessGallery.js:183 ~ galleryData:", galleryData);
 
   const renderimage = (item, index) => {
     return (
@@ -79,7 +81,7 @@ const BusinessGallery = (props) => {
           setIndex(index);
         }}
       >
-        <Image
+        <FastImages
           source={{ uri: item?.image }}
           style={{
             height: 100,
@@ -100,7 +102,7 @@ const BusinessGallery = (props) => {
       });
       return false;
     }
-    return true
+    return true;
   };
 
   const handleUploadImage = async () => {
@@ -134,7 +136,7 @@ const BusinessGallery = (props) => {
               open: false,
               type: "",
             });
-          }, 2000)
+          }, 2000);
         } else {
           if (data.status === 201) {
             setUploadData({});
@@ -159,7 +161,15 @@ const BusinessGallery = (props) => {
   };
 
   return (
-    <Modal visible={visible}>
+    <Modal
+      visible={visible}
+      onRequestClose={() =>
+        setVisible({
+          open: false,
+          type: "",
+        })
+      }
+    >
       {loading && <Loader state={loading} />}
       <View style={CommonStyles.container}>
         <MainHeader

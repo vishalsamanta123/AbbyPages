@@ -11,6 +11,7 @@ import Video from "react-native-video";
 import styles from "./style";
 import MainHeader from "../MainHeader";
 import { useFocusEffect } from "@react-navigation/native";
+import FastImages from "../FastImage";
 
 const GalleryCarousalView = (props) => {
   const { data, isVisible, setIsVisible, index } = props;
@@ -37,7 +38,7 @@ const GalleryCarousalView = (props) => {
         {
           <View style={{ width }}>
             {type === "jpg" || type === "png" ? (
-              <Image
+              <FastImages
                 source={{ uri: media?.image }}
                 style={{ height: 300, width: "100%" }}
               />
@@ -53,7 +54,7 @@ const GalleryCarousalView = (props) => {
     );
   };
   return (
-    <Modal visible={isVisible}>
+    <Modal visible={isVisible} onRequestClose={() => setIsVisible(false)}>
       <MainHeader
         notifyIcon={false}
         onPressBack={() => {
