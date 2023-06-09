@@ -129,7 +129,9 @@ const CommentsModal = (props) => {
           size={100}
         />
         <ScaleText style={styles.noCommentTxt}>No comments yet</ScaleText>
-        <ScaleText style={styles.beFirstTxt}>Be the first one to comment</ScaleText>
+        <ScaleText style={styles.beFirstTxt}>
+          Be the first one to comment
+        </ScaleText>
       </View>
     );
   };
@@ -139,7 +141,6 @@ const CommentsModal = (props) => {
         visible={isVisible}
         animationType="slide"
         automaticallyAdjustKeyboardInsets
-        style={{ flex: 1, backgroundColor: "red" }}
       >
         <MainHeader
           isSearch={false}

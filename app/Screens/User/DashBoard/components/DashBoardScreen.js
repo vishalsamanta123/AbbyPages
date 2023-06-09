@@ -62,7 +62,9 @@ const DashBoardScreen = (props) => {
             ) : (
               <RecentActivity
                 activityData={props.recent_activity}
-                onPressActivity={props.handleOnActivity}
+                setActivityData={props?.setRecent_Activity}
+                messageShow={props.messageShow}
+                setMessageShow={props.setMessageShow}
               />
             )}
             {props.recentLoader && (
@@ -76,9 +78,14 @@ const DashBoardScreen = (props) => {
                   }
                 }}
                 style={styles.seeMoreBttn}
+                activeOpacity={
+                  props?.recent_activity?.length < props?.moreData ? 0 : 1
+                }
               >
                 <ScaleText style={styles.seeMoreBttnTxt}>
-                  Show More Activity
+                  {props?.recent_activity?.length < props?.moreData
+                    ? "Show More Activity"
+                    : "Activities End"}
                 </ScaleText>
               </TouchableOpacity>
             ) : null}

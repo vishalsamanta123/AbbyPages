@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 
 import ScaleText from "../../../../../Components/ScaleText";
@@ -28,12 +28,17 @@ const NewsFeedView = (props) => {
     setCommentParams,
     handleOnCommentPress,
     visible,
-    onSharePress
+    onSharePress,
   } = props;
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
   const isPostLiked = postData?.postLikeData?.likeStatus === 0 ? false : true;
 
+  useEffect(() => {
+    if (props?.post?.openFile === "comment") {
+      setIsCommentsVisible(true);
+    }
+  }, [props?.post]);
   const renderImages = (item) => {
     return (
       <TouchableOpacity
@@ -154,9 +159,7 @@ const NewsFeedView = (props) => {
                 <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  onSharePress()
-                }
+                onPress={() => onSharePress()}
                 style={styles.likeView}
               >
                 <ScaleText style={styles.likeSectionText}>Share</ScaleText>

@@ -84,6 +84,8 @@ const Styles = StyleSheet.create({
     marginRight: 10,
   },
 
+  ///Activity Styles
+
   activityConVw: {
     marginTop: 3,
   },
@@ -119,17 +121,18 @@ const Styles = StyleSheet.create({
     marginLeft: 12,
   },
   activityNameTxt: {
-    fontSize: FONT_SIZE.mediumL,
+    fontSize: FONT_SIZE.medium,
     fontFamily: FONT_FAMILY.NORMAL_BOLD,
     color: COLORS.LIGHT_BLACK,
   },
   activityTitlTxt: {
-    fontSize: FONT_SIZE.normal,
+    fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.RGBA,
     bottom: 4,
   },
   mainContVw: {
+    flex: 1,
     paddingHorizontal: 10,
     marginVertical: 8,
   },
@@ -157,32 +160,25 @@ const Styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 10,
   },
-  activityMainTxt: {
-    fontSize: FONT_SIZE.medium,
-    fontFamily: FONT_FAMILY.BOLD,
-    color: COLORS.BLUE,
-    marginTop: 8,
-    paddingHorizontal: 14,
-  },
   activityCmntTxt: {
-    fontSize: FONT_SIZE.medium,
+    fontSize: FONT_SIZE.smallL,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.LIGHT_BLACK,
     marginLeft: 4,
   },
   extraTxt: {
-    fontSize: FONT_SIZE.normal,
+    fontSize: FONT_SIZE.smallL,
     color: COLORS.BLUE,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   activitySubTxt: {
-    fontSize: FONT_SIZE.normal,
+    fontSize: FONT_SIZE.smallL,
     color: COLORS.RGBA,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   activityLightTxt: {
-    fontSize: FONT_SIZE.normal,
-    color: COLORS.RGBA1,
+    fontSize: FONT_SIZE.smallL,
+    color: COLORS.SMALL_TEXT,
     fontFamily: FONT_FAMILY.REGULAR,
   },
   likeSection: {

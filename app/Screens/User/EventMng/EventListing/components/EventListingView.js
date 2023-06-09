@@ -10,7 +10,7 @@ import moment from "moment";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import Header from "../../../../../Components/Header";
-import { COLORS, Constants } from "../../../../../Utils/Constant";
+import { COLORS, Constants, FONT_SIZE } from "../../../../../Utils/Constant";
 import Button from "../../../../../Components/Button";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Images } from "../../../../../Utils/images";
@@ -206,7 +206,7 @@ const EventListingView = (props) => {
           <ScrollView>
             {props.eventsList.length > 0 ? (
               <>
-                {props.eventsList.map((item) => {
+                {props.eventsList.map((item, index) => {
                   return (
                     <FullImageViewList
                       onPressView={() => props.navToEventDetail(item)}
@@ -240,7 +240,7 @@ const EventListingView = (props) => {
             Recently Added Events
           </ScaleText>
           <ScrollView>
-            {props?.events?.recently_added?.map((item) => {
+            {props?.events?.recently_added?.map((item, index) => {
               return (
                 <FullImageViewList
                   onPressView={() => props.navToEventDetail(item)}
@@ -260,7 +260,7 @@ const EventListingView = (props) => {
           <ScaleText style={styles.eventTitlesTxt}>Popular Events</ScaleText>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {Array.isArray(props?.events?.popular_events) &&
-              props?.events?.popular_events?.map((item) => {
+              props?.events?.popular_events?.map((item, index) => {
                 return (
                   <FullImageViewList
                     onPressView={() => props.navToEventDetail(item)}
@@ -281,6 +281,9 @@ const EventListingView = (props) => {
             <MainButton
               buttonTxt="See All"
               paddingHeight={12}
+              txtColor={COLORS.WHITE}
+              backgroundColor={COLORS.YELLOW}
+              txtFontsize={FONT_SIZE.mediumL}
               onPressButton={() => handleSeeAll()}
             />
           </View>

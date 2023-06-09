@@ -7,6 +7,7 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import Loader from "../../../Utils/Loader";
 import { useFocusEffect } from "@react-navigation/native";
 import { Constants } from "../../../Utils/Constant";
+import ShowMessage from "../../../Components/Modal/showMessage";
 
 const DashBoardView = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -20,6 +21,11 @@ const DashBoardView = ({ navigation }) => {
   const [byCategory, setByCategory] = useState({
     services: [],
     moreServices: [],
+  });
+  const [messageShow, setMessageShow] = useState({
+    visible: false,
+    message: "",
+    type: "",
   });
 
   useFocusEffect(
@@ -43,7 +49,7 @@ const DashBoardView = ({ navigation }) => {
     setActOffset(offset);
     const params = {
       offset: offset,
-      limit: 3,
+      limit: offset === 0 ? 3 : 5,
     };
     if (!refreshing && offset === 0) {
       setVisible(true);
@@ -54,7 +60,12 @@ const DashBoardView = ({ navigation }) => {
       const { data } = await apiCall("POST", ENDPOINTS.NEW_ACTIVITIES, params);
       if (data.status === 200) {
         setVisible(false);
-        setMoreData(16);
+        setMoreData(data?.activityCount);
+        data?.data?.forEach(function (item, i) {
+          item?.activity_type === 5
+            ? (item["likeStatus"] = item?.abbyconnect?.postLikeData?.likeStatus)
+            : item;
+        });
         if (offset === 0) {
           setRecent_Activity(data?.data);
         } else {
@@ -114,11 +125,6 @@ const DashBoardView = ({ navigation }) => {
       setRefreshing(false);
     }
   };
-  const handleOnActivity = (item) => {
-    if (item?.review) {
-      navigation.navigate("ReviewRating", item);
-    }
-  };
 
   const handleCategoryPress = (item) => {
     const newObject = {
@@ -129,9 +135,10 @@ const DashBoardView = ({ navigation }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
+      {/* {visible && <Loader state={visible} />} */}
       <DashBoardScreen
         recent_activity={recent_activity}
+        setRecent_Activity={setRecent_Activity}
         services={byCategory?.services}
         moreServices={byCategory?.moreServices}
         moreCategory={moreCategory}
@@ -143,11 +150,24 @@ const DashBoardView = ({ navigation }) => {
         recentLoader={recentLoader}
         onRefresh={onRefresh}
         refreshing={refreshing}
-        handleOnActivity={handleOnActivity}
         actOffset={actOffset}
         getDashBoardActivity={getDashBoardActivity}
         moreData={moreData}
         handleCategoryPress={handleCategoryPress}
+        messageShow={messageShow}
+        setMessageShow={setMessageShow}
+      />
+      <ShowMessage
+        visible={messageShow?.visible}
+        message={messageShow?.message}
+        messageViewType={messageShow?.type}
+        onEndVisible={() => {
+          setMessageShow({
+            visible: false,
+            message: "",
+            type: "",
+          });
+        }}
       />
       {/* <QuestionModal
         surringVisible={forBusinees}

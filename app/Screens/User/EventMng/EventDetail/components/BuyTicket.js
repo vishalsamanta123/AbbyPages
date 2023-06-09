@@ -13,6 +13,7 @@ import AddMinusView from "../../../../../Components/AddMinusView";
 import { getAmount } from "../../../../../Utils/Globalfunctions";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
+import { SALE_END, SALE_STARTS } from "../../../../../Utils/svgImages";
 
 const BuyTicketScreen = (props) => {
   const [bestQuality, setBestQuality] = useState("");
@@ -305,34 +306,20 @@ const BuyTicketScreen = (props) => {
                               item?.other?.ticket_sale_end_date,
                               item?.other?.ticket_end_sale_time
                             ) ? (
-                            <View style={styles.ticketOtherCon}>
-                              <ScaleText style={styles.ticketOtherTxt}>
-                                Sale End
-                              </ScaleText>
+                            <View>
+                              <SALE_END
+                                width={80}
+                                height={80}
+                                style={{ right: 10 }}
+                              />
                             </View>
                           ) : (
-                            <View style={styles.ticketOtherCon}>
-                              <ScaleText
-                                style={[
-                                  styles.ticketOtherTxt,
-                                  {
-                                    color: COLORS.YELLOW,
-                                  },
-                                ]}
-                              >
-                                Sale Will Start on
-                              </ScaleText>
-                              <ScaleText
-                                style={[
-                                  styles.ticketOtherTxt,
-                                  {
-                                    color: COLORS.YELLOW,
-                                  },
-                                ]}
-                              >
+                            <View>
+                              <SALE_STARTS width={110} height={110} />
+                              <ScaleText style={styles.ticketExtraTxt}>
                                 {moment(
                                   item?.other?.ticket_sale_start_date
-                                ).format(Constants.SH_TIME_DATE_FORMAT)}
+                                ).format(Constants.MONTH_DAY_FORMAT)}
                               </ScaleText>
                             </View>
                           )}

@@ -95,6 +95,7 @@ export const Constants = {
   SH_TIME_DATE_FORMAT: "MMM,DD YYYY",
   DATE_FORMAT: "LLL",
   TIME_FORMAT: "LTS",
+  MONTH_DAY_FORMAT: "Do MMM",
   mapKey: "AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4",
   windowWidth: Dimensions.get("screen").width,
   windowHeight: Dimensions.get("window").height,

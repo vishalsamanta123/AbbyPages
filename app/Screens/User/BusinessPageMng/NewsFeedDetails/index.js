@@ -117,7 +117,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
       message: `https://abbypages.com/news-feeds/${finalName}/${post?.post_id}`,
       title: postData?.business_name,
       imageUrl: postData?.logo_url,
-    })
+    });
   };
 
   return (
@@ -132,6 +132,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
         handleOnPressLike={handleOnPressLike}
         visible={visible}
         onSharePress={onSharePress}
+        post={post}
       />
     </>
   );

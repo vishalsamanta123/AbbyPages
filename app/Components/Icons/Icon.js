@@ -13,7 +13,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FoundationIcons from "react-native-vector-icons/Foundation";
 
-
 export const ICON_TYPE = {
   ICONICONS: "Ionicons",
   ANT_ICON: "AntDesign",
@@ -38,6 +37,7 @@ export const IconX = ({
   size,
   paddingLeft,
   paddingRight,
+  iconBorderColor,
   style,
 }) => {
   let colorx = color || "#aaaaaa";
@@ -45,6 +45,7 @@ export const IconX = ({
   let namex = name || "right";
   let paddingx = paddingLeft || null;
   let paddingy = paddingRight || null;
+  let iconBorderColorX = iconBorderColor || color;
 
   let Element = Ionicons;
 
@@ -101,7 +102,13 @@ export const IconX = ({
       name={namex}
       size={sizex}
       color={colorx}
-      style={[{ paddingLeft: paddingx ,paddingRight:paddingy}, style]}
+      style={[
+        {
+          paddingLeft: paddingx,
+          paddingRight: paddingy,
+        },
+        style,
+      ]}
       onPress={onPress}
     />
   );

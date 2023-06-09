@@ -13,6 +13,7 @@ import {
 import QuestionModal from "../../../../../Components/Modal/questionModal";
 import { useFocusEffect } from "@react-navigation/native";
 import { handleBusinessNav } from "../../../../../Utils/Globalfunctions";
+import AbbyCalendar from "../../../../../Components/AbbyCalendar";
 
 const MenuPage = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
@@ -20,6 +21,7 @@ const MenuPage = ({ navigation, route }) => {
   const [recent_view, setRecent_view] = useState([]);
   const { signOut } = React.useContext(AuthContext);
   const [logoutVw, setLogoutVw] = useState(false);
+  const [abbyCalendar, setAbbyCalendar] = useState(false);
   const [onPressmodal, setOnPressmodal, isFocused, setIsFocused] =
     useContext(TabModalContext);
 
@@ -76,6 +78,8 @@ const MenuPage = ({ navigation, route }) => {
       setIsFocused("JobManagement");
     } else if (options?.type === null) {
       navigation.navigate("Favorite");
+    } else if (options?.type === "calendar") {
+      setAbbyCalendar(true);
     }
   };
   const onPressView = (item) => {
@@ -101,6 +105,10 @@ const MenuPage = ({ navigation, route }) => {
         logoutVw={logoutVw}
         setLogoutVw={setLogoutVw}
         handleSeeProfilePress={handleSeeProfilePress}
+      />
+      <AbbyCalendar
+        showCalendar={abbyCalendar}
+        endShowCalendar={setAbbyCalendar}
       />
       <QuestionModal
         surringVisible={logoutVw}

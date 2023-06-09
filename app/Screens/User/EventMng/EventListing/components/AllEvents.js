@@ -40,7 +40,7 @@ const EventListingScreen = (props) => {
         }}
         onEndReached={() => {
           if (props?.eventsList?.length < props?.moreData) {
-            props?.getEventList(props?.offset + 1, 5, 0, "", false);
+            props?.getEventList(props?.offset + 1, 8, 0, "", false);
             props.setMessageShow({
               ...props.messageShow,
               loader: true,
