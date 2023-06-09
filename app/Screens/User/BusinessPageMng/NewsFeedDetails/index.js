@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Keyboard } from "react-native";
+import React, { useEffect, useState } from "react";
 import NewsFeedViewDetails from "./components/NewsFeedViewDetails";
 import { apiCall } from "../../../../Utils/httpClient";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
@@ -25,11 +25,14 @@ const NeweFeedDetails = ({ navigation, route }) => {
     React.useCallback(() => {
       getPostDetail();
       return () => {};
-    }, [navigation, route, likeUnlikeData, commentResp])
+    }, [navigation, route])
   );
-  const getPostDetail = async () => {
+  useEffect(() => {
+    getPostDetail("likeComment");
+  }, [likeUnlikeData, commentResp]);
+  const getPostDetail = async (type) => {
     try {
-      setVisible(true);
+      setVisible(type === "likeComment" ? false : true);
       const params = {
         post_id: post?.post_id,
         business_name: post?.business_name,
@@ -88,6 +91,8 @@ const NeweFeedDetails = ({ navigation, route }) => {
 
   const handleOnCommentPress = async () => {
     try {
+      Keyboard.dismiss();
+
       // setVisible(true);
       const { data } = await apiCall(
         "POST",

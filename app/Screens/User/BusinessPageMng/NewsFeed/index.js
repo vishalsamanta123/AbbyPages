@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Keyboard, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import Share from "react-native-share";
 import NewsFeedView from "./components/NewsFeedView";
@@ -113,6 +113,7 @@ const NewsFeed = ({ navigation, route }) => {
   };
 
   const handleOnCommentPress = async () => {
+    Keyboard.dismiss()
     try {
       if (commentParams.comment.trim() !== "") {
         // setVisible(true);
