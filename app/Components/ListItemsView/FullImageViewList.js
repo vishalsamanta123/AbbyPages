@@ -71,7 +71,7 @@ const FullImageViewList = (props) => {
             <IconX
               origin={ICON_TYPE.MATERIAL_ICONS}
               name={"event"}
-              size={16}
+              size={18}
               paddingRight={10}
               color={COLORS.BLACK}
             />

@@ -49,7 +49,7 @@ const DashBoardView = ({ navigation }) => {
     setActOffset(offset);
     const params = {
       offset: offset,
-      limit: offset === 0 ? 3 : 5,
+      limit: offset === 0 ? 6 : 6,
     };
     if (!refreshing && offset === 0) {
       setVisible(true);

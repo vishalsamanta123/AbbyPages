@@ -142,6 +142,7 @@ const Styles = StyleSheet.create({
     color: COLORS.YELLOW,
     textDecorationLine: "underline",
     textTransform: "capitalize",
+    marginVertical: 3
   },
   photosVw: {
     flexWrap: "wrap",

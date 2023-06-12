@@ -430,6 +430,7 @@ const RecentActivity = (props) => {
                                         {item?.event?.event_description ? (
                                           <ScaleText
                                             style={styles.activitySubTxt}
+                                            numberOfLines={5}
                                           >
                                             {item?.event?.event_description}
                                           </ScaleText>
