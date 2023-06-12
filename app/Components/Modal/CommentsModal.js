@@ -139,6 +139,7 @@ const CommentsModal = (props) => {
         animationType="slide"
         automaticallyAdjustKeyboardInsets
         style={{ flex: 1, backgroundColor: "red" }}
+        keyboardShouldPersistTaps={'always'}
       >
         <MainHeader
           isSearch={false}
@@ -152,6 +153,7 @@ const CommentsModal = (props) => {
         <ScrollView
           automaticallyAdjustKeyboardInsets={true}
           contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps={'always'}
         >
           <View style={{ flex: 1 }}>
             <FlatList
@@ -160,8 +162,7 @@ const CommentsModal = (props) => {
               ListEmptyComponent={() => renderOnEmptyComments()}
             />
           </View>
-        </ScrollView>
-        <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
+          <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
           <View style={styles.inputView}>
             <TextInput
               ref={inputRef}
@@ -191,6 +192,7 @@ const CommentsModal = (props) => {
             </TouchableOpacity>
           </View>
         </View>
+        </ScrollView>
       </Modal>
     </KeyboardAvoidingView>
   );
