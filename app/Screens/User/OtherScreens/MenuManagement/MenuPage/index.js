@@ -22,6 +22,7 @@ const MenuPage = ({ navigation, route }) => {
   const { signOut } = React.useContext(AuthContext);
   const [logoutVw, setLogoutVw] = useState(false);
   const [abbyCalendar, setAbbyCalendar] = useState(false);
+  const [recentViewNo, setRecentViewNo] = useState(3);
   const [onPressmodal, setOnPressmodal, isFocused, setIsFocused] =
     useContext(TabModalContext);
 
@@ -34,6 +35,7 @@ const MenuPage = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getRecentView();
+      setRecentViewNo(3);
       setUserData(userData);
     }, [navigation, route, userData])
   );
@@ -56,6 +58,7 @@ const MenuPage = ({ navigation, route }) => {
   const handleSignupLogin = () => {
     navigation.navigate("Login");
   };
+
   const onPressOptions = async (options) => {
     if (options.type === "2") {
       navigation.navigate("MarketplaceScreen");
@@ -86,6 +89,7 @@ const MenuPage = ({ navigation, route }) => {
     const data = {
       ...item,
       search_business_type: item.business_type,
+      business_type: item?.business_type?.toString()?.split(",")[0],
     };
     navigation.navigate("BusinessPageDetails", { detail: data });
   };
@@ -105,6 +109,8 @@ const MenuPage = ({ navigation, route }) => {
         logoutVw={logoutVw}
         setLogoutVw={setLogoutVw}
         handleSeeProfilePress={handleSeeProfilePress}
+        recentViewNo={recentViewNo}
+        setRecentViewNo={setRecentViewNo}
       />
       <AbbyCalendar
         showCalendar={abbyCalendar}
