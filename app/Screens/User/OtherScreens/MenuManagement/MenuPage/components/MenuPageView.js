@@ -14,7 +14,6 @@ import { MenuRecent } from "../../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../../Components/PageScroll";
 
 const MenuPageView = (props) => {
-  const [recentViewNo, setRecentViewNo] = useState(3);
   return (
     <>
       <MainHeader headerType={"logo"} />
@@ -84,40 +83,42 @@ const MenuPageView = (props) => {
             <>
               {props?.recent_view?.length > 0 ? (
                 <>
-                  {props?.recent_view?.slice(0, recentViewNo)?.map((item) => {
-                    return (
-                      <TouchableOpacity
-                        style={[CommonStyles.straightCon, styles.listVew]}
-                        onPress={() => props.onPressView(item)}
-                      >
-                        <Image
-                          source={{ uri: item.logo }}
-                          style={styles.listImgVw}
-                          resizeMode={"cover"}
-                        />
-                        <View style={{ flex: 1 }}>
-                          <ScaleText style={styles.listTxt}>
-                            {item.business_name}
-                          </ScaleText>
-                          <ScaleText
-                            numberOfLines={2}
-                            style={styles.listSmallTxt}
-                          >
-                            {item.address?.trim()}
-                          </ScaleText>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  })}
+                  {props?.recent_view
+                    ?.slice(0, props?.recentViewNo)
+                    ?.map((item) => {
+                      return (
+                        <TouchableOpacity
+                          style={[CommonStyles.straightCon, styles.listVew]}
+                          onPress={() => props.onPressView(item)}
+                        >
+                          <Image
+                            source={{ uri: item.logo }}
+                            style={styles.listImgVw}
+                            resizeMode={"cover"}
+                          />
+                          <View style={{ flex: 1 }}>
+                            <ScaleText style={styles.listTxt}>
+                              {item.business_name}
+                            </ScaleText>
+                            <ScaleText
+                              numberOfLines={2}
+                              style={styles.listSmallTxt}
+                            >
+                              {item.address?.trim()}
+                            </ScaleText>
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    })}
                   {props?.visible ? (
                     <>
                       <Loader state={props?.visible} type={"small"} />
                     </>
                   ) : null}
-                  {recentViewNo <= 3 ? (
+                  {props?.recentViewNo <= 3 ? (
                     <TouchableOpacity
                       onPress={() => {
-                        setRecentViewNo(10);
+                        props.setRecentViewNo(10);
                       }}
                       style={styles.seeMoreBttn}
                     >
