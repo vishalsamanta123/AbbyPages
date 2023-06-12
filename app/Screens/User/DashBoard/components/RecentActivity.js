@@ -15,7 +15,10 @@ import { IconX, ICON_TYPE } from "../../../../Components/Icons/Icon";
 import { useNavigation } from "@react-navigation/native";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
-import { handleSharePress } from "../../../../Utils/Globalfunctions";
+import {
+  handleBusinessShow,
+  handleSharePress,
+} from "../../../../Utils/Globalfunctions";
 
 const RecentActivity = (props) => {
   const navigation = useNavigation();
@@ -40,18 +43,11 @@ const RecentActivity = (props) => {
         type: "",
       });
     } else if (item?.activity_type === 2 || item?.activity_type === 3) {
-      const getObj = {
-        ...item,
-        business_type: item?.search_business_type
-          ? item?.search_business_type
-          : item?.business_type,
-        openFile: "gallery",
-      };
-      navigation.navigate("BusinessPageDetails", {
-        detail: getObj,
-      });
+      handleBusinessShow(item, "gallery", navigation);
     } else if (item?.activity_type === 4) {
-      navigation.navigate("ReviewRating", item);
+      navigation.navigate("ReviewRating", {
+        detailData: item,
+      });
     } else if (item?.activity_type === 5) {
       const getObj = {
         ...item,
@@ -141,7 +137,17 @@ const RecentActivity = (props) => {
                 style={styles.activityCon}
                 onPress={() => onPressActivity(item)}
               >
-                <View style={styles.rowVw}>
+                <TouchableOpacity
+                  activeOpacity={item?.user ? 1 : 0}
+                  style={styles.rowVw}
+                  onPress={() => {
+                    if (item?.user) {
+                      onPressActivity(item);
+                    } else {
+                      handleBusinessShow(item, "", navigation);
+                    }
+                  }}
+                >
                   <Image
                     source={{
                       uri: item?.user
@@ -176,13 +182,16 @@ const RecentActivity = (props) => {
                         : ""}
                     </ScaleText>
                   </View>
-                </View>
+                </TouchableOpacity>
                 {item?.activity_type === 2 || item?.activity_type === 4 ? (
-                  <View style={styles.mainContVw}>
+                  <TouchableOpacity
+                    onPress={() => handleBusinessShow(item, "", navigation)}
+                    style={styles.mainContVw}
+                  >
                     <ScaleText style={styles.mainHeadTxt}>
                       {item?.business_name}
                     </ScaleText>
-                  </View>
+                  </TouchableOpacity>
                 ) : (
                   <>
                     {item?.activity_type === 5 ? (

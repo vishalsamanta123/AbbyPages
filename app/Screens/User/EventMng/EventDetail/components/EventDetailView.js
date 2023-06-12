@@ -9,6 +9,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import SliderImages from "../../../../../Components/SliderImages";
 import { FullImageViewList } from "../../../../../Components/ListItemsView";
 import {
+  handleBusinessShow,
   handleSharePress,
   RECENT_TIME_FORMAT,
 } from "../../../../../Utils/Globalfunctions";
@@ -225,7 +226,12 @@ const EventDetailView = (props) => {
 
         {props.eventDetails?.business_name ? (
           <View style={styles.containVw}>
-            <View style={CommonStyles.straightCon}>
+            <TouchableOpacity
+              onPress={() =>
+                handleBusinessShow(props?.eventDetails, "", props.navigation)
+              }
+              style={CommonStyles.straightCon}
+            >
               <Image
                 source={{ uri: props.eventDetails?.owner_image }}
                 style={{ width: 45, height: 45, marginLeft: 3 }}
@@ -249,7 +255,7 @@ const EventDetailView = (props) => {
                   Event Organiser
                 </ScaleText>
               </View>
-            </View>
+            </TouchableOpacity>
             <View style={{ marginLeft: 7, marginVertical: 5 }}>
               <View style={CommonStyles.straightCon}>
                 <IconX

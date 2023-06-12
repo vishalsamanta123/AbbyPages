@@ -43,6 +43,7 @@ const BuyerInfoScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     "dddd, MMMM Do YYYY, h:mm:ss a"
   );
+
   return (
     <>
       <MainHeader
@@ -63,7 +64,11 @@ const BuyerInfoScreen = (props) => {
           <View style={styles.straightVw}>
             <View style={styles.timeShownVw}>
               <CountDown
-                until={60 * 10}
+                until={
+                  props?.percentage === 0
+                    ? props?.eventDetails?.time_limit_purchase * 60
+                    : props?.percentage
+                }
                 size={16}
                 onFinish={() => {
                   props.setMessageShow({
@@ -86,7 +91,7 @@ const BuyerInfoScreen = (props) => {
               <ScaleText style={styles.timeTxt}>time remains</ScaleText>
             </View>
             <ScaleText style={styles.percentTxt}>
-              {100 - Number(props?.couts).toFixed(0)}%
+              {109 - Number(props?.couts).toFixed(0)}%
             </ScaleText>
           </View>
           <View style={styles.timeCon}>

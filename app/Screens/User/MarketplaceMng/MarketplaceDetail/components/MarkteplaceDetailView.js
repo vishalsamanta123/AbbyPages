@@ -5,7 +5,10 @@ import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import CarouselView from "../../../../../Components/CarouselView";
 import ScaleText from "../../../../../Components/ScaleText";
-import { getAmount } from "../../../../../Utils/Globalfunctions";
+import {
+  getAmount,
+  handleBusinessShow,
+} from "../../../../../Utils/Globalfunctions";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import { COLORS } from "../../../../../Utils/Constant";
 import PageScroll from "../../../../../Components/PageScroll";
@@ -46,8 +49,8 @@ const MarkteplaceDetailView = (props) => {
             </View>
           </View>
           <ScaleText style={styles.sendMsgTxt}>
-                Only {productDetail?.quantity} left in stock
-              </ScaleText>
+            Only {productDetail?.quantity} left in stock
+          </ScaleText>
           <View style={[styles.sendmsgView]}>
             <ScaleText style={styles.sendMsgTxt}>
               Send seller a message
@@ -92,7 +95,10 @@ const MarkteplaceDetailView = (props) => {
               Seller Information
             </ScaleText>
             <View style={styles.mainContainer}>
-              <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
+              <TouchableOpacity
+                style={[CommonStyles.straightCon, { marginTop: 10 }]}
+                onPress={() => handleBusinessShow(productDetail,"",props.navigation)}
+              >
                 <Image
                   source={{ uri: productDetail?.logoimage }}
                   style={styles.considrImgVw}
@@ -102,7 +108,7 @@ const MarkteplaceDetailView = (props) => {
                     {productDetail?.business_name}
                   </ScaleText>
                 </View>
-              </View>
+              </TouchableOpacity>
               <ScaleText style={[styles.smallTxt, { marginTop: 8 }]}>
                 Joined AbbyPages in 2018
               </ScaleText>
@@ -545,13 +551,16 @@ const MarkteplaceDetailView = (props) => {
               alignItems: "center",
               flexDirection: "row",
               justifyContent: "space-around",
-              marginHorizontal: 10
+              marginHorizontal: 10,
             }}
           >
             <AddMinusView
               value={props?.quantity ? props?.quantity : 1}
               minVal={1}
-              onPressAdd={(val) => props?.quantity < productDetail?.quantity && props.addToCart(productDetail, val)}
+              onPressAdd={(val) =>
+                props?.quantity < productDetail?.quantity &&
+                props.addToCart(productDetail, val)
+              }
               onPressMinus={(val) => props.removeFromCart(productDetail, val)}
               width={"80%"}
             />
@@ -573,22 +582,22 @@ const MarkteplaceDetailView = (props) => {
             />
           </View>
           <MainButton
-              buttonTxt={"Buy now"}
-              onPressButton={() =>
-                props.addProductOnCart(
-                  productDetail,
-                  props?.quantity ? props?.quantity : 1,
-                  "buynow"
-                )
-              }
-              width={"90%"}
-              borderColor={COLORS.YELLOW}
-              txtColor={COLORS.WHITE}
-              backgroundColor={COLORS.YELLOW}
-              borderRadius={10}
-              paddingHeight={9}
-              paddingHorizontal={35}
-            />
+            buttonTxt={"Buy now"}
+            onPressButton={() =>
+              props.addProductOnCart(
+                productDetail,
+                props?.quantity ? props?.quantity : 1,
+                "buynow"
+              )
+            }
+            width={"90%"}
+            borderColor={COLORS.YELLOW}
+            txtColor={COLORS.WHITE}
+            backgroundColor={COLORS.YELLOW}
+            borderRadius={10}
+            paddingHeight={9}
+            paddingHorizontal={35}
+          />
           <View style={{ marginVertical: 20 }}></View>
         </View>
       </PageScroll>

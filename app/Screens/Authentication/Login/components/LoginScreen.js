@@ -1,7 +1,6 @@
 import React from "react";
-import { View, ScrollView, Platform, Image, StatusBar } from "react-native";
+import { View, ScrollView, Image, StatusBar } from "react-native";
 import styles from "./styles";
-import Input from "../../../../Components/Input";
 import Button from "../../../../Components/Button";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";

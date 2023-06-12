@@ -20,6 +20,7 @@ const EventListing = ({ navigation, route }) => {
   const [openAll, setOpenAll] = useState(false);
   const [offset, setoffset] = useState(0);
   const [openSearchDate, setOpenSearchDate] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [eventType, setEventType] = useState(0);
   const [searchDate, setSearchDate] = useState("");
   const [messageShow, setMessageShow] = useState({
@@ -234,6 +235,18 @@ const EventListing = ({ navigation, route }) => {
       detail: "",
     });
   };
+  const onRefresh = () => {
+    getEventList(0, 4, 0, "");
+    handlePopularEvents();
+    setEventType(null);
+    setIsSelectedDay(null);
+    setEventsList([]);
+    setEvents({});
+    setOpenAll(false);
+    setoffset(0);
+    setOpenSearchDate(false);
+    setSearchDate("");
+  };
   return (
     <View style={CommonStyles.container}>
       {loader && <Loader state={loader} />}
@@ -252,6 +265,8 @@ const EventListing = ({ navigation, route }) => {
           messageShow={messageShow}
           setMessageShow={setMessageShow}
           onPressLike={onPressLike}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
         />
       ) : (
         <EventListingScreen
@@ -273,6 +288,8 @@ const EventListing = ({ navigation, route }) => {
           setOpenSearchDate={setOpenSearchDate}
           messageShow={messageShow}
           onPressLike={onPressLike}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
         />
       )}
       <ShowMessage

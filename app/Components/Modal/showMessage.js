@@ -5,8 +5,10 @@ import ScaleText from "../ScaleText";
 import { IconX, ICON_TYPE } from "../Icons/Icon";
 import CommonStyles from "../../Utils/CommonStyles";
 import MainButton from "../MainButton";
+import { useNavigation } from "@react-navigation/native";
 
 const ShowMessage = (props) => {
+  const navigation = useNavigation();
   const {
     message = "",
     backgroundColor = "",
@@ -30,7 +32,20 @@ const ShowMessage = (props) => {
         onEndVisible(false);
       }, 2500);
     }
+    if (message?.includes("User is un-authorised")) {
+      setTimeout(async () => {
+        handleLoginGo();
+      }, 2000);
+    }
   }, [visible, messageType]);
+
+  const handleLoginGo = (type) => {
+    if (type === "signup") {
+      navigation.navigate("SignUp", { goBack: true });
+    } else {
+      navigation.navigate("Login", { goBack: true });
+    }
+  };
   return (
     <>
       {visible ? (
@@ -96,11 +111,54 @@ const ShowMessage = (props) => {
                   </>
                 )}
                 <TouchableOpacity onPress={onPressMessage} activeOpacity={1}>
-                  <ScaleText style={styles.messageTxt}>
-                    {message === "" || message === null || message === undefined
-                      ? "Show Message"
-                      : message}
-                  </ScaleText>
+                  {message?.includes("User is un-authorised") ? (
+                    <>
+                      <ScaleText style={styles.messageTxt}>
+                        Please login to apply.
+                        <ScaleText
+                          onPress={() => handleLoginGo("signup")}
+                          style={[
+                            styles.messageTxt,
+                            {
+                              textDecorationLine: "underline",
+                            },
+                          ]}
+                        >
+                          SignUp
+                        </ScaleText>
+                        <ScaleText
+                          style={[
+                            styles.messageTxt,
+                            {
+                              textDecorationLine: "underline",
+                            },
+                          ]}
+                        >
+                          {" "}
+                          or{" "}
+                        </ScaleText>
+                        <ScaleText
+                          onPress={() => handleLoginGo()}
+                          style={[
+                            styles.messageTxt,
+                            {
+                              textDecorationLine: "underline",
+                            },
+                          ]}
+                        >
+                          Login
+                        </ScaleText>
+                      </ScaleText>
+                    </>
+                  ) : (
+                    <ScaleText style={styles.messageTxt}>
+                      {message === "" ||
+                      message === null ||
+                      message === undefined
+                        ? "Show Message"
+                        : message}
+                    </ScaleText>
+                  )}
                 </TouchableOpacity>
               </View>
               {messageType === "press" ? (

@@ -148,6 +148,7 @@ const JobDetail = ({ route, navigation }) => {
         shareTo={shareTo}
         onPressJob={onPressJob}
         onPressLike={onPressLike}
+        navigation={navigation}
       />
       <ShowMessage
         visible={messageShow?.visible}

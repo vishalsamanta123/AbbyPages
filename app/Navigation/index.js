@@ -96,6 +96,7 @@ function TabNavigation() {
       <Tab.Screen name="JobDetail" component={JobDetail} />
       <Tab.Screen name="Pricing" component={Pricing} />
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
+      <Tab.Screen name="NeweFeedDetails" component={NeweFeedDetails} />
       <Tab.Screen name="ApplyJob" component={ApplyJob} />
       <Tab.Screen name="RestroBooking" component={RestroBooking} />
       <Tab.Screen
@@ -155,7 +156,7 @@ function AppStack() {
       <Stack.Screen name="JobDetail" component={TabNavigation} />
       <Stack.Screen name="Pricing" component={TabNavigation} />
       <Stack.Screen name="NewsFeed" component={TabNavigation} />
-      <Stack.Screen name="NeweFeedDetails" component={NeweFeedDetails} />
+      <Stack.Screen name="NeweFeedDetails" component={TabNavigation} />
       <Stack.Screen name="ApplyJob" component={TabNavigation} />
       <Stack.Screen name="RestroBooking" component={TabNavigation} />
       <Stack.Screen name="ConfirmReservation" component={TabNavigation} />
@@ -163,8 +164,8 @@ function AppStack() {
       <Stack.Screen name="RestroMenu" component={TabNavigation} />
       <Stack.Screen name="MarketplaceScreen" component={TabNavigation} />
       <Stack.Screen name="MarketplaceDetail" component={TabNavigation} />
-      <Stack.Screen name="RestroItemDetail" component={RestroItemDetail} />
-      <Stack.Screen name="RestroCheckout" component={RestroCheckout} />
+      <Stack.Screen name="RestroItemDetail" component={TabNavigation} />
+      <Stack.Screen name="RestroCheckout" component={TabNavigation} />
       <Stack.Screen name="ShoppingCart" component={TabNavigation} />
       <Stack.Screen name="CheckOut" component={TabNavigation} />
       <Stack.Screen name="AddNewLocation" component={AddNewLocation} />
@@ -257,7 +258,6 @@ function AuthLoading({ navigation }) {
           console.log(error.message);
         }
         dispatch({ type: "LOGIN", id: "userName", token: userToken });
-        navigation.navigate("HomeDashboard");
       },
       signOut: async () => {
         try {
@@ -320,11 +320,11 @@ const Route = () => {
   const [userData, setUserData] = useContext(UserContext);
   useLayoutEffect(() => {
     getToken();
-  }, []);
+  }, [userData]);
 
   const getToken = async () => {
     let userToken = await AsyncStorage.getItem("userToken");
-    if (userToken === null) {
+    if (userToken === null && !userData?.login_type) {
       const { data } = await apiCall("GET", ENDPOINTS.GENERATE_TOKEN);
       if (data.status === 200) {
         await setDefaultHeader("token", data.token);

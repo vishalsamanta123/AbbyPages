@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import { apiCall } from "../../../../Utils/httpClient";
 import Loader from "../../../../Utils/Loader";
 import ReviewRatingView from "./components/ReviewRatingView";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import AsyncStorage from "@react-native-community/async-storage";
 import ShowMessage from "../../../../Components/Modal/showMessage";
-import { useFocusEffect } from "@react-navigation/native";
 
 const ReviewRating = ({ navigation, route }) => {
   const { detailData = {} } = route.params;
@@ -19,13 +17,6 @@ const ReviewRating = ({ navigation, route }) => {
     description: "",
     business_rating: "",
   });
-  useEffect(() => {
-    setRatingData({
-      title: "",
-      description: "",
-      business_rating: "",
-    })
-  }, [visible])
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -61,15 +52,16 @@ const ReviewRating = ({ navigation, route }) => {
   const addReviewsAndRating = async () => {
     const params = {
       business_id: detailData?.business_id,
-      business_type: detailData?.business_type,
+      business_type: detailData?.business_type?.toString()?.split(",")[0],
       business_rating: ratingData?.business_rating,
       description: ratingData?.description,
       title: ratingData?.title,
     };
     if (validationFrom()) {
-    setVisible(true);
+      setVisible(true);
       try {
         const { data } = await apiCall("POST", apiEndPoints.ADD_REVIEW, params);
+        console.log("data: ", data);
         if (data?.status === 200) {
           setVisible(false);
           setReviewData(data?.data);
@@ -85,7 +77,6 @@ const ReviewRating = ({ navigation, route }) => {
           });
           navigation.goBack();
         } else {
-          setReviewData({});
           setVisible(false);
           setMessageShow({
             visible: true,
@@ -119,6 +110,7 @@ const ReviewRating = ({ navigation, route }) => {
         ratingData={ratingData}
         setRatingData={setRatingData}
         addReviewsAndRating={addReviewsAndRating}
+        navigation={navigation}
       />
       <ShowMessage
         visible={messageShow?.visible}

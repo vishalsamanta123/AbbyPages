@@ -138,6 +138,7 @@ const NeweFeedDetails = ({ navigation, route }) => {
         visible={visible}
         onSharePress={onSharePress}
         post={post}
+        navigation={navigation}
       />
     </>
   );

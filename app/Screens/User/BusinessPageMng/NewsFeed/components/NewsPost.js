@@ -8,20 +8,26 @@ import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import moment from "moment";
 import Collage from "../../../../../Components/Collage";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
+import { useNavigation } from "@react-navigation/native";
+import { handleBusinessShow } from "../../../../../Utils/Globalfunctions";
 
 const NewsPost = (props) => {
+  const navigation = useNavigation();
   const {
     newsData,
     handleOnCommentPress,
     setCommentParams,
     commentParams,
     handelOnPressPost,
-    onSharePress
+    onSharePress,
   } = props;
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
   const isPostLiked = newsData?.postLikeData?.likeStatus === 0 ? false : true;
   return (
-    <TouchableOpacity style={styles.mainConatiner} onPress={() => handelOnPressPost(newsData)}>
+    <TouchableOpacity
+      style={styles.mainConatiner}
+      onPress={() => handelOnPressPost(newsData)}
+    >
       <View style={{ flex: 1 }}>
         <View style={styles.rowVw}>
           <Image
@@ -29,7 +35,12 @@ const NewsPost = (props) => {
             resizeMode="cover"
             source={{ uri: newsData?.logo_url }}
           />
-          <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={() => {
+              handleBusinessShow(newsData, "", navigation);
+            }}
+            style={{ flex: 1 }}
+          >
             <View
               style={[
                 styles.rowVw,
@@ -52,7 +63,7 @@ const NewsPost = (props) => {
                 </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
         <ScaleText style={styles.headlineTxt}>
           {newsData?.headline ? newsData?.headline : null}
@@ -60,11 +71,13 @@ const NewsPost = (props) => {
         <ScaleText style={styles.descriptionTxt}>
           {newsData?.description ? newsData?.description : null}
         </ScaleText>
-        {newsData?.link ? <TouchableOpacity onPress={() => Linking.openURL(newsData?.link)}>
-          <ScaleText style={styles.nullTxt}>
-            {newsData?.link ? newsData?.link : null}
-          </ScaleText>
-        </TouchableOpacity> : null}
+        {newsData?.link ? (
+          <TouchableOpacity onPress={() => Linking.openURL(newsData?.link)}>
+            <ScaleText style={styles.nullTxt}>
+              {newsData?.link ? newsData?.link : null}
+            </ScaleText>
+          </TouchableOpacity>
+        ) : null}
         <Collage imagesData={newsData?.photo} />
         <View style={styles.likeCountView}>
           <ScaleText style={styles.likeSectionText}>
@@ -123,7 +136,16 @@ const NewsPost = (props) => {
             </View>
             <ScaleText style={styles.likeSectionText}>Comment</ScaleText>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.likeView} onPress={() => onSharePress(newsData?.post_id, newsData?.business_name, newsData?.logo_url)}>
+          <TouchableOpacity
+            style={styles.likeView}
+            onPress={() =>
+              onSharePress(
+                newsData?.post_id,
+                newsData?.business_name,
+                newsData?.logo_url
+              )
+            }
+          >
             <View style={{ marginRight: 5 }}>
               <IconX
                 origin={ICON_TYPE.ANT_ICON}

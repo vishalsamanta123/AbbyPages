@@ -213,9 +213,9 @@ const BuyTicketScreen = (props) => {
                     );
                     const currentTime = moment(new Date()).unix();
                     if (dateTimeUnix <= currentTime) {
-                      return true;
+                      return true; // start date gone
                     } else {
-                      return false;
+                      return false; // start date will come soon
                     }
                   };
                   const findEnd = (endDate, endTime) => {
@@ -224,10 +224,10 @@ const BuyTicketScreen = (props) => {
                       new Date(cobStartTimeDate).getTime() / 1000
                     );
                     const currentTime = moment(new Date()).unix();
-                    if (dateTimeUnix >= currentTime) {
-                      return true;
+                    if (dateTimeUnix <= currentTime) {
+                      return false; // Event end
                     } else {
-                      return false;
+                      return true; // Event will end soon
                     }
                   };
                   return (

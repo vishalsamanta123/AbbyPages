@@ -1,5 +1,11 @@
 import React from "react";
-import { View, ScrollView, TextInput, SafeAreaView } from "react-native";
+import {
+  View,
+  ScrollView,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
@@ -9,15 +15,23 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
 import { MainItemsView } from "../../../../../Components/ListItemsView";
+import { handleBusinessShow } from "../../../../../Utils/Globalfunctions";
 
 const ReviewRatingView = (props) => {
   return (
     <View style={CommonStyles.container}>
       <MainHeader headerText={"Review"} />
       <PageScroll contentContainerStyle={styles.mainContainer}>
-        <ScaleText style={styles.headTxt}>
-          {props?.recntRVwsData?.business_name}
-        </ScaleText>
+        <TouchableOpacity
+          onPress={() =>
+            handleBusinessShow(props?.recntRVwsData, "", props.navigation)
+          }
+        >
+          <ScaleText style={styles.headTxt}>
+            {props?.recntRVwsData?.business_name}
+          </ScaleText>
+        </TouchableOpacity>
+
         <ScaleText style={styles.subHeadTxt}>
           {props?.recntRVwsData?.business_review?.length} Reviews for{" "}
           {props?.recntRVwsData?.business_name}

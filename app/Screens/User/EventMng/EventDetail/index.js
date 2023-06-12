@@ -50,9 +50,7 @@ const EventDetail = ({ navigation, route }) => {
   });
   const [percentage, setPercentage] = useState(0);
   const [downloadModal, setDownloadModal] = useState(false);
-  const couts = percentage * 0.16;
-  const IncreasePercentage =
-    100 * Math.abs((60 * 10 - percentage) / ((60 * 10 + percentage) / 2));
+  const couts = percentage / 100;
   const videoUrl = `${eventDetails?.events_video?.substring(
     eventDetails?.events_video?.lastIndexOf("/") + 1
   )}`;
@@ -74,7 +72,7 @@ const EventDetail = ({ navigation, route }) => {
     setLoader(true);
     try {
       const params = {
-        event_id: id,
+        event_id: 174,
       };
       const { data } = await apiCall(
         "POST",
@@ -551,8 +549,8 @@ const EventDetail = ({ navigation, route }) => {
                   buyerInfo={buyerInfo}
                   setBuyerInfo={setBuyerInfo}
                   setPercentage={setPercentage}
+                  percentage={percentage}
                   couts={couts}
-                  IncreasePercentage={IncreasePercentage}
                   setMessageShow={setMessageShow}
                 />
               ) : (
@@ -574,7 +572,6 @@ const EventDetail = ({ navigation, route }) => {
                       setMessageShow={setMessageShow}
                       ticketAdded={ticketAdded}
                       setTicketAdded={setTicketAdded}
-                      IncreasePercentage={IncreasePercentage}
                       downloadModal={downloadModal}
                       setDownloadModal={setDownloadModal}
                       onPressDownload={onPressDownload}
