@@ -16,8 +16,6 @@ const TicketPaymentScreen = (props) => {
   const eventDate = moment(props?.eventDetails?.created_at).format(
     Constants.TIME_DATE_FORMAT
   );
-  const [newPercentage, setNewPercentage] = useState();
-  const couts = newPercentage * 0.16;
   return (
     <>
       <MainHeader
@@ -50,7 +48,7 @@ const TicketPaymentScreen = (props) => {
                     props.setBuyTicketModal("");
                   }}
                   onChange={(timing) => {
-                    setNewPercentage(timing);
+                    props?.setPercentage(timing);
                   }}
                   digitStyle={styles.digitStyle}
                   digitTxtStyle={styles.subTitleTxt}
@@ -62,7 +60,7 @@ const TicketPaymentScreen = (props) => {
                 <ScaleText style={styles.timeTxt}>time remains</ScaleText>
               </View>
               <ScaleText style={styles.percentTxt}>
-                {100 - Number(couts).toFixed(0)}%
+                {110 - Number(props?.couts).toFixed(0)}%
               </ScaleText>
             </View>
             <View style={styles.timeCon}>
@@ -70,7 +68,8 @@ const TicketPaymentScreen = (props) => {
                 style={[
                   styles.timeConVw,
                   {
-                    marginRight: couts === "0.16" ? "0%" : `${couts}%`,
+                    marginRight:
+                      props?.couts === "0.16" ? "0%" : `${props?.couts}%`,
                   },
                 ]}
               >

@@ -14,7 +14,11 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
-import { getAmount, removeHttp } from "../../../../../Utils/Globalfunctions";
+import {
+  getAmount,
+  handleBusinessShow,
+  removeHttp,
+} from "../../../../../Utils/Globalfunctions";
 import PageScroll from "../../../../../Components/PageScroll";
 
 const JobDetailView = (props) => {
@@ -70,12 +74,18 @@ const JobDetailView = (props) => {
             <ScaleText style={styles.tileTxt}>
               {props?.jobDetail?.company_name}
             </ScaleText>
-            <ScaleText style={styles.titledTxt}>
-              By {props?.jobDetail?.business_name}
-            </ScaleText>
-            <ScaleText style={styles.smallTxt}>
-              {props?.jobDetail?.address}
-            </ScaleText>
+            <TouchableOpacity
+              onPress={() =>
+                handleBusinessShow(props?.jobDetail, "", props.navigation)
+              }
+            >
+              <ScaleText style={styles.titledTxt}>
+                By {props?.jobDetail?.business_name}
+              </ScaleText>
+              <ScaleText style={styles.smallTxt}>
+                {props?.jobDetail?.address}
+              </ScaleText>
+            </TouchableOpacity>
             <View style={{ marginTop: 20 }}>
               <View style={CommonStyles.straightCon}>
                 <ScaleText style={styles.headTxt}>Job View</ScaleText>

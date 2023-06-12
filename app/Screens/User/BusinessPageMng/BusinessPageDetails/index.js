@@ -10,7 +10,6 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 
 const BusinessPageDetails = ({ navigation, route }) => {
   const { detail = {} } = route?.params;
-  console.log("detail: ", detail);
   const [visible, setVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(0);
   const [messageShow, setMessageShow] = useState({
@@ -44,12 +43,11 @@ const BusinessPageDetails = ({ navigation, route }) => {
     try {
       setVisible(true);
       const params = {
-        business_id: detail?.business_id,
-        business_type: detail?.business_type,
+        business_name_slug: detail?.business_name,
       };
       const { data } = await apiCall(
         "POST",
-        ENDPOINTS.BUSINESS_DETAILS,
+        ENDPOINTS.USER_BUSINESS_DETAIL_GOOG,
         params
       );
       if (data?.status == 200) {

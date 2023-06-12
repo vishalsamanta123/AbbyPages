@@ -12,6 +12,7 @@ import { Constants } from "./Constant";
 import { Alert, Linking } from "react-native";
 import moment from "moment";
 import Share from "react-native-share";
+import { useNavigation } from "@react-navigation/native";
 
 export const handlePermission = async (
   permission,
@@ -68,15 +69,15 @@ export const handlePermission = async (
 export const permissionWrite = async (type = "request") => {
   const res = (type = "request"
     ? await request(
-      Constants.Ios
-        ? PERMISSIONS.IOS.PHOTO_LIBRARY
-        : PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE
-    )
+        Constants.Ios
+          ? PERMISSIONS.IOS.PHOTO_LIBRARY
+          : PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE
+      )
     : await check(
-      Constants.Ios
-        ? PERMISSIONS.IOS.PHOTO_LIBRARY
-        : PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE
-    ));
+        Constants.Ios
+          ? PERMISSIONS.IOS.PHOTO_LIBRARY
+          : PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE
+      ));
   return res;
 };
 export const checkPermissions = async (permission) => {
@@ -215,7 +216,7 @@ export const requestPermissions = async (permission) => {
 export const openPermissionSetting = (
   msgHeading,
   message,
-  onPressCancel = () => { }
+  onPressCancel = () => {}
 ) => {
   Alert.alert(msgHeading, message, [
     {
@@ -301,7 +302,7 @@ export const handleSharePress = async (data) => {
     message = "",
     imageUrl = "",
     detailData = {},
-    url = ""
+    url = "",
   } = data;
   try {
     const result = await Share.open({
@@ -310,12 +311,12 @@ export const handleSharePress = async (data) => {
         {
           // For using custom icon instead of default text icon at share preview when sharing with message.
           placeholderItem: {
-            type: 'url',
+            type: "url",
             content: imageUrl,
           },
           item: {
             default: {
-              type: 'text',
+              type: "text",
               content: `${url}`,
             },
           },
@@ -323,20 +324,32 @@ export const handleSharePress = async (data) => {
             title: title,
             icon: imageUrl,
           },
-        }
+        },
       ],
     });
     if (result.action === Share.sharedAction) {
       if (result.activityType) {
-        console.log(" Shared successfully",)
+        console.log(" Shared successfully");
       } else {
-        console.log("Share cancelled")
+        console.log("Share cancelled");
       }
     } else if (result.action === Share.dismissedAction) {
-      console.log("Share dismissed")
+      console.log("Share dismissed");
     }
   } catch (error) {
-    console.log("/ Error while sharing")
-
+    console.log("/ Error while sharing");
   }
+};
+
+export const handleBusinessShow = (item, openFileType, navigation) => {
+  const getObj = {
+    ...item,
+    business_type: item?.search_business_type
+      ? item?.search_business_type
+      : item?.business_type,
+    openFile: openFileType,
+  };
+  navigation.navigate("BusinessPageDetails", {
+    detail: getObj,
+  });
 };

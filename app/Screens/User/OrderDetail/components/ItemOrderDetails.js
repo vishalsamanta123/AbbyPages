@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, Image, Text, ScrollView } from "react-native";
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import moment from "moment";
@@ -13,6 +20,7 @@ import Button from "../../../../Components/Button";
 import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import PageScroll from "../../../../Components/PageScroll";
+import { handleBusinessShow } from "../../../../Utils/Globalfunctions";
 
 const ItemOrderDetails = (props) => {
   const _handleItemList = (item, index) => {
@@ -74,9 +82,15 @@ const ItemOrderDetails = (props) => {
         )}
         <View style={styles.mainContentVw}>
           {props?.orderDetail?.business_name && (
-            <Text style={styles.nameTxt}>
-              {props?.orderDetail?.business_name}
-            </Text>
+            <TouchableOpacity
+              onPress={() =>
+                handleBusinessShow(props?.orderDetail, "", props.navigation)
+              }
+            >
+              <Text style={styles.nameTxt}>
+                {props?.orderDetail?.business_name}
+              </Text>
+            </TouchableOpacity>
           )}
           <Text style={styles.detailTxt}>
             <Text style={styles.detailTitleTxt}>Order Id :</Text>

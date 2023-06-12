@@ -14,7 +14,7 @@ import ScaleText from "../../../../../Components/ScaleText";
 import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import moment from "moment";
 import styles from "./styles";
-import { OpenDoc } from "../../../../../Utils/Globalfunctions";
+import { handleBusinessShow, OpenDoc } from "../../../../../Utils/Globalfunctions";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 import { NewsFeedDetailShimmer } from "../../../../../Components/ShimmerEffect";
@@ -69,7 +69,12 @@ const NewsFeedView = (props) => {
                 resizeMode="cover"
                 source={{ uri: postData?.logo_url }}
               />
-              <View style={{ flex: 1 }}>
+              <TouchableOpacity
+                onPress={() =>
+                  handleBusinessShow(postData, "", props.navigation)
+                }
+                style={{ flex: 1 }}
+              >
                 <View
                   style={[
                     styles.rowVw,
@@ -94,7 +99,7 @@ const NewsFeedView = (props) => {
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <ScaleText style={styles.headlineTxt}>
               {postData?.headline ? postData?.headline : null}

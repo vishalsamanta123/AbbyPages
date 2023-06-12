@@ -146,6 +146,7 @@ const OrderDetailIndex = ({ route, navigation }) => {
         orderDetail={orderDetail}
         onPressInvoice={onPressInvoice}
         setCancelOrder={setCancelOrder}
+        navigation={navigation}
       />
       {/* <Error
         message={errorMessage}

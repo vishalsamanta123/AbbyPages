@@ -101,6 +101,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
         cartData={cartData}
         onPressCart={onPressCart}
         quantity={quantity}
+        navigation={navigation}
       />
       <ShowMessage
         visible={messageShow?.visible}

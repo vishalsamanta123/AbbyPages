@@ -33,27 +33,10 @@ import PageScroll from "../../../../../Components/PageScroll";
 import VideoPlayer from "../../../../../Components/VideoPlayer";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import Loader from "../../../../../Utils/Loader";
+import { RefreshControl } from "react-native";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
-  const _renderTime = (item, index) => {
-    const selectedColor =
-      index === props.isSelectedDay ? COLORS.YELLOW : COLORS.BLACK;
-    return (
-      <TouchableOpacity
-        onPress={() => props._handleDaySelected(item.id, index)}
-        style={styles.lablestyle}
-      >
-        <ScaleText style={[styles.txtTimeCat, { color: selectedColor }]}>
-          {item.name}
-        </ScaleText>
-        <Image
-          style={[styles.timeDataImg, { tintColor: selectedColor }]}
-          source={Images.PROCEED_IMG}
-        />
-      </TouchableOpacity>
-    );
-  };
   const handleSeeAll = async () => {
     props.getEventList(0, 12, 0, "");
     props?.setEventType(0);
@@ -71,7 +54,19 @@ const EventListingView = (props) => {
         TxtMarginRight={"5%"}
         backText={false}
       />
-      <PageScroll contentContainerStyle={CommonStyles.scrollCon}>
+      <PageScroll
+        refreshControl={
+          <RefreshControl
+            colors={[COLORS.YELLOW]}
+            refreshing={props.refreshing}
+            onRefresh={() => {
+              props.onRefresh();
+              setAlsoSeeFor(false);
+            }}
+          />
+        }
+        contentContainerStyle={CommonStyles.scrollCon}
+      >
         <View style={styles.videoBannerView}>
           <VideoPlayer
             reqVideo={videos.FIND_EVENT_BANNER_VIDEO}

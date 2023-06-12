@@ -210,30 +210,32 @@ const OrderDetailScreen = (props) => {
   //   </View>
   // );
   return (
-    <>
+    <View style={CommonStyles.container}>
       {props.orderDetail?.business_type === 1 ? (
         <RestroOrderDetails
           orderDetail={props.orderDetail}
           setCancelOrder={props.setCancelOrder}
           onPressInvoice={props.onPressInvoice}
+          navigation={props?.navigation}
         />
-      ) :
-        props.orderDetail?.business_type === 2 ? (
-          <ItemOrderDetails
-            orderDetail={props.orderDetail}
-            setCancelOrder={props.setCancelOrder}
-            onPressInvoice={props.onPressInvoice}
-          />
-        ) : props.orderDetail?.business_type === 5 ? (
-          <JobOrderDetails
-            orderDetail={props.orderDetail}
-            setCancelOrder={props.setCancelOrder}
-            onPressInvoice={props.onPressInvoice}
-          />
-        ) : (
-          <></>
-        )}
-    </>
+      ) : props.orderDetail?.business_type === 2 ? (
+        <ItemOrderDetails
+          orderDetail={props.orderDetail}
+          setCancelOrder={props.setCancelOrder}
+          onPressInvoice={props.onPressInvoice}
+          navigation={props?.navigation}
+        />
+      ) : props.orderDetail?.business_type === 5 ? (
+        <JobOrderDetails
+          orderDetail={props.orderDetail}
+          setCancelOrder={props.setCancelOrder}
+          onPressInvoice={props.onPressInvoice}
+          navigation={props?.navigation}
+        />
+      ) : (
+        <></>
+      )}
+    </View>
   );
 };
 export default OrderDetailScreen;

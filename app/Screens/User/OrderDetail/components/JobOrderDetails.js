@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, Image, Text, ScrollView } from "react-native";
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import moment from "moment";
@@ -15,6 +22,7 @@ import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
 import PageScroll from "../../../../Components/PageScroll";
+import { handleBusinessShow } from "../../../../Utils/Globalfunctions";
 
 const JobOrderDetails = (props) => {
   function tConvert(time) {
@@ -79,7 +87,9 @@ const JobOrderDetails = (props) => {
           props.orderDetail?.apply_job_info?.interview_date && (
             <View style={styles.mainContentVw}>
               <View style={styles.interviewHead}>
-                <ScaleText style={styles.sectionHead}>Interview Details:</ScaleText>
+                <ScaleText style={styles.sectionHead}>
+                  Interview Details:
+                </ScaleText>
                 {props.orderDetail?.apply_job_info?.applicant_job_status ==
                 1 ? (
                   <Text style={styles.detailTxt}>Accepted</Text>
@@ -174,12 +184,17 @@ const JobOrderDetails = (props) => {
         <View style={styles.mainContentVw}>
           <ScaleText style={styles.sectionHead}>Company Details:</ScaleText>
           <View style={[styles.companyDetailView, { marginTop: 10 }]}>
-            <View style={[styles.itemImgCon, { flex: 2 }]}>
+            <TouchableOpacity
+              onPress={() =>
+                handleBusinessShow(props.orderDetail, "", props.navigation)
+              }
+              style={[styles.itemImgCon, { flex: 2 }]}
+            >
               <Image
                 style={styles.DishImgeStyle}
                 source={{ uri: props.orderDetail.logo }}
               />
-            </View>
+            </TouchableOpacity>
             <View style={{ marginLeft: 20, flex: 6 }}>
               <Text style={styles.detailTxt}>
                 <Text style={styles.detailTitleTxt}>Company Name : </Text>
