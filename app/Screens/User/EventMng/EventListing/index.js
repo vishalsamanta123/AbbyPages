@@ -249,7 +249,7 @@ const EventListing = ({ navigation, route }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {loader && <Loader state={loader} />}
+      {/* {loader && <Loader state={loader} />} */}
       {openAll ? (
         <AllEvents
           openAll={openAll}
@@ -267,6 +267,7 @@ const EventListing = ({ navigation, route }) => {
           onPressLike={onPressLike}
           onRefresh={onRefresh}
           refreshing={refreshing}
+          loader={loader}
         />
       ) : (
         <EventListingScreen
@@ -290,6 +291,7 @@ const EventListing = ({ navigation, route }) => {
           onPressLike={onPressLike}
           onRefresh={onRefresh}
           refreshing={refreshing}
+          loader={loader}
         />
       )}
       <ShowMessage

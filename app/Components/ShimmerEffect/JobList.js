@@ -7,7 +7,7 @@ import { COLORS } from "../../Utils/Constant";
 
 const JobList = (props) => {
   const { type } = props;
-  const arr = ["", ""];
+  const arr = ["", "", "", ""];
   return (
     <>
       {arr.map((item) => {

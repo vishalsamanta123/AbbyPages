@@ -4,6 +4,8 @@ import NewsFeedDetailShimmer from "./NewsFeedDetail";
 import BusinessDetail from "./BusinessDetail";
 import JobList from "./JobList";
 import MenuRecent from "./MenuRecent";
+import EventDetailShimmer from "./EventDetailShimmer";
+import JobDetailShimmer from "./JobDetailShimmer";
 
 export {
   ListShimmer,
@@ -12,4 +14,6 @@ export {
   BusinessDetail,
   JobList,
   MenuRecent,
+  EventDetailShimmer,
+  JobDetailShimmer,
 };

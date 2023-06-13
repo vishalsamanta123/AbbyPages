@@ -9,6 +9,7 @@ import { RECENT_TIME_FORMAT } from "../../../../../Utils/Globalfunctions";
 import ListingView from "../../../../../Components/ListingView";
 import EmptyList from "../../../../../Components/EmptyList";
 import Loader from "../../../../../Utils/Loader";
+import { JobList } from "../../../../../Components/ShimmerEffect";
 
 const EventListingScreen = (props) => {
   useEffect(() => {
@@ -32,7 +33,7 @@ const EventListingScreen = (props) => {
         backText={false}
         onPressBack={() => handleBack()}
       />
-      <ListingView
+      {props.loader ? <JobList/> : <ListingView
         data={props?.eventsList}
         style={styles.allEventsVw}
         ListEmptyComponent={() => {
@@ -66,7 +67,7 @@ const EventListingScreen = (props) => {
             />
           );
         }}
-      />
+      />}
     </View>
   );
 };
