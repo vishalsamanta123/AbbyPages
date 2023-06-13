@@ -11,6 +11,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
   const [productDetail, setProductDetail] = useState({});
   const [cartData, setCartData] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [loader, seLoader] = useState(false)
   const [messageShow, setMessageShow] = useState({
     visible: false,
     message: "",
@@ -23,6 +24,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
     }, [navigation, route])
   );
   const getProductDetail = async () => {
+    seLoader(true)
     try {
       const params = {
         product_id: product_id,
@@ -38,10 +40,12 @@ const MarketplaceDetail = ({ navigation, route }) => {
           ...data?.data,
           product_specification: JSON?.parse(data?.data?.product_specification),
         });
+        seLoader(false)
       } else {
+        seLoader(false)
         setProductDetail({});
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const removeFromCart = (item, value) => {
     setQuantity(value);
@@ -102,6 +106,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
         onPressCart={onPressCart}
         quantity={quantity}
         navigation={navigation}
+        loader={loader}
       />
       <ShowMessage
         visible={messageShow?.visible}

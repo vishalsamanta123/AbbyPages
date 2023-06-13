@@ -32,8 +32,10 @@ const NewsFeed = ({ navigation, route }) => {
     }, [navigation, route])
   );
   useEffect(() => {
-    getNewsFeedDetails("likeComment");
-  }, [likeUnlikeData, commentResp]);
+    if (likeUnlikeData || commentResp) {
+      getNewsFeedDetails('likeComment');
+    }
+  }, [likeUnlikeData, commentResp])
   const getNewsFeedDetails = async (type) => {
     try {
       setVisible(type === "likeComment" ? false : true);

@@ -28,7 +28,9 @@ const NeweFeedDetails = ({ navigation, route }) => {
     }, [navigation, route])
   );
   useEffect(() => {
-    getPostDetail("likeComment");
+    if (likeUnlikeData || commentResp) {
+      getPostDetail('likeComment');
+    }
   }, [likeUnlikeData, commentResp]);
   const getPostDetail = async (type) => {
     try {

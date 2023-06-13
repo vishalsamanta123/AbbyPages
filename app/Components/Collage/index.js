@@ -18,18 +18,18 @@ const Collage = (props) => {
       {imageLength === 1 ? (
         <View style={styles.oneImageView}>
           <FastImages
-            source={{ uri: imagesData[0]?.photo_url }}
+            source={{ uri: imagesData[0]?.file_url }}
             style={styles.oneImageStyle}
           />
         </View>
       ) : imageLength === 2 ? (
         <View style={styles.twoImageView}>
           <FastImages
-            source={{ uri: imagesData[0]?.photo_url }}
+            source={{ uri: imagesData[0]?.file_url }}
             style={styles.twoImageStyle}
           />
           <FastImages
-            source={{ uri: imagesData[1]?.photo_url }}
+            source={{ uri: imagesData[1]?.file_url }}
             style={styles.twoImageStyle}
           />
         </View>
@@ -37,16 +37,16 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <FastImages
-              source={{ uri: imagesData[0]?.photo_url }}
+              source={{ uri: imagesData[0]?.file_url }}
               style={styles.twoImageStyle}
             />
             <FastImages
-              source={{ uri: imagesData[1]?.photo_url }}
+              source={{ uri: imagesData[1]?.file_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <FastImages
-            source={{ uri: imagesData[2]?.photo_url }}
+            source={{ uri: imagesData[2]?.file_url }}
             style={styles.thirdImageStyle}
           />
         </View>
@@ -54,25 +54,25 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <FastImages
-              source={{ uri: imagesData[0]?.photo_url }}
+              source={{ uri: imagesData[0]?.file_url }}
               style={styles.twoImageStyle}
             />
             <FastImages
-              source={{ uri: imagesData[1]?.photo_url }}
+              source={{ uri: imagesData[1]?.file_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
             <FastImages
-              source={{ uri: imagesData[2]?.photo_url }}
+              source={{ uri: imagesData[2]?.file_url }}
               style={styles.twoImageStyle}
             />
             <FastImages
-              source={{ uri: imagesData[3]?.photo_url }}
+              source={{ uri: imagesData[3]?.file_url }}
               style={styles.twoImageStyle}
             />
             {/* <ImageBackground
-              source={{ uri: imagesData[3].photo_url }}
+              source={{ uri: imagesData[3].file_url }}
               style={styles.fourthImageStyle}
               opacity={0.5}
             ><ScaleText style={styles.seeAllTxt} >+{imageLength - 3}</ScaleText></ImageBackground> */}
@@ -82,21 +82,21 @@ const Collage = (props) => {
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
             <FastImages
-              source={{ uri: imagesData[0]?.photo_url }}
+              source={{ uri: imagesData[0]?.file_url }}
               style={styles.twoImageStyle}
             />
             <FastImages
-              source={{ uri: imagesData[1]?.photo_url }}
+              source={{ uri: imagesData[1]?.file_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
             <FastImages
-              source={{ uri: imagesData[2]?.photo_url }}
+              source={{ uri: imagesData[2]?.file_url }}
               style={styles.twoImageStyle}
             />
             <ImageBackground
-              source={{ uri: imagesData[3]?.photo_url }}
+              source={{ uri: imagesData[3]?.file_url }}
               style={styles.fourthImageStyle}
               opacity={0.5}
             >

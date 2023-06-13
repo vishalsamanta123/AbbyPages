@@ -10,6 +10,7 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 import { UserContext } from "../../../../Utils/UserContext";
 import ScaleText from "../../../../Components/ScaleText";
 import { styles } from "../../../../Components/Modal/showMessage";
+import { JobDetailShimmer } from "../../../../Components/ShimmerEffect";
 
 const JobDetail = ({ route, navigation }) => {
   const { detail = {} } = route.params;
@@ -141,15 +142,18 @@ const JobDetail = ({ route, navigation }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
-      <JobDetailView
-        jobDetail={jobDetail}
-        applyNowPress={applyNowPress}
-        shareTo={shareTo}
-        onPressJob={onPressJob}
-        onPressLike={onPressLike}
-        navigation={navigation}
-      />
+      {visible ? (
+        <JobDetailShimmer state={visible} />
+      ) : (
+        <JobDetailView
+          jobDetail={jobDetail}
+          applyNowPress={applyNowPress}
+          shareTo={shareTo}
+          onPressJob={onPressJob}
+          onPressLike={onPressLike}
+          navigation={navigation}
+        />
+      )}
       <ShowMessage
         visible={messageShow?.visible}
         message={messageShow?.message}
