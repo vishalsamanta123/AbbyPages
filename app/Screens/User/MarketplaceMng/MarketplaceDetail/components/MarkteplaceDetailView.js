@@ -14,6 +14,7 @@ import { COLORS } from "../../../../../Utils/Constant";
 import PageScroll from "../../../../../Components/PageScroll";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import MainButton from "../../../../../Components/MainButton";
+import { MarketPlaceShimmer } from "../../../../../Components/ShimmerEffect";
 
 const MarkteplaceDetailView = (props) => {
   const { productDetail = {} } = props;
@@ -29,7 +30,7 @@ const MarkteplaceDetailView = (props) => {
         onPressCart={() => props.onPressCart()}
         addToCartIcon={true}
       />
-      <PageScroll
+      {props.loader ? <MarketPlaceShimmer type={'detail'}/> : <PageScroll
         contentContainerStyle={[CommonStyles.otherScrollCon, ,]}
         showsVerticalScrollIndicator={false}
       >
@@ -600,7 +601,7 @@ const MarkteplaceDetailView = (props) => {
           />
           <View style={{ marginVertical: 20 }}></View>
         </View>
-      </PageScroll>
+      </PageScroll>}
     </View>
   );
 };

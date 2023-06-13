@@ -17,6 +17,7 @@ import { getAmount } from "../../../../../Utils/Globalfunctions";
 import EmptyList from "../../../../../Components/EmptyList";
 import PageScroll from "../../../../../Components/PageScroll";
 import LocationModal from "../../../../../Components/LocationModal";
+import { MarketPlaceShimmer } from "../../../../../Components/ShimmerEffect";
 
 const MarketplaceView = (props) => {
   const {
@@ -146,6 +147,7 @@ const MarketplaceView = (props) => {
           <ScaleText style={styles.locationtxt}>{searchData?.address} within {searchData?.finalRadius} miles</ScaleText>
         </TouchableOpacity>
       </View>
+      { props.loader ? <MarketPlaceShimmer type={'list'} /> :
       <PageScroll showsVerticalScrollIndicator={false}>
         <View>
           <FlatList
@@ -185,7 +187,7 @@ const MarketplaceView = (props) => {
           setSearchData={setSearchData}
           getProductList={getProductList}
         />
-      </PageScroll>
+      </PageScroll>}
     </View>
   );
 };

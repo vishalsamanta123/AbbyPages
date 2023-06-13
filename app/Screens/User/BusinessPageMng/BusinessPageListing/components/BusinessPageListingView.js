@@ -9,6 +9,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { businessTypeOptions } from "../../../../../Utils/staticData";
 import ScaleText from "../../../../../Components/ScaleText";
 import ListingView from "../../../../../Components/ListingView";
+import { BusinessListingShimmer } from "../../../../../Components/ShimmerEffect";
 
 const BusinessPageListingView = (props) => {
   const [allSelect, setAllSelect] = useState(false);
@@ -16,6 +17,7 @@ const BusinessPageListingView = (props) => {
     <View style={CommonStyles.container}>
       <MainHeader headerType={"logo"} />
       <ScaleText style={styles.headText}>Business Listing</ScaleText>
+      { props.visible ? <BusinessListingShimmer /> :
       <ListingView
         keyExtractor={(item, index) => index.toString()}
         data={props.businessList}
@@ -109,7 +111,7 @@ const BusinessPageListingView = (props) => {
         onRefresh={() =>
           props.handleSearchData(0, { ...props.search, selectOption: [] })
         }
-      />
+      />}
     </View>
   );
 };

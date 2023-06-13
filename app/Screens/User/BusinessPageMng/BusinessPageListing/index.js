@@ -162,7 +162,7 @@ const BusinessPageListing = ({ navigation, route }) => {
 
   return (
     <View style={CommonStyles.container}>
-      {visible && <Loader state={visible} />}
+      {/* {visible && <Loader state={visible} />} */}
       <BusinessPageListingView
         businessList={businessList}
         search={search}
@@ -172,6 +172,7 @@ const BusinessPageListing = ({ navigation, route }) => {
         handleOptions={handleOptions}
         onPressView={onPressView}
         onPressLike={onPressLike}
+        visible={visible}
       />
       <ShowMessage
         visible={messageShow?.visible}
