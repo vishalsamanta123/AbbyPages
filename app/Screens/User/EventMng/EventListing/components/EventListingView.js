@@ -34,6 +34,7 @@ import VideoPlayer from "../../../../../Components/VideoPlayer";
 import { IconX, ICON_TYPE } from "../../../../../Components/Icons/Icon";
 import Loader from "../../../../../Utils/Loader";
 import { RefreshControl } from "react-native";
+import { JobList } from "../../../../../Components/ShimmerEffect";
 
 const EventListingView = (props) => {
   const [alsoSeeFor, setAlsoSeeFor] = useState(false);
@@ -66,6 +67,7 @@ const EventListingView = (props) => {
           />
         }
         contentContainerStyle={CommonStyles.scrollCon}
+        scrollEnabled={!props.loader}
       >
         <View style={styles.videoBannerView}>
           <VideoPlayer
@@ -96,32 +98,40 @@ const EventListingView = (props) => {
             />
           </View>
         </View>
-        {props?.events?.upcoming_events && (
+        {props.loader ? (
+          <JobList />
+        ) : (
           <>
-            <ScaleText style={styles.eventTitlesTxt}>Upcoming Events</ScaleText>
-            <View style={styles.containers}>
-              <FullImageViewList
-                onPressView={() =>
-                  props.navToEventDetail(props?.events?.upcoming_events)
-                }
-                subSmallTxt2={"Tickets on Sale now"}
-                fullImage={props?.events?.upcoming_events?.events_image}
-                timeTxt={RECENT_TIME_FORMAT(
-                  props?.events?.upcoming_events?.event_date
-                )}
-                headTxt={props?.events?.upcoming_events?.event_name}
-                subHeadTxt={props?.events?.upcoming_events?.event_location?.trim()}
-                smallTxt={`${props?.events?.upcoming_events?.interested} Interested`}
-                subSmallTxt={props?.events?.upcoming_events?.category_name}
-                onPressHeart={() =>
-                  props.onPressLike(
-                    props?.events?.upcoming_events,
-                    null,
-                    "upcoming"
-                  )
-                }
-              />
-            </View>
+            {props?.events?.upcoming_events && (
+              <>
+                <ScaleText style={styles.eventTitlesTxt}>
+                  Upcoming Events
+                </ScaleText>
+                <View style={styles.containers}>
+                  <FullImageViewList
+                    onPressView={() =>
+                      props.navToEventDetail(props?.events?.upcoming_events)
+                    }
+                    subSmallTxt2={"Tickets on Sale now"}
+                    fullImage={props?.events?.upcoming_events?.events_image}
+                    timeTxt={RECENT_TIME_FORMAT(
+                      props?.events?.upcoming_events?.event_date
+                    )}
+                    headTxt={props?.events?.upcoming_events?.event_name}
+                    subHeadTxt={props?.events?.upcoming_events?.event_location?.trim()}
+                    smallTxt={`${props?.events?.upcoming_events?.interested} Interested`}
+                    subSmallTxt={props?.events?.upcoming_events?.category_name}
+                    onPressHeart={() =>
+                      props.onPressLike(
+                        props?.events?.upcoming_events,
+                        null,
+                        "upcoming"
+                      )
+                    }
+                  />
+                </View>
+              </>
+            )}
           </>
         )}
         <View style={styles.containers}>

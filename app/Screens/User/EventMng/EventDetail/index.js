@@ -14,6 +14,7 @@ import ShowMessage from "../../../../Components/Modal/showMessage";
 import { UserContext } from "../../../../Utils/UserContext";
 import { Regexs } from "../../../../Utils/Constant";
 import { OpenDoc } from "../../../../Utils/Globalfunctions";
+import { EventDetailShimmer } from "../../../../Components/ShimmerEffect";
 
 const EventDetail = ({ navigation, route }) => {
   const getData = route?.params;
@@ -509,54 +510,40 @@ const EventDetail = ({ navigation, route }) => {
   };
   return (
     <View style={CommonStyles.container}>
-      {loader && <Loader state={loader} />}
-      {buyTicketModal === 1 ? (
-        <BuyTicket
-          eventDetails={eventDetails}
-          onPressCancelTick={onPressCancelTick}
-          onPressTicketResp={onPressTicketResp}
-          buyTicketModal={buyTicketModal}
-          setBuyTicketModal={setBuyTicketModal}
-          totalAmount={totalAmount}
-          setTotalAmount={setTotalAmount}
-          ticketAdded={ticketAdded}
-          setTicketAdded={setTicketAdded}
-          ticketsType={ticketsType}
-          setTicketsType={setTicketsType}
-        />
+      {loader ? (
+        <EventDetailShimmer  />
       ) : (
         <>
-          {buyTicketModal === 2 ? (
-            <TicketDetails
+          {buyTicketModal === 1 ? (
+            <BuyTicket
               eventDetails={eventDetails}
-              totalAmount={totalAmount}
-              buyTicketModal={buyTicketModal}
               onPressCancelTick={onPressCancelTick}
               onPressTicketResp={onPressTicketResp}
+              buyTicketModal={buyTicketModal}
               setBuyTicketModal={setBuyTicketModal}
-              handleBuyTicket={handleBuyTicket}
+              totalAmount={totalAmount}
+              setTotalAmount={setTotalAmount}
+              ticketAdded={ticketAdded}
+              setTicketAdded={setTicketAdded}
+              ticketsType={ticketsType}
+              setTicketsType={setTicketsType}
             />
           ) : (
             <>
-              {buyTicketModal === 3 ? (
-                <BuyerInfo
+              {buyTicketModal === 2 ? (
+                <TicketDetails
                   eventDetails={eventDetails}
                   totalAmount={totalAmount}
                   buyTicketModal={buyTicketModal}
                   onPressCancelTick={onPressCancelTick}
                   onPressTicketResp={onPressTicketResp}
                   setBuyTicketModal={setBuyTicketModal}
-                  buyerInfo={buyerInfo}
-                  setBuyerInfo={setBuyerInfo}
-                  setPercentage={setPercentage}
-                  percentage={percentage}
-                  couts={couts}
-                  setMessageShow={setMessageShow}
+                  handleBuyTicket={handleBuyTicket}
                 />
               ) : (
                 <>
-                  {buyTicketModal === 4 ? (
-                    <TicketPayment
+                  {buyTicketModal === 3 ? (
+                    <BuyerInfo
                       eventDetails={eventDetails}
                       totalAmount={totalAmount}
                       buyTicketModal={buyTicketModal}
@@ -565,32 +552,52 @@ const EventDetail = ({ navigation, route }) => {
                       setBuyTicketModal={setBuyTicketModal}
                       buyerInfo={buyerInfo}
                       setBuyerInfo={setBuyerInfo}
-                      percentage={percentage}
                       setPercentage={setPercentage}
+                      percentage={percentage}
                       couts={couts}
-                      paymentForTicket={paymentForTicket}
                       setMessageShow={setMessageShow}
-                      ticketAdded={ticketAdded}
-                      setTicketAdded={setTicketAdded}
-                      downloadModal={downloadModal}
-                      setDownloadModal={setDownloadModal}
-                      onPressDownload={onPressDownload}
                     />
                   ) : (
-                    <EventDetailView
-                      eventDetails={eventDetails}
-                      interestedModal={interestedModal}
-                      setInterstedModal={setInterstedModal}
-                      interest={interest}
-                      setInterest={setInterest}
-                      setBuyTicketModal={setBuyTicketModal}
-                      onInterestPress={onInterestPress}
-                      videoUrl={videoUrl}
-                      getEventDetails={getEventDetails}
-                      userData={userData}
-                      onPressLike={onPressLike}
-                      navigation={navigation}
-                    />
+                    <>
+                      {buyTicketModal === 4 ? (
+                        <TicketPayment
+                          eventDetails={eventDetails}
+                          totalAmount={totalAmount}
+                          buyTicketModal={buyTicketModal}
+                          onPressCancelTick={onPressCancelTick}
+                          onPressTicketResp={onPressTicketResp}
+                          setBuyTicketModal={setBuyTicketModal}
+                          buyerInfo={buyerInfo}
+                          setBuyerInfo={setBuyerInfo}
+                          percentage={percentage}
+                          setPercentage={setPercentage}
+                          couts={couts}
+                          paymentForTicket={paymentForTicket}
+                          setMessageShow={setMessageShow}
+                          ticketAdded={ticketAdded}
+                          setTicketAdded={setTicketAdded}
+                          downloadModal={downloadModal}
+                          setDownloadModal={setDownloadModal}
+                          onPressDownload={onPressDownload}
+                        />
+                      ) : (
+                        <EventDetailView
+                          eventDetails={eventDetails}
+                          interestedModal={interestedModal}
+                          setInterstedModal={setInterstedModal}
+                          interest={interest}
+                          setInterest={setInterest}
+                          setBuyTicketModal={setBuyTicketModal}
+                          onInterestPress={onInterestPress}
+                          videoUrl={videoUrl}
+                          getEventDetails={getEventDetails}
+                          userData={userData}
+                          onPressLike={onPressLike}
+                          navigation={navigation}
+                          loader={loader}
+                        />
+                      )}
+                    </>
                   )}
                 </>
               )}
