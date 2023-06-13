@@ -17,7 +17,7 @@ const Styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.REGULAR,
   },
   backImgVw: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "flex-end",
     paddingBottom: 30,
     paddingHorizontal: 32,
