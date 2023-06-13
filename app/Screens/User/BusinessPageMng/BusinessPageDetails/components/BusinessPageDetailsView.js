@@ -31,6 +31,7 @@ import PageScroll from "../../../../../Components/PageScroll";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
 import Geolocation from "@react-native-community/geolocation";
 import FastImages from "../../../../../Components/FastImage";
+import BackImage from "../../../../../Components/BackImage";
 
 const BusinessPageDetailsView = (props) => {
   const { detailData = {} } = props;
@@ -268,14 +269,7 @@ const BusinessPageDetailsView = (props) => {
       {props?.visible ? (
         <BusinessDetail type="image" />
       ) : (
-        <ImageBackground
-          source={{ uri: detailData?.header_image }}
-          style={{
-            width: Constants.windowWidth,
-            height: Constants.Ios ? 280 : 220,
-          }}
-          resizeMode={"cover"}
-        >
+        <BackImage source={{ uri: detailData?.header_image }}>
           <MainHeader
             backgroundColor={COLORS.TRANSPARENT}
             isSearch={false}
@@ -322,7 +316,7 @@ const BusinessPageDetailsView = (props) => {
               </View>
             ) : null}
           </View>
-        </ImageBackground>
+        </BackImage>
       )}
       <View style={styles.mainContainer}>
         {props?.visible ? (

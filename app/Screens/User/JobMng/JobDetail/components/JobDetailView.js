@@ -20,6 +20,7 @@ import {
   removeHttp,
 } from "../../../../../Utils/Globalfunctions";
 import PageScroll from "../../../../../Components/PageScroll";
+import BackImage from "../../../../../Components/BackImage";
 
 const JobDetailView = (props) => {
   return (
@@ -28,7 +29,7 @@ const JobDetailView = (props) => {
         scrollToTop={true}
         contentContainerStyle={CommonStyles.scrollCon}
       >
-        <ImageBackground
+        <BackImage
           style={{
             width: Constants.windowWidth,
             height: Constants.Ios ? 260 : 200,
@@ -43,7 +44,7 @@ const JobDetailView = (props) => {
             backTxtColor={COLORS.WHITE}
             loginButton={false}
           />
-        </ImageBackground>
+        </BackImage>
         <View style={styles.containerVw}>
           <View style={styles.roundImgVw}>
             <Image
