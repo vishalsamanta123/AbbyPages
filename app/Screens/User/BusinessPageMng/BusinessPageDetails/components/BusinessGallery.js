@@ -10,7 +10,6 @@ import Button from "../../../../../Components/Button";
 import styles from "./styles";
 import ScaleText from "../../../../../Components/ScaleText";
 import { Constants } from "../../../../../Utils/Constant";
-import CarouselView from "../../../../../Components/CarouselView";
 import GalleryCarousalView from "../../../../../Components/GalleryCarousalView";
 import ShowMessage from "../../../../../Components/Modal/showMessage";
 import Loader from "../../../../../Utils/Loader";
@@ -194,11 +193,7 @@ const BusinessGallery = (props) => {
           </View>
         ) : (
           <View style={{ flex: 1 }}>
-            <View
-              style={{
-                flex: 4,
-              }}
-            >
+            <View style={{ flex: 4 }}>
               {imageData.uri ? (
                 <Image
                   source={{ uri: imageData.uri }}

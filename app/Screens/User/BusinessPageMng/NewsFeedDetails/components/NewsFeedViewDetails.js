@@ -14,12 +14,16 @@ import ScaleText from "../../../../../Components/ScaleText";
 import { COLORS, FONT_SIZE } from "../../../../../Utils/Constant";
 import moment from "moment";
 import styles from "./styles";
-import { handleBusinessShow, OpenDoc } from "../../../../../Utils/Globalfunctions";
+import {
+  handleBusinessShow,
+  OpenDoc,
+} from "../../../../../Utils/Globalfunctions";
 import { ICON_TYPE, IconX } from "../../../../../Components/Icons/Icon";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 import { NewsFeedDetailShimmer } from "../../../../../Components/ShimmerEffect";
 import MainHeader from "../../../../../Components/MainHeader";
 import PageScroll from "../../../../../Components/PageScroll";
+import FastImages from "../../../../../Components/FastImage";
 
 const NewsFeedView = (props) => {
   const {
@@ -46,7 +50,10 @@ const NewsFeedView = (props) => {
           OpenDoc(item?.photo_url);
         }}
       >
-        <Image source={{ uri: item?.photo_url }} style={styles.imageStyle} />
+        <FastImages
+          source={{ uri: item?.photo_url }}
+          style={styles.imageStyle}
+        />
       </TouchableOpacity>
     );
   };
@@ -64,7 +71,7 @@ const NewsFeedView = (props) => {
           />
           <PageScroll contentContainerStyle={{ padding: 20 }}>
             <View style={styles.rowVw}>
-              <Image
+              <FastImages
                 style={styles.smallImgVw}
                 resizeMode="cover"
                 source={{ uri: postData?.logo_url }}

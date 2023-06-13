@@ -72,7 +72,10 @@ const MainHeader = (props) => {
           <View style={CommonStyles.straightCon}>
             {notifyIcon ? (
               <View>
-                <TouchableOpacity style={styles.leftIconVw} onPress={() => onNotificationPress()}>
+                <TouchableOpacity
+                  style={styles.leftIconVw}
+                  onPress={() => onNotificationPress()}
+                >
                   <IconX
                     origin={ICON_TYPE.FONT_AWESOME}
                     name={"bell-o"}
@@ -80,10 +83,12 @@ const MainHeader = (props) => {
                     color={COLORS.BLACK}
                   />
                 </TouchableOpacity>
-                {notify ? (
+                {notify && isLogin && userData?.notification > 0 ? (
                   <View style={styles.notifyVw}>
                     <View style={styles.notifyConVw}>
-                      <ScaleText style={styles.notifyTxt}>1</ScaleText>
+                      <ScaleText style={styles.notifyTxt}>
+                        {userData?.notification}
+                      </ScaleText>
                     </View>
                   </View>
                 ) : null}
@@ -197,7 +202,10 @@ const MainHeader = (props) => {
               ) : null}
               {notifyIcon ? (
                 <View>
-                  <TouchableOpacity style={styles.leftIconVw} onPress={() => onNotificationPress()}>
+                  <TouchableOpacity
+                    style={styles.leftIconVw}
+                    onPress={() => onNotificationPress()}
+                  >
                     <IconX
                       origin={ICON_TYPE.FONT_AWESOME}
                       name={"bell-o"}
@@ -205,10 +213,12 @@ const MainHeader = (props) => {
                       color={COLORS.BLACK}
                     />
                   </TouchableOpacity>
-                  {notify && isLogin ? (
+                  {notify && isLogin && userData?.notification > 0 ? (
                     <View style={styles.notifyVw}>
                       <View style={styles.notifyConVw}>
-                        <ScaleText style={styles.notifyTxt}>1</ScaleText>
+                        <ScaleText style={styles.notifyTxt}>
+                          {userData?.notification}
+                        </ScaleText>
                       </View>
                     </View>
                   ) : null}

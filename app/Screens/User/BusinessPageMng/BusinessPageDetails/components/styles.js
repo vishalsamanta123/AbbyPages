@@ -20,7 +20,7 @@ const Styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingBottom: 30,
-    paddingHorizontal: 35,
+    paddingHorizontal: 32,
   },
   mainTxt: {
     fontSize: FONT_SIZE.large,
@@ -230,38 +230,30 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
   popularCardTouch: {
-    padding: 10,
+    paddingHorizontal: 3,
     margin: 5,
-    minWidth: 60,
     height: 180,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 2,
     borderRadius: 5,
     borderColor: COLORS.BORDER_LINE,
-    borderWidth: Constants.normalBW,
+    borderWidth: Constants.standardBW,
   },
   popularimage: {
     height: 100,
-    width: 120,
+    width: 140,
     alignSelf: "center",
-    resizeMode: "cover",
   },
   popularNameTxt: {
     fontSize: FONT_SIZE.normal,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
     marginTop: 10,
+    marginLeft: 5,
   },
   popularPrice: {
     fontSize: FONT_SIZE.small,
     fontFamily: FONT_FAMILY.REGULAR,
     color: COLORS.BLACK,
+    marginLeft: 5,
   },
   highlightsView: {
     flex: 1,
@@ -385,6 +377,7 @@ const Styles = StyleSheet.create({
   },
   rowVw: {
     flexDirection: "row",
+    alignItems: "flex-start",
     marginVertical: 4,
   },
   ratingVw: {

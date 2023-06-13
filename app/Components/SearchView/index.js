@@ -20,6 +20,7 @@ import { apiCall } from "../../Utils/httpClient";
 import MainInput from "../MainInput";
 import _ from "lodash";
 import ScaleText from "../ScaleText";
+import FastImages from "../FastImage";
 
 const SearchView = (props) => {
   const {} = props;
@@ -216,7 +217,7 @@ const SearchView = (props) => {
                       onPress={() => handleDetailNavigation(itm)}
                       style={styles.categoryVw}
                     >
-                      <Image
+                      <FastImages
                         source={{ uri: itm?.logo }}
                         style={styles.categoryImg}
                       />

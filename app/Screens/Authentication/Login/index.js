@@ -16,7 +16,6 @@ import ENDPOINTS from "../../../Utils/apiEndPoints";
 import DeviceInfo from "react-native-device-info";
 import { UserContext, AuthContext } from "../../../Utils/UserContext";
 import Loader from "../../../Utils/Loader";
-import Error from "../../../Components/Modal/showMessage";
 import ShowMessage from "../../../Components/Modal/showMessage";
 
 GoogleSignin.configure({
@@ -26,6 +25,7 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 Geocoder.init("AIzaSyAvtWufwnjN7MwtOfwtQrzmv2Rp_wUxBbw");
+
 const SignInView = ({ navigation, route }) => {
   const { signIn } = React.useContext(AuthContext);
   const [visible, setVisible] = useState(false);

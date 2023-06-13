@@ -43,7 +43,7 @@ const ReviewRatingView = (props) => {
           <StarShower
             UnActiveStarColor={COLORS.WHITE}
             starWidth={20}
-            starsBackColor={COLORS.COMMON}
+            ActiveStarColor={COLORS.WHITE}
             starHeight={20}
             counts={props?.ratingData?.business_rating}
             onPressStar={(star) => props.onPressRating(star)}

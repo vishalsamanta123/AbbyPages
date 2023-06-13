@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
 import moment from "moment";
+import FastImages from "../FastImage";
 
 const OrderCard = (props) => {
   const { item, onpressOrder } = props;
@@ -12,7 +13,7 @@ const OrderCard = (props) => {
       onPress={() => onpressOrder(item)}
     >
       <View style={styles.imageView}>
-        <Image
+        <FastImages
           style={styles.DishImgeStyle}
           resizeMode="contain"
           source={{ uri: item.logo }}

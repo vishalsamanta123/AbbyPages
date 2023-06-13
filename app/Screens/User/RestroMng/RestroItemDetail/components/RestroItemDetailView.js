@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import MainHeader from "../../../../../Components/MainHeader";
@@ -12,6 +12,7 @@ import MainInput from "../../../../../Components/MainInput";
 import { COLORS } from "../../../../../Utils/Constant";
 import MainButton from "../../../../../Components/MainButton";
 import PageScroll from "../../../../../Components/PageScroll";
+import FastImages from "../../../../../Components/FastImage";
 
 const RestroItemDetailView = (props) => {
   return (
@@ -22,7 +23,7 @@ const RestroItemDetailView = (props) => {
         isLogin={true}
       />
       <PageScroll contentContainerStyle={CommonStyles.scrollCon}>
-        <Image
+        <FastImages
           resizeMode={"cover"}
           style={[styles.mainImgStyle]}
           source={{ uri: props?.itemData?.item_image }}
@@ -84,7 +85,7 @@ const RestroItemDetailView = (props) => {
             <MainButton
               buttonTxt={
                 props.cartValData?.total_item_price === "" ||
-                  props.cartValData?.total_item_price === null
+                props.cartValData?.total_item_price === null
                   ? "Add To Cart"
                   : "Add To Cart - $" + props.cartValData?.total_item_price
               }

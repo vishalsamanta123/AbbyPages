@@ -1,22 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, Alert } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import CommonStyles from "../../../../Utils/CommonStyles";
 import CheckOutScreen from "./components/CheckOutScreen";
 import _ from "lodash";
 import { useFocusEffect } from "@react-navigation/native";
 import { apiCall } from "../../../../Utils/httpClient";
 import Loader from "../../../../Utils/Loader";
-import Success from "../../../../Components/Modal/success";
-import Error from "../../../../Components/Modal/showMessage";
-import { ShoppingCartContext } from "../../../../Utils/UserContext";
-import AsyncStorage from "@react-native-community/async-storage";
-import QuestionModal from "../../../../Components/Modal/questionModal";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+
 const CheckOut = ({ navigation, route }) => {
   const [shoppingCartData, setShoppingCartData] = useState([]);
-  const [visibleErr, setVisibleErr] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useState(false);
   const [onlineDetail, setOnlineDetail] = useState({
@@ -69,8 +63,7 @@ const CheckOut = ({ navigation, route }) => {
           message: data?.message,
         });
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   };
   const validationForContinue = () => {
     if (location === []) {

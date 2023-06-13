@@ -232,7 +232,7 @@ const EventDetailView = (props) => {
               }
               style={CommonStyles.straightCon}
             >
-              <Image
+              <FastImages
                 source={{ uri: props.eventDetails?.owner_image }}
                 style={{ width: 45, height: 45, marginLeft: 3 }}
               />

@@ -133,6 +133,10 @@ function TabNavigation() {
       <Tab.Screen name="RestroPlaceOrder" component={RestroPlaceOrder} />
       <Tab.Screen name="Favorite" component={Favorite} />
       <Tab.Screen name="UploadResume" component={UploadResume} />
+
+      {/* ===========Login Screens======= */}
+      <Tab.Screen name="Login" component={LoginScreen} />
+      <Tab.Screen name="SignUp" component={SignUpScreen} />
     </Tab.Navigator>
   );
 }
@@ -186,8 +190,8 @@ function AppStack() {
       <Stack.Screen name="UploadResume" component={TabNavigation} />
 
       {/* ===========Login Screens======= */}
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Login" component={TabNavigation} />
+      <Stack.Screen name="SignUp" component={TabNavigation} />
       <Stack.Screen name="BusinessSignUp" component={BusinessSignUpScreen} />
       <Stack.Screen name="UserVerify" component={UserVerifyScreen} />
       <Stack.Screen

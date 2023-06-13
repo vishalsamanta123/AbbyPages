@@ -7,12 +7,13 @@ const StarShower = (props) => {
   const {
     marginLeft = 0,
     ActiveStarColor = COLORS.YELLOW,
+    ActiveStarBackColor = COLORS.YELLOW,
     UnActiveStarColor = COLORS.BLACK,
+    UnActiveStarBackColor = COLORS.COMMON,
     starHeight = 12,
     starWidth = 12,
     marginTop = 7,
     onPressStar = () => {},
-    starsBackColor = "",
     starPaddingH = 3,
   } = props;
   const oneStart = { star: Images.STAR_FILLED_IMG };
@@ -30,9 +31,12 @@ const StarShower = (props) => {
           activeOpacity={1}
           onPress={() => onPressStar(1)}
           style={[
-            starsBackColor === "" ? {} : styles.starVw,
+            styles.starVw,
             {
-              backgroundColor: starsBackColor,
+              backgroundColor:
+                props?.counts >= 1
+                  ? ActiveStarBackColor
+                  : UnActiveStarBackColor,
               paddingHorizontal: starPaddingH,
             },
           ]}
@@ -55,7 +59,10 @@ const StarShower = (props) => {
           style={[
             styles.starVw,
             {
-              backgroundColor: starsBackColor,
+              backgroundColor:
+                props?.counts >= 2
+                  ? ActiveStarBackColor
+                  : UnActiveStarBackColor,
               paddingHorizontal: starPaddingH,
             },
           ]}
@@ -78,7 +85,10 @@ const StarShower = (props) => {
           style={[
             styles.starVw,
             {
-              backgroundColor: starsBackColor,
+              backgroundColor:
+                props?.counts >= 3
+                  ? ActiveStarBackColor
+                  : UnActiveStarBackColor,
               paddingHorizontal: starPaddingH,
             },
           ]}
@@ -101,7 +111,10 @@ const StarShower = (props) => {
           style={[
             styles.starVw,
             {
-              backgroundColor: starsBackColor,
+              backgroundColor:
+                props?.counts >= 4
+                  ? ActiveStarBackColor
+                  : UnActiveStarBackColor,
               paddingHorizontal: starPaddingH,
             },
           ]}
@@ -124,7 +137,10 @@ const StarShower = (props) => {
           style={[
             styles.starVw,
             {
-              backgroundColor: starsBackColor,
+              backgroundColor:
+                props?.counts >= 5
+                  ? ActiveStarBackColor
+                  : UnActiveStarBackColor,
               paddingHorizontal: starPaddingH,
             },
           ]}

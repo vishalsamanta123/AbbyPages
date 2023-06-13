@@ -12,6 +12,7 @@ import { COLORS, Constants } from "../../../../../../Utils/Constant";
 import ScaleText from "../../../../../../Components/ScaleText";
 import { MenuRecent } from "../../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../../Components/PageScroll";
+import FastImages from "../../../../../../Components/FastImage";
 
 const MenuPageView = (props) => {
   return (
@@ -34,7 +35,7 @@ const MenuPageView = (props) => {
                   style={CommonStyles.straightCon}
                   onPress={() => props.handleSeeProfilePress()}
                 >
-                  <Image
+                  <FastImages
                     source={{ uri: props?.userData?.profile_image }}
                     style={styles.profileImgVw}
                     resizeMode={"cover"}
@@ -91,7 +92,7 @@ const MenuPageView = (props) => {
                           style={[CommonStyles.straightCon, styles.listVew]}
                           onPress={() => props.onPressView(item)}
                         >
-                          <Image
+                          <FastImages
                             source={{ uri: item.logo }}
                             style={styles.listImgVw}
                             resizeMode={"cover"}

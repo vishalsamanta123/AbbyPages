@@ -10,6 +10,7 @@ import Collage from "../../../../../Components/Collage";
 import CommentsModal from "../../../../../Components/Modal/CommentsModal";
 import { useNavigation } from "@react-navigation/native";
 import { handleBusinessShow } from "../../../../../Utils/Globalfunctions";
+import FastImages from "../../../../../Components/FastImage";
 
 const NewsPost = (props) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const NewsPost = (props) => {
     >
       <View style={{ flex: 1 }}>
         <View style={styles.rowVw}>
-          <Image
+          <FastImages
             style={styles.smallImgVw}
             resizeMode="cover"
             source={{ uri: newsData?.logo_url }}

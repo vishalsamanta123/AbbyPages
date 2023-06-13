@@ -9,6 +9,7 @@ import Loader from "../../../../Utils/Loader";
 import apiEndPoints from "../../../../Utils/apiEndPoints";
 import ShowMessage from "../../../../Components/Modal/showMessage";
 import { useFocusEffect } from "@react-navigation/native";
+import FastImages from "../../../../Components/FastImage";
 const ConfirmOrderView = ({ navigation, route }) => {
   const { order_payment_type, location } = route?.params;
   const [shoppingCartData, setShoppingCartData] = useState([]);
@@ -63,8 +64,7 @@ const ConfirmOrderView = ({ navigation, route }) => {
           message: data?.message,
         });
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   };
   const getUserData = async () => {
     try {
@@ -91,7 +91,7 @@ const ConfirmOrderView = ({ navigation, route }) => {
   const _handleConfirmOrder = (item, index) => {
     return (
       <View key={index} style={styles.MainProductContain}>
-        <Image
+        <FastImages
           style={styles.ProductImge}
           source={{ uri: item.product_image }}
         />

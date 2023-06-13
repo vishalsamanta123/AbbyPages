@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   rowVw: {
     flexDirection: "row",
     marginVertical: 4,
+    alignItems: "flex-start",
   },
   ratingVw: {
     backgroundColor: COLORS.LIGHT_GREEN,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     color: COLORS.BLUE,
     fontFamily: FONT_FAMILY.REGULAR,
     fontSize: FONT_SIZE.smallL,
-    marginTop: 10
+    marginTop: 10,
   },
   headlineTxt: {
     color: COLORS.BLACK,
