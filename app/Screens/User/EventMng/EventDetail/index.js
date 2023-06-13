@@ -73,7 +73,7 @@ const EventDetail = ({ navigation, route }) => {
     setLoader(true);
     try {
       const params = {
-        event_id: 174,
+        event_id: id,
       };
       const { data } = await apiCall(
         "POST",

@@ -10,6 +10,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
   const [subCategories, setSubCategories] = useState([]);
   const [productList, setProductList] = useState([]);
   const [canGoBack, setCanGoBack] = useState(true);
+  const [loader, setLoader] = useState(false);
   const [likeData, setLikedata] = useState({});
   const [messageShow, setMessageShow] = useState({
     visible: false,
@@ -64,6 +65,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
     } catch (error) {}
   };
   const getProductList = async (info) => {
+    setLoader(true)
     try {
       const params = {
         category_id: null,
@@ -99,10 +101,14 @@ const MarketplaceScreen = ({ navigation, route }) => {
           ...searchData,
           finalRadius: searchData.radius,
         });
+        setLoader(false)
       } else {
         setProductList([]);
+        setLoader(false)
       }
-    } catch (error) {}
+    } catch (error) {
+      setLoader(false)
+    }
   };
 
   const onPressLike = async (item) => {
@@ -168,6 +174,7 @@ const MarketplaceScreen = ({ navigation, route }) => {
         getProductList={getProductList}
         locationModal={locationModal}
         setLocationModal={setLocationModal}
+        loader={loader}
       />
       <ShowMessage
         visible={messageShow?.visible}

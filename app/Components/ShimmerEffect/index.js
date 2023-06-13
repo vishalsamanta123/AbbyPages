@@ -6,6 +6,8 @@ import JobList from "./JobList";
 import MenuRecent from "./MenuRecent";
 import EventDetailShimmer from "./EventDetailShimmer";
 import JobDetailShimmer from "./JobDetailShimmer";
+import BusinessListingShimmer from "./BusinessListingShimmer";
+import MarketPlaceShimmer from "./MarketPlaceShimmer";
 
 export {
   ListShimmer,
@@ -16,4 +18,6 @@ export {
   MenuRecent,
   EventDetailShimmer,
   JobDetailShimmer,
+  BusinessListingShimmer,
+  MarketPlaceShimmer
 };
