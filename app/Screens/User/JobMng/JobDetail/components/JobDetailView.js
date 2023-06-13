@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  ImageBackground,
-  Image,
-} from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import CommonStyles from "../../../../../Utils/CommonStyles";
 import styles from "./styles";
 import HTML from "react-native-render-html";
