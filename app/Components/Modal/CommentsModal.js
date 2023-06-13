@@ -16,6 +16,7 @@ import MainHeader from "../MainHeader";
 import ScaleText from "../ScaleText";
 import { ICON_TYPE, IconX } from "../Icons/Icon";
 import { COLORS, Constants, FONT_FAMILY, FONT_SIZE } from "../../Utils/Constant";
+import FastImages from "../FastImage";
 
 const CommentsModal = (props) => {
   const inputRef = React.useRef();
@@ -48,7 +49,7 @@ const CommentsModal = (props) => {
     return (
       <View style={styles.commentWrap}>
         <View style={{ flex: 0.8 }}>
-          <Image
+          <FastImages
             source={{ uri: item.profile_image }}
             style={styles.profileImage}
           />
@@ -83,7 +84,7 @@ const CommentsModal = (props) => {
                 return (
                   <View style={styles.replyView}>
                     <View style={{ flex: 0.8 }}>
-                      <Image
+                      <FastImages
                         source={{ uri: item.profile_image_reply }}
                         style={styles.replyProfileImage}
                       />

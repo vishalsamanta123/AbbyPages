@@ -14,6 +14,8 @@ import { COLORS } from "../../../../../Utils/Constant";
 import PageScroll from "../../../../../Components/PageScroll";
 import AddMinusView from "../../../../../Components/AddMinusView";
 import MainButton from "../../../../../Components/MainButton";
+import SliderImages from "../../../../../Components/SliderImages";
+import FastImages from "../../../../../Components/FastImage";
 
 const MarkteplaceDetailView = (props) => {
   const { productDetail = {} } = props;
@@ -33,7 +35,11 @@ const MarkteplaceDetailView = (props) => {
         contentContainerStyle={[CommonStyles.otherScrollCon, ,]}
         showsVerticalScrollIndicator={false}
       >
-        <CarouselView data={productDetail?.product_images} />
+        <SliderImages
+          data={productDetail?.product_images}
+          posterImg={"product_image"}
+          imgHeight={250}
+        />
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.nameView}>
             <ScaleText style={styles.productName}>
@@ -97,9 +103,11 @@ const MarkteplaceDetailView = (props) => {
             <View style={styles.mainContainer}>
               <TouchableOpacity
                 style={[CommonStyles.straightCon, { marginTop: 10 }]}
-                onPress={() => handleBusinessShow(productDetail,"",props.navigation)}
+                onPress={() =>
+                  handleBusinessShow(productDetail, "", props.navigation)
+                }
               >
-                <Image
+                <FastImages
                   source={{ uri: productDetail?.logoimage }}
                   style={styles.considrImgVw}
                 />
@@ -115,7 +123,7 @@ const MarkteplaceDetailView = (props) => {
             </View>
           </View>
           <View style={styles.sellerInfoView}>
-            <Image
+            <FastImages
               source={{ uri: imagePreviewUrl }}
               style={{ width: "100%", height: 150, marginTop: 10 }}
             />

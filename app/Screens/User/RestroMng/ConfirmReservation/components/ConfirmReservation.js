@@ -16,6 +16,7 @@ import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
+import FastImages from "../../../../../Components/FastImage";
 const ConfirmReservation = (props) => {
   return (
     <KeyboardAvoidingView
@@ -36,7 +37,7 @@ const ConfirmReservation = (props) => {
               your contact information.
             </ScaleText>
             <View style={styles.RestroInfoView}>
-              <Image
+              <FastImages
                 style={styles.RestroProfile}
                 source={{
                   uri: props?.restroDetail && props?.restroDetail?.logo,

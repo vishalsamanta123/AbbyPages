@@ -19,6 +19,7 @@ import Loader from "../../../../Utils/Loader";
 // import Error from "../../../../Components/Modal/error";
 import { MainItemsView } from "../../../../Components/ListItemsView";
 import ShowMessage from "../../../../Components/Modal/showMessage";
+import FastImages from "../../../../Components/FastImage";
 
 const RestroBooking = ({ route, navigation }) => {
   const [visibleSuccess, setVisibleSuccess] = useState(false);
@@ -71,7 +72,7 @@ const RestroBooking = ({ route, navigation }) => {
   const _handlePopularDish = (item, index) => {
     return (
       <View key={index} style={styles.PopularConatiner}>
-        <Image style={styles.PopularDishImg} source={{ uri: item.image }} />
+        <FastImages style={styles.PopularDishImg} source={{ uri: item.image }} />
       </View>
     );
   };
@@ -87,7 +88,7 @@ const RestroBooking = ({ route, navigation }) => {
           onPress={() => onPressRestro(item)}
           style={styles.RecommendedConatiner}
         >
-          <Image
+          <FastImages
             resizeMode="contain"
             style={styles.RecommndedDishImg}
             source={{ uri: item.logo }}

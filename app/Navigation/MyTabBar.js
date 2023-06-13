@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { IconX, ICON_TYPE } from "../Components/Icons/Icon";
 import ScaleText from "../Components/ScaleText";

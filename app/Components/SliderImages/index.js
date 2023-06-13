@@ -11,6 +11,7 @@ const SliderImages = (props) => {
     titleTxt = "",
     subTitleTxt = "",
     imgWidth = "100%",
+    imgHeight = 200,
   } = props;
   const { width } = Dimensions.get("window");
   const [sliderState, setSliderState] = useState({ currentPage: 0 });
@@ -54,6 +55,7 @@ const SliderImages = (props) => {
                     styles.imageVw,
                     {
                       width: imgWidth,
+                      height: imgHeight,
                     },
                   ]}
                 />
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageVw: {
-    height: 200,
     alignSelf: "center",
   },
   paginationWrapper: {

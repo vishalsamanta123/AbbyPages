@@ -20,6 +20,7 @@ import { Images } from "../../../../../Utils/images";
 import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
+import FastImages from "../../../../../Components/FastImage";
 
 const CheckOutScreen = (props) => {
   const _renderAddressList = (item) => {
@@ -39,8 +40,7 @@ const CheckOutScreen = (props) => {
     return (
       <View style={styles.dataCon}>
         <View style={{ flex: 2, justifyContent: "center" }}>
-          <Image
-            resizeMode="stretch"
+          <FastImages
             resizeMethod="auto"
             style={styles.posterimg}
             source={{ uri: item.product_image }}

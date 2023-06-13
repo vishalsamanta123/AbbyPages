@@ -103,6 +103,7 @@ const Styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    paddingBottom: 8,
   },
   rowVw: {
     flexDirection: "row",
@@ -142,7 +143,7 @@ const Styles = StyleSheet.create({
     color: COLORS.YELLOW,
     textDecorationLine: "underline",
     textTransform: "capitalize",
-    marginVertical: 3
+    marginVertical: 3,
   },
   photosVw: {
     flexWrap: "wrap",
@@ -152,7 +153,6 @@ const Styles = StyleSheet.create({
   activityBnnrVw: {
     height: 120,
     width: "100%",
-    marginTop: 5,
     borderWidth: Constants.normalBW,
     borderColor: COLORS.COMMON2,
   },

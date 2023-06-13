@@ -23,6 +23,7 @@ import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
 import PageScroll from "../../../../Components/PageScroll";
 import { handleBusinessShow } from "../../../../Utils/Globalfunctions";
+import FastImages from "../../../../Components/FastImage";
 
 const JobOrderDetails = (props) => {
   function tConvert(time) {
@@ -49,7 +50,7 @@ const JobOrderDetails = (props) => {
       />
       <PageScroll contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
-          <Image
+          <FastImages
             style={styles.restoImg}
             resizeMode="stretch"
             source={{ uri: props?.orderDetail?.business_image }}
@@ -190,7 +191,7 @@ const JobOrderDetails = (props) => {
               }
               style={[styles.itemImgCon, { flex: 2 }]}
             >
-              <Image
+              <FastImages
                 style={styles.DishImgeStyle}
                 source={{ uri: props.orderDetail.logo }}
               />

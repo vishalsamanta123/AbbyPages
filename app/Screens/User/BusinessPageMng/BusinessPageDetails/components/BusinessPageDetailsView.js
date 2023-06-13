@@ -30,12 +30,11 @@ import { BusinessDetail } from "../../../../../Components/ShimmerEffect";
 import PageScroll from "../../../../../Components/PageScroll";
 import { BLACK_ACORN, OUTLINE_ACORN } from "../../../../../Utils/svgImages";
 import Geolocation from "@react-native-community/geolocation";
-import ShareModal from "../../../../../Components/ShareModal";
+import FastImages from "../../../../../Components/FastImage";
 
 const BusinessPageDetailsView = (props) => {
   const { detailData = {} } = props;
   const [specialIcon, setSpecialIcon] = useState(false);
-  const [shareModal, setShareModal] = useState(false);
   useEffect(() => {
     if (specialIcon) {
       setTimeout(async () => {
@@ -96,8 +95,11 @@ const BusinessPageDetailsView = (props) => {
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${detailData?.latitude},${detailData?.longitude}&zoom=13&scale=2&size=600x300&maptype=roadmap&markers=scale%3A1%color:red%7Clabel:A%7C28.543707340175,-81.3514976796&format=png&key=AIzaSyCbDx7Lk4eTMzptrQKXZvOPYgEMggrq8o4`;
   const renderPopularDish = (item) => {
     return (
-      <TouchableOpacity style={styles.popularCardTouch} onPress={() => props.onPressOrder(1)}>
-        <Image source={{ uri: item.image }} style={styles.popularimage} />
+      <TouchableOpacity
+        style={styles.popularCardTouch}
+        onPress={() => props.onPressOrder(1)}
+      >
+        <FastImages source={{ uri: item.image }} style={styles.popularimage} />
         <ScaleText style={styles.popularNameTxt}>{item.item_name}</ScaleText>
         <ScaleText style={styles.popularPrice}>
           Price: ${item.discounted_price}
@@ -108,7 +110,10 @@ const BusinessPageDetailsView = (props) => {
   const renderBusinessHighlights = (item) => {
     return (
       <View style={styles.highlightsView}>
-        <Image source={{ uri: item.icon }} style={styles.highlightsImage} />
+        <FastImages
+          source={{ uri: item.icon }}
+          style={styles.highlightsImage}
+        />
         <ScaleText style={styles.highlightsText}>{item.highlights}</ScaleText>
       </View>
     );
@@ -117,22 +122,22 @@ const BusinessPageDetailsView = (props) => {
   const take_reservation =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-        ?.split(",")
-        ?.some((amn) => amn == "Takes Reservations")
+          ?.split(",")
+          ?.some((amn) => amn == "Takes Reservations")
       : false;
 
   const offer_takeout =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-        ?.split(",")
-        ?.some((amn) => amn == "Offers Takeout")
+          ?.split(",")
+          ?.some((amn) => amn == "Offers Takeout")
       : false;
 
   const offers_delivery =
     detailData?.amenities && detailData?.amenities?.length > 0
       ? detailData?.amenities
-        ?.split(",")
-        ?.some((amn) => amn == "Offers Delivery")
+          ?.split(",")
+          ?.some((amn) => amn == "Offers Delivery")
       : false;
 
   const outdoor_seating =
@@ -163,10 +168,10 @@ const BusinessPageDetailsView = (props) => {
         {considr?.goal !== "3" ? (
           <TouchableOpacity
             style={styles.considrVw}
-          // onPress={() => props.handleConsiderPress(considr)}
+            // onPress={() => props.handleConsiderPress(considr)}
           >
             <View style={CommonStyles.straightCon}>
-              <Image
+              <FastImages
                 source={{ uri: considr?.logo }}
                 style={styles.considerImage}
               />
@@ -201,10 +206,10 @@ const BusinessPageDetailsView = (props) => {
           <View>
             <TouchableOpacity
               style={styles.considrVw}
-            // onPress={() => props.handleConsiderPress(considr)}
+              // onPress={() => props.handleConsiderPress(considr)}
             >
               <View style={CommonStyles.straightCon}>
-                <Image
+                <FastImages
                   source={{ uri: considr?.logo }}
                   style={styles.considerImage}
                 />
@@ -287,9 +292,8 @@ const BusinessPageDetailsView = (props) => {
                 counts={detailData?.rating ? detailData?.rating?.toString() : 0}
                 starHeight={18}
                 starWidth={18}
-                starsBackColor={COLORS.RGBA}
-                ActiveStarColor={COLORS.YELLOW}
                 UnActiveStarColor={COLORS.WHITE}
+                ActiveStarColor={COLORS.WHITE}
               />
             </View>
             {detailData?.claimed ? (
@@ -362,22 +366,22 @@ const BusinessPageDetailsView = (props) => {
                     {
                       color:
                         detailData?.business_open_time?.closing_day === 1 &&
-                          detailData?.business_open_time?.temporary_close === 1 &&
-                          detailData?.business_open_time?.permanent_close === 1
+                        detailData?.business_open_time?.temporary_close === 1 &&
+                        detailData?.business_open_time?.permanent_close === 1
                           ? COLORS.LIGHT_GREEN
                           : COLORS.LIGHT_RED,
                     },
                   ]}
                 >
                   {detailData?.business_open_time?.closing_day === 1 &&
-                    detailData?.business_open_time?.temporary_close === 1 &&
-                    detailData?.business_open_time?.permanent_close === 1
+                  detailData?.business_open_time?.temporary_close === 1 &&
+                  detailData?.business_open_time?.permanent_close === 1
                     ? "Open Now"
                     : "Closed Now"}
                 </ScaleText>
                 {detailData?.business_open_time?.closing_day === 1 &&
-                  detailData?.business_open_time?.temporary_close === 1 &&
-                  detailData?.business_open_time?.permanent_close === 1 ? (
+                detailData?.business_open_time?.temporary_close === 1 &&
+                detailData?.business_open_time?.permanent_close === 1 ? (
                   <ScaleText style={styles.smallTxt}>
                     {" "}
                     - {detailData?.business_open_time?.timeline}
@@ -596,19 +600,17 @@ const BusinessPageDetailsView = (props) => {
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity
                 style={styles.smallOptionVw}
-                onPress={
-                  () =>
-                    handleSharePress({
-                      message: detailData?.business_name,
-                      title: detailData?.business_name,
-                      urlName: detailData?.business_name,
-                      imageUrl: detailData?.logo,
-                      image: detailData?.logo,
-                      url: `https://abbypages.com/business/${detailData?.business_name
-                        ?.split(" ")
-                        .join("-")}`,
-                    })
-                  // setShareModal(true)
+                onPress={() =>
+                  handleSharePress({
+                    message: detailData?.business_name,
+                    title: detailData?.business_name,
+                    urlName: detailData?.business_name,
+                    imageUrl: detailData?.logo,
+                    image: detailData?.logo,
+                    url: `https://abbypages.com/business/${detailData?.business_name
+                      ?.split(" ")
+                      .join("-")}`,
+                  })
                 }
               >
                 <IconX
@@ -713,7 +715,7 @@ const BusinessPageDetailsView = (props) => {
         </View>
       ) : null}
       <View style={[styles.mainContainer, { paddingHorizontal: 0 }]}>
-        <Image
+        <FastImages
           source={{ uri: imagePreviewUrl }}
           style={{ width: "100%", height: 150 }}
         />
@@ -770,7 +772,7 @@ const BusinessPageDetailsView = (props) => {
       <View style={styles.mainContainer}>
         <ScaleText style={styles.sectionTxt}>About the Business</ScaleText>
         <View style={[CommonStyles.straightCon, { marginTop: 0 }]}>
-          <Image
+          <FastImages
             source={{ uri: detailData?.owner_image }}
             style={styles.considrImgVw}
           />
@@ -785,25 +787,27 @@ const BusinessPageDetailsView = (props) => {
           {detailData?.about_business?.substring(0, 60)}
           {"..."}
         </ScaleText>
-        {detailData?.service_offered ? <View
-          style={[
-            CommonStyles.straightCon,
-            { justifyContent: "space-between", marginTop: 10 },
-          ]}
-        >
-          <View>
-            <ScaleText style={styles.titletxt}>Services</ScaleText>
-            <ScaleText style={styles.smallTxt}>
-              {detailData?.service_offered}
-            </ScaleText>
+        {detailData?.service_offered ? (
+          <View
+            style={[
+              CommonStyles.straightCon,
+              { justifyContent: "space-between", marginTop: 10 },
+            ]}
+          >
+            <View>
+              <ScaleText style={styles.titletxt}>Services</ScaleText>
+              <ScaleText style={styles.smallTxt}>
+                {detailData?.service_offered}
+              </ScaleText>
+            </View>
+            <IconX
+              origin={ICON_TYPE.ENTYPO}
+              name={"list"}
+              size={20}
+              color={COLORS.BLACK}
+            />
           </View>
-          <IconX
-            origin={ICON_TYPE.ENTYPO}
-            name={"list"}
-            size={20}
-            color={COLORS.BLACK}
-          />
-        </View> : null}
+        ) : null}
         {detailData?.websites ? (
           <TouchableOpacity
             style={[
@@ -869,7 +873,7 @@ const BusinessPageDetailsView = (props) => {
                 });
               }}
             >
-              <Image
+              <FastImages
                 style={styles.smallImgVw}
                 resizeMode="cover"
                 source={{ uri: props.recentFeedData?.logo_url }}
@@ -938,10 +942,20 @@ const BusinessPageDetailsView = (props) => {
           </TouchableOpacity>
         </View>
       ) : null}
-      {detailData?.business_type?.toString() === "1" &&
-        detailData?.popular_dish?.length > 0 ? (
+      {detailData?.business_type?.includes("1") &&
+      detailData?.popular_dish?.length > 0 ? (
         <View style={styles.mainContainer}>
-          <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
+          <View
+            style={[
+              CommonStyles.straightCon,
+              { justifyContent: "space-between" },
+            ]}
+          >
+            <ScaleText style={styles.sectionTxt}>Popular Dishes</ScaleText>
+            <TouchableOpacity onPress={() => props.onPressOrder(1)}>
+              <ScaleText style={styles.lightTxt}>View Full Menu</ScaleText>
+            </TouchableOpacity>
+          </View>
           <FlatList
             data={detailData?.popular_dish}
             renderItem={({ item }) => renderPopularDish(item)}
@@ -1019,7 +1033,7 @@ const BusinessPageDetailsView = (props) => {
             {detailData?.image?.map((photo) => {
               return (
                 <>
-                  <Image
+                  <FastImages
                     source={{ uri: photo.image }}
                     resizeMode={"cover"}
                     style={styles.photoImgVw}
@@ -1082,8 +1096,9 @@ const BusinessPageDetailsView = (props) => {
                 props.handleNavigation("ReviewRating", {
                   detailData: detailData,
                 })
-              } 
-              style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}>
+              }
+              style={[styles.tapButtonsVw, { alignItems: "flex-start" }]}
+            >
               <StarShower
                 ActiveStarColor={COLORS.COMMON}
                 UnActiveStarColor={COLORS.COMMON}
@@ -1130,12 +1145,6 @@ const BusinessPageDetailsView = (props) => {
         detailData={detailData}
         moreData={props?.galleryModal?.moreData}
       />
-      {/* <ShareModal
-        visible={shareModal}
-        endVisible={() => setShareModal(false)}
-        topTxt={detailData?.business_name}
-        topImg={detailData?.header_image}
-      /> */}
     </PageScroll>
   );
 };

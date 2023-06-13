@@ -21,13 +21,14 @@ import { Images } from "../../../../Utils/images";
 import MainHeader from "../../../../Components/MainHeader";
 import PageScroll from "../../../../Components/PageScroll";
 import { handleBusinessShow } from "../../../../Utils/Globalfunctions";
+import FastImages from "../../../../Components/FastImage";
 
 const ItemOrderDetails = (props) => {
   const _handleItemList = (item, index) => {
     return (
       <View key={index} style={styles.ConatinView}>
         <View style={styles.itemImgCon}>
-          <Image
+          <FastImages
             style={styles.DishImgeStyle}
             source={{ uri: item.item_image }}
           />
@@ -74,7 +75,7 @@ const ItemOrderDetails = (props) => {
       />
       <PageScroll contentContainerStyle={{ flexGrow: 1 }}>
         {props?.orderDetail?.business_image && (
-          <Image
+          <FastImages
             style={styles.restoImg}
             resizeMode="stretch"
             source={{ uri: props?.orderDetail?.business_image }}

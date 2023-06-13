@@ -2,6 +2,7 @@ import { View, Text, ScrollView, Image } from "react-native";
 import React from "react";
 import { Constants } from "../../Utils/Constant";
 import Video from "react-native-video";
+import FastImages from "../FastImage";
 
 const CarouselView = (props) => {
   const { data } = props;
@@ -11,7 +12,7 @@ const CarouselView = (props) => {
     return (
       <View>
         {type === "jpg" || type === "png" ? (
-          <Image
+          <FastImages
             source={{ uri: media?.product_image }}
             style={{ height: 300, width: Constants.windowWidth }}
           />

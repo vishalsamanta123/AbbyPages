@@ -6,6 +6,7 @@ import styles from "./styles";
 import MainButton from "../../../../../Components/MainButton";
 import { COLORS, Constants } from "../../../../../Utils/Constant";
 import { RequestQutProviderContext } from "../../../../../Utils/UserContext";
+import FastImages from "../../../../../Components/FastImage";
 
 const StepSecondView = (props) => {
   const [requestQuote, setRequestQuote] = useContext(RequestQutProviderContext);
@@ -56,7 +57,7 @@ const StepSecondView = (props) => {
                     },
                   ]}
                 >
-                  <Image
+                  <FastImages
                     source={{ uri: itm?.category_image }}
                     style={{ width: 85, height: 85 }}
                   />

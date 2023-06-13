@@ -1,19 +1,15 @@
 import React from "react";
 import {
   View,
-  Image,
-  ScrollView,
   TouchableOpacity,
   ImageBackground,
   RefreshControl,
 } from "react-native";
 import styles from "./styles";
 import CommonStyles from "../../../../Utils/CommonStyles";
-import { COLORS, Constants, FONT_FAMILY } from "../../../../Utils/Constant";
+import { COLORS, FONT_FAMILY } from "../../../../Utils/Constant";
 import { Images } from "../../../../Utils/images";
-import Carousel, { Pagination } from "react-native-snap-carousel";
 import BoxContainer from "../../../../Components/BoxContainer";
-import StarShower from "../../../../Components/StarShower";
 import MainHeader from "../../../../Components/MainHeader";
 import ScaleText from "../../../../Components/ScaleText";
 import { ListShimmer } from "../../../../Components/ShimmerEffect";

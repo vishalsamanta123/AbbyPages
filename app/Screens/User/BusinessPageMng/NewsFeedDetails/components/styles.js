@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   rowVw: {
     flexDirection: "row",
     marginVertical: 4,
+    alignItems: "flex-start",
   },
   smallImgVw: {
     width: 35,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // marginHorizontal: 10,
     marginVertical: 5,
-    marginTop: 20
+    marginTop: 20,
   },
 });
 

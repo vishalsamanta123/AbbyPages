@@ -20,6 +20,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import ScaleText from "../../../../../Components/ScaleText";
 import EmptyList from "../../../../../Components/EmptyList";
 import ListingView from "../../../../../Components/ListingView";
+import FastImages from "../../../../../Components/FastImage";
 const ShoppingCartScreen = (props) => {
   const screenlowerdata = (item) => {
     return (
@@ -75,7 +76,7 @@ const ShoppingCartScreen = (props) => {
     return (
       <View style={styles.dataCon}>
         <View style={styles.itemsVw}>
-          <Image
+          <FastImages
             style={styles.posterimg}
             source={{ uri: item?.product_image }}
           />

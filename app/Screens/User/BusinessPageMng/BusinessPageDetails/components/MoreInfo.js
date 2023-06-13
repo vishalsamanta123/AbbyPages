@@ -17,6 +17,7 @@ import MainHeader from "../../../../../Components/MainHeader";
 import { Images } from "../../../../../Utils/images";
 import ScaleText from "../../../../../Components/ScaleText";
 import PageScroll from "../../../../../Components/PageScroll";
+import FastImages from "../../../../../Components/FastImage";
 
 const MoreInfo = (props) => {
   const {
@@ -186,7 +187,7 @@ const MoreInfo = (props) => {
               Meet the business owner
             </ScaleText>
             <View style={[CommonStyles.straightCon, { marginTop: 10 }]}>
-              <Image
+              <FastImages
                 source={{ uri: props.detailData?.owner_image }}
                 style={styles.considrImgVw}
               />

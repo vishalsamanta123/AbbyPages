@@ -2,6 +2,7 @@ import { View, Text, FlatList, Image, ImageBackground } from "react-native";
 import React from "react";
 import styles from "./styles";
 import ScaleText from "../ScaleText";
+import FastImages from "../FastImage";
 
 const Collage = (props) => {
   const { imagesData } = props;
@@ -16,18 +17,18 @@ const Collage = (props) => {
       /> */}
       {imageLength === 1 ? (
         <View style={styles.oneImageView}>
-          <Image
+          <FastImages
             source={{ uri: imagesData[0]?.photo_url }}
             style={styles.oneImageStyle}
           />
         </View>
       ) : imageLength === 2 ? (
         <View style={styles.twoImageView}>
-          <Image
+          <FastImages
             source={{ uri: imagesData[0]?.photo_url }}
             style={styles.twoImageStyle}
           />
-          <Image
+          <FastImages
             source={{ uri: imagesData[1]?.photo_url }}
             style={styles.twoImageStyle}
           />
@@ -35,16 +36,16 @@ const Collage = (props) => {
       ) : imageLength === 3 ? (
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
-            <Image
+            <FastImages
               source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
-            <Image
+            <FastImages
               source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
-          <Image
+          <FastImages
             source={{ uri: imagesData[2]?.photo_url }}
             style={styles.thirdImageStyle}
           />
@@ -52,21 +53,21 @@ const Collage = (props) => {
       ) : imageLength === 4 ? (
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
-            <Image
+            <FastImages
               source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
-            <Image
+            <FastImages
               source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Image
+            <FastImages
               source={{ uri: imagesData[2]?.photo_url }}
               style={styles.twoImageStyle}
             />
-            <Image
+            <FastImages
               source={{ uri: imagesData[3]?.photo_url }}
               style={styles.twoImageStyle}
             />
@@ -80,17 +81,17 @@ const Collage = (props) => {
       ) : imageLength > 4 ? (
         <View style={styles.threeImageView}>
           <View style={{ flexDirection: "row" }}>
-            <Image
+            <FastImages
               source={{ uri: imagesData[0]?.photo_url }}
               style={styles.twoImageStyle}
             />
-            <Image
+            <FastImages
               source={{ uri: imagesData[1]?.photo_url }}
               style={styles.twoImageStyle}
             />
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Image
+            <FastImages
               source={{ uri: imagesData[2]?.photo_url }}
               style={styles.twoImageStyle}
             />

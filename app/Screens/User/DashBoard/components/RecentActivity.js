@@ -148,7 +148,7 @@ const RecentActivity = (props) => {
                     }
                   }}
                 >
-                  <Image
+                  <FastImages
                     source={{
                       uri: item?.user
                         ? item?.user?.profile
@@ -279,8 +279,7 @@ const RecentActivity = (props) => {
                               ? item?.review?.business_rating
                               : 1
                           )}
-                          starsBackColor={COLORS.YELLOW}
-                          UnActiveStarColor={COLORS.RGBA2}
+                          UnActiveStarColor={COLORS.WHITE}
                           ActiveStarColor={COLORS.WHITE}
                           marginTop={0}
                           starHeight={14}
